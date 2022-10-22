@@ -255,16 +255,14 @@ void nrfx_event_callback(nrfx_nfct_evt_t const *p_event) {
 
 static void update_ntag_handler(void * p_event_data, uint16_t event_size) {
 	ntag_emu.busy = true;
+	ntag_emu_set_tag(&(ntag_emu.ntag));
 
-	// ui_header_show_status(ST_SAVE);
-	// ntag_emu_set_tag(&(ntag_emu.ntag));
-	// uint8_t index = ui_amiibo_get_index();
-	// NRF_LOG_DEBUG("Pesist ntag begin: %d", index);
-	// ret_code_t err_code = ntag_store_write_with_gc(index, &(ntag_emu.ntag));
-	// APP_ERROR_CHECK(err_code);
-	// NRF_LOG_DEBUG("Pesist ntag end: %d", index);
-	// ui_amiibo_set_ntag(&(ntag_emu.ntag));
-	// ui_header_hide_status(ST_SAVE);
+	uint8_t index = ntag_indicator_current();
+	NRF_LOG_DEBUG("Pesist ntag begin: %d", index);
+	ret_code_t err_code = ntag_store_write_with_gc(index, &(ntag_emu.ntag));
+	APP_ERROR_CHECK(err_code);
+	NRF_LOG_DEBUG("Pesist ntag end: %d", index);
+	ntag_indicator_update();
 
 	ntag_emu.dirty = false;
 	ntag_emu.busy = false;

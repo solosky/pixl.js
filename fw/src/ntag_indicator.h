@@ -13,8 +13,7 @@
 #include "bsp.h"
 #include "bsp_nfc.h"
 
-void ntag_indicator_on();
-void ntag_indicator_off();
+void ntag_indicator_update();
 uint8_t ntag_indicator_current();
 uint8_t ntag_indicator_switch_next();
 uint8_t ntag_indicator_switch_prev();

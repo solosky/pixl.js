@@ -1,0 +1,35 @@
+{
+  "configurations": [
+      {
+          "name": "nRF SDK 15.3.0 - PCA10056",
+          "includePath": [
+              "${workspaceFolder}/**",
+              "${HOME}/nRF5_SDK_15.3.0_59ac345/**",
+              "${HOME}/nRF5_SDK_15.3.0_59ac345/external/freertos/portable/GCC",
+              "${HOME}/nRF5_SDK_15.3.0_59ac345/external/freertos/portable/GCC/nrf52",
+              "${HOME}/nRF5_SDK_15.3.0_59ac345/external/freertos/portable/CMSIS/nrf52"
+          ],
+          "forcedInclude": [
+              "${workspaceFolder}/blinky/pca10056/blank/config/sdk_config.h"
+          ],
+          "defines": [
+              "BOARD_PCA10056",
+              "FLOAT_ABI_HARD",
+              "NRF52",
+              "NRF52832_XXAA",
+              "NRF52_PAN_74",
+              "NRF_SD_BLE_API_VERSION=6",
+              "S132",
+              "SOFTDEVICE_PRESENT",
+              "SWI_DISABLE0",
+              "DEBUG",
+              "DEBUG_NRF"
+          ],
+          "compilerPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc",
+          "cStandard": "c11",
+          "cppStandard": "c++17",
+          "intelliSenseMode": "clang-x64"
+      }
+  ],
+  "version": 4
+}

@@ -81,10 +81,15 @@
 
 #include "nrf_pwr_mgmt.h"
 
+#include "u8g2_drv.h"
+
+#include "amiibo_helper.h"
+
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
 
 #define BTN_ID_SLEEP                1 /**< ID of button used to put the application into sleep mode. */
+
 
 /**
  *@brief Function for initializing logging.
@@ -96,7 +101,10 @@ static void log_init(void) {
 	NRF_LOG_DEFAULT_BACKENDS_INIT();
 }
 
-void bsp_evt_handler(bsp_event_t evt) {
+void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
+
+	bsp_event_t* evt_p = (bsp_event_t*) p_event_data;
+	bsp_event_t evt = *evt_p;
 	NRF_LOG_DEBUG("bsp event: %d\n", evt);
 	switch (evt) {
 
@@ -109,14 +117,44 @@ void bsp_evt_handler(bsp_event_t evt) {
 		err_code = ntag_store_read_default(index, &ntag);
 		APP_ERROR_CHECK(err_code);
 		ntag_emu_set_tag(&ntag);
-		//err_code = ink_display_tag(&ntag);
 		APP_ERROR_CHECK(err_code);
+
+		ntag_indicator_update();
+
+		NRF_LOG_DEBUG("Key 0 done");
 
 		break;
 	}
 
 	case BSP_EVENT_KEY_1: {
 		NRF_LOG_DEBUG("Key 1 press");
+
+		//regenerate
+
+		ret_code_t err_code;
+	ntag_t ntag_new;
+	ntag_t *ntag_current = ntag_emu_get_current_tag();
+	memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
+
+    NRF_LOG_INFO("reset uuid begin");
+
+	err_code = ntag_store_uuid_rand(&ntag_new);
+    APP_ERROR_CHECK(err_code);
+
+
+    //sign new
+    err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
+    APP_ERROR_CHECK(err_code);
+
+	if (err_code == NRF_SUCCESS) {
+		//ntag_emu_set_uuid_only(&ntag_new);
+		ntag_emu_set_tag(&ntag_new);
+		ntag_indicator_update();
+
+		NRF_LOG_INFO("reset uuid success");
+	}
+
+
 		break;
 	}
 
@@ -129,8 +167,9 @@ void bsp_evt_handler(bsp_event_t evt) {
 		err_code = ntag_store_read_default(index, &ntag);
 		APP_ERROR_CHECK(err_code);
 		ntag_emu_set_tag(&ntag);
-		//err_code = ink_display_tag(&ntag);
 		APP_ERROR_CHECK(err_code);
+
+		ntag_indicator_update();
 
 		break;
 	}
@@ -154,6 +193,10 @@ void bsp_evt_handler(bsp_event_t evt) {
 
 }
 
+void bsp_evt_handler(bsp_event_t evt) {
+	app_sched_event_put(&evt, sizeof(evt), bsp_evt_execute);
+}
+
 
 /**
  * @brief   Function for application main entry.
@@ -161,7 +204,9 @@ void bsp_evt_handler(bsp_event_t evt) {
 int main(void) {
 	ret_code_t err_code;
 
+
 	log_init();
+
 
 	APP_SCHED_INIT(APP_SCHED_MAX_EVENT_SIZE, APP_SCHED_QUEUE_SIZE);
 
@@ -186,9 +231,15 @@ int main(void) {
     err_code = nrf_mem_init();
     APP_ERROR_CHECK(err_code);
 
+
+	u8g2_drv_init();
+
+	
+	extern const uint8_t amiibo_key_retail[];
+	amiibo_helper_load_keys(amiibo_key_retail); 
+
 	NRF_LOG_DEBUG("init done");
 
-	ntag_indicator_on();
 
 	err_code = ntag_store_init();
 	APP_ERROR_CHECK(err_code);
@@ -199,6 +250,8 @@ int main(void) {
 	APP_ERROR_CHECK(err_code);
 	err_code = ntag_emu_init(&ntag);
 	APP_ERROR_CHECK(err_code);
+
+	ntag_indicator_update();
 
 	bat_level_t bat_level = bat_get_level();
 
