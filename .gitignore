@@ -1,6 +1,7 @@
 fw/.settings
 fw/_build
 
+fw/src/amiibo_private.c
 
 fp-info-cache
 pixl.js-backups
