@@ -26,5 +26,7 @@ ret_code_t ntag_store_read_default(uint8_t idx, ntag_t *ntag);
 ret_code_t ntag_store_write_with_gc(uint8_t idx, ntag_t *ntag);
 ret_code_t ntag_store_uuid_rand(ntag_t *ntag);
 
+ret_code_t ntag_store_reset(uint8_t idx, ntag_t *ntag);
+
 
 #endif /* NTAG_STORE_H_ */

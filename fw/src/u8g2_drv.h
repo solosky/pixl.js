@@ -8,4 +8,5 @@ extern u8g2_t u8g2;
 
 
 void u8g2_drv_init();
+void u8g2_drv_deinit();
 #endif

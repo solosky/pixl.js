@@ -240,6 +240,12 @@ ret_code_t ntag_store_write_with_gc(uint8_t idx, ntag_t *ntag) {
 
 }
 
+ret_code_t ntag_store_reset(uint8_t idx, ntag_t *ntag){
+	ntag_store_generate(idx, ntag);
+	return ntag_store_write(idx, ntag);
+}
+
+
 ret_code_t ntag_store_read_default(uint8_t idx, ntag_t *ntag) {
 	NRF_LOG_DEBUG("read default:%d", idx);
 	ret_code_t err_code;

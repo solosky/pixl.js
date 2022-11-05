@@ -78,7 +78,14 @@ void nrfx_event_callback(nrfx_nfct_evt_t const *p_event) {
 	}
 
 	case NRFX_NFCT_EVT_RX_FRAMEEND: {
+
+		nrf_pwr_mgmt_feed();
+		
 		//NRF_LOG_DEBUG("T2T: RX END");
+		// NRF_LOG_DEBUG("RX: %02x %02x", 
+		// p_event->params.rx_frameend.rx_data.p_data[0],
+		// p_event->params.rx_frameend.rx_data.p_data[1]
+		// );
 
 		//COMP WRITE DATA
 		if (comp_write_pending) {

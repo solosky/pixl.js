@@ -139,11 +139,11 @@ void spi_init (void)
     spi_oled_config.sck_pin   = NRFX_SPIM_SCK_PIN;
     spi_oled_config.mosi_pin  = NRFX_SPIM_MOSI_PIN;
     spi_oled_config.ss_pin    = NRFX_SPIM_CS_PIN;
-    spi_oled_config.frequency = NRF_SPIM_FREQ_4M; // The SSD1326 can go up to 10 MHz clock
+    spi_oled_config.frequency = NRF_SPIM_FREQ_8M; // The SSD1326 can go up to 10 MHz clock
     spi_oled_config.mode      = NRF_SPIM_MODE_0;
     spi_oled_config.ss_active_high = false;
        
-    err_code = nrfx_spim_init(&m_spi, &spi_oled_config, spi_handler, NULL);    
+    err_code = nrfx_spim_init(&m_spi, &spi_oled_config, NULL, NULL);    
     APP_ERROR_CHECK(err_code);
 
     // Enable the out-of-band GPIOs
@@ -151,7 +151,7 @@ void spi_init (void)
     nrf_gpio_cfg_output(NRFX_SPIM_RESET_PIN);
 
      nrf_gpio_cfg_output(LCD_BL_PIN);
-     nrf_gpio_pin_set(LCD_BL_PIN);
+     nrf_gpio_pin_clear(LCD_BL_PIN);
     
 }
 
@@ -189,10 +189,10 @@ uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, voi
             };    
             err_code = nrfx_spim_xfer(&m_spi, &spim_xfer_desc,0);
             APP_ERROR_CHECK(err_code);
-            while (!m_xfer_done)
-            {
-               nrf_delay_us(10);
-            }  
+            // while (!m_xfer_done)
+            // {
+            //    ; //nrf_delay_us(1);
+            // }  
             break;  
       }      
       case U8X8_MSG_BYTE_SET_DC:
@@ -269,18 +269,16 @@ void u8g2_drv_init(){
    
     u8g2_Setup_st7567_enh_dg128064_f(&u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
 
-       nrf_gpio_pin_clear(31);
-
     u8g2_InitDisplay(&u8g2);
-
-
     u8g2_SetPowerSave(&u8g2,0);
 
-     
-
-    u8g2_ClearBuffer(&u8g2);
-    drawLogo();
-    u8g2_SendBuffer(&u8g2);
 
      
+}
+void u8g2_drv_deinit(){
+    u8g2_SetPowerSave(&u8g2, 1);
+   
+    nrf_gpio_pin_clear(LCD_BL_PIN);
+    nrf_gpio_cfg_default(LCD_BL_PIN);
+
 }
