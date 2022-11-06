@@ -323,6 +323,10 @@ int main(void) {
 
 	u8g2_drv_init();
 
+	err_code = ble_init();
+	APP_ERROR_CHECK(err_code);
+	NRF_LOG_DEBUG("ble init done");
+
 	
 	extern const uint8_t amiibo_key_retail[];
 	amiibo_helper_load_keys(amiibo_key_retail); 
@@ -346,9 +350,7 @@ int main(void) {
 
 	NRF_LOG_DEBUG("display done");
 
-	err_code = ble_init();
-	APP_ERROR_CHECK(err_code);
-	NRF_LOG_DEBUG("ble init done");
+
 
 	NRF_LOG_FLUSH();
 
