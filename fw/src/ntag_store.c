@@ -202,6 +202,12 @@ ret_code_t ntag_store_write(uint8_t idx, ntag_t *ntag) {
 		NRF_LOG_INFO("update ntag: %d", idx);
 		m_fds_ready = false;
 		err_code = fds_record_update(&m_record_desc, &m_record);
+		if(err_code == FDS_ERR_NO_SPACE_IN_FLASH){
+			NRF_LOG_INFO("no space in flash ntag");
+			err_code = ntag_store_gc();
+			VERIFY_SUCCESS(err_code);
+			err_code = fds_record_update(&m_record_desc, &m_record);
+		}
 		VERIFY_SUCCESS(err_code);
 		err_code = fds_wait_ready();
 		NRF_LOG_INFO("update ntag %d result: %d", idx, m_fs_op_retcode);
