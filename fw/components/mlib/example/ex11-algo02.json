@@ -1,0 +1,9 @@
+[
+    { "name": "John Doe", "age": 32, "idnum": 14528},
+    { "name": "Clint Smith", "age": 31, "idnum": 14529},
+    { "name": "Linda Cameron", "age": 20, "idnum": 14527},
+    { "name": "Cameron Carrey", "age": 25, "idnum": 14526},
+    { "name": "Marty Brown", "age": 26, "idnum": 14525},
+    { "name": "Donald Cow", "age": 45, "idnum": 14520}    
+]
+

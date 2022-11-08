@@ -1,0 +1,18 @@
+hello:salut
+README:lisez-moi
+dictionary:dictionnaire
+vector:vecteur
+list:liste
+buffer:tableau
+circular:circulaire
+gnu:gnu is not unix
+README:LISEZ-MOI
+file:fichier
+string:chaine de caractere
+reference:reference
+const:constante
+error:erreur
+char:caractere
+key:cle
+value:valeur
+print:afficher

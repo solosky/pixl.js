@@ -1,0 +1,453 @@
+*Long term issues*
+------------------
+
+* TODO #26 : Hash-Map for huge objects                          :ENHANCEMENT:
+
+Specialize Hashmap for huge objects on supported hardware:
+
+Based on OA hash map with taggued pointer (needs space for tagging):
+low bits = high bits of hash
+pointer to object { key, hash, value }
+
+Can solve collision without dereferencing object with 1/2^lowbits chances.
+NB: hash may be uneeded due to the small chances of collision.
+Reduce cache usage ==> Should be faster.
+Increase cache usage for very small object (integer).
+
+Use of pointer to avoid moving object on GC.
+
+On AMD64, only 48 bits of 64 bits are really used for addressing data.
+==> lowbits= 16
+Empty representation= 0 (hash can be 0. pointer cannot be it).
+Deleted representation = 1 (pointer cannot be zero)
+
+<---- PTR ----><-HASH->
+
+#+BEGIN_SRC C
+#define LOW_BITS 16
+#define ALIGNED_BITS 2
+void *get_ptr(int64_t x) { 
+  return (void*) ((x >> LOW_BITS) << ALIGNED_BITS);
+}         
+unsigned get_small_hash(int64_t x) {
+  return x & ((1<<LOW_BITS)-1);
+}
+#+END_SRC
+
+* TODO #25 : Support of error code model for error handling.    :ENHANCEMENT:
+
+Find a way to support error return code for the API in case of allocation
+failure.
+
+Any service that returns void shall return a "int".
+In case of allocation failure, it shall return an error.
+M_CALL macro shall stop its execution if the service returns an error code
+and the error code represents an error (avoid rewritting everything)
+and throw back the error code (stopping the execution flow).
+
+Services returning already something shall not be modified.
+
+This model should be applied at the container level only and not globally.
+Different containers may need different levels of error handling.
+4 combinaison to take into account:
+
+==> ABORT on container / ABORT on used type: The current model
+==> ABORT on container / RETCODE on used type: Needs to abort on reported error.
+==> RETCODE on container / ABORT on used type: Nothing particular to note.
+==> RETCODE on container / RETCODE on used type: Forward retcode to caller.
+
+Find a way to make it while not making the code too complex 
+(try to keep as simple as possible).
+
+Using a specialized oplist for such containers (_OPLIST_RETCODE)
+using a specialized API for retcode:
+
+API_RET_*: that expands to
+
+     if (func(args) == 0) goto handler_exit_failure;
+
+Adding at the end of each service:
+     M_END_FUNCTION(cleanup_code) that expands to different cases:
+     M_END_FUNCTION_VALUE(cleanup_code, return_success, return_failure) that expands to different cases:
+
+ABORT/ABORT:
+     handler_exit_success: 
+     handler_exit_failure: 
+      return;
+
+ABORT/RETCODE:
+     handler_exit_success: 
+      return;
+     handler_exit_failure: 
+      RAISE_FATAL_ERROR
+
+RETCODE/ABORT
+     handler_exit_success: 
+      return SUCESS;
+     handler_exit_failure: 
+      cleanup_code
+      return FAILURE;
+
+RETCODE/RETCODE
+     handler_exit_success: 
+      return SUCESS;
+     handler_exit_failure: 
+      cleanup_code
+      return FAILURE;
+
+If really needed, the macro can be avoided and code can be hand written.
+
+Open points:
+- How to handle warnings on unused labels?
+- What about M_LET/ M_EACH?
+
+
+* TODO #24 : New: Add MIN-MAX-HEAP container                    :ENHANCEMENT:
+
+See https://en.wikipedia.org/wiki/Min-max_heap
+as DPRIORITY_QUEUE_DEF ?
+
+NOTE: Needs for such container?
+
+
+* TODO #23: Strict MOVE semantic to clarify                     :ENHANCEMENT:
+
+Some type may need to have a force MOVE semantic (for example, they can store
+pointer to themselves). Currently the INIT_MOVE & MOVE operators are more
+a help for performance than a strict semantic usage.
+
+** ARRAY container
+
+The ARRAY container doesn't support strict MOVE semantic for example.
+It is not a simple matter as it performs a realloc of the table, thus
+moving the data before they can be moved using MOVE. Two solutions:
+
+- New operator MOVE_SELF to fix a type after it has been moved.
+- If MOVE defined, force another table and then copy by hand the type. This will be slower and consumme more memory.
+
+** MOVE in OPLIST                                               :ENHANCEMENT:
+
+Proposal: do not export INIT_MOVE / MOVE operator in OPLIST if the MOVE operator is 
+compatible with a pure COPY semantic. An exported MOVE operator will tell 
+other containers than the type shall be carefully moved using the provided
+MOVE operator.
+
+For example for tuple, it shall
+
+- create an init_move operator if no one has disabled INIT_MOVE,
+- export the init_move operator if at least one has exported a INIT_MOVE and no one has disabled INIT_MOVE.
+
+** DO_INIT_MOVE operator
+
+DO_INIT_MOVE macro is not also fully working for structure
+defined with [1] tricks but without an explicit INIT_MOVE / MOVE
+operators as it uses MOVE_DEFAULT which is not (fully compatible).
+==> Analyse limitation and possible constraint usages.
+
+
+* TODO #20: New: Bucket priority queue                          :ENHANCEMENT:
+
+Add a new kind of priority queue. 
+See https://en.wikipedia.org/wiki/Bucket_queue
+
+Check if it will be better as intrusive or non-intrusive container.
+
+To test if a bucket is empty or not, a bitfield can be used to check if
+the bit associated to the bucket is set or not. To get the highest bucket
+non empty, we can perform a CLZ of the bitset, which shall be much faster than
+performing a linear search of the buckets (algorithm complexity is the same,
+except that we can scan 64 entries at a time).
+
+Check if we can use BITSET, or introduce fixed size BITSET or use ad-hock 
+implementation.
+
+
+* TODO #19: New: Intrusive Red Black Tree                       :ENHANCEMENT:
+
+ Add intrusive red black tree. 
+ Look also for AVL tree (NOTE: Is there a performance difference between the two?)
+
+
+* TODO #18: Missing methods                                     :ENHANCEMENT:
+
+Some containers don't have all the methods they should.
+See the cells in yellow here:
+http://htmlpreview.github.io/?https://github.com/P-p-H-d/mlib/blob/master/doc/Container.html
+
+
+* TODO #17: New: Ressource handler                              :ENHANCEMENT:
+
+ A global 'ressouce handler' which shall associated a unique handle to a ressource.
+ The handle shall be unique for the ressource and shall not be reused.
+ It is typically a 64 bits integers always incremented (even if the program
+ creates one billion ressources per second, the counter won't overflow
+ until 585 years).
+
+ The ressource handler shall make an association between a HANDLE 64 bits and:
+
+- how much real owners claim to own the ressource
+ (the ressource is only owned by the ressource handler, however
+  it acts as a delegate of the real owner),
+- how much users keep a pointer to the ressource.
+- pointer to the resource itself.
+
+ This may be a better alternative than shared_ptr & weak_ptr:
+
+- reduce fragmentation,
+- no cycle dependencies,
+- shared_ref & weak_ref becomes only HANDLE,
+- all ressources can be freed in one pass.
+ 
+ Needs lock free dictionnary or at least concurrent dictionnary.
+
+ How to handle multiple resource ? 
+
+ * variant: works fine. Memory usage can be (much) higher than needed if there is a lot of dissimilarity between the size of the objects.
+ * embedded the type in the ressource handler: more work, API more complex. Memory usage seems better.
+
+
+* TODO #16: New: Lock Free List                                 :ENHANCEMENT:
+
+ Implement a lock free list. Most of the difficulty is the memory reclamation part.
+ Typically this lock free list shall be compatible with RCU method.
+
+** First  step: backoff methods                                        :DONE:
+** Second step: lock free node pool :                                  :DONE:
+   Done as m-c-mempool header.
+
+** Third  step: Implement generic lock free list on top of it.
+
+ The ABA problem is already taken into account by the memory alloctor
+ provided that the lock free list doesn't try to be smart.
+
+ backoff has be used when using CAS.
+ 
+ Concurrent insertion / insertion and insertion / deletion and deletion / deletion shall be crefully analyzed when taken into account.
+ 
+ Questions:
+ - singly or doubly or dual push?
+ - needs to be logically deleted : needs a previous field
+   (NULL if not logically deleted) ? TBC
+
+
+* TODO #15: Prologue / Epilogue for Constructor / Destructor for error handling :ENHANCEMENT:
+
+Constructor (and destructor) need to use user-defined prologue / epilogue.
+This is in order to register the constructed object into a proper Exception
+Handling Stack so that throwing exceptions may work reliably.
+
+Proposal:
+
+- M_CONSTRUCTOR_PROLOGUE(object, oplist);
+- M_CONSTRUCTOR_EPILOGUE(object, oplist);
+- M_DESTRUCTOR_PROLOGUE(object, oplist);
+- M_DESTRUCTOR_EPILOGUE(object, oplist);
+
+Object creation will need to add all sub-objects into the stack, 
+then unstack all to push instead the root object (which recursively remove them).
+
+See also http://freetype.sourceforge.net/david/reliable-c.html#cseh
+
+- How to handle like allocation of the object?
+- How to avoid calling the destructor multiple times? (It is needed?)
+- How the code can be factorized with RETCODE needs?
+
+
+* TODO #14: Memory allocation enhancement                       :ENHANCEMENT:
+
+Enhancement of the memory allocation scheme to find way to deal properly with advanced allocators:
+
+-  non-default alignment requirements for types,
+-  instance-based allocator (may need instance based variable access),
+-  expected life of created type (temporary or permanent),
+-  stack based allocator,
+-  global variable access for allocator,
+-  maximum allocation before failure.
+
+Most of theses are already more or less supported. Examples shall be created to show how to deal with this:
+
+- alignement shall be implemented with the attributes of <stdalign.h>
+
+However I sill don't know how to implement "instance-based allocator" which is what is missing.
+The problem is how to give to methods context local information store within the container itself.
+
+Update:
+
+API transformation support enables "instance-based allocator" to be made easily.
+Needs some formal operator in the oplist to support it fully and an example.
+
+ Can be supported using another API extension, some more operators and forcing some names:
+
+ * API_N: call like FUNC(obj->extra_data, type)
+
+ 'obj' is a forced named corresponding to an alias to an object in the function.
+ Operator needed:
+  
+ - EXTRA_DATA: Add an extra-data field wihtin the container. Defines the type of data.
+
+It is a kind of object  inheritance where the container inherits some extra data from its base.
+
+
+* TODO #12: New: Atomic shared pointer                          :ENHANCEMENT:
+
+Add an extension to the SHARED_PTR API:
+
+- New type atomic_shared_ptr
+- name_init_atomic_set (&atomic_shared_ptr, shared_ptr);
+- name_init_set_atomic (shared_ptr, &atomic_shared_ptr);
+- name_init_atomic_set_atomic (&atomic_shared_ptr, &atomic_shared_ptr);
+- name_atomic_set (&atomic_shared_ptr, shared_ptr);
+- name_set_atomic (shared_ptr, &atomic_shared_ptr);
+- name_atomic_set_atomic (&atomic_shared_ptr, &atomic_shared_ptr);
+- name_atomic_clear
+
+No _ref or direct _init: we need to init first a normal shared_ptr then the atomic (TBC)
+
+** _atomic_set method:
+
+It can be implemented by incrementing the non atomic shared pointer reference, 
+then performs a compare_and_swap to the data of the atomic shared pointer, 
+finally decrement and dec/free the swapped previous data of the atomic like a normal shared pointer.
+All 3 steps are safe.
+
+** _set_atomic method:
+
+It needs to perform the following atomic operation : <read the pointer, deref pointer and increment the pointed value> I don't known how to do it properly.
+
+See http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2014/n4162.pdf
+
+Proposition for _set_atomic we store temporary NULL to the atomic_ptr struct to request an exclusive access to the data (this looks like a lock and other operations need to handle NULL) :
+
+#+BEGIN_SRC C
+        void shared_ptr_set_atomic(ptr a, atomic_ptr *ptr)
+        {
+          // Get exclusive access to the data
+          p = atomic_load(ptr);
+          do {
+            if (p == NULL) {
+              // TODO: exponential backoff
+              p = atomic_load(ptr);
+              continue;
+            }
+          } while (!atomic_compare_exchange_weak(ptr, &p, NULL));
+          // p has exclusive access to the pointer
+          p->data->cpt ++;
+          a->data = p->data;
+          atomic_exchange (ptr, p);
+        }
+#+END_SRC
+
+This prevents using NULL which obliges atomic shared pointer to point to a created object...
+
+Other alternative solution is to use the bit 0 to mark the pointer as being updated, preventing other from using it (TBC only clear):
+
+#+BEGIN_SRC C
+        void shared_ptr_set_atomic(ptr a, atomic_ptr *ptr)
+        {
+          // Get exclusive access to the data
+          p = atomic_load(ptr);
+          do {
+            if ( (p&1) != 0) {
+              // TODO: exponential backoff
+              p = atomic_load(ptr);
+              continue;
+            }
+          } while (!atomic_compare_exchange_weak(ptr, &p, p|1));
+         // Exclusive access (kind of lock).
+          p->data->cpt ++;
+          a->data = p->data;
+          atomic_set (ptr, p);
+        }
+#+END_SRC
+
+Other implementation seems to have it hard to be lock-free: cf. https://github.com/llvm-mirror/libcxx/commit/5fec82dc0db3623546038e4a86baa44f749e554f
+
+
+
+* TODO #5: New: Concurrent dictionary Container                 :ENHANCEMENT:
+
+Implement a more efficient dictionary than lock + std dictionary for all operations when dealing with threads.
+See https://msdn.microsoft.com/en-us/library/dd287191(v=vs.110).aspx
+
+The best parallel algorithm is still when there is as few synchronization as possible. A concurrent dictionary will fail at this and will result in average performance at best.
+The typical best case will be in RCU context (a lot of readers, few writers), so the interface shall be compatible with such structure.
+
+** Multiple locks within the dictionnary
+
+A potential implementation may be to request at initialization time the number of concurrent thread N.
+Create a static array of N dictionnary with N mutex. Then to access the data will perform :
+
+- compute hash of object,
+- access high bits of hash and select which dictionnary shall have the data,
+- lock it,
+- perform classic access to the data (check if the compiler can properly optimize the hash computation),
+- unlock it.
+
+The property of the hash shall allow a good dispersion of the data across multiple locks, reducing the constraints on the lock. This implementation could be build easily upon the already existent dictionary.
+
+To test.
+
+See also https://github.com/simonhf/sharedhashfile
+
+** Lock Free dictionnary 
+
+Evaluate also lock-free dictionary (easier with open addressing). 
+It needs a complete rewrite of the inner loop through. The hard part is the dynamic resizing of the internal array.
+Ssee http://preshing.com/20160222/a-resizable-concurrent-map/ for a potential solution
+ and http://www.cs.toronto.edu/~tomhart/papers/tomhart_thesis.pdf for memory reclamation techniques). 
+ and https://www.research.ibm.com/people/m/michael/spaa-2002.pdf
+https://www.kernel.org/pub/linux/kernel/people/paulmck/perfbook/perfbook.2017.11.22a.pdf presents different techniques used by linux kernel.
+It needs before lock-free list: http://www.cse.yorku.ca/~ruppert/papers/lfll.pdf http://www.cse.yorku.ca/~ruppert/Mikhail.pdf
+
+ A good way maybe Open Addessing table used only for indirection and a freelist memory reclamation container for handle the entries
+ (like a transaction).
+
+ Solution?
+ --------
+ 
+ Use of the concurrent pool (m-c-mempool) to allocate items.
+ The big table will only store pointers (+ part of hash in unused bits?) to such allocate items.
+ Atomic update is done by allocating a new node, update it, and atomicaly store it in the dict, putting the old one as logically deleted and to reclaim later.
+ (Other threads may still read its data so we cannot free immediatly). 
+ 
+
+* DONE #22: Enhanced services for SPSC Queue                    :ENHANCEMENT:
+
+Add services:
+
+** DONE _push_bulk
+Test the capacity of the queue and push as much as possible in the queue
+with one check of the atomic structure.
+
+** DONE _pop_bulk
+Test the capacity of the queue and push as much as possible in the queue
+with one check of the atomic structure.
+
+** DONE _push_force:
+
+If the capacity of the queue is full, pop one element and push it:
+push always succeed and the queue always keep the youngest element.
+
+* DONE #21: Generic Binary serialization                        :ENHANCEMENT:
+
+   Based on issue #26 of  https://github.com/P-p-H-d/mlib/issues/26
+   
+   Some kind of "binary serialization" on the model of get_str/parse_str 
+   could be possible. It would be a great feature from the application 
+   point-of-view: binary representation is more bandwidth-efficient if 
+   used on network communications.
+
+   It will be good to have import/export methods to the 
+   XML/JSON/MSGPACK/PROTOBUF/BINARY format. 
+   However, adding all of them on by one in the M*LIB containers
+   doesn't seem satisfactory. 
+
+   Instead, adding a generic interface for the serialization of data 
+   that may be customized by the user to perform the import/export of
+   objects in whatever format they want into what they want (FILE/memory/...). 
+   To simplify it, this interface could only support one kind of import/export
+   per compilation unit.
+
+
+
+

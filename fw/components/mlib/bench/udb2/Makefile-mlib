@@ -1,0 +1,8 @@
+all:run-test
+
+run-test:test.c ../common.c
+	$(CC) -std=gnu99 -O2 -Wall -I../../../.. $< -o $@
+
+clean:
+	rm -f run-test* *~
+	rm -rf mlib
