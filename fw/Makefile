@@ -365,6 +365,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/mbedtls/include \
   $(PROJ_DIR) \
   $(COMP_DIR)/amiitool/include \
+  $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
   $(SDK_ROOT)/components/libraries/bsp
 

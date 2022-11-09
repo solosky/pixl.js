@@ -1,0 +1,14 @@
+NFC antenna match cap
+
+//110pF: 16.9MHz 
+//150pf: 14.8MHz
+//180pF: 14.35MHz
+
+
+Power consumption
+
+
+LCD OFF, SYS OFF: 0.9uA
+LCD ON, SYS OFF: 107.3uA
+LCD ON, SYS WFE: 562uA
+LCD ON, BL ON, SYS OFF: 6.04mA
