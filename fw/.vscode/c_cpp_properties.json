@@ -3,14 +3,10 @@
       {
           "name": "nRF SDK 15.3.0 - PCA10056",
           "includePath": [
-              "${workspaceFolder}/**",
-              "${HOME}/nRF5_SDK_15.3.0_59ac345/**",
-              "${HOME}/nRF5_SDK_15.3.0_59ac345/external/freertos/portable/GCC",
-              "${HOME}/nRF5_SDK_15.3.0_59ac345/external/freertos/portable/GCC/nrf52",
-              "${HOME}/nRF5_SDK_15.3.0_59ac345/external/freertos/portable/CMSIS/nrf52"
+              "${workspaceFolder}/**"
           ],
           "forcedInclude": [
-              "${workspaceFolder}/blinky/pca10056/blank/config/sdk_config.h"
+              "${workspaceFolder}/config/sdk_config.h"
           ],
           "defines": [
               "BOARD_PCA10056",
