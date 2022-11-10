@@ -11,10 +11,7 @@ typedef struct {
     void* context;
 
     //callbacks 
-    void (* on_draw)(mui_canvas_t* p_canvas);
-    void (* on_input)(input_event_t* p_event);
-    void (* on_enter)();
-    void (* on_exit)();
+    mui_event_handler_t handler;
     
 } mui_view_t;
 

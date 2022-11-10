@@ -5,6 +5,7 @@
 
 #include "m-array.h"
 #include "m-algo.h"
+#include "mui_event.h"
 #include "mui_view_port.h"
 
 ARRAY_DEF(mui_view_port_array, mui_view_port_t*, M_PTR_OPLIST);
@@ -19,12 +20,17 @@ typedef enum {
 
 typedef struct {
     u8g2_t u8g2;
+    mui_event_queue_t event_queue;
     mui_view_port_array_t layers[MUI_LAYER_MAX];
 } mui_t;
 
 
+mui_t* mui_main();
+
 void mui_init(mui_t* p_mui);
-void mui_redraw(mui_t* p_mui);
+void mui_post(mui_t* p_mui, mui_event_t*p_event);
+void mui_tick(mui_t* p_mui);
+
 
 
 #endif

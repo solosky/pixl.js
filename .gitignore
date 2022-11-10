@@ -5,3 +5,13 @@ fw/src/amiibo_private.c
 
 fp-info-cache
 pixl.js-backups
+
+hw/RevB/pixl.js/gerber
+hw/RevB/pixl.js/bom
+hw/RevB/pixl.js/*.zip
+hw/RevB/pixl.js/*.pdf
+
+hw/RevA/pixl.js/gerber
+hw/RevA/pixl.js/bom
+hw/RevA/pixl.js/*.zip
+hw/RevA/pixl.js/*.pdf
