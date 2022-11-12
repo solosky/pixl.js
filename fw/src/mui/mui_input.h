@@ -24,7 +24,7 @@ typedef struct {
     uint32_t seq;
     input_key_t key;
     input_type_t type;
-} input_event_t;
+} mui_input_event_t;
 
 
 void mui_input_init();

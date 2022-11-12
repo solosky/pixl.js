@@ -3,7 +3,8 @@
       {
           "name": "nRF SDK 15.3.0 - PCA10056",
           "includePath": [
-              "${workspaceFolder}/**",
+              "${workspaceFolder}/src/**",
+              "${workspaceFolder}/components/**",
               "D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560/**"
           ],
           "forcedInclude": [

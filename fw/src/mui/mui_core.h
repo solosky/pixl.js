@@ -25,7 +25,7 @@ typedef struct {
 } mui_t;
 
 
-mui_t* mui_main();
+mui_t* mui();
 
 void mui_init(mui_t* p_mui);
 void mui_post(mui_t* p_mui, mui_event_t*p_event);

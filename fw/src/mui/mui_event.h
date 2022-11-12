@@ -2,6 +2,7 @@
 #define MUI_EVENT_H
 
 #include <stdint.h>
+#include "m-buffer.h"
 
 typedef struct {
     uint32_t id;
@@ -9,16 +10,17 @@ typedef struct {
     void*  arg_ptr;
 } mui_event_t;
 
+
+BUFFER_DEF(mui_event_buffer, mui_event_t, 64, BUFFER_QUEUE)
+
+
 typedef void (*mui_event_handler_t)(void* context, mui_event_t *p_event);
 
 typedef struct {
     mui_event_handler_t dispatcher;
     void* dispatch_context;
+    mui_event_buffer_t event_buffer;
 } mui_event_queue_t;
-
-
-
-
 
 
 

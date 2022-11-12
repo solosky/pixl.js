@@ -88,6 +88,8 @@
 
 #include "amiibo_helper.h"
 
+#include "mui.h"
+
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
 
@@ -350,6 +352,10 @@ int main(void) {
 
 	NRF_LOG_DEBUG("display done");
 
+	mui_t* p_mui = mui();
+
+	mui_init(p_mui);
+
 
 
 	NRF_LOG_FLUSH();
@@ -358,7 +364,7 @@ int main(void) {
 
 
 		app_sched_execute();
-
+		mui_tick(p_mui);
 		NRF_LOG_FLUSH();
 		nrf_pwr_mgmt_run();
 
