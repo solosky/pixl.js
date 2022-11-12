@@ -79,6 +79,8 @@
 #include "bat.h"
 #include "ble_main.h"
 
+#include "nrf_sdh.h"
+
 #include "nrf_crypto.h"
 #include "mem_manager.h"
 
@@ -323,9 +325,13 @@ int main(void) {
 
 	u8g2_drv_init();
 
-	err_code = ble_init();
+	//enable sd to enable pwr mgmt
+	err_code = nrf_sdh_enable_request();
 	APP_ERROR_CHECK(err_code);
-	NRF_LOG_DEBUG("ble init done");
+
+	// err_code = ble_init();
+	// APP_ERROR_CHECK(err_code);
+	// NRF_LOG_DEBUG("ble init done");
 
 	
 	extern const uint8_t amiibo_key_retail[];
@@ -346,9 +352,9 @@ int main(void) {
 
 	ntag_indicator_update();
 
-	bat_level_t bat_level = bat_get_level();
+	// bat_level_t bat_level = bat_get_level();
 
-	NRF_LOG_DEBUG("display done");
+	// NRF_LOG_DEBUG("display done");
 
 
 

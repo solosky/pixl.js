@@ -7307,7 +7307,7 @@
 // <i> Shutdown procedure will begin no earlier than after this number of seconds.
 
 #ifndef NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S
-#define NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S 10
+#define NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S 15
 #endif
 
 // </e>
