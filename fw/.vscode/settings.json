@@ -6,10 +6,5 @@
   "C_Cpp.clang_format_fallbackStyle": "none",
   "editor.rulers": [
     90
-  ],
-  "files.associations": {
-    "u8g2.h": "c",
-    "mui_core.h": "c",
-    "m-buffer.h": "c"
-  },
+  ]
 }
