@@ -1,6 +1,7 @@
 #ifndef MUI_CORE_H
 #define MUI_CORE_H
 
+#include <stdint.h>
 #include "u8g2.h"
 
 #include "m-array.h"
@@ -19,6 +20,8 @@ typedef enum {
 } mui_layer_t;
 
 typedef struct {
+    uint8_t screen_width;
+    uint8_t screen_height;
     u8g2_t u8g2;
     mui_event_queue_t event_queue;
     mui_view_port_array_t layers[MUI_LAYER_MAX];
