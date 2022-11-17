@@ -6,5 +6,9 @@
   "C_Cpp.clang_format_fallbackStyle": "none",
   "editor.rulers": [
     90
-  ]
+  ],
+  "files.associations": {
+    "mini_app_launcher.h": "c",
+    "mini_app_defines.h": "c"
+  }
 }

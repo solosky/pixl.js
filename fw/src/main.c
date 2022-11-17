@@ -89,6 +89,7 @@
 #include "amiibo_helper.h"
 
 #include "mui.h"
+#include "mini_app_launcher.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
@@ -356,7 +357,8 @@ int main(void) {
 
 	mui_init(p_mui);
 
-
+	mini_app_launcher_t* p_launcher = mini_app_launcher();
+	mini_app_launcher_init(p_launcher);
 
 	NRF_LOG_FLUSH();
 

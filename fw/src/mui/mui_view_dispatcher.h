@@ -9,7 +9,6 @@
 DICT_DEF2(mui_view_dict, uint32_t, M_DEFAULT_OPLIST, mui_view_t*, M_PTR_OPLIST)
 
 typedef struct {
-    mui_t* p_mui;
     mui_view_port_t view_port;
     mui_view_dict_t views;
     mui_view_t* p_active_view;
