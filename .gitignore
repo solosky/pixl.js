@@ -2,6 +2,13 @@ fw/.settings
 fw/_build
 
 fw/src/amiibo_private.c
+fw/bootloader/priv.pem
+fw/bootloader/dfu_public_key.c
 
 fp-info-cache
 pixl.js-backups
+
+# venv stuff
+Lib
+Scripts
+pyvenv.cfg
