@@ -21,7 +21,8 @@
               "SOFTDEVICE_PRESENT",
               "SWI_DISABLE0",
               "DEBUG",
-              "DEBUG_NRF"
+              "DEBUG_NRF",
+              "M_USE_THREAD_BACKEND=0"
           ],
           "compilerPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc",
           "cStandard": "c11",

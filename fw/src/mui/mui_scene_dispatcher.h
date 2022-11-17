@@ -9,10 +9,6 @@ typedef struct {
     mui_scene_exit_cb_t exit_cb;
 } mui_scene_t;
 
-// typedef void (* mui_view_port_draw_cb_t)(mui_view_port_t* p_vp, mui_canvas_t* p_canvas);
-// typedef void (* mui_view_port_input_cb_t)(mui_view_port_t* p_vp, mui_input_event_t* p_event);
-
-
 struct mui_scene_dispatcher_s;
 typedef struct mui_scene_dispatcher_s mui_scene_dispatcher_t;
 

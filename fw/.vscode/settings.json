@@ -9,6 +9,13 @@
   ],
   "files.associations": {
     "mini_app_launcher.h": "c",
-    "mini_app_defines.h": "c"
+    "mini_app_defines.h": "c",
+    "mui_include.h": "c",
+    "status_bar_view.h": "c",
+    "mui_input.h": "c",
+    "mui_core.h": "c",
+    "u8g2.h": "c",
+    "mui_event.h": "c",
+    "m-buffer.h": "c"
   }
 }

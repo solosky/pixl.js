@@ -19,8 +19,8 @@ mui_view_dispatcher_t* mui_view_dispatcher_create();
 void mui_view_dispatcher_free(mui_view_dispatcher_t* p_dispatcher);
 void mui_view_dispatcher_add_view(mui_view_dispatcher_t* p_dispatcher, uint32_t view_id, mui_view_t* p_view);
 void mui_view_dispatcher_remove_view(mui_view_dispatcher_t* p_dispatcher, uint32_t view_id);
-void mui_view_dispatcher_attach(mui_view_dispatcher_t* p_dispatcher);
-void mui_view_dispatcher_dettach(mui_view_dispatcher_t* p_dispatcher);
+void mui_view_dispatcher_attach(mui_view_dispatcher_t* p_dispatcher, mui_layer_t layer);
+void mui_view_dispatcher_dettach(mui_view_dispatcher_t* p_dispatcher, mui_layer_t layer);
 void mui_view_dispatcher_display_view(mui_view_dispatcher_t* p_dispatcher, uint32_t view_id);
 
 
