@@ -9,6 +9,8 @@ typedef enum { STATUS_BAR_VIEW_ID_MAIN } status_bar_view_id_t;
 
 static void app_status_bar_on_run(mini_app_inst_t *p_app_inst);
 static void app_status_bar_on_kill(mini_app_inst_t *p_app_inst);
+static void app_status_bar_on_event(mini_app_inst_t *p_app_inst,
+                                    mini_app_event_t *p_event);
 
 typedef struct {
     status_bar_view_t *p_status_bar_view;
@@ -41,6 +43,9 @@ void app_status_bar_on_kill(mini_app_inst_t *p_app_inst) {
     p_app_inst->p_handle = NULL;
 }
 
+void app_status_bar_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
+
 const mini_app_t app_status_bar_info = {.id = MINI_APP_ID_STATUS_BAR,
                                         .run_cb = app_status_bar_on_run,
-                                        .kill_cb = app_status_bar_on_kill};
+                                        .kill_cb = app_status_bar_on_kill,
+                                        .post_event_cb = app_status_bar_on_event};

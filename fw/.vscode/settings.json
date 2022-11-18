@@ -16,6 +16,7 @@
     "mui_core.h": "c",
     "u8g2.h": "c",
     "mui_event.h": "c",
-    "m-buffer.h": "c"
+    "m-buffer.h": "c",
+    "mini_app_registry.h": "c"
   }
 }
