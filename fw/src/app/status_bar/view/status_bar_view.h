@@ -4,7 +4,7 @@
 #include "mui_include.h"
 
 typedef struct {
-    mui_view_t view;
+    mui_view_t* p_view;
 
 } status_bar_view_t;
 
