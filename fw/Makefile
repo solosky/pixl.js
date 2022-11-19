@@ -172,6 +172,7 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/u8g2_drv.c \
+  $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -364,6 +365,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls \
   $(SDK_ROOT)/external/mbedtls/include \
   $(PROJ_DIR) \
+  $(PROJ_DIR)/hal \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/u8g2/csrc \
   $(SDK_ROOT)/components/libraries/bsp

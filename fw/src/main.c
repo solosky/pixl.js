@@ -90,6 +90,8 @@
 
 #include "amiibo_helper.h"
 
+#include "hal_spi_bus.h"
+
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
 
@@ -323,6 +325,7 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
 
+    hal_spi_bus_init();
 	u8g2_drv_init();
 
 	//enable sd to enable pwr mgmt
