@@ -161,7 +161,7 @@ void u8g2_drv_init() {
     nrf_gpio_cfg_output(LCD_RESET_PIN);
      nrf_gpio_cfg_output(LCD_DC_PIN);
     nrf_gpio_cfg_output(LCD_BL_PIN);
-    nrf_gpio_pin_clear(LCD_BL_PIN);
+    nrf_gpio_pin_set(LCD_BL_PIN);
 
     u8g2_Setup_st7567_enh_dg128064_f(&u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832,
                                      u8g2_nrf_gpio_and_delay_spi_cb);

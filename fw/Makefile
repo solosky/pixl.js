@@ -171,8 +171,10 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/amiibo_private.c \
+  $(PROJ_DIR)/lfs/lfs_port.c \
   $(PROJ_DIR)/u8g2_drv.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
+  $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -182,6 +184,8 @@ SRC_FILES += \
   $(COMP_DIR)/amiitool/src/drbg.c \
   $(COMP_DIR)/amiitool/src/keygen.c \
   $(COMP_DIR)/amiitool/src/version.c \
+  $(COMP_DIR)/littlefs/lfs.c \
+  $(COMP_DIR)/littlefs/lfs_util.c \
   $(U8G2_ROOT)\u8g2_bitmap.c \
   $(U8G2_ROOT)\u8g2_box.c \
   $(U8G2_ROOT)\u8g2_buffer.c \
@@ -366,8 +370,10 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/mbedtls/include \
   $(PROJ_DIR) \
   $(PROJ_DIR)/hal \
+  $(PROJ_DIR)/lfs \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/u8g2/csrc \
+  $(COMP_DIR)/littlefs \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets

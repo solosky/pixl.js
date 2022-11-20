@@ -91,6 +91,9 @@
 #include "amiibo_helper.h"
 
 #include "hal_spi_bus.h"
+#include "hal_spi_flash.h"
+
+#include "lfs_port.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
@@ -327,6 +330,34 @@ int main(void) {
 
     hal_spi_bus_init();
 	u8g2_drv_init();
+
+	hal_spi_flash_init();
+	
+	err_code = lfs_port_init();
+	APP_ERROR_CHECK(err_code);
+
+	// flash_info_t flash_info;
+	// hal_spi_flash_info(&flash_info);
+	
+
+	// uint8_t buff1[256];
+	// uint8_t buff2[256];
+
+	// memset(buff1, 0x35, sizeof(buff1));
+	// memset(buff2, 0, sizeof(buff2));
+
+	// hal_spi_flash_erase(0);
+	// hal_spi_flash_prog(0, buff1, sizeof(buff1));
+	// hal_spi_flash_read(0, buff2, sizeof(buff2));
+
+	// if(memcmp(buff1, buff2, sizeof(buff1)) != 0){
+	// 	NRF_LOG_ERROR("flash test failed");
+	// }else{
+	// 	NRF_LOG_ERROR("flash test PASSED");
+	// }
+
+	
+
 
 	//enable sd to enable pwr mgmt
 	err_code = nrf_sdh_enable_request();
