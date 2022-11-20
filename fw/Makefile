@@ -173,6 +173,7 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/lfs/lfs_port.c \
   $(PROJ_DIR)/u8g2_drv.c \
+  $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \

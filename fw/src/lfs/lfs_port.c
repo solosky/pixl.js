@@ -1,9 +1,9 @@
 //
 // Created by solos on 2021/11/21.
 //
+#include "lfs_port.h"
 #include "hal_spi_flash.h"
 #include "lfs.h"
-#include "lfs_port.h"
 
 #define LFS_SECTOR_SIZE 256
 #define LFS_BLOCK_SIZE 4096
@@ -32,6 +32,13 @@ struct lfs_config lfs_config;
 uint8_t lfs_read_buf[LFS_CACHE_SIZE];
 uint8_t lfs_prog_buf[LFS_CACHE_SIZE];
 uint8_t lfs_lookahead_buf[16]; // 128/8=16
+
+void lfs_create_directory(char *path) {
+    int err = lfs_mkdir(&lfs, path);
+    if (!err) {
+        NRF_LOG_INFO("created directory: %s", path);
+    }
+}
 
 ret_code_t lfs_port_init(void) {
     flash_info_t flash_info;
@@ -86,6 +93,16 @@ ret_code_t lfs_port_init(void) {
             NRF_LOG_INFO("flash: total %d KB, free %d KB", total_space / 1024,
                          free_space / 1024);
         }
+
+        lfs_create_directory("amiibo");
+
+
+        //test only ///
+        // char path[16];
+        // sprintf(path, "amiibo/%02d.bin", 0);
+        // lfs_file_t file;
+        // err = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
+        // NRF_LOG_INFO("open bin: %d", err);
     }
 
     return err;

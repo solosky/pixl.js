@@ -103,6 +103,8 @@
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
+#define SPI_FLASH
+
 
 /**
  *@brief Function for initializing logging.
@@ -262,6 +264,7 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event)
             // Set up NFCT peripheral as the only wake up source.
 			NRF_LOG_DEBUG("go sleep");
 			u8g2_drv_deinit();
+			hal_spi_flash_sleep();
 			err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
 			APP_ERROR_CHECK(err_code);
 
@@ -331,33 +334,13 @@ int main(void) {
     hal_spi_bus_init();
 	u8g2_drv_init();
 
+	#ifdef SPI_FLASH
 	hal_spi_flash_init();
 	
 	err_code = lfs_port_init();
 	APP_ERROR_CHECK(err_code);
 
-	// flash_info_t flash_info;
-	// hal_spi_flash_info(&flash_info);
-	
-
-	// uint8_t buff1[256];
-	// uint8_t buff2[256];
-
-	// memset(buff1, 0x35, sizeof(buff1));
-	// memset(buff2, 0, sizeof(buff2));
-
-	// hal_spi_flash_erase(0);
-	// hal_spi_flash_prog(0, buff1, sizeof(buff1));
-	// hal_spi_flash_read(0, buff2, sizeof(buff2));
-
-	// if(memcmp(buff1, buff2, sizeof(buff1)) != 0){
-	// 	NRF_LOG_ERROR("flash test failed");
-	// }else{
-	// 	NRF_LOG_ERROR("flash test PASSED");
-	// }
-
-	
-
+	#endif
 
 	//enable sd to enable pwr mgmt
 	err_code = nrf_sdh_enable_request();
@@ -396,11 +379,6 @@ int main(void) {
 	APP_ERROR_CHECK(err_code);
 
 	ntag_indicator_update();
-
-	// bat_level_t bat_level = bat_get_level();
-
-	// NRF_LOG_DEBUG("display done");
-
 
 
 	NRF_LOG_FLUSH();

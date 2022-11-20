@@ -67,8 +67,8 @@
 
 #include "app_error.h"
 #include "nrf_delay.h"
-#include "nrf_log.h"
 #include "nrf_gpio.h"
+#include "nrf_log.h"
 
 #include "u8g2_drv.h"
 
@@ -82,6 +82,7 @@
 
 u8g2_t u8g2;
 static spi_device_t m_dev;
+uint8_t m_u8g2_initialized = 0;
 
 uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
                                  void *arg_ptr);
@@ -92,7 +93,7 @@ uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_in
                                        void *arg_ptr) {
     switch (msg) {
     case U8X8_MSG_GPIO_DC:
-         nrf_gpio_pin_write(LCD_DC_PIN, arg_int);    
+        nrf_gpio_pin_write(LCD_DC_PIN, arg_int);
         break;
 
     case U8X8_MSG_GPIO_RESET:
@@ -132,9 +133,9 @@ uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
             .p_rx_buffer = NULL,
             .rx_length = 0,
         };
-         hal_spi_bus_aquire(&m_dev);
+        hal_spi_bus_aquire(&m_dev);
         err_code = hal_spi_bus_xfer(&trans);
-         hal_spi_bus_release(&m_dev);
+        hal_spi_bus_release(&m_dev);
         APP_ERROR_CHECK(err_code);
         break;
     }
@@ -159,21 +160,53 @@ void u8g2_drv_init() {
     hal_spi_bus_attach(&m_dev);
 
     nrf_gpio_cfg_output(LCD_RESET_PIN);
-     nrf_gpio_cfg_output(LCD_DC_PIN);
+    nrf_gpio_cfg_output(LCD_DC_PIN);
     nrf_gpio_cfg_output(LCD_BL_PIN);
-    nrf_gpio_pin_set(LCD_BL_PIN);
+    nrf_gpio_pin_clear(LCD_BL_PIN);
 
     u8g2_Setup_st7567_enh_dg128064_f(&u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832,
                                      u8g2_nrf_gpio_and_delay_spi_cb);
 
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
+
+    m_u8g2_initialized = 1;
 }
 
-void u8g2_drv_deinit(){
+void u8g2_drv_deinit() {
     u8g2_SetPowerSave(&u8g2, 1);
-   
+
     nrf_gpio_pin_clear(LCD_BL_PIN);
     nrf_gpio_cfg_default(LCD_BL_PIN);
 
+    m_u8g2_initialized = 0;
+}
+
+void u8g2_drv_app_error(char *error) {
+    if (m_u8g2_initialized) {
+        u8g2_ClearBuffer(&u8g2);
+        u8g2_SetFont(&u8g2, u8g2_font_siji_t_6x10);
+        u8g2_DrawBox(&u8g2, 0, 0, 128, 12);
+        u8g2_SetDrawColor(&u8g2, 0);
+        u8g2_DrawUTF8(&u8g2, 28, 10, "SYSTEM FAULT");
+
+        u8g2_SetDrawColor(&u8g2, 1);
+
+          uint8_t x = 0;
+          uint8_t y = 24;
+          uint32_t i = 0;
+          uint8_t m = u8g2_GetMaxCharWidth(&u8g2);
+
+          while(error[i] != 0 && y< 64){
+             uint8_t w = u8g2_DrawGlyph(&u8g2, x, y, error[i]);
+             x += w;
+             if(x > 128 - m ){
+                x = 0;
+                y += 12;  
+             }
+             i++;
+          }
+        
+        u8g2_SendBuffer(&u8g2);
+    }
 }

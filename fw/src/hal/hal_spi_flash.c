@@ -27,6 +27,8 @@
 #define CMD_JEDEC_ID (0x9F)   /* Read JEDEC ID */
 #define CMD_ERASE_full (0xC7) /* Chip Erase */
 #define CMD_ERASE_64K (0xD8)  /* 64KB Block Erase */
+#define CMD_DP (0xB9)         /* Deep Power Down Mode */
+#define CMD_RDP (0xAB)        /* Release from Deep Power-Down */
 
 /* JEDEC Manufacturer¡¯s ID */
 #define MF_ID (0xEF)
@@ -125,6 +127,8 @@ ret_code_t hal_spi_flash_init() {
     m_dev.cs_pin = FLASH_CS_PIN;
     hal_spi_bus_attach(&m_dev);
 
+    hal_spi_flash_write_cmd(CMD_RDP);
+
     return NRF_SUCCESS;
 }
 
@@ -221,4 +225,9 @@ ret_code_t hal_spi_flash_erase(uint32_t address) {
     hal_spi_flash_wait_busy();
 
     return NRF_SUCCESS;
+}
+
+
+void hal_spi_flash_sleep(){
+    hal_spi_flash_write_cmd(CMD_DP);
 }
