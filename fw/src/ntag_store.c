@@ -332,6 +332,7 @@ static ret_code_t fds_wait_ready() {
 #define NTAG_STORAGE_NOT_FOUND 10000
 #define NTAG_STORAGE_READ_ERROR 10001
 #define NTAG_STORAGE_WRITE_ERROR 10002
+#define NTAG_STORAGE_READ_CORRUPT 10003
 
 ret_code_t ntag_store_init() { return NRF_SUCCESS; }
 
@@ -357,7 +358,7 @@ ret_code_t ntag_store_read(uint8_t idx, ntag_t *ntag) {
 
     if (err < 540) {
         lfs_file_close(&lfs, &file);
-        return NTAG_STORAGE_READ_ERROR;
+        return NTAG_STORAGE_READ_CORRUPT;
     }
 
     lfs_file_close(&lfs, &file);
@@ -390,7 +391,7 @@ ret_code_t ntag_store_read_default(uint8_t idx, ntag_t *ntag) {
     char path[16];
     ret_code_t err = ntag_store_read(idx, ntag);
     NRF_LOG_INFO("read ntag: %d", idx);
-    if (err == NTAG_STORAGE_NOT_FOUND) {
+    if (err == NTAG_STORAGE_NOT_FOUND || err == NTAG_STORAGE_READ_CORRUPT) {
         NRF_LOG_INFO("generate ntag: %d", idx);
         ntag_store_generate(idx, ntag);
         return ntag_store_write(idx, ntag);

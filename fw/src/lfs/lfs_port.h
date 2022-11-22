@@ -8,6 +8,9 @@
 #include "lfs.h"
 #include "sdk_errors.h"
 
+#define LFS_PORT_EXTERNAL_FLASH
+//#define LFS_PORT_INTERNAL_FLASH
+
 extern lfs_t lfs;
 extern struct lfs_config lfs_config;
 

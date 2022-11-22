@@ -171,7 +171,8 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/amiibo_private.c \
-  $(PROJ_DIR)/lfs/lfs_port.c \
+  $(PROJ_DIR)/lfs/lfs_port_internal.c \
+  $(PROJ_DIR)/lfs/lfs_port_flash.c \
   $(PROJ_DIR)/u8g2_drv.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \

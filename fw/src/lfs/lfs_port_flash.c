@@ -1,7 +1,13 @@
 //
 // Created by solos on 2021/11/21.
 //
+
+
 #include "lfs_port.h"
+
+
+#ifdef LFS_PORT_EXTERNAL_FLASH
+
 #include "hal_spi_flash.h"
 #include "lfs.h"
 
@@ -130,3 +136,5 @@ ret_code_t lfs_storage_stat(uint32_t *p_total_space, uint32_t *p_free_space) {
 
     return err;
 }
+
+#endif

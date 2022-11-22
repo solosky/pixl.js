@@ -336,6 +336,9 @@ int main(void) {
 
 	#ifdef SPI_FLASH
 	hal_spi_flash_init();
+
+	// #endif
+	// #ifdef LFS_PORT_INTERNAL_FLASH
 	
 	err_code = lfs_port_init();
 	APP_ERROR_CHECK(err_code);
