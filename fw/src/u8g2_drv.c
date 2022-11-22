@@ -185,7 +185,7 @@ void u8g2_drv_deinit() {
 void u8g2_drv_app_error(char *error) {
     if (m_u8g2_initialized) {
         u8g2_ClearBuffer(&u8g2);
-        u8g2_SetFont(&u8g2, u8g2_font_siji_t_6x10);
+        u8g2_SetFont(&u8g2, u8g2_font_wqy12_t_gb2312a);
         u8g2_DrawBox(&u8g2, 0, 0, 128, 12);
         u8g2_SetDrawColor(&u8g2, 0);
         u8g2_DrawUTF8(&u8g2, 28, 10, "SYSTEM FAULT");

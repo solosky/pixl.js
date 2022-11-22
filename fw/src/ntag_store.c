@@ -10,8 +10,8 @@
 #include "nrf_log.h"
 #include "utils.h"
 
-//#define STORAGE_FDS
-#define STORAGE_LFS
+#define STORAGE_FDS
+//#define STORAGE_LFS
 
 const ntag_t default_ntag215 = {
     .type = NTAG_215,

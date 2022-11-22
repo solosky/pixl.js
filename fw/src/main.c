@@ -103,7 +103,7 @@
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
-#define SPI_FLASH
+//#define SPI_FLASH
 
 
 /**
