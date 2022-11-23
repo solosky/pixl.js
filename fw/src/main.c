@@ -79,6 +79,8 @@
 #include "bat.h"
 #include "ble_main.h"
 
+#include "nrf_sdh.h"
+
 #include "nrf_crypto.h"
 #include "mem_manager.h"
 
@@ -88,8 +90,15 @@
 
 #include "amiibo_helper.h"
 
+
 #include "mui.h"
 #include "mini_app_launcher.h"
+
+#include "hal_spi_bus.h"
+#include "hal_spi_flash.h"
+
+#include "lfs_port.h"
+
 
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
@@ -98,6 +107,8 @@
 #define BTN_ACTION_KEY1_LONGPUSH  BSP_EVENT_KEY_LAST + 9
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
+
+//#define SPI_FLASH
 
 
 /**
@@ -258,6 +269,7 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event)
             // Set up NFCT peripheral as the only wake up source.
 			NRF_LOG_DEBUG("go sleep");
 			u8g2_drv_deinit();
+			hal_spi_flash_sleep();
 			err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
 			APP_ERROR_CHECK(err_code);
 
@@ -324,11 +336,38 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
 
+    hal_spi_bus_init();
 	u8g2_drv_init();
 
-	err_code = ble_init();
+	#ifdef SPI_FLASH
+	hal_spi_flash_init();
+
+	// #endif
+	// #ifdef LFS_PORT_INTERNAL_FLASH
+	
+	err_code = lfs_port_init();
 	APP_ERROR_CHECK(err_code);
-	NRF_LOG_DEBUG("ble init done");
+
+	#endif
+
+	//enable sd to enable pwr mgmt
+	err_code = nrf_sdh_enable_request();
+	APP_ERROR_CHECK(err_code);
+
+	//enable dcdc 
+	// err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
+	// APP_ERROR_CHECK(err_code);
+
+	err_code = sd_power_pof_threshold_set(NRF_POWER_THRESHOLD_V18);
+	APP_ERROR_CHECK(err_code);
+
+	err_code = sd_power_pof_enable(true);
+	APP_ERROR_CHECK(err_code);
+
+	
+	// err_code = ble_init();
+	// APP_ERROR_CHECK(err_code);
+	// NRF_LOG_DEBUG("ble init done");
 
 	
 	extern const uint8_t amiibo_key_retail[];
@@ -349,7 +388,6 @@ int main(void) {
 
 	ntag_indicator_update();
 
-	bat_level_t bat_level = bat_get_level();
 
 	NRF_LOG_DEBUG("display done");
 
@@ -359,6 +397,7 @@ int main(void) {
 
 	mini_app_launcher_t* p_launcher = mini_app_launcher();
 	mini_app_launcher_init(p_launcher);
+
 
 	NRF_LOG_FLUSH();
 

@@ -6655,7 +6655,7 @@
 // <i> The total amount of flash memory that is used by FDS amounts to @ref FDS_VIRTUAL_PAGES * @ref FDS_VIRTUAL_PAGE_SIZE * 4 bytes.
 
 #ifndef FDS_VIRTUAL_PAGES
-#define FDS_VIRTUAL_PAGES 16
+#define FDS_VIRTUAL_PAGES 84
 #endif
 
 // <o> FDS_VIRTUAL_PAGE_SIZE  - The size of a virtual flash page.
@@ -7307,7 +7307,7 @@
 // <i> Shutdown procedure will begin no earlier than after this number of seconds.
 
 #ifndef NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S
-#define NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S 10
+#define NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S 15
 #endif
 
 // </e>

@@ -13,6 +13,7 @@
 #include "nrf_log.h"
 
 #include "u8g2_drv.h"
+#include "bat.h"
 
 #define MAX_TAG_COUNT 50
 
@@ -37,11 +38,18 @@ static uint8_t ntag_indicator_internal_get(){
 void ntag_indicator_update() {
 	uint32_t card_index = ntag_indicator_current();
 
+	uint8_t bt = bat_get_level();
+	if(bt == 0){
+		bt = 1;
+	}
+
+	//NRF_LOG_INFO("bat level: %d", bt);
+
 	 u8g2_ClearBuffer(&u8g2);
 	u8g2_SetFont(&u8g2, u8g2_font_siji_t_6x10);
 	u8g2_DrawUTF8(&u8g2, 0, 8, "12:45");
 	u8g2_DrawGlyph(&u8g2, 100, 8,  0xe1b5);
-	u8g2_DrawGlyph(&u8g2, 110, 8,  0xe250);
+	u8g2_DrawGlyph(&u8g2, 110, 8,  0xe24c + bt - 1); //只有9个电池字符
 
 
      u8g2_SetFont(&u8g2, u8g2_font_wqy12_t_gb2312a);

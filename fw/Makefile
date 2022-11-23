@@ -9,7 +9,7 @@ U8G2_ROOT := ./components/u8g2/csrc
 GNU_INSTALL_ROOT := /usr/local/bin/
 
 $(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
-  LINKER_SCRIPT  := ld/ble_app_hrs_gcc_nrf52.ld
+  LINKER_SCRIPT  := ld/ble_app_blinky_gcc_nrf52.ld
 
 # Source files common to all targets
 SRC_FILES += \
@@ -171,7 +171,12 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/amiibo_private.c \
+  $(PROJ_DIR)/lfs/lfs_port_internal.c \
+  $(PROJ_DIR)/lfs/lfs_port_flash.c \
   $(PROJ_DIR)/u8g2_drv.c \
+  $(PROJ_DIR)/app_error_handler.c \
+  $(PROJ_DIR)/hal/hal_spi_bus.c \
+  $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -181,6 +186,8 @@ SRC_FILES += \
   $(COMP_DIR)/amiitool/src/drbg.c \
   $(COMP_DIR)/amiitool/src/keygen.c \
   $(COMP_DIR)/amiitool/src/version.c \
+  $(COMP_DIR)/littlefs/lfs.c \
+  $(COMP_DIR)/littlefs/lfs_util.c \
   $(U8G2_ROOT)\u8g2_bitmap.c \
   $(U8G2_ROOT)\u8g2_box.c \
   $(U8G2_ROOT)\u8g2_buffer.c \
@@ -228,7 +235,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_ancs_c \
   $(SDK_ROOT)/components/ble/ble_services/ble_ias_c \
   $(SDK_ROOT)/components/libraries/pwm \
-  $(SDK_ROOT)/components/softdevice/s132/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/s112/headers/nrf52 \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm \
   $(SDK_ROOT)/components/libraries/usbd/class/hid/generic \
   $(SDK_ROOT)/components/libraries/usbd/class/msc \
@@ -266,7 +273,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_bas \
   $(SDK_ROOT)/components/libraries/mpu \
   $(SDK_ROOT)/components/libraries/experimental_section_vars \
-  $(SDK_ROOT)/components/softdevice/s132/headers \
+  $(SDK_ROOT)/components/softdevice/s112/headers \
   $(SDK_ROOT)/components/ble/ble_services/ble_ans_c \
   $(SDK_ROOT)/components/libraries/slip \
   $(SDK_ROOT)/components/libraries/delay \
@@ -364,9 +371,12 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls \
   $(SDK_ROOT)/external/mbedtls/include \
   $(PROJ_DIR) \
+  $(PROJ_DIR)/hal \
+  $(PROJ_DIR)/lfs \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
+  $(COMP_DIR)/littlefs \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets
@@ -374,9 +384,9 @@ LIB_FILES += \
 
 # Optimization flags
 OPT = -O3 -g3
-#OPT = -Os -ffunction-sections -fdata-sections
+# OPT = -Os -ffunction-sections -fdata-sections
 # Uncomment the line below to enable link time optimization
-#OPT += -flto
+# OPT += -flto
 
 # C flags common to all targets
 CFLAGS += $(OPT)
@@ -390,7 +400,7 @@ CFLAGS += -DNRF52
 CFLAGS += -DNRF52832_XXAA
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
-CFLAGS += -DS132
+CFLAGS += -DS112
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE 
 CFLAGS += -DDEBUG
@@ -421,7 +431,7 @@ ASMFLAGS += -DNRF52
 ASMFLAGS += -DNRF52832_XXAA
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
-ASMFLAGS += -DS132
+ASMFLAGS += -DS112
 ASMFLAGS += -DSOFTDEVICE_PRESENT
 
 # Linker flags
@@ -475,8 +485,8 @@ flash: default
 
 # Flash softdevice
 flash_softdevice:
-	@echo Flashing: s132_nrf52_7.2.0_softdevice.hex
-	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/s132/hex/s132_nrf52_7.2.0_softdevice.hex --sectorerase --log
+	@echo Flashing: s112_nrf52_7.2.0_softdevice.hex
+	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex --sectorerase --log
 	nrfjprog -f nrf52 --reset --log
 
 erase:
