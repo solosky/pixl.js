@@ -2,7 +2,7 @@ PROJECT_NAME     := ble_app_blinky_pca10040_s132
 TARGETS          := nrf52832_xxaa
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.0.2_d674dde
+SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560
 PROJ_DIR := ./src/
 COMP_DIR := ./components
 U8G2_ROOT := ./components/u8g2/csrc
