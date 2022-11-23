@@ -173,10 +173,16 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/lfs/lfs_port_internal.c \
   $(PROJ_DIR)/lfs/lfs_port_flash.c \
-  $(PROJ_DIR)/u8g2_drv.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
+  $(PROJ_DIR)/mui/mui_view.c \
+  $(PROJ_DIR)/mui/mui_view_port.c \
+  $(PROJ_DIR)/mui/mui_u8g2.c \
+  $(PROJ_DIR)/mui/mui_core.c \
+  $(PROJ_DIR)/mui/mui_canvas.c \
+  $(PROJ_DIR)/core/mini_app_launcher.c \
+  $(PROJ_DIR)/core/mini_app_registry.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -373,6 +379,8 @@ INC_FOLDERS += \
   $(PROJ_DIR) \
   $(PROJ_DIR)/hal \
   $(PROJ_DIR)/lfs \
+  $(PROJ_DIR)/mui \
+  $(PROJ_DIR)/core \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
@@ -406,6 +414,7 @@ CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
+CFLAGS += -DM_USE_THREAD_BACKEND=0
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
 #CFLAGS += -Wall -Werror
@@ -433,6 +442,7 @@ ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
 ASMFLAGS += -DS112
 ASMFLAGS += -DSOFTDEVICE_PRESENT
+ASMFLAGS += -DM_USE_THREAD_BACKEND=0
 
 # Linker flags
 LDFLAGS += $(OPT)

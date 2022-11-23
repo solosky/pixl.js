@@ -8,6 +8,12 @@
     90
   ],
   "files.associations": {
+    "mui_view_port.h": "c",
+    "mui_event.h": "c",
+    "mui_input.h": "c",
+    "m-mutex.h": "c",
+    "m-atomic.h": "c",
+    "m-array.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

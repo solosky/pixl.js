@@ -2,7 +2,6 @@
 #define MUI_INPUT_H
 
 #include <stdint.h>
-#include "mui_core.h"
 
 
 typedef enum {

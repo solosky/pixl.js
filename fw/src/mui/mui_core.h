@@ -7,7 +7,9 @@
 #include "m-array.h"
 #include "m-algo.h"
 #include "mui_event.h"
+#include "mui_input.h"
 #include "mui_view_port.h"
+
 
 ARRAY_DEF(mui_view_port_array, mui_view_port_t*, M_PTR_OPLIST);
 

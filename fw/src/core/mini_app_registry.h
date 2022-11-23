@@ -3,7 +3,7 @@
 
 #include "mini_app_defines.h"
 
-#include "app_status_bar.h"
+//#include "app_status_bar.h"
 
 typedef enum { MINI_APP_ID_STATUS_BAR, MINI_APP_ID_DESKTOP } mini_app_id_t;
 
