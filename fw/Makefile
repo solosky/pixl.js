@@ -163,6 +163,7 @@ SRC_FILES += \
 	$(SDK_ROOT)/external/mbedtls/library/xtea.c \
   $(PROJ_DIR)/main.c \
   $(PROJ_DIR)/ntag_emu.c \
+  $(PROJ_DIR)/ntag_emu_v2.c \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/ntag_indicator.c \
   $(PROJ_DIR)/bat.c \
@@ -177,6 +178,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
+  $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -380,7 +382,7 @@ INC_FOLDERS += \
 
 # Libraries common to all targets
 LIB_FILES += \
-
+  $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
 OPT = -O3 -g3
 # OPT = -Os -ffunction-sections -fdata-sections

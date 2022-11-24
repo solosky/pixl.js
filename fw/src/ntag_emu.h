@@ -8,7 +8,10 @@
 #ifndef NTAG_EMU_H_
 #define NTAG_EMU_H_
 
+#define NTAG_EMU_V2
+
 #include "ntag_def.h"
+#include "nrfx.h"
 
 ret_code_t ntag_emu_init(ntag_t* tag);
 void ntag_emu_uninit();
