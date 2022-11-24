@@ -65,6 +65,8 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
                                  uint8_t *plain) {
     // NRF_LOG_INFO("NFC COMMAND %d", p_data[0]);
 
+	nrf_pwr_mgmt_feed();
+
     uint8_t command = p_data[0];
     uint8_t block_num = p_data[1];
 
