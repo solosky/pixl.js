@@ -188,44 +188,44 @@ SRC_FILES += \
   $(COMP_DIR)/amiitool/src/version.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
-  $(U8G2_ROOT)\u8g2_bitmap.c \
-  $(U8G2_ROOT)\u8g2_box.c \
-  $(U8G2_ROOT)\u8g2_buffer.c \
-  $(U8G2_ROOT)\u8g2_circle.c \
-  $(U8G2_ROOT)\u8g2_cleardisplay.c \
-  $(U8G2_ROOT)\u8g2_d_memory.c \
-  $(U8G2_ROOT)\u8g2_d_setup.c \
-  $(U8G2_ROOT)\u8g2_font.c \
-  $(U8G2_ROOT)\u8g2_fonts.c \
-  $(U8G2_ROOT)\u8g2_hvline.c \
-  $(U8G2_ROOT)\u8g2_input_value.c \
-  $(U8G2_ROOT)\u8g2_intersection.c \
-  $(U8G2_ROOT)\u8g2_kerning.c \
-  $(U8G2_ROOT)\u8g2_line.c \
-  $(U8G2_ROOT)\u8g2_ll_hvline.c \
-  $(U8G2_ROOT)\u8g2_message.c \
-  $(U8G2_ROOT)\u8g2_polygon.c \
-  $(U8G2_ROOT)\u8g2_selection_list.c \
-  $(U8G2_ROOT)\u8g2_setup.c \
-  $(U8G2_ROOT)\u8log.c \
-  $(U8G2_ROOT)\u8log_u8g2.c \
-  $(U8G2_ROOT)\u8log_u8x8.c \
-  $(U8G2_ROOT)\u8x8_8x8.c \
-  $(U8G2_ROOT)\u8x8_byte.c \
-  $(U8G2_ROOT)\u8x8_cad.c \
-  $(U8G2_ROOT)\u8x8_capture.c \
-  $(U8G2_ROOT)\u8x8_d_st7567.c \
-  $(U8G2_ROOT)\u8x8_debounce.c \
-  $(U8G2_ROOT)\u8x8_display.c \
-  $(U8G2_ROOT)\u8x8_fonts.c \
-  $(U8G2_ROOT)\u8x8_gpio.c \
-  $(U8G2_ROOT)\u8x8_input_value.c \
-  $(U8G2_ROOT)\u8x8_message.c \
-  $(U8G2_ROOT)\u8x8_selection_list.c \
-  $(U8G2_ROOT)\u8x8_setup.c \
-  $(U8G2_ROOT)\u8x8_string.c \
-  $(U8G2_ROOT)\u8x8_u16toa.c \
-  $(U8G2_ROOT)\u8x8_u8toa.c 
+  $(U8G2_ROOT)/u8g2_bitmap.c \
+  $(U8G2_ROOT)/u8g2_box.c \
+  $(U8G2_ROOT)/u8g2_buffer.c \
+  $(U8G2_ROOT)/u8g2_circle.c \
+  $(U8G2_ROOT)/u8g2_cleardisplay.c \
+  $(U8G2_ROOT)/u8g2_d_memory.c \
+  $(U8G2_ROOT)/u8g2_d_setup.c \
+  $(U8G2_ROOT)/u8g2_font.c \
+  $(U8G2_ROOT)/u8g2_fonts.c \
+  $(U8G2_ROOT)/u8g2_hvline.c \
+  $(U8G2_ROOT)/u8g2_input_value.c \
+  $(U8G2_ROOT)/u8g2_intersection.c \
+  $(U8G2_ROOT)/u8g2_kerning.c \
+  $(U8G2_ROOT)/u8g2_line.c \
+  $(U8G2_ROOT)/u8g2_ll_hvline.c \
+  $(U8G2_ROOT)/u8g2_message.c \
+  $(U8G2_ROOT)/u8g2_polygon.c \
+  $(U8G2_ROOT)/u8g2_selection_list.c \
+  $(U8G2_ROOT)/u8g2_setup.c \
+  $(U8G2_ROOT)/u8log.c \
+  $(U8G2_ROOT)/u8log_u8g2.c \
+  $(U8G2_ROOT)/u8log_u8x8.c \
+  $(U8G2_ROOT)/u8x8_8x8.c \
+  $(U8G2_ROOT)/u8x8_byte.c \
+  $(U8G2_ROOT)/u8x8_cad.c \
+  $(U8G2_ROOT)/u8x8_capture.c \
+  $(U8G2_ROOT)/u8x8_d_st7567.c \
+  $(U8G2_ROOT)/u8x8_debounce.c \
+  $(U8G2_ROOT)/u8x8_display.c \
+  $(U8G2_ROOT)/u8x8_fonts.c \
+  $(U8G2_ROOT)/u8x8_gpio.c \
+  $(U8G2_ROOT)/u8x8_input_value.c \
+  $(U8G2_ROOT)/u8x8_message.c \
+  $(U8G2_ROOT)/u8x8_selection_list.c \
+  $(U8G2_ROOT)/u8x8_setup.c \
+  $(U8G2_ROOT)/u8x8_string.c \
+  $(U8G2_ROOT)/u8x8_u16toa.c \
+  $(U8G2_ROOT)/u8x8_u8toa.c 
 
 # Include folders common to all targets
 INC_FOLDERS += \
