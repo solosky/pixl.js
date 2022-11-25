@@ -4,5 +4,22 @@
   },
   "C_Cpp.clang_format_style": "file",
   "C_Cpp.clang_format_fallbackStyle": "none",
-  "editor.rulers": [90],
+  "editor.rulers": [
+    90
+  ],
+  "files.associations": {
+    "u8x8.h": "c",
+    "u8g2.h": "c",
+    "*.tcc": "c",
+    "u8g2_drv.h": "c",
+    "algorithm": "c",
+    "lfs_port.h": "c",
+    "array": "c",
+    "string": "c",
+    "string_view": "c",
+    "ranges": "c",
+    "hal_spi_flash.h": "c",
+    "ntag_def.h": "c"
+  },
+  "cortex-debug.variableUseNaturalFormat": true,
 }

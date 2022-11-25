@@ -1,0 +1,3 @@
+[submodule "fw/components/littlefs"]
+	path = fw/components/littlefs
+	url = https://github.com/littlefs-project/littlefs.git

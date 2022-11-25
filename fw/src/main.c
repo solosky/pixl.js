@@ -73,8 +73,13 @@
 #include "ntag_store.h"
 #include "ntag_indicator.h"
 
+
+#include "amiibo_data.h"
+
 #include "bat.h"
 #include "ble_main.h"
+
+#include "nrf_sdh.h"
 
 #include "nrf_crypto.h"
 #include "mem_manager.h"
@@ -85,10 +90,20 @@
 
 #include "amiibo_helper.h"
 
+#include "hal_spi_bus.h"
+#include "hal_spi_flash.h"
+
+#include "lfs_port.h"
+
 #define APP_SCHED_MAX_EVENT_SIZE 4                  /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE     16                  /**< Maximum number of events in the scheduler queue. */
 
 #define BTN_ID_SLEEP                1 /**< ID of button used to put the application into sleep mode. */
+#define BTN_ACTION_KEY1_LONGPUSH  BSP_EVENT_KEY_LAST + 9
+
+#define APP_SHUTDOWN_HANDLER_PRIORITY 1
+
+//#define SPI_FLASH
 
 
 /**
@@ -109,11 +124,14 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 	switch (evt) {
 
 	case BSP_EVENT_KEY_0: {
+
+		nrf_pwr_mgmt_feed();
+
 		NRF_LOG_DEBUG("Key 0 press");
 		ntag_t ntag;
 		ret_code_t err_code = NRF_SUCCESS;
 
-		uint8_t index = ntag_indicator_switch_next();
+		uint8_t index = ntag_indicator_switch_prev();
 		err_code = ntag_store_read_default(index, &ntag);
 		APP_ERROR_CHECK(err_code);
 		ntag_emu_set_tag(&ntag);
@@ -121,12 +139,15 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 
 		ntag_indicator_update();
 
-		NRF_LOG_DEBUG("Key 0 done");
+		
 
 		break;
 	}
 
 	case BSP_EVENT_KEY_1: {
+
+		nrf_pwr_mgmt_feed();
+
 		NRF_LOG_DEBUG("Key 1 press");
 
 		//regenerate
@@ -136,6 +157,14 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 	ntag_t *ntag_current = ntag_emu_get_current_tag();
 	memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
 
+	uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
+	uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
+
+	const amiibo_data_t *amd = find_amiibo_data(head, tail);
+	if(amd == NULL){
+		return;
+	}
+
     NRF_LOG_INFO("reset uuid begin");
 
 	err_code = ntag_store_uuid_rand(&ntag_new);
@@ -144,8 +173,6 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 
     //sign new
     err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
-    APP_ERROR_CHECK(err_code);
-
 	if (err_code == NRF_SUCCESS) {
 		//ntag_emu_set_uuid_only(&ntag_new);
 		ntag_emu_set_tag(&ntag_new);
@@ -159,11 +186,14 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 	}
 
 	case BSP_EVENT_KEY_2: {
+
+		nrf_pwr_mgmt_feed();
+
 		NRF_LOG_DEBUG("Key 2 press");
 		ntag_t ntag;
 		ret_code_t err_code = NRF_SUCCESS;
 
-		uint8_t index = ntag_indicator_switch_prev();
+		uint8_t index = ntag_indicator_switch_next();
 		err_code = ntag_store_read_default(index, &ntag);
 		APP_ERROR_CHECK(err_code);
 		ntag_emu_set_tag(&ntag);
@@ -174,17 +204,39 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 		break;
 	}
 
-	case BSP_EVENT_SLEEP: {
-		// Set up NFCT peripheral as the only wake up source.
+	case BTN_ACTION_KEY1_LONGPUSH:{
+
+		nrf_pwr_mgmt_feed();
+
+		NRF_LOG_DEBUG("Key 1 long press");
 		ret_code_t err_code = NRF_SUCCESS;
-		err_code = bsp_nfc_sleep_mode_prepare();
-		//APP_ERROR_CHECK(err_code);
-		//err_code = bsp_buttons_disable();
+
+		ntag_t *ntag = ntag_emu_get_current_tag();
+		uint8_t index = ntag_indicator_current();
+		err_code = ntag_store_reset(index, ntag);
 		APP_ERROR_CHECK(err_code);
-		err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
+		ntag_emu_set_tag(ntag);
 		APP_ERROR_CHECK(err_code);
-		// Turn off LED to indicate that the device entered System OFF mode.
-		bsp_board_leds_off();
+
+		ntag_indicator_update();
+
+		NRF_LOG_DEBUG("reset tag");
+
+		break;
+
+	}
+
+	case BSP_EVENT_SLEEP: {
+		// // Set up NFCT peripheral as the only wake up source.
+		// ret_code_t err_code = NRF_SUCCESS;
+		// err_code = bsp_nfc_sleep_mode_prepare();
+		// //APP_ERROR_CHECK(err_code);
+		// //err_code = bsp_buttons_disable();
+		// APP_ERROR_CHECK(err_code);
+		// err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
+		// APP_ERROR_CHECK(err_code);
+		// // Turn off LED to indicate that the device entered System OFF mode.
+		// bsp_board_leds_off();
 		break;
 	}
 	default:
@@ -196,6 +248,46 @@ void bsp_evt_execute(void * p_event_data, uint16_t event_size) {
 void bsp_evt_handler(bsp_event_t evt) {
 	app_sched_event_put(&evt, sizeof(evt), bsp_evt_execute);
 }
+
+/**
+ * @brief Function for shutdown events.
+ *
+ * @param[in]   event       Shutdown type.
+ */
+static bool shutdown_handler(nrf_pwr_mgmt_evt_t event)
+{
+    ret_code_t err_code;
+
+    switch (event)
+    {
+        case NRF_PWR_MGMT_EVT_PREPARE_WAKEUP:
+            // Set up NFCT peripheral as the only wake up source.
+			NRF_LOG_DEBUG("go sleep");
+			u8g2_drv_deinit();
+			hal_spi_flash_sleep();
+			err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
+			APP_ERROR_CHECK(err_code);
+
+			// err_code = bsp_btn_ble_sleep_mode_prepare();
+			// APP_ERROR_CHECK(err_code);
+			err_code = bsp_nfc_sleep_mode_prepare();
+			//APP_ERROR_CHECK(err_code);
+			//err_code = bsp_buttons_disable();
+			APP_ERROR_CHECK(err_code);
+
+			// Turn off LED to indicate that the device entered System OFF mode.
+			bsp_board_leds_off();
+			
+            break;
+
+        default:
+            break;
+    }
+
+    return true;
+}
+
+NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 
 
 /**
@@ -222,7 +314,11 @@ int main(void) {
 	err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_evt_handler);
 	APP_ERROR_CHECK(err_code);
 
-	err_code = bsp_nfc_btn_init(BTN_ID_SLEEP);
+	// err_code = bsp_nfc_btn_init(BTN_ID_SLEEP);
+	// APP_ERROR_CHECK(err_code);
+
+
+	err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH, BTN_ACTION_KEY1_LONGPUSH);
 	APP_ERROR_CHECK(err_code);
 
     err_code = nrf_crypto_init();
@@ -231,8 +327,42 @@ int main(void) {
     err_code = nrf_mem_init();
     APP_ERROR_CHECK(err_code);
 
+	err_code = nrf_pwr_mgmt_init();
+    APP_ERROR_CHECK(err_code);
 
+
+    hal_spi_bus_init();
 	u8g2_drv_init();
+
+	#ifdef SPI_FLASH
+	hal_spi_flash_init();
+
+	// #endif
+	// #ifdef LFS_PORT_INTERNAL_FLASH
+	
+	err_code = lfs_port_init();
+	APP_ERROR_CHECK(err_code);
+
+	#endif
+
+	//enable sd to enable pwr mgmt
+	err_code = nrf_sdh_enable_request();
+	APP_ERROR_CHECK(err_code);
+
+	//enable dcdc 
+	// err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
+	// APP_ERROR_CHECK(err_code);
+
+	err_code = sd_power_pof_threshold_set(NRF_POWER_THRESHOLD_V18);
+	APP_ERROR_CHECK(err_code);
+
+	err_code = sd_power_pof_enable(true);
+	APP_ERROR_CHECK(err_code);
+
+	
+	// err_code = ble_init();
+	// APP_ERROR_CHECK(err_code);
+	// NRF_LOG_DEBUG("ble init done");
 
 	
 	extern const uint8_t amiibo_key_retail[];
@@ -253,13 +383,6 @@ int main(void) {
 
 	ntag_indicator_update();
 
-	bat_level_t bat_level = bat_get_level();
-
-	NRF_LOG_DEBUG("display done");
-
-	err_code = ble_init();
-	APP_ERROR_CHECK(err_code);
-	NRF_LOG_DEBUG("ble init done");
 
 	NRF_LOG_FLUSH();
 

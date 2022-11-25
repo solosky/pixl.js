@@ -428,8 +428,10 @@ static void ble_stack_init(void)
 {
     ret_code_t err_code;
 
-    err_code = nrf_sdh_enable_request();
-    APP_ERROR_CHECK(err_code);
+    if(!nrf_sdh_is_enabled()){
+        err_code = nrf_sdh_enable_request();
+        APP_ERROR_CHECK(err_code);
+    }
 
     // Configure the BLE stack using the default settings.
     // Fetch the start address of the application RAM.

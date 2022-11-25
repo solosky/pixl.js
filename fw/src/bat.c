@@ -26,6 +26,10 @@
 
 #define ADC_CHANNEL 0
 
+//3.0 2.8  2.6  2.4  2.2 2.1 2.0 1.9 1.8 1.7
+//const uint32_t adc_map[] = { 853, 796, 739, 682, 625, 597, 569, 541, 512, 484}
+const uint32_t adc_map[] = { 484, 512, 541, 569, 597, 625, 682, 739, 796, 853};
+
 void saadc_callback(nrf_drv_saadc_evt_t const *p_event) {
 	NRF_LOG_INFO("ADC event: %d", p_event->type);
 }
@@ -33,7 +37,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const *p_event) {
 void saadc_init(void) {
 	ret_code_t err_code;
 	nrf_saadc_channel_config_t channel_config =
-			NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN5);
+			NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(NRF_SAADC_INPUT_AIN0);
 
 	err_code = nrf_drv_saadc_init(NULL, saadc_callback);
 	APP_ERROR_CHECK(err_code);
@@ -47,13 +51,10 @@ void saadc_uninit(void) {
 	nrf_drv_saadc_uninit();
 }
 
-bat_level_t bat_get_level(void) {
+uint8_t bat_get_level(void) {
 
 	nrf_saadc_value_t adc_value;
 	ret_code_t err_code;
-
-	bsp_board_led_on(0);
-	nrf_delay_ms(1);
 
 	saadc_init();
 	err_code = nrfx_saadc_sample_convert(ADC_CHANNEL, &adc_value);
@@ -61,19 +62,14 @@ bat_level_t bat_get_level(void) {
 
 	NRF_LOG_INFO("adc value: %d", adc_value);
 
-	nrf_drv_saadc_uninit();
-	bsp_board_led_off(0);
+	saadc_uninit();
 
-	if (adc_value > 455) { //3.2V
-		return FULL;
-	} else if (adc_value > 426) { //3.0V
-		return LEVEL_3;
-	} else if (adc_value > 398) { //2.8V
-		return LEVEL_2;
-	} else if (adc_value > 341) { //2.4V
-		return LEVEL_1;
-	} else {
-		return EMPTY;
+	for(uint32_t i=0;  i<sizeof(adc_map); i++){
+		if(adc_map[i] > adc_value){
+			return i;
+		}
 	}
+
+	return 0;
 }
 

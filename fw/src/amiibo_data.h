@@ -19,6 +19,7 @@ typedef struct  {
 	const char* game_series;
 	const char* character;
 	const char* name;
+	const char* notes;
 } amiibo_data_t;
 
 

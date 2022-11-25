@@ -1,0 +1,12 @@
+{
+  Language: Cpp,
+  BasedOnStyle: LLVM,
+
+  AllowShortIfStatementsOnASingleLine: true,
+  BreakBeforeBraces: Attach,
+  ColumnLimit: 90,
+  IndentCaseLabels: false,
+  IndentWidth: 4,
+  TabWidth: 4,
+  UseTab: Never,
+}

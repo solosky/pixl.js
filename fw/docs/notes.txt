@@ -1,0 +1,33 @@
+NFC antenna match cap
+
+//110pF: 16.9MHz 
+//150pf: 14.8MHz
+//180pF: 14.35MHz
+
+
+Power consumption
+
+
+LCD OFF, SYS OFF: 0.9uA
+LCD ON, SYS OFF: 107.3uA
+LCD ON, SYS WFE: 562uA
+LCD ON, BL ON, SYS OFF: 6.04mA
+
+
+
+//flash region 
+//start_addr, length 
+0, 0x26000: MBR + SD  (152KB)
+0x26000, 0x5a000: app (360KB)
+
+
+//new
+0, 0x19000: MBR + SD  (100KB)
+0x19000, 0x4a000: app (296KB)
+0x63000, 0x15000: fs (84KB)
+0x78000, 0x8000: bl + param (32KB)
+
+
+
+构建固件时候需要注释掉 nRF5_SDK_17.1.0_ddde560\integration\nrfx\nrfx_glue.h 里面下面一行
+#include <legacy/apply_old_config.h>

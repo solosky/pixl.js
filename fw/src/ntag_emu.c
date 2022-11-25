@@ -4,6 +4,10 @@
  *  Created on: 2021年5月30日
  *      Author: solos
  */
+
+#ifdef NTAG_EMU_V1
+
+
 #include "nrf52.h"
 #include "nrf52_bitfields.h"
 #include "nrf_log.h"
@@ -23,6 +27,9 @@ typedef struct {
 	uint8_t dirty;
 	uint8_t busy;
 } ntag_emu_t;
+
+
+
 
 uint8_t rx_buf[64];
 uint8_t tx_buf[64];
@@ -78,7 +85,14 @@ void nrfx_event_callback(nrfx_nfct_evt_t const *p_event) {
 	}
 
 	case NRFX_NFCT_EVT_RX_FRAMEEND: {
+
+		nrf_pwr_mgmt_feed();
+		
 		//NRF_LOG_DEBUG("T2T: RX END");
+		// NRF_LOG_DEBUG("RX: %02x %02x", 
+		// p_event->params.rx_frameend.rx_data.p_data[0],
+		// p_event->params.rx_frameend.rx_data.p_data[1]
+		// );
 
 		//COMP WRITE DATA
 		if (comp_write_pending) {
@@ -253,8 +267,58 @@ void nrfx_event_callback(nrfx_nfct_evt_t const *p_event) {
 
 }
 
+
+static void fix_ntag_data(ntag_t * ntag){
+
+	//  byte[] pages = tag.readPages(0);
+
+    //     if (null == pages  || pages.length != NfcByte.PAGE_SIZE * 4)
+    //         throw new IOException(TagMo.getContext().getString(R.string.fail_read));
+
+	//  tag.writePage(2, new byte[]{pages[2 * NfcByte.PAGE_SIZE],
+    //             pages[(2 * NfcByte.PAGE_SIZE) + 1], (byte) 0x0F, (byte) 0xE0}); // lock bits
+	// tag.writePage(130, new byte[]{(byte) 0x01, (byte) 0x00, (byte) 0x0F, (byte) 0x00});
+	// // dynamic lock bits. should the last bit be 0xBD according to the nfc docs though:
+	// // Remark: Set all bits marked with RFUI to 0, when writing to the dynamic lock bytes.
+	// tag.writePage(131, new byte[]{(byte) 0x00, (byte) 0x00, (byte) 0x00, (byte) 0x04}); // config
+	// tag.writePage(132, new byte[]{(byte) 0x5F, (byte) 0x00, (byte) 0x00, (byte) 0x00}); // config
+
+
+	//12
+	uint32_t offset = 2 * 4;
+	ntag->data[offset + 0] = ntag->data[8];
+	ntag->data[offset + 1] = ntag->data[8];
+	ntag->data[offset + 2] = 0x0F;
+	ntag->data[offset + 3] = 0xE0;
+
+
+	//130
+	offset = 130 * 4;
+	ntag->data[offset + 0] = 0x01;
+	ntag->data[offset + 1] = 0x00;
+	ntag->data[offset + 2] = 0x0F;
+	ntag->data[offset + 3] = 0x00;
+
+	//131
+	offset = 131 * 4;
+	ntag->data[offset + 0] = 0x00;
+	ntag->data[offset + 1] = 0x00;
+	ntag->data[offset + 2] = 0x00;
+	ntag->data[offset + 3] = 0x04;
+
+	//132
+	offset = 132 * 4;
+	ntag->data[offset + 0] = 0x5f;
+	ntag->data[offset + 1] = 0x00;
+	ntag->data[offset + 2] = 0x00;
+	ntag->data[offset + 3] = 0x00;
+}
+
+
 static void update_ntag_handler(void * p_event_data, uint16_t event_size) {
 	ntag_emu.busy = true;
+	
+	fix_ntag_data(&(ntag_emu.ntag));
 	ntag_emu_set_tag(&(ntag_emu.ntag));
 
 	uint8_t index = ntag_indicator_current();
@@ -334,3 +398,4 @@ void ntag_emu_set_uuid_only(ntag_t* ntag){
 		nrfx_nfct_parameter_set(&param);
 }
 
+#endif 

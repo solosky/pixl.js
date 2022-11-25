@@ -7,7 +7,7 @@
 
 #ifndef BAT_H_
 #define BAT_H_
-
+#include <stdint.h>
 
 typedef enum {
 	EMPTY,
@@ -17,7 +17,7 @@ typedef enum {
 	FULL
 } bat_level_t;
 
-bat_level_t bat_get_level(void);
+uint8_t bat_get_level(void);
 
 
 #endif /* BAT_H_ */
