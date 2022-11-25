@@ -170,6 +170,7 @@ SRC_FILES += \
   $(PROJ_DIR)/ble_main.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/amiibo_data.c \
+  $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/lfs/lfs_port_internal.c \
