@@ -21,28 +21,36 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
     mui_view_port_t *p_view_port =
         mui_find_view_port_enabled(p_mui, p_mui->layers[MUI_LAYER_FULLSCREEN]);
     if (p_view_port) {
-        p_view_port->draw_cb(p_view_port, &p_view_port->canvas);
+        mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width,
+                             p_mui->screen_height);
+        p_view_port->draw_cb(p_view_port, &p_mui->canvas);
         return;
     }
 
     p_view_port = mui_find_view_port_enabled(p_mui, p_mui->layers[MUI_LAYER_WINDOW]);
     if (p_view_port) {
+        mui_canvas_set_frame(&p_mui->canvas, 0,
+                             LAYER_STATUS_BAR_HEIGHT, p_mui->screen_width,
+                             p_mui->screen_height - LAYER_STATUS_BAR_HEIGHT);
+        p_view_port->draw_cb(p_view_port, &p_mui->canvas);
         mui_view_port_t *p_view_port_status_bar =
             mui_find_view_port_enabled(p_mui, p_mui->layers[MUI_LAYER_STATUS_BAR]);
-        p_view_port->draw_cb(p_view_port, &p_view_port->canvas);
         if (p_view_port_status_bar) {
-            p_view_port_status_bar->draw_cb(p_view_port, &p_view_port->canvas);
+            p_view_port_status_bar->draw_cb(p_view_port, &p_mui->canvas);
         }
         return;
     }
 
     p_view_port = mui_find_view_port_enabled(p_mui, p_mui->layers[MUI_LAYER_DESKTOP]);
     if (p_view_port) {
+        mui_canvas_set_frame(&p_mui->canvas, 0,
+                             LAYER_STATUS_BAR_HEIGHT, p_mui->screen_width,
+                             p_mui->screen_height - LAYER_STATUS_BAR_HEIGHT);
+        p_view_port->draw_cb(p_view_port, &p_mui->canvas);
         mui_view_port_t *p_view_port_status_bar =
             mui_find_view_port_enabled(p_mui, p_mui->layers[MUI_LAYER_STATUS_BAR]);
-        p_view_port->draw_cb(p_view_port, &p_view_port->canvas);
         if (p_view_port_status_bar) {
-            p_view_port_status_bar->draw_cb(p_view_port, &p_view_port->canvas);
+            p_view_port_status_bar->draw_cb(p_view_port, &p_mui->canvas);
         }
         return;
     }
@@ -134,4 +142,27 @@ void mui_panic(mui_t *p_mui, char *err) {
 
         u8g2_SendBuffer(&p_mui->u8g2);
     }
+}
+
+void mui_add_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer) {
+    // verify that view port is not added
+    mui_view_port_array_it_t it;
+    for (size_t i = 0; i < MUI_LAYER_MAX; i++) {
+        mui_view_port_array_it(it, p_mui->layers[layer]);
+        while (!mui_view_port_array_end_p(it)) {
+            mui_assert(*mui_view_port_array_ref(it) != p_vp);
+            mui_view_port_array_next(it);
+        }
+    }
+
+    mui_view_port_array_push_back(p_mui->layers[layer], p_vp);
+    mui_update(p_mui);
+}
+void mui_remove_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer) {
+    // todo
+}
+
+void mui_update(mui_t *p_mui) {
+    mui_event_t event = {.id = MUI_EVENT_ID_REDRAW};
+    mui_post(p_mui, &event);
 }

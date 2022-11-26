@@ -5,6 +5,7 @@
 static void desktop_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     uint8_t app_total = mini_app_registry_get_app_num();
     mini_app_t *p_app_array = mini_app_registry_get_app_array();
+    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
 }
 
 static void desktop_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {

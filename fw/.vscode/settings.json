@@ -28,7 +28,12 @@
     "ntag_def.h": "c",
     "hal_spi_bus.h": "c",
     "app_status_bar.h": "c",
-    "mini_app_defines.h": "c"
+    "mini_app_defines.h": "c",
+    "mui_include.h": "c",
+    "mui_view_dispatcher.h": "c",
+    "mui_core.h": "c",
+    "random": "c",
+    "mui_view.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

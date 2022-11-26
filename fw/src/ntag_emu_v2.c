@@ -17,9 +17,13 @@
 #include "nrf_log.h"
 #include "nrfx.h"
 
+#include "nrf_pwr_mgmt.h"
+
+
 #include "hal_nfc_t2t.h"
 
 #include "ntag_indicator.h"
+#include "ntag_store.h"
 
 typedef enum
 {

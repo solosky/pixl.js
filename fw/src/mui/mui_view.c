@@ -1,5 +1,5 @@
 #include "mui_view.h"
-
+#include <stdlib.h>
 
 void mui_view_draw(mui_view_t* p_view, mui_canvas_t* p_canvas){
     if(p_view->draw_cb){

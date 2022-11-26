@@ -180,6 +180,7 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
+  $(PROJ_DIR)/mui/mui_view_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
@@ -190,6 +191,8 @@ SRC_FILES += \
   $(PROJ_DIR)/core/mini_app_data.c \
   $(PROJ_DIR)/app/status_bar/app_status_bar.c \
   $(PROJ_DIR)/app/status_bar/view/status_bar_view.c \
+  $(PROJ_DIR)/app/desktop/app_desktop.c \
+  $(PROJ_DIR)/app/desktop/view/desktop_view.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -391,6 +394,8 @@ INC_FOLDERS += \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar\view \
+  $(PROJ_DIR)/app/desktop \
+  $(PROJ_DIR)/app/desktop\view \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \

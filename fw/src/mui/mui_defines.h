@@ -9,4 +9,17 @@
 #define MUI_EVENT_ID_VIEW_ENTER 2
 #define MUI_EVENT_ID VIEW_EXIT 3
 
+
+#define mui_check(__e)                          \
+    do {                                         \
+        if((__e) == 0) {                         \
+            NRF_LOG_INFO("furi_check failed\r\n"); \
+        }                                        \
+    } while(0)
+
+#define mui_assert(__e) \
+    do {                 \
+        ((void)(__e));   \
+    } while(0)
+
 #endif

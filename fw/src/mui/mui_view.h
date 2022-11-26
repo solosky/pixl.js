@@ -4,6 +4,9 @@
 #include "mui_canvas.h"
 #include "mui_input.h"
 
+/** Hides drawing view_port */
+#define VIEW_NONE 0xFFFFFFFF
+
 struct mui_view_s;
 typedef struct mui_view_s mui_view_t;
 

@@ -122,119 +122,15 @@ void bsp_evt_execute(void *p_event_data, uint16_t event_size) {
     bsp_event_t *evt_p = (bsp_event_t *)p_event_data;
     bsp_event_t evt = *evt_p;
     NRF_LOG_DEBUG("bsp event: %d\n", evt);
+    mui_input_on_bsp_event(evt);
+
     switch (evt) {
-
-    case BSP_EVENT_KEY_0: {
-
+    case BSP_EVENT_KEY_0:
+    case BSP_EVENT_KEY_1:
+    case BSP_EVENT_KEY_2:
+    case BTN_ACTION_KEY1_LONGPUSH:
         nrf_pwr_mgmt_feed();
-
-        NRF_LOG_DEBUG("Key 0 press");
-        // ntag_t ntag;
-        // ret_code_t err_code = NRF_SUCCESS;
-
-        // uint8_t index = ntag_indicator_switch_prev();
-        // err_code = ntag_store_read_default(index, &ntag);
-        // APP_ERROR_CHECK(err_code);
-        // ntag_emu_set_tag(&ntag);
-        // APP_ERROR_CHECK(err_code);
-
-        // ntag_indicator_update();
-
         break;
-    }
-
-    case BSP_EVENT_KEY_1: {
-
-        nrf_pwr_mgmt_feed();
-
-        NRF_LOG_DEBUG("Key 1 press");
-
-        // regenerate
-
-        // ret_code_t err_code;
-        // ntag_t ntag_new;
-        // ntag_t *ntag_current = ntag_emu_get_current_tag();
-        // memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
-
-        // uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
-        // uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
-
-        // const amiibo_data_t *amd = find_amiibo_data(head, tail);
-        // if (amd == NULL) {
-        //     return;
-        // }
-
-        // NRF_LOG_INFO("reset uuid begin");
-
-        // err_code = ntag_store_uuid_rand(&ntag_new);
-        // APP_ERROR_CHECK(err_code);
-
-        // // sign new
-        // err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
-        // if (err_code == NRF_SUCCESS) {
-        //     // ntag_emu_set_uuid_only(&ntag_new);
-        //     ntag_emu_set_tag(&ntag_new);
-        //     // ntag_indicator_update();
-
-        //     NRF_LOG_INFO("reset uuid success");
-        // }
-
-        break;
-    }
-
-    case BSP_EVENT_KEY_2: {
-
-        nrf_pwr_mgmt_feed();
-
-        NRF_LOG_DEBUG("Key 2 press");
-        // ntag_t ntag;
-        // ret_code_t err_code = NRF_SUCCESS;
-
-        // uint8_t index = ntag_indicator_switch_next();
-        // err_code = ntag_store_read_default(index, &ntag);
-        // APP_ERROR_CHECK(err_code);
-        // ntag_emu_set_tag(&ntag);
-        // APP_ERROR_CHECK(err_code);
-
-        // ntag_indicator_update();
-
-        break;
-    }
-
-    case BTN_ACTION_KEY1_LONGPUSH: {
-
-        nrf_pwr_mgmt_feed();
-
-        NRF_LOG_DEBUG("Key 1 long press");
-        // ret_code_t err_code = NRF_SUCCESS;
-
-        // ntag_t *ntag = ntag_emu_get_current_tag();
-        // uint8_t index = ntag_indicator_current();
-        // err_code = ntag_store_reset(index, ntag);
-        // APP_ERROR_CHECK(err_code);
-        // ntag_emu_set_tag(ntag);
-        // APP_ERROR_CHECK(err_code);
-
-        // ntag_indicator_update();
-
-        // NRF_LOG_DEBUG("reset tag");
-
-        break;
-    }
-
-    case BSP_EVENT_SLEEP: {
-        // // Set up NFCT peripheral as the only wake up source.
-        // ret_code_t err_code = NRF_SUCCESS;
-        // err_code = bsp_nfc_sleep_mode_prepare();
-        // //APP_ERROR_CHECK(err_code);
-        // //err_code = bsp_buttons_disable();
-        // APP_ERROR_CHECK(err_code);
-        // err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
-        // APP_ERROR_CHECK(err_code);
-        // // Turn off LED to indicate that the device entered System OFF mode.
-        // bsp_board_leds_off();
-        break;
-    }
     default:
         break;
     }

@@ -10,6 +10,8 @@
 #include "mui_input.h"
 #include "mui_view_port.h"
 
+#define LAYER_STATUS_BAR_HEIGHT 13
+
 
 ARRAY_DEF(mui_view_port_array, mui_view_port_t*, M_PTR_OPLIST);
 
@@ -26,6 +28,7 @@ typedef struct {
     uint8_t screen_width;
     uint8_t screen_height;
     u8g2_t u8g2;
+    mui_canvas_t canvas;
     mui_event_queue_t event_queue;
     mui_view_port_array_t layers[MUI_LAYER_MAX];
 } mui_t;
@@ -39,6 +42,10 @@ void mui_tick(mui_t* p_mui);
 void mui_deinit(mui_t *p_mui);
 void mui_panic(mui_t *p_mui, char* err);
 
+
+void mui_add_view_port(mui_t* p_mui, mui_view_port_t* p_vp, mui_layer_t layer);
+void mui_remove_view_port(mui_t* p_mui, mui_view_port_t* p_vp, mui_layer_t layer);
+void mui_update(mui_t* p_mui);
 
 
 #endif

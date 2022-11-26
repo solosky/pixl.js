@@ -22,6 +22,9 @@
 #include "ntag_emu.h"
 #include "ntag_indicator.h"
 
+#include "nrf_pwr_mgmt.h"
+
+
 typedef struct {
 	ntag_t ntag;
 	uint8_t dirty;

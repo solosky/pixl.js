@@ -2,6 +2,7 @@
 #define MUI_INPUT_H
 
 #include <stdint.h>
+#include "bsp.h"
 
 
 typedef enum {
@@ -21,12 +22,13 @@ typedef enum {
 
 
 typedef struct {
-    uint32_t seq;
     input_key_t key;
     input_type_t type;
 } mui_input_event_t;
 
 
 void mui_input_init();
+
+void mui_input_on_bsp_event(bsp_event_t evt);
 
 #endif

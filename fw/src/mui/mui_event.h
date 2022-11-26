@@ -2,7 +2,7 @@
 #define MUI_EVENT_H
 
 #include <stdint.h>
-#include "m-array.h"
+#include "m-deque.h"
 
 #define MAX_EVENT_MSG 64
 
@@ -15,7 +15,7 @@ typedef struct {
 
 
 
-ARRAY_DEF(mui_event_array, mui_event_t, M_POD_OPLIST)
+DEQUE_DEF(mui_event_deque, mui_event_t, M_POD_OPLIST)
 
 
 typedef void (*mui_event_handler_t)(void* context, mui_event_t *p_event);
@@ -23,7 +23,7 @@ typedef void (*mui_event_handler_t)(void* context, mui_event_t *p_event);
 typedef struct {
     mui_event_handler_t dispatcher;
     void* dispatch_context;
-    mui_event_array_t event_array;
+    mui_event_deque_t event_deque;
 } mui_event_queue_t;
 
 
