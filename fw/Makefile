@@ -2,7 +2,7 @@ PROJECT_NAME     := ble_app_blinky_pca10040_s132
 TARGETS          := nrf52832_xxaa
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.0.2_d674dde
+SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560
 PROJ_DIR := ./src/
 COMP_DIR := ./components
 U8G2_ROOT := ./components/u8g2/csrc
@@ -163,12 +163,14 @@ SRC_FILES += \
 	$(SDK_ROOT)/external/mbedtls/library/xtea.c \
   $(PROJ_DIR)/main.c \
   $(PROJ_DIR)/ntag_emu.c \
+  $(PROJ_DIR)/ntag_emu_v2.c \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/ntag_indicator.c \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/ble_main.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/amiibo_data.c \
+  $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/lfs/lfs_port_internal.c \
@@ -183,6 +185,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
+  $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -194,44 +197,44 @@ SRC_FILES += \
   $(COMP_DIR)/amiitool/src/version.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
-  $(U8G2_ROOT)\u8g2_bitmap.c \
-  $(U8G2_ROOT)\u8g2_box.c \
-  $(U8G2_ROOT)\u8g2_buffer.c \
-  $(U8G2_ROOT)\u8g2_circle.c \
-  $(U8G2_ROOT)\u8g2_cleardisplay.c \
-  $(U8G2_ROOT)\u8g2_d_memory.c \
-  $(U8G2_ROOT)\u8g2_d_setup.c \
-  $(U8G2_ROOT)\u8g2_font.c \
-  $(U8G2_ROOT)\u8g2_fonts.c \
-  $(U8G2_ROOT)\u8g2_hvline.c \
-  $(U8G2_ROOT)\u8g2_input_value.c \
-  $(U8G2_ROOT)\u8g2_intersection.c \
-  $(U8G2_ROOT)\u8g2_kerning.c \
-  $(U8G2_ROOT)\u8g2_line.c \
-  $(U8G2_ROOT)\u8g2_ll_hvline.c \
-  $(U8G2_ROOT)\u8g2_message.c \
-  $(U8G2_ROOT)\u8g2_polygon.c \
-  $(U8G2_ROOT)\u8g2_selection_list.c \
-  $(U8G2_ROOT)\u8g2_setup.c \
-  $(U8G2_ROOT)\u8log.c \
-  $(U8G2_ROOT)\u8log_u8g2.c \
-  $(U8G2_ROOT)\u8log_u8x8.c \
-  $(U8G2_ROOT)\u8x8_8x8.c \
-  $(U8G2_ROOT)\u8x8_byte.c \
-  $(U8G2_ROOT)\u8x8_cad.c \
-  $(U8G2_ROOT)\u8x8_capture.c \
-  $(U8G2_ROOT)\u8x8_d_st7567.c \
-  $(U8G2_ROOT)\u8x8_debounce.c \
-  $(U8G2_ROOT)\u8x8_display.c \
-  $(U8G2_ROOT)\u8x8_fonts.c \
-  $(U8G2_ROOT)\u8x8_gpio.c \
-  $(U8G2_ROOT)\u8x8_input_value.c \
-  $(U8G2_ROOT)\u8x8_message.c \
-  $(U8G2_ROOT)\u8x8_selection_list.c \
-  $(U8G2_ROOT)\u8x8_setup.c \
-  $(U8G2_ROOT)\u8x8_string.c \
-  $(U8G2_ROOT)\u8x8_u16toa.c \
-  $(U8G2_ROOT)\u8x8_u8toa.c 
+  $(U8G2_ROOT)/u8g2_bitmap.c \
+  $(U8G2_ROOT)/u8g2_box.c \
+  $(U8G2_ROOT)/u8g2_buffer.c \
+  $(U8G2_ROOT)/u8g2_circle.c \
+  $(U8G2_ROOT)/u8g2_cleardisplay.c \
+  $(U8G2_ROOT)/u8g2_d_memory.c \
+  $(U8G2_ROOT)/u8g2_d_setup.c \
+  $(U8G2_ROOT)/u8g2_font.c \
+  $(U8G2_ROOT)/u8g2_fonts.c \
+  $(U8G2_ROOT)/u8g2_hvline.c \
+  $(U8G2_ROOT)/u8g2_input_value.c \
+  $(U8G2_ROOT)/u8g2_intersection.c \
+  $(U8G2_ROOT)/u8g2_kerning.c \
+  $(U8G2_ROOT)/u8g2_line.c \
+  $(U8G2_ROOT)/u8g2_ll_hvline.c \
+  $(U8G2_ROOT)/u8g2_message.c \
+  $(U8G2_ROOT)/u8g2_polygon.c \
+  $(U8G2_ROOT)/u8g2_selection_list.c \
+  $(U8G2_ROOT)/u8g2_setup.c \
+  $(U8G2_ROOT)/u8log.c \
+  $(U8G2_ROOT)/u8log_u8g2.c \
+  $(U8G2_ROOT)/u8log_u8x8.c \
+  $(U8G2_ROOT)/u8x8_8x8.c \
+  $(U8G2_ROOT)/u8x8_byte.c \
+  $(U8G2_ROOT)/u8x8_cad.c \
+  $(U8G2_ROOT)/u8x8_capture.c \
+  $(U8G2_ROOT)/u8x8_d_st7567.c \
+  $(U8G2_ROOT)/u8x8_debounce.c \
+  $(U8G2_ROOT)/u8x8_display.c \
+  $(U8G2_ROOT)/u8x8_fonts.c \
+  $(U8G2_ROOT)/u8x8_gpio.c \
+  $(U8G2_ROOT)/u8x8_input_value.c \
+  $(U8G2_ROOT)/u8x8_message.c \
+  $(U8G2_ROOT)/u8x8_selection_list.c \
+  $(U8G2_ROOT)/u8x8_setup.c \
+  $(U8G2_ROOT)/u8x8_string.c \
+  $(U8G2_ROOT)/u8x8_u16toa.c \
+  $(U8G2_ROOT)/u8x8_u8toa.c 
 
 # Include folders common to all targets
 INC_FOLDERS += \
@@ -389,7 +392,7 @@ INC_FOLDERS += \
 
 # Libraries common to all targets
 LIB_FILES += \
-
+  $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
 OPT = -O3 -g3
 # OPT = -Os -ffunction-sections -fdata-sections

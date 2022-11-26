@@ -70,9 +70,11 @@
 #include "app_error.h"
 #include "nrf_delay.h"
 #include "nrf_log.h"
+#include "nrf_gpio.h"
 
 #include "u8g2.h"
 #include "u8x8.h"
+
 
 #define LCD_CS_PIN 27
 #define LCD_RESET_PIN 29

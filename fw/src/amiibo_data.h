@@ -13,8 +13,8 @@
 
 
 typedef struct  {
-	uint32_t head;
-	uint32_t tail;
+	const uint32_t head;
+	const uint32_t tail;
 	const char* amiibo_series;
 	const char* game_series;
 	const char* character;

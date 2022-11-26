@@ -4,6 +4,10 @@
  *  Created on: 2021年5月30日
  *      Author: solos
  */
+
+#ifdef NTAG_EMU_V1
+
+
 #include "nrf52.h"
 #include "nrf52_bitfields.h"
 #include "nrf_log.h"
@@ -23,6 +27,9 @@ typedef struct {
 	uint8_t dirty;
 	uint8_t busy;
 } ntag_emu_t;
+
+
+
 
 uint8_t rx_buf[64];
 uint8_t tx_buf[64];
@@ -305,9 +312,6 @@ static void fix_ntag_data(ntag_t * ntag){
 	ntag->data[offset + 1] = 0x00;
 	ntag->data[offset + 2] = 0x00;
 	ntag->data[offset + 3] = 0x00;
-
-
-
 }
 
 
@@ -394,3 +398,4 @@ void ntag_emu_set_uuid_only(ntag_t* ntag){
 		nrfx_nfct_parameter_set(&param);
 }
 
+#endif 
