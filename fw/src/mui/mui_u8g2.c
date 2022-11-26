@@ -169,3 +169,10 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
 }
+
+void mui_u8g2_deinit(u8g2_t* p_u8g2){
+     u8g2_SetPowerSave(p_u8g2, 1);
+
+    nrf_gpio_pin_clear(LCD_BL_PIN);
+    nrf_gpio_cfg_default(LCD_BL_PIN);
+}

@@ -9,7 +9,7 @@
 #include "nrf_sdm.h"
 #endif
 
-#include "u8g2_drv.h"
+#include "mui_core.h"
 
 
 /*lint -save -e14 */
@@ -62,7 +62,7 @@ void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info)
                           p_info->line_num,
                           pc);
             
-            u8g2_drv_app_error(error);
+            mui_panic(mui(), error);
             break;
         }
         default:

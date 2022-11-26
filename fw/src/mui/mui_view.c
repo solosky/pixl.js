@@ -22,3 +22,12 @@ void mui_view_exit(mui_view_t* p_view){
         p_view->exit_cb(p_view);
     }
 }
+
+mui_view_t* mui_view_create(){
+    return malloc(sizeof(mui_view_t));
+}
+
+
+void mui_view_free(mui_view_t* p_view){
+    free(p_view);
+}

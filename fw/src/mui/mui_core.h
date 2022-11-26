@@ -22,6 +22,7 @@ typedef enum {
 } mui_layer_t;
 
 typedef struct {
+    uint8_t initialized;
     uint8_t screen_width;
     uint8_t screen_height;
     u8g2_t u8g2;
@@ -35,6 +36,8 @@ mui_t* mui();
 void mui_init(mui_t* p_mui);
 void mui_post(mui_t* p_mui, mui_event_t*p_event);
 void mui_tick(mui_t* p_mui);
+void mui_deinit(mui_t *p_mui);
+void mui_panic(mui_t *p_mui, char* err);
 
 
 

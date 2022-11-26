@@ -11,6 +11,7 @@ void mui_event_set_callback(mui_event_queue_t *p_queue, mui_event_handler_t disp
 }
 
 void mui_event_post(mui_event_queue_t *p_queue, mui_event_t *p_event) {
+    //CRTIAL_ENTER
     if (!mui_event_array_size(p_queue->event_array) > MAX_EVENT_MSG) {
         NRF_LOG_WARNING("event buffer is FULL!!");
         return;
@@ -22,8 +23,7 @@ void mui_event_post(mui_event_queue_t *p_queue, mui_event_t *p_event) {
 
 void mui_event_dispatch(mui_event_queue_t *p_queue) {
     mui_event_t event;
-    //TODO  ..
-    // while (mui_event_buffer_pop(&p_queue->event_buffer, &event)) {
-    //     p_queue->dispatcher(p_queue->dispatch_context, &event);
-    // }
+    while (mui_event_array_pop(&p_queue->event_array, &event)) {
+        p_queue->dispatcher(p_queue->dispatch_context, &event);
+    }
 }

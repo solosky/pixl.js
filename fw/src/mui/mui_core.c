@@ -81,6 +81,11 @@ static void mui_process_event(void *p_context, mui_event_t *p_event) {
     }
 }
 
+mui_t *mui() {
+    static mui_t mui;
+    return &mui;
+}
+
 void mui_init(mui_t *p_mui) {
     mui_u8g2_init(&p_mui->u8g2);
 
@@ -88,6 +93,12 @@ void mui_init(mui_t *p_mui) {
     mui_event_queue_init(&p_mui->event_queue);
 
     mui_input_init();
+    p_mui->initialized = true;
+}
+
+void mui_deinit(mui_t *p_mui) {
+    mui_u8g2_deinit(&p_mui->u8g2);
+    p_mui->initialized = false;
 }
 
 void mui_post(mui_t *p_mui, mui_event_t *p_event) {
@@ -95,3 +106,32 @@ void mui_post(mui_t *p_mui, mui_event_t *p_event) {
 }
 
 void mui_tick(mui_t *p_mui) { mui_event_dispatch(&p_mui->event_queue); }
+
+void mui_panic(mui_t *p_mui, char *err) {
+    if (p_mui->initialized) {
+        u8g2_ClearBuffer(&p_mui->u8g2);
+        u8g2_SetFont(&p_mui->u8g2, u8g2_font_wqy12_t_gb2312a);
+        u8g2_DrawBox(&p_mui->u8g2, 0, 0, 128, 12);
+        u8g2_SetDrawColor(&p_mui->u8g2, 0);
+        u8g2_DrawUTF8(&p_mui->u8g2, 28, 10, "SYSTEM FAULT");
+
+        u8g2_SetDrawColor(&p_mui->u8g2, 1);
+
+        uint8_t x = 0;
+        uint8_t y = 24;
+        uint32_t i = 0;
+        uint8_t m = u8g2_GetMaxCharWidth(&p_mui->u8g2);
+
+        while (err[i] != 0 && y < 64) {
+            uint8_t w = u8g2_DrawGlyph(&p_mui->u8g2, x, y, err[i]);
+            x += w;
+            if (x > 128 - m) {
+                x = 0;
+                y += 12;
+            }
+            i++;
+        }
+
+        u8g2_SendBuffer(&p_mui->u8g2);
+    }
+}

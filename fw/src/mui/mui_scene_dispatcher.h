@@ -3,17 +3,18 @@
 
 #include <stdint.h>
 
-typedef struct {
-    uint32_t scene_id;
-    mui_scene_enter_cb_t enter_cb;
-    mui_scene_exit_cb_t exit_cb;
-} mui_scene_t;
-
 struct mui_scene_dispatcher_s;
 typedef struct mui_scene_dispatcher_s mui_scene_dispatcher_t;
 
 typedef void (* mui_scene_enter_cb_t)(mui_scene_dispatcher_t *p_dispatcher);
 typedef void (* mui_scene_exit_cb_t)(mui_scene_dispatcher_t *p_dispatcher);
+
+
+typedef struct {
+    uint32_t scene_id;
+    mui_scene_enter_cb_t enter_cb;
+    mui_scene_exit_cb_t exit_cb;
+} mui_scene_t;
 
 
 struct mui_scene_dispatcher_s {

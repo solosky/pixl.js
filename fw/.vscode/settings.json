@@ -25,7 +25,10 @@
     "string_view": "c",
     "ranges": "c",
     "hal_spi_flash.h": "c",
-    "ntag_def.h": "c"
+    "ntag_def.h": "c",
+    "hal_spi_bus.h": "c",
+    "app_status_bar.h": "c",
+    "mini_app_defines.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
