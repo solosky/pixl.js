@@ -79,8 +79,11 @@
 #define LCD_CS_PIN 27
 #define LCD_RESET_PIN 29
 #define LCD_BL_PIN 30
+#define LCD_DC_PIN 28 // green wire (DC)
 
+u8g2_t u8g2;
 static spi_device_t m_dev;
+uint8_t m_u8g2_initialized = 0;
 
 uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
                                  void *arg_ptr);
@@ -91,11 +94,7 @@ uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_in
                                        void *arg_ptr) {
     switch (msg) {
     case U8X8_MSG_GPIO_DC:
-        if (arg_int) {
-            hal_spi_bus_aquire(&m_dev);
-        } else {
-            hal_spi_bus_release(&m_dev);
-        }
+        nrf_gpio_pin_write(LCD_DC_PIN, arg_int);
         break;
 
     case U8X8_MSG_GPIO_RESET:
@@ -129,13 +128,15 @@ uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
     switch (msg) {
     case U8X8_MSG_BYTE_SEND: {
 
-        spi_transaction_t const trans = {
+        spi_transaction_t trans = {
             .p_tx_buffer = arg_ptr,
             .tx_length = arg_int,
             .p_rx_buffer = NULL,
             .rx_length = 0,
         };
+        hal_spi_bus_aquire(&m_dev);
         err_code = hal_spi_bus_xfer(&trans);
+        hal_spi_bus_release(&m_dev);
         APP_ERROR_CHECK(err_code);
         break;
     }
@@ -154,20 +155,25 @@ uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
     }
     return 1;
 }
-
 void mui_u8g2_init(u8g2_t *p_u8g2) {
     m_dev.cs_pin = LCD_CS_PIN;
     hal_spi_bus_attach(&m_dev);
 
     nrf_gpio_cfg_output(LCD_RESET_PIN);
+    nrf_gpio_cfg_output(LCD_DC_PIN);
     nrf_gpio_cfg_output(LCD_BL_PIN);
-    nrf_gpio_pin_clear(LCD_BL_PIN);
+    nrf_gpio_pin_set(LCD_BL_PIN);
 
     u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832,
                                      u8g2_nrf_gpio_and_delay_spi_cb);
 
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
+
+    u8g2_SetFont(p_u8g2, u8g2_font_wqy12_t_gb2312a);
+     u8g2_DrawUTF8(p_u8g2, 0, 12, "hello");
+     u8g2_SendBuffer(p_u8g2);
+
 }
 
 void mui_u8g2_deinit(u8g2_t* p_u8g2){

@@ -2,9 +2,11 @@
 #include "mui_core.h"
 #include "mui_event.h"
 #include "nrf_log.h"
+#include "mui_defines.h"
 
 static void mui_input_post_event(mui_input_event_t *p_input_event) {
-    mui_event_t mui_event = {.arg_int = p_input_event->type << 8 + p_input_event->key};
+    mui_event_t mui_event = {.id = MUI_EVENT_ID_INPUT,
+                             .arg_int = ((p_input_event->type << 8) & 0xFF) + p_input_event->key};
     mui_post(mui(), &mui_event);
 }
 

@@ -218,7 +218,7 @@ int main(void) {
 
     hal_spi_bus_init();
 
-    // u8g2_drv_init();
+    //u8g2_drv_init();
 
 #ifdef SPI_FLASH
     hal_spi_flash_init();
@@ -268,8 +268,8 @@ int main(void) {
 
     // NRF_LOG_DEBUG("display done");
 
-    mui_t *p_mui = mui();
 
+    mui_t *p_mui = mui();
     mui_init(p_mui);
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();

@@ -170,6 +170,10 @@ void u8g2_drv_init() {
     u8g2_InitDisplay(&u8g2);
     u8g2_SetPowerSave(&u8g2, 0);
 
+    u8g2_SetFont(&u8g2, u8g2_font_wqy12_t_gb2312a);
+     u8g2_DrawUTF8(&u8g2, 0, 12, "hello");
+     u8g2_SendBuffer(&u8g2);
+
     m_u8g2_initialized = 1;
 }
 

@@ -23,7 +23,7 @@ void mui_event_post(mui_event_queue_t *p_queue, mui_event_t *p_event) {
 void mui_event_dispatch(mui_event_queue_t *p_queue) {
     mui_event_t event;
     while (!mui_event_deque_empty_p(p_queue->event_deque)) {
-        mui_event_deque_pop_front(p_queue->event_deque, &event);
+        mui_event_deque_pop_front(&event, p_queue->event_deque);
         p_queue->dispatcher(p_queue->dispatch_context, &event);
     }
 }

@@ -17,6 +17,6 @@ const mini_app_t *mini_app_registry_find_by_id(uint32_t id){
 uint32_t mini_app_registry_get_app_num(){
     return mini_app_num;
 }
-const mini_app_t *mini_app_registry_get_app_array(){
-    return (mini_app_t *) mini_app_registry;
+const mini_app_t *mini_app_registry_find_by_index(uint32_t idx){
+    return mini_app_registry[idx];
 }

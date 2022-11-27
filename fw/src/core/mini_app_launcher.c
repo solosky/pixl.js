@@ -14,7 +14,11 @@ static void mini_app_launcher_inst_kill(mini_app_launcher_t *p_launcher,
 }
 
 static void mini_app_launcher_inst_run(mini_app_launcher_t *p_launcher, uint32_t id) {
-    mini_app_inst_t *p_app_inst = mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
+    mini_app_inst_t **pp_app_inst = mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
+    mini_app_inst_t *p_app_inst = NULL;
+    if(pp_app_inst){
+        p_app_inst = *pp_app_inst;
+    }
     if (p_app_inst) {
         p_app_inst->p_app->run_cb(p_app_inst);
     } else {
@@ -40,12 +44,12 @@ void mini_app_launcher_run(mini_app_launcher_t *p_launcher, uint32_t id) {
 
     if (!p_app->deamon) {
         p_launcher->p_main_app_inst =
-            mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
+            *mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
     }
 }
 
 void mini_app_launcher_kill(mini_app_launcher_t *p_launcher, uint32_t id) {
-    mini_app_inst_t *p_app_inst = mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
+    mini_app_inst_t *p_app_inst = *mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
     if (p_app_inst) {
         mini_app_launcher_inst_kill(p_launcher, p_app_inst);
     }
@@ -54,10 +58,14 @@ void mini_app_launcher_kill(mini_app_launcher_t *p_launcher, uint32_t id) {
     if (p_app_inst == p_launcher->p_main_app_inst) {
         mini_app_launcher_inst_run(p_launcher, MINI_APP_ID_DESKTOP);
         p_launcher->p_main_app_inst =
-            mui_app_inst_dict_get(p_launcher->app_inst_dict, MINI_APP_ID_DESKTOP);
+            *mui_app_inst_dict_get(p_launcher->app_inst_dict, MINI_APP_ID_DESKTOP);
     }
 }
 void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
-    mini_app_launcher_run(p_launcher, MINI_APP_ID_STATUS_BAR);
+
+    mui_app_inst_dict_init(p_launcher->app_inst_dict);
+    p_launcher->p_main_app_inst = NULL;
+
+    //mini_app_launcher_run(p_launcher, MINI_APP_ID_STATUS_BAR);
     mini_app_launcher_run(p_launcher, MINI_APP_ID_DESKTOP);
 }

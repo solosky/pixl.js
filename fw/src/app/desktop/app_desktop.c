@@ -47,6 +47,7 @@ void app_desktop_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event
 
 const mini_app_t app_desktop_info = {.id = MINI_APP_ID_DESKTOP,
                                      .name = "desktop",
+                                     .deamon = false,
                                      .run_cb = app_desktop_on_run,
                                      .kill_cb = app_desktop_on_kill,
                                      .on_event_cb = app_desktop_on_event};
