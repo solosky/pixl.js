@@ -68,6 +68,7 @@ void mui_view_dispatcher_attach(mui_view_dispatcher_t *p_dispatcher, mui_layer_t
     
 }
 void mui_view_dispatcher_detach(mui_view_dispatcher_t *p_dispatcher, mui_layer_t layer) {
+    mui_view_port_enable_set(p_dispatcher->p_view_port, false);
     mui_remove_view_port(mui(), p_dispatcher->p_view_port, layer);
 }
 void mui_view_dispatcher_switch_to_view(mui_view_dispatcher_t *p_dispatcher,

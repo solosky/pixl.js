@@ -183,7 +183,17 @@ void mui_add_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer) {
     mui_update(p_mui);
 }
 void mui_remove_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer) {
-    // todo
+    mui_view_port_array_it_t it;
+    for (size_t i = 0; i < MUI_LAYER_MAX; i++) {
+        mui_view_port_array_it(it, p_mui->layers[i]);
+        while (!mui_view_port_array_end_p(it)) {
+            if (*mui_view_port_array_ref(it) == p_vp) {
+                mui_view_port_array_remove(p_mui->layers[i], it);
+            } else {
+                mui_view_port_array_next(it);
+            }
+        }
+    }
 }
 
 void mui_update(mui_t *p_mui) {
