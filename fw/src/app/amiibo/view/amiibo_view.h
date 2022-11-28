@@ -3,9 +3,11 @@
 #include "mui_include.h"
 #include <stdint.h>
 
+
 typedef struct {
     mui_view_t* p_view;
     uint8_t focus_index;
+    char amiibo_name[6][32];
 } amiibo_view_t;
 
 amiibo_view_t* amiibo_view_create();

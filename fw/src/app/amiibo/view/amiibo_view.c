@@ -5,21 +5,41 @@
 static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
     amiibo_view_t *p_amiibo_view = p_view->user_data;
-    mui_canvas_draw_utf8(p_canvas, 0, 10, "这是amiibo!!");
+    for (uint32_t i = 0, y = 0; i < 6; i++, y += 12) {
+        if (i == p_amiibo_view->focus_index) {
+            mui_canvas_draw_box(p_canvas, 0, y, mui_canvas_get_width(p_canvas), 12);
+            mui_canvas_set_draw_color(p_canvas, 0);
+            mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+            mui_canvas_draw_glyph(p_canvas, 2, y + 10, 0xe1d6);
+            mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
+            mui_canvas_draw_utf8(p_canvas, 16, y + 10, p_amiibo_view->amiibo_name[i]);
+            mui_canvas_set_draw_color(p_canvas, 1);
+        } else {
+            mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+            mui_canvas_draw_glyph(p_canvas, 2, y + 10, 0xe1ed);
+            mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
+            mui_canvas_draw_utf8(p_canvas, 16, y + 10,  p_amiibo_view->amiibo_name[i]);
+        }
+    }
 }
 
 static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     amiibo_view_t *p_amiibo_view = p_view->user_data;
     switch (event->key) {
     case INPUT_KEY_LEFT:
+        if (p_amiibo_view->focus_index > 0) {
+            p_amiibo_view->focus_index--;
+        }
 
         break;
     case INPUT_KEY_RIGHT:
+        if (p_amiibo_view->focus_index < 5) {
+            p_amiibo_view->focus_index++;
+        }
 
         break;
     case INPUT_KEY_CENTER:
-        mini_app_launcher_run(mini_app_launcher(), MINI_APP_ID_DESKTOP);
-
+         mini_app_launcher_run(mini_app_launcher(), MINI_APP_ID_DESKTOP);
         break;
     }
 }
@@ -40,6 +60,13 @@ amiibo_view_t *amiibo_view_create() {
 
     p_amiibo_view->p_view = p_view;
     p_amiibo_view->focus_index = 0;
+
+    strcpy(p_amiibo_view->amiibo_name[0], "Link - Ocarina of Time");
+    strcpy(p_amiibo_view->amiibo_name[1], "Link - Link's Awakening");
+    strcpy(p_amiibo_view->amiibo_name[2], "Toon Link - The Wind Waker");
+    strcpy(p_amiibo_view->amiibo_name[3], "Midna & Wolf Link");
+    strcpy(p_amiibo_view->amiibo_name[4], "Zelda & Loftwing");
+    strcpy(p_amiibo_view->amiibo_name[5], "Guardian");
 
     return p_amiibo_view;
 }
