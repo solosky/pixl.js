@@ -193,6 +193,8 @@ SRC_FILES += \
   $(PROJ_DIR)/app/status_bar/view/status_bar_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/desktop/view/desktop_view.c \
+  $(PROJ_DIR)/app/amiibo/app_amiibo.c \
+  $(PROJ_DIR)/app/amiibo/view/amiibo_view.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -396,6 +398,8 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/status_bar\view \
   $(PROJ_DIR)/app/desktop \
   $(PROJ_DIR)/app/desktop\view \
+  $(PROJ_DIR)/app/amiibo \
+  $(PROJ_DIR)/app/amiibo\view \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \

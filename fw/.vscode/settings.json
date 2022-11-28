@@ -33,7 +33,8 @@
     "mui_view_dispatcher.h": "c",
     "mui_core.h": "c",
     "random": "c",
-    "mui_view.h": "c"
+    "mui_view.h": "c",
+    "sstream": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
