@@ -52,12 +52,29 @@ static const uint8_t NTAG215_PwdOK[2] = {
     0x80,
 };
 
+static uint8_t N2E_INFO[4] = { 0x00,  0x32,  0x00,  0x03 };
+
+static const uint8_t N2E_ID[16] = {
+    0x21,  0x4b,  0x87,  0x02,  0x52,  0x3d,  0x0d,  0x10,  
+    0x16,  0x3a,  0x24,  0xff,  0xff,  0xff,  0xff,  0xff,
+};
+
+static const uint8_t N2E_SELECT_BANK[1] = { 0x0a};
+
 #define NFC_CMD_READ 0x30
 #define NFC_CMD_WRITE 0xA2
 #define NFC_CMD_GET_VERSION 0x60
 #define NFC_CMD_READ_SIG 0x3C
 #define NFC_CMD_PWD_AUTH 0x1B
 #define NFC_CMD_FAST_READ 0x3A
+
+#define N2_CMD_GET_INFO 0x55
+#define N2_CMD_GET_ID 0x43
+#define N2_CMD_FAST_READ 0x3B
+#define N2_CMD_WRITE 0xA5
+#define N2_CMD_SELECT_BANK 0xA7
+#define N2_CMD_FAST_WRITE 0xAE
+// see https://wiki.yobi.be/index.php/N2_Elite
 
 static void update_ntag_handler(void *p_event_data, uint16_t event_size);
 
@@ -80,6 +97,8 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         else
             hal_send_ack_nack(0x0);
         break;
+    case N2_CMD_WRITE: // TODO
+        NRF_LOG_INFO("N2E Write slot:%d:", p_data[2]);
     case NFC_CMD_WRITE:
         NRF_LOG_INFO("NFC Write Block %d", block_num);
         if (data_length == 6) {
@@ -111,17 +130,34 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         hal_nfc_send(NTAG215_Signature, 32);
         break;
 
+    case N2_CMD_FAST_READ: // TODO
+        NRF_LOG_INFO("N2E Fast Read slot %d:", p_data[3]);
     case NFC_CMD_FAST_READ:
         NRF_LOG_INFO("NFC Fast Read %d to %d", block_num, p_data[2]);
         hal_nfc_send(&plain[block_num * 4], (p_data[2] - block_num + 1) * 4);
         break;
-
     case NFC_CMD_PWD_AUTH:
         NRF_LOG_INFO("NFC Password: %x %x %x %x", p_data[1], p_data[2], p_data[3],
                      p_data[4]);
         hal_nfc_send(NTAG215_PwdOK, 2);
         break;
-
+    case N2_CMD_GET_INFO:
+        N2E_INFO[0] = ntag_indicator_current();
+        hal_nfc_send(N2E_INFO, 4);
+        break;
+    case N2_CMD_GET_ID:
+        hal_nfc_send(N2E_ID, 16);
+        break;
+    case N2_CMD_SELECT_BANK:
+        hal_nfc_send(N2E_SELECT_BANK, 1);
+        break;
+    case N2_CMD_FAST_WRITE:
+		//ntag_emu.dirty = true;
+        //uint8_t startpage = p_data[1];
+        //uint8_t banknum = p_data[2];
+        //uint8_t dsize = p_data[3];
+        hal_send_ack_nack(0x0);
+        break;
     default:
         NRF_LOG_INFO("NFC CMD %x", p_data[0]);
         break;
