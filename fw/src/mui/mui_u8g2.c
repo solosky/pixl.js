@@ -169,11 +169,6 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
-
-    u8g2_SetFont(p_u8g2, u8g2_font_wqy12_t_gb2312a);
-     u8g2_DrawUTF8(p_u8g2, 0, 12, "hello");
-     u8g2_SendBuffer(p_u8g2);
-
 }
 
 void mui_u8g2_deinit(u8g2_t* p_u8g2){

@@ -15,6 +15,14 @@ void mui_canvas_draw_utf8(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const ch
     u8g2_DrawUTF8(p_canvas->fb, x, y, str);
 }
 
+
+void mui_canvas_draw_glyph(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint16_t encoding) {
+    x += p_canvas->offset_x;
+    y += p_canvas->offset_y;
+    u8g2_DrawGlyph(p_canvas->fb, x, y, encoding);
+}
+
+
 void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offset_y,
                           uint8_t width, uint8_t height) {
     p_canvas->offset_x = offset_x;

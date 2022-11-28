@@ -17,6 +17,7 @@ void mui_canvas_clear(mui_canvas_t *p_canvas);
 
 void mui_canvas_set_font(mui_canvas_t *p_canvas, const uint8_t *font);
 void mui_canvas_draw_utf8(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *str);
+void mui_canvas_draw_glyph(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint16_t encoding);
 
 void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offset_y,
                           uint8_t width, uint8_t height);

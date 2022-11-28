@@ -66,6 +66,6 @@ void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
     mui_app_inst_dict_init(p_launcher->app_inst_dict);
     p_launcher->p_main_app_inst = NULL;
 
-    //mini_app_launcher_run(p_launcher, MINI_APP_ID_STATUS_BAR);
+    mini_app_launcher_run(p_launcher, MINI_APP_ID_STATUS_BAR);
     mini_app_launcher_run(p_launcher, MINI_APP_ID_DESKTOP);
 }

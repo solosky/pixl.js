@@ -40,7 +40,7 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
         if (p_view_port_status_bar) {
             mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width,
                                  LAYER_STATUS_BAR_HEIGHT);
-            p_view_port_status_bar->draw_cb(p_view_port, &p_mui->canvas);
+            p_view_port_status_bar->draw_cb(p_view_port_status_bar, &p_mui->canvas);
         }
         mui_canvas_flush(&p_mui->canvas);
         return;
@@ -58,7 +58,7 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
         if (p_view_port_status_bar) {
             mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width,
                                  LAYER_STATUS_BAR_HEIGHT);
-            p_view_port_status_bar->draw_cb(p_view_port, &p_mui->canvas);
+            p_view_port_status_bar->draw_cb(p_view_port_status_bar, &p_mui->canvas);
         }
         mui_canvas_flush(&p_mui->canvas);
         return;
