@@ -186,6 +186,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
   $(PROJ_DIR)/mui/mui_input.c \
+  $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
   $(PROJ_DIR)/core/mini_app_data.c \
@@ -393,6 +394,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/hal \
   $(PROJ_DIR)/lfs \
   $(PROJ_DIR)/mui \
+  $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar\view \
