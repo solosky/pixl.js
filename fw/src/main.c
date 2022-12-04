@@ -249,20 +249,20 @@ int main(void) {
     // APP_ERROR_CHECK(err_code);
     // NRF_LOG_DEBUG("ble init done");
 
-    // extern const uint8_t amiibo_key_retail[];
-    // amiibo_helper_load_keys(amiibo_key_retail);
+    extern const uint8_t amiibo_key_retail[];
+    amiibo_helper_load_keys(amiibo_key_retail);
 
-    // NRF_LOG_DEBUG("init done");
+    NRF_LOG_DEBUG("init done");
 
-    // err_code = ntag_store_init();
-    // APP_ERROR_CHECK(err_code);
+    err_code = ntag_store_init();
+    APP_ERROR_CHECK(err_code);
 
-    // ntag_t ntag;
-    // uint8_t index = ntag_indicator_current();
-    // err_code = ntag_store_read_default(index, &ntag);
-    // APP_ERROR_CHECK(err_code);
-    // err_code = ntag_emu_init(&ntag);
-    // APP_ERROR_CHECK(err_code);
+    ntag_t ntag;
+    uint8_t index = ntag_indicator_current();
+    err_code = ntag_store_read_default(index, &ntag);
+    APP_ERROR_CHECK(err_code);
+    err_code = ntag_emu_init(&ntag);
+    APP_ERROR_CHECK(err_code);
 
     // ntag_indicator_update();
 

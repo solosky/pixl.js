@@ -22,7 +22,7 @@ static void mini_app_launcher_inst_run(mini_app_launcher_t *p_launcher, uint32_t
     if (p_app_inst) {
         p_app_inst->p_app->run_cb(p_app_inst);
     } else {
-        p_app_inst = malloc(sizeof(mini_app_inst_t));
+        p_app_inst = mui_mem_malloc(sizeof(mini_app_inst_t));
         p_app_inst->p_app = mini_app_registry_find_by_id(id);
         p_app_inst->state = APP_STATE_RUNNING;
         mui_app_inst_dict_set_at(p_launcher->app_inst_dict, id, p_app_inst);

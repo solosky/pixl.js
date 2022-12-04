@@ -1,13 +1,15 @@
 #include "mui_view_port.h"
+#include "mui_core.h"
+#include "mui_mem.h"
 
 
 mui_view_port_t *mui_view_port_create(){
-    mui_view_port_t* p_vp = malloc(sizeof(mui_view_port_t));
+    mui_view_port_t* p_vp = mui_mem_malloc(sizeof(mui_view_port_t));
     return p_vp;
 
 }
 void mui_view_port_free(mui_view_port_t* p_vp){
-    free(p_vp);
+    mui_mem_free(p_vp);
 }
 
 void mui_view_port_input(mui_view_port_t *p_vp, mui_input_event_t *p_event) {

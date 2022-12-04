@@ -19,28 +19,30 @@
 
 #include "nrf_pwr_mgmt.h"
 
-
 #include "hal_nfc_t2t.h"
 
 #include "ntag_indicator.h"
 #include "ntag_store.h"
 
-typedef enum
-{
-    NFC_T2T_PARAM_TESTING,      ///< Used for unit tests.
-    NFC_T2T_PARAM_NFCID1,       /**< NFCID1 value, data can be 4, 7, or 10 bytes long (single, double, or triple size).
-                                     To use default NFCID1 of specific length pass one byte containing requested length.
-                                     Default 7-byte NFCID1 will be used if this parameter was not set. This parameter can be
-                                     set before nfc_t2t_setup() to set initial NFCID1 and it can be changed later. */
+typedef enum {
+    NFC_T2T_PARAM_TESTING, ///< Used for unit tests.
+    NFC_T2T_PARAM_NFCID1,  /**< NFCID1 value, data can be 4, 7, or 10 bytes long (single,
+                              double, or triple size).  To use default NFCID1 of specific
+                              length pass one byte containing requested length.  Default
+                              7-byte NFCID1 will be used if this parameter was not set.
+                              This parameter can be  set before nfc_t2t_setup() to set
+                              initial NFCID1 and it can be changed later. */
 } nfc_t2t_param_id_t;
 
 typedef struct {
     ntag_t ntag;
     uint8_t dirty;
     uint8_t busy;
+    ntag_update_cb_t update_cb;
+    void *cb_context;
 } ntag_emu_t;
 
-ntag_emu_t ntag_emu = { 0 };
+ntag_emu_t ntag_emu = {0};
 
 static const uint8_t NTAG215_Version[8] = {0x00, 0x04, 0x04, 0x02,
                                            0x01, 0x00, 0x11, 0x03};
@@ -56,14 +58,14 @@ static const uint8_t NTAG215_PwdOK[2] = {
     0x80,
 };
 
-static uint8_t N2E_INFO[4] = { 0x00,  0x32,  0x00,  0x03 };
+static uint8_t N2E_INFO[4] = {0x00, 0x32, 0x00, 0x03};
 
 static const uint8_t N2E_ID[16] = {
-    0x21,  0x4b,  0x87,  0x02,  0x52,  0x3d,  0x0d,  0x10,  
-    0x16,  0x3a,  0x24,  0xff,  0xff,  0xff,  0xff,  0xff,
+    0x21, 0x4b, 0x87, 0x02, 0x52, 0x3d, 0x0d, 0x10,
+    0x16, 0x3a, 0x24, 0xff, 0xff, 0xff, 0xff, 0xff,
 };
 
-static const uint8_t N2E_SELECT_BANK[1] = { 0x0a};
+static const uint8_t N2E_SELECT_BANK[1] = {0x0a};
 
 #define NFC_CMD_READ 0x30
 #define NFC_CMD_WRITE 0xA2
@@ -86,7 +88,7 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
                                  uint8_t *plain) {
     // NRF_LOG_INFO("NFC COMMAND %d", p_data[0]);
 
-	nrf_pwr_mgmt_feed();
+    nrf_pwr_mgmt_feed();
 
     uint8_t command = p_data[0];
     uint8_t block_num = p_data[1];
@@ -106,7 +108,7 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
     case NFC_CMD_WRITE:
         NRF_LOG_INFO("NFC Write Block %d", block_num);
         if (data_length == 6) {
-			ntag_emu.dirty = true;
+            ntag_emu.dirty = true;
             if (block_num == 133 || block_num == 134) {
 
             } else if (block_num == 2) {
@@ -156,10 +158,10 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         hal_nfc_send(N2E_SELECT_BANK, 1);
         break;
     case N2_CMD_FAST_WRITE:
-		//ntag_emu.dirty = true;
-        //uint8_t startpage = p_data[1];
-        //uint8_t banknum = p_data[2];
-        //uint8_t dsize = p_data[3];
+        // ntag_emu.dirty = true;
+        // uint8_t startpage = p_data[1];
+        // uint8_t banknum = p_data[2];
+        // uint8_t dsize = p_data[3];
         hal_send_ack_nack(0x0);
         break;
     default:
@@ -182,9 +184,9 @@ static void nfc_callback(void *p_context, hal_nfc_event_t event, const uint8_t *
         break;
     case HAL_NFC_EVENT_FIELD_OFF:
         bsp_board_led_off(BSP_BOARD_LED_0);
-		if (ntag_emu.dirty) {
-			app_sched_event_put(NULL, 0, update_ntag_handler);
-		}
+        if (ntag_emu.dirty) {
+            app_sched_event_put(NULL, 0, update_ntag_handler);
+        }
         break;
     case HAL_NFC_EVENT_COMMAND:
         // NRF_LOG_INFO("NFC Command Received: %x", p_data[0]);
@@ -201,7 +203,10 @@ static void nfc_callback(void *p_context, hal_nfc_event_t event, const uint8_t *
     }
 }
 
-
+void ntag_emu_set_update_cb(ntag_update_cb_t cb, void *context) {
+    ntag_emu.update_cb = cb;
+    ntag_emu.cb_context = context;
+}
 
 ntag_t *ntag_emu_get_current_tag() { return &(ntag_emu.ntag); }
 
@@ -210,12 +215,15 @@ static void update_ntag_handler(void *p_event_data, uint16_t event_size) {
 
     ntag_emu_set_tag(&(ntag_emu.ntag));
 
-    uint8_t index = ntag_indicator_current();
+    uint8_t index = ntag_emu.ntag.index;
     NRF_LOG_DEBUG("Pesist ntag begin: %d", index);
     ret_code_t err_code = ntag_store_write_with_gc(index, &(ntag_emu.ntag));
     APP_ERROR_CHECK(err_code);
     NRF_LOG_DEBUG("Pesist ntag end: %d", index);
-    ntag_indicator_update();
+
+    if (ntag_emu.update_cb) {
+        ntag_emu.update_cb(ntag_emu.cb_context, &(ntag_emu.ntag));
+    }
 
     ntag_emu.dirty = false;
     ntag_emu.busy = false;
@@ -235,7 +243,7 @@ ret_code_t ntag_emu_init(ntag_t *ntag) {
 }
 
 void ntag_emu_uninit(ntag_t *ntag) {
-    //TODO
+    // TODO
 }
 
 void ntag_emu_set_tag(ntag_t *ntag) {
@@ -264,7 +272,7 @@ void ntag_emu_set_uuid_only(ntag_t *ntag) {
     uid1[5] = ntag->data[6];
     uid1[6] = ntag->data[7];
 
-  hal_nfc_parameter_set(NFC_T2T_PARAM_NFCID1, uid1, sizeof(uid1));
+    hal_nfc_parameter_set(NFC_T2T_PARAM_NFCID1, uid1, sizeof(uid1));
 }
 
 #endif

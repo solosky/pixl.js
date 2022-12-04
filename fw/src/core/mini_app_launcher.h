@@ -2,6 +2,7 @@
 #define MINI_APP_LAUNCHER_H
 
 #include <stdint.h>
+#include "mui_mlib.h"
 #include "m-dict.h"
 
 

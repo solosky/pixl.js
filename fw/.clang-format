@@ -4,7 +4,7 @@
 
   AllowShortIfStatementsOnASingleLine: true,
   BreakBeforeBraces: Attach,
-  ColumnLimit: 90,
+  ColumnLimit: 120,
   IndentCaseLabels: false,
   IndentWidth: 4,
   TabWidth: 4,

@@ -1,6 +1,7 @@
 #ifndef MUI_VIEW_PORT_H
 #define MUI_VIEW_PORT_H
 
+#include "mui_defines.h"
 #include "mui_canvas.h"
 #include "mui_event.h"
 #include "mui_input.h"

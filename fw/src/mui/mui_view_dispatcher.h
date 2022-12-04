@@ -1,6 +1,7 @@
 #ifndef MUI_VIEW_DISPATCHER_H
 #define MUI_VIEW_DISPATCHER_H
 
+#include "mui_defines.h"
 #include "m-dict.h"
 #include "mui_core.h"
 #include "mui_view.h"

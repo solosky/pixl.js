@@ -1,5 +1,6 @@
 #include "mui_view_dispatcher.h"
 #include "mui_core.h"
+#include "mui_mem.h"
 
 static void mui_view_dispatcher_set_curent_view(mui_view_dispatcher_t *p_dispatcher,
                                                 mui_view_t *p_view) {
@@ -32,7 +33,7 @@ static void mui_view_dispatcher_on_input(mui_view_port_t *p_vp,
 }
 
 mui_view_dispatcher_t *mui_view_dispatcher_create() {
-    mui_view_dispatcher_t *p_dsp = malloc(sizeof(mui_view_dispatcher_t));
+    mui_view_dispatcher_t *p_dsp = mui_mem_malloc(sizeof(mui_view_dispatcher_t));
     mui_view_dict_init(p_dsp->views);
     p_dsp->p_view_port = mui_view_port_create();
     p_dsp->p_view_port->draw_cb = mui_view_dispatcher_on_draw;
@@ -46,7 +47,7 @@ void mui_view_dispatcher_free(mui_view_dispatcher_t *p_dispatcher) {
     mui_view_dict_clear(p_dispatcher->views);
     mui_view_port_free(p_dispatcher->p_view_port);
 
-    free(p_dispatcher);
+    mui_mem_free(p_dispatcher);
 }
 void mui_view_dispatcher_add_view(mui_view_dispatcher_t *p_dispatcher, uint32_t view_id,
                                   mui_view_t *p_view) {

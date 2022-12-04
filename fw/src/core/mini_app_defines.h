@@ -38,7 +38,9 @@ struct mini_app_inst_s {
 struct mini_app_s {
     uint32_t id;
     char name[16];
+    uint16_t icon;
     uint8_t deamon;
+    uint8_t sys;
     mini_app_run_cb_t run_cb;
     mini_app_kill_cb_t kill_cb;
     mini_app_post_event_cb_t on_event_cb;

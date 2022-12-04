@@ -1,5 +1,6 @@
 #include "mui_view.h"
 #include <stdlib.h>
+#include "mui_mem.h"
 
 void mui_view_draw(mui_view_t* p_view, mui_canvas_t* p_canvas){
     if(p_view->draw_cb){
@@ -24,10 +25,10 @@ void mui_view_exit(mui_view_t* p_view){
 }
 
 mui_view_t* mui_view_create(){
-    return malloc(sizeof(mui_view_t));
+    return mui_mem_malloc(sizeof(mui_view_t));
 }
 
 
 void mui_view_free(mui_view_t* p_view){
-    free(p_view);
+    mui_mem_free(p_view);
 }

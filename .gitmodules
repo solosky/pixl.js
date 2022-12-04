@@ -4,3 +4,9 @@
 [submodule "fw/components/mlib"]
 	path = fw/components/mlib
 	url = https://github.com/P-p-H-d/mlib.git
+[submodule "fw/components/tlsf"]
+	path = fw/components/tlsf
+	url = https://github.com/mattconte/tlsf.git
+[submodule "fw/components/cwalk"]
+	path = fw/components/cwalk
+	url = https://github.com/likle/cwalk.git

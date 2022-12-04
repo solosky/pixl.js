@@ -52,7 +52,7 @@
 #ifndef NFC_T2T_HAL_ENABLED
 #define NFC_T2T_HAL_ENABLED 1
 #endif
-// <o> NFCT_CONFIG_IRQ_PRIORITY  - Interrupt priority
+// <o> NFCT_CONFIG_IRQ_PRIORITY  - Interrupt priority`
  
 
 // <i> Priorities 0,2 (nRF51) and 0,1,4,5 (nRF52) are reserved for SoftDevice
@@ -7842,7 +7842,7 @@
 // <i> Shutdown procedure will begin no earlier than after this number of seconds.
 
 #ifndef NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S
-#define NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S 15
+#define NRF_PWR_MGMT_CONFIG_STANDBY_TIMEOUT_S 30
 #endif
 
 // </e>

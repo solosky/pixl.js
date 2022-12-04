@@ -19,7 +19,7 @@ typedef struct {
 
 void app_status_bar_on_run(mini_app_inst_t *p_app_inst) {
 
-    app_status_bar_t *p_app_handle = malloc(sizeof(app_status_bar_t));
+    app_status_bar_t *p_app_handle = mui_mem_malloc(sizeof(app_status_bar_t));
 
     p_app_inst->p_handle = p_app_handle;
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
@@ -40,7 +40,7 @@ void app_status_bar_on_kill(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     status_bar_view_free(p_app_handle->p_status_bar_view);
 
-    free(p_app_handle);
+    mui_mem_free(p_app_handle);
 
     p_app_inst->p_handle = NULL;
 }
@@ -49,7 +49,9 @@ void app_status_bar_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_ev
 
 const mini_app_t app_status_bar_info = {.id = MINI_APP_ID_STATUS_BAR,
                                         .name = "status bar",
+                                        .icon = 0xe1f0,
                                         .deamon = true,
+                                        .sys = true,
                                         .run_cb = app_status_bar_on_run,
                                         .kill_cb = app_status_bar_on_kill,
                                         .on_event_cb = app_status_bar_on_event};

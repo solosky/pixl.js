@@ -1,0 +1,5 @@
+ADD_SCENE(amiibo, storage_list, STORAGE_LIST)
+ADD_SCENE(amiibo, folder_list, FOLDER_LIST)
+ADD_SCENE(amiibo, amiibo_list, AMIIBO_LIST)
+ADD_SCENE(amiibo, amiibo_detail, AMIIBO_DETAIL)
+ADD_SCENE(amiibo, amiibo_detail_menu, AMIIBO_DETAIL_MENU)

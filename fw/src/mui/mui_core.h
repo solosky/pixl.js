@@ -1,6 +1,7 @@
 #ifndef MUI_CORE_H
 #define MUI_CORE_H
 
+#include "mui_defines.h"
 #include <stdint.h>
 #include "u8g2.h"
 

@@ -1,6 +1,7 @@
 #include "mui_core.h"
 
 #include "mui_defines.h"
+#include "mui_mem.h"
 #include "mui_u8g2.h"
 
 static mui_view_port_t *mui_find_view_port_enabled(mui_t *p_mui, mui_layer_t layer) {
@@ -16,14 +17,34 @@ static mui_view_port_t *mui_find_view_port_enabled(mui_t *p_mui, mui_layer_t lay
     return NULL;
 }
 
+static void mui_draw_mem_mon(mui_canvas_t *p_canvas) {
+#ifdef MUI_MEM_DRAW_USAGE
+
+    char mem[32];
+    mui_mem_monitor_t mon;
+    mui_mem_monitor(&mon);
+    sprintf(mem, "u:%02d%% f:%02d%%", mon.used_cnt, mon.frag_pct);
+    uint8_t len = strlen(mem);
+    uint8_t w =  (uint8_t) mui_canvas_get_utf8_width(p_canvas, mem);
+    uint8_t x = mui_canvas_get_width(p_canvas) - w;
+    uint8_t y = mui_canvas_get_height(p_canvas);
+
+    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
+    mui_canvas_set_draw_color(p_canvas, 0);
+    mui_canvas_draw_box(p_canvas, x, y - 10, w, 12);
+    mui_canvas_set_draw_color(p_canvas, 1);
+    mui_canvas_draw_utf8(p_canvas, x, y, mem);
+
+#endif
+}
+
 static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
-    mui_view_port_t *p_view_port =
-        mui_find_view_port_enabled(p_mui, MUI_LAYER_FULLSCREEN);
+    mui_view_port_t *p_view_port = mui_find_view_port_enabled(p_mui, MUI_LAYER_FULLSCREEN);
     if (p_view_port) {
         mui_canvas_clear(&p_mui->canvas);
-        mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width,
-                             p_mui->screen_height);
+        mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width, p_mui->screen_height);
         p_view_port->draw_cb(p_view_port, &p_mui->canvas);
+        mui_draw_mem_mon(&p_mui->canvas);
         mui_canvas_flush(&p_mui->canvas);
         return;
     }
@@ -31,17 +52,16 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
     p_view_port = mui_find_view_port_enabled(p_mui, MUI_LAYER_WINDOW);
     if (p_view_port) {
         mui_canvas_clear(&p_mui->canvas);
-        mui_canvas_set_frame(&p_mui->canvas, 0, LAYER_STATUS_BAR_HEIGHT,
-                             p_mui->screen_width,
+        mui_canvas_set_frame(&p_mui->canvas, 0, LAYER_STATUS_BAR_HEIGHT, p_mui->screen_width,
                              p_mui->screen_height - LAYER_STATUS_BAR_HEIGHT);
         p_view_port->draw_cb(p_view_port, &p_mui->canvas);
-        mui_view_port_t *p_view_port_status_bar =
-            mui_find_view_port_enabled(p_mui, MUI_LAYER_STATUS_BAR);
+        mui_view_port_t *p_view_port_status_bar = mui_find_view_port_enabled(p_mui, MUI_LAYER_STATUS_BAR);
         if (p_view_port_status_bar) {
-            mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width,
-                                 LAYER_STATUS_BAR_HEIGHT);
+            mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width, LAYER_STATUS_BAR_HEIGHT);
             p_view_port_status_bar->draw_cb(p_view_port_status_bar, &p_mui->canvas);
         }
+        mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width, p_mui->screen_height);
+        mui_draw_mem_mon(&p_mui->canvas);
         mui_canvas_flush(&p_mui->canvas);
         return;
     }
@@ -49,25 +69,23 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
     p_view_port = mui_find_view_port_enabled(p_mui, MUI_LAYER_DESKTOP);
     if (p_view_port) {
         mui_canvas_clear(&p_mui->canvas);
-        mui_canvas_set_frame(&p_mui->canvas, 0, LAYER_STATUS_BAR_HEIGHT,
-                             p_mui->screen_width,
+        mui_canvas_set_frame(&p_mui->canvas, 0, LAYER_STATUS_BAR_HEIGHT, p_mui->screen_width,
                              p_mui->screen_height - LAYER_STATUS_BAR_HEIGHT);
         p_view_port->draw_cb(p_view_port, &p_mui->canvas);
-        mui_view_port_t *p_view_port_status_bar =
-            mui_find_view_port_enabled(p_mui, MUI_LAYER_STATUS_BAR);
+        mui_view_port_t *p_view_port_status_bar = mui_find_view_port_enabled(p_mui, MUI_LAYER_STATUS_BAR);
         if (p_view_port_status_bar) {
-            mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width,
-                                 LAYER_STATUS_BAR_HEIGHT);
+            mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width, LAYER_STATUS_BAR_HEIGHT);
             p_view_port_status_bar->draw_cb(p_view_port_status_bar, &p_mui->canvas);
         }
+        mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width, p_mui->screen_height);
+        mui_draw_mem_mon(&p_mui->canvas);
         mui_canvas_flush(&p_mui->canvas);
         return;
     }
 }
 
 static void mui_process_input(mui_t *p_mui, mui_event_t *p_event) {
-    mui_view_port_t *p_view_port =
-        mui_find_view_port_enabled(p_mui, MUI_LAYER_FULLSCREEN);
+    mui_view_port_t *p_view_port = mui_find_view_port_enabled(p_mui, MUI_LAYER_FULLSCREEN);
     if (!p_view_port) {
         p_view_port = mui_find_view_port_enabled(p_mui, MUI_LAYER_WINDOW);
     }
@@ -106,6 +124,9 @@ mui_t *mui() {
 }
 
 void mui_init(mui_t *p_mui) {
+
+    mui_mem_init();
+
     mui_u8g2_init(&p_mui->u8g2);
 
     p_mui->screen_height = SCREEN_HEIGHT;
@@ -130,12 +151,11 @@ void mui_init(mui_t *p_mui) {
 
 void mui_deinit(mui_t *p_mui) {
     mui_u8g2_deinit(&p_mui->u8g2);
+    mui_mem_deinit();
     p_mui->initialized = false;
 }
 
-void mui_post(mui_t *p_mui, mui_event_t *p_event) {
-    mui_event_post(&p_mui->event_queue, p_event);
-}
+void mui_post(mui_t *p_mui, mui_event_t *p_event) { mui_event_post(&p_mui->event_queue, p_event); }
 
 void mui_tick(mui_t *p_mui) { mui_event_dispatch(&p_mui->event_queue); }
 

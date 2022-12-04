@@ -1,6 +1,7 @@
 #ifndef MUI_EVENT_H
 #define MUI_EVENT_H
 
+#include "mui_defines.h"
 #include <stdint.h>
 #include "m-deque.h"
 

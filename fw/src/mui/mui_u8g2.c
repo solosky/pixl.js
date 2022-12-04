@@ -69,12 +69,11 @@
 
 #include "app_error.h"
 #include "nrf_delay.h"
-#include "nrf_log.h"
 #include "nrf_gpio.h"
+#include "nrf_log.h"
 
 #include "u8g2.h"
 #include "u8x8.h"
-
 
 #define LCD_CS_PIN 27
 #define LCD_RESET_PIN 29
@@ -85,13 +84,10 @@ u8g2_t u8g2;
 static spi_device_t m_dev;
 uint8_t m_u8g2_initialized = 0;
 
-uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
-                                 void *arg_ptr);
-uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
-                                       void *arg_ptr);
+uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
+uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
 
-uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
-                                       void *arg_ptr) {
+uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr) {
     switch (msg) {
     case U8X8_MSG_GPIO_DC:
         nrf_gpio_pin_write(LCD_DC_PIN, arg_int);
@@ -116,8 +112,7 @@ uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_in
     return 1;
 }
 
-uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int,
-                                 void *arg_ptr) {
+uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr) {
 
     uint8_t *data;
     bool res = false;
@@ -164,16 +159,22 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     nrf_gpio_cfg_output(LCD_BL_PIN);
     nrf_gpio_pin_clear(LCD_BL_PIN);
 
-    u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832,
-                                     u8g2_nrf_gpio_and_delay_spi_cb);
+    u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
 
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
 }
 
-void mui_u8g2_deinit(u8g2_t* p_u8g2){
-     u8g2_SetPowerSave(p_u8g2, 1);
+void mui_u8g2_deinit(u8g2_t *p_u8g2) {
+    u8g2_SetPowerSave(p_u8g2, 1);
 
     nrf_gpio_pin_clear(LCD_BL_PIN);
     nrf_gpio_cfg_default(LCD_BL_PIN);
 }
+
+void mui_u8g2_set_backlight(uint8_t bl) {
+    nrf_gpio_pin_write(LCD_BL_PIN, bl); 
+}
+
+
+uint8_t mui_u8g2_get_backlight() { return nrf_gpio_pin_out_read(LCD_BL_PIN); }

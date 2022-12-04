@@ -34,7 +34,17 @@
     "mui_core.h": "c",
     "random": "c",
     "mui_view.h": "c",
-    "sstream": "c"
+    "sstream": "c",
+    "mini_app_registry.h": "c",
+    "mui_list_view.h": "c",
+    "mui_scene_dispatcher.h": "c",
+    "mui_defines.h": "c",
+    "stdint.h": "c",
+    "amiibo_scene.h": "c",
+    "status_bar_view.h": "c",
+    "mui_conf.h": "c",
+    "mui_mem.h": "c",
+    "stddef.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

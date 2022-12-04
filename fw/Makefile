@@ -181,11 +181,14 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
+  $(PROJ_DIR)/mui/mui_scene_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
   $(PROJ_DIR)/mui/mui_input.c \
+  $(PROJ_DIR)/mui/mui_element.c \
+  $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
@@ -193,9 +196,15 @@ SRC_FILES += \
   $(PROJ_DIR)/app/status_bar/app_status_bar.c \
   $(PROJ_DIR)/app/status_bar/view/status_bar_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
-  $(PROJ_DIR)/app/desktop/view/desktop_view.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_view.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
+  $(PROJ_DIR)/app/settings/app_settings.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -208,6 +217,7 @@ SRC_FILES += \
   $(COMP_DIR)/amiitool/src/version.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
+  $(COMP_DIR)/tlsf/tlsf.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
   $(U8G2_ROOT)/u8g2_buffer.c \
@@ -397,15 +407,17 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/app/status_bar \
-  $(PROJ_DIR)/app/status_bar\view \
+  $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/desktop \
-  $(PROJ_DIR)/app/desktop\view \
+  $(PROJ_DIR)/app/settings \
   $(PROJ_DIR)/app/amiibo \
-  $(PROJ_DIR)/app/amiibo\view \
+  $(PROJ_DIR)/app/amiibo/view \
+  $(PROJ_DIR)/app/amiibo/scene \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
   $(COMP_DIR)/littlefs \
+  $(COMP_DIR)/tlsf \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets
