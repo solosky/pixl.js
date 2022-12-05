@@ -6,6 +6,12 @@
 // Virtual File System
 #define VFS_MAX_NAME 64
 
+enum vfs_error_t {
+    VFS_ERR_UNKNOWN = -1,
+    VFS_ERR_NOOBJ = -90,
+    VFS_ERR_NOSPC = -91
+};
+
 typedef struct {
     uint8_t type;
     size_t size;

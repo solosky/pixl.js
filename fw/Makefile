@@ -178,6 +178,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
+  $(PROJ_DIR)/mod/bsp_btn.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -406,6 +407,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
+  $(PROJ_DIR)/mod \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/desktop \

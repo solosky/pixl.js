@@ -3,6 +3,7 @@
 #include "mui_defines.h"
 #include "mui_event.h"
 #include "nrf_log.h"
+#include "bsp_btn.h"
 
 static void mui_input_post_event(mui_input_event_t *p_input_event) {
     uint32_t arg = p_input_event->type;
@@ -12,36 +13,58 @@ static void mui_input_post_event(mui_input_event_t *p_input_event) {
     mui_post(mui(), &mui_event);
 }
 
-void mui_input_init() {}
 
-void mui_input_on_bsp_event(bsp_event_t evt) {
+void mui_input_on_bsp_btn_event(uint8_t btn, bsp_btn_event_t evt) {
     switch (evt) {
 
-    case BSP_EVENT_KEY_0: {
-        NRF_LOG_DEBUG("Key 0 press");
-        mui_input_event_t input_event = {.key = INPUT_KEY_LEFT, .type = INPUT_TYPE_SHORT};
+    case BSP_BTN_EVENT_PRESSED: {
+        NRF_LOG_DEBUG("Key %d pressed", btn);
+        mui_input_event_t input_event = {.key = btn, .type = INPUT_TYPE_PRESS};
         mui_input_post_event(&input_event);
         break;
     }
 
-    case BSP_EVENT_KEY_1: {
-        NRF_LOG_DEBUG("Key 1 press");
-        mui_input_event_t input_event = {.key = INPUT_KEY_CENTER,
+    case BSP_BTN_EVENT_RELEASED: {
+        NRF_LOG_DEBUG("Key %d released", btn);
+        mui_input_event_t input_event = {.key = btn, .type = INPUT_TYPE_RELEASE};
+        mui_input_post_event(&input_event);
+        break;
+    }
+
+    case BSP_BTN_EVENT_SHORT: {
+        NRF_LOG_DEBUG("Key %d short push", btn);
+        mui_input_event_t input_event = {.key = btn,
                                          .type = INPUT_TYPE_SHORT};
         mui_input_post_event(&input_event);
 
         break;
     }
 
-    case BSP_EVENT_KEY_2: {
-        NRF_LOG_DEBUG("Key 2 press");
-        mui_input_event_t input_event = {.key = INPUT_KEY_RIGHT,
-                                         .type = INPUT_TYPE_SHORT};
+    case BSP_BTN_EVENT_LONG: {
+        NRF_LOG_DEBUG("Key %d long push", btn);
+        mui_input_event_t input_event = {.key = btn,
+                                         .type = INPUT_TYPE_LONG};
         mui_input_post_event(&input_event);
 
         break;
     }
+
+     case BSP_BTN_EVENT_REPEAT: {
+        NRF_LOG_DEBUG("Key %d repeat push", btn);
+        mui_input_event_t input_event = {.key = btn,
+                                         .type = INPUT_TYPE_REPEAT};
+        mui_input_post_event(&input_event);
+
+        break;
+    }
+
     default:
         break;
     }
+}
+
+
+void mui_input_init() {
+    bsp_btn_init(mui_input_on_bsp_btn_event);
+    
 }

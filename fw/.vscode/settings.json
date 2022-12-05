@@ -44,7 +44,9 @@
     "status_bar_view.h": "c",
     "mui_conf.h": "c",
     "mui_mem.h": "c",
-    "stddef.h": "c"
+    "stddef.h": "c",
+    "nrf_error.h": "c",
+    "bsp_btn.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

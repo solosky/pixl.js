@@ -122,7 +122,7 @@ void bsp_evt_execute(void *p_event_data, uint16_t event_size) {
     bsp_event_t *evt_p = (bsp_event_t *)p_event_data;
     bsp_event_t evt = *evt_p;
     NRF_LOG_DEBUG("bsp event: %d\n", evt);
-    mui_input_on_bsp_event(evt);
+    //mui_input_on_bsp_event(evt);
 
     switch (evt) {
     case BSP_EVENT_KEY_0:
@@ -197,7 +197,7 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     /* Configure LED-pins as outputs */
-    err_code = bsp_init(BSP_INIT_LEDS | BSP_INIT_BUTTONS, bsp_evt_handler);
+    err_code = bsp_init(BSP_INIT_LEDS, bsp_evt_handler);
     APP_ERROR_CHECK(err_code);
 
     // err_code = bsp_nfc_btn_init(BTN_ID_SLEEP);
