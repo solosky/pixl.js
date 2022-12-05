@@ -23,7 +23,7 @@ typedef struct {
 } vfs_stat_t;
 
 typedef struct {
-    void* handle;
+    void *handle;
 } vfs_handle_t;
 
 typedef struct {
@@ -32,12 +32,13 @@ typedef struct {
 
     int32_t (*vfs_stat)(vfs_stat_t *p_stat);
 
-    int32_t (*list_dir)(const char *dir, vfs_scan_t *p_scan, vfs_obj_t *p_obj);
+    int32_t (*open_dir)(const char *dir, vfs_handle_t *p_handle, uint32_t flags);
+    int32_t (*read_dir)(vfs_handle_t *p_handle, vfs_scan_t *p_scan, vfs_obj_t *p_obj);
+    int32_t (*close_dir)(vfs_handle_t *p_handle);
     int32_t (*stat_dir)(const char *dir);
     int32_t (*create_dir)(const char *dir);
     int32_t (*remove_dir)(const char *dir);
 
-    int32_t (*list_file)(const char *dir, vfs_scan_t *p_scan, vfs_obj_t *p_obj);
     int32_t (*stat_file)(const char *path, vfs_obj_t *p_obj);
     int32_t (*remove_file)(const char *path);
 

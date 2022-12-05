@@ -71,10 +71,6 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_amiibo_detail_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
-    int16_t focus = mui_list_view_get_focus(app->p_list_view);
-    if (focus < 0 || focus > 4) {
-        mui_list_view_set_focus(app->p_list_view, 0);
-    }
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
 }
