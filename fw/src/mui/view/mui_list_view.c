@@ -71,7 +71,7 @@ static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event)
             break;
 
         case INPUT_KEY_CENTER:
-            if (p_mui_list_view->selcted_cb) {
+            if (p_mui_list_view->selcted_cb && event->type == INPUT_TYPE_SHORT) {
                 p_mui_list_view->selcted_cb(
                     p_mui_list_view, mui_list_item_array_get(p_mui_list_view->items, p_mui_list_view->focus_index));
             }

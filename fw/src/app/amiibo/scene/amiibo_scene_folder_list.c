@@ -9,7 +9,7 @@ static void amiibo_scene_folder_list_on_selected(mui_list_view_t *p_list_view, m
 
 void amiibo_scene_folder_list_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
-    for (uint32_t i = 0; i < 6; i++) {
+    for (uint32_t i = 0; i < 50; i++) {
         char name[16];
         sprintf(name, "Folder %d", i);
         mui_list_view_add_item(app->p_list_view, 0xe1d6, name, i);
