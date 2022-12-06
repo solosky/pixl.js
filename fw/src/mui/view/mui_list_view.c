@@ -54,7 +54,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
 static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     mui_list_view_t *p_mui_list_view = p_view->user_data;
-    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT) {
+    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || INPUT_TYPE_LONG) {
         switch (event->key) {
         case INPUT_KEY_LEFT:
             if (p_mui_list_view->focus_index > 0) {
@@ -71,9 +71,16 @@ static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event)
             break;
 
         case INPUT_KEY_CENTER:
-            if (p_mui_list_view->selcted_cb && event->type == INPUT_TYPE_SHORT) {
-                p_mui_list_view->selcted_cb(
-                    p_mui_list_view, mui_list_item_array_get(p_mui_list_view->items, p_mui_list_view->focus_index));
+            if (p_mui_list_view->selected_cb) {
+                if (event->type == INPUT_TYPE_SHORT) {
+                    p_mui_list_view->selected_cb(
+                        MUI_LIST_VIEW_EVENT_SELECTED, p_mui_list_view,
+                        mui_list_item_array_get(p_mui_list_view->items, p_mui_list_view->focus_index));
+                } else if (event->type == INPUT_TYPE_LONG) {
+                    p_mui_list_view->selected_cb(
+                        MUI_LIST_VIEW_EVENT_LONG_SELECTED, p_mui_list_view,
+                        mui_list_item_array_get(p_mui_list_view->items, p_mui_list_view->focus_index));
+                }
             }
             break;
         }
@@ -98,7 +105,7 @@ mui_list_view_t *mui_list_view_create() {
     p_mui_list_view->focus_index = 0;
     p_mui_list_view->scroll_offset = 0;
     p_mui_list_view->scroll_direction = LIST_SCROLL_DOWN;
-    p_mui_list_view->selcted_cb = NULL;
+    p_mui_list_view->selected_cb = NULL;
 
     mui_list_item_array_init(p_mui_list_view->items);
 
@@ -141,7 +148,7 @@ void mui_list_view_clear_items(mui_list_view_t *p_view) {
 }
 
 void mui_list_view_set_selected_cb(mui_list_view_t *p_view, mui_list_view_selected_cb selected_cb) {
-    p_view->selcted_cb = selected_cb;
+    p_view->selected_cb = selected_cb;
 }
 
 void mui_list_view_set_user_data(mui_list_view_t *p_view, void *user_data) { p_view->user_data = user_data; }

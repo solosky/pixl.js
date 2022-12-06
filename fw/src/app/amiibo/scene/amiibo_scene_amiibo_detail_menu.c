@@ -10,7 +10,8 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 
-static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
+static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                                        mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
 
     uint32_t selection = (uint32_t)p_item->user_data;
@@ -63,11 +64,11 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_t *p_list_
 void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", 0);
-    mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", 1);
-    mui_list_view_add_item(app->p_list_view, 0xe1c6, "重置标签", 2);
-    mui_list_view_add_item(app->p_list_view, 0xe1c7, "删除标签", 3);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", 4);
+    mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", (void*) 0);
+    mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", (void*) 1);
+    mui_list_view_add_item(app->p_list_view, 0xe1c6, "重置标签", (void*) 2);
+    mui_list_view_add_item(app->p_list_view, 0xe1c7, "删除标签", (void*) 3);
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", (void*) 4);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_amiibo_detail_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

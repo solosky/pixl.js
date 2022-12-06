@@ -2,9 +2,14 @@
 #include "app_amiibo.h"
 #include "mui_list_view.h"
 
-static void amiibo_scene_folder_list_on_selected(mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
+static void amiibo_scene_folder_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                                 mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
-    mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_LIST);
+    if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_LIST);
+    }else{
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST_MENU);
+    }
 }
 
 void amiibo_scene_folder_list_on_enter(void *user_data) {

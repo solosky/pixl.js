@@ -1,9 +1,9 @@
 #ifndef MUI_LIST_VIEW_H
 #define MUI_LIST_VIEW_H
 
-#include "mui_defines.h"
 #include "m-array.h"
 #include "m-string.h"
+#include "mui_defines.h"
 #include "mui_include.h"
 #include <stdint.h>
 
@@ -12,7 +12,13 @@ typedef struct mui_list_item_s mui_list_item_t;
 struct mui_list_view_s;
 typedef struct mui_list_view_s mui_list_view_t;
 
-typedef void (*mui_list_view_selected_cb)(mui_list_view_t *p_list_view, mui_list_item_t *p_item);
+typedef enum {
+    MUI_LIST_VIEW_EVENT_SELECTED,
+    MUI_LIST_VIEW_EVENT_LONG_SELECTED,
+} mui_list_view_event_t;
+
+typedef void (*mui_list_view_selected_cb)(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                          mui_list_item_t *p_item);
 
 struct mui_list_item_s {
     uint16_t icon;
@@ -28,7 +34,7 @@ ARRAY_DEF(mui_list_item_array, mui_list_item_t, M_POD_OPLIST);
 struct mui_list_view_s {
     mui_view_t *p_view;
     uint16_t focus_index;
-    mui_list_view_selected_cb selcted_cb;
+    mui_list_view_selected_cb selected_cb;
     mui_list_item_array_t items;
     void *user_data;
     uint16_t scroll_offset;

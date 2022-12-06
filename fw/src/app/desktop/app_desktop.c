@@ -17,7 +17,7 @@ typedef struct {
     mui_view_dispatcher_t *p_view_dispatcher;
 } app_desktop_t;
 
-static void app_desktop_list_view_on_selected(mui_list_view_t *p_view, mui_list_item_t *p_item) {
+static void app_desktop_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_view, mui_list_item_t *p_item) {
     mini_app_launcher_run(mini_app_launcher(), (uint32_t)p_item->user_data);
 }
 

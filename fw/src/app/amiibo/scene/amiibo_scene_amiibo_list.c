@@ -3,15 +3,22 @@
 #include "app_amiibo.h"
 #include "mui_list_view.h"
 
-static void amiibo_scene_amiibo_list_on_selected(mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
+static void amiibo_scene_amiibo_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                                 mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
-    ntag_store_read_default((uint8_t)p_item->user_data, &app->ntag);
-    mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
+    uint32_t idx = (uint32_t)p_item->user_data;
+    if (idx == 0xFFFF) {
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST);
+    } else {
+        ntag_store_read_default((uint8_t)p_item->user_data, &app->ntag);
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
+    }
 }
 
 void amiibo_scene_amiibo_list_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
     ntag_t ntag;
+    mui_list_view_add_item(app->p_list_view, 0xe1d6, "..", (void *)0xFFFF);
     for (uint32_t i = 0; i < 10; i++) {
         ntag_store_read_default(i, &ntag);
         uint32_t head = to_little_endian_int32(&ntag.data[84]);

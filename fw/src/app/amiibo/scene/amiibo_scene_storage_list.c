@@ -2,7 +2,8 @@
 #include "app_amiibo.h"
 #include "mui_list_view.h"
 
-static void amiibo_scene_storage_list_on_selected(mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
+static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                                  mui_list_item_t *p_item) {
     app_amiibo_t *p_app = p_list_view->user_data;
     mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST);
 }

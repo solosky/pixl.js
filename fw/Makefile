@@ -202,6 +202,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
