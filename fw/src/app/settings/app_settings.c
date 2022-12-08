@@ -6,6 +6,7 @@
 #include "mini_app_launcher.h"
 #include "mui_list_view.h"
 #include "mui_u8g2.h"
+#include "nrf_bootloader_info.h"
 
 typedef enum { SETTINGS_VIEW_ID_MAIN } settings_view_id_t;
 
@@ -18,7 +19,8 @@ typedef struct {
     mui_view_dispatcher_t *p_view_dispatcher;
 } app_settings_t;
 
-static void app_settings_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
+static void app_settings_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                               mui_list_item_t *p_item) {
     app_settings_t *app = p_list_view->user_data;
     char txt[32];
 
@@ -29,6 +31,12 @@ static void app_settings_list_view_on_selected(mui_list_view_event_t event, mui_
         sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
         string_set_str(p_item->text, txt);
         mui_update(mui());
+        break;
+
+    case 1:
+        sd_power_gpregret_clr(0, 0);
+        sd_power_gpregret_set(0, BOOTLOADER_DFU_START);
+        sd_nvic_SystemReset();
         break;
 
     case 4:
@@ -48,8 +56,9 @@ void app_settings_on_run(mini_app_inst_t *p_app_inst) {
     char txt[32];
     sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
 
-    mui_list_view_add_item(p_app_handle->p_list_view, 0xe1c8, txt, (void*) 0);
-    mui_list_view_add_item(p_app_handle->p_list_view, 0xe069, "返回主菜单", (void*) 4);
+    mui_list_view_add_item(p_app_handle->p_list_view, 0xe1c8, txt, (void *)0);
+    mui_list_view_add_item(p_app_handle->p_list_view, 0xe1c9, "固件更新", (void *)1);
+    mui_list_view_add_item(p_app_handle->p_list_view, 0xe069, "返回主菜单", (void *)4);
 
     mui_list_view_set_selected_cb(p_app_handle->p_list_view, app_settings_list_view_on_selected);
 

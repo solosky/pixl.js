@@ -3,7 +3,7 @@ TARGETS          := bootloader
 OUTPUT_DIRECTORY := ../_build
 
 SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560
-PROJ_DIR := ./
+PROJ_DIR := ./src
 GNU_INSTALL_ROOT := /usr/bin/
 
 $(OUTPUT_DIRECTORY)/bootloader.out: \
@@ -46,8 +46,12 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_hash.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_init.c \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_shared.c \
+  $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_spi.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_spim.c \
   $(PROJ_DIR)/dfu_public_key.c \
   $(PROJ_DIR)/main.c \
+  $(PROJ_DIR)/lcd_comm.c \
+  $(PROJ_DIR)/lcd_drv.c \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
@@ -138,6 +142,10 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/queue \
   $(SDK_ROOT)/components/libraries/ringbuf \
   $(SDK_ROOT)/external/mbedtls/include \
+  $(SDK_ROOT)/integration/nrfx/legacy \
+  $(SDK_ROOT)/modules/nrfx/hal \
+  $(SDK_ROOT)/integration/nrfx \
+  $(SDK_ROOT)/modules/nrfx/drivers/include \
 
 # Libraries common to all targets
 LIB_FILES += \
@@ -169,6 +177,7 @@ CFLAGS += -DuECC_OPTIMIZATION_LEVEL=3
 CFLAGS += -DuECC_SQUARE_FUNC=0
 CFLAGS += -DuECC_SUPPORT_COMPRESSED_POINT=0
 CFLAGS += -DuECC_VLI_NATIVE_LITTLE_ENDIAN=1
+CFLAGS += -DCUSTOM_BOARD_INC=am_board
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
 CFLAGS += -Wall -Werror
@@ -202,6 +211,7 @@ ASMFLAGS += -DuECC_OPTIMIZATION_LEVEL=3
 ASMFLAGS += -DuECC_SQUARE_FUNC=0
 ASMFLAGS += -DuECC_SUPPORT_COMPRESSED_POINT=0
 ASMFLAGS += -DuECC_VLI_NATIVE_LITTLE_ENDIAN=1
+ASMFLAGS += -DCUSTOM_BOARD_INC=am_board
 
 # Linker flags
 LDFLAGS += $(OPT)
@@ -254,5 +264,5 @@ privgen:
 settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
 
-zipgen:
+zipgen: settingsgen
 	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --application-version 2 --hw-version 52 --sd-req 0x0103 --key-file priv.pem appv2_sd112.zip
