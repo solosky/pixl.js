@@ -2,7 +2,7 @@ PROJECT_NAME     := secure_bootloader_ble_s112_pca10040
 TARGETS          := bootloader
 OUTPUT_DIRECTORY := ../_build
 
-SDK_ROOT := ../../../nRF5_SDK_17.1.0_ddde560
+SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560
 PROJ_DIR := ./
 GNU_INSTALL_ROOT := /usr/bin/
 
@@ -129,7 +129,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/atomic_fifo \
   $(SDK_ROOT)/external/micro-ecc/micro-ecc \
-  $(PROJ_DIR) \
+  . \
   $(SDK_ROOT)/components/libraries/crypto/backend/nrf_sw \
   $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
@@ -252,4 +252,7 @@ privgen:
 	nrfutil keys display --key pk --format code priv.pem --out_file dfu_public_key.c
 
 settingsgen:
-	nrfutil settings generate --family NRF52 --application app.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
+	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
+
+zipgen:
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --application-version 2 --hw-version 52 --sd-req 0x0103 --key-file priv.pem appv2_sd112.zip
