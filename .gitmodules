@@ -10,3 +10,6 @@
 [submodule "fw/components/cwalk"]
 	path = fw/components/cwalk
 	url = https://github.com/likle/cwalk.git
+[submodule "fw/components/spiffs"]
+	path = fw/components/spiffs
+	url = https://github.com/pellepl/spiffs.git
