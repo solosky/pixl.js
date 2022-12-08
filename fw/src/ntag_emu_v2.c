@@ -44,8 +44,13 @@ typedef struct {
 
 ntag_emu_t ntag_emu = {0};
 
-static const uint8_t NTAG215_Version[8] = {0x00, 0x04, 0x04, 0x02,
-                                           0x01, 0x00, 0x11, 0x03};
+static const uint8_t NTAG215_Version[8] = {0x00, 0x04, 0x04, 0x02, 0x01, 0x00,
+                                           0x11,
+                                           0x03};
+// NTAG215_Version[7] mean:
+// 0x0F ntag213
+// 0x11 ntag215
+// 0x13 ntag216
 
 static const uint8_t NTAG215_Signature[32] = {
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -65,8 +70,9 @@ static const uint8_t N2E_ID[16] = {
     0x16, 0x3a, 0x24, 0xff, 0xff, 0xff, 0xff, 0xff,
 };
 
-static const uint8_t N2E_SELECT_BANK[1] = {0x0a};
+static const uint8_t N2E_SELECT_BANK[1] = { 0x0a };
 
+//NTAG COMMANDS
 #define NFC_CMD_READ 0x30
 #define NFC_CMD_WRITE 0xA2
 #define NFC_CMD_GET_VERSION 0x60
@@ -74,6 +80,7 @@ static const uint8_t N2E_SELECT_BANK[1] = {0x0a};
 #define NFC_CMD_PWD_AUTH 0x1B
 #define NFC_CMD_FAST_READ 0x3A
 
+//N2ELITE COMMANDS
 #define N2_CMD_GET_INFO 0x55
 #define N2_CMD_GET_ID 0x43
 #define N2_CMD_FAST_READ 0x3B
@@ -103,8 +110,11 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         else
             hal_send_ack_nack(0x0);
         break;
-    case N2_CMD_WRITE: // TODO
+    case N2_CMD_WRITE:
+        // similar to write but with one extra paramter to specify the bank number
         NRF_LOG_INFO("N2E Write slot:%d:", p_data[2]);
+        data_length = 6;
+        p_data = p_data + 1;
     case NFC_CMD_WRITE:
         NRF_LOG_INFO("NFC Write Block %d", block_num);
         if (data_length == 6) {
@@ -115,14 +125,12 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
                 plain[block_num * 4 + 2] = p_data[4];
                 plain[block_num * 4 + 3] = p_data[5];
             } else {
-
                 for (int i = 0; i < 4; i++) {
                     plain[block_num * 4 + i] = p_data[i + 2];
                 }
             }
             hal_send_ack_nack(0xA);
         } else {
-
             hal_send_ack_nack(0x0);
         }
         break;
@@ -130,12 +138,10 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         NRF_LOG_INFO("NFC Get Version");
         hal_nfc_send(NTAG215_Version, 8);
         break;
-
     case NFC_CMD_READ_SIG:
         NRF_LOG_INFO("NFC Read Signature");
         hal_nfc_send(NTAG215_Signature, 32);
         break;
-
     case N2_CMD_FAST_READ: // TODO
         NRF_LOG_INFO("N2E Fast Read slot %d:", p_data[3]);
     case NFC_CMD_FAST_READ:
@@ -155,14 +161,17 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         hal_nfc_send(N2E_ID, 16);
         break;
     case N2_CMD_SELECT_BANK:
+        //uint8_t banknum = block_num;
         hal_nfc_send(N2E_SELECT_BANK, 1);
         break;
     case N2_CMD_FAST_WRITE:
-        // ntag_emu.dirty = true;
-        // uint8_t startpage = p_data[1];
-        // uint8_t banknum = p_data[2];
-        // uint8_t dsize = p_data[3];
-        hal_send_ack_nack(0x0);
+        NRF_LOG_INFO("N2E Fast Read slot %d:", p_data[2]);
+		ntag_emu.dirty = true;
+        uint8_t datasize = p_data[3];
+        for (int i = 0; i < datasize; i++) {
+            plain[block_num * 4 + i] = p_data[i + 4];
+        }
+        hal_send_ack_nack(0xA);
         break;
     default:
         NRF_LOG_INFO("NFC CMD %x", p_data[0]);
@@ -192,11 +201,9 @@ static void nfc_callback(void *p_context, hal_nfc_event_t event, const uint8_t *
         // NRF_LOG_INFO("NFC Command Received: %x", p_data[0]);
         nfc_received_process(p_data, data_length, ntag_emu.ntag.data);
         break;
-
     case HAL_NFC_EVENT_DATA_TRANSMITTED:
         // NRF_LOG_INFO("NFC EVENT Data Transmitted");
         break;
-
     default:
         // NRF_LOG_INFO("NFC EVENT %d, CMD %x", event, p_data[0]);
         break;
@@ -248,7 +255,7 @@ void ntag_emu_uninit(ntag_t *ntag) {
 
 void ntag_emu_set_tag(ntag_t *ntag) {
     memcpy(&(ntag_emu.ntag), ntag, sizeof(ntag_t));
-    ntag_emu.dirty = 0;
+    ntag_emu.dirty = false;
 
     uint8_t uid1[7];
     uid1[0] = ntag->data[0];
