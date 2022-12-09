@@ -134,6 +134,10 @@ void mui_list_view_set_item(mui_list_view_t *p_view, uint16_t index, uint32_t ic
     // TODO
 }
 
+uint32_t mui_list_view_item_size(mui_list_view_t *p_view){
+    return mui_list_item_array_size(p_view->items);
+}
+
 void mui_list_view_clear_items(mui_list_view_t *p_view) {
     mui_list_item_array_it_t it;
 

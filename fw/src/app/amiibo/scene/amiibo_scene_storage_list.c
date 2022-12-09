@@ -1,17 +1,24 @@
 #include "amiibo_scene.h"
 #include "app_amiibo.h"
 #include "mui_list_view.h"
+#include "spiffs_manager.h"
 
 static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                   mui_list_item_t *p_item) {
     app_amiibo_t *p_app = p_list_view->user_data;
+    p_app->current_drive = (spiffs_drive_t) p_item->user_data;
     mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST);
 }
 
 void amiibo_scene_storage_list_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
-    mui_list_view_add_item(app->p_list_view, 0xe1bb, "Internal Flash", 0);
-    mui_list_view_add_item(app->p_list_view, 0xe1bb, "External Flash", 1);
+
+    if(spiffs_man_fs_avaliable(SPIFFS_DRIVE_INTERNAL)){
+          mui_list_view_add_item(app->p_list_view, 0xe1bb, "Internal Flash", SPIFFS_DRIVE_INTERNAL);
+    }
+     if(spiffs_man_fs_avaliable(SPIFFS_DRIVE_EXTERNAL)){
+          mui_list_view_add_item(app->p_list_view, 0xe1bb, "External Flash", SPIFFS_DRIVE_EXTERNAL);
+    }
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_storage_list_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

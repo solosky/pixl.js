@@ -46,7 +46,11 @@
     "mui_mem.h": "c",
     "stddef.h": "c",
     "nrf_error.h": "c",
-    "bsp_btn.h": "c"
+    "bsp_btn.h": "c",
+    "hal_internal_flash.h": "c",
+    "params_test.h": "c",
+    "spiffs_manager.h": "c",
+    "typeinfo": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

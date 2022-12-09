@@ -95,7 +95,8 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
-#include "lfs_port.h"
+#include "spiffs_manager.h"
+
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16 /**< Maximum number of events in the scheduler queue. */
@@ -218,6 +219,8 @@ int main(void) {
 
     hal_spi_bus_init();
 
+    spiffs_man_mount_drives();
+
     //u8g2_drv_init();
 
 #ifdef SPI_FLASH
@@ -254,15 +257,15 @@ int main(void) {
 
     NRF_LOG_DEBUG("init done");
 
-    err_code = ntag_store_init();
-    APP_ERROR_CHECK(err_code);
+    // err_code = ntag_store_init();
+    // APP_ERROR_CHECK(err_code);
 
-    ntag_t ntag;
-    uint8_t index = ntag_indicator_current();
-    err_code = ntag_store_read_default(index, &ntag);
-    APP_ERROR_CHECK(err_code);
-    err_code = ntag_emu_init(&ntag);
-    APP_ERROR_CHECK(err_code);
+    // ntag_t ntag;
+    // uint8_t index = ntag_indicator_current();
+    // err_code = ntag_store_read_default(index, &ntag);
+    // APP_ERROR_CHECK(err_code);
+    // err_code = ntag_emu_init(&ntag);
+    // APP_ERROR_CHECK(err_code);
 
     // ntag_indicator_update();
 

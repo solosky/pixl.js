@@ -178,7 +178,10 @@ SRC_FILES += \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
+  $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
+  $(PROJ_DIR)/mod/spiffs_internal.c \
+  $(PROJ_DIR)/mod/spiffs_manager.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -220,6 +223,11 @@ SRC_FILES += \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/tlsf/tlsf.c \
+  $(COMP_DIR)/spiffs/src/spiffs_cache.c \
+  $(COMP_DIR)/spiffs/src/spiffs_check.c \
+  $(COMP_DIR)/spiffs/src/spiffs_gc.c \
+  $(COMP_DIR)/spiffs/src/spiffs_hydrogen.c \
+  $(COMP_DIR)/spiffs/src/spiffs_nucleus.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
   $(U8G2_ROOT)/u8g2_buffer.c \
@@ -421,6 +429,7 @@ INC_FOLDERS += \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
   $(COMP_DIR)/littlefs \
+  $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/tlsf \
   $(SDK_ROOT)/components/libraries/bsp
 
