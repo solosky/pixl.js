@@ -2,8 +2,6 @@ fw/.settings
 fw/_build
 
 fw/src/amiibo_private.c
-fw/bootloader/priv.pem
-fw/bootloader/dfu_public_key.c
 
 fw/log.log
 
