@@ -8,6 +8,9 @@
 #include "mui_list_view.h"
 #include "spiffs_manager.h"
 
+#include "mui_mlib.h"
+#include "m-string.h"
+
 
 typedef struct {
     amiibo_view_t *p_amiibo_view;
@@ -16,6 +19,7 @@ typedef struct {
     mui_scene_dispatcher_t *p_scene_dispatcher;
     ntag_t ntag;
     spiffs_drive_t current_drive;
+    string_t current_file;
 } app_amiibo_t;
 
 typedef enum { AMIIBO_VIEW_ID_LIST, AMIIBO_VIEW_ID_DETAIL } amiibo_view_id_t;

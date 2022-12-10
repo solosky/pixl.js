@@ -180,8 +180,9 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
-  $(PROJ_DIR)/mod/spiffs_internal.c \
-  $(PROJ_DIR)/mod/spiffs_manager.c \
+  $(PROJ_DIR)/mod/spiffs/spiffs_internal.c \
+  $(PROJ_DIR)/mod/spiffs/spiffs_external.c \
+  $(PROJ_DIR)/mod/spiffs/spiffs_manager.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -207,6 +208,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
   $(PROJ_DIR)/app/settings/app_settings.c \
@@ -228,6 +230,7 @@ SRC_FILES += \
   $(COMP_DIR)/spiffs/src/spiffs_gc.c \
   $(COMP_DIR)/spiffs/src/spiffs_hydrogen.c \
   $(COMP_DIR)/spiffs/src/spiffs_nucleus.c \
+  $(COMP_DIR)/cwalk/src/cwalk.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
   $(U8G2_ROOT)/u8g2_buffer.c \
@@ -418,6 +421,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/mod \
+  $(PROJ_DIR)/mod/spiffs \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/desktop \
@@ -431,6 +435,7 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/tlsf \
+  $(COMP_DIR)/cwalk\include \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets

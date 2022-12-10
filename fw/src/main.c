@@ -97,16 +97,15 @@
 
 #include "spiffs_manager.h"
 
-
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
-#define APP_SCHED_QUEUE_SIZE 16 /**< Maximum number of events in the scheduler queue. */
+#define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
 
 #define BTN_ID_SLEEP 1 /**< ID of button used to put the application into sleep mode. */
 #define BTN_ACTION_KEY1_LONGPUSH BSP_EVENT_KEY_LAST + 9
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
-//#define SPI_FLASH
+// #define SPI_FLASH
 
 /**
  *@brief Function for initializing logging.
@@ -123,7 +122,7 @@ void bsp_evt_execute(void *p_event_data, uint16_t event_size) {
     bsp_event_t *evt_p = (bsp_event_t *)p_event_data;
     bsp_event_t evt = *evt_p;
     NRF_LOG_DEBUG("bsp event: %d\n", evt);
-    //mui_input_on_bsp_event(evt);
+    // mui_input_on_bsp_event(evt);
 
     switch (evt) {
     case BSP_EVENT_KEY_0:
@@ -137,9 +136,7 @@ void bsp_evt_execute(void *p_event_data, uint16_t event_size) {
     }
 }
 
-void bsp_evt_handler(bsp_event_t evt) {
-    app_sched_event_put(&evt, sizeof(evt), bsp_evt_execute);
-}
+void bsp_evt_handler(bsp_event_t evt) { app_sched_event_put(&evt, sizeof(evt), bsp_evt_execute); }
 
 /**
  * @brief Function for shutdown events.
@@ -204,8 +201,7 @@ int main(void) {
     // err_code = bsp_nfc_btn_init(BTN_ID_SLEEP);
     // APP_ERROR_CHECK(err_code);
 
-    err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH,
-                                                 BTN_ACTION_KEY1_LONGPUSH);
+    err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH, BTN_ACTION_KEY1_LONGPUSH);
     APP_ERROR_CHECK(err_code);
 
     err_code = nrf_crypto_init();
@@ -221,7 +217,7 @@ int main(void) {
 
     spiffs_man_mount_drives();
 
-    //u8g2_drv_init();
+    // u8g2_drv_init();
 
 #ifdef SPI_FLASH
     hal_spi_flash_init();
@@ -267,10 +263,13 @@ int main(void) {
     // err_code = ntag_emu_init(&ntag);
     // APP_ERROR_CHECK(err_code);
 
+    extern const ntag_t default_ntag215;
+    err_code = ntag_emu_init(&default_ntag215);
+    APP_ERROR_CHECK(err_code);
+
     // ntag_indicator_update();
 
     // NRF_LOG_DEBUG("display done");
-
 
     mui_t *p_mui = mui();
     mui_init(p_mui);

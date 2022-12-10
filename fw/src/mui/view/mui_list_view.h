@@ -1,6 +1,7 @@
 #ifndef MUI_LIST_VIEW_H
 #define MUI_LIST_VIEW_H
 
+#include "mui_mlib.h"
 #include "m-array.h"
 #include "m-string.h"
 #include "mui_defines.h"

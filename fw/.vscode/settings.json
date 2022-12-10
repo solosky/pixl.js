@@ -50,7 +50,9 @@
     "hal_internal_flash.h": "c",
     "params_test.h": "c",
     "spiffs_manager.h": "c",
-    "typeinfo": "c"
+    "typeinfo": "c",
+    "spiffs_internal.h": "c",
+    "mui_canvas.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

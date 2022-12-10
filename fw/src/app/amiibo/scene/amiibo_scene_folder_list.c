@@ -9,8 +9,10 @@ static void amiibo_scene_folder_list_on_selected(mui_list_view_event_t event, mu
                                                  mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
+        string_set(app->current_file, p_item->text);
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_LIST);
     } else {
+        string_set(app->current_file, p_item->text);
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST_MENU);
     }
 }
