@@ -6,7 +6,7 @@
 #include "mui_scene_dispatcher.h"
 #include "amiibo_view.h"
 #include "mui_list_view.h"
-#include "spiffs_manager.h"
+#include "vos.h"
 
 #include "mui_mlib.h"
 #include "m-string.h"
@@ -18,7 +18,7 @@ typedef struct {
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
     ntag_t ntag;
-    spiffs_drive_t current_drive;
+    vos_drive_t current_drive;
     string_t current_file;
     string_t current_folder;
 } app_amiibo_t;

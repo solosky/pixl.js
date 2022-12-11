@@ -95,7 +95,6 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
-#include "spiffs_manager.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
@@ -214,8 +213,6 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     hal_spi_bus_init();
-
-    spiffs_man_mount_drives();
 
     // u8g2_drv_init();
 

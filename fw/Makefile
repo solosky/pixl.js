@@ -180,9 +180,6 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
-  $(PROJ_DIR)/mod/spiffs/spiffs_internal.c \
-  $(PROJ_DIR)/mod/spiffs/spiffs_external.c \
-  $(PROJ_DIR)/mod/spiffs/spiffs_manager.c \
   $(PROJ_DIR)/mod/vos/vos.c \
   $(PROJ_DIR)/mod/vos/vos_driver_spiffs.c \
   $(PROJ_DIR)/mui/mui_view.c \
@@ -423,7 +420,6 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/mod \
-  $(PROJ_DIR)/mod/spiffs \
   $(PROJ_DIR)/mod/vos \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \

@@ -24,7 +24,7 @@ void amiibo_scene_folder_list_on_enter(void *user_data) {
         vos_get_driver(app->current_drive)->list_folder(VOS_BUCKET_AMIIBO, folders, VOS_MAX_FOLDER_SIZE);
 
     if (folder_size == 0) {
-        mui_list_view_add_item(app->p_list_view, 0xe1d6, "<Empty Folder>", -1);
+        mui_list_view_add_item(app->p_list_view, 0xe1d6, "<Empty Folder>", (void *) -1);
     } else {
         for (uint32_t i = 0; i < folder_size; i++) {
             mui_list_view_add_item(app->p_list_view, 0xe1d6, folders[i].name, (void *)i);
