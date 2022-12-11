@@ -65,6 +65,8 @@ typedef struct {
                            size_t buffer_size);
     int32_t (*remove_object)(vos_bucket_t bucket, const char *folder_name, const char *object_name);
 
+    int32_t (*rename_object)(vos_bucket_t bucket, const char* folder_name, const char* object_name, const char* new_object_name);
+
 } vos_driver_t;
 
 bool vos_drive_enabled(vos_drive_t drive);

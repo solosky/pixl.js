@@ -20,6 +20,18 @@ static void amiibo_update_cb(void *context, ntag_t *p_ntag) {
     int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, string_get_cstr(p_app->current_folder),
                                          string_get_cstr(p_app->current_file), p_ntag, sizeof(ntag_t));
     if (res > 0) {
+        uint32_t head = to_little_endian_int32(&p_ntag->data[84]);
+        uint32_t tail = to_little_endian_int32(&p_ntag->data[88]);
+
+        const amiibo_data_t *amd = find_amiibo_data(head, tail);
+
+        if (amd) {
+            char new_name[VOS_MAX_OBJECT_SIZE];
+            snprintf(new_name, sizeof(new_name), "%s.%s", amd->name, "bin");
+            res = p_driver->rename_object(VOS_BUCKET_AMIIBO, string_get_cstr(p_app->current_folder),
+                                          string_get_cstr(p_app->current_file), new_name);
+        }
+
         // todo ..
     }
 
@@ -76,7 +88,7 @@ static void amiibo_view_on_enter(mui_view_t *p_view) {
     ntag_emu_set_update_cb(amiibo_update_cb, p_amiibo_view);
 }
 
-static void amiibo_view_on_exit(mui_view_t *p_view) {}
+static void amiibo_view_on_exit(mui_view_t *p_view) { ntag_emu_set_update_cb(NULL, NULL); }
 
 amiibo_view_t *amiibo_view_create() {
     amiibo_view_t *p_amiibo_view = mui_mem_malloc(sizeof(amiibo_view_t));

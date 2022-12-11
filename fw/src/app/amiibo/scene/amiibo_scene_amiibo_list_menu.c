@@ -24,7 +24,7 @@ static void amiibo_scene_amiibo_list_menu_on_selected(mui_list_view_event_t even
         ntag_t tmp_ntag;
         memcpy(&tmp_ntag, &default_ntag215, sizeof(ntag_t));
 
-        int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, folder, "001.bin", &tmp_ntag, sizeof(tmp_ntag));
+        int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, folder, "<empty>.bin", &tmp_ntag, sizeof(tmp_ntag));
         if (res > 0) {
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
@@ -49,8 +49,8 @@ static void amiibo_scene_amiibo_list_menu_on_selected(mui_list_view_event_t even
 void amiibo_scene_amiibo_list_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, "新建amiibo", (void *)AMIIBO_LIST_MENU_CREATE_AMIIBO);
-    mui_list_view_add_item(app->p_list_view, 0xe1c9, "删除amiibo", (void *)AMIIBO_LIST_MENU_REMOVE_AMIIBO);
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, "新建标签", (void *)AMIIBO_LIST_MENU_CREATE_AMIIBO);
+    mui_list_view_add_item(app->p_list_view, 0xe1c9, "删除标签", (void *)AMIIBO_LIST_MENU_REMOVE_AMIIBO);
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", (void *)AMIIBO_LIST_MENU_BACK);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_amiibo_list_menu_on_selected);

@@ -55,7 +55,7 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_DETAIL,
                                  amiibo_view_get_view(p_app_handle->p_amiibo_view));
 
-    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
     mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
 }
@@ -63,7 +63,7 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
     app_amiibo_t *p_app_handle = p_app_inst->p_handle;
 
-    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     mui_list_view_free(p_app_handle->p_list_view);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);

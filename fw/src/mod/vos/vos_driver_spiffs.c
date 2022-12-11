@@ -265,6 +265,16 @@ int32_t vos_spiffs_remove_object(vos_bucket_t bucket, const char *folder_name, c
     return spiffs_map_error_code(res);
 }
 
+int32_t vos_spiffs_rename_object(vos_bucket_t bucket, const char *folder_name, const char *object_name,
+                                 const char *new_object_name) {
+    char path[SPIFFS_OBJ_NAME_LEN];
+    char path2[SPIFFS_OBJ_NAME_LEN];
+    snprintf(path, sizeof(path), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, object_name);
+    snprintf(path2, sizeof(path2), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, new_object_name);
+    int res = SPIFFS_rename(&fs, path, path2);
+    return spiffs_map_error_code(res);
+}
+
 // TODO
 vos_driver_t vos_driver_spiffs = {.mount = vos_spiffs_mount,
                                   .umount = vos_spiffs_umount,
@@ -277,4 +287,5 @@ vos_driver_t vos_driver_spiffs = {.mount = vos_spiffs_mount,
                                   .list_object = vos_spiffs_list_object,
                                   .write_object = vos_spiffs_write_object,
                                   .read_object = vos_spiffs_read_object,
-                                  .remove_object = vos_spiffs_remove_object};
+                                  .remove_object = vos_spiffs_remove_object,
+                                  .rename_object = vos_spiffs_rename_object};

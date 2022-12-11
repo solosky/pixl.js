@@ -61,7 +61,8 @@
     "unordered_set": "c",
     "vector": "c",
     "initializer_list": "c",
-    "vos.h": "c"
+    "vos.h": "c",
+    "amiibo_data.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
