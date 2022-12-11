@@ -7,21 +7,20 @@
 
 #include "app_amiibo.h"
 #include "mui_core.h"
-#include "spiffs_manager.h"
 #include "nrf_log.h"
+#include "vos.h"
 
 static void amiibo_update_cb(void *context, ntag_t *p_ntag) {
     amiibo_view_t *p_amiibo_view = context;
     app_amiibo_t *p_app = p_amiibo_view->user_data;
     memcpy(p_amiibo_view->amiibo, p_ntag, sizeof(ntag_t));
 
+    vos_driver_t *p_driver = vos_get_driver(p_app->current_drive);
     // save to fs
-    spiffs *fs = spiffs_man_get_fs(p_app->current_drive);
-    spiffs_file fd = SPIFFS_open(fs, string_get_cstr(p_app->current_file), SPIFFS_RDWR, 0);
-    if (fd > 0) {
-       int res =  SPIFFS_write(fs, fd, p_ntag, sizeof(ntag_t));
-       NRF_LOG_INFO("amiibo update: %d", res);
-       SPIFFS_close(fs, fd);
+    int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, string_get_cstr(p_app->current_folder),
+                                         string_get_cstr(p_app->current_file), p_ntag, sizeof(ntag_t));
+    if (res > 0) {
+        // todo ..
     }
 
     mui_update(mui());

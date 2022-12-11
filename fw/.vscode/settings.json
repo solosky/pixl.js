@@ -52,7 +52,16 @@
     "spiffs_manager.h": "c",
     "typeinfo": "c",
     "spiffs_internal.h": "c",
-    "mui_canvas.h": "c"
+    "mui_canvas.h": "c",
+    "vfs_driver_spiffs.h": "c",
+    "deque": "c",
+    "forward_list": "c",
+    "list": "c",
+    "unordered_map": "c",
+    "unordered_set": "c",
+    "vector": "c",
+    "initializer_list": "c",
+    "vos.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

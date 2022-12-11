@@ -183,6 +183,8 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/spiffs/spiffs_internal.c \
   $(PROJ_DIR)/mod/spiffs/spiffs_external.c \
   $(PROJ_DIR)/mod/spiffs/spiffs_manager.c \
+  $(PROJ_DIR)/mod/vos/vos.c \
+  $(PROJ_DIR)/mod/vos/vos_driver_spiffs.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -422,6 +424,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/mod \
   $(PROJ_DIR)/mod/spiffs \
+  $(PROJ_DIR)/mod/vos \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/desktop \

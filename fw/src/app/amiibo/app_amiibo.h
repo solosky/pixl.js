@@ -20,6 +20,7 @@ typedef struct {
     ntag_t ntag;
     spiffs_drive_t current_drive;
     string_t current_file;
+    string_t current_folder;
 } app_amiibo_t;
 
 typedef enum { AMIIBO_VIEW_ID_LIST, AMIIBO_VIEW_ID_DETAIL } amiibo_view_id_t;
