@@ -28,7 +28,7 @@ void amiibo_scene_folder_list_on_enter(void *user_data) {
 
     uint32_t folder_size =
         vos_get_driver(app->current_drive)->list_folder(VOS_BUCKET_AMIIBO, folders, VOS_MAX_FOLDER_SIZE);
-    mui_list_view_add_item(app->p_list_view, 0xe1d6, "..", (void *)FOLDER_LIST_PARENT);
+    mui_list_view_add_item(app->p_list_view, 0xe069, "..", (void *)FOLDER_LIST_PARENT);
 
     for (uint32_t i = 0; i < folder_size; i++) {
         mui_list_view_add_item(app->p_list_view, 0xe1d6, folders[i].name, (void *)i);

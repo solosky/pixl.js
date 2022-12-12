@@ -18,11 +18,7 @@ static void amiibo_scene_folder_list_menu_on_selected(mui_list_view_event_t even
     vos_driver_t *p_driver = vos_get_driver(app->current_drive);
     switch (index) {
     case FOLDER_LIST_MENU_CREATE_FOLDER: {
-        // TODO INPUT
-        int32_t res = p_driver->create_folder(VOS_BUCKET_AMIIBO, "荒野之息");
-        if (res == VOS_OK) {
-            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
-        }
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST_NAME_INPUT);
         break;
     }
 

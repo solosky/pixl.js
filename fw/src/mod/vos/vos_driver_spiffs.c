@@ -204,18 +204,28 @@ int32_t vos_spiffs_list_object(vos_bucket_t bucket, const char *folder_name, vos
 
     char path[SPIFFS_OBJ_NAME_LEN];
     char name[SPIFFS_OBJ_NAME_LEN];
+    char folder[SPIFFS_OBJ_NAME_LEN];
     snprintf(path, sizeof(path), "%s/%s/", spiffs_map_bucket_name(bucket), folder_name);
+    NRF_LOG_INFO("list object: %s", nrf_log_push(path));
 
     if (!SPIFFS_opendir(&fs, path, &d)) {
         return VOS_ERR_NOOBJ;
     }
 
     while ((pe = SPIFFS_readdir(&d, pe))) {
+        NRF_LOG_INFO("list object file: %s", nrf_log_push(pe->name));
         struct cwk_segment segment;
         cwk_path_get_last_segment(pe->name, &segment);
         memset(name, 0, sizeof(name));
         strncpy(name, segment.begin, segment.size);
-        if (strcmp(name, VOS_SPIFFS_FOLDER_NAME) != 0 && i < object_size) {
+
+
+        cwk_path_get_first_segment(pe->name, &segment); // bucket name
+        cwk_path_get_next_segment(&segment);            // folder name
+         memset(folder, 0, sizeof(folder));
+        strncpy(folder, segment.begin, segment.size);
+
+        if (strcmp(name, VOS_SPIFFS_FOLDER_NAME) != 0 && strcmp(folder, folder_name) == 0 && i < object_size) {
             strcpy(objects[i].name, name);
             objects[i].size = pe->size;
             objects[i].type = 0; // TODO ??

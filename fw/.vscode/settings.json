@@ -62,7 +62,8 @@
     "vector": "c",
     "initializer_list": "c",
     "vos.h": "c",
-    "amiibo_data.h": "c"
+    "amiibo_data.h": "c",
+    "mui_text_input.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

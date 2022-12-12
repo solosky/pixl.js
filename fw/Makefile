@@ -194,6 +194,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_element.c \
   $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
+  $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
   $(PROJ_DIR)/core/mini_app_data.c \
@@ -207,6 +208,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list_menu.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list_name_input.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
