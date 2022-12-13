@@ -195,6 +195,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
+  $(PROJ_DIR)/mui/view/mui_msg_box.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
   $(PROJ_DIR)/core/mini_app_data.c \

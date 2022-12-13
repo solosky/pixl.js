@@ -11,6 +11,20 @@ enum folder_list_menu_t {
     FOLDER_LIST_MENU_BACK,
 };
 
+static void amiibo_scence_folder_list_menu_msg_box_on_event(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+    app_amiibo_t *app = p_msg_box->user_data;
+    vos_driver_t *p_driver = vos_get_driver(app->current_drive);
+    if (event == MUI_MSG_BOX_EVENT_SELECT_RIGHT) {
+        int32_t res = p_driver->remove_folder(VOS_BUCKET_AMIIBO, string_get_cstr(app->current_folder));
+        if (res == VOS_OK) {
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FOLDER_LIST);
+        }
+    } else {
+        //cancel, return to menu
+        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
+    }
+}
+
 static void amiibo_scene_folder_list_menu_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                       mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
@@ -23,10 +37,16 @@ static void amiibo_scene_folder_list_menu_on_selected(mui_list_view_event_t even
     }
 
     case FOLDER_LIST_MENU_REMOVE_FOLDER: {
-        int32_t res = p_driver->remove_folder(VOS_BUCKET_AMIIBO, string_get_cstr(app->current_folder));
-        if (res == VOS_OK) {
-            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
-        }
+        char msg[64];
+        snprintf(msg, sizeof(msg), "删除 %s 吗?", string_get_cstr(app->current_folder));
+        mui_msg_box_set_header(app->p_msg_box, "删除文件夹");
+        mui_msg_box_set_message(app->p_msg_box, msg);
+        mui_msg_box_set_btn_text(app->p_msg_box, "取消", NULL, "删除");
+        mui_msg_box_set_btn_focus(app->p_msg_box, 2);
+        mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scence_folder_list_menu_msg_box_on_event);
+
+        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
+
     } break;
 
     case FOLDER_LIST_MENU_BACK:

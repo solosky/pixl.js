@@ -25,9 +25,9 @@ static u8_t spiffs_cache_buf[(LOG_PAGE_SIZE + 32) * 4];
 
 static const char *spiffs_map_bucket_name(vos_bucket_t bucket) {
     if (bucket == VOS_BUCKET_AMIIBO) {
-        return "/amiibo";
+        return "amiibo";
     } else if (bucket == VOS_BUCKET_SYSTEM) {
-        return "/system";
+        return "system";
     } else {
         return NULL;
     }
@@ -44,6 +44,26 @@ static s32_t spiffs_map_error_code(s32_t err) {
         }
     }
     return VOS_ERR_FAIL;
+}
+
+static void spiffs_parse_path(const char *path, char *bucket_name, char *folder_name, char *file_name) {
+    struct cwk_segment segment;
+    cwk_path_get_first_segment(path, &segment); // bucket name
+    if (bucket_name != NULL) {
+        memset(bucket_name, 0, SPIFFS_OBJ_NAME_LEN);
+        strncpy(bucket_name, segment.begin, segment.size);
+    }
+    cwk_path_get_next_segment(&segment); // folder name
+    if (folder_name != NULL) {
+        memset(folder_name, 0, SPIFFS_OBJ_NAME_LEN);
+        strncpy(folder_name, segment.begin, segment.size);
+    }
+
+    cwk_path_get_next_segment(&segment); // file name
+    if (file_name != NULL) {
+        memset(file_name, 0, SPIFFS_OBJ_NAME_LEN);
+        strncpy(file_name, segment.begin, segment.size);
+    }
 }
 
 static s32_t spiffs_block_read(u32_t addr, u32_t size, u8_t *dst) { return hal_spi_flash_read(addr, dst, size); }
@@ -129,32 +149,28 @@ int32_t vos_spiffs_stat(vos_stat_t *p_stat) {
 }
 
 /* folder operations */
-int32_t vos_spiffs_list_folder(vos_bucket_t bucket, vos_obj_t *folders, size_t folder_size) {
+int32_t vos_spiffs_list_folder(vos_bucket_t bucket_id, vos_obj_t *folders, size_t folder_size) {
     spiffs_DIR d;
     struct spiffs_dirent e;
     struct spiffs_dirent *pe = &e;
 
-    char name[SPIFFS_OBJ_NAME_LEN];
+    char bucket[SPIFFS_OBJ_NAME_LEN];
+    char folder[SPIFFS_OBJ_NAME_LEN];
+    char file[SPIFFS_OBJ_NAME_LEN];
     uint32_t i = 0;
 
     memset(folders, 0, sizeof(vos_obj_t) * folder_size);
 
-    if (!SPIFFS_opendir(&fs, spiffs_map_bucket_name(bucket), &d)) {
+    if (!SPIFFS_opendir(&fs, "/", &d)) {
         return VOS_ERR_NOOBJ;
     }
     while ((pe = SPIFFS_readdir(&d, pe))) {
-        struct cwk_segment segment;
+        NRF_LOG_INFO("list folder %s [%04x] %d size:%i\n", nrf_log_push(pe->name), pe->obj_id, pe->type, pe->size);
 
-        cwk_path_get_last_segment(pe->name, &segment);
-        memset(name, 0, sizeof(name));
-        strncpy(name, segment.begin, segment.size);
+        spiffs_parse_path(pe->name, bucket, folder, file);
 
-        NRF_LOG_INFO("%s [%04x] %d size:%i\n", nrf_log_push(pe->name), pe->obj_id, pe->type, pe->size);
-
-        if (strcmp(name, VOS_SPIFFS_FOLDER_NAME) == 0 && i < folder_size) {
-            cwk_path_get_first_segment(pe->name, &segment); // bucket name
-            cwk_path_get_next_segment(&segment);            // folder name
-            strncpy(folders[i].name, segment.begin, segment.size);
+        if (strcmp(file, VOS_SPIFFS_FOLDER_NAME) == 0 && i < folder_size) {
+            strcpy(folders[i].name, folder);
             folders[i].size = 0;
             folders[i].type = 0; // TODO ???
             i++;
@@ -164,30 +180,39 @@ int32_t vos_spiffs_list_folder(vos_bucket_t bucket, vos_obj_t *folders, size_t f
 
     return i;
 }
-int32_t vos_spiffs_create_folder(vos_bucket_t bucket, const char *name) {
+
+int32_t vos_spiffs_create_folder(vos_bucket_t bucket_id, const char *name) {
     char path[SPIFFS_OBJ_NAME_LEN];
-    snprintf(path, sizeof(path), "%s/%s/%s", spiffs_map_bucket_name(bucket), name, VOS_SPIFFS_FOLDER_NAME);
+    snprintf(path, sizeof(path), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), name, VOS_SPIFFS_FOLDER_NAME);
 
     int res = SPIFFS_creat(&fs, path, 0);
     return spiffs_map_error_code(res);
 }
-int32_t vos_spiffs_remove_folder(vos_bucket_t bucket, const char *name) {
+
+int32_t vos_spiffs_remove_folder(vos_bucket_t bucket_id, const char *folder_name) {
     spiffs_DIR d;
     struct spiffs_dirent e;
     struct spiffs_dirent *pe = &e;
 
-    char path[SPIFFS_OBJ_NAME_LEN];
-    sprintf(path, "%s/%s/", spiffs_map_bucket_name(bucket), name);
+    char bucket[SPIFFS_OBJ_NAME_LEN];
+    char folder[SPIFFS_OBJ_NAME_LEN];
+    char file[SPIFFS_OBJ_NAME_LEN];
 
-    if (!SPIFFS_opendir(&fs, path, &d)) {
+    if (!SPIFFS_opendir(&fs, "/", &d)) {
         return VOS_ERR_NOOBJ;
     }
 
     while ((pe = SPIFFS_readdir(&d, pe))) {
-        int res = SPIFFS_remove(&fs, pe->name);
-        if (res != SPIFFS_OK) {
-            SPIFFS_closedir(&d);
-            return VOS_ERR_FAIL;
+
+        spiffs_parse_path(pe->name, bucket, folder, file);
+
+        if (strcmp(bucket, spiffs_map_bucket_name(bucket_id)) == 0 && strcmp(folder, folder_name) == 0) {
+            NRF_LOG_INFO("remove folder %s [%04x] %d size:%i\n", nrf_log_push(pe->name), pe->obj_id, pe->type, pe->size);
+            int res = SPIFFS_remove(&fs, pe->name);
+            if (res != SPIFFS_OK) {
+                SPIFFS_closedir(&d);
+                return VOS_ERR_FAIL;
+            }
         }
     }
     SPIFFS_closedir(&d);
@@ -196,37 +221,27 @@ int32_t vos_spiffs_remove_folder(vos_bucket_t bucket, const char *name) {
 }
 
 /* obj operations */
-int32_t vos_spiffs_list_object(vos_bucket_t bucket, const char *folder_name, vos_obj_t *objects, size_t object_size) {
+int32_t vos_spiffs_list_object(vos_bucket_t bucket_id, const char *folder_name, vos_obj_t *objects, size_t object_size) {
     spiffs_DIR d;
     struct spiffs_dirent e;
     struct spiffs_dirent *pe = &e;
     uint32_t i = 0;
 
-    char path[SPIFFS_OBJ_NAME_LEN];
-    char name[SPIFFS_OBJ_NAME_LEN];
+    char bucket[SPIFFS_OBJ_NAME_LEN];
     char folder[SPIFFS_OBJ_NAME_LEN];
-    snprintf(path, sizeof(path), "%s/%s/", spiffs_map_bucket_name(bucket), folder_name);
-    NRF_LOG_INFO("list object: %s", nrf_log_push(path));
+    char file[SPIFFS_OBJ_NAME_LEN];
 
-    if (!SPIFFS_opendir(&fs, path, &d)) {
+    if (!SPIFFS_opendir(&fs, "/", &d)) {
         return VOS_ERR_NOOBJ;
     }
 
     while ((pe = SPIFFS_readdir(&d, pe))) {
-        NRF_LOG_INFO("list object file: %s", nrf_log_push(pe->name));
-        struct cwk_segment segment;
-        cwk_path_get_last_segment(pe->name, &segment);
-        memset(name, 0, sizeof(name));
-        strncpy(name, segment.begin, segment.size);
 
+        spiffs_parse_path(pe->name, bucket, folder, file);
 
-        cwk_path_get_first_segment(pe->name, &segment); // bucket name
-        cwk_path_get_next_segment(&segment);            // folder name
-         memset(folder, 0, sizeof(folder));
-        strncpy(folder, segment.begin, segment.size);
-
-        if (strcmp(name, VOS_SPIFFS_FOLDER_NAME) != 0 && strcmp(folder, folder_name) == 0 && i < object_size) {
-            strcpy(objects[i].name, name);
+        if (strcmp(file, VOS_SPIFFS_FOLDER_NAME) != 0 && strcmp(bucket, spiffs_map_bucket_name(bucket_id)) == 0 &&
+            strcmp(folder, folder_name) == 0 && i < object_size) {
+            strcpy(objects[i].name, file);
             objects[i].size = pe->size;
             objects[i].type = 0; // TODO ??
             i++;
@@ -236,10 +251,10 @@ int32_t vos_spiffs_list_object(vos_bucket_t bucket, const char *folder_name, vos
 
     return i;
 }
-int32_t vos_spiffs_write_object(vos_bucket_t bucket, const char *folder_name, const char *object_name, void *buffer,
+int32_t vos_spiffs_write_object(vos_bucket_t bucket_id, const char *folder_name, const char *object_name, void *buffer,
                                 size_t buffer_size) {
     char path[SPIFFS_OBJ_NAME_LEN];
-    snprintf(path, sizeof(path), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, object_name);
+    snprintf(path, sizeof(path), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), folder_name, object_name);
     spiffs_file fd = SPIFFS_open(&fs, path, SPIFFS_WRONLY | SPIFFS_CREAT | SPIFFS_TRUNC, 0);
     if (fd < 0) {
         return spiffs_map_error_code(fd);
@@ -252,10 +267,10 @@ int32_t vos_spiffs_write_object(vos_bucket_t bucket, const char *folder_name, co
         return spiffs_map_error_code(res);
     }
 }
-int32_t vos_spiffs_read_object(vos_bucket_t bucket, const char *folder_name, const char *object_name, void *buffer,
+int32_t vos_spiffs_read_object(vos_bucket_t bucket_id, const char *folder_name, const char *object_name, void *buffer,
                                size_t buffer_size) {
     char path[SPIFFS_OBJ_NAME_LEN];
-    snprintf(path, sizeof(path), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, object_name);
+    snprintf(path, sizeof(path), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), folder_name, object_name);
     spiffs_file fd = SPIFFS_open(&fs, path, SPIFFS_RDONLY, 0);
     if (fd < 0) {
         return spiffs_map_error_code(fd);
@@ -268,19 +283,19 @@ int32_t vos_spiffs_read_object(vos_bucket_t bucket, const char *folder_name, con
         return spiffs_map_error_code(res);
     }
 }
-int32_t vos_spiffs_remove_object(vos_bucket_t bucket, const char *folder_name, const char *object_name) {
+int32_t vos_spiffs_remove_object(vos_bucket_t bucket_id, const char *folder_name, const char *object_name) {
     char path[SPIFFS_OBJ_NAME_LEN];
-    snprintf(path, sizeof(path), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, object_name);
+    snprintf(path, sizeof(path), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), folder_name, object_name);
     int res = SPIFFS_remove(&fs, path);
     return spiffs_map_error_code(res);
 }
 
-int32_t vos_spiffs_rename_object(vos_bucket_t bucket, const char *folder_name, const char *object_name,
+int32_t vos_spiffs_rename_object(vos_bucket_t bucket_id, const char *folder_name, const char *object_name,
                                  const char *new_object_name) {
     char path[SPIFFS_OBJ_NAME_LEN];
     char path2[SPIFFS_OBJ_NAME_LEN];
-    snprintf(path, sizeof(path), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, object_name);
-    snprintf(path2, sizeof(path2), "%s/%s/%s", spiffs_map_bucket_name(bucket), folder_name, new_object_name);
+    snprintf(path, sizeof(path), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), folder_name, object_name);
+    snprintf(path2, sizeof(path2), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), folder_name, new_object_name);
     int res = SPIFFS_rename(&fs, path, path2);
     return spiffs_map_error_code(res);
 }

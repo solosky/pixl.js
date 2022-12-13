@@ -57,3 +57,22 @@ uint16_t mui_canvas_string_width(mui_canvas_t *p_canvas, const char *str) {
 uint8_t mui_canvas_get_width(mui_canvas_t *p_canvas) { return p_canvas->width; }
 
 uint8_t mui_canvas_get_height(mui_canvas_t *p_canvas) { return p_canvas->height; }
+
+
+
+uint8_t mui_canvas_current_font_height(mui_canvas_t* p_canvas){
+    return u8g2_GetMaxCharHeight(p_canvas->fb);
+}
+
+void mui_canvas_invert_color(mui_canvas_t* p_canvas){
+     p_canvas->fb->draw_color = !p_canvas->fb->draw_color;
+}
+
+
+void mui_canvas_draw_line(mui_canvas_t* p_canvas, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2) {
+    x1 += p_canvas->offset_x;
+    y1 += p_canvas->offset_y;
+    x2 += p_canvas->offset_x;
+    y2 += p_canvas->offset_y;
+    u8g2_DrawLine(p_canvas->fb, x1, y1, x2, y2);
+}

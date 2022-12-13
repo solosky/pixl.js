@@ -63,7 +63,9 @@
     "initializer_list": "c",
     "vos.h": "c",
     "amiibo_data.h": "c",
-    "mui_text_input.h": "c"
+    "mui_text_input.h": "c",
+    "mui_mlib.h": "c",
+    "mui_element.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

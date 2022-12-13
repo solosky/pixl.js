@@ -89,6 +89,8 @@ static void mui_text_input_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     uint8_t start_pos = 4;
     uint8_t text_length = string_size(p_mui_text_input->input_text);
 
+    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+    mui_canvas_set_draw_color(p_canvas, 1);
     mui_canvas_draw_utf8(p_canvas, 2, 8, string_get_cstr(p_mui_text_input->header));
 
     mui_canvas_draw_rframe(p_canvas, 1, 12, 126, 15, 1);
@@ -105,7 +107,6 @@ static void mui_text_input_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     if (p_mui_text_input->clear_default_text) {
         mui_canvas_draw_rframe(p_canvas, start_pos - 1, 14, mui_canvas_string_width(p_canvas, text) + 2, 10, 1);
-        mui_canvas_set_draw_color(p_canvas, 0);
     } else {
         mui_canvas_draw_utf8(p_canvas, start_pos + mui_canvas_string_width(p_canvas, text) + 1, 22, "_");
     }
@@ -242,6 +243,7 @@ mui_text_input_t *mui_text_input_create() {
     p_mui_text_input->p_view = p_view;
     p_mui_text_input->focus_row = 0;
     p_mui_text_input->focus_column = 0;
+    p_mui_text_input->clear_default_text = false;
     string_init(p_mui_text_input->header);
     string_init(p_mui_text_input->input_text);
     p_mui_text_input->event_cb = NULL;
@@ -272,6 +274,10 @@ void mui_text_input_set_input_text(mui_text_input_t *p_view, const char *input) 
 void mui_text_input_set_header(mui_text_input_t *p_view, const char *title) { string_set_str(p_view->header, title); }
 const char *mui_text_input_get_input_text(mui_text_input_t *p_view) { return string_get_cstr(p_view->input_text); }
 
-void mui_text_input_reset(mui_text_input_t *p_view){
-    //TODO 
+void mui_text_input_reset(mui_text_input_t *p_view) {
+    p_view->focus_row = 0;
+    p_view->focus_column = 0;
+    p_view->clear_default_text = false;
+    string_reset(p_view->header);
+    string_reset(p_view->input_text);
 }
