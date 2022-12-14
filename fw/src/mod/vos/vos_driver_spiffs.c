@@ -220,6 +220,39 @@ int32_t vos_spiffs_remove_folder(vos_bucket_t bucket_id, const char *folder_name
     return VOS_OK;
 }
 
+int32_t vos_spiffs_rename_folder(vos_bucket_t bucket_id, const char *folder_name, const char* new_folder_name){
+    spiffs_DIR d;
+    struct spiffs_dirent e;
+    struct spiffs_dirent *pe = &e;
+
+    char bucket[SPIFFS_OBJ_NAME_LEN];
+    char folder[SPIFFS_OBJ_NAME_LEN];
+    char file[SPIFFS_OBJ_NAME_LEN];
+    char path[SPIFFS_OBJ_NAME_LEN];
+
+    if (!SPIFFS_opendir(&fs, "/", &d)) {
+        return VOS_ERR_NOOBJ;
+    }
+
+    while ((pe = SPIFFS_readdir(&d, pe))) {
+
+        spiffs_parse_path(pe->name, bucket, folder, file);
+
+        if (strcmp(bucket, spiffs_map_bucket_name(bucket_id)) == 0 && strcmp(folder, folder_name) == 0) {
+            NRF_LOG_INFO("rename folder %s [%04x] %d size:%i\n", nrf_log_push(pe->name), pe->obj_id, pe->type, pe->size);
+            snprintf(path, sizeof(path), "/%s/%s/%s", spiffs_map_bucket_name(bucket_id), new_folder_name, file);
+            int res = SPIFFS_rename(&fs, pe->name, path);
+            if (res != SPIFFS_OK) {
+                SPIFFS_closedir(&d);
+                return VOS_ERR_FAIL;
+            }
+        }
+    }
+    SPIFFS_closedir(&d);
+
+    return VOS_OK;
+}
+
 /* obj operations */
 int32_t vos_spiffs_list_object(vos_bucket_t bucket_id, const char *folder_name, vos_obj_t *objects, size_t object_size) {
     spiffs_DIR d;
@@ -309,6 +342,7 @@ vos_driver_t vos_driver_spiffs = {.mount = vos_spiffs_mount,
                                   .list_folder = vos_spiffs_list_folder,
                                   .create_folder = vos_spiffs_create_folder,
                                   .remove_folder = vos_spiffs_remove_folder,
+                                  .rename_folder = vos_spiffs_rename_folder,
                                   .list_object = vos_spiffs_list_object,
                                   .write_object = vos_spiffs_write_object,
                                   .read_object = vos_spiffs_read_object,

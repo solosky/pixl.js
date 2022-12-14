@@ -56,6 +56,7 @@ typedef struct {
     int32_t (*list_folder)(vos_bucket_t bucket, vos_obj_t *folders, size_t folder_size);
     int32_t (*create_folder)(vos_bucket_t bucket, const char *name);
     int32_t (*remove_folder)(vos_bucket_t bucket, const char *name);
+    int32_t (*rename_folder)(vos_bucket_t bucket, const char *folder_name, const char* new_folder_name);
 
     /* obj operations */
     int32_t (*list_object)(vos_bucket_t bucket, const char *folder_name, vos_obj_t *objects, size_t object_size);
