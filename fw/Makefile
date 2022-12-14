@@ -201,6 +201,8 @@ SRC_FILES += \
   $(PROJ_DIR)/core/mini_app_data.c \
   $(PROJ_DIR)/app/status_bar/app_status_bar.c \
   $(PROJ_DIR)/app/status_bar/view/status_bar_view.c \
+  $(PROJ_DIR)/app/ble/app_ble.c \
+  $(PROJ_DIR)/app/ble/view/ble_status_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_view.c \
@@ -426,6 +428,8 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mod/vos \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
+  $(PROJ_DIR)/app/ble \
+  $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
   $(PROJ_DIR)/app/settings \
   $(PROJ_DIR)/app/amiibo \

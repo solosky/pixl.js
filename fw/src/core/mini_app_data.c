@@ -2,6 +2,7 @@
 #include "app_status_bar.h"
 #include "app_desktop.h"
 #include "app_amiibo.h"
+#include "app_ble.h"
 #include "app_settings.h"
 #include <stddef.h>
 
@@ -9,6 +10,7 @@ const mini_app_t* mini_app_registry[] = {
     &app_status_bar_info,
     &app_desktop_info,
     &app_amiibo_info,
+    &app_ble_info, 
     &app_settings_info
 };
 

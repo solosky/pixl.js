@@ -45,7 +45,7 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_INPUT,
                                  mui_text_input_get_view(p_app_handle->p_text_input));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX,
-                                 mui_text_input_get_view(p_app_handle->p_msg_box));
+                                 mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
