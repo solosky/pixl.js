@@ -24,6 +24,10 @@ typedef struct {
     vos_drive_t current_drive;
     string_t current_file;
     string_t current_folder;
+    uint8_t current_files_size;
+    uint8_t current_file_index;
+    vos_obj_t current_files[VOS_MAX_OBJECT_SIZE];
+
 } app_amiibo_t;
 
 typedef enum {

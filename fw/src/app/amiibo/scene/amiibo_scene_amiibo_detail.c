@@ -11,6 +11,7 @@ static void app_amiibo_view_on_close(amiibo_view_t *p_view) {
 void amiibo_scene_amiibo_detail_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
     app->p_amiibo_view->amiibo = &app->ntag;
+    app->p_amiibo_view->focus_index = app->current_file_index;
     app->p_amiibo_view->on_close_cb = app_amiibo_view_on_close;
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_DETAIL);

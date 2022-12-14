@@ -38,6 +38,31 @@ static void amiibo_update_cb(void *context, ntag_t *p_ntag) {
     mui_update(mui());
 }
 
+static void amiibo_view_update(mui_view_t *p_view, input_key_t key) {
+    amiibo_view_t *p_amiibo_view = p_view->user_data;
+    app_amiibo_t *app = p_amiibo_view->user_data;
+    bool updated = false;
+    if (key == INPUT_KEY_LEFT && app->current_file_index > 0) {
+        app->current_file_index--;
+        updated = true;
+    } else if (key == INPUT_KEY_RIGHT && app->current_file_index < app->current_files_size) {
+        app->current_file_index++;
+        updated = true;
+    }
+
+    // reload
+    if (updated) {
+        vos_driver_t *p_driver = vos_get_driver(app->current_drive);
+        m_string_set_cstr(app->current_file, app->current_files[app->current_file_index].name);
+        int32_t res = p_driver->read_object(VOS_BUCKET_AMIIBO, string_get_cstr(app->current_folder),
+                                            string_get_cstr(app->current_file), &app->ntag, sizeof(ntag_t));
+        p_amiibo_view->amiibo->index = app->current_file_index;
+        if (res > 0) {
+            mui_update(mui());
+        }
+    }
+}
+
 static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     char buff[64];
     amiibo_view_t *p_amiibo_view = p_view->user_data;
@@ -71,8 +96,8 @@ static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     amiibo_view_t *p_amiibo_view = p_view->user_data;
     switch (event->key) {
     case INPUT_KEY_LEFT:
-        break;
     case INPUT_KEY_RIGHT:
+        amiibo_view_update(p_view, event->key);
         break;
     case INPUT_KEY_CENTER:
         if (p_amiibo_view->on_close_cb) {
@@ -85,7 +110,7 @@ static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
 static void amiibo_view_on_enter(mui_view_t *p_view) {
     amiibo_view_t *p_amiibo_view = p_view->user_data;
     ntag_emu_set_tag(p_amiibo_view->amiibo);
-    ntag_emu_set_update_cb(amiibo_update_cb, p_amiibo_view);
+    ntag_emu_set_update_cb(amiibo_update_cb, p_amiibo_view); 
 }
 
 static void amiibo_view_on_exit(mui_view_t *p_view) { ntag_emu_set_update_cb(NULL, NULL); }

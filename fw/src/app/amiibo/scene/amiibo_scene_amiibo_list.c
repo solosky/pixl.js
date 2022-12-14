@@ -12,6 +12,7 @@ static void amiibo_scene_amiibo_list_on_selected(mui_list_view_event_t event, mu
     app_amiibo_t *app = p_list_view->user_data;
     uint32_t idx = (uint32_t)p_item->user_data;
     string_set(app->current_file, p_item->text);
+    app->current_file_index = idx;
 
     vos_driver_t *p_driver = vos_get_driver(app->current_drive);
 
@@ -22,6 +23,7 @@ static void amiibo_scene_amiibo_list_on_selected(mui_list_view_event_t event, mu
             // read tag
             int32_t res = p_driver->read_object(VOS_BUCKET_AMIIBO, string_get_cstr(app->current_folder),
                                                 string_get_cstr(app->current_file), &app->ntag, sizeof(ntag_t));
+            app->ntag.index = idx;
             if (res > 0) {
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
             }
@@ -41,6 +43,9 @@ void amiibo_scene_amiibo_list_on_enter(void *user_data) {
     vos_obj_t files[VOS_MAX_OBJECT_SIZE];
     int32_t file_size =
         p_driver->list_object(VOS_BUCKET_AMIIBO, string_get_cstr(app->current_folder), files, VOS_MAX_OBJECT_SIZE);
+
+    memcpy(app->current_files, files, file_size * sizeof(vos_obj_t));
+    app->current_files_size = file_size;
 
     for (uint32_t i = 0; i < file_size; i++) {
         mui_list_view_add_item(app->p_list_view, 0xe1ed, files[i].name, (void *)i);
