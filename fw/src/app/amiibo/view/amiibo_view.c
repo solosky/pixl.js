@@ -45,7 +45,7 @@ static void amiibo_view_update(mui_view_t *p_view, input_key_t key) {
     if (key == INPUT_KEY_LEFT && app->current_file_index > 0) {
         app->current_file_index--;
         updated = true;
-    } else if (key == INPUT_KEY_RIGHT && app->current_file_index < app->current_files_size) {
+    } else if (key == INPUT_KEY_RIGHT && app->current_file_index < app->current_files_size - 1 ) {
         app->current_file_index++;
         updated = true;
     }

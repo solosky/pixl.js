@@ -75,6 +75,8 @@ ret_code_t ntag_store_generate(uint8_t idx, ntag_t *ntag) {
     return NRF_SUCCESS;
 }
 
+
+
 ret_code_t ntag_store_uuid_rand(ntag_t *ntag) {
 
     int8_t uuid[6];
@@ -95,6 +97,11 @@ ret_code_t ntag_store_uuid_rand(ntag_t *ntag) {
     // BCC 1 is always equal to UID3 ⊕ UID 4 ⊕ UID 5 ⊕ UID6
     ntag->data[8] = ntag->data[4] ^ ntag->data[5] ^ ntag->data[6] ^ ntag->data[7];
     return NRF_SUCCESS;
+}
+
+void ntag_store_new_rand(ntag_t* ntag){
+    memcpy(ntag, &default_ntag215, sizeof(ntag_t));
+    ntag_store_uuid_rand(ntag);
 }
 
 #ifdef STORAGE_FDS

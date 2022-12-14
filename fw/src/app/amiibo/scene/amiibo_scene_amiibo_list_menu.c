@@ -3,6 +3,7 @@
 #include "mui_list_view.h"
 #include "nrf_log.h"
 #include "ntag_def.h"
+#include "ntag_store.h"
 #include "vos.h"
 
 enum amiibo_list_menu_t {
@@ -59,11 +60,10 @@ static void amiibo_scene_amiibo_list_menu_on_selected(mui_list_view_event_t even
     const char *folder = string_get_cstr(app->current_folder);
     switch (index) {
     case AMIIBO_LIST_MENU_CREATE_AMIIBO: {
-        extern const ntag_t default_ntag215;
-        ntag_t tmp_ntag;
-        memcpy(&tmp_ntag, &default_ntag215, sizeof(ntag_t));
-
-        int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, folder, "<empty>.bin", &tmp_ntag, sizeof(tmp_ntag));
+       
+        ntag_t ntag;
+        ntag_store_new_rand(&ntag);
+        int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, folder, "<empty>.bin", &ntag, sizeof(ntag));
         if (res > 0) {
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }

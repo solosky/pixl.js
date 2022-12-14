@@ -18,6 +18,7 @@
 
 
 ret_code_t ntag_store_init();
+void ntag_store_new_rand(ntag_t* ntag);
 //ret_code_t ntag_store_gc();
 //ret_code_t ntag_store_generate(uint8_t idx, ntag_t* tag);
 //ret_code_t ntag_store_read(uint8_t idx, ntag_t* tag);
