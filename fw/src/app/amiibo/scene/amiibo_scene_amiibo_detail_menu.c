@@ -12,7 +12,7 @@
 
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
-    AMIIBO_DETAIL_MENU_RESET_UID,
+    AMIIBO_DETAIL_MENU_REMOVE_UID,
     AMIIBO_DETAIL_MENU_BACK_AMIIBO_LIST,
     AMIIBO_DETAIL_MENU_BACK_MAIN_MENU,
 };
@@ -55,14 +55,8 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         }
     } break;
 
-    case AMIIBO_DETAIL_MENU_RESET_UID: {
-        extern const ntag_t default_ntag215;
-        memcpy(&app->ntag, &default_ntag215, sizeof(ntag_t));
-
-        int32_t res = p_driver->write_object(VOS_BUCKET_AMIIBO, folder, file, &app->ntag, sizeof(ntag_t));
-        if (res > 0) {
-            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
-        }
+    case AMIIBO_DETAIL_MENU_REMOVE_UID: {
+        
     } break;
 
     case AMIIBO_DETAIL_MENU_BACK_MAIN_MENU:
@@ -75,7 +69,7 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
     mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", (void *)AMIIBO_DETAIL_MENU_RAND_UID);
-    mui_list_view_add_item(app->p_list_view, 0xe1c6, "重置标签", (void *)AMIIBO_DETAIL_MENU_RESET_UID);
+    mui_list_view_add_item(app->p_list_view, 0xe1c6, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_UID);
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_LIST);
     mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
 

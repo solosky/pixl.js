@@ -9,7 +9,7 @@
 
 #define VOS_MAX_FOLDER_SIZE 32
 #define VOS_MAX_OBJECT_SIZE 64
-#define VOS_MAX_NAME_LEN 24
+#define VOS_MAX_NAME_LEN 32
 
 enum vos_error_t {
     VOS_OK = 0,
