@@ -22,7 +22,9 @@
         <div class="action-right">
           <el-button-group>
             <el-button type="info" size="mini" icon="el-icon-cpu">DFU</el-button>
-            <el-button type="success" size="mini" icon="el-icon-connection">已连接</el-button>
+            <el-button :type="connBtnType" size="mini" icon="el-icon-connection" @click="onConnectionBtnClick">{{
+                connBtnText
+            }}</el-button>
           </el-button-group>
         </div>
       </el-col>
@@ -40,13 +42,13 @@
     </el-row>
     <div>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
-        cell-class-name="file-cell" @selection-change="handleSelectionChange">
+        cell-class-name="file-cell">
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column label="文件">
           <template slot-scope="scope">
             <i class="el-icon-folder"></i>
-            <span class="file-name">{{ scope.row.name }}</span>
+            <el-link :underline="false">{{ scope.row.name }}</el-link>
           </template>
         </el-table-column>
         <el-table-column prop="size" label="大小">
@@ -73,6 +75,9 @@
 
 
 <script>
+import { pixlBleConnect } from "./lib/pixl.ble"
+import { sharedEventDispatcher } from "./lib/event"
+
 export default {
   data() {
     return {
@@ -95,35 +100,53 @@ export default {
         size: "540 B",
         type: "bin"
       }],
-      multipleSelection: []
+      multipleSelection: [],
+      connBtnType: "",
+      connBtnText: "连接.."
     }
   },
   methods: {
-    startHacking() {
+    onConnectionBtnClick() {
+      this.connBtnText = "连接中..";
+      pixlBleConnect();
+    },
+    onBleConnected() {
+      this.connBtnText = "已连接";
+      this.connBtnType = "success";
       this.$notify({
-        title: 'It works!',
+        title: 'Pixl.js',
         type: 'success',
-        message: 'We\'ve laid the ground work for you. It\'s time for you to build something epic!',
+        message: '已成功连接到Pixl.js!',
         duration: 5000
-      })
+      });
     },
-    handleNodeClick(data) {
-      console.log(data);
+    onBleDisconnected() {
+      this.connBtnType = "";
+      this.connBtnText = "连接..";
+      this.$notify({
+        title: 'Pixl.js',
+        type: 'error',
+        message: 'Pixl.js已经断开连接!',
+        duration: 5000
+      });
     },
-    handleSelect(key, keyPath) {
-      console.log(key, keyPath);
+    onBleDisconnectError() {
+      this.connBtnType = "";
+      this.connBtnText = "连接..";
+      this.$notify({
+        title: 'Pixl.js',
+        type: 'error',
+        message: 'Pixl.js连接失败!',
+        duration: 5000
+      });
     },
-    renderContent(h, { node, data, store }) {
-      return (
-        <span class="custom-tree-node">
-          <span>{node.label}</span>
-          <span>
-            <el-button size="mini" type="text" on-click={() => this.append(data)}>上传</el-button>
-            <el-button size="mini" type="text" on-click={() => this.remove(node, data)}>删除</el-button>
-          </span>
-        </span>);
-    }
-  }
+
+  }, mounted() {
+    var dispatcher = sharedEventDispatcher();
+    dispatcher.addListener("ble_connected", this.onBleConnected);
+    dispatcher.addListener("ble_disconnected", this.onBleDisconnected);
+    dispatcher.addListener("ble_connect_error", this.onBleDisconnectError);
+  },
 }
 </script>
 
@@ -154,11 +177,8 @@ export default {
   padding: 4px 0 !important;
 }
 
-.file-name {
-  cursor: hand;
-}
-
 .header {
   text-align: center;
+  margin: 100px auto;
 }
 </style>
