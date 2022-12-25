@@ -82,7 +82,7 @@
 
 #define APP_BLE_CONN_CFG_TAG            1                                           /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define DEVICE_NAME                     "Nordic_UART"                               /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME                     "Pixl.js"                               /**< Name of device. Will be included in the advertising data. */
 #define NUS_SERVICE_UUID_TYPE           BLE_UUID_TYPE_VENDOR_BEGIN                  /**< UUID type for the Nordic UART Service (vendor specific). */
 
 #define APP_BLE_OBSERVER_PRIO           3                                           /**< Application's BLE observer priority. You shouldn't need to modify this value. */
@@ -202,7 +202,11 @@ static void nus_data_handler(ble_nus_evt_t * p_evt)
 
         NRF_LOG_INFO("Received data from BLE NUS. Writing data on UART.");
         NRF_LOG_HEXDUMP_INFO(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
-
+        uint32_t tx_length = p_evt->params.rx_data.length;
+        err_code = ble_nus_data_send(&m_nus, p_evt->params.rx_data.p_data,  &tx_length, p_evt->conn_handle);
+        if(err_code){
+            NRF_LOG_INFO("send back error:%d", err_code);
+        }
         // for (uint32_t i = 0; i < p_evt->params.rx_data.length; i++)
         // {
         //     do

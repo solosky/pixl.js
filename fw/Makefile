@@ -167,7 +167,6 @@ SRC_FILES += \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/ntag_indicator.c \
   $(PROJ_DIR)/bat.c \
-  $(PROJ_DIR)/ble_main.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_data_lookup.c \
@@ -182,6 +181,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/bsp_btn.c \
   $(PROJ_DIR)/mod/vos/vos.c \
   $(PROJ_DIR)/mod/vos/vos_driver_spiffs.c \
+  $(PROJ_DIR)/mod/ble/ble_main.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -203,6 +203,8 @@ SRC_FILES += \
   $(PROJ_DIR)/app/status_bar/view/status_bar_view.c \
   $(PROJ_DIR)/app/ble/app_ble.c \
   $(PROJ_DIR)/app/ble/view/ble_status_view.c \
+  $(PROJ_DIR)/app/ble/scene/ble_scene.c \
+  $(PROJ_DIR)/app/ble/scene/ble_scene_connect_start.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_view.c \
@@ -426,9 +428,11 @@ INC_FOLDERS += \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/mod \
   $(PROJ_DIR)/mod/vos \
+  $(PROJ_DIR)/mod/ble \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/ble \
+  $(PROJ_DIR)/app/ble/scene \
   $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
   $(PROJ_DIR)/app/settings \

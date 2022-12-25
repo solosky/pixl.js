@@ -1,0 +1,1 @@
+ADD_SCENE(ble, connect_start, CONNECT_START)
