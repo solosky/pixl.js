@@ -21,9 +21,12 @@ typedef struct {
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
     ntag_t ntag;
+    
+    /** file browser*/
     vos_drive_t current_drive;
-    string_t current_file;
     string_t current_folder;
+
+    string_t current_file;
     uint8_t current_files_size;
     uint8_t current_file_index;
     vos_obj_t current_files[VOS_MAX_OBJECT_SIZE];

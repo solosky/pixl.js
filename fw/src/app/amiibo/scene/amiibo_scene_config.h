@@ -1,3 +1,4 @@
+ADD_SCENE(amiibo, file_browser, FILE_BROWSER)
 ADD_SCENE(amiibo, storage_list, STORAGE_LIST)
 ADD_SCENE(amiibo, storage_list_menu, STORAGE_LIST_MENU)
 ADD_SCENE(amiibo, folder_list, FOLDER_LIST)
