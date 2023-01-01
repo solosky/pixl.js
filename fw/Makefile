@@ -181,8 +181,6 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
   $(PROJ_DIR)/mod/cwalk2.c \
-  $(PROJ_DIR)/mod/vos/vos.c \
-  $(PROJ_DIR)/mod/vos/vos_driver_spiffs.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
   $(PROJ_DIR)/mui/mui_view.c \
@@ -426,7 +424,6 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/mod \
-  $(PROJ_DIR)/mod/vos \
   $(PROJ_DIR)/mod/vfs \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
