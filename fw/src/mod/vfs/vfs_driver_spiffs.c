@@ -6,6 +6,7 @@
 #include "nrf_log_ctrl.h"
 
 #include "cwalk.h"
+#include "cwalk2.h"
 #include "spiffs.h"
 
 #include "mui_mem.h"
@@ -96,11 +97,11 @@ int32_t vfs_spiffs_mount() {
         }
     }
 
-    //test only 
-// int32_t vfs_spiffs_create_dir(const char*);
-//      res = vfs_spiffs_create_dir("/amiibo");
-//       res = vfs_spiffs_create_dir("/hello");
-//      NRF_LOG_INFO("create amiibo dir: %d", res);
+    // test only
+    // int32_t vfs_spiffs_create_dir(const char*);
+    //      res = vfs_spiffs_create_dir("/amiibo");
+    //       res = vfs_spiffs_create_dir("/hello");
+    //      NRF_LOG_INFO("create amiibo dir: %d", res);
     SPIFFS_creat(&fs, "/amiibo/.folder", 0);
     SPIFFS_creat(&fs, "/hello/.folder", 0);
     return res;
@@ -134,22 +135,34 @@ int32_t vfs_spiffs_stat(vfs_stat_t *p_stat) {
     return VFS_OK;
 }
 
-size_t cwalk_get_segment_size(const char *path) {
-    struct cwk_segment segment;
-    size_t segment_size = 0;
-    if (!cwk_path_get_first_segment(path, &segment)) {
-        return 0;
+int32_t vfs_spiffs_stat_file(const char *file, vfs_obj_t *obj) {
+    spiffs_stat s;
+    const char *basename;
+    size_t length;
+    char path[SPIFFS_OBJ_NAME_LEN];
+    memset(obj, 0, sizeof(vfs_obj_t));
+
+    if (SPIFFS_stat(&fs, file, &s) == SPIFFS_OK) {
+        cwk_path_get_basename(s.name, &basename, &length);
+
+        obj->type = VFS_TYPE_REG;
+        obj->size = s.size;
+        strncpy(obj->name, basename, length);
+
+        return VFS_OK;
+    } else {
+        cwalk_append_segment(path, file, VFS_SPIFFS_FOLDER_NAME);
+        NRF_LOG_INFO("stat file: %s", nrf_log_push(path));
+        if (SPIFFS_stat(&fs, path, &s) == SPIFFS_OK) {
+            cwk_path_get_basename(s.name, &basename, &length);
+            obj->type = VFS_TYPE_DIR;
+            obj->size = 0;
+            strncpy(obj->name, basename, length);
+            return VFS_OK;
+        }
     }
 
-    do {
-        segment_size++;
-    } while (cwk_path_get_next_segment(&segment));
-
-    return segment_size;
-}
-
-bool cwalk_same_prefix_segment(const char *base, const char *target) {
-    return strncmp(base, target, strlen(base)) == 0;
+    return VFS_ERR_NOOBJ;
 }
 
 /**directory operations*/
@@ -160,13 +173,15 @@ int32_t vfs_spiffs_open_dir(const char *dir, vfs_dir_t *fd) {
     }
     fd->handle = p_dir;
     p_dir->pe = &p_dir->e;
-    strncpy(p_dir->dir, dir, sizeof(p_dir->dir));
+    cwalk_dir_prefix_match(p_dir->dir, dir);
     p_dir->seg = cwalk_get_segment_size(dir);
 
     if (!SPIFFS_opendir(&fs, "/", &p_dir->d)) {
         mui_mem_free(p_dir);
         return VFS_ERR_NOOBJ;
     }
+
+    NRF_LOG_INFO("open dir %s\n", nrf_log_push(dir));
 
     return VFS_OK;
 }
@@ -176,12 +191,16 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
     memset(obj, 0, sizeof(vfs_obj_t));
     while ((p_dir->pe = SPIFFS_readdir(&p_dir->d, p_dir->pe))) {
 
+        NRF_LOG_INFO("list folder %s [%04x] %d size:%i\n", nrf_log_push(p_dir->pe->name), p_dir->pe->obj_id,
+                     p_dir->pe->type, p_dir->pe->size);
+        NRF_LOG_FLUSH();
+
         // strcpy(obj->name, p_dir->pe->name);
         //         obj->size = p_dir->pe->size;
         //         obj->type = VFS_TYPE_REG;
         //         return VFS_OK;
-         
-        //prefix compare
+
+        // prefix compare
         if (cwalk_same_prefix_segment(p_dir->dir, p_dir->pe->name)) {
 
             uint8_t seg;
@@ -241,7 +260,9 @@ int32_t vfs_spiffs_close_dir(vfs_dir_t *fd) {
 
 int32_t vfs_spiffs_create_dir(const char *dir) {
     char path[VFS_MAX_PATH_LEN];
-    sprintf("%s/%s", dir, VFS_SPIFFS_FOLDER_NAME);
+
+    NRF_LOG_INFO("create dir %s\n", nrf_log_push(dir));
+    snprintf(path, sizeof(path), "%s/%s", dir, VFS_SPIFFS_FOLDER_NAME);
     int res = SPIFFS_creat(&fs, path, 0);
     return vfs_spiffs_map_error_code(res);
 }
@@ -252,6 +273,9 @@ int32_t vfs_spiffs_remove_dir(const char *dir_name) {
     vfs_spiffs_dir_t *p_dir = &dir;
     p_dir->pe = &p_dir->e;
     strncpy(p_dir->dir, dir_name, sizeof(p_dir->dir));
+    strcat(p_dir->dir, "/");
+
+    NRF_LOG_INFO("remove dir %s\n", nrf_log_push(dir_name));
 
     if (!SPIFFS_opendir(&fs, "/", &p_dir->d)) {
         return VFS_ERR_NOOBJ;
@@ -277,7 +301,7 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
     vfs_spiffs_dir_t dir;
     vfs_spiffs_dir_t *p_dir = &dir;
     p_dir->pe = &p_dir->e;
-    strncpy(p_dir->dir, dir_name, sizeof(p_dir->dir));
+    cwalk_dir_prefix_match(p_dir->dir, dir_name);
 
     if (!SPIFFS_opendir(&fs, "/", &p_dir->d)) {
         return VFS_ERR_NOOBJ;
@@ -290,18 +314,17 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
             char new_path[SPIFFS_OBJ_NAME_LEN];
             const char *file_suffix = p_dir->pe->name + strlen(p_dir->dir);
 
-            if (strlen(new_dir_name) + strlen(file_suffix) >= SPIFFS_OBJ_NAME_LEN) {
-                return VFS_ERR_MAXNM;
-            }
-
             strcpy(new_path, new_dir_name);
+            strcat(new_path, "/");
             strcat(new_path, file_suffix);
 
             int res = SPIFFS_rename(&fs, p_dir->pe->name, new_path);
-            if (!res) {
-                SPIFFS_closedir(&dir.d);
-                return vfs_spiffs_map_error_code(res);
-            }
+
+            //TODO ..
+            // if (!res) {
+            //     SPIFFS_closedir(&dir.d);
+            //     return vfs_spiffs_map_error_code(res);
+            // }
         }
     }
 
@@ -320,6 +343,8 @@ int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) { re
 
 /**short opearation*/
 int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_size) {
+
+    NRF_LOG_INFO("write file data %s\n", nrf_log_push(file));
     spiffs_file fd = SPIFFS_open(&fs, file, SPIFFS_WRONLY | SPIFFS_CREAT | SPIFFS_TRUNC, 0);
     if (fd < 0) {
         return vfs_spiffs_map_error_code(fd);
@@ -348,6 +373,7 @@ int32_t vfs_spiffs_read_file_data(const char *file, void *buff, size_t buff_size
 }
 
 int32_t vfs_spiffs_rename_file(const char *file, const char *new_file) {
+    NRF_LOG_INFO("rename file %s => %s\n", nrf_log_push(file), nrf_log_push(new_file));
     int res = SPIFFS_rename(&fs, file, new_file);
     return vfs_spiffs_map_error_code(res);
 }
@@ -357,34 +383,14 @@ int32_t vfs_spiffs_remove_file(const char *file) {
     return vfs_spiffs_map_error_code(res);
 }
 
-/**directory operations*/
-int32_t (*open_dir)(const char *dir, vfs_dir_t *fd);
-int32_t (*read_dir)(vfs_dir_t *fd, vfs_obj_t *obj);
-int32_t (*close_dir)(vfs_dir_t *fd);
-
-int32_t (*create_dir)(const char *dir);
-int32_t (*remove_dir)(const char *dir);
-int32_t (*rename_dir)(const char *dir, const char *new_dir);
-
-/**file operations*/
-int32_t (*open_file)(const char *file, vfs_file_t *fd, uint32_t flags);
-int32_t (*close_file)(vfs_file_t *fd);
-int32_t (*read_file)(vfs_file_t *fd, void *buff, size_t buff_size);
-int32_t (*write_file)(vfs_file_t *fd, void *buff, size_t buff_size);
-
-/**short opearation*/
-int32_t (*write_file_data)(const char *file, void *buff, size_t buff_size);
-int32_t (*read_file_data)(const char *file, void *buff, size_t buff_size);
-
-int32_t (*rename_file)(const char *file, const char *new_file);
-int32_t (*remove_file)(const char *file);
-
 // TODO
 vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
                                   .umount = vfs_spiffs_umount,
                                   .format = vfs_spiffs_format,
                                   .mounted = vfs_spiffs_mounted,
                                   .stat = vfs_spiffs_stat,
+
+                                  .stat_file = vfs_spiffs_stat_file,
 
                                   .open_dir = vfs_spiffs_open_dir,
                                   .read_dir = vfs_spiffs_read_dir,

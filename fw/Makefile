@@ -180,6 +180,7 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
+  $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vos/vos.c \
   $(PROJ_DIR)/mod/vos/vos_driver_spiffs.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
@@ -207,17 +208,14 @@ SRC_FILES += \
   $(PROJ_DIR)/app/ble/view/ble_status_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
-  $(PROJ_DIR)/app/amiibo/view/amiibo_view.c \
+  $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list_menu.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list_menu.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser_menu.c \
   $(PROJ_DIR)/app/settings/app_settings.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \

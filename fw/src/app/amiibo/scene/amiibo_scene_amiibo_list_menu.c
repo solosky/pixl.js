@@ -29,6 +29,7 @@ static void amiibo_scence_amiibo_list_menu_msg_box_remove_on_event(mui_msg_box_e
     }
 }
 
+
 static void amiibo_scene_amiibo_list_menu_text_input_rename_event_cb(mui_text_input_event_t event,
                                                                      mui_text_input_t *p_text_input) {
     app_amiibo_t *app = p_text_input->user_data;

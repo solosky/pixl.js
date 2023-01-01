@@ -59,6 +59,8 @@ typedef struct {
 
     int32_t (*stat)(vfs_stat_t *p_stat);
 
+    int32_t (*stat_file)(const char* file, vfs_obj_t* obj);
+
     /**directory operations*/
     int32_t (*open_dir)(const char *dir, vfs_dir_t *fd);
     int32_t (*read_dir)(vfs_dir_t *fd, vfs_obj_t *obj);
