@@ -89,10 +89,11 @@ static void mui_text_input_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     uint8_t start_pos = 4;
     uint8_t text_length = string_size(p_mui_text_input->input_text);
 
-    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
     mui_canvas_set_draw_color(p_canvas, 1);
-    mui_canvas_draw_utf8(p_canvas, 2, 8, string_get_cstr(p_mui_text_input->header));
+    mui_canvas_draw_utf8(p_canvas, 2, 10, string_get_cstr(p_mui_text_input->header));
 
+    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_draw_rframe(p_canvas, 1, 12, 126, 15, 1);
 
     if (mui_canvas_string_width(p_canvas, text) > needed_string_width) {

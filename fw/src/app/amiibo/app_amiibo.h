@@ -1,33 +1,34 @@
 #ifndef APP_AMIIBO_H
 #define APP_AMIIBO_H
 
-#include "amiibo_view.h"
+#include "amiibo_detail_view.h"
 #include "mini_app_defines.h"
 #include "mui_list_view.h"
 #include "mui_msg_box.h"
 #include "mui_scene_dispatcher.h"
 #include "mui_text_input.h"
 #include "ntag_def.h"
-#include "vos.h"
+#include "vfs.h"
 
-#include "m-string.h"
 #include "mui_mlib.h"
+#include "m-string.h"
+
 
 typedef struct {
-    amiibo_view_t *p_amiibo_view;
+    amiibo_detail_view_t *p_amiibo_detail_view;
     mui_list_view_t *p_list_view;
     mui_text_input_t *p_text_input;
     mui_msg_box_t *p_msg_box;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
     ntag_t ntag;
-    vos_drive_t current_drive;
-    string_t current_file;
+    
+    /** file browser*/
+    vfs_drive_t current_drive;
     string_t current_folder;
-    uint8_t current_files_size;
-    uint8_t current_file_index;
-    vos_obj_t current_files[VOS_MAX_OBJECT_SIZE];
 
+    string_t current_file;
+    vfs_type_t current_file_type;
 } app_amiibo_t;
 
 typedef enum {

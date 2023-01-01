@@ -113,7 +113,14 @@ mui_list_view_t *mui_list_view_create() {
 }
 
 void mui_list_view_free(mui_list_view_t *p_view) {
-    mui_list_view_clear_items(p_view);
+    mui_list_item_array_it_t it;
+
+    mui_list_item_array_it(it, p_view->items);
+    while (!mui_list_item_array_end_p(it)) {
+        mui_list_item_t *item = mui_list_item_array_ref(it);
+        string_clear(item->text);
+        mui_list_item_array_next(it);
+    }
     mui_list_item_array_clear(p_view->items);
     mui_mem_free(p_view->p_view);
     mui_mem_free(p_view);
@@ -122,7 +129,7 @@ void mui_list_view_free(mui_list_view_t *p_view) {
 mui_view_t *mui_list_view_get_view(mui_list_view_t *p_view) { return p_view->p_view; }
 
 //// view functions //
-void mui_list_view_add_item(mui_list_view_t *p_view, uint32_t icon, char *text, void *user_data) {
+void mui_list_view_add_item(mui_list_view_t *p_view, uint32_t icon, const char *text, void *user_data) {
     mui_list_item_t *p_item = mui_list_item_array_push_new(p_view->items);
     p_item->icon = icon;
     p_item->user_data = user_data;
@@ -134,9 +141,7 @@ void mui_list_view_set_item(mui_list_view_t *p_view, uint16_t index, uint32_t ic
     // TODO
 }
 
-uint32_t mui_list_view_item_size(mui_list_view_t *p_view){
-    return mui_list_item_array_size(p_view->items);
-}
+uint32_t mui_list_view_item_size(mui_list_view_t *p_view) { return mui_list_item_array_size(p_view->items); }
 
 void mui_list_view_clear_items(mui_list_view_t *p_view) {
     mui_list_item_array_it_t it;
@@ -144,7 +149,7 @@ void mui_list_view_clear_items(mui_list_view_t *p_view) {
     mui_list_item_array_it(it, p_view->items);
     while (!mui_list_item_array_end_p(it)) {
         mui_list_item_t *item = mui_list_item_array_ref(it);
-        string_clear(item->text);
+        string_reset(item->text);
         mui_list_item_array_next(it);
     }
     mui_list_item_array_reset(p_view->items);
