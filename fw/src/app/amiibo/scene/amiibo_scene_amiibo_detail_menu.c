@@ -5,7 +5,7 @@
 #include "app_error.h"
 #include "mui_list_view.h"
 #include "nrf_log.h"
-#include "vos.h"
+#include "vfs.h"
 
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
@@ -22,9 +22,6 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
     app_amiibo_t *app = p_list_view->user_data;
 
     uint32_t selection = (uint32_t)p_item->user_data;
-    vos_driver_t *p_driver = vos_get_driver(app->current_drive);
-    const char *file = string_get_cstr(app->current_file);
-    const char *folder = string_get_cstr(app->current_folder);
 
     switch (selection) {
     case AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER:
