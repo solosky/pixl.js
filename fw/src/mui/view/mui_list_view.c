@@ -149,7 +149,7 @@ void mui_list_view_clear_items(mui_list_view_t *p_view) {
     mui_list_item_array_it(it, p_view->items);
     while (!mui_list_item_array_end_p(it)) {
         mui_list_item_t *item = mui_list_item_array_ref(it);
-        string_reset(item->text);
+        string_clear(item->text);
         mui_list_item_array_next(it);
     }
     mui_list_item_array_reset(p_view->items);
