@@ -10,8 +10,7 @@
 #include "ntag_def.h"
 #include "vfs.h"
 
-#include "mui_mlib.h"
-#include "m-string.h"
+#include "mlib_common.h"
 
 
 typedef struct {
@@ -26,9 +25,12 @@ typedef struct {
     /** file browser*/
     vfs_drive_t current_drive;
     string_t current_folder;
-
     string_t current_file;
-    vfs_type_t current_file_type;
+
+    /**amiibo detail view*/
+    string_array_t amiibo_files;
+    bool reload_amiibo_files;
+
 } app_amiibo_t;
 
 typedef enum {

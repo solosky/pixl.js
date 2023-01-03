@@ -3,6 +3,7 @@
 #include "amiibo_scene.h"
 #include "app_amiibo.h"
 #include "app_error.h"
+#include "cwalk2.h"
 #include "mui_list_view.h"
 #include "nrf_log.h"
 #include "vfs.h"
@@ -12,7 +13,8 @@
 
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
-    AMIIBO_DETAIL_MENU_RESET_UID,
+    AMIIBO_DETAIL_MENU_REMOVE_AMIIBO,
+    AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL,
     AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER,
     AMIIBO_DETAIL_MENU_BACK_MAIN_MENU,
 };
@@ -50,7 +52,42 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
             memcpy(&app->ntag, &ntag_new, sizeof(ntag_t));
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
-    } break;
+        break;
+    }
+
+    case AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL: {
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        break;
+    }
+
+    case AMIIBO_DETAIL_MENU_REMOVE_AMIIBO: {
+        char path[VFS_MAX_PATH_LEN];
+        vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
+        cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
+        int res = p_vfs_driver->remove_file(path);
+
+        if (res == VFS_OK) {
+            uint8_t focus = amiibo_detail_view_get_focus(app->p_amiibo_detail_view);
+            bool reload = false;
+            if (focus > 0) {
+                string_set(app->current_file, *string_array_get(app->amiibo_files, focus - 1));
+                reload = true;
+            } else if (string_array_size(app->amiibo_files) > 1) {
+                string_set(app->current_file, *string_array_get(app->amiibo_files, focus + 1));
+                reload = true;
+            } else {
+                string_set_str(app->current_file, "");
+            }
+
+            if (reload) {
+                app->reload_amiibo_files = true;
+                mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+            } else {
+                mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+            }
+        }
+        break;
+    }
 
     case AMIIBO_DETAIL_MENU_BACK_MAIN_MENU:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
@@ -62,6 +99,8 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
     mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", (void *)AMIIBO_DETAIL_MENU_RAND_UID);
+    mui_list_view_add_item(app->p_list_view, 0xe1c6, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
+    mui_list_view_add_item(app->p_list_view, 0xe068, "返回详情", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回文件列表", (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
     mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
 

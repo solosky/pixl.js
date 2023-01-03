@@ -66,16 +66,8 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
                 // TODO AMIIBO test ..
 
                 // read tag
-                char path[VFS_MAX_PATH_LEN];
-                snprintf(path, sizeof(path), "%s/%s", string_get_cstr(app->current_folder),
-                         string_get_cstr(app->current_file));
-
-                vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
-                int32_t res = p_vfs_driver->read_file_data(path, &app->ntag, sizeof(ntag_t));
-                app->ntag.index = 1;
-                if (res > 0) {
-                    mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
-                }
+                app->reload_amiibo_files = true;
+                mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
             }
         }
     } else {

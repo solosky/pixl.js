@@ -33,6 +33,7 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 
     string_init(p_app_handle->current_file);
     string_init(p_app_handle->current_folder);
+    string_array_init(p_app_handle->amiibo_files);
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, amiibo_scene_defines, AMIIBO_SCENE_MAX);
@@ -64,6 +65,7 @@ void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
 
     string_clear(p_app_handle->current_file);
     string_clear(p_app_handle->current_folder);
+    string_array_clear(p_app_handle->amiibo_files);
 
     mui_mem_free(p_app_handle);
 
