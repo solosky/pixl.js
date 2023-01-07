@@ -1,6 +1,4 @@
 #include "ble_status_view.h"
-#include "mini_app_launcher.h"
-#include "mini_app_registry.h"
 
 static void ble_status_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
@@ -8,8 +6,10 @@ static void ble_status_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
 }
 
 static void ble_status_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
-    mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_BLE);
-
+    ble_status_view_t *p_ble_status_view = p_view->user_data;
+    if (p_ble_status_view->event_cb) {
+        p_ble_status_view->event_cb(BLE_STATUS_VIEW_BLE_DISABLE, p_ble_status_view);
+    }
 }
 
 static void ble_status_view_on_enter(mui_view_t *p_view) {}

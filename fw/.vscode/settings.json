@@ -70,7 +70,8 @@
     "app_ble.h": "c",
     "ble_status_view.h": "c",
     "app_amiibo.h": "c",
-    "vfs.h": "c"
+    "vfs.h": "c",
+    "mini_app_launcher.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
