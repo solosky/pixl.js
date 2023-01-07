@@ -2,9 +2,10 @@
 #include "app_amiibo.h"
 #include "mui_list_view.h"
 #include "nrf_log.h"
-#include "vos.h"
+#include "vfs.h"
 
 enum storage_list_menu_t {
+    STORAGE_LIST_MENU_MOUNT,
     STORAGE_LIST_MENU_FORMAT,
     STORAGE_LIST_MENU_BACK,
 };
@@ -13,12 +14,12 @@ static void amiibo_scene_storage_list_menu_on_selected(mui_list_view_event_t eve
                                                        mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
     uint32_t index = (uint32_t)p_item->user_data;
-    vos_driver_t *p_driver = vos_get_driver(app->current_drive);
+    vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
     switch (index) {
 
     case STORAGE_LIST_MENU_FORMAT: {
-        int32_t res = p_driver->remove_folder(VOS_BUCKET_AMIIBO, string_get_cstr(app->current_folder));
-        if (res == VOS_OK) {
+        int32_t res = p_driver->format();
+        if (res == VFS_OK) {
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
     } break;
@@ -32,11 +33,11 @@ static void amiibo_scene_storage_list_menu_on_selected(mui_list_view_event_t eve
 void amiibo_scene_storage_list_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    vos_driver_t *p_driver = vos_get_driver(app->current_drive);
-    vos_stat_t stat;
+    vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
+    vfs_stat_t stat;
     int32_t res = p_driver->stat(&stat);
     char txt[64];
-    if (res == VOS_OK) {
+    if (res == VFS_OK) {
         mui_list_view_add_item(app->p_list_view, 0xe1ca, stat.avaliable ? "=====已挂载=====" : "=====未挂载=====", (void *)-1);
         if (stat.avaliable) {
             snprintf(txt, sizeof(txt), "总空间: %d kB", stat.total_bytes / 1024);
@@ -47,6 +48,7 @@ void amiibo_scene_storage_list_menu_on_enter(void *user_data) {
     }
 
     mui_list_view_add_item(app->p_list_view, 0xe1cd, "格式化", (void *)STORAGE_LIST_MENU_FORMAT);
+
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", (void *)STORAGE_LIST_MENU_BACK);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_storage_list_menu_on_selected);

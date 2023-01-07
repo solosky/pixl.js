@@ -3,8 +3,7 @@
 
 #include "mui_include.h"
 
-#include "amiibo_data.h"
-#include "amiibo_view.h"
+#include "amiibo_detail_view.h"
 
 #include "amiibo_scene.h"
 
@@ -21,8 +20,8 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 
     p_app_inst->p_handle = p_app_handle;
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
-    p_app_handle->p_amiibo_view = amiibo_view_create();
-    p_app_handle->p_amiibo_view->user_data = p_app_handle;
+    p_app_handle->p_amiibo_detail_view = amiibo_detail_view_create();
+    p_app_handle->p_amiibo_detail_view->user_data = p_app_handle;
     p_app_handle->p_list_view = mui_list_view_create();
     mui_list_view_set_user_data(p_app_handle->p_list_view, p_app_handle);
     p_app_handle->p_text_input = mui_text_input_create();
@@ -34,6 +33,7 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 
     string_init(p_app_handle->current_file);
     string_init(p_app_handle->current_folder);
+    string_array_init(p_app_handle->amiibo_files);
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, amiibo_scene_defines, AMIIBO_SCENE_MAX);
@@ -41,11 +41,11 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_LIST,
                                  mui_list_view_get_view(p_app_handle->p_list_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_DETAIL,
-                                 amiibo_view_get_view(p_app_handle->p_amiibo_view));
+                                 amiibo_detail_view_get_view(p_app_handle->p_amiibo_detail_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_INPUT,
                                  mui_text_input_get_view(p_app_handle->p_text_input));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX,
-                                 mui_text_input_get_view(p_app_handle->p_msg_box));
+                                 mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
@@ -61,10 +61,11 @@ void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
     mui_text_input_free(p_app_handle->p_text_input);
     mui_msg_box_free(p_app_handle->p_msg_box);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
-    amiibo_view_free(p_app_handle->p_amiibo_view);
+    amiibo_detail_view_free(p_app_handle->p_amiibo_detail_view);
 
     string_clear(p_app_handle->current_file);
     string_clear(p_app_handle->current_folder);
+    string_array_clear(p_app_handle->amiibo_files);
 
     mui_mem_free(p_app_handle);
 

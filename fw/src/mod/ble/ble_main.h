@@ -10,7 +10,7 @@
 
 
 
-ret_code_t ble_init(void);
-
+void ble_init(void);
+void ble_disable();
 
 #endif /* BLE_H_ */

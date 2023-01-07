@@ -23,6 +23,7 @@ void mini_app_launcher_run(mini_app_launcher_t* p_launcher, uint32_t id);
 void mini_app_launcher_kill(mini_app_launcher_t* p_launcher, uint32_t id);
 void mini_app_launcher_init(mini_app_launcher_t* p_launcher);
 void mini_app_launcher_post_event(mini_app_launcher_t* p_launcher, uint32_t id, mini_app_event_t* p_event);
+void* mini_app_launcher_get_app_handle(mini_app_launcher_t* p_launcher, uint32_t id);
 
 
 

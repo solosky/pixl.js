@@ -5,6 +5,10 @@
 
 #include "status_bar_view.h"
 
+#include "mini_app_launcher.h"
+#include "mini_app_registry.h"
+
+
 typedef enum { STATUS_BAR_VIEW_ID_MAIN } status_bar_view_id_t;
 
 static void app_status_bar_on_run(mini_app_inst_t *p_app_inst);
@@ -15,6 +19,7 @@ static void app_status_bar_on_event(mini_app_inst_t *p_app_inst,
 typedef struct {
     status_bar_view_t *p_status_bar_view;
     mui_view_dispatcher_t *p_view_dispatcher;
+    uint16_t ble_icon;
 } app_status_bar_t;
 
 void app_status_bar_on_run(mini_app_inst_t *p_app_inst) {
@@ -46,6 +51,14 @@ void app_status_bar_on_kill(mini_app_inst_t *p_app_inst) {
 }
 
 void app_status_bar_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
+
+
+
+void app_status_bar_set_ble_icon(uint16_t icon){
+    app_status_bar_t* app = mini_app_launcher_get_app_handle(mini_app_launcher(), MINI_APP_ID_STATUS_BAR);
+    app->ble_icon = icon;
+    mui_update(mui());
+}
 
 const mini_app_t app_status_bar_info = {.id = MINI_APP_ID_STATUS_BAR,
                                         .name = "status bar",
