@@ -25,14 +25,14 @@ jobs:
       uses: actions/upload-artifact@v3
       with:
         name: pixl.js_bootloaderwg
-        path: bootloader/_build/bootloader.hex
+        path: fw/bootloader/_build/bootloader.hex
     - name: upload firmware
       uses: actions/upload-artifact@v3
       with:
         name: pixljs_firmware
-        path: _build/pixljs.hex
+        path: fw/_build/pixljs.hex
     - name: upload ota 
       uses: actions/upload-artifact@v3
       with:
         name: pixljs_firmware
-        path: _build/pixjs_ota_v${{env.GITHUB_RUN_NUMBER}}.zip
+        path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
