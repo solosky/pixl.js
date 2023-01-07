@@ -1,4 +1,23 @@
-# Packet format
+# 蓝牙参数
+
+目前使用NRF52 SDK提供Nordic UART Service，提供一个BLE的虚拟串口来和主机通信。
+
+设备名：Pixl.js 
+
+服务列表：
+
+1. Nordic UART Service
+
+NUS_SERVICE_UUID: 6e400001-b5a3-f393-e0a9-e50e24dcca9e
+
+提供了两个特性：
+
+* NUS_CHAR_TX_UUID: 6e400002-b5a3-f393-e0a9-e50e24dcca9e => 提供数据的发送，支持写入和无返回的写入。
+* NUS_CHAR_RX_UUID: 6e400003-b5a3-f393-e0a9-e50e24dcca9e => 提供数据的读取，仅支持通知。
+
+（上述描述符正式版本可能会修改。）
+
+# 协议格式
 
 ## 协议定义
 
@@ -84,6 +103,8 @@ s -> c: 0x13, status 0,
 | 状态码 | 说明 |
 | ---- | ---- |
 | 0 | 请求已经成功完成 |
+
+TODO 详细补充错误码。。
 
 
 
