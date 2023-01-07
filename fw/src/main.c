@@ -228,8 +228,8 @@ int main(void) {
 #endif
 
     // enable sd to enable pwr mgmt
-    // err_code = nrf_sdh_enable_request();
-    // APP_ERROR_CHECK(err_code);
+    err_code = nrf_sdh_enable_request();
+    APP_ERROR_CHECK(err_code);
 
     // // enable dcdc
     // //  err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
