@@ -20,19 +20,18 @@ jobs:
       run: cd fw && make
     - name: build ota
       run: cd fw & make ota APP_VERSION=${{ env.GITHUB_RUN_NUMBER }}
-
     - name: upload bootloader
       uses: actions/upload-artifact@v3
-        with:
-          name: pixl.js_bootloaderwg
-          path: bootloader/_build/bootloader.hex
+      with:
+        name: pixl.js_bootloaderwg
+        path: bootloader/_build/bootloader.hex
     - name: upload firmware
       uses: actions/upload-artifact@v3
-        with:
-          name: pixljs_firmware
-          path: _build/pixljs.hex
+      with:
+        name: pixljs_firmware
+        path: _build/pixljs.hex
     - name: upload ota 
       uses: actions/upload-artifact@v3
-        with:
-          name: pixljs_firmware
-          path: _build/pixjs_ota_v${{ env.GITHUB_RUN_NUMBER }}.zip
+      with:
+        name: pixljs_firmware
+        path: _build/pixjs_ota_v${{ env.GITHUB_RUN_NUMBER }}.zip
