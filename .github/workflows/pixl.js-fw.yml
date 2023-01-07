@@ -24,7 +24,7 @@ jobs:
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:
-        name: pixl.js_bootloaderwg
+        name: pixljs_firmware
         path: fw/bootloader/_build/bootloader.hex
     - name: upload firmware
       uses: actions/upload-artifact@v3
