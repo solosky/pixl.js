@@ -3,8 +3,8 @@
 
 
 #define MUI_MEM_USE_TLSF
-#define MUI_MEM_BUFF_SIZE 12*1024 
+#define MUI_MEM_BUFF_SIZE 16*1024 
 
-//#define MUI_MEM_DRAW_USAGE 
+#define MUI_MEM_DRAW_USAGE 
 
 #endif 

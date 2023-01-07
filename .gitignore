@@ -1,5 +1,6 @@
 fw/.settings
 fw/_build
+fw/bootloader/_build
 
 fw/src/amiibo_private.c
 

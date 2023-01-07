@@ -13,6 +13,7 @@
 
 #define NTAG_NUM 10
 #define ECC_SIZE 32
+#define NTAG_DATA_SIZE 576
 
 typedef enum
 {

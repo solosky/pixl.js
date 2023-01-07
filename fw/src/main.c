@@ -231,22 +231,22 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
-    // enable dcdc
-    //  err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
-    //  APP_ERROR_CHECK(err_code);
+    // // enable dcdc
+    // //  err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
+    // //  APP_ERROR_CHECK(err_code);
 
-    err_code = sd_power_pof_threshold_set(NRF_POWER_THRESHOLD_V18);
-    APP_ERROR_CHECK(err_code);
+    // err_code = sd_power_pof_threshold_set(NRF_POWER_THRESHOLD_V18);
+    // APP_ERROR_CHECK(err_code);
 
-    err_code = sd_power_pof_enable(true);
-    APP_ERROR_CHECK(err_code);
+    // err_code = sd_power_pof_enable(true);
+    // APP_ERROR_CHECK(err_code);
 
     // err_code = ble_init();
     // APP_ERROR_CHECK(err_code);
     // NRF_LOG_DEBUG("ble init done");
 
-    extern const uint8_t amiibo_key_retail[];
-    amiibo_helper_load_keys(amiibo_key_retail);
+    // extern const uint8_t amiibo_key_retail[];
+    // amiibo_helper_load_keys(amiibo_key_retail);
 
     NRF_LOG_DEBUG("init done");
 

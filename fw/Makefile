@@ -1,14 +1,15 @@
 PROJECT_NAME     := ble_app_blinky_pca10040_s132
-TARGETS          := nrf52832_xxaa
+TARGETS          := pixljs
 OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560
-PROJ_DIR := ./src/
+SDK_ROOT := $(NRF52_SDK_ROOT)
+PROJ_DIR := ./src
 COMP_DIR := ./components
 U8G2_ROOT := ./components/u8g2/csrc
-GNU_INSTALL_ROOT := /usr/bin/
 
-$(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
+APP_VERSION ?= 1
+
+$(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ld/ble_app_blinky_gcc_nrf52.ld
 
 # Source files common to all targets
@@ -167,12 +168,10 @@ SRC_FILES += \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/ntag_indicator.c \
   $(PROJ_DIR)/bat.c \
-  $(PROJ_DIR)/ble_main.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
-  $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/lfs/lfs_port_internal.c \
   $(PROJ_DIR)/lfs/lfs_port_flash.c \
   $(PROJ_DIR)/app_error_handler.c \
@@ -180,8 +179,10 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
-  $(PROJ_DIR)/mod/vos/vos.c \
-  $(PROJ_DIR)/mod/vos/vos_driver_spiffs.c \
+  $(PROJ_DIR)/mod/ble/ble_main.c \
+  $(PROJ_DIR)/mod/cwalk2.c \
+  $(PROJ_DIR)/mod/vfs/vfs.c \
+  $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -201,18 +202,20 @@ SRC_FILES += \
   $(PROJ_DIR)/core/mini_app_data.c \
   $(PROJ_DIR)/app/status_bar/app_status_bar.c \
   $(PROJ_DIR)/app/status_bar/view/status_bar_view.c \
+  $(PROJ_DIR)/app/ble/app_ble.c \
+  $(PROJ_DIR)/app/ble/view/ble_status_view.c \
+  $(PROJ_DIR)/app/ble/scene/ble_scene.c \
+  $(PROJ_DIR)/app/ble/scene/ble_scene_connect_start.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
-  $(PROJ_DIR)/app/amiibo/view/amiibo_view.c \
+  $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list_menu.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_folder_list_menu.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser.c \
+  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser_menu.c \
   $(PROJ_DIR)/app/settings/app_settings.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
@@ -423,9 +426,13 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
   $(PROJ_DIR)/mod \
-  $(PROJ_DIR)/mod/vos \
+  $(PROJ_DIR)/mod/vfs \
+  $(PROJ_DIR)/mod/ble \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
+  $(PROJ_DIR)/app/ble \
+  $(PROJ_DIR)/app/ble/scene \
+  $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
   $(PROJ_DIR)/app/settings \
   $(PROJ_DIR)/app/amiibo \
@@ -437,7 +444,7 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/tlsf \
-  $(COMP_DIR)/cwalk\include \
+  $(COMP_DIR)/cwalk/include \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets
@@ -458,7 +465,7 @@ CFLAGS += -DCUSTOM_BOARD_INC=am_board
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
-CFLAGS += -DNRF52832_XXAA
+CFLAGS += -Dpixljs
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DS112
@@ -490,7 +497,7 @@ ASMFLAGS += -DCUSTOM_BOARD_INC=am_board
 # ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52
-ASMFLAGS += -DNRF52832_XXAA
+ASMFLAGS += -Dpixljs
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
 ASMFLAGS += -DS112
@@ -507,10 +514,10 @@ LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
 
-nrf52832_xxaa: CFLAGS += -D__HEAP_SIZE=8192
-nrf52832_xxaa: CFLAGS += -D__STACK_SIZE=8192
-nrf52832_xxaa: ASMFLAGS += -D__HEAP_SIZE=8192
-nrf52832_xxaa: ASMFLAGS += -D__STACK_SIZE=8192
+pixljs: CFLAGS += -D__HEAP_SIZE=8192
+pixljs: CFLAGS += -D__STACK_SIZE=8192
+pixljs: ASMFLAGS += -D__HEAP_SIZE=8192
+pixljs: ASMFLAGS += -D__STACK_SIZE=8192
 
 # Add standard libraries at the very end of the linker input, after all objects
 # that may need symbols provided by these libraries.
@@ -520,13 +527,13 @@ LIB_FILES += -lc -lnosys -lm
 .PHONY: default help
 
 # Default target - first one defined
-default: nrf52832_xxaa
-all: nrf52832_xxaa
+default: pixljs
+all: pixljs
 
 # Print all targets that can be built
 help:
 	@echo following targets are available:
-	@echo		nrf52832_xxaa
+	@echo		pixljs
 	@echo		flash_softdevice
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
@@ -542,8 +549,8 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
 # Flash the program
 flash: default
-	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex
-	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --sectorerase --log
+	@echo Flashing: $(OUTPUT_DIRECTORY)/pixljs.hex
+	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/pixljs.hex --sectorerase --log
 	nrfjprog -f nrf52 --reset --log
 
 # Flash softdevice
@@ -559,3 +566,14 @@ SDK_CONFIG_FILE := ./config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+
+
+settingsgen:
+	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
+
+ota: 
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --hw-version 52 --sd-req 0x0103 --key-file bootloader/priv.pem $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
+
+full: settingsgen
+	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex bootloader/$(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
+

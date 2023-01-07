@@ -65,7 +65,13 @@
     "amiibo_data.h": "c",
     "mui_text_input.h": "c",
     "mui_mlib.h": "c",
-    "mui_element.h": "c"
+    "mui_element.h": "c",
+    "app_settings.h": "c",
+    "app_ble.h": "c",
+    "ble_status_view.h": "c",
+    "app_amiibo.h": "c",
+    "vfs.h": "c",
+    "mini_app_launcher.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
