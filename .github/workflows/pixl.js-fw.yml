@@ -33,7 +33,6 @@ jobs:
       with:
         name: pixljs_firmware
         path: fw/_build/pixljs.hex
-        - name: upload firmware
     - name: upload all
       uses: actions/upload-artifact@v3
       with:
