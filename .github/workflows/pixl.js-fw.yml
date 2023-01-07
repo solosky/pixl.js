@@ -21,6 +21,8 @@ jobs:
       run: cd fw && make
     - name: build ota
       run: cd fw && make ota APP_VERSION=$GITHUB_RUN_NUMBER
+    - name: build full
+      run: cd fw && make full
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:
@@ -31,6 +33,12 @@ jobs:
       with:
         name: pixljs_firmware
         path: fw/_build/pixljs.hex
+        - name: upload firmware
+    - name: upload all
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware
+        path: fw/_build/pixljs_all.hex
     - name: upload ota 
       uses: actions/upload-artifact@v3
       with:
