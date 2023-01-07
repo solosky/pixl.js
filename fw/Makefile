@@ -1,13 +1,15 @@
 PROJECT_NAME     := ble_app_blinky_pca10040_s132
-TARGETS          := nrf52832_xxaa
+TARGETS          := pixljs
 OUTPUT_DIRECTORY := _build
 
 SDK_ROOT := $(NRF52_SDK_ROOT)
-PROJ_DIR := ./src/
+PROJ_DIR := ./src
 COMP_DIR := ./components
 U8G2_ROOT := ./components/u8g2/csrc
 
-$(OUTPUT_DIRECTORY)/nrf52832_xxaa.out: \
+APP_VERSION ?= 1
+
+$(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ld/ble_app_blinky_gcc_nrf52.ld
 
 # Source files common to all targets
@@ -170,7 +172,6 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
-  $(PROJ_DIR)/amiibo_private.c \
   $(PROJ_DIR)/lfs/lfs_port_internal.c \
   $(PROJ_DIR)/lfs/lfs_port_flash.c \
   $(PROJ_DIR)/app_error_handler.c \
@@ -443,7 +444,7 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/tlsf \
-  $(COMP_DIR)/cwalk\include \
+  $(COMP_DIR)/cwalk/include \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets
@@ -464,7 +465,7 @@ CFLAGS += -DCUSTOM_BOARD_INC=am_board
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
-CFLAGS += -DNRF52832_XXAA
+CFLAGS += -Dpixljs
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DS112
@@ -496,7 +497,7 @@ ASMFLAGS += -DCUSTOM_BOARD_INC=am_board
 # ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52
-ASMFLAGS += -DNRF52832_XXAA
+ASMFLAGS += -Dpixljs
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
 ASMFLAGS += -DS112
@@ -513,10 +514,10 @@ LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
 
-nrf52832_xxaa: CFLAGS += -D__HEAP_SIZE=8192
-nrf52832_xxaa: CFLAGS += -D__STACK_SIZE=8192
-nrf52832_xxaa: ASMFLAGS += -D__HEAP_SIZE=8192
-nrf52832_xxaa: ASMFLAGS += -D__STACK_SIZE=8192
+pixljs: CFLAGS += -D__HEAP_SIZE=8192
+pixljs: CFLAGS += -D__STACK_SIZE=8192
+pixljs: ASMFLAGS += -D__HEAP_SIZE=8192
+pixljs: ASMFLAGS += -D__STACK_SIZE=8192
 
 # Add standard libraries at the very end of the linker input, after all objects
 # that may need symbols provided by these libraries.
@@ -526,13 +527,13 @@ LIB_FILES += -lc -lnosys -lm
 .PHONY: default help
 
 # Default target - first one defined
-default: nrf52832_xxaa
-all: nrf52832_xxaa
+default: pixljs
+all: pixljs
 
 # Print all targets that can be built
 help:
 	@echo following targets are available:
-	@echo		nrf52832_xxaa
+	@echo		pixljs
 	@echo		flash_softdevice
 	@echo		sdk_config - starting external tool for editing sdk_config.h
 	@echo		flash      - flashing binary
@@ -548,8 +549,8 @@ $(foreach target, $(TARGETS), $(call define_target, $(target)))
 
 # Flash the program
 flash: default
-	@echo Flashing: $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex
-	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --sectorerase --log
+	@echo Flashing: $(OUTPUT_DIRECTORY)/pixljs.hex
+	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/pixljs.hex --sectorerase --log
 	nrfjprog -f nrf52 --reset --log
 
 # Flash softdevice
@@ -565,3 +566,10 @@ SDK_CONFIG_FILE := ./config/sdk_config.h
 CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_Wizard.jar
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
+
+
+settingsgen:
+	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version $(APP_VERSION) $(OUTPUT_DIRECTORY)/settings.hex
+
+ota: settingsgen
+	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --hw-version 52 --sd-req 0x0103 --key-file bootloader/priv.pem $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip

@@ -259,9 +259,3 @@ flash: default
 privgen:
 	nrfutil keys generate priv.pem
 	nrfutil keys display --key pk --format code priv.pem --out_file dfu_public_key.c
-
-settingsgen:
-	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --application-version 1 --bootloader-version 1 --bl-settings-version 2 settings.hex
-
-zipgen: settingsgen
-	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/nrf52832_xxaa.hex --application-version 2 --hw-version 52 --sd-req 0x0103 --key-file priv.pem appv2_sd112.zip

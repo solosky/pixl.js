@@ -245,8 +245,8 @@ int main(void) {
     // APP_ERROR_CHECK(err_code);
     // NRF_LOG_DEBUG("ble init done");
 
-    extern const uint8_t amiibo_key_retail[];
-    amiibo_helper_load_keys(amiibo_key_retail);
+    // extern const uint8_t amiibo_key_retail[];
+    // amiibo_helper_load_keys(amiibo_key_retail);
 
     NRF_LOG_DEBUG("init done");
 
