@@ -3,8 +3,6 @@ name: pixl.js-fw
 on:
   push:
     branches: [ "main", "ble", "ci" ]
-  pull_request:
-    branches: [ "main" ]
   workflow_dispatch:
 
 jobs:
