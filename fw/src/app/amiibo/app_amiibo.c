@@ -8,7 +8,6 @@
 #include "amiibo_scene.h"
 
 #include "mui_list_view.h"
-#include "ntag_store.h"
 
 static void app_amiibo_on_run(mini_app_inst_t *p_app_inst);
 static void app_amiibo_on_kill(mini_app_inst_t *p_app_inst);

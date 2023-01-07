@@ -70,8 +70,6 @@
 #include "nrf_log_default_backends.h"
 
 #include "ntag_emu.h"
-#include "ntag_indicator.h"
-#include "ntag_store.h"
 
 #include "amiibo_data.h"
 
@@ -84,8 +82,6 @@
 #include "nrf_crypto.h"
 
 #include "nrf_pwr_mgmt.h"
-
-#include "u8g2_drv.h"
 
 #include "amiibo_helper.h"
 

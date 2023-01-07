@@ -166,7 +166,6 @@ SRC_FILES += \
   $(PROJ_DIR)/ntag_emu.c \
   $(PROJ_DIR)/ntag_emu_v2.c \
   $(PROJ_DIR)/ntag_store.c \
-  $(PROJ_DIR)/ntag_indicator.c \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/amiibo_data.c \
