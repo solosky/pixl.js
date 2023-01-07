@@ -45,7 +45,7 @@ NUS_SERVICE_UUID: 6e400001-b5a3-f393-e0a9-e50e24dcca9e
 
 目前pixl.js设备定义的MTU为250。
 
-固定的包同步为4个字节，因此每个包最多能传输246个字节。如果传输的数据超过246字节则需要分块传输。
+固定的包头部为4个字节，因此每个包最多能传输246个字节。如果传输的数据超过246字节则需要分块传输。
 
 <p>
 当传输的请求或者返回结果超过MTU时，需分块传输，每次传输chunk值加1。
@@ -76,7 +76,7 @@ s -> c: 0x13, status 0,
 
 ```
 c -> s: 0x12，mode: r, 打开文件
-s -> c: 0x12, status 0, file id 0xa1，文件已经创建好，可以写入
+s -> c: 0x12, status 0, file id 0xa1，文件已经打开，可以读取
 c -> s: 0x15, chunk 0 , file id 0xa1
 s -> c: 0x15, status 0, chunk 1 | 0x8000, file id 0xa1, 246字节数据
 ...
@@ -94,7 +94,7 @@ s -> c: 0x13, status 0,
 ### 类型 
 
 <p>
-数值类型都是无符号整数。
+数值类型都是无符号整数，小端模式。 </br>
 字符串编码为 2字节长度 + 字符串数组，字符串统一使用utf8编码。
 </p>
 
@@ -171,9 +171,8 @@ TODO 详细补充错误码。。
 | status | uint8 | 1 | 状态码，参见状态码说明 |
 | chunk | uint16 | 1 |  0 | 
 | drive count| uint8 | 1 | 磁盘数量 |
-| drive N enabled |uint8 | 1 | 磁盘N是否启用|
-| drive N label |char | 1| 磁盘盘符 |
 | drive N status code | uint8 | 1 | 磁盘N状态码 | 
+| drive N label |char | 1| 磁盘盘符 |
 | drive N name length | uint16 | 2 | 磁盘名长度 |
 | drive N name | byte | N | 磁盘名字符串 |
 | drive N total size |uint32 | 4 | 磁盘总空间 |
@@ -231,7 +230,7 @@ TODO 详细补充错误码。。
 
 | 字段名 | 类型 | 长度(字节) | 说明 |
 | ---- | ----- |---- | ---- |
-| cmd  | uint8 | 1  |  固定0x13  |
+| cmd  | uint8 | 1  |  0x13  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
 | chunk | uint16 | 1 |  0 | 
 | file id | uint8 | 1 | 文件ID，用于后续的读取写入请求 |
@@ -256,9 +255,9 @@ TODO 详细补充错误码。。
 
 | 字段名 | 类型 | 长度(字节) | 说明 |
 | ---- | ----- |---- | ---- |
-| cmd  | uint8 | 1  |  固定0x14  |
+| cmd  | uint8 | 1  |  0x14  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 1 |  启用chunk传输 | 
 | data  | byte | N | 文件数据 |
 
 
@@ -270,7 +269,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x15  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 从0开始，每发送一个分片则加一 | 
+| chunk | uint16 | 1 | 启用chunk传输 | 
 | file id | uint8 | 1 | 需要写入的file id | 
 | data | byte | N | 文件数据，最大能发送 MTU - 4 个字节 |
 
@@ -303,7 +302,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x16  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 1 |  启用chunk传输 | 
 | file size |uint16 | 2 | 文件数量 |
 | file N name length| uint16 | 2 | 文件名长度|
 | file N name | byte | N| 文件名 |
@@ -363,7 +362,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x18  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 1 | 启用chunk传输 | 
 | old path length | uint16 | 2 | 路径长度 |
 | old path  | byte | N | 路径字符串 |
 | new path length | uint16 | 2 | 路径长度 |
@@ -389,7 +388,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0xE0  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 1 | 启用chunk传输 | 
 
 2. 服务端响应请求
 
