@@ -569,7 +569,7 @@ sdk_config:
 
 
 settingsgen:
-	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version $(APP_VERSION) $(OUTPUT_DIRECTORY)/settings.hex
+	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
 
 ota: settingsgen
 	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --hw-version 52 --sd-req 0x0103 --key-file bootloader/priv.pem $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
