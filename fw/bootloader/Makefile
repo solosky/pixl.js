@@ -1,10 +1,9 @@
 PROJECT_NAME     := secure_bootloader_ble_s112_pca10040
 TARGETS          := bootloader
-OUTPUT_DIRECTORY := ../_build
+OUTPUT_DIRECTORY := _build
 
-SDK_ROOT := D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560
+SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
-GNU_INSTALL_ROOT := /usr/bin/
 
 $(OUTPUT_DIRECTORY)/bootloader.out: \
   LINKER_SCRIPT  := ../ld/secure_bootloader_gcc_nrf52.ld
@@ -180,7 +179,7 @@ CFLAGS += -DuECC_VLI_NATIVE_LITTLE_ENDIAN=1
 CFLAGS += -DCUSTOM_BOARD_INC=am_board
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
-CFLAGS += -Wall -Werror
+# CFLAGS += -Wall -Werror=array-bounds
 CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # keep every function in a separate section, this allows linker to discard unused ones
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
