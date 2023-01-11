@@ -15,6 +15,7 @@ typedef struct {
 
 typedef struct {
     uint8_t data[DF_PAYLOAD_LEN];
+    uint8_t size;
 } df_data_t;
 
 typedef struct {
@@ -34,7 +35,5 @@ typedef struct {
     df_frame_t df;
 } df_event_t;
 
-
-typedef void (*df_event_callback_t)(df_event_t* p_event)
 
 #endif
