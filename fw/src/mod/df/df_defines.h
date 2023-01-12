@@ -11,29 +11,47 @@ typedef struct {
     uint8_t cmd;
     uint8_t status;
     uint16_t chunk;
-} df_header_t;
-
-typedef struct {
     uint8_t data[DF_PAYLOAD_LEN];
-    uint8_t size;
-} df_data_t;
-
-typedef struct {
-    df_header_t header;
-    df_data_t data;
+    uint8_t length;
 } df_frame_t;
 
 typedef enum {
     DF_EVENT_LINK_CONNECTED,
     DF_EVENT_LINK_DISCONNECTED,
     DF_EVENT_DATA_RECEVIED,
-    DF_EVENT_DATA_TRANSMITTED,
+    DF_EVENT_DATA_TRANSMIT_READY,
 } df_event_type_t;
 
 typedef struct {
     df_event_type_t type;
-    df_frame_t df;
+    df_frame_t *df;
 } df_event_t;
 
+typedef void (*df_proto_handler_t)(df_event_t *evt);
+
+typedef struct {
+    uint8_t cmd;
+    df_proto_handler_t handler;
+} df_proto_handler_entry_t;
+
+typedef enum { DF_STATUS_OK = 0, DF_STATUS_ERR = 1 } df_status_t;
+
+#define OUT_FRAME_NO_DATA(_out, _cmd, _status)                                                                         \
+    (_out).cmd = (_cmd);                                                                                               \
+    (_out).status = (_status);                                                                                         \
+    (_out).chunk = 0;                                                                                                  \
+    (_out).length = 0;
+
+#define OUT_FRAME_WITH_DATA_0(_out, _cmd, _status, _size)                                                              \
+    (_out).cmd = (_cmd);                                                                                               \
+    (_out).status = (_status);                                                                                         \
+    (_out).chunk = 0;                                                                                                  \
+    (_out).length = _size;
+
+#define OUT_FRAME_WITH_DATA_CHUNK(_out, _cmd, _status, _chunk, _size)                                                  \
+    (_out).cmd = (_cmd);                                                                                               \
+    (_out).status = (_status);                                                                                         \
+    (_out).chunk = (_chunk);                                                                                           \
+    (_out).length = (_size);
 
 #endif

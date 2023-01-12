@@ -3,9 +3,10 @@
 
 #include "df_defines.h"
 
+
 typedef struct {
-    int32_t (*send_df)(df_frame_t* df); 
-    void (*set_df_event_cb)(df_event_callback_t cb);
+    int32_t (*init)(df_event_cb_t cb);
+    int32_t (*send)(df_frame_t* df); 
 } df_driver_t;
 
 #endif

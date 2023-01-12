@@ -23,6 +23,7 @@ hw/RevA/pixl.js/*.pdf
 hw/RevA/pixl.js/*.kicad_prl
 
 hw/SP.RevA
+hw/PRO.RevA
 
 dist
 # venv stuff
