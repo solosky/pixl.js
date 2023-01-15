@@ -1,4 +1,5 @@
 import { sharedEventDispatcher } from "./event";
+import * as ByteBuffer from "bytebuffer"
 
 const NUS_SERVICE_UUID = "6e400001-b5a3-f393-e0a9-e50e24dcca9e"
 const NUS_CHAR_TX_UUID = "6e400002-b5a3-f393-e0a9-e50e24dcca9e"
@@ -9,7 +10,9 @@ var nus_service;
 var nus_char_rx;
 var nus_char_tx;
 
-export function pixlBleConnect() {
+var bluetoothDevice;
+
+export function connect() {
     return navigator.bluetooth.requestDevice({
         filters: [
             { services: [NUS_SERVICE_UUID] }
@@ -17,6 +20,7 @@ export function pixlBleConnect() {
         optionalServices: [NUS_SERVICE_UUID]
     })
         .then(device => {
+            bluetoothDevice = device;
             console.log('Connecting to GATT Server...');
             device.addEventListener('gattserverdisconnected', onDeviceDisconnected);
             return device.gatt.connect();
@@ -49,6 +53,7 @@ export function pixlBleConnect() {
                     characteristic.startNotifications();
                 }
             });
+            console.log("connected!");
             sharedEventDispatcher().emit("ble_connected");
         })
         .catch(error => {
@@ -57,15 +62,24 @@ export function pixlBleConnect() {
 }
 
 
-export function pixlBleTxData(buff){
+export function disconnect() {
+    if (bluetoothDevice && bluetoothDevice.gatt.connected) {
+        bluetoothDevice.gatt.disconnect();
+        bluetoothDevice = null;
+    }
+}
+
+
+export function tx_data(buff) {
+    console.log("tx data:", ByteBuffer.wrap(buff).toDebug());
     return nus_char_tx.writeValue(buff);
 }
 
 /* Utils */
 
 function onRxDataReceived(event) {
-    console.log(event);
-    sharedEventDispatcher().emit("ble_rx_data", event.target.value);
+    console.log("rx data:", ByteBuffer.wrap(event.target.value.buffer).toDebug());
+    sharedEventDispatcher().emit("ble_rx_data", event.target.value.buffer);
 }
 
 function onDeviceDisconnected(event) {
