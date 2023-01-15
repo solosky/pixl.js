@@ -79,6 +79,9 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "ble_df_driver.h"
+#include "df_core.h"
+
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
 #define DEVICE_NAME "Pixl.js" /**< Name of device. Will be included in the advertising data. */
@@ -201,17 +204,12 @@ static void nrf_qwr_error_handler(uint32_t nrf_error) { APP_ERROR_HANDLER(nrf_er
 static void nus_data_handler(ble_nus_evt_t *p_evt) {
 
     if (p_evt->type == BLE_NUS_EVT_RX_DATA) {
-        uint32_t err_code;
-
-        NRF_LOG_INFO("Received data from BLE NUS. Writing data on UART.");
-        NRF_LOG_HEXDUMP_INFO(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
-        uint32_t tx_length = p_evt->params.rx_data.length;
-        err_code = ble_nus_data_send(&m_nus, p_evt->params.rx_data.p_data, &tx_length, p_evt->conn_handle);
-        if (err_code) {
-            NRF_LOG_INFO("send back error:%d", err_code);
-        }
+        ble_on_received_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+    } else if (p_evt->type == BLE_NUS_EVT_TX_RDY) {
+        ble_on_transmit_ready();
     }
 }
+
 /**@snippet [Handling the data received over BLE] */
 
 /**@brief Function for initializing services that will be used by the application.
@@ -464,6 +462,8 @@ void ble_init(void) {
         services_init();
         advertising_init();
         conn_params_init();
+
+        df_core_init();
         m_ble_initialized = true;
     }
 
@@ -479,4 +479,13 @@ void ble_disable() {
     if (m_conn_handle != BLE_CONN_HANDLE_INVALID) {
         sd_ble_gap_disconnect(m_conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
     }
+}
+
+ret_code_t ble_nus_tx_data(void *data, size_t length) {
+    size_t tx_length = length;
+    ret_code_t err_code = ble_nus_data_send(&m_nus, data, &tx_length, m_conn_handle);
+    if (err_code) {
+        NRF_LOG_INFO("send back error:%d", err_code);
+    }
+    return err_code;
 }

@@ -6,7 +6,7 @@
 #include "mini_app_launcher.h"
 #include "mui_list_view.h"
 #include "mui_u8g2.h"
-#include "nrf_bootloader_info.h"
+#include "utils.h"
 
 typedef enum { SETTINGS_VIEW_ID_MAIN } settings_view_id_t;
 
@@ -34,9 +34,7 @@ static void app_settings_list_view_on_selected(mui_list_view_event_t event, mui_
         break;
 
     case 1:
-        sd_power_gpregret_clr(0, 0);
-        sd_power_gpregret_set(0, BOOTLOADER_DFU_START);
-        sd_nvic_SystemReset();
+        enter_dfu();
         break;
 
     case 4:

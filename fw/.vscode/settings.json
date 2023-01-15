@@ -71,7 +71,11 @@
     "ble_status_view.h": "c",
     "app_amiibo.h": "c",
     "vfs.h": "c",
-    "mini_app_launcher.h": "c"
+    "mini_app_launcher.h": "c",
+    "df_defines.h": "c",
+    "df_core.h": "c",
+    "df_proto_vfs.h": "c",
+    "df_buffer.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
