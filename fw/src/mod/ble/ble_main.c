@@ -131,6 +131,8 @@ static uint16_t m_ble_nus_max_data_len =
 static ble_uuid_t m_adv_uuids[] = /**< Universally unique service identifier. */
     {{BLE_UUID_NUS_SERVICE, NUS_SERVICE_UUID_TYPE}};
 
+static uint8_t m_ble_initialized = false;
+
 /**@brief Function for assert macro callback.
  *
  * @details This function will be called in case of an assert in the SoftDevice.
@@ -455,13 +457,14 @@ static void advertising_start(void) {
  */
 void ble_init(void) {
 
-    if (!nrf_sdh_is_enabled()) {
+    if (!m_ble_initialized) {
         ble_stack_init();
         gap_params_init();
         gatt_init();
         services_init();
         advertising_init();
         conn_params_init();
+        m_ble_initialized = true;
     }
 
     NRF_LOG_INFO("BLE started.");
