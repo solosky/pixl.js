@@ -1,7 +1,7 @@
 {
   "configurations": [
       {
-          "name": "nRF SDK 15.3.0 - PCA10056",
+          "name": "Pixl.js Debug",
           "includePath": [
               "${workspaceFolder}/src/**",
               "${workspaceFolder}/components/**",

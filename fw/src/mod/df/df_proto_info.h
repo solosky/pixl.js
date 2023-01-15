@@ -12,6 +12,6 @@ typedef enum {
 
 
 
-extern const df_proto_handler_entry_t df_proto_handler_info_entries[];
+extern const df_cmd_entry_t df_proto_handler_info_entries[];
 
 #endif

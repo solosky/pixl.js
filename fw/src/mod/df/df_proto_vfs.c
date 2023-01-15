@@ -1,5 +1,6 @@
 #include "df_proto_vfs.h"
 #include "df_buffer.h"
+#include "df_defines.h"
 #include "vfs.h"
 
 void df_proto_handler_vfs_drive_list(df_event_t *evt) {
@@ -14,33 +15,42 @@ void df_proto_handler_vfs_drive_list(df_event_t *evt) {
         if (vfs_drive_enabled(VFS_DRIVE_INT)) {
             vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
             vfs_stat_t stat;
-            if (p_driver->stat(&stat) == VFS_OK) {
+            if (p_driver->stat(&stat) == VFS_OK && !stat.avaliable) {
+                p_driver->mount();
+            }
+
+            if (p_driver->stat(&stat) == VFS_OK && !stat.avaliable) {
                 buff_put_u8(&buff, stat.avaliable); // drive status code
-                buff_put_u8(&buff, "I");            // drive label
+                buff_put_char(&buff, 'I');          // drive label
                 buff_put_string(&buff, "Internal Flash");
                 buff_put_u32(&buff, stat.total_bytes); // total space
-                buff_put_u32(&buff, stat.free_bytes);  // used space
+                buff_put_u32(&buff, stat.free_bytes);  // free space
             } else {
-                buff_put_u8(&buff, 1);   // drive status code
-                buff_put_u8(&buff, "I"); // drive label
+                buff_put_u8(&buff, 1);     // drive status code
+                buff_put_char(&buff, 'I'); // drive label
                 buff_put_string(&buff, "Internal Flash");
                 buff_put_u32(&buff, 0); // total space
-                buff_put_u32(&buff, 0); // used space
+                buff_put_u32(&buff, 0); // free space
             }
         }
 
         if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
             vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
             vfs_stat_t stat;
+
+            if (p_driver->stat(&stat) == VFS_OK && !stat.avaliable) {
+                p_driver->mount();
+            }
+
             if (p_driver->stat(&stat) == VFS_OK) {
                 buff_put_u8(&buff, stat.avaliable); // drive status code
-                buff_put_u8(&buff, "E");            // drive label
+                buff_put_char(&buff, 'E');          // drive label
                 buff_put_string(&buff, "External Flash");
                 buff_put_u32(&buff, stat.total_bytes); // total space
-                buff_put_u32(&buff, stat.free_bytes);  // used space
+                buff_put_u32(&buff, stat.free_bytes);  // free space
             } else {
-                buff_put_u8(&buff, 1);   // drive status code
-                buff_put_u8(&buff, "E"); // drive label
+                buff_put_u8(&buff, 1);     // drive status code
+                buff_put_char(&buff, 'E'); // drive label
                 buff_put_string(&buff, "External Flash");
                 buff_put_u32(&buff, 0); // total space
                 buff_put_u32(&buff, 0); // used space
@@ -72,7 +82,7 @@ void df_proto_handler_vfs_drive_format(df_event_t *evt) {
     }
 }
 
-const df_proto_handler_entry_t df_proto_handler_vfs_entries[] = {
-    {DF_PROTO_CMD_INFO_VERSION_INFO, df_proto_handler_vfs_drive_list},
-    {DF_PROTO_CMD_INFO_ENTER_DFU, df_proto_handler_vfs_drive_format},
+const df_cmd_entry_t df_proto_handler_vfs_entries[] = {
+    {DF_PROTO_CMD_VFS_DRIVE_LIST, df_proto_handler_vfs_drive_list},
+    {DF_PROTO_CMD_VFS_DRIVE_FORMAT, df_proto_handler_vfs_drive_format},
     {0, NULL}};

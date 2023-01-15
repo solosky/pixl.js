@@ -179,9 +179,14 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
   $(PROJ_DIR)/mod/ble/ble_main.c \
+  $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
+  $(PROJ_DIR)/mod/df/df_core.c \
+  $(PROJ_DIR)/mod/df/df_proto_info.c \
+  $(PROJ_DIR)/mod/df/df_proto_vfs.c \
+  $(PROJ_DIR)/mod/df/df_core.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -427,6 +432,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mod \
   $(PROJ_DIR)/mod/vfs \
   $(PROJ_DIR)/mod/ble \
+  $(PROJ_DIR)/mod/df \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/ble \

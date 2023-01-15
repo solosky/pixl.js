@@ -7,7 +7,7 @@
 
 #include <stdint.h>
 
-typedef struct {
+typedef struct __attribute__((packed)) {
     uint8_t cmd;
     uint8_t status;
     uint16_t chunk;
@@ -27,12 +27,12 @@ typedef struct {
     df_frame_t *df;
 } df_event_t;
 
-typedef void (*df_proto_handler_t)(df_event_t *evt);
+typedef void (*df_event_handler_t)(df_event_t *evt);
 
 typedef struct {
     uint8_t cmd;
-    df_proto_handler_t handler;
-} df_proto_handler_entry_t;
+    df_event_handler_t handler;
+} df_cmd_entry_t;
 
 typedef enum { DF_STATUS_OK = 0, DF_STATUS_ERR = 1 } df_status_t;
 

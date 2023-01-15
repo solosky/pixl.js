@@ -84,6 +84,20 @@ static inline void buff_put_u8(buffer_t *buffer, uint8_t value) {
 }
 
 /*!
+ *  @brief    Put char into global array - transmit_buff
+ *
+ *
+ *  @param[in]   : value
+ *
+ *  @return      : None
+ */
+static inline void buff_put_char(buffer_t *buffer, char value) {
+    *(uint8_t *)(&buffer->buff[buffer->limit]) = value;
+    buffer->limit += 1;
+}
+
+
+/*!
  *  @brief    Put byte array into global array - transmit_buff
  *
  *
@@ -169,7 +183,7 @@ static inline void buff_get_string(buffer_t *buffer, char *string, size_t max_le
         buff_get_byte_array(buffer, NULL, length);
     } else {
         uint16_t min_length = max_length > length ? max_length : length;
-        buff_get_byte_array(buff, string, min_length);
+        buff_get_byte_array(buffer, string, min_length);
         buffer->pos += length - min_length;
     }
 }
