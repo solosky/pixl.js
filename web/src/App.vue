@@ -13,7 +13,7 @@
             <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
           </el-button-group>
           <el-button-group>
-            <el-button size="mini" icon="el-icon-top">上一级</el-button>
+            <el-button size="mini" icon="el-icon-top" @click="on_btn_up">上一级</el-button>
             <el-button size="mini" icon="el-icon-refresh">刷新</el-button>
           </el-button-group>
         </div>
@@ -36,24 +36,23 @@
         <div class="folder-path">
           <el-breadcrumb separator="/">
             <el-breadcrumb-item :to="{ path: '/' }"></el-breadcrumb-item>
-            <el-breadcrumb-item>amiibo</el-breadcrumb-item>
-            <el-breadcrumb-item>塞尔达</el-breadcrumb-item>
+            <el-breadcrumb-item>{{ current_dir }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </el-col>
     </el-row>
     <div>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
-      v-loading="table_loading"
-    element-loading-text="加载中.."
-    element-loading-spinner="el-icon-loading"
+        v-loading="table_loading" element-loading-text="加载中.." element-loading-spinner="el-icon-loading"
         cell-class-name="file-cell">
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column label="文件">
           <template slot-scope="scope">
             <i class="el-icon-folder"></i>
-            <el-link :underline="false">{{ scope.row.name }}</el-link>
+            <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">{{
+              scope.row.name
+            }}</el-link>
           </template>
         </el-table-column>
         <el-table-column prop="size" label="大小">
@@ -93,7 +92,8 @@ export default {
       connBtnText: "连接",
       version: "",
       state: "disconnected",
-      table_loading: false
+      table_loading: false,
+      current_dir: ""
     }
   },
   methods: {
@@ -183,6 +183,54 @@ export default {
           });
         });
       }
+    },
+
+    on_btn_up(){
+
+        var idx = this.current_dir.lastIndexOf('/');
+        if(idx > 2){ // E:/
+          this.current_dir = this.current_dir.substring(0, idx);
+          this.reload_folder();
+        }
+    },
+
+    handle_name_click(index, row) {
+      if (row.type == "DRIVE") {
+        this.current_dir = row.name.substr(0, 3);
+        this.reload_folder();
+      } else if (row.type == "DIR") {
+        if (this.current_dir.charAt(this.current_dir.length - 1) != '/') {
+          this.current_dir = this.current_dir + "/";
+        }
+        this.current_dir = this.current_dir + row.name;
+        this.reload_folder();
+      }
+    },
+
+    reload_folder() {
+      this.table_loading = true;
+      var thiz = this;
+      proto.vfs_read_folder(this.current_dir).then(h => {
+        thiz.table_loading = false;
+
+        if (h.status == 0) {
+          var _table_data = [];
+          for (var i in h.data) {
+            var file = h.data[i];
+
+            var row = {
+              name: file.name,
+              size: thiz.format_size(file.size),
+              type: file.type == 0 ? "REG" : "DIR"
+            };
+
+            _table_data.push(row);
+          }
+          thiz.tableData = _table_data;
+        }
+
+
+      });
     },
 
     format_size(size) {
