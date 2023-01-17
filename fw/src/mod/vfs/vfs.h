@@ -12,6 +12,9 @@
 #define VFS_MAX_NAME_LEN 24
 #define VFS_MAX_PATH_LEN 64
 
+#define VFS_DRIVE_LABEL_LEN 2
+#define VFS_MAX_FULL_PATH_LEN VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN
+
 enum vfs_error_t {
     VFS_OK = 0,
     VFS_ERR_FAIL = -1,
