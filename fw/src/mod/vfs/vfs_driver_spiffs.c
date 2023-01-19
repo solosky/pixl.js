@@ -104,6 +104,7 @@ int32_t vfs_spiffs_mount() {
     //      NRF_LOG_INFO("create amiibo dir: %d", res);
     SPIFFS_creat(&fs, "/amiibo/.folder", 0);
     SPIFFS_creat(&fs, "/hello/.folder", 0);
+    SPIFFS_creat(&fs, "/hello/塞尔达/.folder", 0);
     return res;
 }
 

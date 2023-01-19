@@ -12,6 +12,8 @@ typedef enum {
     DF_PROTO_CMD_VFS_FILE_READ = 0x14,
     DF_PROTO_CMD_VFS_FILE_WRITE = 0x15,
     DF_PROTO_CMD_VFS_DIR_READ = 0x16,
+    DF_PROTO_CMD_VFS_DIR_CREATE = 0x17,
+    DF_PROTO_CMD_VFS_REMOVE = 0x18,
 } df_proto_cmd_vfs_t;
 
 extern const df_cmd_entry_t df_proto_handler_vfs_entries[];
