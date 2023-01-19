@@ -1,6 +1,8 @@
 #include "df_proto_vfs.h"
 #include "df_buffer.h"
+#include "df_core.h"
 #include "df_defines.h"
+#include "nrf_log.h"
 #include "vfs.h"
 
 static vfs_driver_t *get_driver_by_path(char *path) {
@@ -106,7 +108,7 @@ static void dir_read_send_chunk(dir_chunk_state_t *chunk_state, df_frame_t *out)
 
     NEW_BUFFER_ZERO(buff, out->data, sizeof(out->data));
 
-    if(chunk_state->dir_closed){
+    if (chunk_state->dir_closed) {
         return;
     }
 
@@ -131,11 +133,11 @@ static void dir_read_send_chunk(dir_chunk_state_t *chunk_state, df_frame_t *out)
 
     out->cmd = DF_PROTO_CMD_VFS_DIR_READ;
     if (chunk_state->obj_consumed && !chunk_state->dir_closed) {
-        out->chunk = 0x8000 | chunk_state->chunk;
+        out->chunk = chunk_state->chunk;
         chunk_state->dir_closed = true;
         chunk_state->driver->close_dir(&chunk_state->dir);
     } else {
-        out->chunk =  chunk_state->chunk;
+        out->chunk = 0x8000 | chunk_state->chunk;
     }
     out->status = DF_STATUS_OK;
     out->length = buff_get_size(&buff);
@@ -152,7 +154,9 @@ void df_proto_handler_vfs_dir_read(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
 
         NEW_BUFFER(buff, evt->df->data, evt->df->length);
+
         char path[VFS_MAX_FULL_PATH_LEN];
+        memset(path, 0, sizeof(path));
         buff_get_string(&buff, path, sizeof(path));
 
         chunk_state.driver = get_driver_by_path(path);
@@ -181,8 +185,78 @@ void df_proto_handler_vfs_dir_read(df_event_t *evt) {
     }
 }
 
+void df_proto_handler_vfs_dir_create(df_event_t *evt) {
+    if (evt->type == DF_EVENT_DATA_RECEVIED) {
+        df_frame_t out;
+
+        NEW_BUFFER(buff, evt->df->data, evt->df->length);
+        char path[VFS_MAX_FULL_PATH_LEN];
+        memset(path, 0, sizeof(path));
+        buff_get_string(&buff, path, sizeof(path));
+
+        vfs_driver_t *p_driver = get_driver_by_path(path);
+        if (p_driver == NULL) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
+
+        if (p_driver->create_dir(get_file_path(path)) == VFS_OK) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_OK);
+        } else {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+        }
+        df_core_send_frame(&out);
+    } else if (evt->type == DF_EVENT_DATA_TRANSMIT_READY) {
+    }
+}
+
+void df_proto_handler_vfs_remove(df_event_t *evt) {
+    if (evt->type == DF_EVENT_DATA_RECEVIED) {
+        df_frame_t out;
+
+        NEW_BUFFER(buff, evt->df->data, evt->df->length);
+        char path[VFS_MAX_FULL_PATH_LEN];
+        memset(path, 0, sizeof(path));
+        buff_get_string(&buff, path, sizeof(path));
+
+        vfs_driver_t *p_driver = get_driver_by_path(path);
+        if (p_driver == NULL) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
+
+        vfs_obj_t obj;
+        if (p_driver->stat_file(get_file_path(path), &obj) != VFS_OK) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
+
+        int32_t err = 0;
+        if (obj.type == VFS_TYPE_DIR) {
+            err = p_driver->remove_dir(get_file_path(path));
+        } else {
+            err = p_driver->remove_file(get_file_path(path));
+        }
+
+        if (err != VFS_OK) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
+        OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_OK);
+        df_core_send_frame(&out);
+
+    } else if (evt->type == DF_EVENT_DATA_TRANSMIT_READY) {
+    }
+}
+
 const df_cmd_entry_t df_proto_handler_vfs_entries[] = {
     {DF_PROTO_CMD_VFS_DRIVE_LIST, df_proto_handler_vfs_drive_list},
     {DF_PROTO_CMD_VFS_DRIVE_FORMAT, df_proto_handler_vfs_drive_format},
     {DF_PROTO_CMD_VFS_DIR_READ, df_proto_handler_vfs_dir_read},
+    {DF_PROTO_CMD_VFS_DIR_CREATE, df_proto_handler_vfs_dir_create},
+    {DF_PROTO_CMD_VFS_REMOVE, df_proto_handler_vfs_remove},
     {0, NULL}};

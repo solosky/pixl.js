@@ -13,15 +13,15 @@
 
 typedef struct {
     df_driver_t *driver;
-    df_cmd_entry_t *cmd;
-    df_cmd_entry_t *cmd_entries[PROTO_HANDLER_MAX_GROUP];
+    df_cmd_entry_t const *cmd;
+    df_cmd_entry_t const *cmd_entries[PROTO_HANDLER_MAX_GROUP];
 } df_context_t;
 
 static df_context_t m_df_ctx;
 
-static df_cmd_entry_t *df_core_find_proto_handler_entry(uint8_t cmd) {
+static const df_cmd_entry_t *df_core_find_proto_handler_entry(uint8_t cmd) {
     for (int32_t i = 0; i < PROTO_HANDLER_MAX_GROUP; i++) {
-        df_cmd_entry_t *e = m_df_ctx.cmd_entries[i];
+       const df_cmd_entry_t *e = m_df_ctx.cmd_entries[i];
         while (e->cmd > 0) {
             if (e->cmd == cmd) {
                 return e;
