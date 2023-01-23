@@ -321,11 +321,11 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 
             int res = SPIFFS_rename(&fs, p_dir->pe->name, new_path);
 
-            //TODO ..
-            // if (!res) {
-            //     SPIFFS_closedir(&dir.d);
-            //     return vfs_spiffs_map_error_code(res);
-            // }
+            // TODO ..
+            //  if (!res) {
+            //      SPIFFS_closedir(&dir.d);
+            //      return vfs_spiffs_map_error_code(res);
+            //  }
         }
     }
 
@@ -334,13 +334,37 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 }
 
 /**file operations*/
-int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) { return VFS_ERR_UNSUPT; }
+int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) {
+    fd->handle = SPIFFS_open(&fs, file, flags, 0);
+    if (fd->handle < 0) {
+        return VFS_ERR_FAIL;
+    }
 
-int32_t vfs_spiffs_close_file(vfs_file_t *fd) { return VFS_ERR_UNSUPT; }
+    return VFS_OK;
+}
 
-int32_t vfs_spiffs_read_file(vfs_file_t *fd, void *buff, size_t buff_size) { return VFS_ERR_UNSUPT; }
+int32_t vfs_spiffs_close_file(vfs_file_t *fd) {
+    if (fd->handle >= 0) {
+        SPIFFS_close(&fs, fd->handle);
+    }
+    return VFS_OK;
+}
 
-int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) { return VFS_ERR_UNSUPT; }
+int32_t vfs_spiffs_read_file(vfs_file_t *fd, void *buff, size_t buff_size) {
+    if (fd->handle < 0) {
+        return VFS_ERR_FAIL;
+    }
+     NRF_LOG_INFO("read file %d with %d bytes", fd->handle, buff_size);
+    return SPIFFS_read(&fs, fd->handle, buff, buff_size);
+}
+
+int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
+    if (fd->handle < 0) {
+        return VFS_ERR_FAIL;
+    }
+    NRF_LOG_INFO("write file %d with %d bytes", fd->handle, buff_size);
+    return SPIFFS_write(&fs, fd->handle, buff, buff_size);
+}
 
 /**short opearation*/
 int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_size) {
