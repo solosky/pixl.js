@@ -35,9 +35,6 @@ export function enter_dfu() {
 
 export function vfs_get_drive_list() {
     console.log("vfs_get_drive_list");
-
-
-
     tx_data_frame(0x10, 0, 0);
     return new_rx_promise().then(data => {
         var bb = ByteBuffer.wrap(data);
@@ -87,6 +84,44 @@ export function vfs_read_folder(dir) {
 }
 
 
+export function vfs_create_folder(dir) {
+    console.log("vfs_create_folder", dir);
+
+    var p = new_rx_promise().then(data => {
+        var bb = ByteBuffer.wrap(data);
+        var h = read_header(bb);
+        return h;
+    });
+
+    var bb = new ByteBuffer();
+    write_string(bb, dir);
+    tx_data_frame(0x17, 0, 0, bb);
+
+    return p;
+}
+
+export function vfs_remove(path) {
+    console.log("vfs_remove", path);
+
+    var p = new_rx_promise().then(data => {
+        var bb = ByteBuffer.wrap(data);
+        var h = read_header(bb);
+        return h;
+    });
+
+
+    var bb = new ByteBuffer();
+    write_string(bb, path);
+    tx_data_frame(0x18, 0, 0, bb);
+
+    return p;
+}
+
+export function vfs_upload(path, file){
+    
+}
+
+
 function read_header(bb) {
     return {
         cmd: bb.readUint8(),
@@ -95,18 +130,44 @@ function read_header(bb) {
     }
 }
 
+
+function decode_utf8(bytes) {
+    var encoded = "";
+    for (var i = 0; i < bytes.length; i++) {
+        encoded += '%' + bytes[i].toString(16);
+    }
+    return decodeURIComponent(encoded);
+}
+
+function encode_utf8(text) {
+    var code = encodeURIComponent(text);
+    var bytes = [];
+    for (var i = 0; i < code.length; i++) {
+        const c = code.charAt(i);
+        if (c === '%') {
+            const hex = code.charAt(i + 1) + code.charAt(i + 2);
+            const hexVal = parseInt(hex, 16);
+            bytes.push(hexVal);
+            i += 2;
+        } else bytes.push(c.charCodeAt(0));
+    }
+    return bytes;
+}
+
 function read_string(bb) {
     var size = bb.readUint16();
-    if (size > 0) {
-        return bb.readUTF8String(size);
+    var bytes = []
+    for (var i = 0; i < size; i++) {
+        bytes.push(bb.readUint8());
     }
-    return null;
+    return decode_utf8(bytes);
 }
 
 function write_string(bb, str) {
-    bb.writeUint16(str.length);
-    for (var i = 0; i < str.length; i++) {
-        bb.writeByte(str.charCodeAt(i));
+    var bytes = encode_utf8(str);
+    bb.writeUint16(bytes.length);
+    for (var i = 0; i < bytes.length; i++) {
+        bb.writeUint8(bytes[i]);
     }
 }
 
