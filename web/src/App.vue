@@ -5,7 +5,7 @@
       <el-col :span="16">
         <div class="action-left">
           <el-button-group>
-            <el-button size="mini" type="primary" icon="el-icon-upload">上传</el-button>
+            <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload">上传</el-button>
             <el-button size="mini" icon="el-icon-download">下载</el-button>
           </el-button-group>
           <el-button-group>
@@ -21,26 +21,6 @@
       <el-col :span="8">
         <div class="action-right">
           <el-button type="success" size="mini" v-if="version" icon="el-icon-warning">{{ version }}</el-button>
-          <el-popover placement="bottom" title="队列" width="400" trigger="hover">
-              <el-table :data="queue_data">
-                <el-table-column width="200" property="file" label="文件"></el-table-column>
-                <el-table-column width="100" label="进度">
-                  <template slot-scope="scope">
-                    <el-progress type="circle" :percentage="scope.row.progress" status="success" :width="30"></el-progress>
-                  </template>
-
-                </el-table-column>
-                <el-table-column width="100" label="操作">
-                  <template  slot-scope="scope">
-                    <el-button size="mini" type="danger" icon="el-icon-close"></el-button>
-                  </template>
-
-                </el-table-column>
-              </el-table>
-              <el-badge :value="12" class="item" slot="reference">
-                <el-button size="mini" icon="el-icon-loading">队列</el-button>
-              </el-badge>
-            </el-popover>
           <el-button-group>
             <el-button type="info" size="mini" icon="el-icon-cpu" @click="on_btn_enter_dfu">DFU</el-button>
             <el-button :type="connBtnType" size="mini" icon="el-icon-connection" @click="on_btn_ble_connect">{{
@@ -101,6 +81,19 @@
       </span>
     </el-dialog>
 
+    <el-dialog title="上传" :visible.sync="upload_diag_visible" width="30%" :before-close="on_upload_diag_close">
+      <div>
+        <el-upload ref="upload" class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple
+          :http-request="on_upload_request" :on-error="on_upload_error">
+          <i class="el-icon-upload"></i>
+          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+        </el-upload>
+      </div>
+      <span slot="footer" class="dialog-footer">
+      </span>
+    </el-dialog>
+
   </div>
 
 </template>
@@ -125,14 +118,7 @@ export default {
       current_dir: "",
       name_diag_visible: false,
       input_name: "",
-      queue_data: [{
-        file: "zelda.bin",
-        progress: 50
-      },
-    {
-        file: "mifa.bin",
-        progress: 80
-      }]
+      upload_diag_visible: false
     }
   },
   methods: {
@@ -156,8 +142,10 @@ export default {
         duration: 5000
       });
 
-      proto.get_version().then(version => {
-        this.version = "已连接, ver: " + version.ver;
+      proto.get_version().then(res => {
+        console.log("get version result", res);
+        this.version = "已连接, ver: " + res.data.ver;
+
         this.reload_drive();
       });
     },
@@ -231,6 +219,38 @@ export default {
       this.name_diag_visible = true;
     },
 
+    on_btn_upload() {
+      this.upload_diag_visible = true;
+    },
+
+    on_upload_diag_close(done) {
+      this.$confirm('确认关闭？关闭将清空上传记录。')
+        .then(_ => {
+          this.$refs.upload.clearFiles();
+          this.reload_folder();
+          done();
+        })
+        .catch(_ => { });
+    },
+
+    on_upload_request(options) {
+      console.log(options);
+      proto.vfs_helper_write_file(this.current_dir, options.file, p => {
+        options.onProgress({ percent: p.written_bytes / p.total_bytes * 100 });
+      }, _ => {
+        options.onSuccess()
+      }, e => {
+        options.onError(e)
+      });
+    },
+
+    on_upload_error(err, file, filelist) {
+      this.$message({
+        type: 'error',
+        message: file.name + "上传失败: " + err
+      });
+    },
+
     on_row_btn_remove(index, row) {
       this.$confirm('是否删除 ' + row.name + '?', '提示', {
         confirmButtonText: '确定',
@@ -288,8 +308,9 @@ export default {
     reload_drive() {
       this.table_loading = true;
       var thiz = this;
-      proto.vfs_get_drive_list().then(data => {
-        console.log(data);
+      proto.vfs_get_drive_list().then(res => {
+        console.log(res);
+        const data = res.data
         var _table_data = [];
         for (var i in data) {
           var drive = data[i];
