@@ -1,6 +1,7 @@
 #include "ble_df_driver.h"
 #include "ble_main.h"
 #include "nrf_log.h"
+#include "nrf_log_ctrl.h"
 #include "stddef.h"
 
 static df_event_handler_t m_df_event_handler;
@@ -13,9 +14,11 @@ df_driver_t ble_df_driver = {.init = df_ble_driver_init, .send = df_ble_driver_s
 
 df_driver_t *ble_get_df_driver() { return &ble_df_driver; }
 
-void ble_on_received_data(const void *data, size_t length) {    
+void ble_on_received_data(const void *data, size_t length) {   
+    NRF_LOG_INFO("df_frame_size: %d", sizeof(m_rx_df_frame)); 
     NRF_LOG_INFO("ble data received %d bytes", length);
     NRF_LOG_HEXDUMP_INFO(data, length);
+    NRF_LOG_FLUSH();
 
     if (length >= DF_HEADER_LEN) {
         memcpy(&m_rx_df_frame, data, length);

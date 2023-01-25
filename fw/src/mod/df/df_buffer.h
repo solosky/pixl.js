@@ -18,6 +18,8 @@ typedef struct {
 
 #define NEW_BUFFER(name, _buff, _cap) buffer_t name = {.buff = (_buff), .pos = 0, .limit = 0, .cap = (_cap)}
 
+#define NEW_BUFFER_READ(name, _buff, _limit) buffer_t name = {.buff = (_buff), .pos = 0, .limit = (_limit), .cap = (_limit)}
+
 #define NEW_BUFFER_LOCAL(name, _cap)                                                                                   \
     uint8_t _##name##_data[(_cap)];                                                                                    \
     buffer_t name = {.buff = _##name##_data, .pos = 0, .limit = 0, .cap = (_cap)}

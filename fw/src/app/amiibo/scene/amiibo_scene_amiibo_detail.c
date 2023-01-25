@@ -53,7 +53,7 @@ static void amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
     snprintf(path, sizeof(path), "%s/%s", string_get_cstr(app->current_folder), file_name);
 
     vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
-    int32_t res = p_vfs_driver->read_file_data(path, &app->ntag, sizeof(ntag_t));
+    int32_t res = p_vfs_driver->read_file_data(path, &app->ntag.data, 540);
     app->ntag.index = 1;
     if (res <= 0) {
         // TODO error handling..

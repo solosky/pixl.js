@@ -274,7 +274,7 @@ void df_proto_handler_vfs_file_open(df_event_t *evt) {
             file_chunk_state.opened = false;
         }
 
-        NEW_BUFFER(buff, evt->df->data, evt->df->length);
+        NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
         char path[VFS_MAX_FULL_PATH_LEN];
         memset(path, 0, sizeof(path));
         buff_get_string(&buff, path, sizeof(path));
@@ -314,7 +314,7 @@ void df_proto_handler_vfs_file_close(df_event_t *evt) {
         df_frame_t out;
         int32_t err_code;
 
-        NEW_BUFFER(buff, evt->df->data, evt->df->length);
+        NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
 
         uint8_t file_id = buff_get_u8(&buff); // ignore
         if (!file_chunk_state.opened) {
@@ -340,7 +340,7 @@ void df_proto_handler_vfs_file_write(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
         df_frame_t out;
 
-        NEW_BUFFER(buff, evt->df->data, evt->df->length);
+        NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
 
         uint8_t file_id = buff_get_u8(&buff); // ignore
 
@@ -404,7 +404,7 @@ void df_proto_handler_vfs_file_read(df_event_t *evt) {
     df_frame_t out;
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
 
-        NEW_BUFFER(buff, evt->df->data, evt->df->length);
+        NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
 
         uint8_t file_id = buff_get_u8(&buff); // ignore
 

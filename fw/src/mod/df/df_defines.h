@@ -1,9 +1,9 @@
 #ifndef PROTO_DEFINES_H
 #define PROTO_DEFINES_H
 
-#define DF_MAX_LEN 250
+#define DF_MAX_LEN 247
 #define DF_HEADER_LEN 4
-#define DF_PAYLOAD_LEN DF_MAX_LEN - DF_HEADER_LEN
+#define DF_PAYLOAD_LEN 243
 
 #include <stdint.h>
 

@@ -337,7 +337,7 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) {
     fd->handle = SPIFFS_open(&fs, file, flags, 0);
     if (fd->handle < 0) {
-        return VFS_ERR_FAIL;
+        return vfs_spiffs_map_error_code(fd->handle);
     }
 
     return VFS_OK;
@@ -354,8 +354,12 @@ int32_t vfs_spiffs_read_file(vfs_file_t *fd, void *buff, size_t buff_size) {
     if (fd->handle < 0) {
         return VFS_ERR_FAIL;
     }
-     NRF_LOG_INFO("read file %d with %d bytes", fd->handle, buff_size);
-    return SPIFFS_read(&fs, fd->handle, buff, buff_size);
+    NRF_LOG_INFO("read file %d with %d bytes", fd->handle, buff_size);
+    int32_t read_size = SPIFFS_read(&fs, fd->handle, buff, buff_size);
+    if (read_size < 0) {
+        return vfs_spiffs_map_error_code(fd->handle);
+    }
+    return read_size;
 }
 
 int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
@@ -363,7 +367,11 @@ int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
         return VFS_ERR_FAIL;
     }
     NRF_LOG_INFO("write file %d with %d bytes", fd->handle, buff_size);
-    return SPIFFS_write(&fs, fd->handle, buff, buff_size);
+    int32_t written_size = SPIFFS_write(&fs, fd->handle, buff, buff_size);
+    if (written_size < 0) {
+        return vfs_spiffs_map_error_code(fd->handle);
+    }
+    return written_size;
 }
 
 /**short opearation*/
@@ -409,7 +417,7 @@ int32_t vfs_spiffs_remove_file(const char *file) {
 }
 
 // TODO
-vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
+const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
                                   .umount = vfs_spiffs_umount,
                                   .format = vfs_spiffs_format,
                                   .mounted = vfs_spiffs_mounted,
