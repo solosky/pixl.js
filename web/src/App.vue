@@ -2,12 +2,11 @@
   <div id="app">
     <h1 class="header">Pixl.js</h1>
     <el-row>
-      <el-col :span="16">
+      <el-col :span="12">
         <div class="action-left">
           <el-button-group>
             <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload"
               :disabled="btn_disabled()">上传</el-button>
-            <el-button size="mini" icon="el-icon-download" :disabled="!connected">下载</el-button>
           </el-button-group>
           <el-button-group>
             <el-button size="mini" icon="el-icon-plus" @click="on_btn_new_folder"
@@ -21,7 +20,7 @@
           </el-button-group>
         </div>
       </el-col>
-      <el-col :span="8">
+      <el-col :span="12">
         <div class="action-right">
           <el-button type="success" size="mini" v-if="version" icon="el-icon-warning">{{ version }}</el-button>
           <el-button-group>
@@ -91,7 +90,7 @@
           :http-request="on_upload_request" :on-error="on_upload_error">
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">文件路径长度不能超过32个字节。</div>
+          <div class="el-upload__tip" slot="tip">文件路径总长度不能超过64个字节，超过部分会被截断。</div>
         </el-upload>
       </div>
       <span slot="footer" class="dialog-footer">

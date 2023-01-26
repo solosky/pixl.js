@@ -60,7 +60,8 @@ var m_api_resolve;
 var m_api_reject;
 
 export function init() {
-    sharedEventDispatcher().addListener("ble_rx_data", one_rx_data);
+    sharedEventDispatcher().addListener("ble_rx_data", on_rx_data);
+    sharedEventDispatcher().addListener("ble_disconnected", on_ble_disconnected);
     ByteBuffer.DEFAULT_ENDIAN = ByteBuffer.LITTLE_ENDIAN;
 }
 
@@ -367,7 +368,7 @@ var rx_bytebuffer = new ByteBuffer();
 var rx_chunk_state = "NONE"; //NONE CHUNK,
 
 
-function one_rx_data(data) {
+function on_rx_data(data) {
     var buff = ByteBuffer.wrap(data);
     var h = read_header(buff);
     if(h.chunk & 0x8000){
@@ -397,4 +398,19 @@ function one_rx_data(data) {
     }
 }
 
+
+function on_ble_disconnected(){
+    rx_bytebuffer.clear();
+    rx_chunk_state = "NONE";
+    
+    m_api_resolve = null;
+    m_api_reject = null;
+
+    file_write_queue = [];
+    file_write_ongoing = false;
+
+    op_queue = [];
+    op_ongoing = false;
+
+}
 
