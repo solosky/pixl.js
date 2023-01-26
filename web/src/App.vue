@@ -5,16 +5,19 @@
       <el-col :span="16">
         <div class="action-left">
           <el-button-group>
-            <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload">上传</el-button>
-            <el-button size="mini" icon="el-icon-download">下载</el-button>
+            <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload"
+              :disabled="btn_disabled()">上传</el-button>
+            <el-button size="mini" icon="el-icon-download" :disabled="!connected">下载</el-button>
           </el-button-group>
           <el-button-group>
-            <el-button size="mini" icon="el-icon-plus" @click="on_btn_new_folder">新建文件夹</el-button>
-            <el-button size="mini" type="danger" icon="el-icon-delete">删除</el-button>
+            <el-button size="mini" icon="el-icon-plus" @click="on_btn_new_folder"
+              :disabled="btn_disabled()">新建文件夹</el-button>
+            <el-button size="mini" type="danger" icon="el-icon-delete" @click="on_btn_remove"
+              :disabled="btn_disabled()">删除</el-button>
           </el-button-group>
           <el-button-group>
-            <el-button size="mini" icon="el-icon-top" @click="on_btn_up">上级目录</el-button>
-            <el-button size="mini" icon="el-icon-refresh" @click="on_btn_refresh">刷新</el-button>
+            <el-button size="mini" icon="el-icon-top" @click="on_btn_up" :disabled="btn_disabled()">上级目录</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="on_btn_refresh" :disabled="!connected">刷新</el-button>
           </el-button-group>
         </div>
       </el-col>
@@ -22,7 +25,8 @@
         <div class="action-right">
           <el-button type="success" size="mini" v-if="version" icon="el-icon-warning">{{ version }}</el-button>
           <el-button-group>
-            <el-button type="info" size="mini" icon="el-icon-cpu" @click="on_btn_enter_dfu">DFU</el-button>
+            <el-button type="info" size="mini" icon="el-icon-cpu" @click="on_btn_enter_dfu"
+              :disabled="!connected">DFU</el-button>
             <el-button :type="connBtnType" size="mini" icon="el-icon-connection" @click="on_btn_ble_connect">{{
               connBtnText
             }}</el-button>
@@ -42,7 +46,7 @@
     <div>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
         v-loading="table_loading" element-loading-text="加载中.." element-loading-spinner="el-icon-loading"
-        cell-class-name="file-cell">
+        cell-class-name="file-cell" @selection-change="on_table_selection_change">
         <el-table-column type="selection" width="55">
         </el-table-column>
         <el-table-column label="文件">
@@ -64,8 +68,8 @@
                 <i class="el-icon-arrow-down el-icon--right"></i>
               </span>
               <el-dropdown-menu slot="dropdown">
-                <el-dropdown-item @click.native="on_row_btn_remove(scope.$index, scope.row)">删除</el-dropdown-item>
-                <el-dropdown-item>重命名..</el-dropdown-item>
+                <el-dropdown-item @click.native="on_row_btn_remove(scope.$index, scope.row)"
+                  v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -87,7 +91,7 @@
           :http-request="on_upload_request" :on-error="on_upload_error">
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">只能上传jpg/png文件，且不超过500kb</div>
+          <div class="el-upload__tip" slot="tip">文件路径长度不能超过32个字节。</div>
         </el-upload>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -109,21 +113,21 @@ export default {
   data() {
     return {
       tableData: [],
-      multipleSelection: [],
       connBtnType: "",
       connBtnText: "连接",
       version: "",
-      state: "disconnected",
+      connected: false,
       table_loading: false,
       current_dir: "",
       name_diag_visible: false,
       input_name: "",
-      upload_diag_visible: false
+      upload_diag_visible: false,
+      table_selection: []
     }
   },
   methods: {
     on_btn_ble_connect() {
-      if (this.state == "connected") {
+      if (this.connected) {
         pixl.disconnect();
         this.connBtnText = "连接";
       } else {
@@ -134,7 +138,7 @@ export default {
     on_ble_connected() {
       this.connBtnText = "断开";
       this.connBtnType = "success";
-      this.state = "connected";
+      this.connected = true;
       this.$notify({
         title: 'Pixl.js',
         type: 'success',
@@ -151,7 +155,7 @@ export default {
     },
     on_ble_disconnected() {
       this.connBtnType = "";
-      this.state = "diconnected";
+      this.connected = false;
       this.connBtnText = "连接";
       this.version = "";
       this.$notify({
@@ -175,21 +179,22 @@ export default {
     },
 
     on_btn_enter_dfu() {
-      if (this.state == "connected") {
+      this.$confirm('是否进入DFU模式?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        proto.enter_dfu().then(data => {
 
-        this.$confirm('是否进入DFU模式?', '提示', {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
-        }).then(() => {
-          proto.enter_dfu().then(data => {
-            this.$message({
-              type: 'success',
-              message: '进入DFU模式成功!'
-            });
+          this.$confirm('进入DFU模式成功，是否打开DFU升级页面？', '提示', {
+            confirmButtonText: '确定',
+            cancelButtonText: '取消',
+            type: 'success'
+          }).then(_ => {
+            document.location.href = "https://thegecko.github.io/web-bluetooth-dfu/examples/web.html";
           });
         });
-      }
+      })
     },
 
     on_btn_up() {
@@ -197,12 +202,17 @@ export default {
       var drive = this.current_dir.substring(0, 2); //E:
       var path = this.current_dir.substring(2);
 
-      if (path == '') { // root
+      if (path == '/') { // root
         this.current_dir = "";
         this.reload_drive();
       } else {
         var idx = path.lastIndexOf('/');
-        this.current_dir = drive + path.substring(0, idx);
+        if (idx == 0) {
+          this.current_dir = drive + "/";
+        } else {
+          this.current_dir = drive + path.substring(0, idx);
+        }
+
         this.reload_folder();
       }
     },
@@ -221,6 +231,23 @@ export default {
 
     on_btn_upload() {
       this.upload_diag_visible = true;
+    },
+
+    on_btn_remove() {
+      if (this.table_selection.length == 0) {
+        return;
+      }
+      const dir = this.current_dir;
+      this.table_selection.forEach(v => {
+        proto.vfs_remove(dir + "/" + v.name).then(_ => {
+          this.delete_table_row_by_name(v.name);
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: v.name + "删除失败: " + e
+          });
+        });
+      }, this);
     },
 
     on_upload_diag_close(done) {
@@ -290,6 +317,10 @@ export default {
           }
         });
       }
+    },
+
+    on_table_selection_change(selected) {
+      this.table_selection = selected;
     },
 
     handle_name_click(index, row) {
@@ -365,6 +396,19 @@ export default {
         }
       } else {
         return size;
+      }
+    },
+
+    btn_disabled() {
+      return !this.connected || this.current_dir == '';
+    },
+
+    delete_table_row_by_name(name) {
+      for (var i = 0; i < this.tableData.length; i++) {
+        if (this.tableData[i].name == name) {
+          this.tableData.splice(i, 1);
+          return;
+        }
       }
     }
 

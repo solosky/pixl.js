@@ -124,34 +124,17 @@ export function vfs_read_folder(dir) {
 export function vfs_create_folder(dir) {
     console.log("vfs_create_folder", dir);
 
-    var p = new_rx_promise().then(data => {
-        var bb = ByteBuffer.wrap(data);
-        var h = read_header(bb);
-        return h;
-    });
-
-    var bb = new ByteBuffer();
-    write_string(bb, dir);
-    tx_data_frame(0x17, 0, 0, bb);
-
-    return p;
+    return op_queue_push(0x17,
+        b => { write_string(b, dir); },
+        b => {});
 }
 
 export function vfs_remove(path) {
     console.log("vfs_remove", path);
 
-    var p = new_rx_promise().then(data => {
-        var bb = ByteBuffer.wrap(data);
-        var h = read_header(bb);
-        return h;
-    });
-
-
-    var bb = new ByteBuffer();
-    write_string(bb, path);
-    tx_data_frame(0x18, 0, 0, bb);
-
-    return p;
+    return op_queue_push(0x18,
+        b => { write_string(b, path); },
+        b => {});
 }
 
 export function vfs_open_file(path, mode) {
@@ -380,11 +363,37 @@ function new_rx_promise() {
 }
 
 
+var rx_bytebuffer = new ByteBuffer();
+var rx_chunk_state = "NONE"; //NONE CHUNK,
+
 
 function one_rx_data(data) {
-    if (m_api_resolve) {
-        m_api_resolve(data);
-        m_api_resolve = null;
+    var buff = ByteBuffer.wrap(data);
+    var h = read_header(buff);
+    if(h.chunk & 0x8000){
+        if(rx_chunk_state == "NONE"){
+            write_bytes(rx_bytebuffer, ByteBuffer.wrap(data));
+            rx_chunk_state = "CHUNK";
+        }else if(rx_chunk_state == "CHUNK"){
+            write_bytes(rx_bytebuffer, buff); //next chunk, ignore header
+        }
+    }else{
+        var cb_data = data;
+        if(rx_chunk_state == "CHUNK"){ //end of chunk
+            write_bytes(rx_bytebuffer, buff); 
+            rx_bytebuffer.flip();
+            cb_data = rx_bytebuffer.toArrayBuffer();
+        }else if(rx_chunk_state == "NONE"){ //single chunk
+            cb_data = data;
+        }
+        
+        //call back 
+        if (m_api_resolve) {
+            m_api_resolve(cb_data);
+            m_api_resolve = null;
+           
+        }
+        rx_chunk_state = "NONE";
     }
 }
 
