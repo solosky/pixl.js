@@ -7,6 +7,7 @@
 #include "mui_list_view.h"
 #include "mui_u8g2.h"
 #include "utils.h"
+#include "version2.h"
 
 typedef enum { SETTINGS_VIEW_ID_MAIN } settings_view_id_t;
 
@@ -52,9 +53,12 @@ void app_settings_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_list_view = mui_list_view_create();
 
     char txt[32];
-    sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
+    sprintf(txt, "版本 [%s]", version_get_version(version_get()));
+    mui_list_view_add_item(p_app_handle->p_list_view, 0xe1c7, txt, (void *)0xFF);
 
+    sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
     mui_list_view_add_item(p_app_handle->p_list_view, 0xe1c8, txt, (void *)0);
+
     mui_list_view_add_item(p_app_handle->p_list_view, 0xe1c9, "固件更新", (void *)1);
     mui_list_view_add_item(p_app_handle->p_list_view, 0xe069, "返回主菜单", (void *)4);
 

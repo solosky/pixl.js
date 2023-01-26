@@ -116,6 +116,7 @@ static void dir_read_send_chunk(dir_chunk_state_t *chunk_state, df_frame_t *out)
         buff_put_string(&buff, chunk_state->obj.name);
         buff_put_u32(&buff, chunk_state->obj.size);
         buff_put_u8(&buff, chunk_state->obj.type);
+        chunk_state->obj_consumed = true;
     }
 
     while ((chunk_state->driver->read_dir(&chunk_state->dir, &chunk_state->obj)) == VFS_OK) {
@@ -132,7 +133,7 @@ static void dir_read_send_chunk(dir_chunk_state_t *chunk_state, df_frame_t *out)
     }
 
     out->cmd = DF_PROTO_CMD_VFS_DIR_READ;
-    if (chunk_state->obj_consumed && !chunk_state->dir_closed) {
+    if (chunk_state->obj_consumed) {
         out->chunk = chunk_state->chunk;
         chunk_state->dir_closed = true;
         chunk_state->driver->close_dir(&chunk_state->dir);
@@ -142,7 +143,7 @@ static void dir_read_send_chunk(dir_chunk_state_t *chunk_state, df_frame_t *out)
     out->status = DF_STATUS_OK;
     out->length = buff_get_size(&buff);
 
-    out->chunk++;
+    chunk_state->chunk++;
     df_core_send_frame(out);
 }
 

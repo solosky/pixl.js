@@ -168,6 +168,7 @@ SRC_FILES += \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/utils.c \
+  $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
@@ -532,8 +533,8 @@ LIB_FILES += -lc -lnosys -lm
 .PHONY: default help
 
 # Default target - first one defined
-default: pixljs
-all: pixljs
+default: version pixljs
+all: version pixljs
 
 # Print all targets that can be built
 help:
@@ -572,6 +573,8 @@ CMSIS_CONFIG_TOOL := $(SDK_ROOT)/external_tools/cmsisconfig/CMSIS_Configuration_
 sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
 
+version:
+	python scripts/version_gen.py
 
 settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex

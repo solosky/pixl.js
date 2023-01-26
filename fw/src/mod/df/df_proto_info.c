@@ -4,13 +4,14 @@
 
 #include "nrf_log.h"
 #include "ble_main.h"
+#include "version2.h"
 
 void df_proto_handler_info_get_version(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
         df_frame_t out;
 
         NEW_BUFFER_ZERO(buff, out.data, sizeof(out.data));
-        buff_put_string(&buff, "v1.0.0");
+        buff_put_string(&buff, version_get_version(version_get()));
 
         OUT_FRAME_WITH_DATA_0(out, DF_PROTO_CMD_INFO_VERSION_INFO, DF_STATUS_OK, buff_get_size(&buff));
 

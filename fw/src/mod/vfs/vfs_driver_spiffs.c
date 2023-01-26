@@ -228,6 +228,7 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
                 struct cwk_segment segment;
                 cwk_path_get_last_segment(p_dir->pe->name, &segment); //.folder
                 strncpy(obj->name, segment.begin, segment.size);
+                obj->name[ sizeof(obj->name) - 1] = '\n';
                 obj->size = p_dir->pe->size;
                 obj->type = VFS_TYPE_REG;
 
