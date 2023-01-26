@@ -187,9 +187,9 @@ export function vfs_write_file(file_id, data) {
 var file_write_queue = []
 var file_write_ongoing = false
 
-export function vfs_helper_write_file(dir, file, progress_cb, success_cb, error_cb) {
+export function vfs_helper_write_file(path, file, progress_cb, success_cb, error_cb) {
     file_write_queue.push({
-        dir: dir,
+        path: path,
         file: file,
         progress_cb: progress_cb,
         success_cb: success_cb,
@@ -202,7 +202,7 @@ function vfs_process_file_write_queue() {
     if (!file_write_ongoing && file_write_queue.length > 0) {
         var e = file_write_queue.shift();
         file_write_ongoing = true;
-        vfs_process_file_write(e.dir, e.file, e.progress_cb, e.success_cb, e.error_cb, _ => {
+        vfs_process_file_write(e.path, e.file, e.progress_cb, e.success_cb, e.error_cb, _ => {
             file_write_ongoing = false;
             vfs_process_file_write_queue();
         });
@@ -210,9 +210,9 @@ function vfs_process_file_write_queue() {
     }
 }
 
-function vfs_process_file_write(dir, file, progress_cb, success_cb, error_cb, done_cb) {
+function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, done_cb) {
     read_file_as_bytebuffer(file).then(buffer => {
-        vfs_open_file(dir + "/" + file.name, "w").then(res => {
+        vfs_open_file(path, "w").then(res => {
             if (res.status != 0) {
                 error_cb(new Error("create file failed!"));
                 done_cb();

@@ -239,7 +239,7 @@ export default {
       }
       const dir = this.current_dir;
       this.table_selection.forEach(v => {
-        proto.vfs_remove(dir + "/" + v.name).then(_ => {
+        proto.vfs_remove(this.append_segment(dir, v.name)).then(_ => {
           this.delete_table_row_by_name(v.name);
         }).catch(e => {
           this.$message({
@@ -262,7 +262,7 @@ export default {
 
     on_upload_request(options) {
       console.log(options);
-      proto.vfs_helper_write_file(this.current_dir, options.file, p => {
+      proto.vfs_helper_write_file(this.append_segment(this.current_dir, options.file.name), options.file, p => {
         options.onProgress({ percent: p.written_bytes / p.total_bytes * 100 });
       }, _ => {
         options.onSuccess()
@@ -401,6 +401,16 @@ export default {
 
     btn_disabled() {
       return !this.connected || this.current_dir == '';
+    },
+
+    append_segment(dir, seg){
+      var drive = dir.substring(0, 2); //E:
+      var path = dir.substring(2);
+      if(path == '/'){
+        return dir + seg;
+      }else{
+        return dir + '/' + seg;
+      }
     },
 
     delete_table_row_by_name(name) {
