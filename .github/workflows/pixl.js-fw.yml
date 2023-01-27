@@ -3,8 +3,7 @@ name: pixl.js-fw
 on:
   push:
     branches: [ "develop"]
-  tags:  
-    types: ["created"]
+    tags:  ["*"]
   workflow_dispatch:
 
 jobs:
