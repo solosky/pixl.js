@@ -37,15 +37,16 @@ NUS_SERVICE_UUID: 6e400001-b5a3-f393-e0a9-e50e24dcca9e
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  命令类型  |
 | status | uint8 | 1 | 状态码，见下面状态码定义，请求包这个固定为0 |
-| chunk | uint16 | 1 | 分片序号 | 
+| chunk | uint16 | 2 | 分片序号 | 
 | data   | byte | N | 数据，和具体的包定义有关 |
  
 
 ### chunk 传输模式
 
-目前pixl.js设备定义的MTU为250。
+目前pixl.js设备定义的MTU为250，在一个ATT数据传输中，最多可以传输247个字节数据。
 
-固定的包头部为4个字节，因此每个包最多能传输246个字节。如果传输的数据超过246字节则需要分块传输。
+包最大字节：
+固定的包头部为4个字节，因此每个包最多能传输243个字节。如果传输的数据超过243字节则需要分块传输。
 
 <p>
 当传输的请求或者返回结果超过MTU时，需分块传输，每次传输chunk值加1。
@@ -118,7 +119,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x01  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 
 
 2. 服务端响应请求
@@ -127,7 +128,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  | 0x01  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 | version length | uint16 | 2 |  版本字符串长度 |
 | version  |  byte | N | 版本 | 
 
@@ -140,7 +141,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x02  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 
 
 2. 服务端响应请求
@@ -149,7 +150,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  | 0x102  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 
 
 ## 0x10：获取磁盘列表
@@ -160,7 +161,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x10  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 
 
 2. 服务端响应请求
@@ -169,7 +170,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x10  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | drive count| uint8 | 1 | 磁盘数量 |
 | drive N status code | uint8 | 1 | 磁盘N状态码 | 
 | drive N label |char | 1| 磁盘盘符 |
@@ -187,7 +188,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x11  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | drive | uint8 | 1 | 磁盘序号 |
 
 
@@ -199,7 +200,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x12  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 | path length | uint16 | 2 | 路径长度 |
 | path  | byte | N | 路径字符串 |
 | mode | uint8 | 1 | 打开模式 |
@@ -211,7 +212,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  固定0x12  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | file id | uint8 | 1 | 文件ID，用于后续的读取写入请求 |
 
 ## 0x13: 关闭文件 
@@ -222,7 +223,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x13  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 | file id | uint8 | 1 | 文件ID |
 
 
@@ -232,7 +233,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x13  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | file id | uint8 | 1 | 文件ID，用于后续的读取写入请求 |
 
 
@@ -247,7 +248,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x14  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | file id | uint8 | 1| file id |
 
 
@@ -257,7 +258,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x14  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  启用chunk传输 | 
+| chunk | uint16 | 2 |  启用chunk传输 | 
 | data  | byte | N | 文件数据 |
 
 
@@ -269,7 +270,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x15  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 启用chunk传输 | 
+| chunk | uint16 | 2 | 启用chunk传输 | 
 | file id | uint8 | 1 | 需要写入的file id | 
 | data | byte | N | 文件数据，最大能发送 MTU - 4 个字节 |
 
@@ -280,7 +281,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  固定0x15  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  和请求一致 | 
+| chunk | uint16 | 2 |  和请求一致 | 
 
 
 ## 0x16：读取文件夹
@@ -291,7 +292,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x16  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | path length | uint16 | 2 | 路径长度 |
 | path  | byte | N | 路径字符串 |
 
@@ -302,7 +303,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x16  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  启用chunk传输 | 
+| chunk | uint16 | 2 |  启用chunk传输 | 
 | file size |uint16 | 2 | 文件数量 |
 | file N name length| uint16 | 2 | 文件名长度|
 | file N name | byte | N| 文件名 |
@@ -317,7 +318,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x17  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 | path length | uint16 | 2 | 路径长度 |
 | path  | byte | N | 路径字符串 |
 
@@ -328,7 +329,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x17  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 
 
 
@@ -340,7 +341,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x18  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 | path length | uint16 | 2 | 路径长度 |
 | path  | byte | N | 路径字符串 |
 
@@ -351,7 +352,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  固定0x18  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 
 
 ## 0x19 重命名文件或者文件夹
@@ -362,7 +363,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0x18  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 启用chunk传输 | 
+| chunk | uint16 | 2 | 启用chunk传输 | 
 | old path length | uint16 | 2 | 路径长度 |
 | old path  | byte | N | 路径字符串 |
 | new path length | uint16 | 2 | 路径长度 |
@@ -377,7 +378,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  固定0x18  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 
 
 ## 0xE0 获取amiibo备注
@@ -388,7 +389,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0xE0  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 启用chunk传输 | 
+| chunk | uint16 | 2 | 启用chunk传输 | 
 
 2. 服务端响应请求
 
@@ -396,7 +397,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  固定0x18  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 | amiibo note size | uint16 |2 | 拥有的amiibo备注数量 |
 | amiibo N head | uint16 | 2 | amiibo head |
 | amiibo N tail | uint16 | 2 | amiibo head | 
@@ -416,7 +417,7 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  0xE0  |
 | status | uint8 | 1 | 0 |
-| chunk | uint16 | 1 | 0 | 
+| chunk | uint16 | 2 | 0 | 
 | head | uint16 | 2 | amiibo head |
 | tail  | uint16 | 2 | amiibo tail |
 | note length | uint16 | 2 | 备注长度 |
@@ -431,5 +432,5 @@ TODO 详细补充错误码。。
 | ---- | ----- |---- | ---- |
 | cmd  | uint8 | 1  |  固定0x18  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 1 |  0 | 
+| chunk | uint16 | 2 |  0 | 
 

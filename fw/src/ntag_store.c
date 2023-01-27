@@ -14,8 +14,6 @@
 //#define STORAGE_LFS
 
 const ntag_t default_ntag215 = {
-    .type = NTAG_215,
-    .size = 540,
     .data = {0x04, 0x68, 0x95, 0x71, 0xfa, 0x5c, 0x64, 0x80, 0x42, 0x48, 0x00, 0x00, 0xe1,
              0x10, 0x3e, 0x00, 0x03, 0x00, 0xfe, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
@@ -67,7 +65,7 @@ const ntag_t default_ntag215 = {
 ret_code_t ntag_store_generate(uint8_t idx, ntag_t *ntag) {
     memcpy(ntag, &default_ntag215, sizeof(ntag_t));
     ntag->data[7] = idx;
-    ntag->index = idx;
+    //ntag->index = idx;
     // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
     // ntag->data[3] = ntag->data[0] ^ ntag->data[1] ^ ntag->data[2] ^ 0x88;
     // BCC 1 is always equal to UID3 ⊕ UID 4 ⊕ UID 5 ⊕ UID6

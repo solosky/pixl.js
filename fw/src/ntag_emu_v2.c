@@ -21,8 +21,6 @@
 
 #include "hal_nfc_t2t.h"
 
-#include "ntag_indicator.h"
-#include "ntag_store.h"
 
 typedef enum {
     NFC_T2T_PARAM_TESTING, ///< Used for unit tests.
@@ -154,7 +152,7 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length,
         hal_nfc_send(NTAG215_PwdOK, 2);
         break;
     case N2_CMD_GET_INFO:
-        N2E_INFO[0] = ntag_indicator_current();
+        N2E_INFO[0] = 0;
         hal_nfc_send(N2E_INFO, 4);
         break;
     case N2_CMD_GET_ID:

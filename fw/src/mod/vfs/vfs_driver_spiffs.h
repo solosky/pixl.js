@@ -4,6 +4,6 @@
 
 #include "vfs.h"
 
-extern vfs_driver_t vfs_driver_spiffs;
+extern const vfs_driver_t vfs_driver_spiffs;
 
 #endif

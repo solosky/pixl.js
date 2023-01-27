@@ -4,7 +4,6 @@
 #include "mui_list_view.h"
 #include "nrf_log.h"
 #include "ntag_def.h"
-#include "ntag_store.h"
 #include "vfs.h"
 
 #include "mini_app_launcher.h"

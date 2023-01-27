@@ -11,6 +11,7 @@
 
 
 static nfc3d_amiibo_keys amiibo_keys;
+static bool amiibo_keys_loaded;
 
 
 void amiibo_helper_get_uuid(ntag_t *ntag, uint8_t *uid1) {
@@ -78,7 +79,12 @@ ret_code_t amiibo_helper_load_keys(const uint8_t *data) {
     if (!nfc3d_amiibo_load_keys(&amiibo_keys, data)) {
         return NRF_ERROR_INVALID_DATA;
     }
+    amiibo_keys_loaded = true;
     return NRF_SUCCESS;
+}
+
+bool amiibo_helper_is_key_loaded(){
+    return amiibo_keys_loaded;
 }
 
 ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {

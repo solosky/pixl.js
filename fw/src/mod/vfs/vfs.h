@@ -12,6 +12,9 @@
 #define VFS_MAX_NAME_LEN 24
 #define VFS_MAX_PATH_LEN 64
 
+#define VFS_DRIVE_LABEL_LEN 2
+#define VFS_MAX_FULL_PATH_LEN VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN
+
 enum vfs_error_t {
     VFS_OK = 0,
     VFS_ERR_FAIL = -1,
@@ -24,6 +27,14 @@ enum vfs_error_t {
     VFS_ERR_NOOBJ = -90,
     VFS_ERR_NOSPC = -91,
     VFS_ERR_UNSUPT = -99
+};
+
+enum vfs_mode_t {
+    VFS_MODE_APPEND = 1 << 0,
+    VFS_MODE_TRUNC = 1 << 1,
+    VFS_MODE_CREATE = 1 << 2,
+    VFS_MODE_READONLY = 1 << 3,
+    VFS_MODE_WRITEONLY = 1 << 4,
 };
 
 typedef enum { VFS_DRIVE_INT, VFS_DRIVE_EXT, VFS_DRIVE_MAX } vfs_drive_t;
@@ -59,7 +70,7 @@ typedef struct {
 
     int32_t (*stat)(vfs_stat_t *p_stat);
 
-    int32_t (*stat_file)(const char* file, vfs_obj_t* obj);
+    int32_t (*stat_file)(const char *file, vfs_obj_t *obj);
 
     /**directory operations*/
     int32_t (*open_dir)(const char *dir, vfs_dir_t *fd);
@@ -77,8 +88,8 @@ typedef struct {
     int32_t (*write_file)(vfs_file_t *fd, void *buff, size_t buff_size);
 
     /**short opearation*/
-    int32_t (*write_file_data)(const char* file, void* buff, size_t buff_size);
-    int32_t (*read_file_data)(const char* file, void* buff, size_t buff_size);
+    int32_t (*write_file_data)(const char *file, void *buff, size_t buff_size);
+    int32_t (*read_file_data)(const char *file, void *buff, size_t buff_size);
 
     int32_t (*rename_file)(const char *file, const char *new_file);
     int32_t (*remove_file)(const char *file);

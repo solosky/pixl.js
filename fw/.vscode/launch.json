@@ -5,9 +5,9 @@
   "version": "0.2.0",
   "configurations": [
     {
-      "name": "nRF52 (pca10056)",
+      "name": "Pixl.js Debug",
       "cwd": "${workspaceRoot}",
-      "executable": "_build/nrf52832_xxaa.out",
+      "executable": "_build/pixljs.out",
       "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
       "request": "launch",
       "type": "cortex-debug",

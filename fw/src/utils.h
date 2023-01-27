@@ -12,6 +12,8 @@
 #include "sdk_errors.h"
 
 ret_code_t utils_rand_bytes(uint8_t rand[], uint8_t bytes);
+void enter_dfu();
+
 
 
 

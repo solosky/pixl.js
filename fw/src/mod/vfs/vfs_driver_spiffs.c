@@ -102,8 +102,9 @@ int32_t vfs_spiffs_mount() {
     //      res = vfs_spiffs_create_dir("/amiibo");
     //       res = vfs_spiffs_create_dir("/hello");
     //      NRF_LOG_INFO("create amiibo dir: %d", res);
-    SPIFFS_creat(&fs, "/amiibo/.folder", 0);
-    SPIFFS_creat(&fs, "/hello/.folder", 0);
+    // SPIFFS_creat(&fs, "/amiibo/.folder", 0);
+    // SPIFFS_creat(&fs, "/hello/.folder", 0);
+    // SPIFFS_creat(&fs, "/hello/塞尔达/.folder", 0);
     return res;
 }
 
@@ -227,6 +228,7 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
                 struct cwk_segment segment;
                 cwk_path_get_last_segment(p_dir->pe->name, &segment); //.folder
                 strncpy(obj->name, segment.begin, segment.size);
+                obj->name[ sizeof(obj->name) - 1] = '\n';
                 obj->size = p_dir->pe->size;
                 obj->type = VFS_TYPE_REG;
 
@@ -320,11 +322,11 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 
             int res = SPIFFS_rename(&fs, p_dir->pe->name, new_path);
 
-            //TODO ..
-            // if (!res) {
-            //     SPIFFS_closedir(&dir.d);
-            //     return vfs_spiffs_map_error_code(res);
-            // }
+            // TODO ..
+            //  if (!res) {
+            //      SPIFFS_closedir(&dir.d);
+            //      return vfs_spiffs_map_error_code(res);
+            //  }
         }
     }
 
@@ -333,13 +335,45 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 }
 
 /**file operations*/
-int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) { return VFS_ERR_UNSUPT; }
+int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) {
+    fd->handle = SPIFFS_open(&fs, file, flags, 0);
+    if (fd->handle < 0) {
+        return vfs_spiffs_map_error_code(fd->handle);
+    }
 
-int32_t vfs_spiffs_close_file(vfs_file_t *fd) { return VFS_ERR_UNSUPT; }
+    return VFS_OK;
+}
 
-int32_t vfs_spiffs_read_file(vfs_file_t *fd, void *buff, size_t buff_size) { return VFS_ERR_UNSUPT; }
+int32_t vfs_spiffs_close_file(vfs_file_t *fd) {
+    if (fd->handle >= 0) {
+        SPIFFS_close(&fs, fd->handle);
+    }
+    return VFS_OK;
+}
 
-int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) { return VFS_ERR_UNSUPT; }
+int32_t vfs_spiffs_read_file(vfs_file_t *fd, void *buff, size_t buff_size) {
+    if (fd->handle < 0) {
+        return VFS_ERR_FAIL;
+    }
+    NRF_LOG_INFO("read file %d with %d bytes", fd->handle, buff_size);
+    int32_t read_size = SPIFFS_read(&fs, fd->handle, buff, buff_size);
+    if (read_size < 0) {
+        return vfs_spiffs_map_error_code(fd->handle);
+    }
+    return read_size;
+}
+
+int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
+    if (fd->handle < 0) {
+        return VFS_ERR_FAIL;
+    }
+    NRF_LOG_INFO("write file %d with %d bytes", fd->handle, buff_size);
+    int32_t written_size = SPIFFS_write(&fs, fd->handle, buff, buff_size);
+    if (written_size < 0) {
+        return vfs_spiffs_map_error_code(fd->handle);
+    }
+    return written_size;
+}
 
 /**short opearation*/
 int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_size) {
@@ -384,7 +418,7 @@ int32_t vfs_spiffs_remove_file(const char *file) {
 }
 
 // TODO
-vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
+const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
                                   .umount = vfs_spiffs_umount,
                                   .format = vfs_spiffs_format,
                                   .mounted = vfs_spiffs_mounted,
