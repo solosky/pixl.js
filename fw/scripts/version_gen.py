@@ -11,7 +11,11 @@ class GitVersion:
         self.source_dir = source_dir
 
     def get_version_info(self):
-        commit = self._exec_git("rev-parse --short HEAD") or "unknown"
+        commit = "unknown"
+        try:
+            commit = self._exec_git("rev-parse --short HEAD") or "unknown"
+        except subprocess.CalledProcessError as e:
+            print("git rev-parse error:\n" + e.output)
 
         dirty = False
         try:
