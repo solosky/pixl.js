@@ -15,7 +15,7 @@ class GitVersion:
         try:
             commit = self._exec_git("rev-parse --short HEAD") or "unknown"
         except subprocess.CalledProcessError as e:
-            print("git rev-parse error:\n" + e.output..decode('utf-8'))
+            print("git rev-parse error:\n" + e.output.decode('utf-8'))
 
         dirty = False
         try:
