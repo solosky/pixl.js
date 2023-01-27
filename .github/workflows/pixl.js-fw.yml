@@ -16,6 +16,9 @@ jobs:
       with:
         submodules: 'true'
 
+    - name: Change Owner of Container Working Directory
+      run: chown root:root .
+
     - name: build bootloader
       run: cd fw/bootloader && make
     - name: build firmware
