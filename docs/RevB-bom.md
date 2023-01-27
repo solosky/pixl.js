@@ -29,5 +29,5 @@
 |26|AE2|Antenna_Loop|40x22MM_NFC_ANTENA|1|
 |27|BT1|Battery_Cell|BAT-SMD_CR2032-3V|1|
 |28|Q1|AO3400A|SOT-23|1|
-|29|J1|Conn_01x12|FPC_12 0.8mm|1| [购买地址1 选4p](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.2c202e8dYacXja&id=44160307488&_u=r3umvhn75b1)|
-|30|J2|Conn_01x04|JST_GH_SM04B-GHS-TB_1x04-1MP_P1.25mm_Horizontal|1| [屏幕购买地址](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.2c202e8dYacXja&id=660349996995&_u=r3umvhn775a) |
+|29|J1|Conn_01x12|FPC_12 0.8mm|1| [屏幕购买地址](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.2c202e8dYacXja&id=660349996995&_u=r3umvhn775a) |
+|30|J2|Conn_01x04|JST_GH_SM04B-GHS-TB_1x04-1MP_P1.25mm_Horizontal|1|  [购买地址1 选4p](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.2c202e8dYacXja&id=44160307488&_u=r3umvhn75b1) |
