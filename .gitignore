@@ -3,6 +3,8 @@ fw/_build
 fw/bootloader/_build
 
 fw/src/amiibo_private.c
+fw/src/version.inc.h
+fw/src/version.json
 
 fw/log.log
 
@@ -27,6 +29,4 @@ hw/PRO.RevA
 
 dist
 # venv stuff
-Lib
-Scripts
-pyvenv.cfg
+.venv
