@@ -1,6 +1,6 @@
 # Pixl.js
 
-这是一个基于原版[Pixl.js](hhttp://www.espruino.com/Pixl.js)的复刻版本，主要的功能是用来模拟Amiibo。
+这是一个基于原版[Pixl.js](http://www.espruino.com/Pixl.js)的复刻版本，主要的功能是用来模拟Amiibo。
 
 ## 图片
 
@@ -11,6 +11,38 @@
 ## 演示
 
 [新版Amiibo模拟器，目前可以做到无限刷！](https://www.bilibili.com/video/BV1TD4y1t76A/)
+
+## PCB
+
+hw/RevB为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打开编辑。
+
+![image](https://raw.githubusercontent.com/solosky/pixl.js/main/assets/pixljs-pcb1.png)
+
+## BOM 
+
+[RevB InteractiveHtmlBom](docs/RevB-ibom.html)
+
+[RevB 物料清单购买指南](docs/RevB-bom.md)
+
+## 衍生版本
+
+[docs/boards-thirdparty.md](docs/boards-thirdparty.md)
+
+
+## 编译
+
+项目设置了CI，可以在[Actions](https://github.com/solosky/pixl.js/actions/workflows/pixl.js-fw.yml)里面下载Nightly构建版本的，无需自行构建。
+
+如需自行编译，这里推荐使用提供的docker镜像构建。
+```
+docker run -it --rm solosky/nrf52-sdk:latest
+root@b10d54636088:/builds# git clone https://github.com/solosky/pixl.js
+root@b10d54636088:/builds# cd pixl.js/
+root@b10d54636088:/builds/pixl.js# git submodule update --init --recursive
+root@b10d54636088:/builds/pixl.js# cd fw/bootloader && make
+root@b10d54636088:/builds/pixl.js# cd fw && make && make full
+```
+构建出来的固件在 fw/_build/pixjs_all.hex。
 
 ## 固件烧写
 
