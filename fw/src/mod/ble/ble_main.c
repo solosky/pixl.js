@@ -447,6 +447,7 @@ static void advertising_init(void) {
 /**@brief Function for starting advertising.
  */
 static void advertising_start(void) {
+    m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = false;
     uint32_t err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
     APP_ERROR_CHECK(err_code);
 }
@@ -476,6 +477,7 @@ void ble_disable() {
 
     ble_advertising_start(&m_advertising, BLE_ADV_MODE_IDLE);
     sd_ble_gap_adv_stop(m_advertising.adv_handle);
+    m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = true; 
     if (m_conn_handle != BLE_CONN_HANDLE_INVALID) {
         sd_ble_gap_disconnect(m_conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
     }

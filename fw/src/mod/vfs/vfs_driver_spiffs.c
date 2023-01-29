@@ -192,9 +192,9 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
     memset(obj, 0, sizeof(vfs_obj_t));
     while ((p_dir->pe = SPIFFS_readdir(&p_dir->d, p_dir->pe))) {
 
-        NRF_LOG_INFO("list folder %s [%04x] %d size:%i\n", nrf_log_push(p_dir->pe->name), p_dir->pe->obj_id,
-                     p_dir->pe->type, p_dir->pe->size);
-        NRF_LOG_FLUSH();
+        //NRF_LOG_INFO("list folder %s [%04x] %d size:%i\n", nrf_log_push(p_dir->pe->name), p_dir->pe->obj_id,
+        //             p_dir->pe->type, p_dir->pe->size);
+        //NRF_LOG_FLUSH();
 
         // strcpy(obj->name, p_dir->pe->name);
         //         obj->size = p_dir->pe->size;

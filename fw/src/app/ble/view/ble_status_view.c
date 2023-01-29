@@ -1,8 +1,10 @@
 #include "ble_status_view.h"
 
 static void ble_status_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
+    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+    mui_canvas_draw_glyph(p_canvas, 20, 24, 0xe1b5);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
-    mui_canvas_draw_utf8(p_canvas, 0, 10, "等待蓝牙连接...");
+    mui_canvas_draw_utf8(p_canvas, 30, 24, "蓝牙传输模式");
 }
 
 static void ble_status_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
