@@ -36,8 +36,8 @@ void mui_mem_monitor(mui_mem_monitor_t *mon_p) {
     memset(mon_p, 0, sizeof(mui_mem_monitor_t));
     tlsf_walk_pool(tlsf_get_pool(m_tlsf), mui_mem_walker, mon_p);
 
-    mon_p->total_size = MUI_MEM_BUFF_SIZE;
-    mon_p->used_pct = 100 - (100U * mon_p->free_size) / mon_p->total_size;
+    mon_p->total_size = sizeof(m_mem);
+    mon_p->used_pct = 100 - ((100U * mon_p->free_size) / mon_p->total_size);
     if (mon_p->free_size > 0) {
         mon_p->frag_pct = mon_p->free_biggest_size * 100U / mon_p->free_size;
         mon_p->frag_pct = 100 - mon_p->frag_pct;

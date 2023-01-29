@@ -17,6 +17,11 @@ static vfs_driver_t *get_driver_by_path(char *path) {
 
 static char *get_file_path(char *path) { return path + VFS_DRIVE_LABEL_LEN; }
 
+static uint8_t get_meta_size(uint8_t *meta) {
+    uint8_t meta_size = meta[0];
+    return meta_size == 0 || meta_size == 0xff ? 0 : meta_size;
+}
+
 void df_proto_handler_vfs_drive_list(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
         df_frame_t out;
@@ -113,18 +118,28 @@ static void dir_read_send_chunk(dir_chunk_state_t *chunk_state, df_frame_t *out)
     }
 
     if (!chunk_state->obj_consumed) {
+        uint8_t meta_size = get_meta_size(chunk_state->obj.meta);
         buff_put_string(&buff, chunk_state->obj.name);
         buff_put_u32(&buff, chunk_state->obj.size);
         buff_put_u8(&buff, chunk_state->obj.type);
+        buff_put_u8(&buff, meta_size);
+        if (meta_size > 0) {
+            buff_put_byte_array(&buff, chunk_state->obj.meta + 1, meta_size);
+        }
         chunk_state->obj_consumed = true;
     }
 
     while ((chunk_state->driver->read_dir(&chunk_state->dir, &chunk_state->obj)) == VFS_OK) {
-        uint8_t size_required = strlen(chunk_state->obj.name) + 7;
+        uint8_t meta_size = get_meta_size(chunk_state->obj.meta);
+        uint8_t size_required = strlen(chunk_state->obj.name) + meta_size + 8;
         if (buffer_get_available_cap(&buff) >= size_required) {
             buff_put_string(&buff, chunk_state->obj.name);
             buff_put_u32(&buff, chunk_state->obj.size);
             buff_put_u8(&buff, chunk_state->obj.type);
+            buff_put_u8(&buff, meta_size);
+            if (meta_size > 0) {
+                buff_put_byte_array(&buff, chunk_state->obj.meta + 1, meta_size);
+            }
             chunk_state->obj_consumed = true;
         } else {
             chunk_state->obj_consumed = false;
@@ -425,6 +440,41 @@ void df_proto_handler_vfs_file_read(df_event_t *evt) {
     }
 }
 
+void df_proto_handler_vfs_update_meta(df_event_t *evt) {
+    df_frame_t out;
+    if (evt->type == DF_EVENT_DATA_RECEVIED) {
+
+        NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
+
+        char path[VFS_MAX_FULL_PATH_LEN];
+        memset(path, 0, sizeof(path));
+        buff_get_string(&buff, path, sizeof(path));
+
+        uint8_t meta[VFS_MAX_META_LEN];
+        memset(meta, 0, sizeof(meta));
+        uint8_t meta_size = buff_get_u8(&buff);
+        if (meta_size > 0) {
+            buff_get_byte_array(&buff, meta + 1, meta_size);
+        }
+        meta[0] = meta_size;
+        vfs_driver_t *p_driver = get_driver_by_path(path);
+        if (p_driver == NULL) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
+
+        if (p_driver->update_file_meta(get_file_path(path), meta, meta_size) != VFS_OK) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
+
+        OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_OK);
+        df_core_send_frame(&out);
+    }
+}
+
 const df_cmd_entry_t df_proto_handler_vfs_entries[] = {
     {DF_PROTO_CMD_VFS_DRIVE_LIST, df_proto_handler_vfs_drive_list},
     {DF_PROTO_CMD_VFS_DRIVE_FORMAT, df_proto_handler_vfs_drive_format},
@@ -435,4 +485,5 @@ const df_cmd_entry_t df_proto_handler_vfs_entries[] = {
     {DF_PROTO_CMD_VFS_FILE_CLOSE, df_proto_handler_vfs_file_close},
     {DF_PROTO_CMD_VFS_FILE_WRITE, df_proto_handler_vfs_file_write},
     {DF_PROTO_CMD_VFS_FILE_READ, df_proto_handler_vfs_file_read},
+    {DF_PROTO_CMD_VFS_UPDATE_META, df_proto_handler_vfs_update_meta},
     {0, NULL}};

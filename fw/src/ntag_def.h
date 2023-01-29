@@ -25,6 +25,7 @@ typedef enum
 typedef struct  {
 	uint8_t data[540];
 	uint8_t ecc[ECC_SIZE];
+	uint8_t notes[128];
 } ntag_t;
 
 

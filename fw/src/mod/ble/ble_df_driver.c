@@ -17,7 +17,7 @@ df_driver_t *ble_get_df_driver() { return &ble_df_driver; }
 void ble_on_received_data(const void *data, size_t length) {   
     NRF_LOG_INFO("df_frame_size: %d", sizeof(m_rx_df_frame)); 
     NRF_LOG_INFO("ble data received %d bytes", length);
-    NRF_LOG_HEXDUMP_INFO(data, length);
+    //NRF_LOG_HEXDUMP_INFO(data, length);
     NRF_LOG_FLUSH();
 
     if (length >= DF_HEADER_LEN) {

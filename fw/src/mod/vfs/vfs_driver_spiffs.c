@@ -149,6 +149,7 @@ int32_t vfs_spiffs_stat_file(const char *file, vfs_obj_t *obj) {
         obj->type = VFS_TYPE_REG;
         obj->size = s.size;
         strncpy(obj->name, basename, length);
+        memcpy(obj->meta, s.meta, sizeof(obj->meta));
 
         return VFS_OK;
     } else {
@@ -159,6 +160,7 @@ int32_t vfs_spiffs_stat_file(const char *file, vfs_obj_t *obj) {
             obj->type = VFS_TYPE_DIR;
             obj->size = 0;
             strncpy(obj->name, basename, length);
+            memcpy(obj->meta, s.meta, sizeof(obj->meta));
             return VFS_OK;
         }
     }
@@ -192,9 +194,9 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
     memset(obj, 0, sizeof(vfs_obj_t));
     while ((p_dir->pe = SPIFFS_readdir(&p_dir->d, p_dir->pe))) {
 
-        NRF_LOG_INFO("list folder %s [%04x] %d size:%i\n", nrf_log_push(p_dir->pe->name), p_dir->pe->obj_id,
-                     p_dir->pe->type, p_dir->pe->size);
-        NRF_LOG_FLUSH();
+        // NRF_LOG_INFO("list folder %s [%04x] %d size:%i\n", nrf_log_push(p_dir->pe->name), p_dir->pe->obj_id,
+        //              p_dir->pe->type, p_dir->pe->size);
+        // NRF_LOG_FLUSH();
 
         // strcpy(obj->name, p_dir->pe->name);
         //         obj->size = p_dir->pe->size;
@@ -228,7 +230,8 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
                 struct cwk_segment segment;
                 cwk_path_get_last_segment(p_dir->pe->name, &segment); //.folder
                 strncpy(obj->name, segment.begin, segment.size);
-                obj->name[ sizeof(obj->name) - 1] = '\n';
+                memcpy(obj->meta, p_dir->pe->meta, sizeof(obj->meta));
+                obj->name[sizeof(obj->name) - 1] = '\n';
                 obj->size = p_dir->pe->size;
                 obj->type = VFS_TYPE_REG;
 
@@ -242,6 +245,7 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
                 cwk_path_get_last_segment(p_dir->pe->name, &segment); //.folder
                 cwk_path_get_previous_segment(&segment);              // zelda
                 strncpy(obj->name, segment.begin, segment.size);
+                memcpy(obj->meta, p_dir->pe->meta, sizeof(obj->meta));
                 obj->size = p_dir->pe->size;
                 obj->type = VFS_TYPE_DIR;
 
@@ -375,6 +379,12 @@ int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
     return written_size;
 }
 
+int32_t vfs_spiffs_update_file_meta(const char *file, void *meta, size_t meta_size) {
+    int32_t err = SPIFFS_update_meta(&fs, file, meta);
+    NRF_LOG_INFO("update file meta: %s, size:%d res: %d", nrf_log_push(file), meta_size, err);
+    return vfs_spiffs_map_error_code(err);
+}
+
 /**short opearation*/
 int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_size) {
 
@@ -419,27 +429,28 @@ int32_t vfs_spiffs_remove_file(const char *file) {
 
 // TODO
 const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
-                                  .umount = vfs_spiffs_umount,
-                                  .format = vfs_spiffs_format,
-                                  .mounted = vfs_spiffs_mounted,
-                                  .stat = vfs_spiffs_stat,
+                                        .umount = vfs_spiffs_umount,
+                                        .format = vfs_spiffs_format,
+                                        .mounted = vfs_spiffs_mounted,
+                                        .stat = vfs_spiffs_stat,
 
-                                  .stat_file = vfs_spiffs_stat_file,
+                                        .stat_file = vfs_spiffs_stat_file,
 
-                                  .open_dir = vfs_spiffs_open_dir,
-                                  .read_dir = vfs_spiffs_read_dir,
-                                  .close_dir = vfs_spiffs_close_dir,
-                                  .create_dir = vfs_spiffs_create_dir,
-                                  .remove_dir = vfs_spiffs_remove_dir,
-                                  .rename_dir = vfs_spiffs_rename_dir,
+                                        .open_dir = vfs_spiffs_open_dir,
+                                        .read_dir = vfs_spiffs_read_dir,
+                                        .close_dir = vfs_spiffs_close_dir,
+                                        .create_dir = vfs_spiffs_create_dir,
+                                        .remove_dir = vfs_spiffs_remove_dir,
+                                        .rename_dir = vfs_spiffs_rename_dir,
 
-                                  .open_file = vfs_spiffs_open_file,
-                                  .close_file = vfs_spiffs_close_file,
-                                  .read_file = vfs_spiffs_read_file,
-                                  .write_file = vfs_spiffs_write_file,
+                                        .open_file = vfs_spiffs_open_file,
+                                        .close_file = vfs_spiffs_close_file,
+                                        .read_file = vfs_spiffs_read_file,
+                                        .write_file = vfs_spiffs_write_file,
+                                        .update_file_meta = vfs_spiffs_update_file_meta,
 
-                                  .write_file_data = vfs_spiffs_write_file_data,
-                                  .read_file_data = vfs_spiffs_read_file_data,
+                                        .write_file_data = vfs_spiffs_write_file_data,
+                                        .read_file_data = vfs_spiffs_read_file_data,
 
-                                  .rename_file = vfs_spiffs_rename_file,
-                                  .remove_file = vfs_spiffs_remove_file};
+                                        .rename_file = vfs_spiffs_rename_file,
+                                        .remove_file = vfs_spiffs_remove_file};

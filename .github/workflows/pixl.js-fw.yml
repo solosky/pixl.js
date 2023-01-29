@@ -20,13 +20,13 @@ jobs:
       run: chown root:root .
 
     - name: build bootloader
-      run: cd fw/bootloader && make
+      run: cd fw/bootloader && make RELEASE=1
     - name: build firmware
-      run: cd fw && make
+      run: cd fw && make RELEASE=1
     - name: build ota
-      run: cd fw && make ota APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
     - name: build all
-      run: cd fw && make full APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:

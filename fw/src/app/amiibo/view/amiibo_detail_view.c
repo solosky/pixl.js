@@ -10,8 +10,8 @@ static void amiibo_detail_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canva
     ntag_t *ntag = p_amiibo_detail_view->ntag;
 
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
-    sprintf(buff, "%02d %02x:%02x:%02x:%02x:%02x:%02x:%02x", p_amiibo_detail_view->focus + 1, ntag->data[0], ntag->data[1],
-            ntag->data[2], ntag->data[4], ntag->data[5], ntag->data[6], ntag->data[7]);
+    sprintf(buff, "%02d %02x:%02x:%02x:%02x:%02x:%02x:%02x", p_amiibo_detail_view->focus + 1, ntag->data[0],
+            ntag->data[1], ntag->data[2], ntag->data[4], ntag->data[5], ntag->data[6], ntag->data[7]);
 
     uint8_t y = 0;
     mui_canvas_draw_box(p_canvas, 0, y, mui_canvas_get_width(p_canvas), 12);
@@ -40,7 +40,11 @@ static void amiibo_detail_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canva
     if (amd != NULL) {
         mui_canvas_draw_utf8(p_canvas, 0, y += 12, amd->name);
         mui_canvas_draw_utf8(p_canvas, 0, y += 12, amd->game_series);
-        mui_canvas_draw_utf8(p_canvas, 0, y += 12, amd->notes);
+        if (strlen(ntag->notes) > 0) {
+            mui_element_autowrap_text(p_canvas, 0, y += 12, mui_canvas_get_width(p_canvas), 24, ntag->notes);
+        } else {
+            mui_element_autowrap_text(p_canvas, 0, y += 12, mui_canvas_get_width(p_canvas), 24, amd->notes);
+        }
     } else {
         mui_canvas_draw_utf8(p_canvas, 0, y += 12, "空标签");
     }
