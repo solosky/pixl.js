@@ -159,6 +159,7 @@ int32_t vfs_spiffs_stat_file(const char *file, vfs_obj_t *obj) {
             obj->type = VFS_TYPE_DIR;
             obj->size = 0;
             strncpy(obj->name, basename, length);
+            strncpy(obj->meta, s.meta, sizeof(obj->meta));
             return VFS_OK;
         }
     }
@@ -228,6 +229,7 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
                 struct cwk_segment segment;
                 cwk_path_get_last_segment(p_dir->pe->name, &segment); //.folder
                 strncpy(obj->name, segment.begin, segment.size);
+                strncpy(obj->meta, p_dir->pe->meta, sizeof(obj->meta));
                 obj->name[ sizeof(obj->name) - 1] = '\n';
                 obj->size = p_dir->pe->size;
                 obj->type = VFS_TYPE_REG;
@@ -242,6 +244,7 @@ int32_t vfs_spiffs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
                 cwk_path_get_last_segment(p_dir->pe->name, &segment); //.folder
                 cwk_path_get_previous_segment(&segment);              // zelda
                 strncpy(obj->name, segment.begin, segment.size);
+                strncpy(obj->meta, p_dir->pe->meta, sizeof(obj->meta));
                 obj->size = p_dir->pe->size;
                 obj->type = VFS_TYPE_DIR;
 
@@ -375,6 +378,11 @@ int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
     return written_size;
 }
 
+int32_t vfs_spiffs_update_file_meta(const char* file, void* meta, size_t meta_size){
+    int32_t err = SPIFFS_update_meta(&fs, file, meta);
+    return vfs_spiffs_map_error_code(err);
+}
+
 /**short opearation*/
 int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_size) {
 
@@ -437,6 +445,7 @@ const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
                                   .close_file = vfs_spiffs_close_file,
                                   .read_file = vfs_spiffs_read_file,
                                   .write_file = vfs_spiffs_write_file,
+                                  .update_file_meta = vfs_spiffs_update_file_meta,
 
                                   .write_file_data = vfs_spiffs_write_file_data,
                                   .read_file_data = vfs_spiffs_read_file_data,

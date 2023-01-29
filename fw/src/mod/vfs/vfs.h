@@ -11,6 +11,7 @@
 #define VFS_MAX_OBJECT_SIZE 64
 #define VFS_MAX_NAME_LEN 48
 #define VFS_MAX_PATH_LEN 64
+#define VFS_MAX_META_LEN 64
 
 #define VFS_DRIVE_LABEL_LEN 2
 #define VFS_MAX_FULL_PATH_LEN VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN
@@ -45,6 +46,7 @@ typedef struct {
     uint8_t type;
     size_t size;
     char name[VFS_MAX_NAME_LEN];
+    char meta[VFS_MAX_META_LEN];
 } vfs_obj_t;
 
 typedef struct {
@@ -86,6 +88,8 @@ typedef struct {
     int32_t (*close_file)(vfs_file_t *fd);
     int32_t (*read_file)(vfs_file_t *fd, void *buff, size_t buff_size);
     int32_t (*write_file)(vfs_file_t *fd, void *buff, size_t buff_size);
+    int32_t (*update_file_meta)(const char* file, void* meta, size_t meta_size);
+
 
     /**short opearation*/
     int32_t (*write_file_data)(const char *file, void *buff, size_t buff_size);

@@ -19,8 +19,7 @@ enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_BACK_MAIN_MENU,
 };
 
-static void amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_t event,
-                                                                          mui_msg_box_t *p_msg_box) {
+static void amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
     app_amiibo_t *app = p_msg_box->user_data;
     if (event == MUI_MSG_BOX_EVENT_SELECT_CENTER) {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
@@ -51,15 +50,15 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
             return;
         }
 
-        if(!amiibo_helper_is_key_loaded()){
+        if (!amiibo_helper_is_key_loaded()) {
 
-             mui_msg_box_set_header(app->p_msg_box, "Amiibo Key未加载");
-        mui_msg_box_set_message(app->p_msg_box, "上传文件 key_retail.bin\n到存储根目录下。");
-        mui_msg_box_set_btn_text(app->p_msg_box, NULL, "知道了", NULL);
-        mui_msg_box_set_btn_focus(app->p_msg_box, 1);
-        mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb);
+            mui_msg_box_set_header(app->p_msg_box, "Amiibo Key未加载");
+            mui_msg_box_set_message(app->p_msg_box, "上传文件 key_retail.bin\n到存储根目录下。");
+            mui_msg_box_set_btn_text(app->p_msg_box, NULL, "知道了", NULL);
+            mui_msg_box_set_btn_focus(app->p_msg_box, 1);
+            mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb);
 
-        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
+            mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
 
             return;
         }
