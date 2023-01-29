@@ -61,9 +61,9 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
     uint8_t yi = y;
 
     char *p = text;
-    char utf8[5];
+    char utf8[5];    
 
-    while (p != 0 && yi < y + h) {
+    while (*p != 0 && yi < y + h) {
 
         uint8_t utf8_size = mui_element_get_utf8_bytes(p);
         memcpy(utf8, p, utf8_size);
