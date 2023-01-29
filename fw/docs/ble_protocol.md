@@ -99,6 +99,19 @@ s -> c: 0x13, status 0,
 字符串编码为 2字节长度 + 字符串数组，字符串统一使用utf8编码。
 </p>
 
+### 文件元信息
+文件元信息用于存储和文件相关的一些数据最大128个字节，目前元信息仅用于存储amiibo备注。基于type字段区分。 </br>
+
+基本格式如下：
+
+| 字段名 | 类型 | 长度(字节) | 说明 |
+| ---- | ----- |---- | ---- |
+| meta size  | uint8 | 1  | 所有元信息的大小, 0xFF或者0无元数据  |
+| meta N type  | uint8 | 1  | 1 => amiibo备注，最大90个字符。  |
+| meta N length | uint8 | 1 | |
+| meta N data | byte | N | 0 |  
+
+一二三四五六七八九十
 ### 全局状态码定义
 
 | 状态码 | 说明 |
@@ -309,6 +322,8 @@ TODO 详细补充错误码。。
 | file N name | byte | N| 文件名 |
 | file N size | uint32 | 4 | 文件大小 |
 | file N type | uint8 | 1 | 文件类型： 0 => 文件，1：文件夹 |
+| file N meta length | uint8 | 1 | 文件元信息长度，最大只能有64个字节|
+| file N meta | byte | N | 文件元信息数据|
 
 ## 0x17 创建文件夹
 
@@ -381,56 +396,23 @@ TODO 详细补充错误码。。
 | chunk | uint16 | 2 |  0 | 
 
 
-## 0xE0 获取amiibo备注
+## 0x1A 更新文件元信息
 
 1. 客户端发送请求
 
 | 字段名 | 类型 | 长度(字节) | 说明 |
 | ---- | ----- |---- | ---- |
-| cmd  | uint8 | 1  |  0xE0  |
-| status | uint8 | 1 | 0 |
-| chunk | uint16 | 2 | 启用chunk传输 | 
-
-2. 服务端响应请求
-
-| 字段名 | 类型 | 长度(字节) | 说明 |
-| ---- | ----- |---- | ---- |
-| cmd  | uint8 | 1  |  固定0x18  |
-| status | uint8 | 1 | 状态码，参见状态码说明 |
-| chunk | uint16 | 2 |  0 | 
-| amiibo note size | uint16 |2 | 拥有的amiibo备注数量 |
-| amiibo N head | uint16 | 2 | amiibo head |
-| amiibo N tail | uint16 | 2 | amiibo head | 
-| amiibo N note length | uint16 | 2 | 备注长度 |
-| amiibo N note  | byte | N | 备注字符串 |
-
-
-需分块传输。
-
-
-
-## 0xE1 更新amiibo备注
-
-1. 客户端发送请求
-
-| 字段名 | 类型 | 长度(字节) | 说明 |
-| ---- | ----- |---- | ---- |
-| cmd  | uint8 | 1  |  0xE0  |
+| cmd  | uint8 | 1  |  0x1a  |
 | status | uint8 | 1 | 0 |
 | chunk | uint16 | 2 | 0 | 
-| head | uint16 | 2 | amiibo head |
-| tail  | uint16 | 2 | amiibo tail |
-| note length | uint16 | 2 | 备注长度 |
-| note  | byte | N | 备注字符串 |
-
-包体可能会超MTU。。。注意要分块传输。
-
+| path length | uint16 | 2 | 路径长度 |
+| path  | byte | N | 路径字符串 |
 
 2. 服务端响应请求
 
 | 字段名 | 类型 | 长度(字节) | 说明 |
 | ---- | ----- |---- | ---- |
-| cmd  | uint8 | 1  |  固定0x18  |
+| cmd  | uint8 | 1  |  固定0x1a  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
 | chunk | uint16 | 2 |  0 | 
 

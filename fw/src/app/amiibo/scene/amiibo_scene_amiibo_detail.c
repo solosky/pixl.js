@@ -7,6 +7,29 @@
 
 static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app);
 
+static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *ntag) {
+
+    vfs_obj_t obj;
+    int32_t res;
+
+    memset(ntag, 0, sizeof(ntag_t));
+    res = p_vfs_driver->stat_file(path, &obj);
+    if (res != VFS_OK) {
+        return res;
+    }
+
+    uint8_t meta_size = obj.meta[0];
+    if (meta_size > 0 && meta_size < 0xFF) {
+        memcpy(ntag->notes, obj.meta + 3, meta_size - 3);
+    }
+
+    res = p_vfs_driver->read_file_data(path, &ntag->data, 540);
+    if (res <= 0) {
+        // TODO error handling..
+        return res;
+    }
+}
+
 static void ntag_update_cb(void *context, ntag_t *p_ntag) {
     app_amiibo_t *app = context;
     amiibo_detail_view_t *p_amiibo_detail_view = app->p_amiibo_detail_view;
@@ -18,7 +41,7 @@ static void ntag_update_cb(void *context, ntag_t *p_ntag) {
     cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
 
     // save to fs
-    int32_t res = p_driver->write_file_data(path, p_ntag, sizeof(ntag_t));
+    int32_t res = p_driver->write_file_data(path, p_ntag->data, sizeof(p_ntag->data));
     if (res > 0) {
         uint32_t head = to_little_endian_int32(&p_ntag->data[84]);
         uint32_t tail = to_little_endian_int32(&p_ntag->data[88]);
@@ -53,9 +76,8 @@ static void amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
     cwalk_append_segment(path, string_get_cstr(app->current_folder), file_name);
 
     vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
-    int32_t res = p_vfs_driver->read_file_data(path, &app->ntag.data, 540);
-    if (res <= 0) {
-        // TODO error handling..
+    int32_t err = ntag_read(p_vfs_driver, path, &app->ntag);
+    if (err != VFS_OK) {
         return;
     }
     string_set_str(app->current_file, file_name);

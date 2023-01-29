@@ -17,7 +17,7 @@ static void amiibo_scene_storage_list__menu_msg_box_format_cb(mui_msg_box_event_
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         int32_t res = p_driver->format();
         if (res == VFS_OK) {
-            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+             mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
         }
     } else if (event == MUI_MSG_BOX_EVENT_SELECT_RIGHT) {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
