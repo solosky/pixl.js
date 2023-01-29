@@ -10,14 +10,14 @@ enum storage_list_menu_t {
     STORAGE_LIST_MENU_BACK,
 };
 
-static void amiibo_scene_storage_list__menu_msg_box_format_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+static void amiibo_scene_storage_list_menu_msg_box_format_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
     app_amiibo_t *app = p_msg_box->user_data;
     vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
     if (event == MUI_MSG_BOX_EVENT_SELECT_LEFT) {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         int32_t res = p_driver->format();
         if (res == VFS_OK) {
-             mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
+             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
         }
     } else if (event == MUI_MSG_BOX_EVENT_SELECT_RIGHT) {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
@@ -37,7 +37,7 @@ static void amiibo_scene_storage_list_menu_on_selected(mui_list_view_event_t eve
         mui_msg_box_set_message(app->p_msg_box, "将删除所有数据。\n确认格式化?");
         mui_msg_box_set_btn_text(app->p_msg_box, "确定", NULL, "取消");
         mui_msg_box_set_btn_focus(app->p_msg_box, 1);
-        mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_storage_list__menu_msg_box_format_cb);
+        mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_storage_list_menu_msg_box_format_cb);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
     } break;

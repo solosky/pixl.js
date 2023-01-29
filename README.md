@@ -61,4 +61,4 @@ root@b10d54636088:/builds/pixl.js# cd fw && make && make full
 
 ## 提示 
 
-Amiibo无限刷需要网上搜素key_retail.bin文件然后上传到到磁盘根目录后才能使用。
+Amiibo无限刷需要网上搜索key_retail.bin文件然后上传到到磁盘根目录后才能使用。
