@@ -34,13 +34,17 @@ function process_op_queue() {
 
 function proocess_op(op) {
     new_rx_promise().then(data => {
-        var bb = ByteBuffer.wrap(data);
-        var h = read_header(bb);
-        h.data = op.rx_data_cb(bb);
-        op_ongoing = false;
-        op.p_resolve(h);
-        process_op_queue();
-        return h;
+        try {
+            var bb = ByteBuffer.wrap(data);
+            var h = read_header(bb);
+            h.data = op.rx_data_cb(bb);
+            op_ongoing = false;
+            op.p_resolve(h);
+            process_op_queue();
+            return h;
+        } catch (e) {
+            op.p_reject(e);
+        }
     }).catch(e => {
         op_ongoing = false;
         op.p_reject(e);
@@ -115,6 +119,7 @@ export function vfs_read_folder(dir) {
                 file.name = read_string(bb);
                 file.size = bb.readUint32();
                 file.type = bb.readUint8();
+                file.meta = read_meta(bb);
                 files.push(file);
             }
             return files;
@@ -126,22 +131,28 @@ export function vfs_create_folder(dir) {
     console.log("vfs_create_folder", dir);
 
     return op_queue_push(0x17,
-        b => { write_string(b, dir); },
-        b => {});
+        b => {
+            path_validation(dir);
+            write_string(b, dir);
+        },
+        b => { });
 }
+
 
 export function vfs_remove(path) {
     console.log("vfs_remove", path);
 
     return op_queue_push(0x18,
         b => { write_string(b, path); },
-        b => {});
+        b => { });
 }
 
 export function vfs_open_file(path, mode) {
     console.log("vfs_open_file", path, mode);
+
     return op_queue_push(0x12,
         b => {
+            path_validation(path);
             write_string(b, path);
             if (mode == 'r') {
                 b.writeUint8(0x8); //readonly
@@ -183,6 +194,21 @@ export function vfs_write_file(file_id, data) {
             write_bytes(b, data);
         },
         b => { });
+}
+
+
+export function vfs_update_meta(path, meta) {
+    console.log("vfs_update_meta", path, meta);
+    return op_queue_push(0x1a,
+        b => {
+            write_string(b, path);
+            write_meta(b, meta);
+        },
+        b => { });
+}
+
+export function get_utf8_byte_size(str) {
+    return encode_utf8(str).length;
 }
 
 var file_write_queue = []
@@ -262,9 +288,26 @@ function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, d
             }
 
             vfs_write_cb();
-        })
+        }).catch(e => {
+            error_cb(e);
+        });
     });
 
+}
+
+
+function path_validation(path) {
+    if (get_utf8_byte_size(path) > 63) {
+        throw new Error("文件路径最大不能超过63个字节");
+    }
+    if (path.length > 3) {
+        var p = path.lastIndexOf('/');
+        var file_name = path.substring(p + 1);
+        console.log(file_name);
+        if (get_utf8_byte_size(file_name) > 47) {
+            throw new Error("文件名最大不能超过47个字节");
+        }
+    }
 }
 
 
@@ -287,6 +330,43 @@ function read_header(bb) {
         cmd: bb.readUint8(),
         status: bb.readUint8(),
         chunk: bb.readUint16()
+    }
+}
+
+function read_meta(bb) {
+    var size = bb.readUint8();
+    var meta = {}
+    if (size > 0) {
+        var type = bb.readUint8(); //1 notes
+        var type_size = bb.readUint8();
+        if (type_size > 0) {
+            var bytes = read_bytes_array(bb, type_size);
+            if (bytes.length > 0) {
+                meta["notes"] = decode_utf8(bytes);
+            }
+        }
+    }
+
+    return meta;
+}
+
+function write_meta(bb, meta) {
+    var notes = meta["notes"];
+    var bytes = encode_utf8(notes);
+
+    if (bytes.length > 90) {
+        throw new Error("备注最大只能是90字节，即90个字符或30个汉字！（当前" + bytes.length + "字节）")
+    }
+
+    if (notes.length > 0) {
+        bb.writeUint8(bytes.length + 2);  //meta total size
+        bb.writeUint8(1);//amiibo notes
+        bb.writeUint8(bytes.length);
+        for (var i = 0; i < bytes.length; i++) {
+            bb.writeUint8(bytes[i]);
+        }
+    } else {
+        bb.writeUint8(0); //empty meta
     }
 }
 
@@ -338,6 +418,14 @@ function write_bytes(bb, buffer) {
     }
 }
 
+function read_bytes_array(bb, size) {
+    var bytes = []
+    for (var i = 0; i < size; i++) {
+        bytes.push(bb.readUint8());
+    }
+    return bytes;
+}
+
 function tx_data_frame(cmd, status, chunk, data) {
     var bb = new ByteBuffer();
     bb.writeUint8(cmd);
@@ -371,38 +459,38 @@ var rx_chunk_state = "NONE"; //NONE CHUNK,
 function on_rx_data(data) {
     var buff = ByteBuffer.wrap(data);
     var h = read_header(buff);
-    if(h.chunk & 0x8000){
-        if(rx_chunk_state == "NONE"){
+    if (h.chunk & 0x8000) {
+        if (rx_chunk_state == "NONE") {
             write_bytes(rx_bytebuffer, ByteBuffer.wrap(data));
             rx_chunk_state = "CHUNK";
-        }else if(rx_chunk_state == "CHUNK"){
+        } else if (rx_chunk_state == "CHUNK") {
             write_bytes(rx_bytebuffer, buff); //next chunk, ignore header
         }
-    }else{
+    } else {
         var cb_data = data;
-        if(rx_chunk_state == "CHUNK"){ //end of chunk
-            write_bytes(rx_bytebuffer, buff); 
+        if (rx_chunk_state == "CHUNK") { //end of chunk
+            write_bytes(rx_bytebuffer, buff);
             rx_bytebuffer.flip();
             cb_data = rx_bytebuffer.toArrayBuffer();
-        }else if(rx_chunk_state == "NONE"){ //single chunk
+        } else if (rx_chunk_state == "NONE") { //single chunk
             cb_data = data;
         }
-        
+
         //call back 
         if (m_api_resolve) {
             m_api_resolve(cb_data);
             m_api_resolve = null;
-           
+
         }
         rx_chunk_state = "NONE";
     }
 }
 
 
-function on_ble_disconnected(){
+function on_ble_disconnected() {
     rx_bytebuffer.clear();
     rx_chunk_state = "NONE";
-    
+
     m_api_resolve = null;
     m_api_reject = null;
 

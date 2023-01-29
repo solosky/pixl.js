@@ -45,10 +45,11 @@
     <div>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
         v-loading="table_loading" element-loading-text="加载中.." element-loading-spinner="el-icon-loading"
-        cell-class-name="file-cell" @selection-change="on_table_selection_change">
+        cell-class-name="file-cell" @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
+        :default-sort="{ prop: 'name', order: 'ascending' }">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column label="文件">
+        <el-table-column prop="name" label="文件" sortable="custom">
           <template slot-scope="scope">
             <i :class="scope.row.icon"></i>
             <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">{{
@@ -56,9 +57,11 @@
             }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="size" label="大小">
+        <el-table-column prop="size" label="大小" sortable>
         </el-table-column>
-        <el-table-column prop="type" label="类型">
+        <el-table-column prop="type" label="类型" sortable>
+        </el-table-column>
+        <el-table-column prop="notes" label="备注" sortable>
         </el-table-column>
         <el-table-column label="">
           <template slot-scope="scope">
@@ -69,6 +72,8 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="on_row_btn_remove(scope.$index, scope.row)"
                   v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
+                  v-if="scope.row.type == 'REG'">备注</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -90,7 +95,12 @@
           :http-request="on_upload_request" :on-error="on_upload_error">
           <i class="el-icon-upload"></i>
           <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
-          <div class="el-upload__tip" slot="tip">文件路径总长度不能超过64个字节，超过部分会被截断。</div>
+          <div class="el-upload__tip" slot="tip">
+            <ul>
+              <li>文件路径总长度不能超过63个字节，超过部分会被截断。</li>
+              <li>文件名不能超过47个字节，超过部分会被截断。</li>
+            </ul>
+          </div>
         </el-upload>
       </div>
       <span slot="footer" class="dialog-footer">
@@ -148,6 +158,14 @@ export default {
       proto.get_version().then(res => {
         console.log("get version result", res);
         this.version = "已连接, ver: " + res.data.ver;
+
+        if (res.data.ver.startsWith("2.0.0")) {
+          this.$alert('您设备的固件版本过低，请更新最新版本固件再使用上传功能', '升级提示', {
+            confirmButtonText: '确定',
+            callback: action => {
+            }
+          });
+        }
 
         this.reload_drive();
       });
@@ -249,6 +267,8 @@ export default {
       }, this);
     },
 
+
+
     on_upload_diag_close(done) {
       this.$confirm('确认关闭？关闭将清空上传记录。')
         .then(_ => {
@@ -297,9 +317,40 @@ export default {
       });
     },
 
+    on_row_btn_notes(index, row) {
+      this.$prompt('请输入备注', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: row.notes
+      }).then(({ value }) => {
+        var meta = {
+          notes: value
+        };
+        var path = this.current_dir + '/' + row.name;
+        proto.vfs_update_meta(path, meta).then(res => {
+          if (res.status == 0) {
+            row.notes = value;
+          } else {
+            this.$message({
+              type: 'error',
+              message: "更新备注失败"
+            });
+          }
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: e.message
+          });
+        });
+
+      }).catch(() => {
+        //ignore     
+      });
+    },
+
     on_diag_name_close() {
       if (this.input_name.length > 0) {
-        var dir = this.current_dir + "/" + this.input_name;
+        var dir = this.append_segment(this.current_dir, this.input_name);
         proto.vfs_create_folder(dir).then(data => {
           if (data.status == 0) {
             this.name_diag_visible = false;
@@ -314,12 +365,22 @@ export default {
               type: 'error'
             });
           }
+        }).catch(e=>{
+          this.$message({
+            type: 'error',
+            message: e.message
+          });
+
         });
       }
     },
 
     on_table_selection_change(selected) {
       this.table_selection = selected;
+    },
+
+    on_table_sort_change(column, prop, order) {
+      console.log("sort change: ", column, prop, order);
     },
 
     handle_name_click(index, row) {
@@ -348,7 +409,8 @@ export default {
             name: drive.label + ":/ [" + drive.name + "]",
             size: thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size),
             type: "DRIVE",
-            icon: "el-icon-box"
+            icon: "el-icon-box",
+            notes: ""
           };
           _table_data.push(row)
         }
@@ -372,7 +434,8 @@ export default {
               name: file.name,
               size: thiz.format_size(file.size),
               type: file.type == 0 ? "REG" : "DIR",
-              icon: file.type == 0 ? "el-icon-document" : "el-icon-folder"
+              icon: file.type == 0 ? "el-icon-document" : "el-icon-folder",
+              notes: file.meta.notes
             };
 
             _table_data.push(row);
@@ -402,12 +465,12 @@ export default {
       return !this.connected || this.current_dir == '';
     },
 
-    append_segment(dir, seg){
+    append_segment(dir, seg) {
       var drive = dir.substring(0, 2); //E:
       var path = dir.substring(2);
-      if(path == '/'){
+      if (path == '/') {
         return dir + seg;
-      }else{
+      } else {
         return dir + '/' + seg;
       }
     },
