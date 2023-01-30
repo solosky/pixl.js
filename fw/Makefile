@@ -38,7 +38,6 @@ SRC_FILES += \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf.c \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf_format.c \
   $(SDK_ROOT)/components/libraries/memobj/nrf_memobj.c \
-  $(SDK_ROOT)/components/libraries/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/components/libraries/ringbuf/nrf_ringbuf.c \
   $(SDK_ROOT)/components/libraries/experimental_section_vars/nrf_section_iter.c \
   $(SDK_ROOT)/components/libraries/sortlist/nrf_sortlist.c \
@@ -223,7 +222,12 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser_menu.c \
   $(PROJ_DIR)/app/settings/app_settings.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_main.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_version.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_sleep_timeout.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
+  $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
@@ -316,7 +320,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_hrs_c \
   $(SDK_ROOT)/components/nfc/ndef/connection_handover/le_oob_rec \
   $(SDK_ROOT)/components/libraries/queue \
-  $(SDK_ROOT)/components/libraries/pwr_mgmt \
   $(SDK_ROOT)/components/ble/ble_dtm \
   $(SDK_ROOT)/components/toolchain/cmsis/include \
   $(SDK_ROOT)/components/ble/ble_services/ble_rscs_c \
@@ -442,9 +445,11 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
   $(PROJ_DIR)/app/settings \
+  $(PROJ_DIR)/app/settings/scene \
   $(PROJ_DIR)/app/amiibo \
   $(PROJ_DIR)/app/amiibo/view \
   $(PROJ_DIR)/app/amiibo/scene \
+  $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
