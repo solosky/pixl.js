@@ -20,7 +20,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
 
     uint8_t meta_size = obj.meta[0];
     if (meta_size > 0 && meta_size < 0xFF) {
-        memcpy(ntag->notes, obj.meta + 3, meta_size - 3);
+        memcpy(ntag->notes, obj.meta + 3, meta_size - 2);
     }
 
     res = p_vfs_driver->read_file_data(path, &ntag->data, 540);

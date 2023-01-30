@@ -10,7 +10,7 @@ uint8_t mui_canvas_draw_utf8(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const
     if (!str) return;
     x += p_canvas->offset_x;
     y += p_canvas->offset_y;
-    u8g2_DrawUTF8(p_canvas->fb, x, y, str);
+    return u8g2_DrawUTF8(p_canvas->fb, x, y, str);
 }
 
 uint8_t mui_canvas_draw_glyph(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint16_t encoding) {
