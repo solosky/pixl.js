@@ -1,9 +1,13 @@
 #include "amiibo_data.h"
 #include "amiibo_scene.h"
 #include "app_amiibo.h"
+#include "app_timer.h"
 #include "cwalk2.h"
 #include "mui_list_view.h"
+#include "ntag_emu.h"
 #include "vfs.h"
+
+APP_TIMER_DEF(m_amiibo_gen_delay_timer);
 
 static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app);
 
@@ -30,8 +34,37 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     }
 }
 
-static void ntag_update_cb(void *context, ntag_t *p_ntag) {
-    app_amiibo_t *app = context;
+static void ntag_gen(app_amiibo_t *app) {
+
+    ret_code_t err_code;
+    ntag_t ntag_new;
+    ntag_t *ntag_current = &app->ntag;
+    uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
+    uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
+
+    memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
+
+    const amiibo_data_t *amd = find_amiibo_data(head, tail);
+    if (amd == NULL) {
+        return;
+    }
+
+    if (!amiibo_helper_is_key_loaded()) {
+        return;
+    }
+
+    err_code = ntag_store_uuid_rand(&ntag_new);
+    APP_ERROR_CHECK(err_code);
+
+    // sign new
+    err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
+    if (err_code == NRF_SUCCESS) {
+        memcpy(&app->ntag, &ntag_new, sizeof(ntag_t));
+        mui_update(mui());
+    }
+}
+
+static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
     amiibo_detail_view_t *p_amiibo_detail_view = app->p_amiibo_detail_view;
     memcpy(p_amiibo_detail_view->ntag, p_ntag, sizeof(ntag_t));
 
@@ -64,6 +97,20 @@ static void ntag_update_cb(void *context, ntag_t *p_ntag) {
     }
 
     mui_update(mui());
+}
+
+static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag) {
+
+    app_amiibo_t *app = context;
+
+    if (type == NTAG_EVENT_TYPE_WRITTEN) {
+        ntag_update(app, p_ntag);
+    } else if (type == NTAG_EVENT_TYPE_READ) {
+        if (app->auto_gen_amiibo) {
+            app_timer_stop(m_amiibo_gen_delay_timer);
+            app_timer_start(m_amiibo_gen_delay_timer, APP_TIMER_TICKS(1000), app);
+        }
+    }
 }
 
 static void amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char *file_name) {
@@ -137,10 +184,14 @@ void amiibo_scene_amiibo_detail_on_enter(void *user_data) {
     ntag_emu_set_update_cb(ntag_update_cb, app);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_DETAIL);
+
+    int32_t err_code = app_timer_create(&m_amiibo_gen_delay_timer, APP_TIMER_MODE_SINGLE_SHOT, ntag_gen);
+    APP_ERROR_CHECK(err_code);
 }
 
 void amiibo_scene_amiibo_detail_on_exit(void *user_data) {
     app_amiibo_t *app = user_data;
     ntag_emu_set_update_cb(NULL, NULL);
     // string_array_clear(app->amiibo_files);
+    app_timer_stop(m_amiibo_gen_delay_timer);
 }

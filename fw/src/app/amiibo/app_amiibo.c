@@ -16,6 +16,7 @@ static void app_amiibo_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p
 void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 
     app_amiibo_t *p_app_handle = mui_mem_malloc(sizeof(app_amiibo_t));
+    memset(p_app_handle, 0, sizeof(app_amiibo_t));
 
     p_app_inst->p_handle = p_app_handle;
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
