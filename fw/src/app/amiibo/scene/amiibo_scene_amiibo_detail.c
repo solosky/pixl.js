@@ -27,11 +27,8 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         memcpy(ntag->notes, obj.meta + 3, meta_size - 2);
     }
 
-    res = p_vfs_driver->read_file_data(path, &ntag->data, 540);
-    if (res <= 0) {
-        // TODO error handling..
-        return res;
-    }
+    res = p_vfs_driver->read_file_data(path, ntag->data, 540);
+    return res;
 }
 
 static void ntag_gen(app_amiibo_t *app) {
@@ -60,6 +57,7 @@ static void ntag_gen(app_amiibo_t *app) {
     err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
     if (err_code == NRF_SUCCESS) {
         memcpy(&app->ntag, &ntag_new, sizeof(ntag_t));
+        ntag_emu_set_tag(&app->ntag);
         mui_update(mui());
     }
 }
@@ -124,7 +122,7 @@ static void amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
 
     vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
     int32_t err = ntag_read(p_vfs_driver, path, &app->ntag);
-    if (err != VFS_OK) {
+    if (err < 0) {
         return;
     }
     string_set_str(app->current_file, file_name);

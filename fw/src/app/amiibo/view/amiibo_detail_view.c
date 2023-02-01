@@ -1,5 +1,6 @@
 #include "amiibo_detail_view.h"
 #include "amiibo_data.h"
+#include "mui_element.h"
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa
