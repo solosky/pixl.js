@@ -179,6 +179,7 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
+  $(PROJ_DIR)/mod/settings.c \
   $(PROJ_DIR)/mod/ble/ble_main.c \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/cwalk2.c \

@@ -80,7 +80,8 @@
     "mui_u8g2.h": "c",
     "settings_scene.h": "c",
     "settings_scene_config.h": "c",
-    "ntag_emu.h": "c"
+    "ntag_emu.h": "c",
+    "settings.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

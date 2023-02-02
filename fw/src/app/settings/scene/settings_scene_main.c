@@ -4,6 +4,7 @@
 #include "settings_scene.h"
 #include "utils.h"
 #include "version2.h"
+#include "settings.h"
 
 enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_VERSION,
@@ -23,6 +24,8 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
     case SETTINGS_MAIN_MENU_BACK_LIGHT:
         mui_u8g2_set_backlight(!mui_u8g2_get_backlight());
         sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
+        settings_data_t* p_settings = settings_get_data();
+        p_settings->backlight = mui_u8g2_get_backlight();
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;

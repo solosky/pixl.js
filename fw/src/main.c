@@ -91,6 +91,7 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
+#include "settings.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
@@ -193,9 +194,6 @@ int main(void) {
     err_code = bsp_init(BSP_INIT_LEDS, bsp_evt_handler);
     APP_ERROR_CHECK(err_code);
 
-    // err_code = bsp_nfc_btn_init(BTN_ID_SLEEP);
-    // APP_ERROR_CHECK(err_code);
-
     err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH, BTN_ACTION_KEY1_LONGPUSH);
     APP_ERROR_CHECK(err_code);
 
@@ -210,22 +208,14 @@ int main(void) {
 
     hal_spi_bus_init();
 
-    // u8g2_drv_init();
-
-#ifdef SPI_FLASH
-    hal_spi_flash_init();
-
-    // #endif
-    // #ifdef LFS_PORT_INTERNAL_FLASH
-
-    err_code = lfs_port_init();
-    APP_ERROR_CHECK(err_code);
-
-#endif
-
     // enable sd to enable pwr mgmt
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
+
+    err_code = settings_init();
+    settings_data_t *p_settings = settings_get_data();
+    nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
+    // APP_ERROR_CHECK(err_code); //ignore settings load error
 
     // // enable dcdc
     // //  err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
@@ -246,23 +236,9 @@ int main(void) {
 
     NRF_LOG_DEBUG("init done");
 
-    // err_code = ntag_store_init();
-    // APP_ERROR_CHECK(err_code);
-
-    // ntag_t ntag;
-    // uint8_t index = ntag_indicator_current();
-    // err_code = ntag_store_read_default(index, &ntag);
-    // APP_ERROR_CHECK(err_code);
-    // err_code = ntag_emu_init(&ntag);
-    // APP_ERROR_CHECK(err_code);
-
     extern const ntag_t default_ntag215;
     err_code = ntag_emu_init(&default_ntag215);
     APP_ERROR_CHECK(err_code);
-
-    // ntag_indicator_update();
-
-    // NRF_LOG_DEBUG("display done");
 
     mui_t *p_mui = mui();
     mui_init(p_mui);
@@ -278,12 +254,6 @@ int main(void) {
         mui_tick(p_mui);
         NRF_LOG_FLUSH();
         nrf_pwr_mgmt_run();
-
-        /*if (poweroff_mode) {
-         NRF_LOG_DEBUG("go power off");
-         NRF_LOG_FLUSH();
-         nrf_pwr_mgmt_shutdown(NRF_PWR_MGMT_SHUTDOWN_GOTO_SYSOFF);
-         }*/
     }
 }
 
