@@ -4,9 +4,9 @@
 #include "app_timer.h"
 #include "cwalk2.h"
 #include "mui_list_view.h"
+#include "nrf_log.h"
 #include "ntag_emu.h"
 #include "vfs.h"
-#include "nrf_log.h"
 
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
@@ -127,6 +127,7 @@ static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
             if (res == VFS_OK) {
                 // todo ..
                 string_set_str(app->current_file, new_name);
+                amiibo_detail_view_set_file_name(p_amiibo_detail_view, new_name);
                 amiibo_scene_amiibo_detail_reload_files(app);
             }
         }
@@ -165,6 +166,7 @@ static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
         return false;
     }
     string_set_str(app->current_file, file_name);
+    amiibo_detail_view_set_file_name(app->p_amiibo_detail_view, file_name);
     amiibo_detail_view_set_ntag(app->p_amiibo_detail_view, &app->ntag);
     ntag_emu_set_tag(app->p_amiibo_detail_view->ntag);
 

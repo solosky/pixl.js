@@ -32,22 +32,23 @@ static void amiibo_detail_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canva
     mui_canvas_set_draw_color(p_canvas, 1);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
 
-    y += 10;
+    y += 12;
+
+    mui_canvas_draw_utf8(p_canvas, 0, y += 12, string_get_cstr(p_amiibo_detail_view->file_name));
 
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
 
     const amiibo_data_t *amd = find_amiibo_data(head, tail);
     if (amd != NULL) {
-        mui_canvas_draw_utf8(p_canvas, 0, y += 12, amd->name);
-        mui_canvas_draw_utf8(p_canvas, 0, y += 12, amd->game_series);
+        mui_canvas_draw_utf8(p_canvas, 0, y += 13, amd->name);
         if (strlen(ntag->notes) > 0) {
-            mui_element_autowrap_text(p_canvas, 0, y += 12, mui_canvas_get_width(p_canvas), 24, ntag->notes);
+            mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, ntag->notes);
         } else {
-            mui_element_autowrap_text(p_canvas, 0, y += 12, mui_canvas_get_width(p_canvas), 24, amd->notes);
+            mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, amd->notes);
         }
     } else {
-        mui_canvas_draw_utf8(p_canvas, 0, y += 12, "空标签");
+        mui_canvas_draw_utf8(p_canvas, 0, y += 13, "空标签");
     }
 }
 
@@ -97,10 +98,13 @@ amiibo_detail_view_t *amiibo_detail_view_create() {
 
     p_amiibo_detail_view->p_view = p_view;
 
+    string_init(p_amiibo_detail_view->file_name);
+
     return p_amiibo_detail_view;
 }
 
 void amiibo_detail_view_free(amiibo_detail_view_t *p_view) {
+    string_clear(p_view->file_name);
     mui_view_free(p_view->p_view);
     mui_mem_free(p_view);
 }

@@ -81,7 +81,8 @@
     "settings_scene.h": "c",
     "settings_scene_config.h": "c",
     "ntag_emu.h": "c",
-    "settings.h": "c"
+    "settings.h": "c",
+    "m-string.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }
