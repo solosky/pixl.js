@@ -291,7 +291,8 @@ int32_t vfs_spiffs_remove_dir(const char *dir_name) {
         // prefix compare
         if (cwalk_same_prefix_segment(p_dir->dir, p_dir->pe->name)) {
             int res = SPIFFS_remove(&fs, p_dir->pe->name);
-            if (!res) {
+            NRF_LOG_INFO("remove file %d: %s\n", res, nrf_log_push(p_dir->pe->name));
+            if (res != SPIFFS_OK) {
                 SPIFFS_closedir(&dir.d);
                 return vfs_spiffs_map_error_code(res);
             }
