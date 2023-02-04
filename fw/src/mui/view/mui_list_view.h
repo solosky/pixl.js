@@ -32,13 +32,16 @@ ARRAY_DEF(mui_list_item_array, mui_list_item_t, M_POD_OPLIST);
 #define LIST_SCROLL_UP 0
 #define LIST_SCROLL_DOWN 1
 
+#define LIST_SCROLL_TOP 3
+#define LIST_SCROLL_BOTTOM 4
+
 struct mui_list_view_s {
     mui_view_t *p_view;
     uint16_t focus_index;
     mui_list_view_selected_cb selected_cb;
     mui_list_item_array_t items;
     void *user_data;
-    uint16_t scroll_offset;
+    uint32_t scroll_offset;
     uint8_t scroll_direction;
 };
 
