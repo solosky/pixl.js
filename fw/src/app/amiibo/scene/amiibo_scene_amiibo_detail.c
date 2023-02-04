@@ -6,10 +6,41 @@
 #include "mui_list_view.h"
 #include "ntag_emu.h"
 #include "vfs.h"
+#include "nrf_log.h"
+
+#define NRF_ERR_NOT_AMIIBO -1000
+#define NRF_ERR_READ_ERROR -1001
 
 APP_TIMER_DEF(m_amiibo_gen_delay_timer);
 
 static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app);
+
+static void amiibo_scene_amiibo_detail_msg_box_error_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+    app_amiibo_t *app = p_msg_box->user_data;
+    mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+}
+
+static void amiibo_scene_amiibo_detail_reload_error(app_amiibo_t *app, const char *path, int32_t err_code) {
+
+    char msg[64];
+    strcpy(msg, path);
+    strcat(msg, "\n");
+    if (err_code == NRF_ERR_NOT_AMIIBO) {
+        strcat(msg, "这不是Amiibo文件");
+    } else if (err_code == NRF_ERR_READ_ERROR) {
+        strcat(msg, "读取文件失败");
+    } else {
+        strcat(msg, "读取文件失败");
+    }
+
+    mui_msg_box_set_header(app->p_msg_box, "错误");
+    mui_msg_box_set_message(app->p_msg_box, msg);
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, "返回", NULL);
+    mui_msg_box_set_btn_focus(app->p_msg_box, 1);
+    mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_msg_box_error_cb);
+
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
+}
 
 static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *ntag) {
 
@@ -19,7 +50,11 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     memset(ntag, 0, sizeof(ntag_t));
     res = p_vfs_driver->stat_file(path, &obj);
     if (res != VFS_OK) {
-        return res;
+        return NRF_ERR_READ_ERROR;
+    }
+
+    if (obj.size != 540) {
+        return NRF_ERR_NOT_AMIIBO;
     }
 
     uint8_t meta_size = obj.meta[0];
@@ -28,7 +63,10 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     }
 
     res = p_vfs_driver->read_file_data(path, ntag->data, 540);
-    return res;
+    if (res != 540) {
+        return NRF_ERR_READ_ERROR;
+    }
+    return NRF_SUCCESS;
 }
 
 static void ntag_gen(app_amiibo_t *app) {
@@ -111,23 +149,26 @@ static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag
     }
 }
 
-static void amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char *file_name) {
+static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char *file_name) {
     char path[VFS_MAX_PATH_LEN];
 
     if (strlen(file_name) == 0) {
-        return;
+        return false;
     }
 
     cwalk_append_segment(path, string_get_cstr(app->current_folder), file_name);
 
     vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
     int32_t err = ntag_read(p_vfs_driver, path, &app->ntag);
-    if (err < 0) {
-        return;
+    if (err != NRF_SUCCESS) {
+        amiibo_scene_amiibo_detail_reload_error(app, file_name, err);
+        return false;
     }
     string_set_str(app->current_file, file_name);
     amiibo_detail_view_set_ntag(app->p_amiibo_detail_view, &app->ntag);
     ntag_emu_set_tag(app->p_amiibo_detail_view->ntag);
+
+    return true;
 }
 
 static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
@@ -175,10 +216,13 @@ void amiibo_scene_amiibo_detail_on_enter(void *user_data) {
     amiibo_detail_view_set_event_cb(app->p_amiibo_detail_view, app_amiibo_detail_view_on_event);
 
     if (app->reload_amiibo_files) {
-        amiibo_scene_amiibo_detail_reload_ntag(app, string_get_cstr(app->current_file));
+        if (!amiibo_scene_amiibo_detail_reload_ntag(app, string_get_cstr(app->current_file))) {
+            return;
+        }
         amiibo_scene_amiibo_detail_reload_files(app);
         app->reload_amiibo_files = false;
     }
+
     ntag_emu_set_update_cb(ntag_update_cb, app);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_DETAIL);
