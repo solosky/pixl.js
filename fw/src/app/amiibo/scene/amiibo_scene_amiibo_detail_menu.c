@@ -13,6 +13,7 @@
 
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
+    AMIIBO_DETAIL_MENU_AUTO_RAND_UID,
     AMIIBO_DETAIL_MENU_REMOVE_AMIIBO,
     AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL,
     AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER,
@@ -24,6 +25,16 @@ static void amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_
     if (event == MUI_MSG_BOX_EVENT_SELECT_CENTER) {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     }
+}
+
+static void amiibo_scene_amiibo_detail_no_key_msg(app_amiibo_t *app) {
+    mui_msg_box_set_header(app->p_msg_box, "Amiibo Key未加载");
+    mui_msg_box_set_message(app->p_msg_box, "上传文件 key_retail.bin\n到存储根目录下。");
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, "知道了", NULL);
+    mui_msg_box_set_btn_focus(app->p_msg_box, 1);
+    mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb);
+
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
 }
 
 static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
@@ -51,15 +62,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         }
 
         if (!amiibo_helper_is_key_loaded()) {
-
-            mui_msg_box_set_header(app->p_msg_box, "Amiibo Key未加载");
-            mui_msg_box_set_message(app->p_msg_box, "上传文件 key_retail.bin\n到存储根目录下。");
-            mui_msg_box_set_btn_text(app->p_msg_box, NULL, "知道了", NULL);
-            mui_msg_box_set_btn_focus(app->p_msg_box, 1);
-            mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb);
-
-            mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
-
+            amiibo_scene_amiibo_detail_no_key_msg(app);
             return;
         }
 
@@ -70,8 +73,10 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
         if (err_code == NRF_SUCCESS) {
             memcpy(&app->ntag, &ntag_new, sizeof(ntag_t));
+            ntag_emu_set_tag(&app->ntag);
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
+         
         break;
     }
 
@@ -79,6 +84,20 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         break;
     }
+
+    case AMIIBO_DETAIL_MENU_AUTO_RAND_UID: {
+        if (!amiibo_helper_is_key_loaded()) {
+            amiibo_scene_amiibo_detail_no_key_msg(app);
+            return;
+        }
+        char txt[32];
+        app->auto_gen_amiibo = !app->auto_gen_amiibo;
+        sprintf(txt, "自动随机生成 [%s]", app->auto_gen_amiibo ? "开" : "关");
+        string_set_str(p_item->text, txt);
+
+         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+    }
+    break;
 
     case AMIIBO_DETAIL_MENU_REMOVE_AMIIBO: {
         char path[VFS_MAX_PATH_LEN];
@@ -119,7 +138,11 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
     mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", (void *)AMIIBO_DETAIL_MENU_RAND_UID);
-    mui_list_view_add_item(app->p_list_view, 0xe1c6, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
+
+    char txt[32];
+    sprintf(txt, "自动随机生成 [%s]", app->auto_gen_amiibo ? "开" : "关");
+    mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
+    mui_list_view_add_item(app->p_list_view, 0xe1c7, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
     mui_list_view_add_item(app->p_list_view, 0xe068, "返回详情", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回文件列表", (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
     mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);

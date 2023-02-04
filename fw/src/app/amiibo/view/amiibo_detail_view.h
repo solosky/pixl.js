@@ -4,9 +4,9 @@
 #include <stdint.h>
 
 #include "ntag_def.h"
-
-#include "m-string.h"
 #include "mui_mlib.h"
+#include "m-string.h"
+
 
 struct amiibo_detail_view_s;
 typedef struct amiibo_detail_view_s amiibo_detail_view_t;
@@ -24,6 +24,7 @@ struct amiibo_detail_view_s {
     void *user_data;
     uint8_t focus;
     uint8_t max_ntags;
+    string_t file_name;
     amiibo_detail_view_event_cb event_cb;
 };
 
@@ -43,5 +44,9 @@ inline uint8_t amiibo_detail_view_get_focus(amiibo_detail_view_t *p_view) { retu
 
 inline void amiibo_detail_view_set_max_ntags(amiibo_detail_view_t *p_view, uint8_t max_ntags) {
     p_view->max_ntags = max_ntags;
+}
+
+inline void amiibo_detail_view_set_file_name(amiibo_detail_view_t *p_view, const char* file_name){
+    string_set_str(p_view->file_name, file_name);
 }
 #endif

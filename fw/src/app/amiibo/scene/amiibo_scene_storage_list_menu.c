@@ -4,10 +4,14 @@
 #include "nrf_log.h"
 #include "vfs.h"
 
+#include "mini_app_launcher.h"
+#include "mini_app_registry.h"
+
 enum storage_list_menu_t {
     STORAGE_LIST_MENU_MOUNT,
     STORAGE_LIST_MENU_FORMAT,
     STORAGE_LIST_MENU_BACK,
+    STORAGE_LIST_MENU_BACK_MAIN_MENU
 };
 
 static void amiibo_scene_storage_list_menu_msg_box_format_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
@@ -17,7 +21,7 @@ static void amiibo_scene_storage_list_menu_msg_box_format_cb(mui_msg_box_event_t
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         int32_t res = p_driver->format();
         if (res == VFS_OK) {
-             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
         }
     } else if (event == MUI_MSG_BOX_EVENT_SELECT_RIGHT) {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
@@ -36,7 +40,7 @@ static void amiibo_scene_storage_list_menu_on_selected(mui_list_view_event_t eve
         mui_msg_box_set_header(app->p_msg_box, "格式化存储");
         mui_msg_box_set_message(app->p_msg_box, "将删除所有数据。\n确认格式化?");
         mui_msg_box_set_btn_text(app->p_msg_box, "确定", NULL, "取消");
-        mui_msg_box_set_btn_focus(app->p_msg_box, 1);
+        mui_msg_box_set_btn_focus(app->p_msg_box, 0);
         mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_storage_list_menu_msg_box_format_cb);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
@@ -44,6 +48,10 @@ static void amiibo_scene_storage_list_menu_on_selected(mui_list_view_event_t eve
 
     case STORAGE_LIST_MENU_BACK:
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        break;
+
+    case STORAGE_LIST_MENU_BACK_MAIN_MENU:
+        mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
         break;
     }
 }
@@ -69,6 +77,7 @@ void amiibo_scene_storage_list_menu_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1cd, "格式化", (void *)STORAGE_LIST_MENU_FORMAT);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", (void *)STORAGE_LIST_MENU_BACK);
+    mui_list_view_add_item(app->p_list_view, 0xe069, "返回主菜单", (void *)STORAGE_LIST_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_storage_list_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

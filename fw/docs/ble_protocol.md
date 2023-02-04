@@ -111,7 +111,6 @@ s -> c: 0x13, status 0,
 | meta N length | uint8 | 1 | |
 | meta N data | byte | N | 0 |  
 
-一二三四五六七八九十
 ### 全局状态码定义
 
 | 状态码 | 说明 |

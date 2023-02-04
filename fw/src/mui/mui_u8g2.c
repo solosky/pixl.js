@@ -71,6 +71,7 @@
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
 #include "nrf_log.h"
+#include "settings.h"
 
 #include "u8g2.h"
 #include "u8x8.h"
@@ -161,6 +162,11 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 
     u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
 
+    settings_data_t *p_settings = settings_get_data();
+    if (p_settings->backlight) {
+        mui_u8g2_set_backlight(p_settings->backlight);
+    }
+
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
 }
@@ -172,9 +178,6 @@ void mui_u8g2_deinit(u8g2_t *p_u8g2) {
     nrf_gpio_cfg_default(LCD_BL_PIN);
 }
 
-void mui_u8g2_set_backlight(uint8_t bl) {
-    nrf_gpio_pin_write(LCD_BL_PIN, bl); 
-}
-
+void mui_u8g2_set_backlight(uint8_t bl) { nrf_gpio_pin_write(LCD_BL_PIN, bl); }
 
 uint8_t mui_u8g2_get_backlight() { return nrf_gpio_pin_out_read(LCD_BL_PIN); }

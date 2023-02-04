@@ -5,6 +5,33 @@
 
 #define LIST_ITEM_HEIGHT 13
 
+static void mui_list_view_update_scroll_offset_y(mui_list_view_t *p_view, mui_canvas_t *p_canvas) {
+
+    uint32_t index = p_view->focus_index;
+    uint32_t total = mui_list_item_array_size(p_view->items);
+    uint8_t scroll_direction = p_view->scroll_direction;
+    uint32_t item_per_canvas = mui_canvas_get_height(p_canvas) / (LIST_ITEM_HEIGHT - 1);
+
+    if (scroll_direction == LIST_SCROLL_TOP) {
+        p_view->scroll_offset = 0;
+    } else if (scroll_direction == LIST_SCROLL_BOTTOM) {
+        if (index >= item_per_canvas) {
+            p_view->scroll_offset = (total - item_per_canvas) * LIST_ITEM_HEIGHT;
+        } else {
+            p_view->scroll_offset = 0;
+        }
+    } else {
+        uint32_t offset_y = p_view->focus_index * LIST_ITEM_HEIGHT;
+        if (offset_y < p_view->scroll_offset || offset_y > p_view->scroll_offset + mui_canvas_get_height(p_canvas)) {
+            if (p_view->scroll_direction == LIST_SCROLL_UP) {
+                p_view->scroll_offset = offset_y;
+            } else {
+                p_view->scroll_offset += LIST_ITEM_HEIGHT;
+            }
+        }
+    }
+}
+
 static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
     mui_list_view_t *p_mui_list_view = p_view->user_data;
@@ -12,21 +39,13 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_list_item_array_it_t it;
 
     mui_list_item_array_it(it, p_mui_list_view->items);
+    mui_list_view_update_scroll_offset_y(p_mui_list_view, p_canvas);
 
-    uint32_t offset_y = p_mui_list_view->focus_index * LIST_ITEM_HEIGHT;
-    if (offset_y < p_mui_list_view->scroll_offset ||
-        offset_y > p_mui_list_view->scroll_offset + mui_canvas_get_height(p_canvas)) {
-        if (p_mui_list_view->scroll_direction == LIST_SCROLL_UP) {
-            p_mui_list_view->scroll_offset = offset_y;
-        } else {
-            p_mui_list_view->scroll_offset += LIST_ITEM_HEIGHT;
-        }
-    }
-
+    uint32_t offset_y = p_mui_list_view->scroll_offset;
     uint32_t index = 0;
     while (!mui_list_item_array_end_p(it)) {
         mui_list_item_t *item = mui_list_item_array_ref(it);
-        uint32_t y = index * LIST_ITEM_HEIGHT - p_mui_list_view->scroll_offset;
+        uint32_t y = index * LIST_ITEM_HEIGHT - offset_y;
 
         if (y >= 0 && y <= mui_canvas_get_height(p_canvas)) {
             if (index == p_mui_list_view->focus_index) {
@@ -60,6 +79,9 @@ static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event)
             if (p_mui_list_view->focus_index > 0) {
                 p_mui_list_view->focus_index--;
                 p_mui_list_view->scroll_direction = LIST_SCROLL_UP;
+            } else {
+                p_mui_list_view->focus_index = mui_list_item_array_size(p_mui_list_view->items) - 1;
+                p_mui_list_view->scroll_direction = LIST_SCROLL_BOTTOM;
             }
             break;
 
@@ -67,6 +89,9 @@ static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event)
             if (p_mui_list_view->focus_index < mui_list_item_array_size(p_mui_list_view->items) - 1) {
                 p_mui_list_view->focus_index++;
                 p_mui_list_view->scroll_direction = LIST_SCROLL_DOWN;
+            } else {
+                p_mui_list_view->focus_index = 0;
+                p_mui_list_view->scroll_direction = LIST_SCROLL_TOP;
             }
             break;
 

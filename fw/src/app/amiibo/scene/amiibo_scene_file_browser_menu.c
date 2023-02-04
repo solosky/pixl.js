@@ -50,7 +50,7 @@ static void amiibo_scene_file_browser_text_input_create_amiibo_event_cb(mui_text
 
             ntag_t ntag;
             ntag_store_new_rand(&ntag);
-            int32_t res = p_driver->write_file_data(path, &ntag, sizeof(ntag));
+            int32_t res = p_driver->write_file_data(path, ntag.data, sizeof(ntag.data));
             if (res > 0) {
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
             }

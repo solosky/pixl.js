@@ -13,7 +13,12 @@
 #include "ntag_def.h"
 #include "nrfx.h"
 
-typedef void (*ntag_update_cb_t)(void* context, ntag_t* ntag);
+typedef enum {
+    NTAG_EVENT_TYPE_WRITTEN,
+    NTAG_EVENT_TYPE_READ
+} ntag_event_type_t;
+
+typedef void (*ntag_update_cb_t)(ntag_event_type_t type, void* context, ntag_t* ntag);
 ret_code_t ntag_emu_init(ntag_t* tag);
 void ntag_emu_uninit();
 void ntag_emu_set_tag(ntag_t* tag);

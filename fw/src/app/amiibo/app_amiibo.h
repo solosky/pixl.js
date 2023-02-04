@@ -30,6 +30,7 @@ typedef struct {
     /**amiibo detail view*/
     string_array_t amiibo_files;
     bool reload_amiibo_files;
+    bool auto_gen_amiibo;
 
 } app_amiibo_t;
 

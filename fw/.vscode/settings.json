@@ -76,7 +76,13 @@
     "df_core.h": "c",
     "df_proto_vfs.h": "c",
     "df_buffer.h": "c",
-    "nrf_log.h": "c"
+    "nrf_log.h": "c",
+    "mui_u8g2.h": "c",
+    "settings_scene.h": "c",
+    "settings_scene_config.h": "c",
+    "ntag_emu.h": "c",
+    "settings.h": "c",
+    "m-string.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
 }

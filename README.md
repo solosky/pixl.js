@@ -48,6 +48,10 @@ root@b10d54636088:/builds/pixl.js# cd fw && make && make full
 
 下载最新版本的固件zip包，使用JLink或者DAPLink烧写pixjs_all.hex即可。
 烧写完毕后，后续固件更新可以使用OTA的方式更新。
+也可以用OpenOCD烧录。
+```
+openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program pixjs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
+```
 
 ## OTA更新
 下载最新版本固件zip包，解压到一个目录。
@@ -56,7 +60,25 @@ root@b10d54636088:/builds/pixl.js# cd fw && make && make full
 
 ## 文件上传
 
-[https://solosky.github.io/pixl.js/](https://solosky.github.io/pixl.js/)
+* 主站 [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/)
+* 镜像 [https://solosky.github.io/pixl.js/](https://solosky.github.io/pixl.js/)
+
+## 蓝牙协议
+
+[fw/docs/ble_protocol.md](fw/docs/ble_protocol.md)
+
+## Credits
+
+* [FlipperZero Firmware](https://github.com/flipperdevices/flipperzero-firmware)
+* [mlib](https://github.com/P-p-H-d/mlib)
+* [TLSF](https://github.com/mattconte/tlsf)
+* [cwalk](https://github.com/likle/cwalk)
+* [SPIFFS](https://github.com/pellepl/spiffs)
+
+## Contribution 
+
+特别感谢 @Caleeeeeeeeeeeee 完善的Bootloader!
+
 
 
 ## 提示 
