@@ -303,9 +303,7 @@ export default {
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-
-        var path = this.current_dir + '/' + row.name;
-
+        var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_remove(path).then(data => {
           this.$message({
             type: 'success',
@@ -326,7 +324,7 @@ export default {
         var meta = {
           notes: value
         };
-        var path = this.current_dir + '/' + row.name;
+        var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_update_meta(path, meta).then(res => {
           if (res.status == 0) {
             row.notes = value;
