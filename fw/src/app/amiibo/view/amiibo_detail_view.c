@@ -56,20 +56,25 @@ static void amiibo_detail_view_on_input(mui_view_t *p_view, mui_input_event_t *e
     amiibo_detail_view_t *p_amiibo_detail_view = p_view->user_data;
     switch (event->key) {
     case INPUT_KEY_LEFT:
-
         if (p_amiibo_detail_view->focus > 0) {
             p_amiibo_detail_view->focus--;
-            if (p_amiibo_detail_view->event_cb) {
-                p_amiibo_detail_view->event_cb(AMIIBO_DETAIL_VIEW_EVENT_UPDATE, p_amiibo_detail_view);
-            }
+        } else {
+            p_amiibo_detail_view->focus = p_amiibo_detail_view->max_ntags - 1;
+        }
+
+        if (p_amiibo_detail_view->event_cb) {
+            p_amiibo_detail_view->event_cb(AMIIBO_DETAIL_VIEW_EVENT_UPDATE, p_amiibo_detail_view);
         }
         break;
     case INPUT_KEY_RIGHT:
         if (p_amiibo_detail_view->focus < p_amiibo_detail_view->max_ntags - 1) {
             p_amiibo_detail_view->focus++;
-            if (p_amiibo_detail_view->event_cb) {
-                p_amiibo_detail_view->event_cb(AMIIBO_DETAIL_VIEW_EVENT_UPDATE, p_amiibo_detail_view);
-            }
+        } else {
+            p_amiibo_detail_view->focus = 0;
+        }
+
+        if (p_amiibo_detail_view->event_cb) {
+            p_amiibo_detail_view->event_cb(AMIIBO_DETAIL_VIEW_EVENT_UPDATE, p_amiibo_detail_view);
         }
         break;
     case INPUT_KEY_CENTER:

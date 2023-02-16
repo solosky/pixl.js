@@ -62,8 +62,8 @@ void df_proto_handler_vfs_drive_list(df_event_t *evt) {
             }
 
             if (p_driver->stat(&stat) == VFS_OK) {
-                buff_put_u8(&buff, stat.avaliable); // drive status code
-                buff_put_char(&buff, 'E');          // drive label
+                buff_put_u8(&buff, stat.avaliable ? 0 : 1); // drive status code
+                buff_put_char(&buff, 'E');                  // drive label
                 buff_put_string(&buff, "External Flash");
                 buff_put_u32(&buff, stat.total_bytes); // total space
                 buff_put_u32(&buff, stat.free_bytes);  // free space
@@ -87,8 +87,13 @@ void df_proto_handler_vfs_drive_format(df_event_t *evt) {
         df_frame_t out;
 
         NEW_BUFFER(buff, evt->df->data, evt->df->length);
-        uint8_t drv = buff_get_u8(&buff);
-        vfs_driver_t *p_driver = vfs_get_driver(drv);
+        char drv_label = (char)buff_get_u8(&buff);
+        vfs_driver_t* p_driver = get_driver_by_path(&drv_label);
+        if (p_driver == NULL) {
+            OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+            return;
+        }
 
         if (p_driver->format() == VFS_OK) {
             OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_OK);
