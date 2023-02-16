@@ -74,6 +74,8 @@
                   v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
                   v-if="scope.row.type == 'REG'">备注</el-dropdown-item>
+                <el-dropdown-item @click.native="on_row_btn_format(scope.$index, scope.row)"
+                  v-if="scope.row.type == 'DRIVE'">格式化</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -297,6 +299,31 @@ export default {
       });
     },
 
+    on_row_btn_format(index, row) {
+      var thiz = this;
+      this.$confirm('是否格式化 ' + row.name + '? \n格式化会删除所有数据！\n格式化可能需要10秒钟左右，请耐心等待。', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        thiz.table_loading = true;
+        var path = row.name.substr(0, 1);
+        proto.vfs_drive_format(path).then(data => {
+          this.$message({
+            type: 'success',
+            message: row.name + ' 格式化完成!'
+          });
+          thiz.table_loading = false;
+          this.reload_drive();
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: row.name + " 格式化失败: " + err
+          });
+        });
+      });
+    },
+
     on_row_btn_remove(index, row) {
       this.$confirm('是否删除 ' + row.name + '?', '提示', {
         confirmButtonText: '确定',
@@ -363,7 +390,7 @@ export default {
               type: 'error'
             });
           }
-        }).catch(e=>{
+        }).catch(e => {
           this.$message({
             type: 'error',
             message: e.message

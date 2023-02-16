@@ -108,6 +108,13 @@ export function vfs_get_drive_list() {
         });
 }
 
+export function vfs_drive_format(path) {
+    console.log("vfs_drive_format", path);
+    return op_queue_push(0x11,
+        b => { b.writeByte(path.charCodeAt(0)) },
+        b => { });
+}
+
 export function vfs_read_folder(dir) {
     console.log("vfs_read_dir", dir);
     return op_queue_push(0x16,
