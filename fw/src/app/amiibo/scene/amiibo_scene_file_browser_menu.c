@@ -141,8 +141,9 @@ static void amiibo_scene_file_browser_menu_on_selected(mui_list_view_event_t eve
 
     case FILE_BROWSER_MENU_CREATE_AMIIBO: {
         mui_text_input_set_header(app->p_text_input, "输入amiibo名:");
-        mui_text_input_set_input_text(app->p_text_input, "empty.bin");
+        mui_text_input_set_input_text(app->p_text_input, "new.bin");
         mui_text_input_set_event_cb(app->p_text_input, amiibo_scene_file_browser_text_input_create_amiibo_event_cb);
+        mui_text_input_set_focus_key(app->p_text_input, ENTER_KEY);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_INPUT);
         break;

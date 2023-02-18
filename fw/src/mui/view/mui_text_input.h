@@ -8,6 +8,9 @@
 #include "mui_include.h"
 #include <stdint.h>
 
+#define ENTER_KEY '\r'
+#define BACKSPACE_KEY '\b'
+
 struct mui_text_input_s;
 typedef struct mui_text_input_s mui_text_input_t;
 
@@ -41,5 +44,6 @@ void mui_text_input_set_input_text(mui_text_input_t *p_view, const char* input);
 void mui_text_input_set_header(mui_text_input_t *p_view, const char* title);
 const char* mui_text_input_get_input_text(mui_text_input_t *p_view);
 void mui_text_input_reset(mui_text_input_t *p_view);
+void mui_text_input_set_focus_key(mui_text_input_t *p_view, char key);
 
 #endif

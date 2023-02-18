@@ -405,6 +405,7 @@ TODO 详细补充错误码。。
 | chunk | uint16 | 2 | 0 | 
 | path length | uint16 | 2 | 路径长度 |
 | path  | byte | N | 路径字符串 |
+| meta data | byte | N | 元信息数据，参考"文件元信息"小节定义 | 
 
 2. 服务端响应请求
 
