@@ -30,3 +30,13 @@ npm run dev
 # build for production with minification
 npm run build
 ```
+
+
+## Release
+``` bash
+npm run build
+cp dist/* ../gh-pages
+git add ../gh-pages/*
+git commit -m 'update gh-pages'
+git subtree push --prefix=gh-pages origin gh-pages
+```
