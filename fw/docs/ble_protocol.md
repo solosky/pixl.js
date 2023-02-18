@@ -184,7 +184,7 @@ TODO 详细补充错误码。。
 | status | uint8 | 1 | 状态码，参见状态码说明 |
 | chunk | uint16 | 2 |  0 | 
 | drive count| uint8 | 1 | 磁盘数量 |
-| drive N status code | uint8 | 1 | 磁盘N状态码 | 
+| drive N status code | uint8 | 1 | 磁盘N状态码  0：磁盘可用，非0磁盘不可用| 
 | drive N label |char | 1| 磁盘盘符 |
 | drive N name length | uint16 | 2 | 磁盘名长度 |
 | drive N name | byte | N | 磁盘名字符串 |
@@ -201,7 +201,7 @@ TODO 详细补充错误码。。
 | cmd  | uint8 | 1  |  0x11  |
 | status | uint8 | 1 | 0 |
 | chunk | uint16 | 2 |  0 | 
-| drive | uint8 | 1 | 磁盘序号 |
+| drive label | char | 1 | 磁盘盘符：E/I |
 
 
 ## 0x12: 打开文件 
@@ -316,7 +316,6 @@ TODO 详细补充错误码。。
 | cmd  | uint8 | 1  |  0x16  |
 | status | uint8 | 1 | 状态码，参见状态码说明 |
 | chunk | uint16 | 2 |  启用chunk传输 | 
-| file size |uint16 | 2 | 文件数量 |
 | file N name length| uint16 | 2 | 文件名长度|
 | file N name | byte | N| 文件名 |
 | file N size | uint32 | 4 | 文件大小 |
@@ -406,6 +405,7 @@ TODO 详细补充错误码。。
 | chunk | uint16 | 2 | 0 | 
 | path length | uint16 | 2 | 路径长度 |
 | path  | byte | N | 路径字符串 |
+| meta data | byte | N | 元信息数据，参考"文件元信息"小节定义 | 
 
 2. 服务端响应请求
 

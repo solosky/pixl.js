@@ -20,9 +20,8 @@ hw/RevB为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打�
 
 ## BOM 
 
-[RevB InteractiveHtmlBom](docs/RevB-ibom.html)
-
-[RevB 物料清单购买指南](docs/RevB-bom.md)
+* [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
+* [RevC 物料清单购买指南](docs/RevC-bom.md)
 
 ## 衍生版本
 

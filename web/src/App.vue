@@ -74,6 +74,8 @@
                   v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
                   v-if="scope.row.type == 'REG'">备注</el-dropdown-item>
+                <el-dropdown-item @click.native="on_row_btn_format(scope.$index, scope.row)"
+                  v-if="scope.row.type == 'DRIVE'">格式化</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -297,15 +299,38 @@ export default {
       });
     },
 
+    on_row_btn_format(index, row) {
+      var thiz = this;
+      this.$confirm('是否格式化 ' + row.name + '? \n格式化会删除所有数据！\n格式化可能需要10秒钟左右，请耐心等待。', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        thiz.table_loading = true;
+        var path = row.name.substr(0, 1);
+        proto.vfs_drive_format(path).then(data => {
+          this.$message({
+            type: 'success',
+            message: row.name + ' 格式化完成!'
+          });
+          thiz.table_loading = false;
+          this.reload_drive();
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: row.name + " 格式化失败: " + err
+          });
+        });
+      });
+    },
+
     on_row_btn_remove(index, row) {
       this.$confirm('是否删除 ' + row.name + '?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
-
-        var path = this.current_dir + '/' + row.name;
-
+        var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_remove(path).then(data => {
           this.$message({
             type: 'success',
@@ -326,7 +351,7 @@ export default {
         var meta = {
           notes: value
         };
-        var path = this.current_dir + '/' + row.name;
+        var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_update_meta(path, meta).then(res => {
           if (res.status == 0) {
             row.notes = value;
@@ -365,7 +390,7 @@ export default {
               type: 'error'
             });
           }
-        }).catch(e=>{
+        }).catch(e => {
           this.$message({
             type: 'error',
             message: e.message
@@ -407,7 +432,7 @@ export default {
           var drive = data[i];
           var row = {
             name: drive.label + ":/ [" + drive.name + "]",
-            size: thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size),
+            size: drive.status == 0 ? thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size) : "(磁盘不可用[错误代码:" + drive.status + "])",
             type: "DRIVE",
             icon: "el-icon-box",
             notes: ""

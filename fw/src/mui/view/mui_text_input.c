@@ -3,8 +3,7 @@
 #include "mui_mem.h"
 
 #define LIST_ITEM_HEIGHT 13
-#define ENTER_KEY '\r'
-#define BACKSPACE_KEY '\b'
+
 
 typedef struct {
     const char text;
@@ -281,4 +280,17 @@ void mui_text_input_reset(mui_text_input_t *p_view) {
     p_view->clear_default_text = false;
     string_reset(p_view->header);
     string_reset(p_view->input_text);
+}
+
+void mui_text_input_set_focus_key(mui_text_input_t *p_view, char key) {
+    for (uint32_t row = 0; row < 3; row++) {
+        mui_text_input_key_t *input_key = get_row(row);
+        for (uint32_t col = 0; col < get_row_size(row); col++) {
+            if (input_key[col].text == key) {
+                p_view->focus_column = col;
+                p_view->focus_row = row;
+                return;
+            }
+        }
+    }
 }
