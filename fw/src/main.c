@@ -147,7 +147,12 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
         // Set up NFCT peripheral as the only wake up source.
         NRF_LOG_DEBUG("go sleep");
         mui_deinit(mui());
+
+        //save settings
+        settings_save();
+
         hal_spi_flash_sleep();
+
         err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
         APP_ERROR_CHECK(err_code);
 
