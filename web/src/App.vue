@@ -432,7 +432,7 @@ export default {
           var drive = data[i];
           var row = {
             name: drive.label + ":/ [" + drive.name + "]",
-            size: thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size),
+            size: drive.status == 0 ? thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size) : "(磁盘不可用[错误代码:" + drive.status + "])",
             type: "DRIVE",
             icon: "el-icon-box",
             notes: ""
