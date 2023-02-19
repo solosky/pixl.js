@@ -67,7 +67,7 @@ openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg
 
 iOS上有第三方作者开发的应用 iNFC，可以扫描下面的二位码下载：
 
-![image](https://github.com/solosky/pixl.js/blob/main/assets/iNFC.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/iNFC.jpg)
 
 或在iOS AppStore搜索 “iNFC” 下载应用。
 
