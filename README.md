@@ -14,9 +14,9 @@
 
 ## PCB
 
-hw/RevB为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打开编辑。
+hw/RevC为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打开编辑。
 
-![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-pcb1.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-pcb-revc.png)
 
 ## BOM 
 
