@@ -4,8 +4,8 @@
 
 ## 图片
 
-![image](https://raw.githubusercontent.com/solosky/pixl.js/main/assets/pixljs-1.png)
-![image](https://raw.githubusercontent.com/solosky/pixl.js/main/assets/pixljs-2.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-1.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-2.png)
 
 
 ## 演示
@@ -16,7 +16,7 @@
 
 hw/RevB为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打开编辑。
 
-![image](https://raw.githubusercontent.com/solosky/pixl.js/main/assets/pixljs-pcb1.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-pcb1.png)
 
 ## BOM 
 
@@ -59,8 +59,22 @@ openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg
 
 ## 文件上传
 
+目前支持网页传输和APP传输。 <br />
+网页传输可以点开下面的网页进行上传。
+
 * 主站 [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/)
 * 镜像 [https://solosky.github.io/pixl.js/](https://solosky.github.io/pixl.js/)
+
+iOS上有第三方作者开发的应用 iNFC，可以扫描下面的二位码下载：
+
+![image](https://github.com/solosky/pixl.js/blob/main/assets/iNFC.png)
+
+或在iOS AppStore搜索 “iNFC” 下载应用。
+
+[iNFC 上传Amiibo的视频教程](https://www.bilibili.com/video/BV1nA41127co/)
+
+感谢iNFC应用作者对Pixl.js的支持！
+
 
 ## 蓝牙协议
 
