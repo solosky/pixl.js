@@ -21,6 +21,8 @@ typedef enum {
 typedef void (*mui_list_view_selected_cb)(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                           mui_list_item_t *p_item);
 
+typedef int (*mui_list_view_item_cmp_cb)(const mui_list_item_t* p_item_a, const mui_list_item_t* p_item_b);
+
 struct mui_list_item_s {
     uint16_t icon;
     string_t text;
@@ -39,6 +41,7 @@ struct mui_list_view_s {
     mui_view_t *p_view;
     uint16_t focus_index;
     mui_list_view_selected_cb selected_cb;
+    mui_list_view_item_cmp_cb cmp_cb;
     mui_list_item_array_t items;
     void *user_data;
     uint32_t scroll_offset;
@@ -49,7 +52,6 @@ mui_list_view_t *mui_list_view_create();
 void mui_list_view_free(mui_list_view_t *p_view);
 mui_view_t *mui_list_view_get_view(mui_list_view_t *p_view);
 void mui_list_view_set_user_data(mui_list_view_t *p_view, void *user_data);
-
 //// view functions //
 void mui_list_view_add_item(mui_list_view_t *p_view, uint32_t icon, const char *text, void *user_data);
 void mui_list_view_set_item(mui_list_view_t *p_view, uint16_t index, uint32_t icon, char *text, void *user_data);
@@ -57,6 +59,8 @@ uint32_t mui_list_view_item_size(mui_list_view_t *p_view);
 void mui_list_view_set_selected_cb(mui_list_view_t *p_view, mui_list_view_selected_cb selected_cb);
 void mui_list_view_clear_items(mui_list_view_t *p_view);
 void mui_list_view_set_focus(mui_list_view_t *p_view, uint16_t focus_index);
+void mui_list_view_sort(mui_list_view_t *p_view, mui_list_view_item_cmp_cb cmp_cb);
 uint16_t mui_list_view_get_focus(mui_list_view_t *p_view);
+
 
 #endif

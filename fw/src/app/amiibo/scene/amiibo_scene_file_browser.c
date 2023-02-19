@@ -12,7 +12,16 @@
 
 #define FOLDER_LIST_PARENT 0xFFFF
 
-static void amiibo_scene_file_brwser_reload_folders(app_amiibo_t *app) {
+
+static int amiibo_scene_file_browser_list_item_cmp(const mui_list_item_t* p_item_a, const mui_list_item_t* p_item_b){
+    if(p_item_a->icon != p_item_b->icon){
+        return p_item_a->icon - p_item_b->icon;
+    }else{
+        return string_cmp(p_item_a->text, p_item_b->text);
+    }
+}
+
+static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
     vfs_driver_t *p_vfs_driver;
     vfs_dir_t dir;
     vfs_obj_t obj;
@@ -32,6 +41,10 @@ static void amiibo_scene_file_brwser_reload_folders(app_amiibo_t *app) {
     } else {
         mui_list_view_add_item(app->p_list_view, ICON_ERROR, "打开文件夹失败", (void *)-1);
     }
+
+    mui_list_view_sort(app->p_list_view, amiibo_scene_file_browser_list_item_cmp);
+
+
 }
 
 static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
@@ -53,7 +66,7 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
                 if (string_size(app->current_folder) == 0) {
                     string_cat_str(app->current_folder, "/");
                 }
-                amiibo_scene_file_brwser_reload_folders(app);
+                amiibo_scene_file_browser_reload_folders(app);
             }
         } else {
             if (p_item->icon == ICON_FOLDER) {
@@ -61,7 +74,7 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
                     string_cat_str(app->current_folder, "/");
                 }
                 string_cat(app->current_folder, p_item->text);
-                amiibo_scene_file_brwser_reload_folders(app);
+                amiibo_scene_file_browser_reload_folders(app);
             } else {
                 // TODO AMIIBO test ..
 
@@ -81,7 +94,7 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_file_browser_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
 
-    amiibo_scene_file_brwser_reload_folders(app);
+    amiibo_scene_file_browser_reload_folders(app);
     NRF_LOG_INFO("%X", app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
 }

@@ -194,3 +194,7 @@ void mui_list_view_set_focus(mui_list_view_t *p_view, uint16_t focus_index) {
 }
 
 uint16_t mui_list_view_get_focus(mui_list_view_t *p_view) { return p_view->focus_index; }
+
+void mui_list_view_sort(mui_list_view_t *p_view, mui_list_view_item_cmp_cb cmp_cb) {
+    mui_list_item_array_special_sort(p_view->items, cmp_cb);
+}
