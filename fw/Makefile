@@ -184,6 +184,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
+  $(PROJ_DIR)/mod/vfs/vfs_meta.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
   $(PROJ_DIR)/mod/df/df_core.c \
   $(PROJ_DIR)/mod/df/df_proto_info.c \

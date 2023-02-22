@@ -22,6 +22,17 @@ static uint8_t get_meta_size(uint8_t *meta) {
     return meta_size == 0 || meta_size == 0xff ? 0 : meta_size;
 }
 
+static bool validate_path(char *path) {
+    if (path[0] != 'I' && path[0] != 'E') {
+        return false;
+    }
+    if (path[1] != ':' || path[2] != '/') {
+        return false;
+    }
+
+    return true;
+}
+
 void df_proto_handler_vfs_drive_list(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
         df_frame_t out;
@@ -88,7 +99,7 @@ void df_proto_handler_vfs_drive_format(df_event_t *evt) {
 
         NEW_BUFFER(buff, evt->df->data, evt->df->length);
         char drv_label = (char)buff_get_u8(&buff);
-        vfs_driver_t* p_driver = get_driver_by_path(&drv_label);
+        vfs_driver_t *p_driver = get_driver_by_path(&drv_label);
         if (p_driver == NULL) {
             OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
             df_core_send_frame(&out);
@@ -421,6 +432,57 @@ void file_read_send_chunk(file_chunk_state_t *chunk_state, df_frame_t *out) {
     df_core_send_frame(&out);
 }
 
+void df_proto_handler_vfs_rename(df_event_t *evt) {
+    if (evt->type == DF_EVENT_DATA_RECEVIED) {
+        df_frame_t out;
+
+        NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
+        char old_path[VFS_MAX_FULL_PATH_LEN];
+        char new_path[VFS_MAX_FULL_PATH_LEN];
+
+        buff_get_string(&buff, old_path, VFS_MAX_FULL_PATH_LEN);
+        buff_get_string(&buff, new_path, VFS_MAX_FULL_PATH_LEN);
+
+        if (!validate_path(old_path) || !validate_path(new_path)) {
+            OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+        }
+
+        if (get_driver_by_path(old_path) != get_driver_by_path(new_path)) {
+            OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+        }
+
+        vfs_driver_t *p_driver = get_driver_by_path(old_path);
+        if (p_driver == NULL) {
+            OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+        }
+
+        vfs_obj_t obj;
+
+        if (p_driver->stat_file(get_file_path(old_path), &obj) != VFS_OK) {
+            OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+        }
+
+        int32_t err;
+        if (obj.type == VFS_TYPE_DIR) {
+            err = p_driver->rename_dir(get_file_path(old_path), get_file_path(new_path));
+        } else {
+            err = p_driver->rename_file(get_file_path(old_path), get_file_path(new_path));
+        }
+
+        if (err != VFS_OK) {
+            OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
+            df_core_send_frame(&out);
+        }
+
+        OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_OK);
+        df_core_send_frame(&out);
+    }
+}
+
 void df_proto_handler_vfs_file_read(df_event_t *evt) {
     df_frame_t out;
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
@@ -486,6 +548,7 @@ const df_cmd_entry_t df_proto_handler_vfs_entries[] = {
     {DF_PROTO_CMD_VFS_DIR_READ, df_proto_handler_vfs_dir_read},
     {DF_PROTO_CMD_VFS_DIR_CREATE, df_proto_handler_vfs_dir_create},
     {DF_PROTO_CMD_VFS_REMOVE, df_proto_handler_vfs_remove},
+    {DF_PROTO_CMD_VFS_RENAME, df_proto_handler_vfs_rename},
     {DF_PROTO_CMD_VFS_FILE_OPEN, df_proto_handler_vfs_file_open},
     {DF_PROTO_CMD_VFS_FILE_CLOSE, df_proto_handler_vfs_file_close},
     {DF_PROTO_CMD_VFS_FILE_WRITE, df_proto_handler_vfs_file_write},
