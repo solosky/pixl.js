@@ -43,9 +43,9 @@
       </el-col>
     </el-row>
     <div>
-      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
-        v-loading="table_loading" element-loading-text="加载中.." element-loading-spinner="el-icon-loading"
-        cell-class-name="file-cell" @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
+      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" v-loading="table_loading"
+        element-loading-text="加载中.." element-loading-spinner="el-icon-loading" cell-class-name="file-cell"
+        @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
         :default-sort="{ prop: 'name', order: 'ascending' }">
         <el-table-column type="selection" width="55">
         </el-table-column>
@@ -72,8 +72,10 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="on_row_btn_remove(scope.$index, scope.row)"
                   v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
+                <el-dropdown-item @click.native="on_row_btn_rename(scope.$index, scope.row)"
+                  v-if="scope.row.type != 'DRIVE'">重命名..</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
-                  v-if="scope.row.type == 'REG'">备注</el-dropdown-item>
+                  v-if="scope.row.type == 'REG'">备注..</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_format(scope.$index, scope.row)"
                   v-if="scope.row.type == 'DRIVE'">格式化</el-dropdown-item>
               </el-dropdown-menu>
@@ -110,7 +112,6 @@
     </el-dialog>
 
   </div>
-
 </template>
 
 
@@ -320,29 +321,47 @@ export default {
             type: 'error',
             message: row.name + " 格式化失败: " + err
           });
+          thiz.table_loading = false;
         });
       });
     },
 
     on_row_btn_remove(index, row) {
+      var thiz = this;
       this.$confirm('是否删除 ' + row.name + '?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        thiz.table_loading = true;
         var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_remove(path).then(data => {
-          this.$message({
-            type: 'success',
-            message: '删除文件成功!'
-          });
+          thiz.table_loading = false;
+          if (data.status == 0) {
+            this.$message({
+              type: 'success',
+              message: '删除文件成功!'
+            });
 
-          this.reload_folder();
+            this.reload_folder();
+          } else {
+            this.$message({
+              type: 'error',
+              message: row.name + " 删除文件失败[" + data.status + "]"
+            });
+          }
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: row.name + " 删除文件失败[" + err + "]"
+          });
+          thiz.table_loading = false;
         });
       });
     },
 
     on_row_btn_notes(index, row) {
+      var thiz = this;
       this.$prompt('请输入备注', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -351,6 +370,8 @@ export default {
         var meta = {
           notes: value
         };
+
+
         var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_update_meta(path, meta).then(res => {
           if (res.status == 0) {
@@ -365,6 +386,42 @@ export default {
           this.$message({
             type: 'error',
             message: e.message
+          });
+        });
+
+      }).catch(() => {
+        //ignore     
+      });
+    },
+
+    on_row_btn_rename(index, row) {
+      var thiz = this;
+      this.$prompt('请输入新的文件名', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: row.name
+      }).then(({ value }) => {
+        if (value == row.name) {
+          return;
+        }
+        thiz.table_loading = true;
+        var path_old = this.append_segment(this.current_dir, row.name);
+        var path_new = this.append_segment(this.current_dir, value);
+        proto.vfs_rename(path_old, path_new).then(res => {
+          thiz.table_loading = false;
+          if (res.status == 0) {
+            row.name = value;
+          } else {
+            this.$message({
+              type: 'error',
+              message: "重命名失败[" + res.status + "]"
+            });
+          }
+        }).catch(e => {
+          thiz.table_loading = false;
+          this.$message({
+            type: 'error',
+            message: "重命名失败[" + e.message + "]"
           });
         });
 

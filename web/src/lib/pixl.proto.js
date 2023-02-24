@@ -74,8 +74,14 @@ export function get_version() {
     return op_queue_push(0x01,
         b => { },
         b => {
+            var ver = read_string(b);
+            var ble_addr = "";
+            if(b.remaining()){
+                ble_addr = read_string(b);
+            }
             return {
-                ver: read_string(b)
+                ver: ver,
+                ble_addr: ble_addr
             }
         });
 }
@@ -214,6 +220,18 @@ export function vfs_update_meta(path, meta) {
         b => { });
 }
 
+export function vfs_rename(old_path, new_path) {
+    console.log("vfs_rename", old_path, new_path);
+    return op_queue_push(0x19,
+        b => {
+            path_validation(old_path);
+            path_validation(new_path);
+            write_string(b, old_path);
+            write_string(b, new_path);
+        },
+        b => { });
+}
+
 export function get_utf8_byte_size(str) {
     return encode_utf8(str).length;
 }
@@ -310,7 +328,6 @@ function path_validation(path) {
     if (path.length > 3) {
         var p = path.lastIndexOf('/');
         var file_name = path.substring(p + 1);
-        console.log(file_name);
         if (get_utf8_byte_size(file_name) > 47) {
             throw new Error("文件名最大不能超过47个字节");
         }
