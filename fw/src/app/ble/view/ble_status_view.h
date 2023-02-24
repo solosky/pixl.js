@@ -16,6 +16,7 @@ typedef void (*ble_status_view_event_cb)(ble_status_view_event_t event, ble_stat
  struct ble_status_view_s{
     mui_view_t* p_view;
     ble_status_view_event_cb event_cb;
+    char ble_addr[20];
 } ;
 
 ble_status_view_t* ble_status_view_create();
@@ -26,5 +27,8 @@ static inline void ble_status_view_set_event_cb(ble_status_view_t* p_view, ble_s
     p_view->event_cb = event_cb;
 }
 
+static char* ble_status_view_get_ble_addr(ble_status_view_t* p_view){
+    return p_view->ble_addr;
+}
 
 #endif

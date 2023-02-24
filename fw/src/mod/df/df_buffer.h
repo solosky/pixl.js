@@ -184,7 +184,7 @@ static inline void buff_get_string(buffer_t *buffer, char *string, size_t max_le
     if (!string) {
         buff_get_byte_array(buffer, NULL, length);
     } else {
-        max_length = max_length - 1; //exclude '\n'
+        max_length = max_length - 1; //exclude '\0'
         uint16_t min_length = max_length > length ? length : max_length;
         buff_get_byte_array(buffer, string, min_length);
         string[min_length + 1] = '\0';

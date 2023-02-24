@@ -37,6 +37,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
         while (res = p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
             //hide file or dir if flagged with hidden
             vfs_meta_t meta;
+            memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
             if(meta.has_flags && (meta.flags && VFS_OBJ_FLAG_HIDDEN)){
                 continue;

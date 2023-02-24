@@ -5,6 +5,7 @@
 #include "nrf_log.h"
 #include "ble_main.h"
 #include "version2.h"
+#include "ble_main.h"
 
 void df_proto_handler_info_get_version(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
@@ -12,6 +13,9 @@ void df_proto_handler_info_get_version(df_event_t *evt) {
 
         NEW_BUFFER_ZERO(buff, out.data, sizeof(out.data));
         buff_put_string(&buff, version_get_version(version_get()));
+        char ble_addr[24];
+        ble_get_addr_str(ble_addr);
+        buff_put_string(&buff, ble_addr);
 
         OUT_FRAME_WITH_DATA_0(out, DF_PROTO_CMD_INFO_VERSION_INFO, DF_STATUS_OK, buff_get_size(&buff));
 

@@ -17,6 +17,7 @@ void ble_scene_connect_start_on_enter(void *user_data) {
     app_ble_t *app = user_data;
 
     ble_init();
+    ble_get_addr_str(ble_status_view_get_ble_addr(app->p_ble_view));
     ble_status_view_set_event_cb(app->p_ble_view, ble_scene_connect_status_view_event_cb);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, BLE_VIEW_ID_MAIN);
 }

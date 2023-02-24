@@ -437,36 +437,47 @@ void df_proto_handler_vfs_rename(df_event_t *evt) {
         df_frame_t out;
 
         NEW_BUFFER_READ(buff, evt->df->data, evt->df->length);
-        char old_path[VFS_MAX_FULL_PATH_LEN];
-        char new_path[VFS_MAX_FULL_PATH_LEN];
+        char old_path[VFS_MAX_FULL_PATH_LEN] = {0};
+        char new_path[VFS_MAX_FULL_PATH_LEN] = {0};
 
         buff_get_string(&buff, old_path, VFS_MAX_FULL_PATH_LEN);
         buff_get_string(&buff, new_path, VFS_MAX_FULL_PATH_LEN);
 
         if (!validate_path(old_path) || !validate_path(new_path)) {
+            NRF_LOG_INFO("path error");
             OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
             df_core_send_frame(&out);
+            return;
         }
 
         if (get_driver_by_path(old_path) != get_driver_by_path(new_path)) {
+            NRF_LOG_INFO("different drive");
             OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
             df_core_send_frame(&out);
+            return;
         }
 
         vfs_driver_t *p_driver = get_driver_by_path(old_path);
         if (p_driver == NULL) {
+            NRF_LOG_INFO("vfs driver is not found");
             OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
             df_core_send_frame(&out);
+            return;
         }
 
         vfs_obj_t obj;
+        int32_t err;
 
-        if (p_driver->stat_file(get_file_path(old_path), &obj) != VFS_OK) {
+        err = p_driver->stat_file(get_file_path(old_path), &obj);
+
+        if (err != VFS_OK) {
+            NRF_LOG_INFO("stat file error");
             OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
             df_core_send_frame(&out);
+            return;
         }
 
-        int32_t err;
+        ;
         if (obj.type == VFS_TYPE_DIR) {
             err = p_driver->rename_dir(get_file_path(old_path), get_file_path(new_path));
         } else {
@@ -474,8 +485,10 @@ void df_proto_handler_vfs_rename(df_event_t *evt) {
         }
 
         if (err != VFS_OK) {
+            NRF_LOG_INFO("rename file error: %d", err);
             OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_ERR);
             df_core_send_frame(&out);
+            return;
         }
 
         OUT_FRAME_NO_DATA(out, DF_PROTO_CMD_VFS_RENAME, DF_STATUS_OK);

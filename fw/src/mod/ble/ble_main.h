@@ -15,6 +15,7 @@ void ble_disable();
 
 
 uint32_t ble_nus_tx_data(void *data, size_t length);
+void ble_get_addr_str(char addr_fmt[]);
 
 
 
