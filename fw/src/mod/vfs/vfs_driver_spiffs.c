@@ -381,7 +381,21 @@ int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
 }
 
 int32_t vfs_spiffs_update_file_meta(const char *file, void *meta, size_t meta_size) {
-    int32_t err = SPIFFS_update_meta(&fs, file, meta);
+    vfs_obj_t obj;
+    int32_t err = vfs_spiffs_stat_file(file, &obj);
+    if (err != VFS_OK) {
+        return err;
+    }
+    if (obj.type == VFS_TYPE_DIR) {
+        char path[SPIFFS_OBJ_NAME_LEN];
+        strcpy(path, file);
+        strcat(path, "/");
+        strcat(path, VFS_SPIFFS_FOLDER_NAME);
+        err = SPIFFS_update_meta(&fs, path, meta);
+    } else {
+        err = SPIFFS_update_meta(&fs, file, meta);
+    }
+
     NRF_LOG_INFO("update file meta: %s, size:%d res: %d", nrf_log_push(file), meta_size, err);
     return vfs_spiffs_map_error_code(err);
 }
