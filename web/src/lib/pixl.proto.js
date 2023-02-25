@@ -76,7 +76,7 @@ export function get_version() {
         b => {
             var ver = read_string(b);
             var ble_addr = "";
-            if(b.remaining()){
+            if (b.remaining()) {
                 ble_addr = read_string(b);
             }
             return {
@@ -359,14 +359,30 @@ function read_header(bb) {
 
 function read_meta(bb) {
     var size = bb.readUint8();
-    var meta = {}
-    if (size > 0) {
-        var type = bb.readUint8(); //1 notes
-        var type_size = bb.readUint8();
-        if (type_size > 0) {
-            var bytes = read_bytes_array(bb, type_size);
-            if (bytes.length > 0) {
-                meta["notes"] = decode_utf8(bytes);
+    var meta = {
+        notes: "",
+        flags: {
+            hide: false
+        }
+    }
+    if(size == 0){
+        return meta;
+    }
+    var mb = ByteBuffer.wrap(read_bytes_array(bb, size));
+    while (mb.remaining() > 0) {
+        var type = mb.readUint8(); //1 notes
+        if (type == 1) {
+            var type_size = mb.readUint8();
+            if (type_size > 0) {
+                var bytes = read_bytes_array(mb, type_size);
+                if (bytes.length > 0) {
+                    meta["notes"] = decode_utf8(bytes);
+                }
+            }
+        } else if (type == 2) {
+            var flags = mb.readUint8();
+            if (flags & 1) {
+                meta.flags.hide = true;
             }
         }
     }
@@ -375,23 +391,34 @@ function read_meta(bb) {
 }
 
 function write_meta(bb, meta) {
-    var notes = meta["notes"];
+    var notes = meta.notes;
     var bytes = encode_utf8(notes);
 
     if (bytes.length > 90) {
         throw new Error("备注最大只能是90字节，即90个字符或30个汉字！（当前" + bytes.length + "字节）")
     }
 
+    var tb = new ByteBuffer();
+    //notes
     if (notes.length > 0) {
-        bb.writeUint8(bytes.length + 2);  //meta total size
-        bb.writeUint8(1);//amiibo notes
-        bb.writeUint8(bytes.length);
+        tb.writeUint8(1);//amiibo notes
+        tb.writeUint8(bytes.length);
         for (var i = 0; i < bytes.length; i++) {
-            bb.writeUint8(bytes[i]);
+            tb.writeUint8(bytes[i]);
         }
-    } else {
-        bb.writeUint8(0); //empty meta
     }
+
+    //flags
+    tb.writeUint8(2);
+    var flags = 0;
+    if(meta.flags.hide){
+        flags |= 1;
+    }
+    tb.writeUint8(flags);
+    tb.flip();
+
+    bb.writeUint8(tb.remaining());
+    write_bytes(bb, tb);
 }
 
 
