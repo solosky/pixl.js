@@ -59,7 +59,7 @@ def main():
     for file in files:
         byte_count = write_xbm(get_xbm(input_dir + "/" + file), fp)
         total_bytes_count = total_bytes_count + byte_count
-        print("process %s .. %d bytes written." % (file, byte_count ))
+        # print("process %s .. %d bytes written." % (file, byte_count ))
 
     fp.close()
 
