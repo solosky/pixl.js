@@ -4,13 +4,18 @@
 
 ## 图片
 
-![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-1.png)
-![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-2.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-3.png)
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-4.png)
 
 
 ## 演示
 
 [新版Amiibo模拟器，目前可以做到无限刷！](https://www.bilibili.com/video/BV1TD4y1t76A/)
+
+## 外壳
+
+项目由 白橙 大佬制作的外壳，可以在[这里下载](https://www.thingiverse.com/thing:5877482) 
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixjs-case1.png)
 
 ## PCB
 
@@ -80,6 +85,11 @@ iOS上有第三方作者开发的应用 iNFC，可以扫描下面的二位码下
 
 [fw/docs/ble_protocol.md](fw/docs/ble_protocol.md)
 
+## 动画制作
+
+[fw/docs/video_player.md](fw/docs/video_player.md)
+
+
 ## Credits
 
 * [FlipperZero Firmware](https://github.com/flipperdevices/flipperzero-firmware)
@@ -90,8 +100,20 @@ iOS上有第三方作者开发的应用 iNFC，可以扫描下面的二位码下
 
 ## Contribution 
 
-特别感谢 @Caleeeeeeeeeeeee 完善的Bootloader!
+* 特别感谢 @Caleeeeeeeeeeeee 完善的Bootloader。
+* 特别感谢 @白橙 制作的外壳。 
 
+
+## 声明
+
+本项目为开源项目，仅为学习研究用途，请勿用于商业用途。
+Amiibo是任天堂的注册商标，NTAG21X为NXP的注册商标。
+
+# Licence
+
+本项目基于GPL 2.0 License发布，使用请遵循Licence的约定。
+
+* 如果对项目做了修改，请基于相同的Licence发布本项目。
 
 
 ## 提示 
