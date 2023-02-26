@@ -3,11 +3,11 @@
 
 #include "mini_app_defines.h"
 
-
 typedef enum {
     MINI_APP_ID_STATUS_BAR,
     MINI_APP_ID_DESKTOP,
     MINI_APP_ID_AMIIBO,
+    MINI_APP_ID_PLAYER,
     MINI_APP_ID_BLE,
     MINI_APP_ID_SETTINGS
 } mini_app_id_t;

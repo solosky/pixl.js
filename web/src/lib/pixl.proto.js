@@ -74,8 +74,14 @@ export function get_version() {
     return op_queue_push(0x01,
         b => { },
         b => {
+            var ver = read_string(b);
+            var ble_addr = "";
+            if (b.remaining()) {
+                ble_addr = read_string(b);
+            }
             return {
-                ver: read_string(b)
+                ver: ver,
+                ble_addr: ble_addr
             }
         });
 }
@@ -214,6 +220,18 @@ export function vfs_update_meta(path, meta) {
         b => { });
 }
 
+export function vfs_rename(old_path, new_path) {
+    console.log("vfs_rename", old_path, new_path);
+    return op_queue_push(0x19,
+        b => {
+            path_validation(old_path);
+            path_validation(new_path);
+            write_string(b, old_path);
+            write_string(b, new_path);
+        },
+        b => { });
+}
+
 export function get_utf8_byte_size(str) {
     return encode_utf8(str).length;
 }
@@ -269,21 +287,24 @@ function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, d
                     const batch_size = Math.min(state.batch_size,
                         state.file_size - state.write_offset);
                     const data_buffer = state.data_buffer.slice(state.write_offset, state.write_offset + batch_size);
-                    console.log("vfs_write_cb", state.write_offset, batch_size);
+                    console.log("vfs_write_cb", state.write_offset, state.file_size, batch_size);
                     vfs_write_file(state.file_id, data_buffer).then(data => {
                         state.write_offset += batch_size;
                         progress_cb({ written_bytes: state.write_offset, total_bytes: state.file_size }, state.file);
                         vfs_write_cb();
                     }).catch(e => {
+                        console.log("vfs write error", e);
                         vfs_close_file(state.file_id).then(data => {
                             error_cb(e, state.file);
                             done_cb();
                         }).catch(e => {
+                            console.log("vfs close error", e);
                             error_cb(e, state.file);
                             done_cb();
                         })
                     });
                 } else {
+                    console.log("vfs write end");
                     vfs_close_file(state.file_id).then(data => {
                         success_cb(state.file);
                         done_cb();
@@ -310,7 +331,6 @@ function path_validation(path) {
     if (path.length > 3) {
         var p = path.lastIndexOf('/');
         var file_name = path.substring(p + 1);
-        console.log(file_name);
         if (get_utf8_byte_size(file_name) > 47) {
             throw new Error("文件名最大不能超过47个字节");
         }
@@ -342,14 +362,30 @@ function read_header(bb) {
 
 function read_meta(bb) {
     var size = bb.readUint8();
-    var meta = {}
-    if (size > 0) {
-        var type = bb.readUint8(); //1 notes
-        var type_size = bb.readUint8();
-        if (type_size > 0) {
-            var bytes = read_bytes_array(bb, type_size);
-            if (bytes.length > 0) {
-                meta["notes"] = decode_utf8(bytes);
+    var meta = {
+        notes: "",
+        flags: {
+            hide: false
+        }
+    }
+    if (size == 0) {
+        return meta;
+    }
+    var mb = ByteBuffer.wrap(read_bytes_array(bb, size));
+    while (mb.remaining() > 0) {
+        var type = mb.readUint8(); //1 notes
+        if (type == 1) {
+            var type_size = mb.readUint8();
+            if (type_size > 0) {
+                var bytes = read_bytes_array(mb, type_size);
+                if (bytes.length > 0) {
+                    meta["notes"] = decode_utf8(bytes);
+                }
+            }
+        } else if (type == 2) {
+            var flags = mb.readUint8();
+            if (flags & 1) {
+                meta.flags.hide = true;
             }
         }
     }
@@ -358,23 +394,34 @@ function read_meta(bb) {
 }
 
 function write_meta(bb, meta) {
-    var notes = meta["notes"];
+    var notes = meta.notes;
     var bytes = encode_utf8(notes);
 
     if (bytes.length > 90) {
         throw new Error("备注最大只能是90字节，即90个字符或30个汉字！（当前" + bytes.length + "字节）")
     }
 
+    var tb = new ByteBuffer();
+    //notes
     if (notes.length > 0) {
-        bb.writeUint8(bytes.length + 2);  //meta total size
-        bb.writeUint8(1);//amiibo notes
-        bb.writeUint8(bytes.length);
+        tb.writeUint8(1);//amiibo notes
+        tb.writeUint8(bytes.length);
         for (var i = 0; i < bytes.length; i++) {
-            bb.writeUint8(bytes[i]);
+            tb.writeUint8(bytes[i]);
         }
-    } else {
-        bb.writeUint8(0); //empty meta
     }
+
+    //flags
+    tb.writeUint8(2);
+    var flags = 0;
+    if (meta.flags.hide) {
+        flags |= 1;
+    }
+    tb.writeUint8(flags);
+    tb.flip();
+
+    bb.writeUint8(tb.remaining());
+    write_bytes(bb, tb);
 }
 
 

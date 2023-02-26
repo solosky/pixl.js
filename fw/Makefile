@@ -184,6 +184,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
+  $(PROJ_DIR)/mod/vfs/vfs_meta.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
   $(PROJ_DIR)/mod/df/df_core.c \
   $(PROJ_DIR)/mod/df/df_proto_info.c \
@@ -212,6 +213,11 @@ SRC_FILES += \
   $(PROJ_DIR)/app/ble/view/ble_status_view.c \
   $(PROJ_DIR)/app/ble/scene/ble_scene.c \
   $(PROJ_DIR)/app/ble/scene/ble_scene_connect_start.c \
+  $(PROJ_DIR)/app/player/app_player.c \
+  $(PROJ_DIR)/app/player/view/player_view.c \
+  $(PROJ_DIR)/app/player/scene/player_scene.c \
+  $(PROJ_DIR)/app/player/scene/player_scene_file_browser.c \
+  $(PROJ_DIR)/app/player/scene/player_scene_play.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -450,6 +456,9 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/amiibo \
   $(PROJ_DIR)/app/amiibo/view \
   $(PROJ_DIR)/app/amiibo/scene \
+  $(PROJ_DIR)/app/player \
+  $(PROJ_DIR)/app/player/view \
+  $(PROJ_DIR)/app/player/scene \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \

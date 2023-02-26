@@ -477,7 +477,7 @@ void ble_disable() {
 
     ble_advertising_start(&m_advertising, BLE_ADV_MODE_IDLE);
     sd_ble_gap_adv_stop(m_advertising.adv_handle);
-    m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = true; 
+    m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = true;
     if (m_conn_handle != BLE_CONN_HANDLE_INVALID) {
         sd_ble_gap_disconnect(m_conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
     }
@@ -490,4 +490,11 @@ ret_code_t ble_nus_tx_data(void *data, size_t length) {
         NRF_LOG_INFO("send back error:%d", err_code);
     }
     return err_code;
+}
+
+void ble_get_addr_str(char addr_fmt[]) {
+    ble_gap_addr_t addr = {0};
+    sd_ble_gap_addr_get(&addr);
+    sprintf(addr_fmt, "%02X:%02X:%02X:%02X:%02X:%02X", addr.addr[5], addr.addr[4], addr.addr[3], addr.addr[2], addr.addr[1],
+            addr.addr[0]);
 }

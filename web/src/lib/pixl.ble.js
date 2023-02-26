@@ -21,6 +21,7 @@ export function connect() {
     })
         .then(device => {
             bluetoothDevice = device;
+            console.log(device);
             console.log('Connecting to GATT Server...');
             device.addEventListener('gattserverdisconnected', onDeviceDisconnected);
             return device.gatt.connect();

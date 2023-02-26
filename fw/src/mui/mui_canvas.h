@@ -29,13 +29,14 @@ void mui_canvas_draw_dot(mui_canvas_t *p_canvas, uint8_t x, uint8_t y);
 void mui_canvas_draw_rframe(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height,
                             uint8_t radius);
 
+void mui_canvas_draw_xbm(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t *bitmap);
+
 uint16_t mui_canvas_string_width(mui_canvas_t *p_canvas, const char *str);
 
 uint8_t mui_canvas_get_width(mui_canvas_t *p_canvas);
 uint8_t mui_canvas_get_height(mui_canvas_t *p_canvas);
 
-
-uint8_t mui_canvas_current_font_height(mui_canvas_t* p_canvas);
-void mui_canvas_invert_color(mui_canvas_t* p_canvas);
-void mui_canvas_draw_line(mui_canvas_t* p_canvas, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
+uint8_t mui_canvas_current_font_height(mui_canvas_t *p_canvas);
+void mui_canvas_invert_color(mui_canvas_t *p_canvas);
+void mui_canvas_draw_line(mui_canvas_t *p_canvas, uint8_t x1, uint8_t y1, uint8_t x2, uint8_t y2);
 #endif

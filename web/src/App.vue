@@ -43,18 +43,17 @@
       </el-col>
     </el-row>
     <div>
-      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
-        v-loading="table_loading" element-loading-text="加载中.." element-loading-spinner="el-icon-loading"
-        cell-class-name="file-cell" @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
+      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" v-loading="table_loading"
+        element-loading-text="加载中.." element-loading-spinner="el-icon-loading" cell-class-name="file-cell"
+        @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
         :default-sort="{ prop: 'name', order: 'ascending' }">
         <el-table-column type="selection" width="55">
         </el-table-column>
-        <el-table-column prop="name" label="文件" sortable="custom">
+        <el-table-column prop="name" label="文件" sortable @sort-method="sort_table_row_name">
           <template slot-scope="scope">
             <i :class="scope.row.icon"></i>
-            <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">{{
-              scope.row.name
-            }}</el-link>
+            <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">
+              {{ scope.row.name }}</el-link>
           </template>
         </el-table-column>
         <el-table-column prop="size" label="大小" sortable>
@@ -72,8 +71,12 @@
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="on_row_btn_remove(scope.$index, scope.row)"
                   v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
-                <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
-                  v-if="scope.row.type == 'REG'">备注</el-dropdown-item>
+                <el-dropdown-item @click.native="on_row_btn_rename(scope.$index, scope.row)"
+                  v-if="scope.row.type != 'DRIVE'">重命名..</el-dropdown-item>
+                <!-- <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
+                  v-if="scope.row.type != 'DRIVE'">备注..</el-dropdown-item> -->
+                <el-dropdown-item @click.native="on_row_btn_meta(scope.$index, scope.row)"
+                  v-if="scope.row.type != 'DRIVE'">元信息..</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_format(scope.$index, scope.row)"
                   v-if="scope.row.type == 'DRIVE'">格式化</el-dropdown-item>
               </el-dropdown-menu>
@@ -83,11 +86,18 @@
       </el-table>
     </div>
 
-    <el-dialog title="新建" :visible.sync="name_diag_visible" width="30%">
-      <el-input v-model="input_name" placeholder="请输入文件名"></el-input>
+    <el-dialog title="元信息" :visible.sync="meta_diag_visible" width="30%">
+      <el-form ref="form" :model="meta_form" label-width="80px">
+        <el-form-item label="备注">
+          <el-input v-model="meta_form.notes"></el-input>
+        </el-form-item>
+        <el-form-item label="属性">
+          <el-checkbox label="隐藏" v-model="meta_form.flags.hide"></el-checkbox>
+        </el-form-item>
+      </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="name_diag_visible = false">取 消</el-button>
-        <el-button type="primary" @click="on_diag_name_close">确 定</el-button>
+        <el-button @click="meta_diag_visible = false">取 消</el-button>
+        <el-button type="primary" @click="on_diag_meta_close">确 定</el-button>
       </span>
     </el-dialog>
 
@@ -110,7 +120,6 @@
     </el-dialog>
 
   </div>
-
 </template>
 
 
@@ -130,10 +139,18 @@ export default {
       connected: false,
       table_loading: false,
       current_dir: "",
-      name_diag_visible: false,
-      input_name: "",
       upload_diag_visible: false,
-      table_selection: []
+      table_selection: [],
+
+      meta_diag_visible: false,
+      meta_form: {
+        notes: "",
+        flags: {
+          hide: false
+        },
+        name: "",
+        row: null
+      }
     }
   },
   methods: {
@@ -245,7 +262,38 @@ export default {
     },
 
     on_btn_new_folder() {
-      this.name_diag_visible = true;
+      var thiz = this;
+      this.$prompt('请输入文件夹名', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: ""
+      }).then(({ value }) => {
+        if (value == "") {
+          return;
+        }
+        thiz.table_loading = true;
+        var path = this.append_segment(this.current_dir, value);
+        proto.vfs_create_folder(path).then(res => {
+          thiz.table_loading = false;
+          if (res.status == 0) {
+            this.reload_folder();
+          } else {
+            this.$message({
+              type: 'error',
+              message: "创建文件夹失败[" + res.status + "]"
+            });
+          }
+        }).catch(e => {
+          thiz.table_loading = false;
+          this.$message({
+            type: 'error',
+            message: "创建文件夹失败[" + e.message + "]"
+          });
+        });
+
+      }).catch(() => {
+        //ignore     
+      });
     },
 
     on_btn_upload() {
@@ -256,15 +304,27 @@ export default {
       if (this.table_selection.length == 0) {
         return;
       }
+      var thiz = this;
       const dir = this.current_dir;
+      var proceed_count = 0;
+      var total_count = this.table_selection.length;
+      thiz.table_loading = true;
       this.table_selection.forEach(v => {
         proto.vfs_remove(this.append_segment(dir, v.name)).then(_ => {
           this.delete_table_row_by_name(v.name);
+          proceed_count++;
+          if (proceed_count == total_count) {
+            thiz.table_loading = false;
+          }
         }).catch(e => {
           this.$message({
             type: 'error',
             message: v.name + "删除失败: " + e
           });
+          proceed_count++;
+          if (proceed_count == total_count) {
+            thiz.table_loading = false;
+          }
         });
       }, this);
     },
@@ -320,29 +380,47 @@ export default {
             type: 'error',
             message: row.name + " 格式化失败: " + err
           });
+          thiz.table_loading = false;
         });
       });
     },
 
     on_row_btn_remove(index, row) {
+      var thiz = this;
       this.$confirm('是否删除 ' + row.name + '?', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
         type: 'warning'
       }).then(() => {
+        thiz.table_loading = true;
         var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_remove(path).then(data => {
-          this.$message({
-            type: 'success',
-            message: '删除文件成功!'
-          });
+          thiz.table_loading = false;
+          if (data.status == 0) {
+            this.$message({
+              type: 'success',
+              message: '删除文件成功!'
+            });
 
-          this.reload_folder();
+            this.reload_folder();
+          } else {
+            this.$message({
+              type: 'error',
+              message: row.name + " 删除文件失败[" + data.status + "]"
+            });
+          }
+        }).catch(e => {
+          this.$message({
+            type: 'error',
+            message: row.name + " 删除文件失败[" + err + "]"
+          });
+          thiz.table_loading = false;
         });
       });
     },
 
     on_row_btn_notes(index, row) {
+      var thiz = this;
       this.$prompt('请输入备注', '提示', {
         confirmButtonText: '确定',
         cancelButtonText: '取消',
@@ -351,6 +429,8 @@ export default {
         var meta = {
           notes: value
         };
+
+
         var path = this.append_segment(this.current_dir, row.name);
         proto.vfs_update_meta(path, meta).then(res => {
           if (res.status == 0) {
@@ -373,31 +453,75 @@ export default {
       });
     },
 
-    on_diag_name_close() {
-      if (this.input_name.length > 0) {
-        var dir = this.append_segment(this.current_dir, this.input_name);
-        proto.vfs_create_folder(dir).then(data => {
-          if (data.status == 0) {
-            this.name_diag_visible = false;
-            this.$message({
-              message: '创建文件夹成功！',
-              type: 'success'
-            });
-            this.reload_folder();
+    on_row_btn_rename(index, row) {
+      var thiz = this;
+      this.$prompt('请输入新的文件名', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        inputValue: row.name
+      }).then(({ value }) => {
+        if (value == row.name) {
+          return;
+        }
+        thiz.table_loading = true;
+        var path_old = this.append_segment(this.current_dir, row.name);
+        var path_new = this.append_segment(this.current_dir, value);
+        proto.vfs_rename(path_old, path_new).then(res => {
+          thiz.table_loading = false;
+          if (res.status == 0) {
+            row.name = value;
           } else {
             this.$message({
-              message: '创建文件夹失败！',
-              type: 'error'
+              type: 'error',
+              message: "重命名失败[" + res.status + "]"
             });
           }
         }).catch(e => {
+          thiz.table_loading = false;
           this.$message({
             type: 'error',
-            message: e.message
+            message: "重命名失败[" + e.message + "]"
           });
-
         });
+
+      }).catch(() => {
+        //ignore     
+      });
+    },
+
+
+    on_row_btn_meta(index, row) {
+      this.meta_form.name = row.name;
+      this.meta_form.notes = row.notes;
+      this.meta_form.flags = row.flags;
+      this.meta_form.row = row;
+      this.meta_diag_visible = true;
+    },
+
+    on_diag_meta_close() {
+      var meta = {
+        notes: this.meta_form.notes,
+        flags: this.meta_form.flags
       }
+      this.meta_diag_visible = false;
+      var path = this.append_segment(this.current_dir, this.meta_form.name);
+      var meta_form = this.meta_form;
+      proto.vfs_update_meta(path, meta).then(res => {
+        if (res.status == 0) {
+          meta_form.row.notes = meta_form.notes;
+          meta_form.row.flags = meta_form.flags;
+        } else {
+          this.$message({
+            type: 'error',
+            message: "更新属性失败"
+          });
+        }
+      }).catch(e => {
+        this.$message({
+          type: 'error',
+          message: e.message
+        });
+      });
     },
 
     on_table_selection_change(selected) {
@@ -406,6 +530,11 @@ export default {
 
     on_table_sort_change(column, prop, order) {
       console.log("sort change: ", column, prop, order);
+    },
+
+    sort_table_row_name(a, b) {
+      console.log(a, b); //not working
+      return a < b ? 1 : -1;
     },
 
     handle_name_click(index, row) {
@@ -449,6 +578,7 @@ export default {
       var thiz = this;
       proto.vfs_read_folder(this.current_dir).then(h => {
         thiz.table_loading = false;
+        console.log(h);
 
         if (h.status == 0) {
           var _table_data = [];
@@ -460,7 +590,8 @@ export default {
               size: thiz.format_size(file.size),
               type: file.type == 0 ? "REG" : "DIR",
               icon: file.type == 0 ? "el-icon-document" : "el-icon-folder",
-              notes: file.meta.notes
+              notes: file.meta.notes,
+              flags: file.meta.flags
             };
 
             _table_data.push(row);

@@ -105,6 +105,7 @@ static void mui_text_input_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         text++;
     }
 
+    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
     if (p_mui_text_input->clear_default_text) {
         mui_canvas_draw_rframe(p_canvas, start_pos - 1, 14, mui_canvas_string_width(p_canvas, text) + 2, 10, 1);
     } else {
@@ -112,7 +113,7 @@ static void mui_text_input_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     }
     mui_canvas_draw_utf8(p_canvas, start_pos, 22, text);
 
-    // canvas_set_font(p_canvas, FontKeyboard);
+    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
 
     for (uint8_t row = 0; row <= keyboard_row_count; row++) {
         const uint8_t column_count = get_row_size(row);

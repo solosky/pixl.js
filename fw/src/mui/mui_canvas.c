@@ -49,6 +49,14 @@ void mui_canvas_draw_rframe(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_
     u8g2_DrawRFrame(p_canvas->fb, x, y, width, height, radius);
 }
 
+void mui_canvas_draw_xbm(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height,
+                            uint8_t* bitmap) {
+    x += p_canvas->offset_x;
+    y += p_canvas->offset_y;
+    u8g2_DrawXBM(p_canvas->fb, x, y, width, height, bitmap);
+}
+
+
 uint16_t mui_canvas_string_width(mui_canvas_t *p_canvas, const char *str) {
     if (!str) return 0;
     return u8g2_GetStrWidth(p_canvas->fb, str);

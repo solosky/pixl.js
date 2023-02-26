@@ -7,6 +7,7 @@
 #include "nrf_log.h"
 #include "ntag_emu.h"
 #include "vfs.h"
+#include "vfs_meta.h"
 
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
@@ -187,7 +188,11 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
     int32_t res = p_vfs_driver->open_dir(string_get_cstr(app->current_folder), &dir);
     if (res == VFS_OK) {
         while (res = p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
-            if (obj.type == VFS_TYPE_REG && obj.size == NTAG_DATA_SIZE) {
+            vfs_meta_t meta;
+            memset(&meta, 0, sizeof(vfs_meta_t));
+            vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
+            if (obj.type == VFS_TYPE_REG && obj.size == NTAG_DATA_SIZE && 
+                (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
                 string_set_str(file_name, obj.name);
                 string_array_push_back(app->amiibo_files, file_name);
                 if (string_cmp(file_name, app->current_file) == 0) {
