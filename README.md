@@ -113,7 +113,7 @@ Amiibo是任天堂的注册商标，NTAG21X为NXP的注册商标。
 
 # License
 
-本项目基于GPL 2.0 License发布，使用请遵循Licence的约定。
+本项目基于GPL 2.0 License发布，使用请遵循License的约定。
 
 * 如果对项目做了修改，需要把改后的源码发布出来
 * 发布出来的源码必须要使用相同的License发布
