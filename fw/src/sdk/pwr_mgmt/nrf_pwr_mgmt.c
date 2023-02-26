@@ -48,6 +48,7 @@
 #include "nrf_assert.h"
 #include "nrf_log_ctrl.h"
 #include "app_util_platform.h"
+#include "nrf_drv_wdt.h"
 
 #define NRF_LOG_MODULE_NAME pwr_mgmt
 #if NRF_PWR_MGMT_CONFIG_LOG_ENABLED
@@ -84,6 +85,8 @@ static nrf_pwr_mgmt_evt_t   m_pwr_mgmt_evt;     /**< Event type which will be pa
 static nrf_mtx_t            m_sysoff_mtx;       /**< Module API lock.*/
 static bool                 m_shutdown_started; /**< True if application started the shutdown preparation. */
 static nrf_section_iter_t   m_handlers_iter;    /**< Shutdown handlers iterator. */
+
+static nrf_drv_wdt_channel_id m_channel_id;
 
 #if (NRF_PWR_MGMT_CONFIG_FPU_SUPPORT_ENABLED && __FPU_PRESENT)
     #define PWR_MGMT_FPU_SLEEP_PREPARE()     pwr_mgmt_fpu_sleep_prepare()
@@ -291,6 +294,15 @@ static nrf_section_iter_t   m_handlers_iter;    /**< Shutdown handlers iterator.
 #endif // PWR_MGMT_SLEEP_IN_CRITICAL_SECTION_REQUIRED
 
 
+/**
+ * @brief WDT events handler.
+ */
+void wdt_event_handler(void)
+{
+    //ignore
+}
+
+
 #ifdef PWR_MGMT_TIMER_REQUIRED
     #include "app_timer.h"
     #define PWR_MGMT_TIMER_CREATE()     pwr_mgmt_timer_create()
@@ -304,6 +316,7 @@ static nrf_section_iter_t   m_handlers_iter;    /**< Shutdown handlers iterator.
         PWR_MGMT_CPU_USAGE_MONITOR_UPDATE();
         PWR_MGMT_AUTO_SHUTDOWN_RETRY();
         PWR_MGMT_STANDBY_TIMEOUT_CHECK();
+        nrf_drv_wdt_channel_feed(m_channel_id);
     }
 
     __STATIC_INLINE ret_code_t pwr_mgmt_timer_create(void)
@@ -329,6 +342,14 @@ ret_code_t nrf_pwr_mgmt_init(void)
     m_shutdown_started = false;
     nrf_mtx_init(&m_sysoff_mtx);
     nrf_section_iter_init(&m_handlers_iter, &pwr_mgmt_data);
+
+    //Configure WDT.
+    nrf_drv_wdt_config_t config = NRF_DRV_WDT_DEAFULT_CONFIG;
+    int32_t err_code = nrf_drv_wdt_init(&config, wdt_event_handler);
+    ASSERT(err_code == NRF_SUCCESS);
+    err_code = nrf_drv_wdt_channel_alloc(&m_channel_id);
+    ASSERT(err_code == NRF_SUCCESS);
+    nrf_drv_wdt_enable();
 
     PWR_MGMT_SLEEP_INIT();
     PWR_MGMT_DEBUG_PINS_INIT();
@@ -373,6 +394,7 @@ void nrf_pwr_mgmt_feed(void)
     NRF_LOG_DEBUG("Feed");
     // It does not stop started shutdown process.
     PWR_MGMT_STANDBY_TIMEOUT_CLEAR();
+    nrf_drv_wdt_channel_feed(m_channel_id);
 }
 
 /**@brief Function runs the shutdown procedure.
