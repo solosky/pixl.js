@@ -1,4 +1,3 @@
-#include "lfs.h"
 #include "nrf_fstorage.h"
 #include "nrf_log.h"
 
