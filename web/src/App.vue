@@ -73,10 +73,10 @@
                   v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_rename(scope.$index, scope.row)"
                   v-if="scope.row.type != 'DRIVE'">重命名..</el-dropdown-item>
-                <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
-                  v-if="scope.row.type != 'DRIVE'">备注..</el-dropdown-item>
+                <!-- <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
+                  v-if="scope.row.type != 'DRIVE'">备注..</el-dropdown-item> -->
                 <el-dropdown-item @click.native="on_row_btn_meta(scope.$index, scope.row)"
-                  v-if="scope.row.type != 'DRIVE'">属性..</el-dropdown-item>
+                  v-if="scope.row.type != 'DRIVE'">元信息..</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_format(scope.$index, scope.row)"
                   v-if="scope.row.type == 'DRIVE'">格式化</el-dropdown-item>
               </el-dropdown-menu>
@@ -86,11 +86,11 @@
       </el-table>
     </div>
 
-    <el-dialog title="属性" :visible.sync="meta_diag_visible" width="30%">
+    <el-dialog title="元信息" :visible.sync="meta_diag_visible" width="30%">
       <el-form ref="form" :model="meta_form" label-width="80px">
-        <!-- <el-form-item label="备注">
+        <el-form-item label="备注">
           <el-input v-model="meta_form.notes"></el-input>
-        </el-form-item> -->
+        </el-form-item>
         <el-form-item label="属性">
           <el-checkbox label="隐藏" v-model="meta_form.flags.hide"></el-checkbox>
         </el-form-item>
