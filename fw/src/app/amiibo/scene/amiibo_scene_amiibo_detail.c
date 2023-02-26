@@ -63,6 +63,13 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         memcpy(ntag->notes, obj.meta + 3, meta_size - 2);
     }
 
+    vfs_meta_t meta;
+    memset(&meta, 0, sizeof(vfs_meta_t));
+    vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
+    if(meta.has_notes){
+        memcpy(ntag->notes, meta.notes, strlen(meta.notes));
+    }
+
     res = p_vfs_driver->read_file_data(path, ntag->data, 540);
     if (res != 540) {
         return NRF_ERR_READ_ERROR;

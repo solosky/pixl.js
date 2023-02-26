@@ -459,7 +459,6 @@ INC_FOLDERS += \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
-  $(COMP_DIR)/littlefs \
   $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
