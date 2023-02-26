@@ -7,6 +7,8 @@
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-3.png)
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-4.png)
 
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-5.png)
+
 
 ## 演示
 
