@@ -287,21 +287,24 @@ function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, d
                     const batch_size = Math.min(state.batch_size,
                         state.file_size - state.write_offset);
                     const data_buffer = state.data_buffer.slice(state.write_offset, state.write_offset + batch_size);
-                    console.log("vfs_write_cb", state.write_offset, batch_size);
+                    console.log("vfs_write_cb", state.write_offset, state.file_size, batch_size);
                     vfs_write_file(state.file_id, data_buffer).then(data => {
                         state.write_offset += batch_size;
                         progress_cb({ written_bytes: state.write_offset, total_bytes: state.file_size }, state.file);
                         vfs_write_cb();
                     }).catch(e => {
+                        console.log("vfs write error", e);
                         vfs_close_file(state.file_id).then(data => {
                             error_cb(e, state.file);
                             done_cb();
                         }).catch(e => {
+                            console.log("vfs close error", e);
                             error_cb(e, state.file);
                             done_cb();
                         })
                     });
                 } else {
+                    console.log("vfs write end");
                     vfs_close_file(state.file_id).then(data => {
                         success_cb(state.file);
                         done_cb();
@@ -365,7 +368,7 @@ function read_meta(bb) {
             hide: false
         }
     }
-    if(size == 0){
+    if (size == 0) {
         return meta;
     }
     var mb = ByteBuffer.wrap(read_bytes_array(bb, size));
@@ -411,7 +414,7 @@ function write_meta(bb, meta) {
     //flags
     tb.writeUint8(2);
     var flags = 0;
-    if(meta.flags.hide){
+    if (meta.flags.hide) {
         flags |= 1;
     }
     tb.writeUint8(flags);
