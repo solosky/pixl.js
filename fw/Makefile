@@ -173,8 +173,6 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
-  $(PROJ_DIR)/lfs/lfs_port_internal.c \
-  $(PROJ_DIR)/lfs/lfs_port_flash.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
@@ -245,8 +243,6 @@ SRC_FILES += \
   $(COMP_DIR)/amiitool/src/drbg.c \
   $(COMP_DIR)/amiitool/src/keygen.c \
   $(COMP_DIR)/amiitool/src/version.c \
-  $(COMP_DIR)/littlefs/lfs.c \
-  $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/tlsf/tlsf.c \
   $(COMP_DIR)/spiffs/src/spiffs_cache.c \
   $(COMP_DIR)/spiffs/src/spiffs_check.c \
@@ -438,7 +434,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/external/mbedtls/include \
   $(PROJ_DIR) \
   $(PROJ_DIR)/hal \
-  $(PROJ_DIR)/lfs \
   $(PROJ_DIR)/mui \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
