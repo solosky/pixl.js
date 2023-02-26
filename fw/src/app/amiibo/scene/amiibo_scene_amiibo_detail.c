@@ -174,6 +174,8 @@ static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
     return true;
 }
 
+static int amiibo_scene_amiibo_detail_list_item_cmp(const string_t *a, const string_t *b) { return string_cmp(*a, *b); }
+
 static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
     vfs_dir_t dir;
     vfs_obj_t obj;
@@ -191,18 +193,34 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (obj.type == VFS_TYPE_REG && obj.size == NTAG_DATA_SIZE && 
+            if (obj.type == VFS_TYPE_REG && obj.size == NTAG_DATA_SIZE &&
                 (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
                 string_set_str(file_name, obj.name);
                 string_array_push_back(app->amiibo_files, file_name);
-                if (string_cmp(file_name, app->current_file) == 0) {
-                    focus = string_array_size(app->amiibo_files) - 1;
-                }
             }
         }
         p_vfs_driver->close_dir(&dir);
     }
-    amiibo_detail_view_set_focus(app->p_amiibo_detail_view, focus);
+
+    string_array_special_sort(app->amiibo_files, amiibo_scene_amiibo_detail_list_item_cmp);
+
+    // load amiibo detail
+    string_array_it_t it;
+    string_array_it(it, app->amiibo_files);
+    while (!string_array_end_p(it)) {
+        string_t *item = string_array_ref(it);
+        if (string_cmp(*item, app->current_file) == 0) {
+            amiibo_detail_view_set_focus(app->p_amiibo_detail_view, focus);
+            break;
+        }
+        focus++;
+        string_array_next(it);
+    }
+
+    if (focus >= string_array_size(app->amiibo_files)) {
+        amiibo_detail_view_set_focus(app->p_amiibo_detail_view, 0);
+    }
+
     amiibo_detail_view_set_max_ntags(app->p_amiibo_detail_view, string_array_size(app->amiibo_files));
 }
 
