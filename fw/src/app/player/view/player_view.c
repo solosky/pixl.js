@@ -62,6 +62,7 @@ player_view_t *player_view_create() {
 
     p_player_view->p_view = p_view;
     p_player_view->frame_buffer = NULL;
+    p_player_view->is_playing = false;
 
     p_player_view->frame_tick_timer_id = &p_player_view->frame_tick_timer_data;
     int32_t err_code =
