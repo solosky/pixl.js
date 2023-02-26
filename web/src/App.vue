@@ -53,7 +53,7 @@
           <template slot-scope="scope">
             <i :class="scope.row.icon"></i>
             <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">
-            {{scope.row.name}}</el-link>
+              {{ scope.row.name }}</el-link>
           </template>
         </el-table-column>
         <el-table-column prop="size" label="大小" sortable>
@@ -304,15 +304,27 @@ export default {
       if (this.table_selection.length == 0) {
         return;
       }
+      var thiz = this;
       const dir = this.current_dir;
+      var proceed_count = 0;
+      var total_count = this.table_selection.length;
+      thiz.table_loading = true;
       this.table_selection.forEach(v => {
         proto.vfs_remove(this.append_segment(dir, v.name)).then(_ => {
           this.delete_table_row_by_name(v.name);
+          proceed_count++;
+          if (proceed_count == total_count) {
+            thiz.table_loading = false;
+          }
         }).catch(e => {
           this.$message({
             type: 'error',
             message: v.name + "删除失败: " + e
           });
+          proceed_count++;
+          if (proceed_count == total_count) {
+            thiz.table_loading = false;
+          }
         });
       }, this);
     },
