@@ -104,13 +104,15 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type) {
     case NRF_DFU_EVT_DFU_INITIALIZED:
         lcd_init();
         lcd_clear();
-        lcd_draw_str_1608(16, 24, "In DFU Mode..");
+        lcd_draw_str_1608(5, 18, "DFU Update Center");
+        lcd_draw_str_1608(30, 35, "Waiting...");
         break;
     case NRF_DFU_EVT_TRANSPORT_ACTIVATED:
         break;
     case NRF_DFU_EVT_DFU_STARTED:
         lcd_clear();
-        lcd_draw_str_1608(16, 24, "DFU Started..");
+        lcd_draw_str_1608(5, 18, "DFU Update Center");
+        lcd_draw_str_1608(30, 35, "Receiving...");
         break;
     case NRF_DFU_EVT_OBJECT_RECEIVED:
     case NRF_DFU_EVT_TRANSPORT_DEACTIVATED:
