@@ -10,6 +10,7 @@
 #endif
 
 #include "mui_core.h"
+#include "nrf_delay.h"
 
 
 /*lint -save -e14 */
@@ -63,6 +64,10 @@ void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info)
                           pc);
             
             mui_panic(mui(), error);
+
+            nrf_delay_ms(5000);
+            NRF_LOG_WARNING("System reset");
+            NVIC_SystemReset();
             break;
         }
         default:
@@ -80,4 +85,23 @@ void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info)
 #else
     app_error_save_and_stop(id, pc, info);
 #endif // DEBUG
+}
+
+
+
+void HardFault_Handler(void)
+{
+    uint32_t *sp = (uint32_t *) __get_MSP(); // Get stack pointer
+    uint32_t ia = sp[12]; // Get instruction address from stack
+
+    printf("Hard Fault at address: 0x%08x\r\n", (unsigned int)ia);
+#ifndef DEBUG
+    NRF_LOG_WARNING("System reset");
+    NVIC_SystemReset();
+#else
+    // endless loop here to wait debugger attach
+    while(1)
+        ;
+#endif
+
 }
