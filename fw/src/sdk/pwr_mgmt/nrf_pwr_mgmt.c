@@ -56,7 +56,7 @@
     #define NRF_LOG_INFO_COLOR  NRF_PWR_MGMT_CONFIG_INFO_COLOR
     #define NRF_LOG_DEBUG_COLOR NRF_PWR_MGMT_CONFIG_DEBUG_COLOR
 #else
-    #define NRF_LOG_LEVEL       0
+    #define NRF_LOG_LEVEL       4
 #endif // NRF_PWR_MGMT_CONFIG_LOG_ENABLED
 #include "nrf_log.h"
 NRF_LOG_MODULE_REGISTER();
@@ -317,6 +317,7 @@ void wdt_event_handler(void)
         PWR_MGMT_AUTO_SHUTDOWN_RETRY();
         PWR_MGMT_STANDBY_TIMEOUT_CHECK();
         nrf_drv_wdt_channel_feed(m_channel_id);
+        NRF_LOG_INFO("wdt feed");
     }
 
     __STATIC_INLINE ret_code_t pwr_mgmt_timer_create(void)
