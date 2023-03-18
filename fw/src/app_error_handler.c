@@ -100,8 +100,21 @@ void HardFault_Handler(void)
     NVIC_SystemReset();
 #else
     // endless loop here to wait debugger attach
+    NRF_BREAKPOINT_COND;
     while(1)
         ;
 #endif
 
+}
+
+void _exit(int status){
+    NRF_LOG_WARNING("System reset: %d", status);
+#ifndef DEBUG
+    NVIC_SystemReset();
+#else
+    // endless loop here to wait debugger attach
+    NRF_BREAKPOINT_COND;
+    while(1)
+        ;
+#endif
 }

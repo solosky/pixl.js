@@ -52,6 +52,7 @@ static void player_view_on_frame_tick(void *p_context) {
 
 player_view_t *player_view_create() {
     player_view_t *p_player_view = mui_mem_malloc(sizeof(player_view_t));
+    memset(p_player_view, 0, sizeof(player_view_t));
 
     mui_view_t *p_view = mui_view_create();
     p_view->user_data = p_player_view;
