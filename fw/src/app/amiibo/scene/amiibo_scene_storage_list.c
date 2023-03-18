@@ -5,6 +5,12 @@
 #include "nrf_log.h"
 #include "vfs.h"
 
+#include "mini_app_launcher.h"
+#include "mini_app_registry.h"
+
+#define ICON_BACK 0xe069
+#define ICON_DRIVE 0xe1bb
+
 static void amiibo_scene_storage_list_load_amiibo_keys(vfs_driver_t *p_driver) {
     if (!amiibo_helper_is_key_loaded()) {
         uint8_t key_data[160];
@@ -27,15 +33,20 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
     vfs_driver_t *p_driver = vfs_get_driver(p_app->current_drive);
 
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
-        if (p_driver->mounted()) {
-            amiibo_scene_storage_list_load_amiibo_keys(p_driver);
-            mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-        } else {
-            int32_t err = p_driver->mount();
-            amiibo_scene_storage_list_load_amiibo_keys(p_driver);
-            if (err == VFS_OK) {
+
+        if (p_item->icon == ICON_DRIVE) {
+            if (p_driver->mounted()) {
+                amiibo_scene_storage_list_load_amiibo_keys(p_driver);
                 mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+            } else {
+                int32_t err = p_driver->mount();
+                amiibo_scene_storage_list_load_amiibo_keys(p_driver);
+                if (err == VFS_OK) {
+                    mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+                }
             }
+        } else if (p_item->icon == ICON_BACK) {
+            mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
         }
     } else {
         mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST_MENU);
@@ -45,11 +56,13 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
 void amiibo_scene_storage_list_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, ">>返回主菜单<<", (void *)-1);
+
     if (vfs_drive_enabled(VFS_DRIVE_INT)) {
-        mui_list_view_add_item(app->p_list_view, 0xe1bb, "[Internal Flash]", (void *)VFS_DRIVE_INT);
+        mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "[Internal Flash]", (void *)VFS_DRIVE_INT);
     }
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
-        mui_list_view_add_item(app->p_list_view, 0xe1bb, "[External Flash]", (void *)VFS_DRIVE_EXT);
+        mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "[External Flash]", (void *)VFS_DRIVE_EXT);
     }
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_storage_list_on_selected);

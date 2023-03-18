@@ -2,6 +2,7 @@
 #include "nrf_error.h"
 #include "nrf_log.h"
 #include "vfs.h"
+#include "vfs_meta.h"
 
 #define SETTINGS_FILE_NAME "/settings.bin"
 
@@ -70,6 +71,18 @@ int32_t settings_save() {
         err = p_driver->write_file_data(SETTINGS_FILE_NAME, &m_settings_data, sizeof(settings_data_t));
         if (err < 0) {
             return NRF_ERROR_INVALID_STATE;
+        }
+
+        if (not_found) {
+            vfs_meta_t meta;
+            memset(&meta, 0, sizeof(meta));
+            meta.has_flags = true;
+            meta.flags = VFS_OBJ_FLAG_HIDDEN;
+
+            uint8_t meta_data[VFS_MAX_META_LEN];
+            vfs_meta_encode(meta_data, sizeof(meta_data), &meta);
+            err = p_driver->update_file_meta(SETTINGS_FILE_NAME, &meta_data, sizeof(meta_data));
+            NRF_LOG_INFO("Settings file meta updated!: %d", err);
         }
 
         NRF_LOG_INFO("settings saved!");

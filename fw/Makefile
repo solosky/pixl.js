@@ -459,7 +459,6 @@ INC_FOLDERS += \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
-  $(COMP_DIR)/littlefs \
   $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
@@ -493,6 +492,8 @@ ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 CFLAGS += -DMUI_MEM_DRAW_USAGE
+else
+CFLAGS += -DNDEBUG
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0

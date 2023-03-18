@@ -8,6 +8,8 @@
 #include "ntag_emu.h"
 #include "vfs.h"
 #include "vfs_meta.h"
+#include "amiibo_helper.h"
+#include "ntag_store.h"
 
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
@@ -61,6 +63,13 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     uint8_t meta_size = obj.meta[0];
     if (meta_size > 0 && meta_size < 0xFF) {
         memcpy(ntag->notes, obj.meta + 3, meta_size - 2);
+    }
+
+    vfs_meta_t meta;
+    memset(&meta, 0, sizeof(vfs_meta_t));
+    vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
+    if(meta.has_notes){
+        memcpy(ntag->notes, meta.notes, strlen(meta.notes));
     }
 
     res = p_vfs_driver->read_file_data(path, ntag->data, 540);
@@ -118,7 +127,7 @@ static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
 
         const amiibo_data_t *amd = find_amiibo_data(head, tail);
 
-        if (amd) {
+        if (amd && strcmp(string_get_cstr(app->current_file), "new.bin") == 0) {
             char new_path[VFS_MAX_PATH_LEN];
             char new_name[VFS_MAX_NAME_LEN];
             snprintf(new_name, sizeof(new_name), "%s.bin", amd->name);
@@ -189,7 +198,7 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
 
     int32_t res = p_vfs_driver->open_dir(string_get_cstr(app->current_folder), &dir);
     if (res == VFS_OK) {
-        while (res = p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
+        while ((res = p_vfs_driver->read_dir(&dir, &obj)) == VFS_OK) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
@@ -259,6 +268,5 @@ void amiibo_scene_amiibo_detail_on_enter(void *user_data) {
 void amiibo_scene_amiibo_detail_on_exit(void *user_data) {
     app_amiibo_t *app = user_data;
     ntag_emu_set_update_cb(NULL, NULL);
-    // string_array_clear(app->amiibo_files);
     app_timer_stop(m_amiibo_gen_delay_timer);
 }

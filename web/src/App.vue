@@ -47,22 +47,22 @@
         element-loading-text="加载中.." element-loading-spinner="el-icon-loading" cell-class-name="file-cell"
         @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
         :default-sort="{ prop: 'name', order: 'ascending' }">
-        <el-table-column type="selection" width="55">
+        <el-table-column type="selection" width="42">
         </el-table-column>
-        <el-table-column prop="name" label="文件" sortable @sort-method="sort_table_row_name">
+        <el-table-column prop="name" label="文件" sortable @sort-method="sort_table_row_name" width="320">
           <template slot-scope="scope">
             <i :class="scope.row.icon"></i>
             <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">
               {{ scope.row.name }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="size" label="大小" sortable>
+        <el-table-column prop="size" label="大小" sortable width="150">
         </el-table-column>
-        <el-table-column prop="type" label="类型" sortable>
+        <el-table-column prop="type" label="类型" sortable width="80">
         </el-table-column>
         <el-table-column prop="notes" label="备注" sortable>
         </el-table-column>
-        <el-table-column label="">
+        <el-table-column label="" fixed="right" width="40">
           <template slot-scope="scope">
             <el-dropdown>
               <span class="el-dropdown-link">
@@ -186,6 +186,10 @@ export default {
           });
         }
 
+        var v = res.data;
+
+        LA.track("pixl_device_connect", {"version": v.ver, "mac": v.ble_addr});
+
         this.reload_drive();
       });
     },
@@ -194,6 +198,9 @@ export default {
       this.connected = false;
       this.connBtnText = "连接";
       this.version = "";
+      this.table_loading = false;
+      this.tableData = [];
+      this.current_dir = "";
       this.$notify({
         title: 'Pixl.js',
         type: 'error',
@@ -201,11 +208,15 @@ export default {
         duration: 5000
       });
 
+
     },
     on_ble_connect_error() {
       this.connBtnType = "";
       this.connBtnText = "连接";
       this.version = "";
+      this.table_loading = false;
+      this.tableData = [];
+      this.current_dir = "";
       this.$notify({
         title: 'Pixl.js',
         type: 'error',

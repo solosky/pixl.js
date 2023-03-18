@@ -304,9 +304,11 @@ int32_t vfs_spiffs_remove_dir(const char *dir_name) {
     return VFS_OK;
 }
 
-int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
+int32_t vfs_spiffs_rename_dir_internal(const char *dir_name, const char *new_dir_name, bool check_only) {
     vfs_spiffs_dir_t dir;
     vfs_spiffs_dir_t *p_dir = &dir;
+    int32_t err_code = VFS_OK;
+
     p_dir->pe = &p_dir->e;
     cwalk_dir_prefix_match(p_dir->dir, dir_name);
 
@@ -321,22 +323,38 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
             char new_path[SPIFFS_OBJ_NAME_LEN];
             const char *file_suffix = p_dir->pe->name + strlen(p_dir->dir);
 
+            uint32_t new_path_len = strlen(new_dir_name) + strlen(file_suffix) + 1;
+            NRF_LOG_INFO("path len check: %d", new_path_len);
+            if (new_path_len >= sizeof(new_path)) {
+                err_code = VFS_ERR_MAXNM;
+                NRF_LOG_INFO("rename folder name too long");
+                break;
+            }
+
             strcpy(new_path, new_dir_name);
             strcat(new_path, "/");
             strcat(new_path, file_suffix);
 
-            int res = SPIFFS_rename(&fs, p_dir->pe->name, new_path);
-
-            // TODO ..
-            //  if (!res) {
-            //      SPIFFS_closedir(&dir.d);
-            //      return vfs_spiffs_map_error_code(res);
-            //  }
+            if (!check_only) {
+                int res = SPIFFS_rename(&fs, p_dir->pe->name, new_path);
+                if (res != SPIFFS_OK) {
+                    err_code = vfs_spiffs_map_error_code(res);
+                    break;
+                }
+            }
         }
     }
 
     SPIFFS_closedir(&dir.d);
-    return VFS_OK;
+    return err_code;
+}
+
+int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
+    int32_t err_code = vfs_spiffs_rename_dir_internal(dir_name, new_dir_name, true);
+    if (err_code == VFS_OK) {
+        err_code = vfs_spiffs_rename_dir_internal(dir_name, new_dir_name, false);
+    }
+    return err_code;
 }
 
 /**file operations*/
@@ -432,6 +450,10 @@ int32_t vfs_spiffs_read_file_data(const char *file, void *buff, size_t buff_size
 }
 
 int32_t vfs_spiffs_rename_file(const char *file, const char *new_file) {
+    if (strlen(new_file) >= SPIFFS_OBJ_NAME_LEN) {
+        NRF_LOG_INFO("rename file error, file %s new file %s is too long");
+        return VFS_ERR_MAXNM;
+    }
     NRF_LOG_INFO("rename file %s => %s\n", nrf_log_push(file), nrf_log_push(new_file));
     int res = SPIFFS_rename(&fs, file, new_file);
     return vfs_spiffs_map_error_code(res);
