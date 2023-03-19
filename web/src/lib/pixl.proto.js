@@ -256,6 +256,7 @@ function vfs_process_file_write_queue() {
         file_write_ongoing = true;
         vfs_process_file_write(e.path, e.file, e.progress_cb, e.success_cb, e.error_cb, _ => {
             file_write_ongoing = false;
+            console.log("vfs process file done", e.path);
             vfs_process_file_write_queue();
         });
 
@@ -263,9 +264,11 @@ function vfs_process_file_write_queue() {
 }
 
 function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, done_cb) {
+    console.log("vfs_process_file_write", path);
     read_file_as_bytebuffer(file).then(buffer => {
         vfs_open_file(path, "w").then(res => {
             if (res.status != 0) {
+                console.log("vfs_open_file error: status=", res.status);
                 error_cb(new Error("create file failed!"));
                 done_cb();
                 return;
@@ -317,7 +320,9 @@ function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, d
 
             vfs_write_cb();
         }).catch(e => {
+            console.log("vfs_open_file error", e);
             error_cb(e);
+            done_cb();
         });
     });
 
