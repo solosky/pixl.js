@@ -181,6 +181,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/settings.c \
   $(PROJ_DIR)/mod/ble/ble_main.c \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
+  $(PROJ_DIR)/mod/ble/ble_amiibolink.c \
   $(PROJ_DIR)/mod/cwalk2.c \
   $(PROJ_DIR)/mod/vfs/vfs.c \
   $(PROJ_DIR)/mod/vfs/vfs_meta.c \
@@ -217,6 +218,11 @@ SRC_FILES += \
   $(PROJ_DIR)/app/player/scene/player_scene.c \
   $(PROJ_DIR)/app/player/scene/player_scene_file_browser.c \
   $(PROJ_DIR)/app/player/scene/player_scene_play.c \
+  $(PROJ_DIR)/app/amiibolink/app_amiibolink.c \
+  $(PROJ_DIR)/app/amiibolink/view/amiibolink_view.c \
+  $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene.c \
+  $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_main.c \
+  $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -455,6 +461,9 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/player \
   $(PROJ_DIR)/app/player/view \
   $(PROJ_DIR)/app/player/scene \
+  $(PROJ_DIR)/app/amiibolink \
+  $(PROJ_DIR)/app/amiibolink/view \
+  $(PROJ_DIR)/app/amiibolink/scene \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \

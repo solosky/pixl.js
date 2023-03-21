@@ -81,10 +81,11 @@
 
 #include "ble_df_driver.h"
 #include "df_core.h"
+#include "ble_amiibolink.h"
 
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define DEVICE_NAME "Pixl.js" /**< Name of device. Will be included in the advertising data. */
+#define DEVICE_NAME "amiibolink" /**< Name of device. Will be included in the advertising data. */
 #define NUS_SERVICE_UUID_TYPE                                                                                          \
     BLE_UUID_TYPE_VENDOR_BEGIN /**< UUID type for the Nordic UART Service (vendor specific). */
 
@@ -204,9 +205,10 @@ static void nrf_qwr_error_handler(uint32_t nrf_error) { APP_ERROR_HANDLER(nrf_er
 static void nus_data_handler(ble_nus_evt_t *p_evt) {
 
     if (p_evt->type == BLE_NUS_EVT_RX_DATA) {
-        ble_on_received_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        //ble_on_received_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        ble_amiibolink_received_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
     } else if (p_evt->type == BLE_NUS_EVT_TX_RDY) {
-        ble_on_transmit_ready();
+        //ble_on_transmit_ready();
     }
 }
 
