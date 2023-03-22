@@ -10,7 +10,7 @@ typedef struct amiibolink_view_s amiibolink_view_t;
 
 typedef enum {
     AMIIBOLINK_VIEW_EVENT_KEY_PRESSED,
-    AMIIBOLINK_VIEW_EVENT_PLAY_STOPPED
+    AMIIBOLINK_VIEW_EVENT_KEY_LONG_PRESSED
 } amiibolink_view_event_t;
 
 typedef void (*amiibolink_view_event_cb)(amiibolink_view_event_t event, amiibolink_view_t *p_view);

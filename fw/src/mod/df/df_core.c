@@ -46,9 +46,6 @@ static void df_core_default_handler(df_event_t *evt) {
 }
 
 static void df_core_on_event(df_event_t *evt) {
-
-    nrf_pwr_mgmt_feed();
-
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
         m_df_ctx.cmd = df_core_find_proto_handler_entry(evt->df->cmd);
         NRF_LOG_INFO("cmd entry:%X", m_df_ctx.cmd);

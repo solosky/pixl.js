@@ -29,6 +29,9 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     app_amiibolink_t *app = user_data;
 
     mui_list_view_add_item(app->p_list_view, ICON_BACK, ">>返回主菜单<<", (void *)-1);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, "随机模式", (void *)-1);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, "按序模式", (void *)-1);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, "读写模式", (void *)-1);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibolink_scene_menu_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBOLINK_VIEW_ID_LIST);

@@ -1,17 +1,20 @@
 #include "ble_amiibolink.h"
+#include "ble_main.h"
 #include "df_buffer.h"
 #include "nrf_log.h"
 #include "ntag_def.h"
 #include "ntag_emu.h"
-#include "ble_main.h"
 
 static ntag_t m_ntag = {0};
 uint32_t m_data_pos = 0;
+ble_amiibolink_event_handler_t m_event_handler = {0};
+
+void ble_amiibolink_set_event_handler(ble_amiibolink_event_handler_t handler) { m_event_handler = handler; }
 
 void ble_amiibolink_send_cmd(uint16_t cmd) { ble_nus_tx_data(&cmd, 2); }
 
 void ble_amiibolink_write_ntag(buffer_t *buffer) {
-    buff_get_u8(buffer); //00
+    buff_get_u8(buffer); // 00
     uint8_t size = buff_get_u8(buffer);
     void *data_ptr = buff_get_data_ptr_pos(buffer);
     memcpy(m_ntag.data + m_data_pos, data_ptr, size);
@@ -19,14 +22,21 @@ void ble_amiibolink_write_ntag(buffer_t *buffer) {
 }
 
 void ble_amiibolink_init(void) {}
-void ble_amiibolink_received_data(const void *data, size_t length) {
+void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
     NRF_LOG_INFO("ble data received %d bytes", length);
     NRF_LOG_HEXDUMP_INFO(data, length);
 
-    NEW_BUFFER_READ(buffer, (void*)data, length);
+    NEW_BUFFER_READ(buffer, (void *)data, length);
 
     uint16_t cmd = buff_get_u16(&buffer);
     switch (cmd) {
+
+    case 0xB1A1: // send model code ??
+        // a1 b1 01
+        // 01: 随机模式 02: 按序模式 03:读写模式
+        ble_amiibolink_send_cmd(0xA1B1);
+        break;
+
     case 0xB0A0: // seq 1
         ble_amiibolink_send_cmd(0xA0B0);
         break;
@@ -54,6 +64,9 @@ void ble_amiibolink_received_data(const void *data, size_t length) {
     case 0xDDCC: // seq 6
         NRF_LOG_INFO("ntag_emu_set_tag");
         ntag_emu_set_tag(&m_ntag);
+        if (m_event_handler) {
+            m_event_handler(BLE_AMIIBOLINK_EVENT_TAG_UPDATED, &m_ntag, sizeof(m_ntag));
+        }
         ble_amiibolink_send_cmd(0xCCDD);
         break;
     }
