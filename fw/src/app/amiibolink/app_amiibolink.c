@@ -14,7 +14,8 @@ void app_amiibolink_on_run(mini_app_inst_t *p_app_inst) {
     app_amiibolink_t *p_app_handle = mui_mem_malloc(sizeof(app_amiibolink_t));
     p_app_inst->p_handle = p_app_handle;
 
-    string_init(p_app_handle->selected_file);
+    p_app_handle->amiibolink_mode = BLE_AMIIBOLINK_MODE_RANDOM;
+    p_app_handle->auto_generate = false;
 
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
     p_app_handle->p_amiibolink_view = amiibolink_view_create();

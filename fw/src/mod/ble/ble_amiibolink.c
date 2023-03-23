@@ -8,8 +8,12 @@
 static ntag_t m_ntag = {0};
 uint32_t m_data_pos = 0;
 ble_amiibolink_event_handler_t m_event_handler = {0};
+void *m_event_ctx = {0};
 
-void ble_amiibolink_set_event_handler(ble_amiibolink_event_handler_t handler) { m_event_handler = handler; }
+void ble_amiibolink_set_event_handler(ble_amiibolink_event_handler_t handler, void *ctx) {
+    m_event_handler = handler;
+    m_event_ctx = ctx;
+}
 
 void ble_amiibolink_send_cmd(uint16_t cmd) { ble_nus_tx_data(&cmd, 2); }
 
@@ -24,7 +28,9 @@ void ble_amiibolink_write_ntag(buffer_t *buffer) {
 void ble_amiibolink_init(void) {}
 void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
     NRF_LOG_INFO("ble data received %d bytes", length);
-    NRF_LOG_HEXDUMP_INFO(data, length);
+    //NRF_LOG_HEXDUMP_INFO(data, length);
+
+    ble_amiibolink_mode_t mode;
 
     NEW_BUFFER_READ(buffer, (void *)data, length);
 
@@ -34,6 +40,10 @@ void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
     case 0xB1A1: // send model code ??
         // a1 b1 01
         // 01: 随机模式 02: 按序模式 03:读写模式
+        mode = (ble_amiibolink_mode_t)buff_get_u8(&buffer);
+        if (m_event_handler) {
+            m_event_handler(m_event_ctx, BLE_AMIIBOLINK_EVENT_SET_MODE, &mode, sizeof(ble_amiibolink_mode_t));
+        }
         ble_amiibolink_send_cmd(0xA1B1);
         break;
 
@@ -65,7 +75,7 @@ void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
         NRF_LOG_INFO("ntag_emu_set_tag");
         ntag_emu_set_tag(&m_ntag);
         if (m_event_handler) {
-            m_event_handler(BLE_AMIIBOLINK_EVENT_TAG_UPDATED, &m_ntag, sizeof(m_ntag));
+            m_event_handler(m_event_ctx, BLE_AMIIBOLINK_EVENT_TAG_UPDATED, &m_ntag, sizeof(m_ntag));
         }
         ble_amiibolink_send_cmd(0xCCDD);
         break;

@@ -10,7 +10,7 @@
 
 #define DEVICE_NAME "Pixl.js" /**< Name of device. Will be included in the advertising data. */
 
-typedef void (*nus_rx_data_handler_t)(const uint8_t *data, int data_len);
+typedef void (*nus_rx_data_handler_t)(const uint8_t *data, size_t data_len);
 typedef void (*nus_tx_ready_handler_t)(void);
 
 

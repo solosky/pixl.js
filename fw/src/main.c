@@ -71,6 +71,8 @@
 
 #include "ntag_emu.h"
 
+#include "ntag_store.h"
+
 #include "amiibo_data.h"
 
 #include "bat.h"
@@ -217,27 +219,15 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
+    err_code = ntag_store_init();
+    APP_ERROR_CHECK(err_code);
+
     err_code = settings_init();
+    APP_ERROR_CHECK(err_code);
     settings_data_t *p_settings = settings_get_data();
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
-    // APP_ERROR_CHECK(err_code); //ignore settings load error
 
-    // // enable dcdc
-    // //  err_code = sd_power_dcdc_mode_set(NRF_POWER_DCDC_ENABLE);
-    // //  APP_ERROR_CHECK(err_code);
-
-    // err_code = sd_power_pof_threshold_set(NRF_POWER_THRESHOLD_V18);
-    // APP_ERROR_CHECK(err_code);
-
-    // err_code = sd_power_pof_enable(true);
-    // APP_ERROR_CHECK(err_code);
-
-    // err_code = ble_init();
-    // APP_ERROR_CHECK(err_code);
-    // NRF_LOG_DEBUG("ble init done");
-
-    // extern const uint8_t amiibo_key_retail[];
-    // amiibo_helper_load_keys(amiibo_key_retail);
+    amiibo_helper_try_load_amiibo_keys_from_vfs();
 
     NRF_LOG_DEBUG("init done");
 

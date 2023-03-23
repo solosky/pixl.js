@@ -11,19 +11,6 @@
 #define ICON_BACK 0xe069
 #define ICON_DRIVE 0xe1bb
 
-static void amiibo_scene_storage_list_load_amiibo_keys(vfs_driver_t *p_driver) {
-    if (!amiibo_helper_is_key_loaded()) {
-        uint8_t key_data[160];
-        int32_t err = p_driver->read_file_data("/key_retail.bin", key_data, sizeof(key_data));
-        NRF_LOG_INFO("amiibo key read: %d", err);
-        if (err == sizeof(key_data)) {
-            ret_code_t ret = amiibo_helper_load_keys(key_data);
-            if (ret == NRF_SUCCESS) {
-                NRF_LOG_INFO("amiibo key loaded!");
-            }
-        }
-    }
-}
 
 static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                   mui_list_item_t *p_item) {
@@ -36,11 +23,11 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
 
         if (p_item->icon == ICON_DRIVE) {
             if (p_driver->mounted()) {
-                amiibo_scene_storage_list_load_amiibo_keys(p_driver);
+                amiibo_helper_try_load_amiibo_keys_from_vfs();
                 mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
             } else {
                 int32_t err = p_driver->mount();
-                amiibo_scene_storage_list_load_amiibo_keys(p_driver);
+                amiibo_helper_try_load_amiibo_keys_from_vfs();
                 if (err == VFS_OK) {
                     mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
                 }
