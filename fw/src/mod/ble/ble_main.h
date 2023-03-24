@@ -18,6 +18,7 @@ typedef void (*nus_tx_ready_handler_t)(void);
 void ble_init(void);
 void ble_adv_start(void);
 void ble_disable();
+void ble_addr_set(uint8_t offset);
 void ble_set_device_name(const char *device_name);
 
 
