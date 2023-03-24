@@ -18,8 +18,9 @@ void ble_scene_connect_start_on_enter(void *user_data) {
     app_ble_t *app = user_data;
 
     ble_init();
-    ble_set_device_name(DEVICE_NAME);
     ble_addr_set(0);
+    ble_set_device_name(DEVICE_NAME);
+
     ble_adv_start();
     ble_nus_set_handler(ble_on_received_data, ble_on_transmit_ready);
 
