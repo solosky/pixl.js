@@ -55,7 +55,7 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
     sprintf(buff, "%02x:%02x:%02x:%02x:%02x:%02x:%02x", ntag->data[0], ntag->data[1], ntag->data[2], ntag->data[4],
             ntag->data[5], ntag->data[6], ntag->data[7]);
-    mui_canvas_draw_utf8(p_canvas, 24, y + 10, buff);
+    mui_canvas_draw_utf8(p_canvas, 25, y + 10, buff);
 
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_set_draw_color(p_canvas, 1);
@@ -63,22 +63,29 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
 
     y += 12;
 
-    mui_canvas_draw_rframe(p_canvas, 0, y + 3, mui_canvas_get_width(p_canvas),
-                           mui_canvas_get_height(p_canvas) - y - 3, 3);
+    mui_canvas_draw_rframe(p_canvas, 0, y + 3, mui_canvas_get_width(p_canvas), mui_canvas_get_height(p_canvas) - y - 3,
+                           3);
 
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
 
     const amiibo_data_t *amd = find_amiibo_data(head, tail);
     if (amd != NULL) {
-        mui_canvas_draw_utf8(p_canvas, 5, y += 15, amd->name);
+        mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, amd->name);
         if (strlen(ntag->notes) > 0) {
             mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, ntag->notes);
         } else {
             mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, amd->notes);
         }
     } else {
-        mui_canvas_draw_utf8(p_canvas, 5, y += 15, "空标签");
+        if (head > 0 && tail > 0) {
+            mui_canvas_draw_utf8(p_canvas, 5, y += 15, "Amiibo");
+            sprintf(buff, "[%08x:%08x]", head, tail);
+            mui_canvas_draw_utf8(p_canvas, 5, y += 15, buff);
+        } else {
+            mui_canvas_draw_utf8(p_canvas, 5, y += 15, "空标签");
+        }
+        // mui_canvas_draw_utf8(p_canvas, 5, y += 15, "空标签");
     }
 }
 
@@ -92,7 +99,7 @@ static void amiibolink_view_on_input(mui_view_t *p_view, mui_input_event_t *even
         break;
     }
     case INPUT_TYPE_SHORT: {
-        if(p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
+        if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
             if (event->key == INPUT_KEY_LEFT) {
                 if (p_amiibolink_view->index > 0) {
                     p_amiibolink_view->index--;
