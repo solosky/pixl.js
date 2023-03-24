@@ -85,7 +85,6 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
         } else {
             mui_canvas_draw_utf8(p_canvas, 5, y += 15, "空标签");
         }
-        // mui_canvas_draw_utf8(p_canvas, 5, y += 15, "空标签");
     }
 }
 

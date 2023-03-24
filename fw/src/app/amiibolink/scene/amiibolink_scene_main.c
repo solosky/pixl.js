@@ -62,6 +62,8 @@ static void ntag_reload(app_amiibolink_t *app, uint8_t index){
     ntag_t ntag = {0};
     char path[VFS_MAX_PATH_LEN] = {0};
 
+    memset(&ntag, 0, sizeof(ntag_t));
+    memset(path, 0, sizeof(path));
     sprintf(path, "/amiibolink/%02d.bin", index);
     vfs_driver_t * p_driver = vfs_get_driver(VFS_DRIVE_EXT);
     int32_t err_code = p_driver->read_file_data(path, ntag.data, NTAG_DATA_SIZE);
