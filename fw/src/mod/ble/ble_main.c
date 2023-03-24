@@ -227,14 +227,14 @@ static void nus_data_handler(ble_nus_evt_t *p_evt) {
     nrf_pwr_mgmt_feed();
     if (p_evt->type == BLE_NUS_EVT_RX_DATA) {
         if (m_nus_rx_data_handler) {
-            //app_sched_event_put(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length,
-             //                   nus_event_async_call_rx_data);
+            // app_sched_event_put(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length,
+            //                    nus_event_async_call_rx_data);
             nus_event_async_call_rx_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
         }
 
     } else if (p_evt->type == BLE_NUS_EVT_TX_RDY) {
         if (m_nus_tx_ready_handler) {
-            //app_sched_event_put(NULL, 0, nus_event_async_call_tx_ready);
+            // app_sched_event_put(NULL, 0, nus_event_async_call_tx_ready);
             nus_event_async_call_tx_ready(NULL, 0);
         }
     }
@@ -500,8 +500,12 @@ void ble_init(void) {
     }
 
     NRF_LOG_INFO("BLE started.");
+}
 
-    advertising_start();
+void ble_adv_start(void) {
+    if (m_ble_initialized && m_advertising.adv_mode_current == BLE_ADV_MODE_IDLE) {
+        advertising_start();
+    }
 }
 
 void ble_disable() {
@@ -519,7 +523,10 @@ void ble_set_device_name(const char *device_name) {
 
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
     uint32_t err_code = sd_ble_gap_device_name_set(&sec_mode, (const uint8_t *)device_name, strlen(device_name));
+    NRF_LOG_INFO("ble_set_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
     APP_ERROR_CHECK(err_code);
+
+    advertising_init();
 }
 
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
