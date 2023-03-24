@@ -8,12 +8,18 @@
 #ifndef BLE_H_
 #define BLE_H_
 
+#define DEVICE_NAME "Pixl.js" /**< Name of device. Will be included in the advertising data. */
+
+typedef void (*nus_rx_data_handler_t)(const uint8_t *data, size_t data_len);
+typedef void (*nus_tx_ready_handler_t)(void);
+
 
 void ble_init(void);
 void ble_disable();
+void ble_set_device_name(const char *device_name);
 
 
-
+void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler);
 uint32_t ble_nus_tx_data(void *data, size_t length);
 void ble_get_addr_str(char addr_fmt[]);
 

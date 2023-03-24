@@ -1,12 +1,19 @@
 #include "amiibo_helper.h"
-
+#include "amiibo_data.h"
+#include "ntag_store.h"
 #include "nfc3d/amiibo.h"
+#include "vfs.h"
+#include "nrf_log.h"
+
+#include <string.h>
+
 
 
 #define UUID_OFFSET 468
 #define PASSWORD_OFFSET 532
 #define PASSWORD_SIZE 4
 #define UUID_SIZE 7
+
 
 
 
@@ -108,4 +115,51 @@ ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {
     new_ntag->data[11] = 0xe0;
 
     return NRF_SUCCESS;
+}
+
+
+
+ret_code_t amiibo_helper_ntag_generate(ntag_t* ntag) {
+
+    ret_code_t err_code;
+    ntag_t ntag_new;
+    ntag_t *ntag_current = ntag;
+    uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
+    uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
+
+    memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
+
+    if (head == 0 || tail == 0) {
+        return  NRF_ERROR_INVALID_DATA;
+    }
+
+    if (!amiibo_helper_is_key_loaded()) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+
+    err_code = ntag_store_uuid_rand(&ntag_new);
+    APP_ERROR_CHECK(err_code);
+
+    // sign new
+    err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
+    if (err_code == NRF_SUCCESS) {
+        memcpy(ntag, &ntag_new, sizeof(ntag_t));
+    }
+    return err_code;
+}
+
+
+void amiibo_helper_try_load_amiibo_keys_from_vfs() {
+    if (!amiibo_helper_is_key_loaded() && vfs_drive_enabled(VFS_DRIVE_EXT)) {
+        uint8_t key_data[160];
+        vfs_driver_t* p_driver = vfs_get_driver(VFS_DRIVE_EXT);
+        int32_t err = p_driver->read_file_data("/key_retail.bin", key_data, sizeof(key_data));
+        NRF_LOG_INFO("amiibo key read: %d", err);
+        if (err == sizeof(key_data)) {
+            ret_code_t ret = amiibo_helper_load_keys(key_data);
+            if (ret == NRF_SUCCESS) {
+                NRF_LOG_INFO("amiibo key loaded!");
+            }
+        }
+    }
 }

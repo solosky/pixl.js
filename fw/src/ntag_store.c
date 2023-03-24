@@ -170,7 +170,7 @@ ret_code_t ntag_store_read(uint8_t idx, ntag_t *tag) {
         VERIFY_SUCCESS(err_code);
 
         // Access the record through the flash_record structure.
-        memcpy(tag, flash_record.p_data, sizeof(ntag_t));
+        memcpy(tag->data, flash_record.p_data, NTAG_DATA_SIZE);
 
         // Print file length and raw message data.
         NRF_LOG_DEBUG("NDEF file data length: %u bytes.",
@@ -201,9 +201,8 @@ ret_code_t ntag_store_write(uint8_t idx, ntag_t *ntag) {
         // found, update
         m_record.file_id = FILE_ID;
         m_record.key = RECORD_ID(idx);
-        m_record.data.p_data = ntag;
-        m_record.data.length_words =
-            BYTES_TO_WORDS(sizeof(ntag_t)); // Align data length to 4 bytes.
+        m_record.data.p_data = ntag->data;
+        m_record.data.length_words = BYTES_TO_WORDS(NTAG_DATA_SIZE); // Align data length to 4 bytes.
         NRF_LOG_INFO("update ntag: %d", idx);
         m_fds_ready = false;
         err_code = fds_record_update(&m_record_desc, &m_record);
@@ -221,9 +220,8 @@ ret_code_t ntag_store_write(uint8_t idx, ntag_t *ntag) {
         // not found, create and write
         m_record.file_id = FILE_ID;
         m_record.key = RECORD_ID(idx);
-        m_record.data.p_data = ntag;
-        m_record.data.length_words =
-            BYTES_TO_WORDS(sizeof(ntag_t)); // Align data length to 4 bytes.
+        m_record.data.p_data = ntag->data;
+        m_record.data.length_words = BYTES_TO_WORDS(NTAG_DATA_SIZE); // Align data length to 4 bytes.
         NRF_LOG_INFO("write ntag: %d", idx);
         m_fds_ready = false;
         err_code = fds_record_write(&m_record_desc, &m_record);

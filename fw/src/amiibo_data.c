@@ -835,5 +835,7 @@ const amiibo_data_t amiibo_data[] = {
 {0x3c800000, 0x03a40002, "Super Smash Bros.", "Fatal Fury", "Terry", "Terry", ""}, 
 {0x3dc00000, 0x04220002, "Super Smash Bros.", "Minecraft", "Steve", "Steve", ""}, 
 {0x3dc10000, 0x04230002, "Super Smash Bros.", "Minecraft", "Alex", "Alex", ""}, 
+{0x33c00000, 0x04200002, "Super Smash Bros.", "Tekken", "Kazuya", "Kazuya", "None"}, 
+{0x36010000, 0x04210002, "Super Smash Bros.", "Final Fantasy", "Sephiroth", "Sephiroth", "None"}, 
 {0, 0, 0, 0, 0, 0}
 };

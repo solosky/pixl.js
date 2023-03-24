@@ -79,12 +79,16 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "ble_amiibolink.h"
 #include "ble_df_driver.h"
+#include "ble_main.h"
 #include "df_core.h"
+#include "nrf_pwr_mgmt.h"
+
+#include "app_scheduler.h"
 
 #define APP_BLE_CONN_CFG_TAG 1 /**< A tag identifying the SoftDevice BLE configuration. */
 
-#define DEVICE_NAME "Pixl.js" /**< Name of device. Will be included in the advertising data. */
 #define NUS_SERVICE_UUID_TYPE                                                                                          \
     BLE_UUID_TYPE_VENDOR_BEGIN /**< UUID type for the Nordic UART Service (vendor specific). */
 
@@ -133,6 +137,11 @@ static uint16_t m_ble_nus_max_data_len =
     3; /**< Maximum length of data (in bytes) that can be transmitted to the peer by the Nordic UART service module. */
 static ble_uuid_t m_adv_uuids[] = /**< Universally unique service identifier. */
     {{BLE_UUID_NUS_SERVICE, NUS_SERVICE_UUID_TYPE}};
+
+static nus_rx_data_handler_t m_nus_rx_data_handler =
+    NULL; /**< Event handler to be called for handling received packets. */
+static nus_tx_ready_handler_t m_nus_tx_ready_handler =
+    NULL; /**< Event handler to be called for handling transmitted packets. */
 
 static uint8_t m_ble_initialized = false;
 
@@ -193,6 +202,19 @@ static void gap_params_init(void) {
  */
 static void nrf_qwr_error_handler(uint32_t nrf_error) { APP_ERROR_HANDLER(nrf_error); }
 
+static void nus_event_async_call_rx_data(void *p_event_data, uint16_t event_size) {
+    NRF_LOG_INFO("nus_event_async_call_rx_data: bytes=%d", event_size);
+    if (m_nus_rx_data_handler) {
+        m_nus_rx_data_handler(p_event_data, event_size);
+    }
+}
+
+static void nus_event_async_call_tx_ready(void *p_event_data, uint16_t event_size) {
+    if (m_nus_tx_ready_handler) {
+        m_nus_tx_ready_handler();
+    }
+}
+
 /**@brief Function for handling the data from the Nordic UART Service.
  *
  * @details This function will process the data received from the Nordic UART BLE Service and send
@@ -202,11 +224,19 @@ static void nrf_qwr_error_handler(uint32_t nrf_error) { APP_ERROR_HANDLER(nrf_er
  */
 /**@snippet [Handling the data received over BLE] */
 static void nus_data_handler(ble_nus_evt_t *p_evt) {
-
+    nrf_pwr_mgmt_feed();
     if (p_evt->type == BLE_NUS_EVT_RX_DATA) {
-        ble_on_received_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        if (m_nus_rx_data_handler) {
+            //app_sched_event_put(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length,
+             //                   nus_event_async_call_rx_data);
+            nus_event_async_call_rx_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+        }
+
     } else if (p_evt->type == BLE_NUS_EVT_TX_RDY) {
-        ble_on_transmit_ready();
+        if (m_nus_tx_ready_handler) {
+            //app_sched_event_put(NULL, 0, nus_event_async_call_tx_ready);
+            nus_event_async_call_tx_ready(NULL, 0);
+        }
     }
 }
 
@@ -465,6 +495,7 @@ void ble_init(void) {
         conn_params_init();
 
         df_core_init();
+
         m_ble_initialized = true;
     }
 
@@ -483,8 +514,22 @@ void ble_disable() {
     }
 }
 
+void ble_set_device_name(const char *device_name) {
+    ble_gap_conn_sec_mode_t sec_mode;
+
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
+    uint32_t err_code = sd_ble_gap_device_name_set(&sec_mode, (const uint8_t *)device_name, strlen(device_name));
+    APP_ERROR_CHECK(err_code);
+}
+
+void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
+    m_nus_rx_data_handler = rx_data_handler;
+    m_nus_tx_ready_handler = tx_ready_handler;
+}
+
 ret_code_t ble_nus_tx_data(void *data, size_t length) {
     size_t tx_length = length;
+    NRF_LOG_INFO("ble_nus_tx_data: %d bytes", tx_length);
     ret_code_t err_code = ble_nus_data_send(&m_nus, data, &tx_length, m_conn_handle);
     if (err_code) {
         NRF_LOG_INFO("send back error:%d", err_code);
@@ -495,6 +540,6 @@ ret_code_t ble_nus_tx_data(void *data, size_t length) {
 void ble_get_addr_str(char addr_fmt[]) {
     ble_gap_addr_t addr = {0};
     sd_ble_gap_addr_get(&addr);
-    sprintf(addr_fmt, "%02X:%02X:%02X:%02X:%02X:%02X", addr.addr[5], addr.addr[4], addr.addr[3], addr.addr[2], addr.addr[1],
-            addr.addr[0]);
+    sprintf(addr_fmt, "%02X:%02X:%02X:%02X:%02X:%02X", addr.addr[5], addr.addr[4], addr.addr[3], addr.addr[2],
+            addr.addr[1], addr.addr[0]);
 }
