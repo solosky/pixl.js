@@ -129,8 +129,7 @@ ret_code_t amiibo_helper_ntag_generate(ntag_t* ntag) {
 
     memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
 
-    const amiibo_data_t *amd = find_amiibo_data(head, tail);
-    if (amd == NULL) {
+    if (head == 0 || tail == 0) {
         return  NRF_ERROR_INVALID_DATA;
     }
 

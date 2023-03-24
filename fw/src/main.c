@@ -219,8 +219,8 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
-    err_code = ntag_store_init();
-    APP_ERROR_CHECK(err_code);
+//    err_code = ntag_store_init();
+//    APP_ERROR_CHECK(err_code);
 
     err_code = settings_init();
     APP_ERROR_CHECK(err_code);

@@ -26,6 +26,7 @@ APP_TIMER_DEF(m_amiibo_gen_delay_timer);
 
 static void ntag_generate_cb() {
     ret_code_t err_code = amiibo_helper_ntag_generate(ntag_emu_get_current_tag());
+    NRF_LOG_INFO("ntag generate: %d", err_code);
     if (err_code == NRF_SUCCESS) {
         ntag_emu_set_uuid_only(ntag_emu_get_current_tag());
         mui_update(mui());
