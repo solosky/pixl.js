@@ -99,6 +99,14 @@ static void amiibolink_view_on_input(mui_view_t *p_view, mui_input_event_t *even
         break;
     }
     case INPUT_TYPE_SHORT: {
+
+        if(event->key == INPUT_KEY_CENTER){
+            if (p_amiibolink_view->event_cb) {
+                p_amiibolink_view->event_cb(AMIIBOLINK_VIEW_EVENT_MENU, p_amiibolink_view);
+            }
+            return;
+        }
+
         if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
             if (event->key == INPUT_KEY_LEFT) {
                 if (p_amiibolink_view->index > 0) {

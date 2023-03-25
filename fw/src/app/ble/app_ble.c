@@ -45,7 +45,7 @@ void app_ble_on_kill(mini_app_inst_t *p_app_inst) {
 void app_ble_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
 
 const mini_app_t app_ble_info = {.id = MINI_APP_ID_BLE,
-                                 .name = "蓝牙连接",
+                                 .name = "蓝牙传输",
                                  .icon = 0xe1b5,
                                  .deamon = false,
                                  .sys = false,

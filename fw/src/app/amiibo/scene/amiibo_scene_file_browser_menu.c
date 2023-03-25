@@ -5,6 +5,7 @@
 #include "nrf_log.h"
 #include "ntag_def.h"
 #include "vfs.h"
+#include "ntag_store.h"
 
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"

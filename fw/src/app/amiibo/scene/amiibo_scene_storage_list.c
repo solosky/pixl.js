@@ -10,7 +10,7 @@
 
 #define ICON_BACK 0xe069
 #define ICON_DRIVE 0xe1bb
-
+#define ICON_HOME 0xe1f0
 
 static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                   mui_list_item_t *p_item) {
@@ -32,7 +32,7 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
                     mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
                 }
             }
-        } else if (p_item->icon == ICON_BACK) {
+        } else if (p_item->icon == ICON_HOME) {
             mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
         }
     } else {
@@ -43,7 +43,7 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
 void amiibo_scene_storage_list_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, ">>返回主菜单<<", (void *)-1);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)-1);
 
     if (vfs_drive_enabled(VFS_DRIVE_INT)) {
         mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "[Internal Flash]", (void *)VFS_DRIVE_INT);
