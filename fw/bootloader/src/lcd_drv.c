@@ -152,7 +152,7 @@ void show_char_0608(uint8_t x, uint8_t y, uint8_t chr) {
 
 void lcd_show_char(uint8_t x, uint8_t y, uint8_t chr) {
     chr -= ' ';
-    lcd_show_pic(x, y, 7, 16, ascii_1608[chr]);
+    lcd_show_pic(x, y, 8, 16, ascii_1608[chr]);
 }
 
 void show_str_0608(uint8_t x, uint8_t y, uint8_t *data, uint8_t len) {

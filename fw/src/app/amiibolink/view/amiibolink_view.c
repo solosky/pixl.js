@@ -71,6 +71,7 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
 
     const amiibo_data_t *amd = find_amiibo_data(head, tail);
     if (amd != NULL) {
+        NRF_LOG_INFO("amd: %s", nrf_log_push(amd->name));
         mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, amd->name);
         if (strlen(ntag->notes) > 0) {
             mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, ntag->notes);
@@ -98,6 +99,14 @@ static void amiibolink_view_on_input(mui_view_t *p_view, mui_input_event_t *even
         break;
     }
     case INPUT_TYPE_SHORT: {
+
+        if(event->key == INPUT_KEY_CENTER){
+            if (p_amiibolink_view->event_cb) {
+                p_amiibolink_view->event_cb(AMIIBOLINK_VIEW_EVENT_MENU, p_amiibolink_view);
+            }
+            return;
+        }
+
         if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
             if (event->key == INPUT_KEY_LEFT) {
                 if (p_amiibolink_view->index > 0) {

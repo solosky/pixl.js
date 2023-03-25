@@ -47,6 +47,10 @@ static void amiibo_detail_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canva
         } else {
             mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, amd->notes);
         }
+    } else if (head > 0 && tail > 0) {
+        mui_canvas_draw_utf8(p_canvas, 0, y += 15, "Amiibo");
+        sprintf(buff, "[%08x:%08x]", head, tail);
+        mui_canvas_draw_utf8(p_canvas, 0, y += 15, buff);
     } else {
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, "空标签");
     }

@@ -153,6 +153,7 @@ void amiibolink_scene_main_on_enter(void *user_data) {
 
     // enable ble
     ble_init();
+    ble_addr_set(1);
     ble_set_device_name("amiibolink");
 
     ble_adv_start();

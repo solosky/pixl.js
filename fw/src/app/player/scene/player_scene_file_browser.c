@@ -14,6 +14,7 @@
 #define ICON_FILE 0xe1ed
 #define ICON_BACK 0xe069
 #define ICON_ERROR 0xe1bb
+#define ICON_HOME 0xe1f0
 
 static void player_scene_file_browser_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                   mui_list_item_t *p_item) {
@@ -25,7 +26,7 @@ static void player_scene_file_browser_on_selected(mui_list_view_event_t event, m
             string_set_str(app->selected_file, "/player/");
             string_cat(app->selected_file, p_item->text);
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, PLAYER_SCENE_PLAY);
-        } else if (p_item->icon == ICON_BACK) {
+        } else if (p_item->icon == ICON_HOME) {
             mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_PLAYER);
         }
 
@@ -51,29 +52,32 @@ static void player_scene_file_browser_reload_folders(app_player_t *app) {
 
     p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
 
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)-1);
+
     int32_t res = p_vfs_driver->open_dir("/player", &dir);
+    uint32_t file_cnt = 0;
     if (res == VFS_OK) {
-        while (res = p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
+        while ((res = p_vfs_driver->read_dir(&dir, &obj)) == VFS_OK) {
             // hide file or dir if flagged with hidden
             memset(&meta, 0, sizeof(meta));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (meta.has_flags && (meta.flags && VFS_OBJ_FLAG_HIDDEN)) {
+            if (meta.has_flags && (meta.flags & VFS_OBJ_FLAG_HIDDEN)) {
                 continue;
             }
             uint16_t icon = obj.type == VFS_TYPE_DIR ? ICON_FOLDER : ICON_FILE;
             mui_list_view_add_item(app->p_list_view, icon, obj.name, (void *)-1);
+            file_cnt++;
         }
         p_vfs_driver->close_dir(&dir);
     } else {
         mui_list_view_add_item(app->p_list_view, ICON_ERROR, "打开文件夹失败", (void *)-1);
     }
 
-    if (mui_list_view_item_size(app->p_list_view) == 0) {
+    if (file_cnt == 0) {
         mui_list_view_add_item(app->p_list_view, ICON_ERROR, "<无动画文件>", (void *)-1);
     }
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, ">>返回主菜单<<", (void *)-1);
 
-    mui_list_view_sort(app->p_list_view, player_scene_file_browser_list_item_cmp);
+    //mui_list_view_sort(app->p_list_view, player_scene_file_browser_list_item_cmp);
 }
 
 void player_scene_file_browser_on_enter(void *user_data) {

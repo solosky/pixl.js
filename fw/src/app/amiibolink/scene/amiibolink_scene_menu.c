@@ -8,9 +8,10 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
-#define ICON_MODE 0xe1ed
+#define ICON_MODE 0xe135
 #define ICON_BACK 0xe069
 #define ICON_HOME 0xe1f0
+#define ICON_AUTO 0xe11f
 
 const char *mode_name[] = {"", "随机", "按序", "读写"};
 
@@ -70,7 +71,7 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     sprintf(txt, "模式 [%s]", mode_name[app->amiibolink_mode]);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, txt, (void *)AMIIBOLINK_MENU_MODE);
     sprintf(txt, "自动随机 [%s]", app->auto_generate ? "开" : "关");
-    mui_list_view_add_item(app->p_list_view, ICON_MODE, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
+    mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
     mui_list_view_add_item(app->p_list_view, ICON_BACK, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
     mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)AMIIBOLINK_MENU_BACK_EXIT);
 

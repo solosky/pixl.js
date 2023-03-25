@@ -143,6 +143,9 @@ static nus_rx_data_handler_t m_nus_rx_data_handler =
 static nus_tx_ready_handler_t m_nus_tx_ready_handler =
     NULL; /**< Event handler to be called for handling transmitted packets. */
 
+
+static ble_gap_addr_t m_default_gap_addr = {0};
+
 static uint8_t m_ble_initialized = false;
 
 /**@brief Function for assert macro callback.
@@ -203,7 +206,7 @@ static void gap_params_init(void) {
 static void nrf_qwr_error_handler(uint32_t nrf_error) { APP_ERROR_HANDLER(nrf_error); }
 
 static void nus_event_async_call_rx_data(void *p_event_data, uint16_t event_size) {
-    NRF_LOG_INFO("nus_event_async_call_rx_data: bytes=%d", event_size);
+    //NRF_LOG_INFO("nus_event_async_call_rx_data: bytes=%d", event_size);
     if (m_nus_rx_data_handler) {
         m_nus_rx_data_handler(p_event_data, event_size);
     }
@@ -494,6 +497,8 @@ void ble_init(void) {
         advertising_init();
         conn_params_init();
 
+        sd_ble_gap_addr_get(&m_default_gap_addr);
+
         df_core_init();
 
         m_ble_initialized = true;
@@ -527,6 +532,14 @@ void ble_set_device_name(const char *device_name) {
     APP_ERROR_CHECK(err_code);
 
     advertising_init();
+}
+
+void ble_addr_set(uint8_t offset){
+    ble_gap_addr_t addr = {0};
+    memcpy(&addr,  &m_default_gap_addr, sizeof(ble_gap_addr_t));
+    addr.addr[0] += offset;
+    uint32_t err_code = sd_ble_gap_addr_set(&addr);
+    APP_ERROR_CHECK(err_code);
 }
 
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
