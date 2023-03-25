@@ -9,17 +9,21 @@
 #define BLE_H_
 
 //#define DEVICE_NAME "amiibolink" /**< Name of device. Will be included in the advertising data. */
-#define DEVICE_NAME "Pixl.js"
+
+
+typedef enum {
+    BLE_DEVICE_MODE_PIXLJS,
+    BLE_DEVICE_MODE_AMIIBOLINK
+} ble_device_mode_t;
 
 typedef void (*nus_rx_data_handler_t)(const uint8_t *data, size_t data_len);
 typedef void (*nus_tx_ready_handler_t)(void);
 
 
 void ble_init(void);
+void ble_device_mode_prepare(ble_device_mode_t mode);
 void ble_adv_start(void);
 void ble_disable();
-void ble_addr_set(uint8_t offset);
-void ble_set_device_name(const char *device_name);
 
 
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler);
