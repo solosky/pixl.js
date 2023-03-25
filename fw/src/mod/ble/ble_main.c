@@ -144,6 +144,12 @@ static nus_tx_ready_handler_t m_nus_tx_ready_handler =
     NULL; /**< Event handler to be called for handling transmitted packets. */
 
 
+#define DEVICE_NAME_PIXLJS "Pixl.js"
+#define DEVICE_NAME_AMIIBOLINK "amiibolink"
+
+#define DEVICE_NAME DEVICE_NAME_PIXLJS
+
+
 static ble_gap_addr_t m_default_gap_addr = {0};
 
 static uint8_t m_ble_initialized = false;
@@ -194,6 +200,8 @@ static void gap_params_init(void) {
 
     err_code = sd_ble_gap_ppcp_set(&gap_conn_params);
     APP_ERROR_CHECK(err_code);
+
+    sd_ble_gap_addr_get(&m_default_gap_addr);
 }
 
 /**@brief Function for handling Queued Write Module errors.
@@ -494,17 +502,41 @@ void ble_init(void) {
         gap_params_init();
         gatt_init();
         services_init();
-        advertising_init();
         conn_params_init();
-
-        sd_ble_gap_addr_get(&m_default_gap_addr);
-
         df_core_init();
-
         m_ble_initialized = true;
     }
 
     NRF_LOG_INFO("BLE started.");
+}
+
+
+void ble_set_device_name(const char *device_name) {
+    ble_gap_conn_sec_mode_t sec_mode;
+
+    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
+    uint32_t err_code = sd_ble_gap_device_name_set(&sec_mode, (const uint8_t *)device_name, strlen(device_name));
+    NRF_LOG_INFO("ble_set_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
+    APP_ERROR_CHECK(err_code);
+}
+
+void ble_addr_set(uint8_t offset){
+    ble_gap_addr_t addr = {0};
+    memcpy(&addr,  &m_default_gap_addr, sizeof(ble_gap_addr_t));
+    addr.addr[0] += offset;
+    uint32_t err_code = sd_ble_gap_addr_set(&addr);
+    APP_ERROR_CHECK(err_code);
+}
+
+void ble_device_mode_prepare(ble_device_mode_t mode){
+    if(mode == BLE_DEVICE_MODE_AMIIBOLINK){
+        ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
+        ble_addr_set(0x10);
+    }else{
+        ble_set_device_name(DEVICE_NAME_PIXLJS);
+        ble_addr_set(0);
+    }
+    advertising_init();
 }
 
 void ble_adv_start(void) {
@@ -523,24 +555,7 @@ void ble_disable() {
     }
 }
 
-void ble_set_device_name(const char *device_name) {
-    ble_gap_conn_sec_mode_t sec_mode;
 
-    BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
-    uint32_t err_code = sd_ble_gap_device_name_set(&sec_mode, (const uint8_t *)device_name, strlen(device_name));
-    NRF_LOG_INFO("ble_set_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
-    APP_ERROR_CHECK(err_code);
-
-    advertising_init();
-}
-
-void ble_addr_set(uint8_t offset){
-    ble_gap_addr_t addr = {0};
-    memcpy(&addr,  &m_default_gap_addr, sizeof(ble_gap_addr_t));
-    addr.addr[0] += offset;
-    uint32_t err_code = sd_ble_gap_addr_set(&addr);
-    APP_ERROR_CHECK(err_code);
-}
 
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
     m_nus_rx_data_handler = rx_data_handler;
