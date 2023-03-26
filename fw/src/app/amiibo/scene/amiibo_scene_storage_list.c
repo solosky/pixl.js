@@ -35,8 +35,10 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
         } else if (p_item->icon == ICON_HOME) {
             mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
         }
-    } else {
-        mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST_MENU);
+    } else if(event == MUI_LIST_VIEW_EVENT_LONG_SELECTED){
+        if(p_item->icon == ICON_DRIVE) {
+            mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST_MENU);
+        }
     }
 }
 
