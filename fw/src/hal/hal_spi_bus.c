@@ -12,13 +12,13 @@
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 
-#define SPI_INSTANCE 0
+#define SPI_INSTANCE 3
 
 static const nrfx_spim_t m_spi = NRFX_SPIM_INSTANCE(SPI_INSTANCE);
 
-#define NRFX_SPIM_SCK_PIN 26  // yellow wire (CLK)
-#define NRFX_SPIM_MOSI_PIN 25 // blue wire (DIN)
-#define NRFX_SPIM_MISO_PIN 19 // blue wire (DIN)
+#define NRFX_SPIM_SCK_PIN 3  // yellow wire (CLK)
+#define NRFX_SPIM_MOSI_PIN 28 // blue wire (DIN)
+#define NRFX_SPIM_MISO_PIN 2 // blue wire (DIN)
 
 void hal_spi_bus_init() {
     ret_code_t err_code;
@@ -28,7 +28,7 @@ void hal_spi_bus_init() {
     spi_oled_config.sck_pin = NRFX_SPIM_SCK_PIN;
     spi_oled_config.mosi_pin = NRFX_SPIM_MOSI_PIN;
     spi_oled_config.miso_pin = NRFX_SPIM_MISO_PIN;
-    spi_oled_config.frequency = NRF_SPIM_FREQ_8M; // The SSD1326 can go up to 10 MHz clock
+    spi_oled_config.frequency = NRF_SPIM_FREQ_32M; // The SSD1326 can go up to 10 MHz clock
     spi_oled_config.mode = NRF_SPIM_MODE_0;
     spi_oled_config.ss_active_high = false;
 

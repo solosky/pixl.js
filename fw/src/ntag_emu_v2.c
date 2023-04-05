@@ -12,8 +12,6 @@
 #include "app_timer.h"
 #include "boards.h"
 #include "nfc_platform.h"
-#include "nrf52.h"
-#include "nrf52_bitfields.h"
 #include "nrf_log.h"
 #include "nrfx.h"
 

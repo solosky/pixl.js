@@ -11,8 +11,8 @@
 #include "mui_input.h"
 #include "mui_view_port.h"
 
-#define SCREEN_HEIGHT 64
-#define SCREEN_WIDTH 128
+#define SCREEN_HEIGHT 86
+#define SCREEN_WIDTH 160
 #define LAYER_STATUS_BAR_HEIGHT 13
 
 

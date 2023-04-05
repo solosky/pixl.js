@@ -10,7 +10,7 @@ static void status_bar_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     if (bt == 0) {
         bt = 1;
     }
-    mui_canvas_draw_glyph(p_canvas, 110, 8, 0xe24c + bt - 1);
+    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 15, 8, 0xe24c + bt - 1);
 }
 
 static void status_bar_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {}

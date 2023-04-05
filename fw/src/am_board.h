@@ -17,9 +17,9 @@ extern "C" {
 // LEDs definitions for PCA10040
 #define LEDS_NUMBER    1
 
-#define LED_START      31
-#define LED_1          31
-#define LED_STOP       31
+#define LED_START      18
+#define LED_1          18
+#define LED_STOP       18
 
 #define LEDS_ACTIVE_STATE 0
 
@@ -32,11 +32,11 @@ extern "C" {
 
 #define BUTTONS_NUMBER 3
 
-#define BUTTON_START   5
-#define BUTTON_1       5
-#define BUTTON_2       6
-#define BUTTON_3       7
-#define BUTTON_STOP    7
+#define BUTTON_START   11
+#define BUTTON_1       15
+#define BUTTON_2       11
+#define BUTTON_3       41
+#define BUTTON_STOP    41
 #define BUTTON_PULL    NRF_GPIO_PIN_PULLUP
 
 #define BUTTONS_ACTIVE_STATE 0

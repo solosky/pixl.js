@@ -223,7 +223,7 @@ int main(void) {
 //    APP_ERROR_CHECK(err_code);
 
     err_code = settings_init();
-    APP_ERROR_CHECK(err_code);
+    //APP_ERROR_CHECK(err_code);
     settings_data_t *p_settings = settings_get_data();
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
 

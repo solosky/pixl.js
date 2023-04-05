@@ -126,6 +126,8 @@ NRF_LOG_MODULE_REGISTER();
 
 #ifdef HAL_NFC_NRF52840_ENGINEERING_ABC_WORKAROUND
     #define NRF_NFCT_ERRORSTATUS_ALL (NFCT_ERRORSTATUS_FRAMEDELAYTIMEOUT_Msk)    /**< Mask for clearing all error flags in NFCT_ERRORSTATUS register */
+#elif defined(NRF52833_XXAA)
+#define NRF_NFCT_ERRORSTATUS_ALL    (NFCT_ERRORSTATUS_FRAMEDELAYTIMEOUT_Msk)    /**< Mask for clearing all error flags in NFCT_ERRORSTATUS register */
 #else
     #define NRF_NFCT_ERRORSTATUS_ALL    (NFCT_ERRORSTATUS_NFCFIELDTOOWEAK_Msk   | \
                                         NFCT_ERRORSTATUS_NFCFIELDTOOSTRONG_Msk  | \

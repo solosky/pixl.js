@@ -63,6 +63,8 @@
  * placed in the main directory of this project in a folder u8g2.
  */
 
+
+#if(0)
 #include <stdio.h>
 
 #include "hal_spi_bus.h"
@@ -181,3 +183,5 @@ void mui_u8g2_deinit(u8g2_t *p_u8g2) {
 void mui_u8g2_set_backlight(uint8_t bl) { nrf_gpio_pin_write(LCD_BL_PIN, bl); }
 
 uint8_t mui_u8g2_get_backlight() { return nrf_gpio_pin_out_read(LCD_BL_PIN); }
+
+#endif
