@@ -86,6 +86,15 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/nrf_crypto_init.c \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls/mbedtls_backend_hmac.c \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls/mbedtls_backend_aes.c \
+  $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
+  $(SDK_ROOT)/components/libraries/usbd/app_usbd.c \
+  $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c \
+  $(SDK_ROOT)/components/libraries/usbd/app_usbd_core.c \
+  $(SDK_ROOT)/components/libraries/usbd/app_usbd_serial_num.c \
+  $(SDK_ROOT)/components/libraries/usbd/app_usbd_string_desc.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
+  $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_power.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_power.c \
   $(SDK_ROOT)/external/mbedtls/library/aes.c \
 	$(SDK_ROOT)/external/mbedtls/library/aesni.c \
 	$(SDK_ROOT)/external/mbedtls/library/arc4.c \
@@ -191,6 +200,9 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/df/df_proto_info.c \
   $(PROJ_DIR)/mod/df/df_proto_vfs.c \
   $(PROJ_DIR)/mod/df/df_core.c \
+  $(PROJ_DIR)/mod/usbd/usbd.c \
+  $(PROJ_DIR)/mod/usbd/usbd_cdc.c \
+  $(PROJ_DIR)/mod/usbd/usbd_mtp.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -260,6 +272,12 @@ SRC_FILES += \
   $(COMP_DIR)/spiffs/src/spiffs_nucleus.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
+  $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_core.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_codec.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_proto.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
+  $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
@@ -371,8 +389,9 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crc16 \
   $(SDK_ROOT)/components/nfc/t4t_parser/apdu \
   $(SDK_ROOT)/components/libraries/util \
-  ./config \
+  $(SDK_ROOT)/components/libraries/usbd \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc \
+  ./config \
   $(SDK_ROOT)/components/libraries/csense \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/ecc \
@@ -453,6 +472,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mod/vfs \
   $(PROJ_DIR)/mod/ble \
   $(PROJ_DIR)/mod/df \
+  $(PROJ_DIR)/mod/usbd \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/ble \
@@ -477,6 +497,8 @@ INC_FOLDERS += \
   $(COMP_DIR)/spiffs/src \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/tlsf \
+  $(COMP_DIR)/usb_mtp/class \
+  $(COMP_DIR)/usb_mtp/driver \
   $(COMP_DIR)/cwalk/include \
   $(SDK_ROOT)/components/libraries/bsp
 

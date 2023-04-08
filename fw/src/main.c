@@ -95,6 +95,8 @@
 
 #include "settings.h"
 
+#include "usbd.h"
+
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
 
@@ -216,8 +218,8 @@ int main(void) {
     hal_spi_bus_init();
 
     // enable sd to enable pwr mgmt
-    err_code = nrf_sdh_enable_request();
-    APP_ERROR_CHECK(err_code);
+//    err_code = nrf_sdh_enable_request();
+//    APP_ERROR_CHECK(err_code);
 
 //    err_code = ntag_store_init();
 //    APP_ERROR_CHECK(err_code);
@@ -228,6 +230,7 @@ int main(void) {
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
 
     amiibo_helper_try_load_amiibo_keys_from_vfs();
+    usb_init();
 
     NRF_LOG_DEBUG("init done");
 
@@ -247,8 +250,11 @@ int main(void) {
 
         app_sched_execute();
         mui_tick(p_mui);
+        usb_tick();
         NRF_LOG_FLUSH();
-        nrf_pwr_mgmt_run();
+        if (NRF_LOG_PROCESS() == false) {
+            nrf_pwr_mgmt_run();
+        }
     }
 }
 
