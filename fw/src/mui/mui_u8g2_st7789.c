@@ -290,13 +290,11 @@ uint8_t u8x8_d_st7789_enh_dg128064(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, v
 
             p_tile = (u8x8_tile_t *)arg_ptr;
             ptr = ((u8x8_tile_t *)arg_ptr)->tile_ptr;
-            NRF_LOG_INFO("tile:  x:%d, y:%d, cnt:%d", p_tile->x_pos, p_tile->y_pos, p_tile->cnt);
+            //NRF_LOG_INFO("tile:  x:%d, y:%d, cnt:%d", p_tile->x_pos, p_tile->y_pos, p_tile->cnt);
 
             for (uint16_t i = 0; i < p_tile->cnt; i++) {
                 u8x8_d_st7789_transfer_tile(p_tile->x_pos + i, p_tile->y_pos, ptr + i * 8);
             }
-
-            NRF_LOG_INFO("tile done");
         }
         break;
     }

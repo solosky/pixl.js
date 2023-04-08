@@ -386,7 +386,7 @@ int32_t vfs_spiffs_read_file(vfs_file_t *fd, void *buff, size_t buff_size) {
     NRF_LOG_INFO("read file %d with %d bytes", fd->handle, buff_size);
     int32_t read_size = SPIFFS_read(&fs, fd->handle, buff, buff_size);
     if (read_size < 0) {
-        return vfs_spiffs_map_error_code(fd->handle);
+        return vfs_spiffs_map_error_code(read_size);
     }
     return read_size;
 }
@@ -398,7 +398,7 @@ int32_t vfs_spiffs_write_file(vfs_file_t *fd, void *buff, size_t buff_size) {
     NRF_LOG_INFO("write file %d with %d bytes", fd->handle, buff_size);
     int32_t written_size = SPIFFS_write(&fs, fd->handle, buff, buff_size);
     if (written_size < 0) {
-        return vfs_spiffs_map_error_code(fd->handle);
+        return vfs_spiffs_map_error_code(written_size);
     }
     return written_size;
 }

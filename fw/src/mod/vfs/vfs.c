@@ -1,5 +1,6 @@
 #include "vfs.h"
 #include "vfs_driver_spiffs.h"
+#include "vfs_driver_lfs.h"
 
 typedef struct {
     bool enabled;
@@ -12,7 +13,7 @@ static vfs_drive_item_t vfs_drive_items[VFS_DRIVE_MAX] = {
             .enabled = false,
             .p_driver = NULL,
         },
-    [VFS_DRIVE_EXT] = {.enabled = true, .p_driver = &vfs_driver_spiffs}};
+    [VFS_DRIVE_EXT] = {.enabled = true, .p_driver = &vfs_driver_lfs}};
 
 
 bool vfs_drive_enabled(vfs_drive_t drive) { return vfs_drive_items[drive].enabled; }
