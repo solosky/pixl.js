@@ -56,6 +56,32 @@ void amiibo_scene_storage_list_on_enter(void *user_data) {
     mui_list_view_set_user_data(app->p_list_view, app);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
+
+    vfs_drive_t driver;
+
+    if (vfs_drive_enabled(VFS_DRIVE_INT) && !vfs_drive_enabled(VFS_DRIVE_EXT)) {
+        driver = VFS_DRIVE_INT;
+    } else if (!vfs_drive_enabled(VFS_DRIVE_INT) && vfs_drive_enabled(VFS_DRIVE_EXT)) {
+        driver = VFS_DRIVE_EXT;
+    }
+
+    if (driver) {
+        app->current_drive = driver;
+        string_set_str(app->current_folder, "/");
+        vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
+
+        if (p_driver->mounted()) {
+            amiibo_helper_try_load_amiibo_keys_from_vfs();
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+        } else {
+            int32_t err = p_driver->mount();
+            amiibo_helper_try_load_amiibo_keys_from_vfs();
+            if (err == VFS_OK) {
+                mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+            }
+        }
+        return;
+    }
 }
 
 void amiibo_scene_storage_list_on_exit(void *user_data) {
