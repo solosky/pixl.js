@@ -8,6 +8,8 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
+#include "settings.h"
+
 #define ICON_MODE 0xe135
 #define ICON_BACK 0xe069
 #define ICON_HOME 0xe1f0
@@ -59,6 +61,11 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
             app->auto_generate = !app->auto_generate;
             NRF_LOG_INFO("auto_generate: %d", app->auto_generate);
             sprintf(txt, "自动随机 [%s]", app->auto_generate ? "开" : "关");
+
+            settings_data_t* p_settings = settings_get_data();
+            p_settings->auto_gen = app->auto_generate;
+            settings_save();
+
             string_set_str(p_item->text, txt);
         }
     }
@@ -70,6 +77,10 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     char txt[32];
     sprintf(txt, "模式 [%s]", mode_name[app->amiibolink_mode]);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, txt, (void *)AMIIBOLINK_MENU_MODE);
+
+    settings_data_t* p_settings = settings_get_data();
+    app->auto_generate = p_settings->auto_gen;
+
     sprintf(txt, "自动随机 [%s]", app->auto_generate ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
     mui_list_view_add_item(app->p_list_view, ICON_BACK, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);

@@ -8,6 +8,7 @@ typedef struct {
     bool backlight;
     uint8_t sleep_timeout_sec;
     bool dirty;
+    bool auto_gen;
 } settings_data_t;
 
 int32_t settings_init();
