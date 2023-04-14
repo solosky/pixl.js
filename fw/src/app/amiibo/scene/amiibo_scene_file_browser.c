@@ -104,7 +104,7 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
             }
         }
     } else {
-        if (string_cmp_str(app->current_folder, "/") == 0) {
+        if (p_item->icon == ICON_HOME) {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST_MENU);
         } else {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER_MENU);
