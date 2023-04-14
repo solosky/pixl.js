@@ -6,7 +6,7 @@
 
 #define SETTINGS_FILE_NAME "/settings.bin"
 
-settings_data_t m_settings_data = {.backlight = 0, .auto_gen = 0, .sleep_timeout_sec = 30};
+settings_data_t m_settings_data = {.backlight = 0, .auto_gen_amiibo = 0, .auto_gen_amiibolink = 0, .sleep_timeout_sec = 30};
 
 static vfs_driver_t *get_enabled_vfs_driver() {
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {

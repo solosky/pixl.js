@@ -15,7 +15,6 @@ typedef struct {
     mui_scene_dispatcher_t *p_scene_dispatcher;
 
     ble_amiibolink_mode_t amiibolink_mode;
-    bool auto_generate;
 } app_amiibolink_t;
 
 typedef enum { AMIIBOLINK_VIEW_ID_LIST, AMIIBOLINK_VIEW_ID_MAIN, AMIIBOLINK_VIEW_ID_MSG_BOX } app_amiibolink_view_id_t;
