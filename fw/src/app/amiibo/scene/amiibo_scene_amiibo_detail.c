@@ -46,6 +46,7 @@ static void amiibo_scene_amiibo_detail_reload_error(app_amiibo_t *app, const cha
     mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_msg_box_error_cb);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
+    cache_clean();
 }
 
 static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *ntag) {
