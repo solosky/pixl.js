@@ -12,6 +12,8 @@
 #include "ntag_store.h"
 #include "settings.h"
 
+#include "cache.h"
+
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
 
@@ -181,6 +183,9 @@ static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
     amiibo_detail_view_set_file_name(app->p_amiibo_detail_view, file_name);
     amiibo_detail_view_set_ntag(app->p_amiibo_detail_view, &app->ntag);
     ntag_emu_set_tag(app->p_amiibo_detail_view->ntag);
+
+    cache_data_t *cache_data = cache_get_data();
+    memcpy(&(cache_data->tag), &app->ntag, sizeof(ntag_t));
 
     return true;
 }

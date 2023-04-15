@@ -11,6 +11,7 @@ typedef struct {
     vfs_drive_t current_drive;
     char current_folder[128];
     char current_file[64];
+    ntag_t tag;
 } cache_data_t;
 
 int32_t cache_init();

@@ -14,7 +14,7 @@
 
 #define CACHE_FILE_NAME "/cache.bin"
 
-cache_data_t m_cache_data = {.enabled = false, .current_file = "", .current_folder = "", .current_drive = VFS_DRIVE_MAX};
+cache_data_t m_cache_data = {.enabled = false, .current_file = "", .current_folder = "", .current_drive = VFS_DRIVE_MAX, .tag = {0}};
 
 bool load = false;
 
@@ -61,7 +61,7 @@ int32_t cache_init() {
 
 int32_t cache_clean() {
     NRF_LOG_INFO("Cleaning cache...")
-    m_cache_data = (cache_data_t){.enabled = false, .current_file = "", .current_folder = "", .current_drive = VFS_DRIVE_MAX};
+    m_cache_data = (cache_data_t){.enabled = false, .current_file = "", .current_folder = "", .current_drive = VFS_DRIVE_MAX, .tag = {0}};
     cache_save();
 
     return NRF_SUCCESS;
