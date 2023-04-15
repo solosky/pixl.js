@@ -94,6 +94,7 @@
 #include "hal_spi_flash.h"
 
 #include "settings.h"
+#include "cache.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
@@ -152,6 +153,9 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 
         //save settings
         settings_save();
+
+        err_code = cache_save();
+        APP_ERROR_CHECK(err_code);
 
         hal_spi_flash_sleep();
 

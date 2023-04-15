@@ -46,6 +46,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
 
     switch (selection) {
     case AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER:
+        cache_clean();
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
         break;
     case AMIIBO_DETAIL_MENU_RAND_UID: {
@@ -129,10 +130,12 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
             }
         }
+        cache_clean();
         break;
     }
 
     case AMIIBO_DETAIL_MENU_BACK_MAIN_MENU:
+        cache_clean();
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
         break;
     }

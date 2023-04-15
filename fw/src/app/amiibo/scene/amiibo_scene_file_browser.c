@@ -7,6 +7,8 @@
 #include "vfs_meta.h"
 #include "mini_app_registry.h"
 
+#include "cache.h"
+
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed
 #define ICON_BACK 0xe069
@@ -98,6 +100,12 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
             } else {
                 // TODO AMIIBO test ..
 
+                // cache tag data
+                cache_data_t *cache_data = cache_get_data();
+                cache_data->current_drive = app->current_drive;
+                strcat(cache_data->current_folder, string_get_cstr(app->current_folder));
+                strcat(cache_data->current_file, string_get_cstr(app->current_file));
+
                 // read tag
                 app->reload_amiibo_files = true;
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
@@ -121,6 +129,15 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
     amiibo_scene_file_browser_reload_folders(app);
     NRF_LOG_INFO("%X", app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
+
+    cache_data_t *cache = cache_get_data();
+
+    if (cache->enabled && cache->current_file != "") {
+        NRF_LOG_DEBUG("Cache found $ amiibo file browser");
+        string_set_str(app->current_file, cache->current_file);
+        app->reload_amiibo_files = true;
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
+    }
 }
 
 void amiibo_scene_file_browser_on_exit(void *user_data) {

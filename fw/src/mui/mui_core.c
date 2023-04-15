@@ -4,6 +4,10 @@
 #include "mui_mem.h"
 #include "mui_u8g2.h"
 
+#include "cache.h"
+#include "app_amiibo.h"
+#include "nrf_log.h"
+
 static mui_view_port_t *mui_find_view_port_enabled(mui_t *p_mui, mui_layer_t layer) {
     mui_view_port_array_it_t it;
     mui_view_port_array_it_last(it, p_mui->layers[layer]);
@@ -157,7 +161,20 @@ void mui_deinit(mui_t *p_mui) {
 
 void mui_post(mui_t *p_mui, mui_event_t *p_event) { mui_event_post(&p_mui->event_queue, p_event); }
 
-void mui_tick(mui_t *p_mui) { mui_event_dispatch(&p_mui->event_queue); }
+bool cache = false;
+
+void mui_tick(mui_t *p_mui) { 
+    mui_event_dispatch(&p_mui->event_queue);
+    if (cache) {
+        return;
+    }
+    cache = true;
+    cache_data_t *cache = cache_get_data();
+    if (cache->enabled && cache->current_file != "") {
+        NRF_LOG_DEBUG("Cache found $ desktop");
+        mini_app_launcher_run(mini_app_launcher(), app_amiibo_info.id);
+    }
+}
 
 void mui_panic(mui_t *p_mui, char *err) {
     if (p_mui->initialized) {
