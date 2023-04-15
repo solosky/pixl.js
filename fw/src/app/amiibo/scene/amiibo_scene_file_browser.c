@@ -8,6 +8,7 @@
 #include "mini_app_registry.h"
 
 #include "cache.h"
+#include "settings.h"
 
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed
@@ -37,7 +38,8 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
     mui_list_view_clear_items(app->p_list_view);
     if (string_cmp_str(app->current_folder, "/") == 0) {
         bool one_driver = (vfs_drive_enabled(VFS_DRIVE_INT) && !vfs_drive_enabled(VFS_DRIVE_EXT)) || (!vfs_drive_enabled(VFS_DRIVE_INT) && vfs_drive_enabled(VFS_DRIVE_EXT));
-        mui_list_view_add_item(app->p_list_view, one_driver ? ICON_HOME : ICON_BACK, one_driver ? ">>主菜单<<" : "..", (void *)one_driver ? -1 : FOLDER_LIST_PARENT);
+        settings_data_t* p_settings = settings_get_data();
+        mui_list_view_add_item(app->p_list_view, (one_driver && p_settings->skip_driver_select) ? ICON_HOME : ICON_BACK, (one_driver && p_settings->skip_driver_select) ? ">>主菜单<<" : "..", (void *)(one_driver && p_settings->skip_driver_select) ? -1 : FOLDER_LIST_PARENT);
     } else {
         mui_list_view_add_item(app->p_list_view, ICON_BACK, "..", (void *)FOLDER_LIST_PARENT);
     }

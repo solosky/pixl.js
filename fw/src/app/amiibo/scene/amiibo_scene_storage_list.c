@@ -9,6 +9,7 @@
 #include "mini_app_registry.h"
 
 #include "cache.h"
+#include "settings.h"
 
 #define ICON_BACK 0xe069
 #define ICON_DRIVE 0xe1bb
@@ -87,8 +88,8 @@ void amiibo_scene_storage_list_on_enter(void *user_data) {
         }
         return;
     }
-    
-    if (driver) {
+    settings_data_t* p_settings = settings_get_data();
+    if (p_settings->skip_driver_select && driver) {
         app->current_drive = driver;
         string_set_str(app->current_folder, "/");
         vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
