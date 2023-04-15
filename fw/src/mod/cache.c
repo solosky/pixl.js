@@ -67,14 +67,15 @@ int32_t cache_clean() {
     return NRF_SUCCESS;
 }
 
-bool lcdled = false;
+bool lcdled = true;
 void weak_up_set_lcdled(bool on) {
-    if (lcdled) {
-        return;
-    }
     if (on) {
+        lcdled = false;
         nrf_pwr_mgmt_set_timeout(5);
     } else {
+        if (lcdled) {
+            return;
+        }
         lcdled = true;
         nrf_pwr_mgmt_set_timeout(settings_get_data()->sleep_timeout_sec);
     }
@@ -107,26 +108,28 @@ int32_t cache_save() {
     } else {
         m_cache_data.enabled = false;
     }
+    
+    if (not_found || memcmp(&m_cache_data, &old_cache_data, sizeof(cache_data_t)) != 0) {
+        err = p_driver->write_file_data(CACHE_FILE_NAME, &m_cache_data, sizeof(cache_data_t));
+        if (err < 0) {
+            NRF_LOG_ERROR("Error writing cache file #2: %d", err);
+            return NRF_ERROR_INVALID_STATE;
+        }
 
-    err = p_driver->write_file_data(CACHE_FILE_NAME, &m_cache_data, sizeof(cache_data_t));
-    if (err < 0) {
-        NRF_LOG_ERROR("Error writing cache file #2: %d", err);
-        return NRF_ERROR_INVALID_STATE;
+        if (not_found) {
+            vfs_meta_t meta;
+            memset(&meta, 0, sizeof(meta));
+            meta.has_flags = true;
+            meta.flags = VFS_OBJ_FLAG_HIDDEN;
+
+            uint8_t meta_data[VFS_MAX_META_LEN];
+            vfs_meta_encode(meta_data, sizeof(meta_data), &meta);
+            err = p_driver->update_file_meta(CACHE_FILE_NAME, &meta_data, sizeof(meta_data));
+            NRF_LOG_INFO("Cache file meta updated!: %d", err);
+        }
+
+        NRF_LOG_INFO("Cache saved!");
     }
-
-    if (not_found) {
-        vfs_meta_t meta;
-        memset(&meta, 0, sizeof(meta));
-        meta.has_flags = true;
-        meta.flags = VFS_OBJ_FLAG_HIDDEN;
-
-        uint8_t meta_data[VFS_MAX_META_LEN];
-        vfs_meta_encode(meta_data, sizeof(meta_data), &meta);
-        err = p_driver->update_file_meta(CACHE_FILE_NAME, &meta_data, sizeof(meta_data));
-        NRF_LOG_INFO("Cache file meta updated!: %d", err);
-    }
-
-    NRF_LOG_INFO("Cache saved!");
 
     return NRF_SUCCESS;
 }
