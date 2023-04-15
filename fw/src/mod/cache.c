@@ -59,17 +59,9 @@ int32_t cache_init() {
 int32_t cache_clean() {
     NRF_LOG_INFO("Cleaning cache...")
     m_cache_data = (cache_data_t){.enabled = false, .current_file = "", .current_folder = "", .current_drive = VFS_DRIVE_MAX};
-    // vfs_driver_t *p_driver = get_enabled_vfs_driver();
-    // if (p_driver == NULL) {
-    //     return NRF_ERROR_NOT_SUPPORTED;
-    // }
+    cache_save();
 
-    // int32_t err = p_driver->remove_file(CACHE_FILE_NAME);
-    // if (err < 0) {
-    //     return NRF_ERROR_INVALID_STATE;
-    // }
-
-    // return NRF_SUCCESS;
+    return NRF_SUCCESS;
 }
 
 int32_t cache_save() {
