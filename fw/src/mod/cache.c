@@ -9,6 +9,9 @@
 #include "vfs.h"
 #include "vfs_meta.h"
 
+#include "nrf_pwr_mgmt.h"
+#include "settings.h"
+
 #define CACHE_FILE_NAME "/cache.bin"
 
 cache_data_t m_cache_data = {.enabled = false, .current_file = "", .current_folder = "", .current_drive = VFS_DRIVE_MAX};
@@ -62,6 +65,19 @@ int32_t cache_clean() {
     cache_save();
 
     return NRF_SUCCESS;
+}
+
+bool lcdled = false;
+void weak_up_set_lcdled(bool on) {
+    if (lcdled) {
+        return;
+    }
+    if (on) {
+        nrf_pwr_mgmt_set_timeout(5);
+    } else {
+        lcdled = true;
+        nrf_pwr_mgmt_set_timeout(settings_get_data()->sleep_timeout_sec);
+    }
 }
 
 int32_t cache_save() {

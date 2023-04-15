@@ -17,5 +17,6 @@ int32_t cache_init();
 int32_t cache_clean();
 int32_t cache_save();
 cache_data_t *cache_get_data();
+void weak_up_set_lcdled(bool on);
 
 #endif /* CACHE_H_ */

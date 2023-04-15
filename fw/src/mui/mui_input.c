@@ -5,6 +5,8 @@
 #include "nrf_log.h"
 #include "bsp_btn.h"
 
+#include "cache.h"
+
 static void mui_input_post_event(mui_input_event_t *p_input_event) {
     uint32_t arg = p_input_event->type;
     arg <<= 8;
@@ -36,7 +38,7 @@ void mui_input_on_bsp_btn_event(uint8_t btn, bsp_btn_event_t evt) {
         mui_input_event_t input_event = {.key = btn,
                                          .type = INPUT_TYPE_SHORT};
         mui_input_post_event(&input_event);
-
+        weak_up_set_lcdled(false);
         break;
     }
 
