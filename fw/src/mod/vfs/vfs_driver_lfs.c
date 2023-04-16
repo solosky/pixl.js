@@ -212,7 +212,7 @@ int32_t vfs_lfs_open_dir(const char *dir, vfs_dir_t *fd) {
     return VFS_OK;
 }
 
-int32_t vfs_lfs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
+int32_t vfs_lfs_read_dir_internal(vfs_dir_t *fd, vfs_obj_t *obj) {
     lfs_dir_t *p_dir = fd->handle;
     memset(obj, 0, sizeof(vfs_obj_t));
     struct lfs_info info;
@@ -232,6 +232,17 @@ int32_t vfs_lfs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
     } else {
         return vfs_lfs_map_error_code(err);
     }
+}
+
+int32_t vfs_lfs_read_dir(vfs_dir_t *fd, vfs_obj_t *obj) {
+    int32_t err;
+    //skip . and .. directory
+    while ((err = vfs_lfs_read_dir_internal(fd, obj)) == VFS_OK) {
+        if (strcmp(obj->name, ".") != 0 && strcmp(obj->name, "..") != 0) {
+            return err;
+        }
+    }
+    return err;
 }
 
 int32_t vfs_lfs_close_dir(vfs_dir_t *fd) {

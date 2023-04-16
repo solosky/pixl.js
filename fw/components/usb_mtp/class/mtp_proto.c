@@ -401,8 +401,8 @@ static void mtp_proto_send_object_handler(mtp_core_t *mtp, mtp_codec_event_t *ev
                                       mtp_buff_get_remain_size(event->chunk->buffer),
                                       mtp_buff_get_data_ptr_pos(event->chunk->buffer),
                                       mtp_buff_get_remain_size(event->chunk->buffer));
-//        NRF_LOG_INFO("send object data chunk: %d/%d", event->transaction->data_stream.transfer_bytes,
-//                     event->transaction->data_stream.total_bytes);
+       NRF_LOG_INFO("send object data chunk: %d/%d", event->transaction->data_stream.transfer_bytes,
+                    event->transaction->data_stream.total_bytes);
     } else if (event->type == MTP_CODEC_EVENT_DATA_ALL_RX_DONE) {
         mtp->fs_driver->fs_file_close(mtp->file_handle);
         NRF_LOG_INFO("send object data finished: %d", event->transaction->data_stream.transfer_bytes);
