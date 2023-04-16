@@ -20,8 +20,11 @@
 
 
 static int amiibo_scene_file_browser_list_item_cmp(const mui_list_item_t* p_item_a, const mui_list_item_t* p_item_b){
-    if (p_item_a->icon == ICON_HOME || p_item_b->icon == ICON_HOME) {
-        return 0;
+    if (p_item_a->icon == ICON_HOME) {
+        return -1;
+    }
+    if (p_item_b->icon == ICON_HOME) {
+        return 1;
     }
     if(p_item_a->icon != p_item_b->icon){
         return p_item_a->icon - p_item_b->icon;
