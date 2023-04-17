@@ -183,35 +183,6 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 
 NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 
-static void ntag_gen(ntag_t *ntag_current) {
-
-    ret_code_t err_code;
-    ntag_t ntag_new;
-    uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
-    uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
-
-    memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
-
-    const amiibo_data_t *amd = find_amiibo_data(head, tail);
-    if (amd == NULL) {
-        return;
-    }
-
-    if (!amiibo_helper_is_key_loaded()) {
-        return;
-    }
-
-    err_code = ntag_store_uuid_rand(&ntag_new);
-    APP_ERROR_CHECK(err_code);
-
-    // sign new
-    err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
-    if (err_code == NRF_SUCCESS) {
-        memcpy(&ntag_current, &ntag_new, sizeof(ntag_t));
-        ntag_emu_set_tag(&ntag_current);
-    }
-}
-
 /**
  * @brief   Function for application main entry.
  */
@@ -272,7 +243,8 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     cache_data_t *p_cache = cache_get_data();
-    ntag_gen(&(p_cache->tag));
+    amiibo_helper_ntag_generate(&(p_cache->tag))
+    ntag_emu_set_tag(&(p_cache->tag));
 
     mui_t *p_mui = mui();
     mui_init(p_mui);
