@@ -243,7 +243,7 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     cache_data_t *p_cache = cache_get_data();
-    amiibo_helper_ntag_generate(&(p_cache->tag))
+    amiibo_helper_ntag_generate(&(p_cache->tag));
     ntag_emu_set_tag(&(p_cache->tag));
 
     mui_t *p_mui = mui();
