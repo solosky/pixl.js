@@ -137,10 +137,9 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
 
     cache_data_t *cache = cache_get_data();
 
-    if (cache->enabled && cache->current_file != "") {
+    if (cache->enabled && !strcmp(cache->current_file, "")) {
         NRF_LOG_DEBUG("Cache found $ amiibo file browser");
         string_set_str(app->current_file, cache->current_file);
-        weak_up_set_lcdled(true);
         app->reload_amiibo_files = true;
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
     }

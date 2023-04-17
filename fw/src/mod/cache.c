@@ -51,7 +51,7 @@ int32_t cache_init() {
     }
 
     NRF_LOG_INFO("Cache loaded!");
-    if (m_cache_data.current_file == "" || m_cache_data.current_folder == "" || m_cache_data.current_drive == VFS_DRIVE_MAX) {
+    if (strcmp(m_cache_data.current_file, "") || strcmp(m_cache_data.current_folder, "") || m_cache_data.current_drive == VFS_DRIVE_MAX) {
         m_cache_data.enabled = false;
     }
     NRF_LOG_INFO("Cache: enabled = %d, current_folder = %s, current_file = %s, current_drive = %d", m_cache_data.enabled, m_cache_data.current_folder, m_cache_data.current_file, m_cache_data.current_drive);
@@ -65,20 +65,6 @@ int32_t cache_clean() {
     cache_save();
 
     return NRF_SUCCESS;
-}
-
-bool lcdled = true;
-void weak_up_set_lcdled(bool on) {
-    if (on) {
-        lcdled = false;
-        nrf_pwr_mgmt_set_timeout(5);
-    } else {
-        if (lcdled) {
-            return;
-        }
-        lcdled = true;
-        nrf_pwr_mgmt_set_timeout(settings_get_data()->sleep_timeout_sec);
-    }
 }
 
 int32_t cache_save() {
@@ -103,7 +89,7 @@ int32_t cache_save() {
         return NRF_ERROR_INVALID_STATE;
     }
 
-    if (m_cache_data.current_drive != VFS_DRIVE_MAX && m_cache_data.current_folder != "" && m_cache_data.current_file != "") {
+    if (m_cache_data.current_drive != VFS_DRIVE_MAX && !strcmp(m_cache_data.current_folder, "") && !strcmp(m_cache_data.current_file, "")) {
         m_cache_data.enabled = true;
     } else {
         m_cache_data.enabled = false;
