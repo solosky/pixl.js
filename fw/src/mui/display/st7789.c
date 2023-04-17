@@ -536,4 +536,10 @@ static void st7789_rotation_set(nrf_lcd_rotation_t rotation) {
 static void st7789_display_invert(bool invert) {
     write_command(invert ? ST7789_INVON : ST7789_INVOFF);
 }
+
+void st7789_sleep(void) {
+    write_command(0x10);
+    nrf_gpio_pin_clear(ST7789_LEDA_PIN);
+}
+
 #endif // NRF_MODULE_ENABLED(ST7789)

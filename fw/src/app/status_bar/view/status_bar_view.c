@@ -1,16 +1,35 @@
 #include "status_bar_view.h"
-#include "bat.h"
 #include "app_status_bar.h"
+#include "bat.h"
+#include <nrf_log.h>
 
 static void status_bar_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_draw_glyph(p_canvas, 0, 10, 0xe002);
 
+#ifdef BAT_CR2032
     uint8_t bt = bat_get_level();
     if (bt == 0) {
         bt = 1;
     }
     mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 15, 8, 0xe24c + bt - 1);
+#endif
+#ifdef BAT_LIPO
+    bat_state_t state;
+    bat_get_state(&state);
+
+    char volt[10];
+    sprintf(volt, "%.02fV", state.voltage);
+    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 50, 8, volt);
+    NRF_LOG_INFO("volt: %s", nrf_log_push(volt));
+
+    if (state.charging) {
+        mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 15, 8, 0xe23a);
+    } else {
+        mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 15, 8, 0xe24c + state.level - 1);
+    }
+
+#endif
 }
 
 static void status_bar_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {}

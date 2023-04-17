@@ -342,6 +342,8 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 void mui_u8g2_deinit(u8g2_t *p_u8g2) {
     u8g2_SetPowerSave(p_u8g2, 1);
 
+    st7789_sleep();
+
     nrf_gpio_pin_clear(LCD_BL_PIN);
     nrf_gpio_cfg_default(LCD_BL_PIN);
 }

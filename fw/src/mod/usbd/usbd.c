@@ -82,7 +82,7 @@
 #ifndef USBD_POWER_DETECTION
 #define USBD_POWER_DETECTION 1
 #endif
-
+#include "mui_core.h"
 
 
 static void usbd_user_ev_handler(app_usbd_event_type_t event) {
@@ -109,10 +109,12 @@ static void usbd_user_ev_handler(app_usbd_event_type_t event) {
         case APP_USBD_EVT_POWER_REMOVED:
             NRF_LOG_INFO("USB power removed");
             app_usbd_stop();
+            mui_update(mui());
             break;
         case APP_USBD_EVT_POWER_READY:
             NRF_LOG_INFO("USB ready");
             app_usbd_start();
+            mui_update(mui());
             break;
         default:
             break;

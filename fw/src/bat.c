@@ -24,6 +24,8 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#ifdef BAT_CR2032
+
 #define ADC_CHANNEL 0
 
 //3.0 2.8  2.6  2.4  2.2 2.1 2.0 1.9 1.8 1.7
@@ -72,4 +74,6 @@ uint8_t bat_get_level(void) {
 
 	return 0;
 }
+
+#endif
 

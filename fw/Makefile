@@ -177,6 +177,7 @@ SRC_FILES += \
   $(PROJ_DIR)/ntag_emu_v2.c \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/bat.c \
+  $(PROJ_DIR)/bat_lipo.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_data.c \
@@ -573,6 +574,7 @@ LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
+LDFLAGS += -u _printf_float
 
 pixljs: CFLAGS += -D__HEAP_SIZE=8192
 pixljs: CFLAGS += -D__STACK_SIZE=8192

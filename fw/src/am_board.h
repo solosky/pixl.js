@@ -131,6 +131,9 @@ extern "C" {
 #define ARDUINO_A5_PIN              31    // Analog channel 5
 
 
+#define BAT_LIPO
+
+
 #ifdef __cplusplus
 }
 #endif
