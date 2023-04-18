@@ -105,12 +105,6 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
             } else {
                 // TODO AMIIBO test ..
 
-                // cache tag data
-                cache_data_t *cache_data = cache_get_data();
-                cache_data->current_drive = app->current_drive;
-                strcpy(cache_data->current_folder, string_get_cstr(app->current_folder));
-                strcpy(cache_data->current_file, string_get_cstr(app->current_file));
-
                 // read tag
                 app->reload_amiibo_files = true;
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
