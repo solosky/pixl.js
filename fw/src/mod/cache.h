@@ -7,7 +7,7 @@
 #include "vfs.h"
 
 typedef struct {
-    bool enabled;
+    int32_t enabled;
     vfs_drive_t current_drive;
     char current_folder[128];
     char current_file[64];

@@ -108,8 +108,8 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
                 // cache tag data
                 cache_data_t *cache_data = cache_get_data();
                 cache_data->current_drive = app->current_drive;
-                strcat(cache_data->current_folder, string_get_cstr(app->current_folder));
-                strcat(cache_data->current_file, string_get_cstr(app->current_file));
+                strcpy(cache_data->current_folder, string_get_cstr(app->current_folder));
+                strcpy(cache_data->current_file, string_get_cstr(app->current_file));
 
                 // read tag
                 app->reload_amiibo_files = true;
@@ -137,7 +137,7 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
 
     cache_data_t *cache = cache_get_data();
 
-    if (cache->enabled && !strcmp(cache->current_file, "")) {
+    if (cache->enabled == 1) {
         NRF_LOG_DEBUG("Cache found $ amiibo file browser");
         string_set_str(app->current_file, cache->current_file);
         app->reload_amiibo_files = true;

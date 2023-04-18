@@ -170,7 +170,7 @@ void mui_tick(mui_t *p_mui) {
     }
     cache = true;
     cache_data_t *cache = cache_get_data();
-    if (cache->enabled && !strcmp(cache->current_file, "")) {
+    if (cache->enabled == 1) {
         NRF_LOG_DEBUG("Cache found $ desktop");
         mini_app_launcher_run(mini_app_launcher(), app_amiibo_info.id);
     }

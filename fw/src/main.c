@@ -68,6 +68,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "nrf52833_bitfields.h"
 
 #include "ntag_emu.h"
 
@@ -105,6 +106,8 @@
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
 // #define SPI_FLASH
+
+static uint32_t m_reset_source;
 
 /**
  *@brief Function for initializing logging.
@@ -157,6 +160,10 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
         err_code = cache_save();
         APP_ERROR_CHECK(err_code);
 
+        uint32_t ram7_retention = POWER_RAM_POWER_S1RETENTION_On << POWER_RAM_POWER_S1RETENTION_Pos;
+        err_code = sd_power_ram_power_set(7, ram7_retention);
+        APP_ERROR_CHECK(err_code);
+
         hal_spi_flash_sleep();
 
         err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
@@ -205,6 +212,15 @@ int main(void) {
     err_code = bsp_init(BSP_INIT_LEDS, bsp_evt_handler);
     APP_ERROR_CHECK(err_code);
 
+    cache_init();
+    extern const ntag_t default_ntag215;
+    err_code = ntag_emu_init(&default_ntag215);
+    APP_ERROR_CHECK(err_code);
+
+    cache_data_t *p_cache = cache_get_data();
+    amiibo_helper_ntag_generate(&(p_cache->tag));
+    ntag_emu_set_tag(&(p_cache->tag));
+
     err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH, BTN_ACTION_KEY1_LONGPUSH);
     APP_ERROR_CHECK(err_code);
 
@@ -237,14 +253,6 @@ int main(void) {
     amiibo_helper_try_load_amiibo_keys_from_vfs();
 
     NRF_LOG_DEBUG("init done");
-
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
-    APP_ERROR_CHECK(err_code);
-
-    cache_data_t *p_cache = cache_get_data();
-    amiibo_helper_ntag_generate(&(p_cache->tag));
-    ntag_emu_set_tag(&(p_cache->tag));
 
     mui_t *p_mui = mui();
     mui_init(p_mui);

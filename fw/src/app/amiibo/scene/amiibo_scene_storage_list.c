@@ -72,7 +72,7 @@ void amiibo_scene_storage_list_on_enter(void *user_data) {
 
     cache_data_t *cache = cache_get_data();
 
-    if (cache->enabled && !strcmp(cache->current_file, "")) {
+    if (cache->enabled == 1) {
         NRF_LOG_DEBUG("Cache found $ amiibo storage list");
         app->current_drive = cache->current_drive;
         string_set_str(app->current_folder, cache->current_folder);
