@@ -68,7 +68,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
-#include "nrf52833_bitfields.h"
+#include "nrf_power.h"
 
 #include "ntag_emu.h"
 
@@ -190,6 +190,33 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 
 NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 
+// cpu reset reason
+static uint32_t m_reset_source;
+
+/**
+ *@brief :检测唤醒源
+ */
+static void check_wakeup_src(void) {
+    uint32_t rr = nrf_power_resetreas_get();
+    NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
+
+    cache_data_t *p_cache = cache_get_data();
+
+    if (rr == 0) {
+        NRF_LOG_INFO("WeakUp from button")
+        p_cache->enabled = 0;
+    } else if (rr & (NRF_POWER_RESETREAS_NFC_MASK | NRF_POWER_RESETREAS_LPCOMP_MASK)) {
+        NRF_LOG_INFO("WakeUp from rfid field");
+
+        amiibo_helper_ntag_generate(&(p_cache->tag));
+        ntag_emu_set_tag(&(p_cache->tag));
+    } else {
+        NRF_LOG_INFO("First power system");
+        cache_clean();
+    }
+    nrf_power_resetreas_clear(nrf_power_resetreas_get());
+}
+
 /**
  * @brief   Function for application main entry.
  */
@@ -217,9 +244,7 @@ int main(void) {
     err_code = ntag_emu_init(&default_ntag215);
     APP_ERROR_CHECK(err_code);
 
-    cache_data_t *p_cache = cache_get_data();
-    amiibo_helper_ntag_generate(&(p_cache->tag));
-    ntag_emu_set_tag(&(p_cache->tag));
+    check_wakeup_src();
 
     err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH, BTN_ACTION_KEY1_LONGPUSH);
     APP_ERROR_CHECK(err_code);
