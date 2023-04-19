@@ -97,6 +97,8 @@
 #include "settings.h"
 #include "cache.h"
 
+#include "app_amiibo.h"
+
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
 
@@ -217,6 +219,14 @@ static void check_wakeup_src(void) {
     nrf_power_resetreas_clear(nrf_power_resetreas_get());
 }
 
+void run_init_data() {
+    cache_data_t *cache = cache_get_data();
+    if (cache->enabled == 1) {
+        NRF_LOG_DEBUG("Cache found $ desktop");
+        mini_app_launcher_run(mini_app_launcher(), app_amiibo_info.id);
+    }
+}
+
 /**
  * @brief   Function for application main entry.
  */
@@ -281,6 +291,8 @@ int main(void) {
 
     mui_t *p_mui = mui();
     mui_init(p_mui);
+
+    request_next_tick(run_init_data);
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();
     mini_app_launcher_init(p_launcher);

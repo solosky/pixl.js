@@ -39,7 +39,7 @@ int32_t cache_clean() {
 }
 
 int32_t cache_save() {
-    if (strcmp(m_cache_data.current_file, "") == 0 || strcmp(m_cache_data.current_folder, "") == 0) {
+    if (strcmp(m_cache_data.current_file, "") == 0 || strcmp(m_cache_data.current_folder, "") == 0 || m_cache_data.current_drive == VFS_DRIVE_MAX) {
         return NRF_SUCCESS;
     }
     m_cache_data.enabled = 1;
