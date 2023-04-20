@@ -18,26 +18,24 @@ void ble_amiibolink_set_event_handler(ble_amiibolink_event_handler_t handler, vo
     m_event_ctx = ctx;
 }
 
-void *pad16(uint16_t data) {
-    uint8_t *buf = malloc(16);
+void pad16(uint16_t data, uint8_t buf[16]) {
     memset(buf, 0, 16);
     memcpy(buf, &data, sizeof(uint16_t));
-    return buf;
 }
 
 void ble_amiibolink_send_cmd(uint16_t cmd) {
-    link_data_t *link_data = malloc(sizeof(link_data_t));
-    memset(link_data, 0, sizeof(link_data_t));
-    link_data->key1 = (rand() % 256) + 1;
-    link_data->key2 = (rand() % 256) + 1;
-    link_data->data_len = 16;
+    link_data_t link_data = {0};
+    link_data.key1 = (rand() % 256) + 1;
+    link_data.key2 = (rand() % 256) + 1;
+    link_data.data_len = 16;
 
-    void *pad = pad16(cmd);
+    uint8_t pad[16] = {0};
+    pad16(cmd, pad);
 
     uint8_t key[] = {
         0x4B, 0x47, 0x46, 0x5F, 0x41, 0x4D, 0x49, 
         0x4C, 0x07, 0xE7, 0x04, 0x06, 0x0A, 0x2A, 
-        link_data->key1, link_data->key2 // 随机密钥
+        link_data.key1, link_data.key2 // 随机密钥
     };
 
     nrf_crypto_aes_context_t aes_ecb_ctx;
@@ -49,15 +47,15 @@ void ble_amiibolink_send_cmd(uint16_t cmd) {
         NULL,
         pad,
         16,
-        link_data->data,
-        link_data->data_len
+        link_data.data,
+        link_data.data_len
     );
     NRF_LOG_INFO("nrf_crypto_aes_crypt: %s", nrf_crypto_error_string_get(err));
-    link_data->de_data_len = 16;
+    link_data.de_data_len = 16;
     
-    NRF_LOG_HEXDUMP_DEBUG(link_data, sizeof(link_data_t))
+    NRF_LOG_HEXDUMP_DEBUG(&link_data, sizeof(link_data_t))
 
-    ble_nus_tx_data(link_data, sizeof(link_data_t));
+    ble_nus_tx_data(&link_data, sizeof(link_data_t));
 }
 
 void ble_amiibolink_write_ntag(buffer_t *buffer) {
@@ -82,8 +80,7 @@ void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
     nrf_crypto_aes_context_t aes_ecb_ctx;
 
     uint8_t len = link_data->de_data_len;
-    uint8_t *buf = malloc(len);
-    memset(buf, 0, len);
+    uint8_t buf[len];
 
     uint8_t key[] = {
         0x4B, 0x47, 0x46, 0x5F, 0x41, 0x4D, 0x49, 
@@ -104,9 +101,9 @@ void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
     );
 
     NRF_LOG_INFO("decrypted data len: %d", len);
-    NRF_LOG_HEXDUMP_DEBUG(buf, len)
+    NRF_LOG_HEXDUMP_DEBUG(&buf, len)
 
-    NEW_BUFFER_READ(buffer, (void *)buf, len);
+    NEW_BUFFER_READ(buffer, (void *) &buf, len);
 
     uint16_t cmd = buff_get_u16(&buffer);
     switch (cmd) {
