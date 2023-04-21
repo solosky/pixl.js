@@ -4,6 +4,9 @@
 #include "mui_mem.h"
 #include "mui_u8g2.h"
 
+#include "cache.h"
+#include "nrf_log.h"
+
 static mui_view_port_t *mui_find_view_port_enabled(mui_t *p_mui, mui_layer_t layer) {
     mui_view_port_array_it_t it;
     mui_view_port_array_it_last(it, p_mui->layers[layer]);
@@ -123,6 +126,8 @@ mui_t *mui() {
     return &mui;
 }
 
+tick_queue_t tick_queue;
+
 void mui_init(mui_t *p_mui) {
 
     mui_mem_init();
@@ -147,6 +152,52 @@ void mui_init(mui_t *p_mui) {
     mui_input_init();
 
     p_mui->initialized = true;
+
+    tick_queue.front = NULL;
+    tick_queue.rear = NULL;
+}
+
+int tick_queue_empty(mui_t *p_mui) {
+    return tick_queue.front == NULL;
+}
+
+void request_next_tick(func_ptr_t func) {
+    tick_queue_node_t *new_node = (tick_queue_node_t*) malloc(sizeof(tick_queue_node_t));
+    new_node->func = func;
+    new_node->next = NULL;
+
+    if (tick_queue.rear == NULL) {
+        tick_queue.front = new_node;
+        tick_queue.rear = new_node;
+    } else {
+        tick_queue.rear->next = new_node;
+        tick_queue.rear = new_node;
+    }
+}
+
+tick_queue_node_t* tick_dequeue(tick_queue_t *queue) {
+    if (tick_queue_empty(queue)) {
+        return NULL;
+    }
+
+    tick_queue_node_t *node = queue->front;
+
+    if (queue->front == queue->rear) {
+        queue->front = NULL;
+        queue->rear = NULL;
+    } else {
+        queue->front = queue->front->next;
+    }
+
+    return node;
+}
+
+void tick_execute_queue(tick_queue_t *queue) {
+    while (!tick_queue_empty(queue)) {
+        tick_queue_node_t *node = tick_dequeue(queue);
+        node->func();
+        free(node);
+    }
 }
 
 void mui_deinit(mui_t *p_mui) {
@@ -157,7 +208,10 @@ void mui_deinit(mui_t *p_mui) {
 
 void mui_post(mui_t *p_mui, mui_event_t *p_event) { mui_event_post(&p_mui->event_queue, p_event); }
 
-void mui_tick(mui_t *p_mui) { mui_event_dispatch(&p_mui->event_queue); }
+void mui_tick(mui_t *p_mui) { 
+    mui_event_dispatch(&p_mui->event_queue);
+    tick_execute_queue(&tick_queue);
+}
 
 void mui_panic(mui_t *p_mui, char *err) {
     if (p_mui->initialized) {

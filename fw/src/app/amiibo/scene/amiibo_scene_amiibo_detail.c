@@ -10,6 +10,9 @@
 #include "vfs_meta.h"
 #include "amiibo_helper.h"
 #include "ntag_store.h"
+#include "settings.h"
+
+#include "cache.h"
 
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
@@ -43,6 +46,7 @@ static void amiibo_scene_amiibo_detail_reload_error(app_amiibo_t *app, const cha
     mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_msg_box_error_cb);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
+    cache_clean();
 }
 
 static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *ntag) {
@@ -153,7 +157,8 @@ static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag
     if (type == NTAG_EVENT_TYPE_WRITTEN) {
         ntag_update(app, p_ntag);
     } else if (type == NTAG_EVENT_TYPE_READ) {
-        if (app->auto_gen_amiibo) {
+        settings_data_t* p_settings = settings_get_data();
+        if (p_settings->auto_gen_amiibo) {
             app_timer_stop(m_amiibo_gen_delay_timer);
             app_timer_start(m_amiibo_gen_delay_timer, APP_TIMER_TICKS(1000), app);
         }
@@ -179,6 +184,17 @@ static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
     amiibo_detail_view_set_file_name(app->p_amiibo_detail_view, file_name);
     amiibo_detail_view_set_ntag(app->p_amiibo_detail_view, &app->ntag);
     ntag_emu_set_tag(app->p_amiibo_detail_view->ntag);
+    
+    settings_data_t *settings = settings_get_data();
+    if (settings->auto_gen_amiibo) {
+        ntag_gen(app);
+    }
+
+    cache_data_t *cache_data = cache_get_data();
+    memcpy(&(cache_data->tag), &app->ntag, sizeof(ntag_t));
+    strcpy(&(cache_data->current_file), file_name);
+    strcpy(&(cache_data->current_folder), string_get_cstr(app->current_folder));
+    cache_data->current_drive = app->current_drive;
 
     return true;
 }

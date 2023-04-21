@@ -15,6 +15,7 @@ typedef struct {
     mui_scene_dispatcher_t *p_scene_dispatcher;
 
     ble_amiibolink_mode_t amiibolink_mode;
+
     bool auto_generate;
     ble_amiibolink_ver_t amiibolink_ver;
 } app_amiibolink_t;
