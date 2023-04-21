@@ -224,6 +224,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_main.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu_mode.c \
+  $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu_ver.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \

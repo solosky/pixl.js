@@ -532,7 +532,7 @@ void ble_service_id_set(uint32_t suffix) {
 }
 
 void ble_device_mode_prepare(ble_device_mode_t mode) {
-    if (mode == BLE_DEVICE_MODE_AMIIBOLINK) {
+    if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
         ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
         ble_addr_set(0x10);
     } else {
@@ -541,7 +541,7 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
     }
     advertising_init();
 
-    ble_service_id_set(mode == BLE_DEVICE_MODE_AMIIBOLINK ? 0x0000180F : 0x6e400001);
+    ble_service_id_set(mode == BLE_DEVICE_MODE_AMIIBOLINK_V2 ? 0x0000180F : 0x6e400001);
 }
 
 void ble_adv_start(void) {

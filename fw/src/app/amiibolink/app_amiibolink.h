@@ -16,6 +16,7 @@ typedef struct {
 
     ble_amiibolink_mode_t amiibolink_mode;
     bool auto_generate;
+    ble_amiibolink_ver_t amiibolink_ver;
 } app_amiibolink_t;
 
 typedef enum { AMIIBOLINK_VIEW_ID_LIST, AMIIBOLINK_VIEW_ID_MAIN, AMIIBOLINK_VIEW_ID_MSG_BOX } app_amiibolink_view_id_t;
