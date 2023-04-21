@@ -12,7 +12,7 @@
 #define ICON_BACK 0xe069
 #define ICON_HOME 0xe1f0
 #define ICON_AUTO 0xe11f
-#define ICON_VER 0xe120
+#define ICON_VER 0xe0be
 
 const char *mode_name[] = {"", "随机", "按序", "读写"};
 
@@ -78,8 +78,8 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     sprintf(txt, "自动随机 [%s]", app->auto_generate ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
     sprintf(txt, "兼容模式 [%s]", app->amiibolink_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : "V1");
-    mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_VER);
-    mui_list_view_add_item(app->p_list_view, ICON_VER, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
+    mui_list_view_add_item(app->p_list_view, ICON_VER, txt, (void *)AMIIBOLINK_MENU_VER);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
     mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)AMIIBOLINK_MENU_BACK_EXIT);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibolink_scene_menu_on_event);
