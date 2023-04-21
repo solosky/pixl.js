@@ -14,13 +14,16 @@
 #define ICON_BACK 0xe069
 #define ICON_HOME 0xe1f0
 #define ICON_AUTO 0xe11f
+#define ICON_VER 0xe120
 
 const char *mode_name[] = {"", "随机", "按序", "读写"};
 
 #define AMIIBOLINK_MENU_BACK_EXIT 0
 #define AMIIBOLINK_MENU_BACK_MAIN 1
 #define AMIIBOLINK_MENU_MODE 2
-#define AMIIBOLINK_MENU_AUTO_GENERATE 3
+#define AMIIBOLINK_MENU_VER 3
+#define AMIIBOLINK_MENU_AUTO_GENERATE 4
+
 
 static void amiibolink_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
     app_amiibolink_t *app = p_msg_box->user_data;
@@ -49,6 +52,8 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBOLINK_SCENE_MAIN);
         } else if (menu_code == AMIIBOLINK_MENU_MODE) {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBOLINK_SCENE_MENU_MODE);
+        } else if (menu_code == AMIIBOLINK_MENU_VER) {
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBOLINK_SCENE_MENU_VER);
         } else if (menu_code == AMIIBOLINK_MENU_BACK_EXIT) {
             mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBOLINK);
         } else if (menu_code == AMIIBOLINK_MENU_AUTO_GENERATE) {
@@ -79,7 +84,9 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     settings_data_t* p_settings = settings_get_data();
     sprintf(txt, "自动随机 [%s]", p_settings->auto_gen_amiibolink ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
+    sprintf(txt, "兼容模式 [%s]", app->amiibolink_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : "V1");
+    mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_VER);
+    mui_list_view_add_item(app->p_list_view, ICON_VER, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
     mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)AMIIBOLINK_MENU_BACK_EXIT);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibolink_scene_menu_on_event);

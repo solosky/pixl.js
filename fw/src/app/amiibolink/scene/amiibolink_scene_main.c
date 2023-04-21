@@ -156,9 +156,11 @@ void amiibolink_scene_main_on_enter(void *user_data) {
 
     // enable ble
     ble_init();
-    ble_device_mode_prepare(BLE_DEVICE_MODE_AMIIBOLINK);
+    ble_device_mode_prepare(app->amiibolink_ver == BLE_AMIIBOLINK_VER_V2
+                                ? BLE_DEVICE_MODE_AMIIBOLINK_V2 : BLE_DEVICE_MODE_AMIIBOLINK);
     ble_adv_start();
 
+    ble_amiibolink_set_version(app->amiibolink_ver);
     ble_nus_set_handler(ble_amiibolink_received_data, NULL);
 
     ntag_init();

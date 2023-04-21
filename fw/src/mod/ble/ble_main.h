@@ -13,7 +13,8 @@
 
 typedef enum {
     BLE_DEVICE_MODE_PIXLJS,
-    BLE_DEVICE_MODE_AMIIBOLINK
+    BLE_DEVICE_MODE_AMIIBOLINK,
+    BLE_DEVICE_MODE_AMIIBOLINK_V2
 } ble_device_mode_t;
 
 typedef void (*nus_rx_data_handler_t)(const uint8_t *data, size_t data_len);

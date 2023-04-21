@@ -143,12 +143,10 @@ static nus_rx_data_handler_t m_nus_rx_data_handler =
 static nus_tx_ready_handler_t m_nus_tx_ready_handler =
     NULL; /**< Event handler to be called for handling transmitted packets. */
 
-
 #define DEVICE_NAME_PIXLJS "Pixl.js"
 #define DEVICE_NAME_AMIIBOLINK "amiibolink"
 
 #define DEVICE_NAME DEVICE_NAME_PIXLJS
-
 
 static ble_gap_addr_t m_default_gap_addr = {0};
 
@@ -214,7 +212,7 @@ static void gap_params_init(void) {
 static void nrf_qwr_error_handler(uint32_t nrf_error) { APP_ERROR_HANDLER(nrf_error); }
 
 static void nus_event_async_call_rx_data(void *p_event_data, uint16_t event_size) {
-    //NRF_LOG_INFO("nus_event_async_call_rx_data: bytes=%d", event_size);
+    // NRF_LOG_INFO("nus_event_async_call_rx_data: bytes=%d", event_size);
     if (m_nus_rx_data_handler) {
         m_nus_rx_data_handler(p_event_data, event_size);
     }
@@ -510,7 +508,6 @@ void ble_init(void) {
     NRF_LOG_INFO("BLE started.");
 }
 
-
 void ble_set_device_name(const char *device_name) {
     ble_gap_conn_sec_mode_t sec_mode;
 
@@ -520,23 +517,31 @@ void ble_set_device_name(const char *device_name) {
     APP_ERROR_CHECK(err_code);
 }
 
-void ble_addr_set(uint8_t offset){
+void ble_addr_set(uint8_t offset) {
     ble_gap_addr_t addr = {0};
-    memcpy(&addr,  &m_default_gap_addr, sizeof(ble_gap_addr_t));
+    memcpy(&addr, &m_default_gap_addr, sizeof(ble_gap_addr_t));
     addr.addr[0] += offset;
     uint32_t err_code = sd_ble_gap_addr_set(&addr);
     APP_ERROR_CHECK(err_code);
 }
 
-void ble_device_mode_prepare(ble_device_mode_t mode){
-    if(mode == BLE_DEVICE_MODE_AMIIBOLINK){
+void ble_service_id_set(uint32_t suffix) {
+    uint32_t *ptr = m_advertising.p_adv_data->scan_rsp_data.p_data
+                    + m_advertising.p_adv_data->scan_rsp_data.len - 4;
+    *ptr = suffix;
+}
+
+void ble_device_mode_prepare(ble_device_mode_t mode) {
+    if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
         ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
         ble_addr_set(0x10);
-    }else{
+    } else {
         ble_set_device_name(DEVICE_NAME_PIXLJS);
         ble_addr_set(0);
     }
     advertising_init();
+
+    ble_service_id_set(mode == BLE_DEVICE_MODE_AMIIBOLINK_V2 ? 0x0000180F : 0x6e400001);
 }
 
 void ble_adv_start(void) {
@@ -554,8 +559,6 @@ void ble_disable() {
         sd_ble_gap_disconnect(m_conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
     }
 }
-
-
 
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
     m_nus_rx_data_handler = rx_data_handler;
