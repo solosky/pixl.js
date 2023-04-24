@@ -30,9 +30,15 @@ typedef struct {
     /**amiibo detail view*/
     string_array_t amiibo_files;
     bool reload_amiibo_files;
-    bool auto_gen_amiibo;
 
 } app_amiibo_t;
+
+typedef struct {
+    vfs_drive_t current_drive;
+    char current_folder[128];
+    char current_file[64];
+} app_amiibo_cache_data_t;
+
 
 typedef enum {
     AMIIBO_VIEW_ID_LIST,

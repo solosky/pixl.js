@@ -8,6 +8,9 @@ typedef struct {
     bool backlight;
     uint8_t sleep_timeout_sec;
     bool dirty;
+    bool auto_gen_amiibo;
+    bool auto_gen_amiibolink;
+    bool skip_driver_select;
 } settings_data_t;
 
 int32_t settings_init();

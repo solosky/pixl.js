@@ -4,6 +4,9 @@
 #include "mui_mem.h"
 #include "mui_u8g2.h"
 
+#include "cache.h"
+#include "nrf_log.h"
+
 static mui_view_port_t *mui_find_view_port_enabled(mui_t *p_mui, mui_layer_t layer) {
     mui_view_port_array_it_t it;
     mui_view_port_array_it_last(it, p_mui->layers[layer]);

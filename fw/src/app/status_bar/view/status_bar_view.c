@@ -2,8 +2,17 @@
 #include "bat.h"
 #include "app_status_bar.h"
 
+static void chrg_callback(void) {
+    mui_update(mui());
+}
+
 static void status_bar_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+
+    if (get_stats()) {
+        mui_canvas_draw_glyph(p_canvas, 100, 8, 0xe09e);
+    }
+
     mui_canvas_draw_glyph(p_canvas, 0, 10, 0xe002);
 
     uint8_t bt = bat_get_level();
@@ -28,6 +37,8 @@ status_bar_view_t *status_bar_view_create() {
     p_view->input_cb = status_bar_view_on_input;
     p_view->enter_cb = status_bar_view_on_enter;
     p_view->exit_cb = status_bar_view_on_exit;
+
+    chrg_set_callback(chrg_callback);
 
     p_status_bar_view->p_view = p_view;
 

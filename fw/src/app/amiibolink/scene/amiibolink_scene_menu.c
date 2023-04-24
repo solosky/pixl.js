@@ -8,6 +8,8 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
+#include "settings.h"
+
 #define ICON_MODE 0xe135
 #define ICON_BACK 0xe069
 #define ICON_HOME 0xe1f0
@@ -55,15 +57,18 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
         } else if (menu_code == AMIIBOLINK_MENU_BACK_EXIT) {
             mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBOLINK);
         } else if (menu_code == AMIIBOLINK_MENU_AUTO_GENERATE) {
-
-            if (!amiibo_helper_is_key_loaded() && !app->auto_generate) {
+            settings_data_t* p_settings = settings_get_data();
+            
+            if (!amiibo_helper_is_key_loaded() && !p_settings->auto_gen_amiibolink) {
                 amiibolink_scene_amiibo_detail_no_key_msg(app);
                 return;
             }
 
-            app->auto_generate = !app->auto_generate;
-            NRF_LOG_INFO("auto_generate: %d", app->auto_generate);
-            sprintf(txt, "自动随机 [%s]", app->auto_generate ? "开" : "关");
+            p_settings->auto_gen_amiibolink = !p_settings->auto_gen_amiibolink;
+            NRF_LOG_INFO("auto_generate: %d", p_settings->auto_gen_amiibolink);
+            sprintf(txt, "自动随机 [%s]", p_settings->auto_gen_amiibolink ? "开" : "关");
+            settings_save();
+
             string_set_str(p_item->text, txt);
         }
     }
@@ -75,7 +80,9 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     char txt[32];
     sprintf(txt, "模式 [%s]", mode_name[app->amiibolink_mode]);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, txt, (void *)AMIIBOLINK_MENU_MODE);
-    sprintf(txt, "自动随机 [%s]", app->auto_generate ? "开" : "关");
+
+    settings_data_t* p_settings = settings_get_data();
+    sprintf(txt, "自动随机 [%s]", p_settings->auto_gen_amiibolink ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
     sprintf(txt, "兼容模式 [%s]", app->amiibolink_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : "V1");
     mui_list_view_add_item(app->p_list_view, ICON_VER, txt, (void *)AMIIBOLINK_MENU_VER);
