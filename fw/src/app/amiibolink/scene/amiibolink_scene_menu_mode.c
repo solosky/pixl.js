@@ -31,7 +31,7 @@ void amiibolink_scene_menu_mode_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, ICON_MODE, "随机模式", (void *)BLE_AMIIBOLINK_MODE_RANDOM);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, "按序模式", (void *)BLE_AMIIBOLINK_MODE_CYCLE);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, "读写模式", (void *)BLE_AMIIBOLINK_MODE_NTAG);
-    app->p_list_view->focus_index = app->amiibolink_mode;
+    mui_list_view_set_focus(app->p_list_view, app->amiibolink_mode);
     mui_list_view_set_selected_cb(app->p_list_view, amiibolink_scene_menu_mode_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBOLINK_VIEW_ID_LIST);
 }
