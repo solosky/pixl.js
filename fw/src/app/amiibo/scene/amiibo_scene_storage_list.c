@@ -8,7 +8,6 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 
-#include "cache.h"
 #include "settings.h"
 
 #define ICON_BACK 0xe069

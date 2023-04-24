@@ -30,7 +30,8 @@ void amiibolink_scene_menu_ver_on_enter(void *user_data) {
 
     mui_list_view_add_item(app->p_list_view, ICON_MODE, "V1(历史版本)", (void *)BLE_AMIIBOLINK_VER_V1);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, "V2(最新版本)", (void *)BLE_AMIIBOLINK_VER_V2);
-    mui_list_view_set_focus(app->p_list_view, app->amiibolink_ver);
+    settings_data_t *p_settings = settings_get_data();
+    mui_list_view_set_focus(app->p_list_view, p_settings->amiibo_link_mode);
     mui_list_view_set_selected_cb(app->p_list_view, amiibolink_scene_menu_ver_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBOLINK_VIEW_ID_LIST);
 }

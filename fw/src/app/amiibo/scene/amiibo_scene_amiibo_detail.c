@@ -12,8 +12,6 @@
 #include "ntag_store.h"
 #include "settings.h"
 
-#include "cache.h"
-
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
 
@@ -46,7 +44,6 @@ static void amiibo_scene_amiibo_detail_reload_error(app_amiibo_t *app, const cha
     mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_msg_box_error_cb);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
-    cache_clean();
 }
 
 static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *ntag) {
@@ -178,6 +175,7 @@ static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
     int32_t err = ntag_read(p_vfs_driver, path, &app->ntag);
     if (err != NRF_SUCCESS) {
         amiibo_scene_amiibo_detail_reload_error(app, file_name, err);
+        string_set_str(app->current_file, "");
         return false;
     }
     string_set_str(app->current_file, file_name);
