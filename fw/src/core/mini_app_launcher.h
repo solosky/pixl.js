@@ -26,5 +26,6 @@ void mini_app_launcher_post_event(mini_app_launcher_t* p_launcher, uint32_t id, 
 void* mini_app_launcher_get_app_handle(mini_app_launcher_t* p_launcher, uint32_t id);
 
 
+mini_app_inst_t *mini_app_get_this_run_inst(mini_app_launcher_t *p_launcher);
 
 #endif 

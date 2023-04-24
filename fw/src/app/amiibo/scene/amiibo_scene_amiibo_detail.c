@@ -190,12 +190,6 @@ static bool amiibo_scene_amiibo_detail_reload_ntag(app_amiibo_t *app, const char
         ntag_gen(app);
     }
 
-    cache_data_t *cache_data = cache_get_data();
-    memcpy(&(cache_data->tag), &app->ntag, sizeof(ntag_t));
-    strcpy(&(cache_data->current_file), file_name);
-    strcpy(&(cache_data->current_folder), string_get_cstr(app->current_folder));
-    cache_data->current_drive = app->current_drive;
-
     return true;
 }
 

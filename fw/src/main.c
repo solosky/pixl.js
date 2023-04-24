@@ -97,8 +97,6 @@
 #include "settings.h"
 #include "cache.h"
 
-#include "app_amiibo.h"
-
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
 
@@ -108,8 +106,6 @@
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
 // #define SPI_FLASH
-
-static uint32_t m_reset_source;
 
 /**
  *@brief Function for initializing logging.
@@ -154,14 +150,34 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
     case NRF_PWR_MGMT_EVT_PREPARE_WAKEUP:
         // Set up NFCT peripheral as the only wake up source.
         NRF_LOG_DEBUG("go sleep");
+        mini_app_inst_t *app = mini_app_get_this_run_inst(mini_app_launcher());
+        if (app == NULL) {
+            NRF_LOG_DEBUG("app not found");
+        } else {
+            NRF_LOG_DEBUG("app found");
+            NRF_LOG_DEBUG("app id: %d", app->p_app->id);
+            NRF_LOG_DEBUG("app name: %s", app->p_app->name);
+            NRF_LOG_FLUSH();
+            cache_data_t *p_cache = cache_get_data();
+            p_cache->id = app->p_app->id;
+            mini_app_event_t event = {
+                .event_id = DORMANCY_EVENT,
+                .data = p_cache->retain_data
+            };
+            app->p_app->on_event_cb(app, &event);
+            if (cache_empty(p_cache->retain_data)) {
+                cache_clean();
+            }
+        }
+
+        cache_save();
+
         mui_deinit(mui());
 
         //save settings
         settings_save();
 
-        err_code = cache_save();
-        APP_ERROR_CHECK(err_code);
-
+        // set noinit memory
         uint32_t ram7_retention = POWER_RAM_POWER_S1RETENTION_On << POWER_RAM_POWER_S1RETENTION_Pos;
         err_code = sd_power_ram_power_set(7, ram7_retention);
         APP_ERROR_CHECK(err_code);
@@ -192,9 +208,6 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 
 NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 
-// cpu reset reason
-static uint32_t m_reset_source;
-
 /**
  *@brief :检测唤醒源
  */
@@ -210,21 +223,12 @@ static void check_wakeup_src(void) {
     } else if (rr & (NRF_POWER_RESETREAS_NFC_MASK | NRF_POWER_RESETREAS_LPCOMP_MASK)) {
         NRF_LOG_INFO("WakeUp from rfid field");
 
-        amiibo_helper_ntag_generate(&(p_cache->tag));
-        ntag_emu_set_tag(&(p_cache->tag));
+        ntag_emu_set_tag(&(p_cache->ntag));
     } else {
         NRF_LOG_INFO("First power system");
         cache_clean();
     }
     nrf_power_resetreas_clear(nrf_power_resetreas_get());
-}
-
-void run_init_data() {
-    cache_data_t *cache = cache_get_data();
-    if (cache->enabled == 1) {
-        NRF_LOG_DEBUG("Cache found $ desktop");
-        mini_app_launcher_run(mini_app_launcher(), app_amiibo_info.id);
-    }
 }
 
 /**
@@ -249,13 +253,6 @@ int main(void) {
     err_code = bsp_init(BSP_INIT_LEDS, bsp_evt_handler);
     APP_ERROR_CHECK(err_code);
 
-    cache_init();
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
-    APP_ERROR_CHECK(err_code);
-
-    check_wakeup_src();
-
     err_code = bsp_event_to_button_action_assign(1, BSP_BUTTON_ACTION_LONG_PUSH, BTN_ACTION_KEY1_LONGPUSH);
     APP_ERROR_CHECK(err_code);
 
@@ -273,6 +270,13 @@ int main(void) {
     // enable sd to enable pwr mgmt
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
+
+    cache_init();
+    extern const ntag_t default_ntag215;
+    err_code = ntag_emu_init(&default_ntag215);
+    APP_ERROR_CHECK(err_code);
+
+    check_wakeup_src();
 
 //    err_code = ntag_store_init();
 //    APP_ERROR_CHECK(err_code);
@@ -293,8 +297,6 @@ int main(void) {
 
     mui_t *p_mui = mui();
     mui_init(p_mui);
-
-    request_next_tick(run_init_data);
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();
     mini_app_launcher_init(p_launcher);

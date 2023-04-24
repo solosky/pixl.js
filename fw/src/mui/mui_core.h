@@ -36,23 +36,6 @@ typedef struct {
     mui_view_port_array_t layers[MUI_LAYER_MAX];
 } mui_t;
 
-// queue
-typedef void (*func_ptr_t)(void);
-
-typedef struct queue_node {
-    func_ptr_t func;
-    struct queue_node *next;
-} tick_queue_node_t;
-
-typedef struct queue {
-    tick_queue_node_t *front;
-    tick_queue_node_t *rear;
-} tick_queue_t;
-
-void request_next_tick(func_ptr_t func);
-
-
-
 mui_t* mui();
 
 void mui_init(mui_t* p_mui);

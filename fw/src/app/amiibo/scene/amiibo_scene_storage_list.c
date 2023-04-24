@@ -71,26 +71,6 @@ void amiibo_scene_storage_list_on_enter(void *user_data) {
         driver = VFS_DRIVE_EXT;
     }
 
-    cache_data_t *cache = cache_get_data();
-
-    if (cache->enabled == 1) {
-        NRF_LOG_DEBUG("Cache found $ amiibo storage list");
-        app->current_drive = cache->current_drive;
-        string_set_str(app->current_folder, cache->current_folder);
-        vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
-
-        if (p_driver->mounted()) {
-            amiibo_helper_try_load_amiibo_keys_from_vfs();
-            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-        } else {
-            int32_t err = p_driver->mount();
-            amiibo_helper_try_load_amiibo_keys_from_vfs();
-            if (err == VFS_OK) {
-                mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-            }
-        }
-        return;
-    }
     settings_data_t* p_settings = settings_get_data();
     if (p_settings->skip_driver_select && driver) {
         app->current_drive = driver;
