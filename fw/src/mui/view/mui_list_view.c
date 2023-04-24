@@ -11,6 +11,10 @@ static void mui_list_view_update_scroll_offset_y(mui_list_view_t *p_view, mui_ca
     uint32_t total = mui_list_item_array_size(p_view->items);
     uint8_t scroll_direction = p_view->scroll_direction;
     uint32_t item_per_canvas = mui_canvas_get_height(p_canvas) / (LIST_ITEM_HEIGHT - 1);
+    if (mui_list_item_array_size(p_view->items) <= item_per_canvas) {
+        p_view->scroll_offset = 0;
+        return;
+    }
 
     if (scroll_direction == LIST_SCROLL_TOP) {
         p_view->scroll_offset = 0;

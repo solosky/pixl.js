@@ -11,8 +11,8 @@ typedef enum {
 } ble_amiibolink_mode_t;
 
 typedef enum {
-    BLE_AMIIBOLINK_VER_V1,
-    BLE_AMIIBOLINK_VER_V2
+    BLE_AMIIBOLINK_VER_V1 = 1,
+    BLE_AMIIBOLINK_VER_V2 = 2
 }ble_amiibolink_ver_t;
 
 typedef struct {
