@@ -281,12 +281,12 @@ int main(void) {
 //    err_code = ntag_store_init();
 //    APP_ERROR_CHECK(err_code);
 
-    chrg_init();
-
     err_code = settings_init();
     //we ignore error here, cause flash may not be presented or settings.bin did not exist
     NRF_LOG_INFO("settings init: %d", err_code);
     //APP_ERROR_CHECK(err_code);
+
+    chrg_init();
 
     settings_data_t *p_settings = settings_get_data();
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);

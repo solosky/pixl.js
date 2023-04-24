@@ -4,8 +4,7 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 
-#include "nrf_log.h"
-#include "nrf_log_ctrl.h"
+#include "settings.h"
 
 #define ICON_MODE 0xe1ed
 #define ICON_BACK 0xe069
@@ -15,7 +14,8 @@ void amiibolink_scene_menu_ver_on_event(mui_list_view_event_t event, mui_list_vi
     app_amiibolink_t *app = p_list_view->user_data;
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
         if (p_item->icon == ICON_MODE) {
-            app->amiibolink_ver = (ble_amiibolink_ver_t) p_item->user_data;
+            settings_data_t *p_settings = settings_get_data();
+            p_settings->amiibo_link_mode = (ble_amiibolink_ver_t) p_item->user_data;
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBOLINK_SCENE_MAIN);
         } else if (p_item->icon == ICON_BACK) {
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
