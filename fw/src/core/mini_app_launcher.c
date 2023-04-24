@@ -11,6 +11,7 @@ static void mini_app_launcher_inst_kill(mini_app_launcher_t *p_launcher,
                                         mini_app_inst_t *p_app_inst) {
     p_app_inst->p_app->kill_cb(p_app_inst);
     p_app_inst->state = APP_STATE_KILLED;
+    memset(p_app_inst->retain_data, 0, CACHEDATASIZE);
 }
 
 mini_app_inst_t *mini_app_get_this_run_inst(mini_app_launcher_t *p_launcher) {
@@ -28,7 +29,7 @@ mini_app_inst_t *mini_app_get_this_run_inst(mini_app_launcher_t *p_launcher) {
     return NULL;
 }
 
-static void mini_app_launcher_inst_run(mini_app_launcher_t *p_launcher, uint32_t id) {
+static void mini_app_launcher_inst_run(mini_app_launcher_t *p_launcher, uint32_t id, uint8_t *retain_data) {
     mini_app_inst_t **pp_app_inst = mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
     mini_app_inst_t *p_app_inst = NULL;
     if(pp_app_inst){
@@ -41,11 +42,16 @@ static void mini_app_launcher_inst_run(mini_app_launcher_t *p_launcher, uint32_t
         p_app_inst->p_app = mini_app_registry_find_by_id(id);
         p_app_inst->state = APP_STATE_RUNNING;
         mui_app_inst_dict_set_at(p_launcher->app_inst_dict, id, p_app_inst);
+        if (retain_data) {
+            memcpy(p_app_inst->retain_data, retain_data, CACHEDATASIZE);
+        } else {
+            memset(p_app_inst->retain_data, 0, CACHEDATASIZE);
+        }
         p_app_inst->p_app->run_cb(p_app_inst);
     }
 }
 
-void mini_app_launcher_run(mini_app_launcher_t *p_launcher, uint32_t id) {
+void mini_app_launcher_run_with_retain_data(mini_app_launcher_t *p_launcher, uint32_t id, uint8_t *retain_data) {
     mini_app_t *p_app = mini_app_registry_find_by_id(id);
     if (p_app == NULL) {
         return;
@@ -54,12 +60,16 @@ void mini_app_launcher_run(mini_app_launcher_t *p_launcher, uint32_t id) {
     if (!p_app->deamon && p_launcher->p_main_app_inst) {
         mini_app_launcher_inst_kill(p_launcher, p_launcher->p_main_app_inst);
     }
-    mini_app_launcher_inst_run(p_launcher, id);
+    mini_app_launcher_inst_run(p_launcher, id, retain_data == NULL ? NULL : retain_data);
 
     if (!p_app->deamon) {
         p_launcher->p_main_app_inst =
             *mui_app_inst_dict_get(p_launcher->app_inst_dict, id);
     }
+}
+
+void mini_app_launcher_run(mini_app_launcher_t *p_launcher, uint32_t id) {
+    mini_app_launcher_run_with_retain_data(p_launcher, id, NULL);
 }
 
 void mini_app_launcher_kill(mini_app_launcher_t *p_launcher, uint32_t id) {
@@ -70,7 +80,7 @@ void mini_app_launcher_kill(mini_app_launcher_t *p_launcher, uint32_t id) {
 
     // run desktop if kill current app
     if (p_app_inst == p_launcher->p_main_app_inst) {
-        mini_app_launcher_inst_run(p_launcher, MINI_APP_ID_DESKTOP);
+        mini_app_launcher_inst_run(p_launcher, MINI_APP_ID_DESKTOP, NULL);
         p_launcher->p_main_app_inst =
             *mui_app_inst_dict_get(p_launcher->app_inst_dict, MINI_APP_ID_DESKTOP);
     }

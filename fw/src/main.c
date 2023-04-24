@@ -160,13 +160,11 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
             NRF_LOG_FLUSH();
             cache_data_t *p_cache = cache_get_data();
             p_cache->id = app->p_app->id;
-            mini_app_event_t event = {
-                .event_id = DORMANCY_EVENT,
-                .data = p_cache->retain_data
-            };
-            app->p_app->on_event_cb(app, &event);
-            if (cache_empty(p_cache->retain_data)) {
+            app->p_app->kill_cb(app);
+            if (cache_empty(app->retain_data)) {
                 cache_clean();
+            } else {
+                memcpy(p_cache->retain_data, app->retain_data, CACHEDATASIZE);
             }
         }
 

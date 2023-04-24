@@ -3,21 +3,19 @@
 
 #include <stdint.h>
 
+#include "cache.h"
+
 struct mini_app_inst_s;
 typedef struct mini_app_inst_s mini_app_inst_t;
 
 struct mini_app_s;
 typedef struct mini_app_s mini_app_t;
 
-typedef enum {
-    WEAKUP_EVENT,
-    DORMANCY_EVENT
-} mini_app_event_stats_t;
-
 typedef struct {
-    mini_app_event_stats_t event_id;
-    void* data;
-} mini_app_event_t;
+    uint32_t id;
+    uint32_t arg_int;
+    void* arg_ptr;
+}mini_app_event_t;
 
 
 typedef void (* mini_app_run_cb_t)(mini_app_inst_t* p_app_inst);
@@ -35,6 +33,7 @@ struct mini_app_inst_s {
     const mini_app_t* p_app;
     mini_app_state_t state;
     void* p_handle;
+    uint8_t retain_data[CACHEDATASIZE];
 };
 
 
