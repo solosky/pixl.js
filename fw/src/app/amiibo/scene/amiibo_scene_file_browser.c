@@ -7,7 +7,6 @@
 #include "vfs_meta.h"
 #include "mini_app_registry.h"
 
-#include "cache.h"
 #include "settings.h"
 
 #define ICON_FOLDER 0xe1d6
@@ -128,8 +127,6 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
     amiibo_scene_file_browser_reload_folders(app);
     NRF_LOG_INFO("%X", app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
-
-    cache_data_t *cache = cache_get_data();
 }
 
 void amiibo_scene_file_browser_on_exit(void *user_data) {

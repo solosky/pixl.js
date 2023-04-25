@@ -20,6 +20,7 @@ typedef struct {
 } app_desktop_t;
 
 static void app_desktop_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_view, mui_list_item_t *p_item) {
+    cache_clean();
     mini_app_launcher_run(mini_app_launcher(), (uint32_t)p_item->user_data);
 }
 
@@ -47,13 +48,7 @@ void app_desktop_on_run(mini_app_inst_t *p_app_inst) {
 
     cache_data_t *p_cache_data = cache_get_data();
     if (p_cache_data->enabled == 1) {
-        mini_app_launcher_run(mini_app_launcher(), p_cache_data->id);
-        mini_app_event_t event = {
-            .event_id = WEAKUP_EVENT,
-            .data = cache_get_data()->retain_data
-        };
-        mini_app_inst_t *app_inst = *mui_app_inst_dict_get(mini_app_launcher()->app_inst_dict, p_cache_data->id);
-        app_inst->p_app->on_event_cb(app_inst, &event);
+        mini_app_launcher_run_with_retain_data(mini_app_launcher(), p_cache_data->id, cache_get_data()->retain_data);
     }
 }
 

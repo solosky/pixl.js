@@ -9,6 +9,7 @@
 enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_VERSION,
     SETTINGS_MAIN_MENU_BACK_LIGHT,
+    SETTINGS_MAIN_MENU_LI_MODE,
     SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT,
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
     SETTINGS_MAIN_MENU_DFU,
@@ -51,6 +52,13 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         mui_update(mui());
         break;
 
+    case SETTINGS_MAIN_MENU_LI_MODE:
+        p_settings->li_mode = !p_settings->li_mode;
+        sprintf(txt, "锂电池模式 [%s]", p_settings->li_mode ? "开" : "关");
+        string_set_str(p_item->text, txt);
+        mui_update(mui());
+        break;
+
     case SETTINGS_MAIN_MENU_EXIT:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_SETTINGS);
         break;
@@ -66,10 +74,13 @@ void settings_scene_main_on_enter(void *user_data) {
 
     settings_data_t* p_settings = settings_get_data();
     sprintf(txt, "自动选择存储 [%s]", p_settings->skip_driver_select ? "开" : "关");
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
+    mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
 
     sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+
+    sprintf(txt, "锂电池模式 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
+    mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
 
     sprintf(txt, "休眠时间 [%ds]", nrf_pwr_mgmt_get_timeout());
     mui_list_view_add_item(app->p_list_view, 0xe1c9, txt, (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);

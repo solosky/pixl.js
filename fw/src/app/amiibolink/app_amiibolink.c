@@ -16,9 +16,6 @@ void app_amiibolink_on_run(mini_app_inst_t *p_app_inst) {
 
     p_app_handle->amiibolink_mode = BLE_AMIIBOLINK_MODE_RANDOM;
 
-    p_app_handle->amiibolink_ver = BLE_AMIIBOLINK_VER_V2;
-    p_app_handle->auto_generate = false;
-
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
     p_app_handle->p_amiibolink_view = amiibolink_view_create();
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
