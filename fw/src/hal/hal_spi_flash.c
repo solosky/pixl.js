@@ -137,7 +137,7 @@ ret_code_t hal_spi_flash_init() {
 }
 
 
-vfs_driver_t *hal_spi_flash_driver() {
+vfs_driver_t *hal_spi_flash_driver(vfs_drive_type_t *type) {
     uint8_t rx[3] = {0};
     uint8_t tx[1] = {0x9f};
     uint16_t memory_type_capacity;
@@ -149,8 +149,12 @@ vfs_driver_t *hal_spi_flash_driver() {
     memory_type_capacity = (memory_type_capacity << 8) | rx[2];
 
     if (memory_type_capacity == MTC_MX25L25645_GM2I || memory_type_capacity == MTC_W25Q128_BV) {
+        NRF_LOG_INFO("Using LFS")
+        type = VFS_DRIVE_TYPE_LFS;
         return &vfs_driver_lfs;
     } else {
+        NRF_LOG_INFO("Using SPIFFS")
+        type = VFS_DRIVE_TYPE_SPIFFS;
         return &vfs_driver_spiffs;
     }
 }

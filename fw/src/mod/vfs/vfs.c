@@ -1,8 +1,10 @@
 #include "vfs.h"
 #include "hal_spi_flash.h"
+#include "vfs_driver_spiffs.h"
 
 typedef struct {
     bool enabled;
+    vfs_drive_type_t type;
     vfs_driver_t *p_driver;
 } vfs_drive_item_t;
 
@@ -18,13 +20,16 @@ static vfs_drive_item_t vfs_drive_items[VFS_DRIVE_MAX] = {
 bool vfs_drive_enabled(vfs_drive_t drive) { return vfs_drive_items[drive].enabled; }
 
 vfs_driver_t *vfs_get_driver(vfs_drive_t drive) { 
-    if (vfs_drive_items[drive].p_driver == NULL) {
+    if (vfs_drive_items[drive].enabled && vfs_drive_items[drive].p_driver == NULL) {
         int32_t err_code = hal_spi_flash_init();
         if (err_code) {
             return NULL;
         }
-
-        vfs_drive_items[drive].p_driver = hal_spi_flash_driver();
+        vfs_drive_items[drive].p_driver = hal_spi_flash_driver(&(vfs_drive_items[drive].type));
     }
     return vfs_drive_items[drive].p_driver;
+}
+
+vfs_drive_type_t vfs_get_type(vfs_drive_t drive) {
+    return vfs_drive_items[drive].type;
 }

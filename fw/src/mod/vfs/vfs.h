@@ -42,6 +42,8 @@ typedef enum { VFS_DRIVE_INT, VFS_DRIVE_EXT, VFS_DRIVE_MAX } vfs_drive_t;
 
 typedef enum { VFS_TYPE_REG, VFS_TYPE_DIR } vfs_type_t;
 
+typedef enum { VFS_DRIVE_TYPE_LFS, VFS_DRIVE_TYPE_SPIFFS } vfs_drive_type_t;
+
 typedef struct {
     uint8_t type;
     size_t size;
@@ -102,5 +104,6 @@ typedef struct {
 
 bool vfs_drive_enabled(vfs_drive_t drive);
 vfs_driver_t *vfs_get_driver(vfs_drive_t drive);
+vfs_drive_type_t vfs_get_type(vfs_drive_t drive);
 
 #endif
