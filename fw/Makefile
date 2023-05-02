@@ -187,6 +187,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/vfs/vfs.c \
   $(PROJ_DIR)/mod/vfs/vfs_meta.c \
   $(PROJ_DIR)/mod/vfs/vfs_driver_spiffs.c \
+  $(PROJ_DIR)/mod/vfs/vfs_driver_lfs.c \
   $(PROJ_DIR)/mod/df/df_core.c \
   $(PROJ_DIR)/mod/df/df_proto_info.c \
   $(PROJ_DIR)/mod/df/df_proto_vfs.c \
@@ -258,6 +259,8 @@ SRC_FILES += \
   $(COMP_DIR)/spiffs/src/spiffs_gc.c \
   $(COMP_DIR)/spiffs/src/spiffs_hydrogen.c \
   $(COMP_DIR)/spiffs/src/spiffs_nucleus.c \
+  $(COMP_DIR)/littlefs/lfs.c \
+  $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
@@ -472,6 +475,7 @@ INC_FOLDERS += \
   $(COMP_DIR)/mlib \
   $(COMP_DIR)/u8g2/csrc \
   $(COMP_DIR)/spiffs/src \
+  $(COMP_DIR)/littlefs \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
   $(SDK_ROOT)/components/libraries/bsp
