@@ -11,8 +11,6 @@
 #include "vfs_driver_lfs.h"
 #include "vfs_driver_spiffs.h"
 
-#include "vfs.h"
-
 #define FLASH_CS_PIN 18
 
 #define PAGE_SIZE 256
@@ -139,7 +137,7 @@ ret_code_t hal_spi_flash_init() {
 }
 
 
-vfs_driver_t *hal_spi_flash_driver(vfs_drive_item_t *item) {
+vfs_driver_t *hal_spi_flash_driver(vfs_drive_type_t *type) {
     uint8_t rx[3] = {0};
     uint8_t tx[1] = {0x9f};
     uint16_t memory_type_capacity;
@@ -152,13 +150,11 @@ vfs_driver_t *hal_spi_flash_driver(vfs_drive_item_t *item) {
 
     if (memory_type_capacity == MTC_MX25L25645_GM2I || memory_type_capacity == MTC_W25Q128_BV) {
         NRF_LOG_INFO("Using LFS")
-        item->type = VFS_DRIVE_TYPE_LFS;
-        item->p_driver = &vfs_driver_lfs;
+        type = VFS_DRIVE_TYPE_LFS;
         return &vfs_driver_lfs;
     } else {
         NRF_LOG_INFO("Using SPIFFS")
-        item->type = VFS_DRIVE_TYPE_SPIFFS;
-        item->p_driver = &vfs_driver_spiffs;
+        type = VFS_DRIVE_TYPE_SPIFFS;
         return &vfs_driver_spiffs;
     }
 }
