@@ -8,9 +8,6 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
-#include "vfs_driver_lfs.h"
-#include "vfs_driver_spiffs.h"
-
 #define FLASH_CS_PIN 18
 
 #define PAGE_SIZE 256
@@ -134,25 +131,6 @@ ret_code_t hal_spi_flash_init() {
     hal_spi_flash_write_cmd(CMD_RDP);
 
     return NRF_SUCCESS;
-}
-
-
-vfs_driver_t *hal_spi_flash_driver() {
-    uint8_t rx[3] = {0};
-    uint8_t tx[1] = {0x9f};
-    uint16_t memory_type_capacity;
-
-    hal_spi_flash_write_read(tx, 1, rx, 3);
-
-    /* get memory type and capacity */
-    memory_type_capacity = rx[1];
-    memory_type_capacity = (memory_type_capacity << 8) | rx[2];
-
-    if (memory_type_capacity == MTC_MX25L25645_GM2I || memory_type_capacity == MTC_W25Q128_BV) {
-        return &vfs_driver_lfs;
-    } else {
-        return &vfs_driver_spiffs;
-    }
 }
 
 ret_code_t hal_spi_flash_info(flash_info_t *info) {
