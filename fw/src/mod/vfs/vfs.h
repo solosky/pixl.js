@@ -102,6 +102,12 @@ typedef struct {
 
 } vfs_driver_t;
 
+typedef struct {
+    bool enabled;
+    vfs_drive_type_t type;
+    vfs_driver_t *p_driver;
+} vfs_drive_item_t;
+
 bool vfs_drive_enabled(vfs_drive_t drive);
 vfs_driver_t *vfs_get_driver(vfs_drive_t drive);
 vfs_drive_type_t vfs_get_type(vfs_drive_t drive);
