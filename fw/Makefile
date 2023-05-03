@@ -9,6 +9,7 @@ U8G2_ROOT := ./components/u8g2/csrc
 
 APP_VERSION ?= 1
 RELEASE ?= 0
+LFS_ENABLE ?= 0
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ld/ble_app_blinky_gcc_nrf52.ld
@@ -510,6 +511,9 @@ CFLAGS += -DEBUG_NRF
 CFLAGS += -DMUI_MEM_DRAW_USAGE
 else
 CFLAGS += -DNDEBUG
+endif
+ifeq ($(LFS_ENABLE), 1)
+CFLAGS += -DVFS_LFS_ENABLE
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0

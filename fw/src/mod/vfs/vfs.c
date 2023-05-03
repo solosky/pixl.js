@@ -1,7 +1,5 @@
 #include "vfs.h"
 
-// #define VFS_LFS_ENABLE
-
 #ifdef VFS_LFS_ENABLE
     #include "vfs_driver_lfs.h"
     #define VFS_DRIVER {.enabled = true, .p_driver = &vfs_driver_lfs}
