@@ -66,7 +66,7 @@ void amiibo_scene_storage_list_menu_on_enter(void *user_data) {
     int32_t res = p_driver->stat(&stat);
     char txt[64];
     if (res == VFS_OK) {
-        snprintf(txt, sizeof(txt),"===已挂载[%s]===",  vfs_get_type(app->current_drive) == VFS_DRIVE_TYPE_SPIFFS ? "FFS" : "LFS");
+        snprintf(txt, sizeof(txt),"=====已挂载[%s]=====",  vfs_get_type(app->current_drive) == VFS_DRIVE_TYPE_SPIFFS ? "FFS" : "LFS");
         mui_list_view_add_item(app->p_list_view, 0xe1ca,
                                stat.avaliable ? txt : "=====未挂载=====", (void *)-1);
         if (stat.avaliable) {
