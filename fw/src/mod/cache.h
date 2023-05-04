@@ -23,4 +23,6 @@ int32_t cache_save();
 cache_data_t *cache_get_data();
 uint8_t *get_empty_data();
 
+bool cache_enabled();
+
 #endif /* CACHE_H_ */

@@ -49,6 +49,7 @@ const mini_app_t app_ble_info = {.id = MINI_APP_ID_BLE,
                                  .icon = 0xe1b5,
                                  .deamon = false,
                                  .sys = false,
+                                 .hibernate_enabled = false,
                                  .run_cb = app_ble_on_run,
                                  .kill_cb = app_ble_on_kill,
                                  .on_event_cb = app_ble_on_event};

@@ -13,8 +13,9 @@ typedef struct {
     bool auto_gen_amiibo;
     bool auto_gen_amiibolink;
     bool skip_driver_select;
-    bool li_mode;
+    bool bat_mode;
     ble_amiibolink_ver_t amiibo_link_mode;
+    bool hibernate_enabled;
 } settings_data_t;
 
 int32_t settings_init();

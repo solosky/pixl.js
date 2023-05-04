@@ -57,3 +57,8 @@ bool cache_empty(uint8_t *data) {
     }
     return memcmp(data, (uint8_t[CACHEDATASIZE]) {0}, CACHEDATASIZE) == 0;
 }
+
+
+bool cache_enabled(){
+    return m_cache_data.enabled;
+}

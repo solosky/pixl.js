@@ -60,6 +60,7 @@ const mini_app_t app_player_info = {.id = MINI_APP_ID_PLAYER,
                                  .icon = 0xe020,
                                  .deamon = false,
                                  .sys = false,
+                                 .hibernate_enabled = false,
                                  .run_cb = app_player_on_run,
                                  .kill_cb = app_player_on_kill,
                                  .on_event_cb = app_player_on_event};

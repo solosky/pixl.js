@@ -33,7 +33,7 @@ struct mini_app_inst_s {
     const mini_app_t* p_app;
     mini_app_state_t state;
     void* p_handle;
-    uint8_t retain_data[CACHEDATASIZE];
+    uint8_t* p_retain_data;
 };
 
 
@@ -43,6 +43,7 @@ struct mini_app_s {
     uint16_t icon;
     uint8_t deamon;
     uint8_t sys;
+    uint8_t hibernate_enabled;
     mini_app_run_cb_t run_cb;
     mini_app_kill_cb_t kill_cb;
     mini_app_post_event_cb_t on_event_cb;

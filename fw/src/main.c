@@ -150,23 +150,8 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
     case NRF_PWR_MGMT_EVT_PREPARE_WAKEUP:
         // Set up NFCT peripheral as the only wake up source.
         NRF_LOG_DEBUG("go sleep");
-        mini_app_inst_t *app = mini_app_get_this_run_inst(mini_app_launcher());
-        if (app == NULL) {
-            NRF_LOG_DEBUG("app not found");
-        } else {
-            NRF_LOG_DEBUG("app found");
-            NRF_LOG_DEBUG("app id: %d", app->p_app->id);
-            NRF_LOG_DEBUG("app name: %s", app->p_app->name);
-            NRF_LOG_FLUSH();
-            cache_data_t *p_cache = cache_get_data();
-            p_cache->id = app->p_app->id;
-            app->p_app->kill_cb(app);
-            if (cache_empty(app->retain_data)) {
-                cache_clean();
-            } else {
-                memcpy(p_cache->retain_data, app->retain_data, CACHEDATASIZE);
-            }
-        }
+
+        mini_app_launcher_sleep(mini_app_launcher());
 
         cache_save();
 
@@ -185,11 +170,7 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
         err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
         APP_ERROR_CHECK(err_code);
 
-        // err_code = bsp_btn_ble_sleep_mode_prepare();
-        // APP_ERROR_CHECK(err_code);
         err_code = bsp_nfc_sleep_mode_prepare();
-        // APP_ERROR_CHECK(err_code);
-        // err_code = bsp_buttons_disable();
         APP_ERROR_CHECK(err_code);
 
         // Turn off LED to indicate that the device entered System OFF mode.
@@ -217,14 +198,14 @@ static void check_wakeup_src(void) {
 
     if (rr == 0) {
         NRF_LOG_INFO("WeakUp from button")
-        p_cache->enabled = 0;
+        //p_cache->enabled = 0;
     } else if (rr & (NRF_POWER_RESETREAS_NFC_MASK | NRF_POWER_RESETREAS_LPCOMP_MASK)) {
         NRF_LOG_INFO("WakeUp from rfid field");
 
         ntag_emu_set_tag(&(p_cache->ntag));
     } else {
         NRF_LOG_INFO("First power system");
-        cache_clean();
+        //cache_clean();
     }
     nrf_power_resetreas_clear(nrf_power_resetreas_get());
 }

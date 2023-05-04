@@ -55,7 +55,7 @@ void chrg_set_callback(void *cb) {
 }
 
 bool get_stats(void) {
-	if (!settings_get_data()->li_mode) {
+	if (!settings_get_data()->bat_mode) {
 		return false;
 	}
 	return chrg.stats == 0;
@@ -64,7 +64,7 @@ bool get_stats(void) {
 void chrg_init(void) {
 	ret_code_t err_code;
 
-	if (settings_get_data()->li_mode) {
+	if (settings_get_data()->bat_mode) {
 		nrf_gpio_cfg_input(CHRG_PIN, NRF_GPIO_PIN_PULLUP);
 
 		err_code = app_timer_create(&m_chrg_timer, APP_TIMER_MODE_REPEATED, chrg_read);
@@ -79,7 +79,7 @@ void saadc_init(void) {
 	ret_code_t err_code;
 	
 	nrf_saadc_channel_config_t channel_config =
-		NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(settings_get_data()->li_mode ? NRF_SAADC_INPUT_AIN0 : NRF_SAADC_INPUT_VDD);
+		NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(settings_get_data()->bat_mode ? NRF_SAADC_INPUT_AIN0 : NRF_SAADC_INPUT_VDD);
 
 	err_code = nrf_drv_saadc_init(NULL, saadc_callback);
 	APP_ERROR_CHECK(err_code); 
