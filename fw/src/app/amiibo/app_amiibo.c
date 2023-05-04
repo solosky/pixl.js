@@ -9,6 +9,10 @@
 
 #include "mui_list_view.h"
 
+#include "m-string.h"
+#include "settings.h"
+#include "cache.h"
+
 static void app_amiibo_on_run(mini_app_inst_t *p_app_inst);
 static void app_amiibo_on_kill(mini_app_inst_t *p_app_inst);
 static void app_amiibo_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event);
@@ -50,10 +54,44 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
     mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
+
+    if (!cache_empty(p_app_inst->retain_data)) {
+        app_amiibo_cache_data_t *p_cache_data = (app_amiibo_cache_data_t *) p_app_inst->retain_data;
+        p_app_handle->current_drive = p_cache_data->current_drive;
+        string_set_str(p_app_handle->current_file, p_cache_data->current_file);
+        string_set_str(p_app_handle->current_folder, p_cache_data->current_folder);
+        memcpy(&(p_app_handle->ntag), &(cache_get_data()->ntag), sizeof(ntag_t));
+
+        vfs_driver_t *p_driver = vfs_get_driver(p_app_handle->current_drive);
+        if (p_driver->mounted()) {
+            amiibo_helper_try_load_amiibo_keys_from_vfs();
+        } else {
+            int32_t err = p_driver->mount();
+            amiibo_helper_try_load_amiibo_keys_from_vfs();
+        }
+
+        p_app_handle->reload_amiibo_files = true;
+        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
+    }
 }
 
 void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
     app_amiibo_t *p_app_handle = p_app_inst->p_handle;
+
+    if (string_cmp_str(p_app_handle->current_file, "") && string_cmp_str(p_app_handle->current_folder, "") && p_app_handle->current_drive != VFS_DRIVE_MAX) {
+        app_amiibo_cache_data_t p_cache_data = {0};
+        strcpy(p_cache_data.current_file, string_get_cstr(p_app_handle->current_file));
+        strcpy(p_cache_data.current_folder, string_get_cstr(p_app_handle->current_folder));
+        p_cache_data.current_drive = p_app_handle->current_drive;
+        memcpy(&(cache_get_data()->ntag), &(p_app_handle->ntag), sizeof(ntag_t));
+        if (settings_get_data()->auto_gen_amiibo) {
+            amiibo_helper_ntag_generate(&(cache_get_data()->ntag));
+        }
+        memcpy(p_app_inst->retain_data, &p_cache_data, sizeof(app_amiibo_cache_data_t));
+    } else {
+        memset(p_app_inst->retain_data, 0, CACHEDATASIZE);
+        memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
+    }
 
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);

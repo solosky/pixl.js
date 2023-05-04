@@ -10,3 +10,6 @@
 [submodule "fw/components/spiffs"]
 	path = fw/components/spiffs
 	url = https://github.com/pellepl/spiffs.git
+[submodule "fw/components/littlefs"]
+	path = fw/components/littlefs
+	url = https://github.com/littlefs-project/littlefs

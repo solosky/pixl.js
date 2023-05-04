@@ -68,6 +68,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "nrf_power.h"
 
 #include "ntag_emu.h"
 
@@ -94,6 +95,7 @@
 #include "hal_spi_flash.h"
 
 #include "settings.h"
+#include "cache.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
@@ -148,10 +150,35 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
     case NRF_PWR_MGMT_EVT_PREPARE_WAKEUP:
         // Set up NFCT peripheral as the only wake up source.
         NRF_LOG_DEBUG("go sleep");
+        mini_app_inst_t *app = mini_app_get_this_run_inst(mini_app_launcher());
+        if (app == NULL) {
+            NRF_LOG_DEBUG("app not found");
+        } else {
+            NRF_LOG_DEBUG("app found");
+            NRF_LOG_DEBUG("app id: %d", app->p_app->id);
+            NRF_LOG_DEBUG("app name: %s", app->p_app->name);
+            NRF_LOG_FLUSH();
+            cache_data_t *p_cache = cache_get_data();
+            p_cache->id = app->p_app->id;
+            app->p_app->kill_cb(app);
+            if (cache_empty(app->retain_data)) {
+                cache_clean();
+            } else {
+                memcpy(p_cache->retain_data, app->retain_data, CACHEDATASIZE);
+            }
+        }
+
+        cache_save();
+
         mui_deinit(mui());
 
         //save settings
         settings_save();
+
+        // set noinit memory
+        uint32_t ram7_retention = POWER_RAM_POWER_S1RETENTION_On << POWER_RAM_POWER_S1RETENTION_Pos;
+        err_code = sd_power_ram_power_set(7, ram7_retention);
+        APP_ERROR_CHECK(err_code);
 
         hal_spi_flash_sleep();
 
@@ -178,6 +205,29 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 }
 
 NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
+
+/**
+ *@brief :检测唤醒源
+ */
+static void check_wakeup_src(void) {
+    uint32_t rr = nrf_power_resetreas_get();
+    NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
+
+    cache_data_t *p_cache = cache_get_data();
+
+    if (rr == 0) {
+        NRF_LOG_INFO("WeakUp from button")
+        p_cache->enabled = 0;
+    } else if (rr & (NRF_POWER_RESETREAS_NFC_MASK | NRF_POWER_RESETREAS_LPCOMP_MASK)) {
+        NRF_LOG_INFO("WakeUp from rfid field");
+
+        ntag_emu_set_tag(&(p_cache->ntag));
+    } else {
+        NRF_LOG_INFO("First power system");
+        cache_clean();
+    }
+    nrf_power_resetreas_clear(nrf_power_resetreas_get());
+}
 
 /**
  * @brief   Function for application main entry.
@@ -219,6 +269,13 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
+    cache_init();
+    extern const ntag_t default_ntag215;
+    err_code = ntag_emu_init(&default_ntag215);
+    APP_ERROR_CHECK(err_code);
+
+    check_wakeup_src();
+
 //    err_code = ntag_store_init();
 //    APP_ERROR_CHECK(err_code);
 
@@ -227,16 +284,14 @@ int main(void) {
     NRF_LOG_INFO("settings init: %d", err_code);
     //APP_ERROR_CHECK(err_code);
 
+    chrg_init();
+
     settings_data_t *p_settings = settings_get_data();
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
 
     amiibo_helper_try_load_amiibo_keys_from_vfs();
 
     NRF_LOG_DEBUG("init done");
-
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
-    APP_ERROR_CHECK(err_code);
 
     mui_t *p_mui = mui();
     mui_init(p_mui);

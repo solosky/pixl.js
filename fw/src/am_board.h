@@ -102,6 +102,9 @@ extern "C" {
 
 #define SER_CONN_CHIP_RESET_PIN     11    // Pin used to reset connectivity chip
 
+// Power
+#define CHRG_PIN 3
+#define ADC_PIN 2
 
 // Arduino board mappings
 #define ARDUINO_SCL_PIN             27    // SCL signal pin

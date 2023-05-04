@@ -7,6 +7,7 @@
 #include "mui_list_view.h"
 #include "nrf_log.h"
 #include "vfs.h"
+#include "settings.h"
 
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
@@ -45,6 +46,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
 
     switch (selection) {
     case AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER:
+        cache_clean();
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
         break;
     case AMIIBO_DETAIL_MENU_RAND_UID: {
@@ -91,11 +93,14 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
             return;
         }
         char txt[32];
-        app->auto_gen_amiibo = !app->auto_gen_amiibo;
-        sprintf(txt, "自动随机生成 [%s]", app->auto_gen_amiibo ? "开" : "关");
+        settings_data_t* p_settings = settings_get_data();
+        p_settings->auto_gen_amiibo = !p_settings->auto_gen_amiibo;
+        sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? "开" : "关");
+        settings_save();
+        
         string_set_str(p_item->text, txt);
 
-         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     }
     break;
 
@@ -125,10 +130,12 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
             }
         }
+        cache_clean();
         break;
     }
 
     case AMIIBO_DETAIL_MENU_BACK_MAIN_MENU:
+        cache_clean();
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
         break;
     }
@@ -140,7 +147,9 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", (void *)AMIIBO_DETAIL_MENU_RAND_UID);
 
     char txt[32];
-    sprintf(txt, "自动随机生成 [%s]", app->auto_gen_amiibo ? "开" : "关");
+    settings_data_t* p_settings = settings_get_data();
+
+    sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
     mui_list_view_add_item(app->p_list_view, 0xe1c7, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
     mui_list_view_add_item(app->p_list_view, 0xe068, "返回详情", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);

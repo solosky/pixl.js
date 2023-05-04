@@ -3,6 +3,8 @@
 
 #include <stdint.h>
 
+#include "cache.h"
+
 struct mini_app_inst_s;
 typedef struct mini_app_inst_s mini_app_inst_t;
 
@@ -31,7 +33,7 @@ struct mini_app_inst_s {
     const mini_app_t* p_app;
     mini_app_state_t state;
     void* p_handle;
-    uint8_t retain_data[64];
+    uint8_t retain_data[CACHEDATASIZE];
 };
 
 

@@ -14,6 +14,8 @@
 
 #include "nrf_log.h"
 
+#include "settings.h"
+
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed
 #define ICON_BACK 0xe069
@@ -92,7 +94,8 @@ static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag
         ntag_update(app, app->p_amiibolink_view->index, p_ntag);
         mui_update(mui());
     } else if (type == NTAG_EVENT_TYPE_READ) {
-        if (app->auto_generate) {
+        settings_data_t* p_settings = settings_get_data();
+        if (p_settings->auto_gen_amiibolink) {
             app_timer_stop(m_amiibo_gen_delay_timer);
             app_timer_start(m_amiibo_gen_delay_timer, APP_TIMER_TICKS(1000), app);
         }
@@ -151,13 +154,15 @@ static void amiibolink_scene_ble_event_handler(void *ctx, ble_amiibolink_event_t
 void amiibolink_scene_main_on_enter(void *user_data) {
     app_amiibolink_t *app = user_data;
 
+    settings_data_t *p_settings = settings_get_data();
+
     // enable ble
     ble_init();
-    ble_device_mode_prepare(app->amiibolink_ver == BLE_AMIIBOLINK_VER_V2
+    ble_device_mode_prepare(p_settings->amiibo_link_mode == BLE_AMIIBOLINK_VER_V2
                                 ? BLE_DEVICE_MODE_AMIIBOLINK_V2 : BLE_DEVICE_MODE_AMIIBOLINK);
     ble_adv_start();
 
-    ble_amiibolink_set_version(app->amiibolink_ver);
+    ble_amiibolink_set_version(p_settings->amiibo_link_mode);
     ble_nus_set_handler(ble_amiibolink_received_data, NULL);
 
     ntag_init();
