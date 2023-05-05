@@ -14,9 +14,15 @@
 
 static __attribute__((section(".noinit"))) cache_data_t m_cache_data;
 
+bool cache_valid(){
+    return (m_cache_data.magic == CACHE_MAGIC);
+}
+
 int32_t cache_init() {
-    if (m_cache_data.enabled != 1 && m_cache_data.enabled != 0) {
+    NRF_LOG_INFO("cache magic: 0x%X", m_cache_data.magic);
+    if (m_cache_data.magic != CACHE_MAGIC) {
         cache_clean();
+        m_cache_data.magic = CACHE_MAGIC;
     }
     return NRF_SUCCESS;
 }
@@ -25,40 +31,21 @@ int32_t cache_clean() {
     NRF_LOG_INFO("Cleaning cache...")
     // 重置一下noinit ram区域
     uint32_t *noinit_addr = (uint32_t *)0x2000FC00;
-    memset(noinit_addr, 0xFF, 0x400);
+    memset(noinit_addr, 0x0, 0x400);
+
     NRF_LOG_INFO("Reset noinit ram done.");
-    m_cache_data.enabled = 0;
-    m_cache_data.id = 0;
-    memset(m_cache_data.retain_data, 0, sizeof(uint8_t[CACHEDATASIZE]));
-    memset(&(m_cache_data.ntag), 0, sizeof(ntag_t));
     return NRF_SUCCESS;
 }
 
 int32_t cache_save() {
-    if (m_cache_data.id == 0 || cache_empty(m_cache_data.retain_data)) {
-        return NRF_SUCCESS;
-    }
-    m_cache_data.enabled = 1;
+    //m_cache_data.enabled = 1;
+    m_cache_data.magic = CACHE_MAGIC;
     NRF_LOG_INFO("Saving cache...");
     NRF_LOG_INFO("Cache data: enabled = %d, id = %d", m_cache_data.enabled, m_cache_data.id);
     return NRF_SUCCESS;
 }
 
 cache_data_t *cache_get_data() {
-    NRF_LOG_INFO("Cache data: enabled = %d, id = %d",
-                 m_cache_data.enabled, m_cache_data.id);
-    cache_init();
+    NRF_LOG_INFO("Cache data: enabled = %d, id = %d", m_cache_data.enabled, m_cache_data.id);
     return &m_cache_data;
-}
-
-bool cache_empty(uint8_t *data) {
-    if (data == NULL) {
-        return false;
-    }
-    return memcmp(data, (uint8_t[CACHEDATASIZE]) {0}, CACHEDATASIZE) == 0;
-}
-
-
-bool cache_enabled(){
-    return m_cache_data.enabled;
 }

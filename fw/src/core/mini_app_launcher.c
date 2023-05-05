@@ -1,10 +1,9 @@
 
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
-#include "settings.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-
+#include "settings.h"
 
 mini_app_launcher_t *mini_app_launcher() {
     static mini_app_launcher_t launcher;
@@ -74,29 +73,30 @@ void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
     mini_app_launcher_run(p_launcher, MINI_APP_ID_STATUS_BAR);
 
     cache_data_t *p_cache = cache_get_data();
-    settings_data_t* p_settings = settings_get_data();
-    if(p_cache->enabled && p_settings->hibernate_enabled){
+    settings_data_t *p_settings = settings_get_data();
+    if (p_cache->enabled == 1 && p_settings->hibernate_enabled) {
         mini_app_launcher_run_with_retain_data(p_launcher, p_cache->id, p_cache->retain_data);
-    }else{
+    } else {
         mini_app_launcher_run_with_retain_data(p_launcher, MINI_APP_ID_DESKTOP, NULL);
     }
 }
 
 void mini_app_launcher_sleep(mini_app_launcher_t *p_launcher) {
     mini_app_inst_t *app = p_launcher->p_main_app_inst;
-    if(app) {
-        settings_data_t* p_settings = settings_get_data();
+    cache_data_t *p_cache = cache_get_data();
+    if (app) {
+        settings_data_t *p_settings = settings_get_data();
         NRF_LOG_INFO("running APP: %d %s %d", app->p_app->id, nrf_log_push(app->p_app->name),
                      app->p_app->hibernate_enabled);
         if (app->p_app->hibernate_enabled && p_settings->hibernate_enabled) {
-            cache_data_t *p_cache = cache_get_data();
+
             p_cache->id = app->p_app->id;
             p_cache->enabled = true;
             app->p_retain_data = p_cache->retain_data;
             app->p_app->kill_cb(app);
-            if (cache_empty(app->p_retain_data)) {
-                cache_clean();
-            }
+        } else {
+            p_cache->enabled = false;
+            memset(p_cache->retain_data, 0, sizeof(p_cache->retain_data));
         }
     }
 }

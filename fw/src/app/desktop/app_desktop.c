@@ -20,7 +20,6 @@ typedef struct {
 } app_desktop_t;
 
 static void app_desktop_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_view, mui_list_item_t *p_item) {
-    cache_clean();
     mini_app_launcher_run(mini_app_launcher(), (uint32_t)p_item->user_data);
 }
 

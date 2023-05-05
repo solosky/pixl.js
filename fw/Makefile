@@ -38,6 +38,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/balloc/nrf_balloc.c \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf.c \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf_format.c \
+  $(SDK_ROOT)/components/libraries/crc32/crc32.c \
   $(SDK_ROOT)/components/libraries/memobj/nrf_memobj.c \
   $(SDK_ROOT)/components/libraries/ringbuf/nrf_ringbuf.c \
   $(SDK_ROOT)/components/libraries/experimental_section_vars/nrf_section_iter.c \
@@ -323,6 +324,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_nus \
   $(SDK_ROOT)/components/nfc/ndef/text \
   $(SDK_ROOT)/components/libraries/mutex \
+  $(SDK_ROOT)/components/libraries/crc32 \
   $(SDK_ROOT)/components/libraries/gpiote \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
   $(SDK_ROOT)/components/nfc/ndef/connection_handover/common \

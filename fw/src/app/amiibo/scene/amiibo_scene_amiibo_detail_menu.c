@@ -9,6 +9,9 @@
 #include "vfs.h"
 #include "settings.h"
 
+#include "ntag_store.h"
+#include "ntag_emu.h"
+
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 

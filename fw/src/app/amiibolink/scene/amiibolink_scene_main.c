@@ -120,7 +120,7 @@ static void amiibolink_scene_switch_mode(app_amiibolink_t *app, ble_amiibolink_m
     if(mode == BLE_AMIIBOLINK_MODE_NTAG){
         ntag_reload(app, DEFAULT_NTAG_INDEX);
     }else if(mode == BLE_AMIIBOLINK_MODE_CYCLE){
-        ntag_reload(app, 0);
+        ntag_reload(app, initial_index);
     }
 }
 
