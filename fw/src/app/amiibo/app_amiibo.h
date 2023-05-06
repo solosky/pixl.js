@@ -26,6 +26,7 @@ typedef struct {
     vfs_drive_t current_drive;
     string_t current_folder;
     string_t current_file;
+    uint32_t current_focus_index;
 
     /**amiibo detail view*/
     string_array_t amiibo_files;
@@ -33,19 +34,22 @@ typedef struct {
 
 } app_amiibo_t;
 
-typedef struct {
-    vfs_drive_t current_drive;
-    char current_folder[128];
-    char current_file[64];
-} app_amiibo_cache_data_t;
-
-
 typedef enum {
     AMIIBO_VIEW_ID_LIST,
     AMIIBO_VIEW_ID_DETAIL,
     AMIIBO_VIEW_ID_INPUT,
     AMIIBO_VIEW_ID_MSG_BOX,
 } amiibo_view_id_t;
+
+typedef struct {
+    bool cached_enabled;
+    vfs_drive_t current_drive;
+    char current_folder[128];
+    char current_file[64];
+    uint32_t current_focus_index;
+    uint32_t current_scene_id;
+} app_amiibo_cache_data_t;
+
 
 extern const mini_app_t app_amiibo_info;
 

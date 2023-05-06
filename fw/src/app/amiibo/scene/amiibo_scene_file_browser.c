@@ -6,6 +6,7 @@
 #include "vfs.h"
 #include "vfs_meta.h"
 #include "mini_app_registry.h"
+#include "mini_app_launcher.h"
 
 #include "settings.h"
 
@@ -50,7 +51,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
 
     int32_t res = p_vfs_driver->open_dir(string_get_cstr(app->current_folder), &dir);
     if (res == VFS_OK) {
-        while (res = p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
+        while ((res = p_vfs_driver->read_dir(&dir, &obj)) == VFS_OK) {
             //hide file or dir if flagged with hidden
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
@@ -124,7 +125,11 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_file_browser_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
 
+
     amiibo_scene_file_browser_reload_folders(app);
+
+    mui_list_view_set_focus(app->p_list_view, app->current_focus_index);
+
     NRF_LOG_INFO("%X", app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
 }

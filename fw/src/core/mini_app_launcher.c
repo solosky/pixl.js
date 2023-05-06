@@ -22,6 +22,7 @@ static void mini_app_launcher_inst_run(mini_app_launcher_t *p_launcher, uint32_t
         p_app_inst = *pp_app_inst;
     }
     if (p_app_inst) {
+        p_app_inst->p_retain_data = NULL;
         p_app_inst->p_app->run_cb(p_app_inst);
     } else {
         p_app_inst = mui_mem_malloc(sizeof(mini_app_inst_t));
@@ -74,7 +75,7 @@ void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
 
     cache_data_t *p_cache = cache_get_data();
     settings_data_t *p_settings = settings_get_data();
-    if (p_cache->enabled == 1 && p_settings->hibernate_enabled) {
+    if (p_cache->enabled == 1 && p_settings->hibernate_enabled == 1) {
         mini_app_launcher_run_with_retain_data(p_launcher, p_cache->id, p_cache->retain_data);
     } else {
         mini_app_launcher_run_with_retain_data(p_launcher, MINI_APP_ID_DESKTOP, NULL);
@@ -88,8 +89,7 @@ void mini_app_launcher_sleep(mini_app_launcher_t *p_launcher) {
         settings_data_t *p_settings = settings_get_data();
         NRF_LOG_INFO("running APP: %d %s %d", app->p_app->id, nrf_log_push(app->p_app->name),
                      app->p_app->hibernate_enabled);
-        if (app->p_app->hibernate_enabled && p_settings->hibernate_enabled) {
-
+        if (app->p_app->hibernate_enabled == 1 && p_settings->hibernate_enabled == 1) {
             p_cache->id = app->p_app->id;
             p_cache->enabled = true;
             app->p_retain_data = p_cache->retain_data;

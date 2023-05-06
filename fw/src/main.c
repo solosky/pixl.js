@@ -203,7 +203,7 @@ static void check_wakeup_src(void) {
         cache_data_t *p_cache = cache_get_data();
         ntag_emu_set_tag(&(p_cache->ntag));
     } else {
-        cache_init();
+        cache_clean();
     }
 
     if (rr == 0) {
@@ -257,7 +257,6 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
-    cache_init();
     extern const ntag_t default_ntag215;
     err_code = ntag_emu_init(&default_ntag215);
     APP_ERROR_CHECK(err_code);

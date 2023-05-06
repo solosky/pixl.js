@@ -192,9 +192,14 @@ void mui_list_view_set_selected_cb(mui_list_view_t *p_view, mui_list_view_select
 void mui_list_view_set_user_data(mui_list_view_t *p_view, void *user_data) { p_view->user_data = user_data; }
 
 void mui_list_view_set_focus(mui_list_view_t *p_view, uint16_t focus_index) {
-    p_view->focus_index = focus_index;
-    uint32_t offset_y = p_view->focus_index * LIST_ITEM_HEIGHT;
-    p_view->scroll_offset = offset_y;
+    if (focus_index >= 0 && focus_index < mui_list_item_array_size(p_view->items)) {
+        p_view->focus_index = focus_index;
+        uint32_t offset_y = p_view->focus_index * LIST_ITEM_HEIGHT;
+        p_view->scroll_offset = offset_y;
+    } else {
+        p_view->focus_index = 0;
+        p_view->scroll_offset = 0;
+    }
 }
 
 uint16_t mui_list_view_get_focus(mui_list_view_t *p_view) { return p_view->focus_index; }
