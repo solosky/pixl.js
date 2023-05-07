@@ -23,7 +23,7 @@ static __attribute__((section(".noinit"))) cache_data_t m_cache_data;
 static __attribute__((section(".noinit"))) int32_t m_cache_crc32;
 
 bool cache_valid(){
-    NRF_LOG_INFO("noinit area: [0x%X, 0x%X], %X bytes",  &__start_noinit, &__stop_noinit, (&__stop_noinit - &__start_noinit));
+    NRF_LOG_INFO("noinit area: [0x%X, 0x%X], %d bytes",  &__start_noinit, &__stop_noinit, (&__stop_noinit - &__start_noinit));
     NRF_LOG_INFO("m_cache_data address: 0x%X", &m_cache_data);
     return m_cache_crc32 == crc32_compute(&m_cache_data, sizeof(cache_data_t), NULL);
 }
@@ -49,7 +49,7 @@ int32_t cache_save() {
     uint32_t ram1_power = 0;
     sd_power_ram_power_get(NOINIT_RAM_INDEX, &ram1_power);
     NRF_LOG_INFO("RAM1 power: 0x%X", ram1_power);
-    ram1_power = POWER_RAM_POWER_S0RETENTION_On << POWER_RAM_POWER_S1RETENTION_Pos;
+    ram1_power = POWER_RAM_POWER_S0RETENTION_On << POWER_RAM_POWER_S0RETENTION_Pos;
     sd_power_ram_power_set(NOINIT_RAM_INDEX, ram1_power);
 
     return NRF_SUCCESS;
