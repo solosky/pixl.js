@@ -164,10 +164,7 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
         // save settings
         settings_save();
 
-        // set noinit memory
-        uint32_t ram7_retention = POWER_RAM_POWER_S1RETENTION_On << POWER_RAM_POWER_S1RETENTION_Pos;
-        err_code = sd_power_ram_power_set(7, ram7_retention);
-        APP_ERROR_CHECK(err_code);
+
 
         hal_spi_flash_sleep();
 
