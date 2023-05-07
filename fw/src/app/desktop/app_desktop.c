@@ -6,6 +6,8 @@
 #include "mini_app_launcher.h"
 #include "mui_list_view.h"
 
+#include "cache.h"
+
 typedef enum { DESKTOP_VIEW_ID_MAIN } desktop_view_id_t;
 
 static void app_desktop_on_run(mini_app_inst_t *p_app_inst);
@@ -63,6 +65,7 @@ const mini_app_t app_desktop_info = {.id = MINI_APP_ID_DESKTOP,
                                      .icon = 0xe1f0,
                                      .deamon = false,
                                      .sys = true,
+                                     .hibernate_enabled = false,
                                      .run_cb = app_desktop_on_run,
                                      .kill_cb = app_desktop_on_kill,
                                      .on_event_cb = app_desktop_on_event};

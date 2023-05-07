@@ -41,6 +41,7 @@
 #define MTC_W25Q64_DW (0x4017)       /* W25Q64DW */
 #define MTC_W25Q128_BV (0x4018)      /* W25Q128BV */
 #define MTC_W25Q256_FV (TBD)         /* W25Q256FV */
+#define MTC_MX25L25645_GM2I (0x2019)      /* MX25L25645GM2I-10G */
 
 static spi_device_t m_dev;
 
@@ -148,7 +149,10 @@ ret_code_t hal_spi_flash_info(flash_info_t *info) {
     memory_type_capacity = rx[1];
     memory_type_capacity = (memory_type_capacity << 8) | rx[2];
 
-    if (memory_type_capacity == MTC_W25Q128_BV) {
+    if (memory_type_capacity == MTC_MX25L25645_GM2I) {
+        NRF_LOG_INFO("MX25L25645GM2I-10G detection");
+        info->block_count = 8192;
+    } else if (memory_type_capacity == MTC_W25Q128_BV) {
         NRF_LOG_INFO("W25Q128BV detection");
         info->block_count = 4096;
     } else if (memory_type_capacity == MTC_W25Q64_BV_CV) {
@@ -169,8 +173,8 @@ ret_code_t hal_spi_flash_info(flash_info_t *info) {
     } else if (memory_type_capacity == MTC_W25Q16_DW) {
         NRF_LOG_INFO("W25Q16DW detection");
         info->block_count = 512;
-    } else {
-        NRF_LOG_INFO("Memory Capacity error!");
+    }  else {
+        NRF_LOG_INFO("Memory Capacity error! %d", memory_type_capacity);
         info->block_count = 0;
         return NRF_ERROR_INVALID_PARAM;
     }

@@ -9,6 +9,7 @@ U8G2_ROOT := ./components/u8g2/csrc
 
 APP_VERSION ?= 1
 RELEASE ?= 0
+LFS_ENABLE ?= 1
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ld/ble_app_blinky_gcc_nrf52833.ld
@@ -37,6 +38,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/balloc/nrf_balloc.c \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf.c \
   $(SDK_ROOT)/external/fprintf/nrf_fprintf_format.c \
+  $(SDK_ROOT)/components/libraries/crc32/crc32.c \
   $(SDK_ROOT)/components/libraries/memobj/nrf_memobj.c \
   $(SDK_ROOT)/components/libraries/ringbuf/nrf_ringbuf.c \
   $(SDK_ROOT)/components/libraries/experimental_section_vars/nrf_section_iter.c \
@@ -177,7 +179,6 @@ SRC_FILES += \
   $(PROJ_DIR)/ntag_emu_v2.c \
   $(PROJ_DIR)/ntag_store.c \
   $(PROJ_DIR)/bat.c \
-  $(PROJ_DIR)/bat_lipo.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_data.c \
@@ -189,6 +190,7 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
   $(PROJ_DIR)/mod/settings.c \
+  $(PROJ_DIR)/mod/cache.c \
   $(PROJ_DIR)/mod/ble/ble_main.c \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/ble/ble_amiibolink.c \
@@ -240,6 +242,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_main.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu_mode.c \
+  $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu_ver.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -279,6 +282,8 @@ SRC_FILES += \
   $(COMP_DIR)/usb_mtp/class/mtp_proto.c \
   $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
   $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
+  $(COMP_DIR)/littlefs/lfs.c \
+  $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
@@ -340,6 +345,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_nus \
   $(SDK_ROOT)/components/nfc/ndef/text \
   $(SDK_ROOT)/components/libraries/mutex \
+  $(SDK_ROOT)/components/libraries/crc32 \
   $(SDK_ROOT)/components/libraries/gpiote \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
   $(SDK_ROOT)/components/nfc/ndef/connection_handover/common \
@@ -530,9 +536,11 @@ CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
-CFLAGS += -DMUI_MEM_DRAW_USAGE
 else
 CFLAGS += -DNDEBUG
+endif
+ifeq ($(LFS_ENABLE), 1)
+CFLAGS += -DVFS_LFS_ENABLE
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0

@@ -6,7 +6,8 @@ GROUP(-lgcc -lc -lnosys)
 MEMORY
 {
     FLASH (rx) : ORIGIN = 0x1c000, LENGTH = 0x64000
-    RAM (rwx) :  ORIGIN = 0x200026A8, LENGTH = 0x1D958
+    RAM (rwx) :  ORIGIN = 0x20003000, LENGTH = 0x1D000
+    NOINIT (rwx) : ORIGIN = 0x200026A8, LENGTH = 0x976
 }
 
 SECTIONS
@@ -128,3 +129,16 @@ SECTIONS
 
 
 INCLUDE "nrf_common.ld"
+
+/* Linker script to configure memory regions. */
+
+SECTIONS
+{
+  .noinit (NOLOAD):
+  {
+    PROVIDE(__start_noinit = .);
+    /* place all symbols in input sections that start with .noinit */
+    KEEP(*(*.noinit*))
+    PROVIDE(__stop_noinit = .);
+  } > NOINIT
+}

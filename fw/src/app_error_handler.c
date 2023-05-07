@@ -11,6 +11,7 @@
 
 #include "mui_core.h"
 #include "nrf_delay.h"
+#include "cache.h"
 
 
 /*lint -save -e14 */
@@ -64,7 +65,7 @@ void app_error_fault_handler(uint32_t id, uint32_t pc, uint32_t info)
                           pc);
             
             mui_panic(mui(), error);
-
+            cache_clean();
             nrf_delay_ms(5000);
             NRF_LOG_WARNING("System reset");
             NVIC_SystemReset();
@@ -95,6 +96,9 @@ void HardFault_Handler(void)
     uint32_t ia = sp[12]; // Get instruction address from stack
 
     printf("Hard Fault at address: 0x%08x\r\n", (unsigned int)ia);
+
+    cache_clean();
+
 #ifndef DEBUG
     NRF_LOG_WARNING("System reset");
     NVIC_SystemReset();

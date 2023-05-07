@@ -34,10 +34,16 @@ class GitVersion:
 
         branch_num = self._exec_git("rev-list --count HEAD") or "n/a"
 
-        try:
-            version = self._exec_git("describe --tags --abbrev=0 --exact-match")
-        except subprocess.CalledProcessError:
-            version = "unknown"
+        ref_type = os.environ.get("GITHUB_REF_TYPE", None)
+        if ref_type == "tag":
+            version = ref_type
+        elif ref_type == "branch":
+            version = "b" + os.environ.get("GITHUB_RUN_NUMBER", None)
+        else:
+            try:
+                version = self._exec_git("describe --tags --abbrev=0 --exact-match")
+            except subprocess.CalledProcessError:
+                version = "unknown"
 
         return {
             "GIT_COMMIT": commit,

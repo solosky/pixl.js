@@ -72,13 +72,14 @@ openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg
 * 主站 [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/)
 * 镜像 [https://solosky.github.io/pixl.js/](https://solosky.github.io/pixl.js/)
 
-iOS上有第三方作者开发的应用 iNFC，可以扫描下面的二位码下载：
+App Store上第三方作者开发的iOS应用 iNFC。
+可以在App Store搜索 iNFC 下载应用。或直接扫描下方二维码跳转App Store下载：
 
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/iNFC.jpg)
 
-或在iOS AppStore搜索 “iNFC” 下载应用。
+同时，Mac版iNFC、安卓版iNFC正在开发中，敬请期待！
 
-[iNFC 上传Amiibo的视频教程](https://www.bilibili.com/video/BV1nA41127co/)
+[使用iNFC上传Amiibo至Pixl.js的视频教程](https://www.bilibili.com/video/BV1RV4y1f7bn/)
 
 感谢iNFC应用作者对Pixl.js的支持！
 

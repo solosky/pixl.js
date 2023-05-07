@@ -7,6 +7,7 @@ mui_scene_dispatcher_t *mui_scene_dispatcher_create() {
     p_dispatcher->p_scene_defines = NULL;
     p_dispatcher->scene_num = 0;
     p_dispatcher->user_data = NULL;
+    p_dispatcher->default_scene_id = 0;
     return p_dispatcher;
 }
 
@@ -42,10 +43,19 @@ void mui_scene_dispatcher_previous_scene(mui_scene_dispatcher_t *p_dispatcher) {
         // last scene
         if (scene_id_stack_size(p_dispatcher->scene_id_stack) == 0) {
             p_dispatcher->p_scene_defines[cur_scene_id].exit_cb(p_dispatcher->user_data);
+            p_dispatcher->p_scene_defines[p_dispatcher->default_scene_id].enter_cb(p_dispatcher->user_data);
         } else {
             uint32_t prev_scene_id = *scene_id_stack_back(p_dispatcher->scene_id_stack);
             p_dispatcher->p_scene_defines[cur_scene_id].exit_cb(p_dispatcher->user_data);
             p_dispatcher->p_scene_defines[prev_scene_id].enter_cb(p_dispatcher->user_data);
         }
     }
+}
+
+uint32_t mui_scene_dispatcher_current_scene(mui_scene_dispatcher_t *p_dispatcher){
+    uint32_t* p_scene_id = scene_id_stack_back(p_dispatcher->scene_id_stack);
+    if(p_scene_id){
+        return *p_scene_id;
+    }
+    return 0;
 }

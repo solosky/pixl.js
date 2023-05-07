@@ -102,5 +102,7 @@ typedef struct {
 
 bool vfs_drive_enabled(vfs_drive_t drive);
 vfs_driver_t *vfs_get_driver(vfs_drive_t drive);
+vfs_driver_t* vfs_get_default_driver();
+vfs_drive_t vfs_get_default_drive();
 
 #endif

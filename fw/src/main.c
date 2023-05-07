@@ -68,6 +68,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
+#include "nrf_power.h"
 
 #include "ntag_emu.h"
 
@@ -93,6 +94,7 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
+#include "cache.h"
 #include "settings.h"
 
 #include "usbd.h"
@@ -148,23 +150,31 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 
     switch (event) {
     case NRF_PWR_MGMT_EVT_PREPARE_WAKEUP:
-        // Set up NFCT peripheral as the only wake up source.
+
         NRF_LOG_DEBUG("go sleep");
+
+        mini_app_launcher_sleep(mini_app_launcher());
+
+        // save ntag to cache
+        cache_data_t *p_cache_data = cache_get_data();
+        memcpy(&p_cache_data->ntag, ntag_emu_get_current_tag(), sizeof(ntag_t));
+
+        cache_save();
+
         mui_deinit(mui());
 
-        //save settings
+        // save settings
         settings_save();
+
+
 
         hal_spi_flash_sleep();
 
         err_code = bsp_wakeup_button_enable(BTN_ID_SLEEP);
         APP_ERROR_CHECK(err_code);
 
-        // err_code = bsp_btn_ble_sleep_mode_prepare();
-        // APP_ERROR_CHECK(err_code);
+        // Set up NFCT peripheral as the only wakeup source.
         err_code = bsp_nfc_sleep_mode_prepare();
-        // APP_ERROR_CHECK(err_code);
-        // err_code = bsp_buttons_disable();
         APP_ERROR_CHECK(err_code);
 
         // Turn off LED to indicate that the device entered System OFF mode.
@@ -180,6 +190,31 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 }
 
 NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
+
+/**
+ *@brief :检测唤醒源
+ */
+static void check_wakeup_src(void) {
+    uint32_t rr = nrf_power_resetreas_get();
+    NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
+
+    if (cache_valid()) {
+        cache_data_t *p_cache = cache_get_data();
+        ntag_emu_set_tag(&(p_cache->ntag));
+    } else {
+        cache_clean();
+    }
+
+    if (rr == 0) {
+        NRF_LOG_INFO("WeakUp from button")
+        // p_cache->enabled = 0;
+    } else if (rr & (NRF_POWER_RESETREAS_NFC_MASK | NRF_POWER_RESETREAS_LPCOMP_MASK)) {
+        NRF_LOG_INFO("WakeUp from rfid field");
+    } else {
+        NRF_LOG_INFO("First power system");
+    }
+    nrf_power_resetreas_clear(nrf_power_resetreas_get());
+}
 
 /**
  * @brief   Function for application main entry.
@@ -221,11 +256,22 @@ int main(void) {
 //    err_code = nrf_sdh_enable_request();
 //    APP_ERROR_CHECK(err_code);
 
-//    err_code = ntag_store_init();
-//    APP_ERROR_CHECK(err_code);
+    extern const ntag_t default_ntag215;
+    err_code = ntag_emu_init(&default_ntag215);
+    APP_ERROR_CHECK(err_code);
+
+    check_wakeup_src();
+
+    //    err_code = ntag_store_init();
+    //    APP_ERROR_CHECK(err_code);
 
     err_code = settings_init();
-    //APP_ERROR_CHECK(err_code);
+    // we ignore error here, cause flash may not be presented or settings.bin did not exist
+    NRF_LOG_INFO("settings init: %d", err_code);
+    // APP_ERROR_CHECK(err_code);
+
+    chrg_init();
+
     settings_data_t *p_settings = settings_get_data();
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
 
@@ -233,10 +279,6 @@ int main(void) {
     usb_init();
 
     NRF_LOG_DEBUG("init done");
-
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
-    APP_ERROR_CHECK(err_code);
 
     mui_t *p_mui = mui();
     mui_init(p_mui);

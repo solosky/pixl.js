@@ -45,6 +45,10 @@ static inline void amiibolink_view_set_index(amiibolink_view_t* p_view, uint32_t
     p_view->index = index;
 }
 
+static inline uint8_t amiibolink_view_get_index(amiibolink_view_t* p_view){
+    return p_view->index;
+}
+
 static inline void amiibolink_view_set_max_size(amiibolink_view_t* p_view, uint8_t max_size){
     p_view->max_size = max_size;
 }

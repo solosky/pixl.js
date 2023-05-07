@@ -7,6 +7,7 @@
 #include "version2.h"
 
 enum settings_sleep_timeout_menu_t {
+    SETTINGS_SLEEP_TIMEOUT_MENU_15S,
     SETTINGS_SLEEP_TIMEOUT_MENU_30S,
     SETTINGS_SLEEP_TIMEOUT_MENU_45S,
     SETTINGS_SLEEP_TIMEOUT_MENU_1MIN,
@@ -21,6 +22,11 @@ static void settings_scene_sleep_timeout_list_view_on_selected(mui_list_view_eve
     uint32_t selection = (uint32_t)p_item->user_data;
     settings_data_t *p_settings = settings_get_data();
     switch (selection) {
+    case SETTINGS_SLEEP_TIMEOUT_MENU_15S:
+        nrf_pwr_mgmt_set_timeout(15);
+        p_settings->sleep_timeout_sec = 15;
+        break;
+
     case SETTINGS_SLEEP_TIMEOUT_MENU_30S:
         nrf_pwr_mgmt_set_timeout(30);
         p_settings->sleep_timeout_sec = 30;
@@ -52,7 +58,7 @@ static void settings_scene_sleep_timeout_list_view_on_selected(mui_list_view_eve
 void settings_scene_sleep_timeout_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
-
+    mui_list_view_add_item(app->p_list_view, 0xe105, "15秒", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_15S);
     mui_list_view_add_item(app->p_list_view, 0xe105, "30秒", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_30S);
     mui_list_view_add_item(app->p_list_view, 0xe105, "45秒", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_45S);
     mui_list_view_add_item(app->p_list_view, 0xe105, "1分钟", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_1MIN);
