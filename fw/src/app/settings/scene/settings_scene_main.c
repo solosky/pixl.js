@@ -56,7 +56,7 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_LI_MODE:
         p_settings->bat_mode = !p_settings->bat_mode;
-        sprintf(txt, "电池模式 [%s]", p_settings->bat_mode ? "锂电池" : "纽扣电池");
+        sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
@@ -95,14 +95,14 @@ void settings_scene_main_on_enter(void *user_data) {
     sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
 
-    sprintf(txt, "电池模式 [%s]", p_settings->bat_mode ? "锂电池" : "纽扣电池");
+    sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
 
     sprintf(txt, "内存使用率 [%s]",  p_settings->show_mem_usage ? "开" : "关");
-    mui_list_view_add_item(app->p_list_view, 0xe090, txt, (void *)SETTINGS_MAIN_MENU_SHOW_MEM_USAGE);
+    mui_list_view_add_item(app->p_list_view, 0xe1f3, txt, (void *)SETTINGS_MAIN_MENU_SHOW_MEM_USAGE);
 
     sprintf(txt, "快速唤醒 [%s]", p_settings->hibernate_enabled ? "开" : "关");
-    mui_list_view_add_item(app->p_list_view, 0xe08e, txt, (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
+    mui_list_view_add_item(app->p_list_view, 0xe232, txt, (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
 
     sprintf(txt, "休眠时间 [%ds]", nrf_pwr_mgmt_get_timeout());
     mui_list_view_add_item(app->p_list_view, 0xe1c9, txt, (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
