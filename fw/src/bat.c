@@ -31,8 +31,8 @@
 
 APP_TIMER_DEF(m_chrg_timer);
 
-const float cr2032_voltage_map[] = {2.9, 2.8, 2.7, 2.6, 2.5, 2.4, 2.3, 2.1, 2.0f };
-const float lipo_voltage_map[] = {4.15, 4.1, 4.05, 4.0f, 3.9, 3.8, 3.7, 3.6, 3.5};
+const float cr2032_voltage_map[] = {2.9, 2.8, 2.7, 2.6, 2.5, 2.4, 2.3, 2.1, 2.0f};
+const float lipo_voltage_map[] = {4.1, 3.98, 3.92, 3.87, 3.8, 3.7, 3.6, 3.5, 3.4};
 
 #define BAT_LEVEL_NUM 9
 
@@ -98,7 +98,7 @@ uint8_t bat_get_level(void) {
     APP_ERROR_CHECK(err_code);
     saadc_uninit();
 
-    const float* p_voltage_map = NULL;
+    const float *p_voltage_map = NULL;
     float voltage = 0.0f;
     uint32_t level = 0;
 
@@ -111,8 +111,6 @@ uint8_t bat_get_level(void) {
         voltage = 3.6f / 1024 * adc_value;
     }
 
-
-
     for (uint32_t i = 0; i < BAT_LEVEL_NUM; i++) {
         if (voltage >= p_voltage_map[i]) {
             level = BAT_LEVEL_NUM - i - 1;
@@ -120,9 +118,8 @@ uint8_t bat_get_level(void) {
         }
     }
     char txt[32];
-    sprintf(txt, "BAT: %d, %.02f, %d", adc_value, voltage, level);
+    sprintf(txt, "BAT: %d, %.02fV, %d", adc_value, voltage, level);
     NRF_LOG_INFO("%s", nrf_log_push(txt));
-
 
     return level;
 }
