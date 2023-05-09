@@ -544,7 +544,7 @@ void df_proto_handler_vfs_update_meta(df_event_t *evt) {
             return;
         }
 
-        if (p_driver->update_file_meta(get_file_path(path), meta, meta_size) != VFS_OK) {
+        if (p_driver->update_file_meta(get_file_path(path), meta, meta_size + 1) != VFS_OK) {
             OUT_FRAME_NO_DATA(out, evt->df->cmd, DF_STATUS_ERR);
             df_core_send_frame(&out);
             return;
