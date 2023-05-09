@@ -1539,7 +1539,7 @@
  
 
 #ifndef NRF_CRYPTO_BACKEND_MBEDTLS_AES_ECB_ENABLED
-#define NRF_CRYPTO_BACKEND_MBEDTLS_AES_ECB_ENABLED 0
+#define NRF_CRYPTO_BACKEND_MBEDTLS_AES_ECB_ENABLED 1
 #endif
 
 // <q> NRF_CRYPTO_BACKEND_MBEDTLS_AES_CBC_MAC_ENABLED  - Enable the AES CBC MAC mode using mbed TLS.
@@ -7165,7 +7165,7 @@
  
 
 #ifndef CRC32_ENABLED
-#define CRC32_ENABLED 0
+#define CRC32_ENABLED 1
 #endif
 
 // <q> ECC_ENABLED  - ecc - Elliptic Curve Cryptography Library

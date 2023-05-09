@@ -36,7 +36,6 @@ typedef struct {
     mui_view_port_array_t layers[MUI_LAYER_MAX];
 } mui_t;
 
-
 mui_t* mui();
 
 void mui_init(mui_t* p_mui);

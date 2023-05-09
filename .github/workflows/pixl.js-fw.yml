@@ -30,20 +30,43 @@ jobs:
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware
+        name: pixljs_firmware_spiffs
         path: fw/bootloader/_build/bootloader.hex
     - name: upload firmware
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware
+        name: pixljs_firmware_spiffs
         path: fw/_build/pixljs.hex
     - name: upload all
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware
+        name: pixljs_firmware_spiffs
         path: fw/_build/pixljs_all.hex
     - name: upload ota 
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware
+        name: pixljs_firmware_spiffs
+        path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
+    
+    - name: build firmware with lfs
+      run: cd fw && make clean && make RELEASE=1 LFS_ENABLE=1
+    - name: build ota with lfs
+      run: cd fw && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+    - name: build all with lfs
+      run: cd fw && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+    
+    - name: upload firmware with lfs
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_lfs
+        path: fw/_build/pixljs.hex
+    - name: upload all with lfs
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_lfs
+        path: fw/_build/pixljs_all.hex
+    - name: upload ota with lfs
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_lfs
         path: fw/_build/pixjs_ota_v${{github.run_number}}.zip

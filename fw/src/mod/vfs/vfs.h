@@ -14,7 +14,7 @@
 #define VFS_MAX_META_LEN 128
 
 #define VFS_DRIVE_LABEL_LEN 2
-#define VFS_MAX_FULL_PATH_LEN VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN
+#define VFS_MAX_FULL_PATH_LEN (VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN)
 
 enum vfs_error_t {
     VFS_OK = 0,
@@ -102,5 +102,7 @@ typedef struct {
 
 bool vfs_drive_enabled(vfs_drive_t drive);
 vfs_driver_t *vfs_get_driver(vfs_drive_t drive);
+vfs_driver_t* vfs_get_default_driver();
+vfs_drive_t vfs_get_default_drive();
 
 #endif

@@ -20,6 +20,7 @@ typedef struct {
     void *user_data;
     const mui_scene_t *p_scene_defines;
     uint32_t scene_num;
+    uint32_t default_scene_id;
     scene_id_stack_t scene_id_stack;
 } mui_scene_dispatcher_t;
 
@@ -31,5 +32,11 @@ void mui_scene_dispatcher_set_scene_defines(mui_scene_dispatcher_t *p_dispatcher
 void mui_scene_dispatcher_set_user_data(mui_scene_dispatcher_t *p_dispatcher, void *user_data);
 void mui_scene_dispatcher_next_scene(mui_scene_dispatcher_t *p_dispatcher, uint32_t scene_id);
 void mui_scene_dispatcher_previous_scene(mui_scene_dispatcher_t *p_dispatcher);
+
+uint32_t mui_scene_dispatcher_current_scene(mui_scene_dispatcher_t *p_dispatcher);
+
+void inline mui_mui_scene_dispatcher_set_default_scene_id(mui_scene_dispatcher_t *p_dispatcher, uint32_t default_scene_id) {
+    p_dispatcher->default_scene_id = default_scene_id;
+}
 
 #endif
