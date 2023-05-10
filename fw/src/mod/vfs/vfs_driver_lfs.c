@@ -9,6 +9,8 @@
 
 #include "m-string.h"
 
+#include "cwalk2.h"
+
 #define LFS_SECTOR_SIZE 256
 #define LFS_BLOCK_SIZE 4096
 #define LFS_ATTR_META 0xAA
@@ -199,6 +201,7 @@ int32_t vfs_lfs_open_dir(const char *dir, vfs_dir_t *fd) {
         return VFS_ERR_NOMEM;
     }
     fd->handle = p_dir;
+    strcpy(fd->path, dir);
 
     int32_t err = lfs_dir_open(&lfs, p_dir, dir);
 
@@ -213,6 +216,7 @@ int32_t vfs_lfs_open_dir(const char *dir, vfs_dir_t *fd) {
 }
 
 int32_t vfs_lfs_read_dir_internal(vfs_dir_t *fd, vfs_obj_t *obj) {
+    char path[VFS_MAX_FULL_PATH_LEN];
     lfs_dir_t *p_dir = fd->handle;
     memset(obj, 0, sizeof(vfs_obj_t));
     struct lfs_info info;
@@ -223,8 +227,8 @@ int32_t vfs_lfs_read_dir_internal(vfs_dir_t *fd, vfs_obj_t *obj) {
         obj->size = info.size;
         strncpy(obj->name, info.name, sizeof(obj->name));
 
-        // TODO read meta
-        // lfs_getattr(&lfs, file, LFS_ATTR_META, obj->meta, sizeof(obj->meta));
+        cwalk_append_segment(path, fd->path, obj->name);
+        lfs_getattr(&lfs, path, LFS_ATTR_META, obj->meta, sizeof(obj->meta));
 
         return VFS_OK;
     } else if (err == 0) {
