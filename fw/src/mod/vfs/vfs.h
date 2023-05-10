@@ -55,6 +55,7 @@ typedef struct {
 
 typedef struct {
     void *handle;
+    char path[VFS_MAX_FULL_PATH_LEN];
 } vfs_dir_t;
 
 typedef struct {
