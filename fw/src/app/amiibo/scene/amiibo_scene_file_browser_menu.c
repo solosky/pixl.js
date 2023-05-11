@@ -61,10 +61,16 @@ static void amiibo_scene_file_browser_text_input_create_amiibo_event_cb(mui_text
     }
 }
 
+static void amiibo_scene_scene_file_browser_menu_msg_box_error_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+    app_amiibo_t *app = p_msg_box->user_data;
+    mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+}
+
 static void amiibo_scene_file_browser_menu_text_input_rename_folder_event_cb(mui_text_input_event_t event,
                                                                              mui_text_input_t *p_text_input) {
     app_amiibo_t *app = p_text_input->user_data;
     bool renamed = false;
+    int32_t res;
     if (event == MUI_TEXT_INPUT_EVENT_CONFIRMED) {
         const char *input_text = mui_text_input_get_input_text(p_text_input);
         if (strlen(input_text) > 0 && strcmp(input_text, string_get_cstr(app->current_file)) != 0) {
@@ -75,7 +81,7 @@ static void amiibo_scene_file_browser_menu_text_input_rename_folder_event_cb(mui
             cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
             cwalk_append_segment(path2, string_get_cstr(app->current_folder), input_text);
 
-            int32_t res = p_driver->stat_file(path, &obj);
+            res = p_driver->stat_file(path, &obj);
             if (res == VFS_OK) {
                 if (obj.type == VFS_TYPE_DIR) {
                     res = p_driver->rename_dir(path, path2);
@@ -87,11 +93,25 @@ static void amiibo_scene_file_browser_menu_text_input_rename_folder_event_cb(mui
             if (res == VFS_OK) {
                 renamed = true;
             }
+        }else{
+            //ignore error
+            renamed = true;
         }
 
         if (renamed) {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+        }else{
+            char msg[32];
+            sprintf(msg, "重命名失败\n错误码:%d", res);
+            mui_msg_box_set_header(app->p_msg_box, "错误");
+            mui_msg_box_set_message(app->p_msg_box, msg);
+            mui_msg_box_set_btn_text(app->p_msg_box, NULL, "返回", NULL);
+            mui_msg_box_set_btn_focus(app->p_msg_box, 1);
+            mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_scene_file_browser_menu_msg_box_error_cb);
+
+            mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
         }
+
     }
 }
 
