@@ -15,5 +15,7 @@ bool amiibo_helper_is_key_loaded();
 ret_code_t amiibo_helper_ntag_generate(ntag_t* ntag);
 void amiibo_helper_try_load_amiibo_keys_from_vfs();
 
+bool is_valid_amiibo_ntag(const ntag_t* ntag);
+
 
 #endif //AMIIBO_HELPER_H
