@@ -6,7 +6,14 @@
 
 #define SETTINGS_FILE_NAME "/settings.bin"
 
-settings_data_t m_settings_data = {.backlight = 0, .auto_gen_amiibo = 0, .auto_gen_amiibolink = 0, .sleep_timeout_sec = 30, .skip_driver_select = 0, .hibernate_enabled = false, .show_mem_usage = false};
+settings_data_t m_settings_data = {.backlight = 0,
+                                   .auto_gen_amiibo = 0,
+                                   .auto_gen_amiibolink = 0,
+                                   .sleep_timeout_sec = 30,
+                                   .skip_driver_select = 0,
+                                   .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
+                                   .hibernate_enabled = false,
+                                   .show_mem_usage = false};
 
 static vfs_driver_t *get_enabled_vfs_driver() {
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
@@ -21,6 +28,11 @@ static vfs_driver_t *get_enabled_vfs_driver() {
 static void validate_settings() {
     if (m_settings_data.sleep_timeout_sec == 0 || m_settings_data.sleep_timeout_sec > 180) {
         m_settings_data.sleep_timeout_sec = 30;
+    }
+
+    if (m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V1 &&
+        m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V2) {
+        m_settings_data.amiibo_link_ver = BLE_AMIIBOLINK_VER_V1;
     }
 }
 
