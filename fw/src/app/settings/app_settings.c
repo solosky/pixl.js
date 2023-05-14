@@ -42,6 +42,7 @@ void app_settings_on_kill(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     mui_list_view_free(p_app_handle->p_list_view);
+    mui_progress_bar_free(p_app_handle->p_progress_bar);
 
     free(p_app_handle);
 
