@@ -39,6 +39,7 @@ void ble_amiibolink_send_cmd_v2(uint16_t cmd) {
     link_data.key1 = (rand() % 256) + 1;
     link_data.key2 = (rand() % 256) + 1;
     link_data.data_len = 16;
+    link_data.de_data_len = 2;
 
     uint8_t pad[16] = {0};
     pad16(cmd, pad);
@@ -50,6 +51,7 @@ void ble_amiibolink_send_cmd_v2(uint16_t cmd) {
     };
 
     nrf_crypto_aes_context_t aes_ecb_ctx;
+    size_t out_len = 16;
     ret_code_t err = nrf_crypto_aes_crypt(
         &aes_ecb_ctx,
         &g_nrf_crypto_aes_ecb_128_info,
@@ -59,12 +61,9 @@ void ble_amiibolink_send_cmd_v2(uint16_t cmd) {
         pad,
         16,
         link_data.data,
-        link_data.data_len
+        &out_len
     );
-    NRF_LOG_INFO("nrf_crypto_aes_crypt: %s", nrf_crypto_error_string_get(err));
-    link_data.de_data_len = 16;
-
-    NRF_LOG_HEXDUMP_DEBUG(&link_data, sizeof(link_data_t))
+    NRF_LOG_INFO("nrf_crypto_aes_encrypt:out_len=%d err=%d msg=%s", out_len, err, nrf_crypto_error_string_get(err));
 
     ble_nus_tx_data(&link_data, sizeof(link_data_t));
 }
@@ -76,6 +75,7 @@ void ble_amiibolink_send_cmd(uint16_t cmd) {
         ble_amiibolink_send_cmd_v2(cmd);
     }
 }
+
 
 void ble_amiibolink_write_ntag(buffer_t *buffer) {
     buff_get_u8(buffer); // 00
@@ -155,8 +155,9 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
 
     nrf_crypto_aes_context_t aes_ecb_ctx;
 
-    uint8_t len = link_data->de_data_len;
-    uint8_t buf[len];
+    uint8_t buf[MAX_MTU_DAT_SIZE];
+    size_t out_len = sizeof(buf);
+    size_t data_len = link_data->de_data_len;
 
     uint8_t key[] = {
         0x4B, 0x47, 0x46, 0x5F, 0x41, 0x4D, 0x49,
@@ -164,7 +165,7 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
         link_data->key1, link_data->key2 // 随机密钥
     };
 
-    nrf_crypto_aes_crypt(
+    ret_code_t err = nrf_crypto_aes_crypt(
         &aes_ecb_ctx,
         &g_nrf_crypto_aes_ecb_128_info,
         NRF_CRYPTO_DECRYPT,
@@ -173,13 +174,14 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
         link_data->data,
         link_data->data_len,
         buf,
-        len
+        &out_len
     );
 
-    NRF_LOG_INFO("decrypted data len: %d", len);
-    NRF_LOG_HEXDUMP_DEBUG(&buf, len);
+    NRF_LOG_INFO("decrypted data len: de_data_len=%d, decrypted_len=%d", link_data->de_data_len, out_len);
+    NRF_LOG_INFO("nrf_crypto_aes_decrypt: %d %s", err, nrf_crypto_error_string_get(err));
+    NRF_LOG_HEXDUMP_DEBUG(&buf, data_len);
 
-    NEW_BUFFER_READ(buffer, (void *) &buf, len);
+    NEW_BUFFER_READ(buffer, (void *) &buf, data_len);
 
     ble_amiibolink_process_cmd(&buffer);
 }
