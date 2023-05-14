@@ -1,10 +1,10 @@
 #include "app_settings.h"
 #include "mini_app_launcher.h"
 #include "nrf_pwr_mgmt.h"
+#include "settings.h"
 #include "settings_scene.h"
 #include "utils.h"
 #include "version2.h"
-#include "settings.h"
 
 enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_VERSION,
@@ -23,16 +23,12 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
     app_settings_t *app = p_list_view->user_data;
     char txt[32];
 
-    settings_data_t* p_settings = settings_get_data();
+    settings_data_t *p_settings = settings_get_data();
 
     uint32_t selection = (uint32_t)p_item->user_data;
     switch (selection) {
     case SETTINGS_MAIN_MENU_BACK_LIGHT:
-        mui_u8g2_set_backlight(!mui_u8g2_get_backlight());
-        sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
-        p_settings->backlight = mui_u8g2_get_backlight();
-        string_set_str(p_item->text, txt);
-        mui_update(mui());
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LCD_BACKLIGHT);
         break;
 
     case SETTINGS_MAIN_MENU_VERSION:
@@ -63,7 +59,7 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_SHOW_MEM_USAGE:
         p_settings->show_mem_usage = !p_settings->show_mem_usage;
-        sprintf(txt, "内存使用率 [%s]",  p_settings->show_mem_usage ? "开" : "关");
+        sprintf(txt, "内存使用率 [%s]", p_settings->show_mem_usage ? "开" : "关");
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
@@ -88,17 +84,21 @@ void settings_scene_main_on_enter(void *user_data) {
     sprintf(txt, "版本 [%s]", version_get_version(version_get()));
     mui_list_view_add_item(app->p_list_view, 0xe1c7, txt, (void *)SETTINGS_MAIN_MENU_VERSION);
 
-    settings_data_t* p_settings = settings_get_data();
+    settings_data_t *p_settings = settings_get_data();
     sprintf(txt, "自动选择存储 [%s]", p_settings->skip_driver_select ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
 
-    sprintf(txt, "背光设置 [%s]", mui_u8g2_get_backlight() ? "开" : "关");
+    if (p_settings->lcd_backlight == 0) {
+        sprintf(txt, "背光亮度 [关]");
+    } else {
+        sprintf(txt, "背光亮度 [%d%%]", p_settings->lcd_backlight);
+    }
     mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
 
     sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
 
-    sprintf(txt, "内存使用率 [%s]",  p_settings->show_mem_usage ? "开" : "关");
+    sprintf(txt, "内存使用率 [%s]", p_settings->show_mem_usage ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe1f3, txt, (void *)SETTINGS_MAIN_MENU_SHOW_MEM_USAGE);
 
     sprintf(txt, "快速唤醒 [%s]", p_settings->hibernate_enabled ? "开" : "关");

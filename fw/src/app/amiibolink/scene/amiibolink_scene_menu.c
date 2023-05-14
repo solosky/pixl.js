@@ -16,7 +16,7 @@
 #define ICON_AUTO 0xe11f
 #define ICON_VER 0xe0be
 
-const char *mode_name[] = {"", "随机", "按序", "读写"};
+const char *mode_name[] = {"", "随机(手动)", "按序", "读写", "随机(自动)"};
 
 #define AMIIBOLINK_MENU_BACK_EXIT 0
 #define AMIIBOLINK_MENU_BACK_MAIN 1

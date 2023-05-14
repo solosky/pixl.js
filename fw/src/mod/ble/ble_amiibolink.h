@@ -7,7 +7,8 @@
 typedef enum {
     BLE_AMIIBOLINK_MODE_RANDOM = 1,
     BLE_AMIIBOLINK_MODE_CYCLE = 2,
-    BLE_AMIIBOLINK_MODE_NTAG = 3
+    BLE_AMIIBOLINK_MODE_NTAG = 3,
+    BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN = 4
 } ble_amiibolink_mode_t;
 
 typedef enum {

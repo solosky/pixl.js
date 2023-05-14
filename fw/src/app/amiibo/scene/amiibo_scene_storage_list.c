@@ -29,8 +29,8 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
                 mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
             } else {
                 int32_t err = p_driver->mount();
-                amiibo_helper_try_load_amiibo_keys_from_vfs();
                 if (err == VFS_OK) {
+                    amiibo_helper_try_load_amiibo_keys_from_vfs();
                     mui_scene_dispatcher_next_scene(p_app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
                 }
             }
