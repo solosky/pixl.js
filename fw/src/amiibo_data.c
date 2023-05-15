@@ -838,5 +838,6 @@ const amiibo_data_t amiibo_data[] = {
 {0x33c00000, 0x04200002, "Super Smash Bros.", "Tekken", "Kazuya", "Kazuya", ""}, 
 {0x36010000, 0x04210002, "Super Smash Bros.", "Final Fantasy", "Sephiroth", "Sephiroth", ""}, 
 {0x00000003, 0x0430ff02, "Super Nintendo World", "Super Mario", "Mario", "Golden - Power Up Band", ""}, 
+{0x01000000, 0x04180902, "Legend Of Zelda", "The Legend of Zelda", "Link", "Link - Tears of the Kingdom", ""}, 
 {0, 0, 0, 0, 0, 0}
 };

@@ -121,6 +121,12 @@ static void amiibolink_scene_switch_mode(app_amiibolink_t *app, ble_amiibolink_m
         ntag_reload(app, DEFAULT_NTAG_INDEX);
     }else if(mode == BLE_AMIIBOLINK_MODE_CYCLE){
         ntag_reload(app, initial_index);
+    }else if(mode == BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN){
+        settings_data_t* p_settings = settings_get_data();
+        p_settings->auto_gen_amiibolink = true;
+    }else if(mode == BLE_AMIIBOLINK_MODE_RANDOM){
+        settings_data_t* p_settings = settings_get_data();
+        p_settings->auto_gen_amiibolink = false;
     }
 }
 
@@ -158,11 +164,11 @@ void amiibolink_scene_main_on_enter(void *user_data) {
 
     // enable ble
     ble_init();
-    ble_device_mode_prepare(p_settings->amiibo_link_mode == BLE_AMIIBOLINK_VER_V2
+    ble_device_mode_prepare(p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2
                                 ? BLE_DEVICE_MODE_AMIIBOLINK_V2 : BLE_DEVICE_MODE_AMIIBOLINK);
     ble_adv_start();
 
-    ble_amiibolink_set_version(p_settings->amiibo_link_mode);
+    ble_amiibolink_set_version(p_settings->amiibo_link_ver);
     ble_nus_set_handler(ble_amiibolink_received_data, NULL);
 
     ntag_init();

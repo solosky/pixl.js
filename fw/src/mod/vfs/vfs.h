@@ -14,7 +14,7 @@
 #define VFS_MAX_META_LEN 128
 
 #define VFS_DRIVE_LABEL_LEN 2
-#define VFS_MAX_FULL_PATH_LEN VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN
+#define VFS_MAX_FULL_PATH_LEN (VFS_MAX_PATH_LEN + VFS_DRIVE_LABEL_LEN)
 
 enum vfs_error_t {
     VFS_OK = 0,
@@ -55,6 +55,7 @@ typedef struct {
 
 typedef struct {
     void *handle;
+    char path[VFS_MAX_FULL_PATH_LEN];
 } vfs_dir_t;
 
 typedef struct {

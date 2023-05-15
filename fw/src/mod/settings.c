@@ -6,7 +6,15 @@
 
 #define SETTINGS_FILE_NAME "/settings.bin"
 
-settings_data_t m_settings_data = {.backlight = 0, .auto_gen_amiibo = 0, .auto_gen_amiibolink = 0, .sleep_timeout_sec = 30, .skip_driver_select = 0, .hibernate_enabled = false, .show_mem_usage = false};
+settings_data_t m_settings_data = {.backlight = 0,
+                                   .auto_gen_amiibo = 0,
+                                   .auto_gen_amiibolink = 0,
+                                   .sleep_timeout_sec = 30,
+                                   .skip_driver_select = 0,
+                                   .bat_mode = 0,
+                                   .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
+                                   .hibernate_enabled = false,
+                                   .show_mem_usage = false};
 
 static vfs_driver_t *get_enabled_vfs_driver() {
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
@@ -18,10 +26,28 @@ static vfs_driver_t *get_enabled_vfs_driver() {
     return NULL;
 }
 
+#define BOOL_VALIDATE(expr, default_val) if((expr) != 0 && (expr) !=1) { (expr) = (default_val);}
+#define INT8_VALIDATE(expr, min, max, default_val) if((expr) < (min) || (expr) > (max)) { (expr) = (default_val);}
+
 static void validate_settings() {
     if (m_settings_data.sleep_timeout_sec == 0 || m_settings_data.sleep_timeout_sec > 180) {
         m_settings_data.sleep_timeout_sec = 30;
     }
+
+    if (m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V1 &&
+        m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V2) {
+        m_settings_data.amiibo_link_ver = BLE_AMIIBOLINK_VER_V1;
+    }
+
+    BOOL_VALIDATE(m_settings_data.skip_driver_select, 0);
+    BOOL_VALIDATE(m_settings_data.show_mem_usage, 0);
+    BOOL_VALIDATE(m_settings_data.hibernate_enabled, 0);
+    BOOL_VALIDATE(m_settings_data.bat_mode, 0);
+    BOOL_VALIDATE(m_settings_data.skip_driver_select, 0);
+    BOOL_VALIDATE(m_settings_data.auto_gen_amiibo, 0);
+    BOOL_VALIDATE(m_settings_data.auto_gen_amiibolink, 0);
+    BOOL_VALIDATE(m_settings_data.backlight, 0);
+    INT8_VALIDATE(m_settings_data.lcd_backlight, 0, 100, 0);
 }
 
 int32_t settings_init() {

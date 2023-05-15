@@ -27,7 +27,8 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     mui_canvas_set_draw_color(p_canvas, 0);
 
     // draw mode icon
-    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM) {
+    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM ||
+        p_amiibolink_view->amiibolink_mode ==BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
         mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
         mui_canvas_draw_glyph(p_canvas, 10, y + 10, ICON_RANDOM);
     } else if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
@@ -72,7 +73,7 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     const amiibo_data_t *amd = find_amiibo_data(head, tail);
     if (amd != NULL) {
         NRF_LOG_INFO("amd: %s", nrf_log_push(amd->name));
-        mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, amd->name);
+        mui_canvas_draw_utf8(p_canvas, 5, y += 15, amd->name);
         if (strlen(ntag->notes) > 0) {
             NRF_LOG_INFO("ntag notes: %s", nrf_log_push(ntag->notes));
             mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, ntag->notes);

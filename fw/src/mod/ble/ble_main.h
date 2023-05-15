@@ -10,6 +10,8 @@
 
 //#define DEVICE_NAME "amiibolink" /**< Name of device. Will be included in the advertising data. */
 
+#define MAX_MTU_DAT_SIZE (NRF_SDH_BLE_GATT_MAX_MTU_SIZE-3)
+
 
 typedef enum {
     BLE_DEVICE_MODE_PIXLJS,
