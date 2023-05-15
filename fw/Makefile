@@ -42,6 +42,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/memobj/nrf_memobj.c \
   $(SDK_ROOT)/components/libraries/ringbuf/nrf_ringbuf.c \
   $(SDK_ROOT)/components/libraries/experimental_section_vars/nrf_section_iter.c \
+  $(SDK_ROOT)/components/libraries/pwm/app_pwm.c \
   $(SDK_ROOT)/components/libraries/sortlist/nrf_sortlist.c \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
   $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52.c \
@@ -57,11 +58,10 @@ SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_spi.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_spim.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_wdt.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_ppi.c \
+  $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_ppi.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_spi.c \
   $(SDK_ROOT)/components/libraries/button/app_button.c \
-  $(SDK_ROOT)/components/libraries/fstorage/nrf_fstorage.c \
-  $(SDK_ROOT)/components/libraries/fstorage/nrf_fstorage_sd.c \
-  $(SDK_ROOT)/components/libraries/fds/fds.c \
   $(SDK_ROOT)/components/libraries/bsp/bsp.c \
   $(SDK_ROOT)/components/libraries/bsp/bsp_nfc.c \
   $(SDK_ROOT)/components/libraries/mem_manager/mem_manager.c \
@@ -208,6 +208,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
+  $(PROJ_DIR)/mui/view/mui_progress_bar.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
   $(PROJ_DIR)/core/mini_app_data.c \
@@ -244,6 +245,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_main.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_version.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_sleep_timeout.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_lcd_backlight.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
@@ -435,7 +437,6 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crypto/backend/optiga \
   $(SDK_ROOT)/components/libraries/crypto/backend/cifra \
   $(SDK_ROOT)/components/ble/ble_racp \
-  $(SDK_ROOT)/components/libraries/fds \
   $(SDK_ROOT)/components/nfc/ndef/launchapp \
   $(SDK_ROOT)/components/libraries/atomic_flags \
   $(SDK_ROOT)/components/ble/ble_services/ble_hrs \

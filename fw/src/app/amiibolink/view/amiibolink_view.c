@@ -27,7 +27,8 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     mui_canvas_set_draw_color(p_canvas, 0);
 
     // draw mode icon
-    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM) {
+    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM ||
+        p_amiibolink_view->amiibolink_mode ==BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
         mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
         mui_canvas_draw_glyph(p_canvas, 10, y + 10, ICON_RANDOM);
     } else if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
