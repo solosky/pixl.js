@@ -13,7 +13,6 @@ typedef struct {
     mui_msg_box_t *p_msg_box;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
-
     ble_amiibolink_mode_t amiibolink_mode;
 } app_amiibolink_t;
 

@@ -11,16 +11,17 @@ static void mui_progress_bar_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas)
     uint8_t canvas_width = mui_canvas_get_width(p_canvas);
     uint8_t canvas_height = mui_canvas_get_height(p_canvas);
 
-    //mui_canvas_set_draw_color(p_canvas, 1);
-    //mui_canvas_draw_box(p_canvas, 0, 0, canvas_width, font_height + 1);
-    //mui_canvas_set_draw_color(p_canvas, 0);
+    // mui_canvas_set_draw_color(p_canvas, 1);
+    // mui_canvas_draw_box(p_canvas, 0, 0, canvas_width, font_height + 1);
+    // mui_canvas_set_draw_color(p_canvas, 0);
     mui_canvas_draw_utf8(p_canvas, 2, font_height - 2, string_get_cstr(p_mui_progress_bar->header));
-    //mui_canvas_set_draw_color(p_canvas, 1);
+    // mui_canvas_set_draw_color(p_canvas, 1);
 
     float percent =
         p_mui_progress_bar->current_value / (float)(p_mui_progress_bar->max_value - p_mui_progress_bar->min_value);
     mui_canvas_draw_rframe(p_canvas, 0, (canvas_height - font_height) / 2, canvas_width, font_height, 1);
-    mui_canvas_draw_box(p_canvas, 0, (canvas_height - font_height) / 2, ceil(canvas_width * percent), font_height);
+    mui_canvas_draw_box(p_canvas, 1, (canvas_height - font_height) / 2, ceil((canvas_width - 2) * percent),
+                        font_height);
 
     char txt[32];
 

@@ -124,6 +124,9 @@ static void amiibolink_scene_switch_mode(app_amiibolink_t *app, ble_amiibolink_m
     }else if(mode == BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN){
         settings_data_t* p_settings = settings_get_data();
         p_settings->auto_gen_amiibolink = true;
+    }else if(mode == BLE_AMIIBOLINK_MODE_RANDOM){
+        settings_data_t* p_settings = settings_get_data();
+        p_settings->auto_gen_amiibolink = false;
     }
 }
 
