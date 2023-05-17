@@ -8,7 +8,8 @@ typedef enum {
     BSP_BTN_EVENT_RELEASED,
     BSP_BTN_EVENT_SHORT,
     BSP_BTN_EVENT_LONG,
-    BSP_BTN_EVENT_REPEAT
+    BSP_BTN_EVENT_REPEAT,
+    BSP_BTN_EVENT_STICK
 } bsp_btn_event_t;
 
 

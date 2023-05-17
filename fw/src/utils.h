@@ -13,6 +13,7 @@
 
 ret_code_t utils_rand_bytes(uint8_t rand[], uint8_t bytes);
 void enter_dfu();
+void reboot_system();
 
 
 

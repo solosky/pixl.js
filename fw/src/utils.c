@@ -10,6 +10,7 @@
 #include "nrf_sdh.h"
 #include "nrf_soc.h"
 #include "nrf_nvic.h"
+#include "cache.h"
 
 ret_code_t utils_rand_bytes(uint8_t rand[], uint8_t bytes) {
     ret_code_t err;
@@ -21,5 +22,10 @@ ret_code_t utils_rand_bytes(uint8_t rand[], uint8_t bytes) {
 void enter_dfu() {
     sd_power_gpregret_clr(0, 0);
     sd_power_gpregret_set(0, BOOTLOADER_DFU_START);
+    sd_nvic_SystemReset();
+}
+
+void reboot_system() {
+    cache_clean();
     sd_nvic_SystemReset();
 }

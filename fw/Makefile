@@ -8,7 +8,7 @@ COMP_DIR := ./components
 U8G2_ROOT := ./components/u8g2/csrc
 
 APP_VERSION ?= 1
-RELEASE ?= 0
+RELEASE ?= 1
 LFS_ENABLE ?= 1
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
