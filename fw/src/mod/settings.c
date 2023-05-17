@@ -14,6 +14,7 @@ settings_data_t m_settings_data = {.backlight = 0,
                                    .bat_mode = 0,
                                    .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
                                    .hibernate_enabled = false,
+                                   .lcd_backlight = 100,
                                    .show_mem_usage = false};
 
 static vfs_driver_t *get_enabled_vfs_driver() {
@@ -47,7 +48,7 @@ static void validate_settings() {
     BOOL_VALIDATE(m_settings_data.auto_gen_amiibo, 0);
     BOOL_VALIDATE(m_settings_data.auto_gen_amiibolink, 0);
     BOOL_VALIDATE(m_settings_data.backlight, 0);
-    INT8_VALIDATE(m_settings_data.lcd_backlight, 0, 100, 0);
+    INT8_VALIDATE(m_settings_data.lcd_backlight, 0, 100, 100);
 }
 
 int32_t settings_init() {

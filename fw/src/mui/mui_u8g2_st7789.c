@@ -83,9 +83,40 @@
 #define LCD_BL_PIN 20
 #define LCD_DC_PIN 28 // green wire (DC)
 
+#include "app_pwm.h"
+
 u8g2_t u8g2;
 static spi_device_t m_dev;
 uint8_t m_u8g2_initialized = 0;
+
+APP_PWM_INSTANCE(pwm1, 1); // Create the instance "PWM1" using TIMER1.
+
+static ret_code_t pwm_init(void) {
+    ret_code_t err_code;
+    /* 2-channel PWM, 200Hz, output on DK LED pins. */
+    app_pwm_config_t pwm1_cfg = APP_PWM_DEFAULT_CONFIG_1CH(200L, LCD_BL_PIN);
+
+    /* Switch the polarity of the second channel. */
+    pwm1_cfg.pin_polarity[0] = APP_PWM_POLARITY_ACTIVE_HIGH;
+
+    /* Initialize and enable PWM. */
+    err_code = app_pwm_init(&pwm1, &pwm1_cfg, NULL);
+    if (err_code != NRF_SUCCESS) {
+        return err_code;
+    }
+
+    settings_data_t *p_settings = settings_get_data();
+    app_pwm_duty_t init_duty = p_settings->lcd_backlight <= 100 ? p_settings->lcd_backlight : 0;
+    NRF_LOG_INFO("init bl = %d", init_duty);
+    if (init_duty > 0) {
+        app_pwm_enable(&pwm1);
+        while (app_pwm_channel_duty_set(&pwm1, 0, init_duty) == NRF_ERROR_BUSY)
+            ;
+
+    }
+
+    return NRF_SUCCESS;
+}
 
 uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
 uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
@@ -337,12 +368,16 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
+
+    pwm_init();
 }
 
 void mui_u8g2_deinit(u8g2_t *p_u8g2) {
     u8g2_SetPowerSave(p_u8g2, 1);
 
     st7789_sleep();
+
+    app_pwm_disable(&pwm1);
 
     nrf_gpio_pin_clear(LCD_BL_PIN);
     nrf_gpio_cfg_default(LCD_BL_PIN);
@@ -351,5 +386,18 @@ void mui_u8g2_deinit(u8g2_t *p_u8g2) {
 void mui_u8g2_set_backlight(uint8_t bl) { nrf_gpio_pin_write(LCD_BL_PIN, bl); }
 
 uint8_t mui_u8g2_get_backlight() { return nrf_gpio_pin_out_read(LCD_BL_PIN); }
+
+void mui_u8g2_set_backlight_level(uint8_t value) {
+    if (value == 0) {
+        app_pwm_disable(&pwm1);
+    } else {
+        if (pwm1.p_cb->state != NRFX_DRV_STATE_POWERED_ON) {
+            app_pwm_enable(&pwm1);
+        }
+        while (app_pwm_channel_duty_set(&pwm1, 0, value) == NRF_ERROR_BUSY)
+            ;
+    }
+}
+int8_t mui_u8g2_get_backlight_level(void) { return (int8_t) app_pwm_channel_duty_get(&pwm1, 0); }
 
 #endif

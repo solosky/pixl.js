@@ -3,11 +3,13 @@
 
 void vfs_meta_decode(uint8_t *p_meta, uint8_t size, vfs_meta_t *p_out) {
 
-    NEW_BUFFER_READ(buff, p_meta, size);
-    uint8_t meta_size = buff_get_u8(&buff);
+    NEW_BUFFER_READ(buff_head, p_meta, size);
+    uint8_t meta_size = buff_get_u8(&buff_head);
     if (meta_size == 0 || meta_size == 0xFF) {
         return;
     }
+
+    NEW_BUFFER_READ(buff, p_meta, meta_size);
 
     while (buff_get_remain_size(&buff) > 0) {
         uint8_t type = buff_get_u8(&buff);
