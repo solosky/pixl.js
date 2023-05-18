@@ -5,6 +5,7 @@
 #include "ntag_store.h"
 #include "vfs.h"
 
+#include <nrf_sdh.h>
 #include <string.h>
 
 #define UUID_OFFSET 468
@@ -114,6 +115,13 @@ ret_code_t amiibo_helper_ntag_generate(ntag_t *ntag) {
     ntag_t *ntag_current = ntag;
 
     memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
+
+    if (!nrf_sdh_is_enabled()) {
+        err_code = nrf_sdh_enable_request();
+        if(err_code != NRF_SUCCESS ){
+            return err_code;
+        }
+    }
 
     if (!is_valid_amiibo_ntag(ntag_current)) {
         return NRF_ERROR_INVALID_DATA;
