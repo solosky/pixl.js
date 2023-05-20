@@ -47,6 +47,16 @@ jobs:
       with:
         name: pixljs_firmware_spiffs
         path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
+    - name: upload fw update script 
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_spiffs
+        path: fw/scripts/fw_update.bat
+    - name: upload fw readme file 
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_spiffs
+        path: fw/docs/fw_readme.txt
     
     - name: build firmware with lfs
       run: cd fw && make clean && make RELEASE=1 LFS_ENABLE=1
@@ -70,3 +80,13 @@ jobs:
       with:
         name: pixljs_firmware_lfs
         path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
+    - name: upload fw update script 
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_lfs
+        path: fw/scripts/fw_update.bat
+    - name: upload fw readme file 
+      uses: actions/upload-artifact@v3
+      with:
+        name: pixljs_firmware_lfs
+        path: fw/docs/fw_readme.txt
