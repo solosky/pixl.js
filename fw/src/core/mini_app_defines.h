@@ -4,6 +4,7 @@
 #include <stdint.h>
 
 #include "cache.h"
+#include "am_board.h"
 
 struct mini_app_inst_s;
 typedef struct mini_app_inst_s mini_app_inst_t;
