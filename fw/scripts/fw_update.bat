@@ -36,7 +36,7 @@ echo 检查openocd版本
 %openocd_bin% -v
 
 echo 刷新固件中，请稍后...
-%openocd_bin%  -f interface/cmsis-dap.cfg -f target/nrf52.cfg -c init -c "reset init" -c halt -c "nrf52_recover" -c "nrf51 mass_erase" -c "program pixljs_all.hex verify"  -c reset -c exit
+%openocd_bin%  -f interface/cmsis-dap.cfg -f target/nrf52.cfg -c init -c "reset init" -c halt -c "nrf52_recover" -c halt -c "nrf51 mass_erase" -c "program pixljs_all.hex verify"  -c reset -c exit
 if %errorlevel%==0 (
     echo -----------------------------------------------------------------------------
     echo 恭喜，刷新固件成功！
