@@ -10,6 +10,7 @@
 
 static ntag_t m_ntag = {0};
 uint32_t m_data_pos = 0;
+uint32_t index = 0;
 ble_amiibolink_event_handler_t m_event_handler = {0};
 void *m_event_ctx = {0};
 ble_amiibolink_ver_t m_ver = BLE_AMIIBOLINK_VER_V2;
@@ -186,9 +187,48 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
     ble_amiibolink_process_cmd(&buffer);
 }
 
+void ble_amiloop_received_data(const uint8_t *data, size_t length) {
+    amiloop_req_data_t *req = (amiloop_req_data_t *) data;
+    // NRF_LOG_INFO("req->magic: %d", req->magic);
+    // NRF_LOG_INFO("req->len: %d", req->len);
+    // NRF_LOG_INFO("req->code: %d", req->code);
+    // NRF_LOG_INFO("req->is_end: %d", req->is_end);
+    // NRF_LOG_INFO("req->index: %d", req->index);
+    // NRF_LOG_INFO("req->data: %d", req->data);
+    // NRF_LOG_INFO("req->xor: %d", req->xor);
+    // NRF_LOG_INFO("req->magic_end: %d", req->magic_end);
+
+    if (index < req->index) {
+        index = req->index;
+    } else {
+        index = 0;
+        m_data_pos = 0;
+    }
+
+    memcpy(m_ntag.data + m_data_pos, req->data, req->len - 3);
+    m_data_pos += req->len - 3;
+
+    if (req->is_end == 1) {
+        ntag_emu_set_tag(&m_ntag);
+        if (m_event_handler) {
+            m_event_handler(m_event_ctx, BLE_AMIIBOLINK_EVENT_TAG_UPDATED, &m_ntag, sizeof(m_ntag));
+        }
+    }
+
+    amiloop_res_data_t resp = {0};
+    resp.magic = 0x02;
+    resp.len = 0x01;
+    resp.data = 0x00;
+    resp.xor = 0x01;
+    resp.magic_end = 0x03;
+    ble_nus_tx_data(&resp, sizeof(amiloop_res_data_t));
+}
+
 void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
     if (m_ver == BLE_AMIIBOLINK_VER_V1) {
         ble_amiibolink_received_data_v1(data, length);
+    } else if (m_ver == BLE_AMILOOP) {
+        ble_amiloop_received_data(data, length);
     } else {
         ble_amiibolink_received_data_v2(data, length);
     }

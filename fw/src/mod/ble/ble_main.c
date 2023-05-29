@@ -532,7 +532,7 @@ void ble_service_id_set(uint32_t suffix) {
 }
 
 void ble_device_mode_prepare(ble_device_mode_t mode) {
-    if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
+    if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2 || mode == BLE_DEVICE_MODE_AMILOOP) {
         ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
         ble_addr_set(0x10);
     } else {
