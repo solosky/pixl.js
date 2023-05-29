@@ -538,6 +538,7 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
         ble_addr_set(0x10);
     } else if (mode == BLE_DEVICE_MODE_AMILOOP) {
         ble_set_device_name(DEVICE_NAME_AMILOOP);
+        ble_addr_set(0x10);
     } else {
         ble_set_device_name(DEVICE_NAME_PIXLJS);
         ble_addr_set(0);

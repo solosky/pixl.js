@@ -188,6 +188,7 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
 }
 
 void ble_amiloop_received_data(const uint8_t *data, size_t length) {
+    // NRF_LOG_INFO("ble data received %d bytes", length);
     amiloop_req_data_t *req = (amiloop_req_data_t *) data;
     // NRF_LOG_INFO("req->magic: %d", req->magic);
     // NRF_LOG_INFO("req->len: %d", req->len);
@@ -197,6 +198,18 @@ void ble_amiloop_received_data(const uint8_t *data, size_t length) {
     // NRF_LOG_INFO("req->data: %d", req->data);
     // NRF_LOG_INFO("req->xor: %d", req->xor);
     // NRF_LOG_INFO("req->magic_end: %d", req->magic_end);
+
+    if (req->len > length) {
+        NRF_LOG_INFO("req->len > length");
+        amiloop_res_data_t resp = {0};
+        resp.magic = 0x02;
+        resp.len = 0x01;
+        resp.data = 0x01;
+        resp.xor = 0x00;
+        resp.magic_end = 0x03;
+        ble_nus_tx_data(&resp, sizeof(amiloop_res_data_t));
+        return;
+    }
 
     if (index < req->index) {
         index = req->index;
