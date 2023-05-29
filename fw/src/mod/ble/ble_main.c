@@ -145,6 +145,7 @@ static nus_tx_ready_handler_t m_nus_tx_ready_handler =
 
 #define DEVICE_NAME_PIXLJS "Pixl.js"
 #define DEVICE_NAME_AMIIBOLINK "amiibolink"
+#define DEVICE_NAME_AMILOOP "AmiLoop"
 
 #define DEVICE_NAME DEVICE_NAME_PIXLJS
 
@@ -532,9 +533,11 @@ void ble_service_id_set(uint32_t suffix) {
 }
 
 void ble_device_mode_prepare(ble_device_mode_t mode) {
-    if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2 || mode == BLE_DEVICE_MODE_AMILOOP) {
+    if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
         ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
         ble_addr_set(0x10);
+    } else if (mode == BLE_DEVICE_MODE_AMILOOP) {
+        ble_set_device_name(DEVICE_NAME_AMILOOP);
     } else {
         ble_set_device_name(DEVICE_NAME_PIXLJS);
         ble_addr_set(0);
