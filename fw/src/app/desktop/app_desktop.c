@@ -34,7 +34,7 @@ void app_desktop_on_run(mini_app_inst_t *p_app_inst) {
     for (uint32_t i = 0; i < mini_app_registry_get_app_num(); i++) {
         const mini_app_t *p_app = mini_app_registry_find_by_index(i);
         if (!p_app->sys) {
-            mui_list_view_add_item(p_app_handle->p_list_view, p_app->icon, p_app->name, (void *)i);
+            mui_list_view_add_item(p_app_handle->p_list_view, p_app->icon, p_app->name, (void *)p_app->id);
         }
     }
 
