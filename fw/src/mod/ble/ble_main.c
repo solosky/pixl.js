@@ -350,6 +350,8 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt) {
  */
 static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
     uint32_t err_code;
+    char device_name[35];
+    uint32_t device_name_len = 35;
 
     switch (p_ble_evt->header.evt_id) {
     case BLE_GAP_EVT_CONNECTED:
@@ -359,6 +361,15 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
         m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
         err_code = nrf_ble_qwr_conn_handle_assign(&m_qwr, m_conn_handle);
         APP_ERROR_CHECK(err_code);
+
+        err_code = sd_ble_gap_device_name_get(device_name, &device_name_len);
+        NRF_LOG_INFO("ble_get_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
+
+        if (strcmp(device_name, DEVICE_NAME_AMILOOP) == 0) {
+            NRF_LOG_INFO("Set mtu to 250")
+            sd_ble_gattc_exchange_mtu_request(p_ble_evt->evt.gap_evt.conn_handle, 250);
+        }
+
         break;
 
     case BLE_GAP_EVT_DISCONNECTED:
