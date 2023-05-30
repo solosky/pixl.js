@@ -86,7 +86,7 @@ void amiibolink_scene_menu_on_enter(void *user_data) {
     sprintf(txt, "自动随机 [%s]", p_settings->auto_gen_amiibolink ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
     
-    sprintf(txt, "兼容模式 [%s]", p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : "V1");
+    sprintf(txt, "兼容模式 [%s]", p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V1 ? "V1" : "AmiLoop"));
     mui_list_view_add_item(app->p_list_view, ICON_PROTO, txt, (void *)AMIIBOLINK_MENU_VER);
     mui_list_view_add_item(app->p_list_view, ICON_VER, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
     
