@@ -32,22 +32,27 @@ static void mui_progress_bar_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas)
 
 static void mui_progress_bar_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     mui_progress_bar_t *p_pb = p_view->user_data;
+    uint8_t step = p_pb->max_value / 20;
     if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT) {
         switch (event->key) {
         case INPUT_KEY_LEFT:
             if (p_pb->current_value > p_pb->min_value) {
-                p_pb->current_value--;
-                if (p_pb->event_cb) {
-                    p_pb->event_cb(MUI_PROGRESS_BAR_EVENT_DECREMENT, p_pb);
-                }
+                p_pb->current_value-=step;
+            } else {
+                p_pb->current_value = p_pb->max_value;
+            }
+            if (p_pb->event_cb) {
+                p_pb->event_cb(MUI_PROGRESS_BAR_EVENT_DECREMENT, p_pb);
             }
             break;
         case INPUT_KEY_RIGHT:
             if (p_pb->current_value < p_pb->max_value) {
-                p_pb->current_value++;
-                if (p_pb->event_cb) {
-                    p_pb->event_cb(MUI_PROGRESS_BAR_EVENT_INCREMENT, p_pb);
-                }
+                p_pb->current_value+=step;
+            } else {
+                p_pb->current_value = p_pb->min_value;
+            }
+            if (p_pb->event_cb) {
+                p_pb->event_cb(MUI_PROGRESS_BAR_EVENT_INCREMENT, p_pb);
             }
             break;
         case INPUT_KEY_CENTER:

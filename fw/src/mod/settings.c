@@ -35,7 +35,7 @@ static void validate_settings() {
     }
 
     if (m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V1 &&
-        m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V2) {
+        m_settings_data.amiibo_link_ver != BLE_AMIIBOLINK_VER_V2 && m_settings_data.amiibo_link_ver != BLE_AMILOOP) {
         m_settings_data.amiibo_link_ver = BLE_AMIIBOLINK_VER_V1;
     }
 

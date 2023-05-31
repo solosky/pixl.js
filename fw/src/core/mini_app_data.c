@@ -13,7 +13,9 @@ const mini_app_t* mini_app_registry[] = {
     &app_desktop_info,
     &app_amiibo_info,
     &app_amiibolink_info,
+#ifdef APP_PLAYER_ENABLED
     &app_player_info,
+#endif
     &app_ble_info, 
     &app_settings_info
 };

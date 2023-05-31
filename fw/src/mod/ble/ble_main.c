@@ -145,6 +145,7 @@ static nus_tx_ready_handler_t m_nus_tx_ready_handler =
 
 #define DEVICE_NAME_PIXLJS "Pixl.js"
 #define DEVICE_NAME_AMIIBOLINK "amiibolink"
+#define DEVICE_NAME_AMILOOP "AmiLoop"
 
 #define DEVICE_NAME DEVICE_NAME_PIXLJS
 
@@ -349,6 +350,8 @@ static void on_adv_evt(ble_adv_evt_t ble_adv_evt) {
  */
 static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
     uint32_t err_code;
+    char device_name[35];
+    uint32_t device_name_len = 35;
 
     switch (p_ble_evt->header.evt_id) {
     case BLE_GAP_EVT_CONNECTED:
@@ -358,6 +361,15 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
         m_conn_handle = p_ble_evt->evt.gap_evt.conn_handle;
         err_code = nrf_ble_qwr_conn_handle_assign(&m_qwr, m_conn_handle);
         APP_ERROR_CHECK(err_code);
+
+        err_code = sd_ble_gap_device_name_get(device_name, &device_name_len);
+        NRF_LOG_INFO("ble_get_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
+
+        if (strcmp(device_name, DEVICE_NAME_AMILOOP) == 0) {
+            NRF_LOG_INFO("Set mtu to %d", NRF_SDH_BLE_GATT_MAX_MTU_SIZE);
+            sd_ble_gattc_exchange_mtu_request(p_ble_evt->evt.gap_evt.conn_handle, NRF_SDH_BLE_GATT_MAX_MTU_SIZE);
+        }
+
         break;
 
     case BLE_GAP_EVT_DISCONNECTED:
@@ -535,6 +547,9 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
     if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
         ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
         ble_addr_set(0x10);
+    } else if (mode == BLE_DEVICE_MODE_AMILOOP) {
+        ble_set_device_name(DEVICE_NAME_AMILOOP);
+        ble_addr_set(0x20);
     } else {
         ble_set_device_name(DEVICE_NAME_PIXLJS);
         ble_addr_set(0);

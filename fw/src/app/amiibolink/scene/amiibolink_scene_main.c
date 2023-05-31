@@ -164,8 +164,15 @@ void amiibolink_scene_main_on_enter(void *user_data) {
 
     // enable ble
     ble_init();
-    ble_device_mode_prepare(p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2
-                                ? BLE_DEVICE_MODE_AMIIBOLINK_V2 : BLE_DEVICE_MODE_AMIIBOLINK);
+    uint8_t device_mode;
+    if (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2) {
+        device_mode = BLE_DEVICE_MODE_AMIIBOLINK_V2;
+    } else if (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V1) {
+        device_mode = BLE_DEVICE_MODE_AMIIBOLINK;
+    } else {
+        device_mode = BLE_DEVICE_MODE_AMILOOP;
+    }
+    ble_device_mode_prepare(device_mode);
     ble_adv_start();
 
     ble_amiibolink_set_version(p_settings->amiibo_link_ver);
