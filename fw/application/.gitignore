@@ -1,0 +1,5 @@
+.vscode
+
+src/amiibo_private.c
+src/version.inc.h
+src/version.json

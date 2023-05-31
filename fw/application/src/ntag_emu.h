@@ -8,8 +8,6 @@
 #ifndef NTAG_EMU_H_
 #define NTAG_EMU_H_
 
-#define NTAG_EMU_V2
-
 #include "ntag_def.h"
 #include "nrfx.h"
 

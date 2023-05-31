@@ -1,5 +1,5 @@
 ## 将打印的内容写入src/amiibo_private.c文件
-filepath = "D:/repositories/bins/key_retail.bin"
+filepath = "C:/path/to/key_retail.bin"
 
 tmp = """
 #include <stdint.h>
@@ -14,5 +14,5 @@ while True:
     data.append(hex(ord(c)) )
 tmp = tmp + ','.join(data)
 tmp = tmp + '};'
-with open('src/amiibo_private.c','w') as f:
+with open('application/src/amiibo_private.c','w') as f:
     f.write(tmp)
