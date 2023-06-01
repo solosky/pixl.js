@@ -5,10 +5,12 @@
 
 #include "ble_scene.h"
 #include "ble_status_view.h"
+#include "nrf_pwr_mgmt.h"
 
 static void app_ble_on_run(mini_app_inst_t *p_app_inst);
 static void app_ble_on_kill(mini_app_inst_t *p_app_inst);
 static void app_ble_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event);
+uint16_t sleep_timeout_sec;
 
 void app_ble_on_run(mini_app_inst_t *p_app_inst) {
 
@@ -27,6 +29,8 @@ void app_ble_on_run(mini_app_inst_t *p_app_inst) {
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, ble_scene_defines, BLE_SCENE_MAX);
 
     mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, BLE_SCENE_CONNECT_START);
+    sleep_timeout_sec = nrf_pwr_mgmt_get_timeout();
+    nrf_pwr_mgmt_set_timeout(3600);
 }
 
 void app_ble_on_kill(mini_app_inst_t *p_app_inst) {
@@ -40,6 +44,7 @@ void app_ble_on_kill(mini_app_inst_t *p_app_inst) {
     mui_mem_free(p_app_handle);
 
     p_app_inst->p_handle = NULL;
+    nrf_pwr_mgmt_set_timeout(sleep_timeout_sec);
 }
 
 void app_ble_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
