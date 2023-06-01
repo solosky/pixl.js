@@ -7,7 +7,6 @@
 
 #include "ntag_emu.h"
 
-#ifdef NTAG_EMU_V2
 #include "app_scheduler.h"
 #include "app_timer.h"
 #include "boards.h"
@@ -277,5 +276,3 @@ void ntag_emu_set_uuid_only(ntag_t *ntag) {
 
     hal_nfc_parameter_set(NFC_T2T_PARAM_NFCID1, uid1, sizeof(uid1));
 }
-
-#endif

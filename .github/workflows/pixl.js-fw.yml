@@ -20,18 +20,18 @@ jobs:
       run: chown root:root .
 
     - name: build bootloader
-      run: cd fw/bootloader && make RELEASE=1
+      run: cd fw && make bl RELEASE=1
     - name: build firmware
-      run: cd fw && make RELEASE=1
+      run: cd fw && make app RELEASE=1
     - name: build ota
-      run: cd fw && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw/application && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
     - name: build all
-      run: cd fw && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw/application && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:
         name: pixljs_firmware_spiffs
-        path: fw/bootloader/_build/bootloader.hex
+        path: fw/_build/bootloader.hex
     - name: upload firmware
       uses: actions/upload-artifact@v3
       with:
@@ -61,9 +61,9 @@ jobs:
     - name: build firmware with lfs
       run: cd fw && make clean && make RELEASE=1 LFS_ENABLE=1
     - name: build ota with lfs
-      run: cd fw && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw/application && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
     - name: build all with lfs
-      run: cd fw && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw/application && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
     
     - name: upload firmware with lfs
       uses: actions/upload-artifact@v3

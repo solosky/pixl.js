@@ -1,12 +1,12 @@
 PROJECT_NAME     := secure_bootloader_ble_s112_pca10040
 TARGETS          := bootloader
-OUTPUT_DIRECTORY := _build
+OUTPUT_DIRECTORY := ../_build
 
 SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
 
 $(OUTPUT_DIRECTORY)/bootloader.out: \
-  LINKER_SCRIPT  := ../ld/secure_bootloader_gcc_nrf52.ld
+  LINKER_SCRIPT  := ../ld/bootloader.ld
 
 # Source files common to all targets
 SRC_FILES += \

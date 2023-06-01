@@ -1,5 +1,6 @@
 {
     "files.associations": {
-        "vfs.h": "c"
+        "vfs.h": "c",
+        "ntag_def.h": "c"
     }
 }

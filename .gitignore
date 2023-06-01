@@ -1,10 +1,5 @@
 fw/.settings
 fw/_build
-fw/bootloader/_build
-
-fw/src/amiibo_private.c
-fw/src/version.inc.h
-fw/src/version.json
 
 fw/log.log
 
