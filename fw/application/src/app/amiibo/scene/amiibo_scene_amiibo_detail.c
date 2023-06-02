@@ -84,7 +84,7 @@ static void ntag_gen(app_amiibo_t *app) {
     ret_code_t err_code;
     ntag_t *ntag_current = &app->ntag;
 
-    err_code = amiibo_helper_ntag_generate(ntag_current);
+    err_code = amiibo_helper_rand_amiibo_uuid(ntag_current);
     if (err_code == NRF_SUCCESS) {
         ntag_emu_set_tag(&app->ntag);
         mui_update(mui());

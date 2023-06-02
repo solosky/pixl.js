@@ -217,12 +217,6 @@ static void update_ntag_handler(void *p_event_data, uint16_t event_size) {
 
     ntag_emu_set_tag(&(ntag_emu.ntag));
 
-    // uint8_t index = ntag_emu.ntag.index;
-    // NRF_LOG_DEBUG("Pesist ntag begin: %d", index);
-    // ret_code_t err_code = ntag_store_write_with_gc(index, &(ntag_emu.ntag));
-    // APP_ERROR_CHECK(err_code);
-    // NRF_LOG_DEBUG("Pesist ntag end: %d", index);
-
     if (ntag_emu.update_cb) {
         ntag_emu.update_cb(type, ntag_emu.cb_context, &(ntag_emu.ntag));
     }
@@ -231,7 +225,7 @@ static void update_ntag_handler(void *p_event_data, uint16_t event_size) {
     ntag_emu.busy = false;
 }
 
-ret_code_t ntag_emu_init(ntag_t *ntag) {
+ret_code_t ntag_emu_init(const ntag_t *ntag) {
     uint32_t err_code;
 
     err_code = hal_nfc_setup(nfc_callback, NULL);

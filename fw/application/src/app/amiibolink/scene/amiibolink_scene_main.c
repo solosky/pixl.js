@@ -4,7 +4,6 @@
 #include "ble_amiibolink.h"
 #include "ble_main.h"
 #include "vfs.h"
-#include "vfs_meta.h"
 
 #include "amiibo_helper.h"
 #include "mini_app_launcher.h"
@@ -27,7 +26,7 @@
 APP_TIMER_DEF(m_amiibo_gen_delay_timer);
 
 static void ntag_generate_cb() {
-    ret_code_t err_code = amiibo_helper_ntag_generate(ntag_emu_get_current_tag());
+    ret_code_t err_code = amiibo_helper_rand_amiibo_uuid(ntag_emu_get_current_tag());
     NRF_LOG_INFO("ntag generate: %d", err_code);
     if (err_code == NRF_SUCCESS) {
         ntag_emu_set_uuid_only(ntag_emu_get_current_tag());
@@ -37,21 +36,20 @@ static void ntag_generate_cb() {
 
 #ifdef AMIIBOLINK_STORE_FDS
 static void ntag_update(app_amiibolink_t *app, uint8_t index, ntag_t *p_ntag) {
-    ret_code_t err_code = ntag_store_write_with_gc(index, p_ntag);
+    ret_code_t err_code = ntag_store_write(index, p_ntag);
     NRF_LOG_INFO("ntag_update: index=%d, err_code=%d", index, err_code);
 }
 
 static void ntag_reload(app_amiibolink_t *app, uint8_t index){
     ntag_t ntag;
-    ret_code_t err_code = ntag_store_read_default(app->p_amiibolink_view->index, &ntag);
+    ret_code_t err_code = ntag_store_read(app->p_amiibolink_view->index, &ntag);
     if (err_code == NRF_SUCCESS) {
         ntag_emu_set_tag(&ntag);
     }
 }
-
+#else
 #endif
 
-#if 1
 static void ntag_update(app_amiibolink_t *app, uint8_t index, ntag_t *p_ntag) {
     char path[VFS_MAX_PATH_LEN] = {0};
     sprintf(path, "/amiibolink/%02d.bin", index);
@@ -82,9 +80,6 @@ static void ntag_init(){
     vfs_driver_t * p_driver = vfs_get_driver(VFS_DRIVE_EXT);
     p_driver->create_dir("/amiibolink");
 }
-
-
-#endif
 
 static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag) {
 
