@@ -166,8 +166,8 @@ SRC_FILES += \
 	$(SDK_ROOT)/external/mbedtls/library/x509write_csr.c \
 	$(SDK_ROOT)/external/mbedtls/library/xtea.c \
   $(PROJ_DIR)/main.c \
-  $(PROJ_DIR)/ntag_emu_v2.c \
-  $(PROJ_DIR)/ntag_store.c \
+  $(PROJ_DIR)/ntag/ntag_emu_v2.c \
+  $(PROJ_DIR)/ntag/ntag_store.c \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
@@ -452,6 +452,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
+  $(PROJ_DIR)/ntag \
   $(PROJ_DIR)/mod \
   $(PROJ_DIR)/mod/vfs \
   $(PROJ_DIR)/mod/ble \
@@ -512,9 +513,6 @@ CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 else
 CFLAGS += -DNDEBUG
-endif
-ifeq ($(LFS_ENABLE), 1)
-CFLAGS += -DVFS_LFS_ENABLE
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0

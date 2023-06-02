@@ -1,6 +1,8 @@
 {
     "files.associations": {
         "vfs.h": "c",
-        "ntag_def.h": "c"
+        "ntag_def.h": "c",
+        "vfs_driver_fs.h": "c",
+        "vfs_meta.h": "c"
     }
 }

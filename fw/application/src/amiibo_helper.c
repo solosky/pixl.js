@@ -8,9 +8,11 @@
 #include <string.h>
 
 #define UUID_OFFSET 468
+#define AMII_ID_OFFSET 476
 #define PASSWORD_OFFSET 532
 #define PASSWORD_SIZE 4
 #define UUID_SIZE 7
+#define AMIIID_SIZE 8
 
 static nfc3d_amiibo_keys amiibo_keys;
 static bool amiibo_keys_loaded;
@@ -58,7 +60,19 @@ void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
 }
 
 void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
-
+/*
+// Set BCC, Internal, Static Lock, and CC
+Array.Copy(new byte[] { 0x65, 0x48, 0x0F, 0xE0, 0xF1, 0x10, 0xFF, 0xEE }, bytes, 8);
+bytes[0x28] = 0xA5;
+// Set Dynamic Lock, and RFUI
+Array.Copy(new byte[] { 0x01, 0x00, 0x0F, 0xBD }, 0, bytes, 0x208, 4);
+// Set CFG0
+Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x04 }, 0, bytes, 0x20C, 4);
+// Set CFG1
+Array.Copy(new byte[] { 0x5F, 0x00, 0x00, 0x00 }, 0, bytes, 0x210, 4);
+// Set Keygen Salt
+RandomNumberGenerator.Create().GetBytes(new Span<byte>(bytes, 0x1E8, 0x20));
+*/
     // Same as bcc[1]
     buffer[0] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
 
@@ -107,7 +121,7 @@ ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {
     return NRF_SUCCESS;
 }
 
-ret_code_t amiibo_helper_ntag_generate(ntag_t *ntag) {
+ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
 
     ret_code_t err_code;
     ntag_t ntag_new;
@@ -136,6 +150,10 @@ ret_code_t amiibo_helper_ntag_generate(ntag_t *ntag) {
     return err_code;
 }
 
+void amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* ntag) {
+    uint8_t new_tag[NTAG215_SIZE];
+}
+
 void amiibo_helper_try_load_amiibo_keys_from_vfs() {
     if (!amiibo_helper_is_key_loaded() && vfs_drive_enabled(VFS_DRIVE_EXT)) {
         uint8_t key_data[160];
@@ -154,6 +172,10 @@ void amiibo_helper_try_load_amiibo_keys_from_vfs() {
 bool is_valid_amiibo_ntag(const ntag_t *ntag) {
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
+
+    if(ntag->data[0]!= 0x4) {
+        return false;
+    }
 
     const amiibo_data_t *amd = find_amiibo_data(head, tail);
     if (amd != NULL) {

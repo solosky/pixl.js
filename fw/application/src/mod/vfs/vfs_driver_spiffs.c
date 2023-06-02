@@ -1,4 +1,6 @@
-#include "vfs_driver_spiffs.h"
+#ifdef SPIFFS_ENABLE
+
+#include "vfs_driver_fs.h"
 
 #include "hal_spi_flash.h"
 
@@ -470,7 +472,7 @@ int32_t vfs_spiffs_remove_file(const char *file) {
 }
 
 // TODO
-const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
+const vfs_driver_t vfs_driver_fs = {.mount = vfs_spiffs_mount,
                                         .umount = vfs_spiffs_umount,
                                         .format = vfs_spiffs_format,
                                         .mounted = vfs_spiffs_mounted,
@@ -496,3 +498,4 @@ const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
 
                                         .rename_file = vfs_spiffs_rename_file,
                                         .remove_file = vfs_spiffs_remove_file};
+#endif
