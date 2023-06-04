@@ -5,6 +5,8 @@
 #include "ntag_store.h"
 #include "vfs.h"
 
+#include "utils.h"
+
 #include <string.h>
 
 #define UUID_OFFSET 468
@@ -150,8 +152,31 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     return err_code;
 }
 
-void amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* ntag) {
-    uint8_t new_tag[NTAG215_SIZE];
+ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* ntag) {
+    ntag_t *ntag_new;
+    if (!amiibo_helper_is_key_loaded()) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+    ntag_store_new_rand(ntag_new);
+
+    // decrypt old amiibo
+    uint8_t modified[NTAG215_SIZE];
+    if (!nfc3d_amiibo_unpack(&amiibo_keys, ntag_new->data, modified)) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+
+    // encrypt
+    int32_to_bytes_le(head, modified + AMII_ID_OFFSET);
+    int32_to_bytes_le(tail, modified + AMII_ID_OFFSET + 4);
+
+    nfc3d_amiibo_pack(&amiibo_keys, modified, ntag_new->data);
+
+    // static lock
+    ntag_new->data[10] = 0x0f;
+    ntag_new->data[11] = 0xe0;
+    memcpy(ntag, &ntag_new, sizeof(ntag_t));
+
+    return NRF_SUCCESS;
 }
 
 void amiibo_helper_try_load_amiibo_keys_from_vfs() {

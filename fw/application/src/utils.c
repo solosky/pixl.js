@@ -18,6 +18,13 @@ ret_code_t utils_rand_bytes(uint8_t rand[], uint8_t bytes) {
     return err;
 }
 
+void int32_to_bytes_le(uint32_t val, uint8_t* data) {
+	data[0] = val;
+	data[1] = val>>8;
+	data[2] = val>>16;
+	data[3] = val>>24;
+}
+
 void enter_dfu() {
     sd_power_gpregret_clr(0, 0);
     sd_power_gpregret_set(0, BOOTLOADER_DFU_START);
