@@ -19,6 +19,13 @@
 static nfc3d_amiibo_keys amiibo_keys;
 static bool amiibo_keys_loaded;
 
+// plain amiibo data static code
+static const uint8_t Internal_StaticLock[8] = {0x65, 0x48, 0x0F, 0xE0, 0xF1, 0x10, 0xFF, 0xEE};// 0x0
+static const uint8_t A5Static[4] = {0xA5, 0x00, 0x00, 0x00};// 0x28
+static const uint8_t DynLock[4] = {0x01, 0x00, 0x0F, 0xBD};// 0x208
+static const uint8_t Cfg0[4] = {0x00, 0x00, 0x00, 0x04};// 0x20C
+static const uint8_t Cfg1[4] = {0x5F, 0x00, 0x00, 0x00};// 0x210
+
 void amiibo_helper_get_uuid(ntag_t *ntag, uint8_t *uid1) {
     uid1[0] = ntag->data[0];
     uid1[1] = ntag->data[1];
@@ -62,32 +69,21 @@ void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
 }
 
 void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
-/*
-// Set BCC, Internal, Static Lock, and CC
-Array.Copy(new byte[] { 0x65, 0x48, 0x0F, 0xE0, 0xF1, 0x10, 0xFF, 0xEE }, bytes, 8);
-bytes[0x28] = 0xA5;
-// Set Dynamic Lock, and RFUI
-Array.Copy(new byte[] { 0x01, 0x00, 0x0F, 0xBD }, 0, bytes, 0x208, 4);
-// Set CFG0
-Array.Copy(new byte[] { 0x00, 0x00, 0x00, 0x04 }, 0, bytes, 0x20C, 4);
-// Set CFG1
-Array.Copy(new byte[] { 0x5F, 0x00, 0x00, 0x00 }, 0, bytes, 0x210, 4);
-// Set Keygen Salt
-RandomNumberGenerator.Create().GetBytes(new Span<byte>(bytes, 0x1E8, 0x20));
-*/
-    // Same as bcc[1]
+    // set keygen salt
+    ret_code_t err_code = utils_rand_bytes(buffer+0x1E8, 32);
+    VERIFY_SUCCESS(err_code);
+    
+    // set BCC
     buffer[0] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
-
-    // All of these are magic values
-    buffer[536] = 0x80;
-    buffer[537] = 0x80;
-
-    buffer[520] = 0;
-    buffer[521] = 0;
-    buffer[522] = 0;
-
-    buffer[2] = 0;
-    buffer[3] = 0;
+    
+    memcpy(buffer, Internal_StaticLock, 8);
+    memcpy(buffer+0x28, A5Static, 4);
+    memcpy(buffer+0x208, DynLock, 4);
+    memcpy(buffer+0x20C, Cfg0, 4);
+    memcpy(buffer+0x210, Cfg1, 4);
+    // auth magic value
+    buffer[0x218] = 0x80;
+    buffer[0x219] = 0x80;
 }
 
 ret_code_t amiibo_helper_load_keys(const uint8_t *data) {
