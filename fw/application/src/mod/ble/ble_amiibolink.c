@@ -7,6 +7,7 @@
 
 #include "nrf_crypto.h"
 #include "nrf_crypto_aes.h"
+#include "utils.h"
 
 static ntag_t m_ntag = {0};
 uint32_t m_data_pos = 0;
@@ -14,6 +15,7 @@ uint32_t index = 0;
 ble_amiibolink_event_handler_t m_event_handler = {0};
 void *m_event_ctx = {0};
 ble_amiibolink_ver_t m_ver = BLE_AMIIBOLINK_VER_V2;
+
 
 void ble_amiibolink_set_event_handler(ble_amiibolink_event_handler_t handler, void *ctx) {
     m_event_handler = handler;
@@ -77,6 +79,11 @@ void ble_amiibolink_send_cmd(uint16_t cmd) {
     }
 }
 
+void ble_amiibolink_send_data(uint8_t* data, uint16_t data_len) {
+    ble_nus_tx_data(data, data_len);
+}
+
+
 
 void ble_amiibolink_write_ntag(buffer_t *buffer) {
     buff_get_u8(buffer); // 00
@@ -92,7 +99,23 @@ void ble_amiibolink_process_cmd(buffer_t* buffer){
 
     ble_amiibolink_mode_t mode;
     uint16_t cmd = buff_get_u16(buffer);
+
+    NEW_BUFFER_LOCAL(out_buffer, MAX_MTU_DAT_SIZE);
+    uint8_t serial[8];
+
     switch (cmd) {
+
+    case 0xB2A2: // get version
+        buff_put_u16(&out_buffer, 0xA2B2);
+        buff_put_string_u8(&out_buffer, "0.0.4");
+        buff_put_u16(&out_buffer, 0);
+        buff_put_u8(&out_buffer, 8);
+        utils_rand_bytes(serial, 8);
+        buff_put_byte_array(&out_buffer, serial, 8);
+
+        ble_amiibolink_send_data(buff_get_data(&out_buffer), buff_get_size(&out_buffer));
+        break;
+
 
     case 0xB1A1: // send model code ??
         // a1 b1 01
@@ -148,7 +171,7 @@ void ble_amiibolink_received_data_v1(const uint8_t *data, size_t length){
 
 void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
     NRF_LOG_INFO("ble data received %d bytes", length);
-    //NRF_LOG_HEXDUMP_INFO(data, length);
+    NRF_LOG_HEXDUMP_INFO(data, length);
 
     //  13   45     10       02     76 98 8D 3D.....
     // key1 key2 datalen dedatalen data
