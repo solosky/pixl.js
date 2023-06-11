@@ -71,6 +71,49 @@ void ble_amiibolink_send_cmd_v2(uint16_t cmd) {
     ble_nus_tx_data(&link_data, sizeof(link_data_t));
 }
 
+
+void ble_amiibolink_send_data_v2(uint8_t* data, size_t data_len) {
+    link_data_t link_data = {0};
+    link_data.key1 = (rand() % 256) + 1;
+    link_data.key2 = (rand() % 256) + 1;
+
+
+
+    NRF_LOG_INFO("send data v2: data_len=%d", data_len);
+    NRF_LOG_HEXDUMP_INFO(data, data_len);
+
+    uint8_t in_buffer[32];
+    memset(in_buffer, 0, sizeof(in_buffer));
+    memcpy(in_buffer, data, data_len);
+    size_t in_buffer_size = sizeof(in_buffer);
+
+
+    uint8_t key[] = {
+        0x4B, 0x47, 0x46, 0x5F, 0x41, 0x4D, 0x49,
+        0x4C, 0x07, 0xE7, 0x04, 0x06, 0x0A, 0x2A,
+        link_data.key1, link_data.key2 // 随机密钥
+    };
+
+    nrf_crypto_aes_context_t aes_ecb_ctx;
+    size_t out_len = sizeof(link_data.data);
+    ret_code_t err = nrf_crypto_aes_crypt(
+        &aes_ecb_ctx,
+        &g_nrf_crypto_aes_ecb_128_info,
+        NRF_CRYPTO_ENCRYPT,
+        &key,
+        NULL,
+        in_buffer,
+        in_buffer_size,
+        link_data.data,
+        &out_len
+    );
+    NRF_LOG_INFO("nrf_crypto_aes_encrypt:out_len=%d err=%d msg=%s", out_len, err, nrf_crypto_error_string_get(err));
+    link_data.data_len = out_len;
+    link_data.de_data_len = data_len;
+
+    ble_nus_tx_data(&link_data, sizeof(link_data_t));
+}
+
 void ble_amiibolink_send_cmd(uint16_t cmd) {
     if (m_ver == BLE_AMIIBOLINK_VER_V1) {
         ble_amiibolink_send_cmd_v1(cmd);
@@ -79,11 +122,13 @@ void ble_amiibolink_send_cmd(uint16_t cmd) {
     }
 }
 
-void ble_amiibolink_send_data(uint8_t* data, uint16_t data_len) {
-    ble_nus_tx_data(data, data_len);
+void ble_amiibolink_send_data(uint8_t *data, uint16_t data_len) {
+    if (m_ver == BLE_AMIIBOLINK_VER_V1) {
+        ble_nus_tx_data(data, data_len);
+    } else {
+        ble_amiibolink_send_data_v2(data, data_len);
+    }
 }
-
-
 
 void ble_amiibolink_write_ntag(buffer_t *buffer) {
     buff_get_u8(buffer); // 00
@@ -101,17 +146,18 @@ void ble_amiibolink_process_cmd(buffer_t* buffer){
     uint16_t cmd = buff_get_u16(buffer);
 
     NEW_BUFFER_LOCAL(out_buffer, MAX_MTU_DAT_SIZE);
-    uint8_t serial[8];
+    uint8_t serial[4];
 
     switch (cmd) {
 
     case 0xB2A2: // get version
         buff_put_u16(&out_buffer, 0xA2B2);
-        buff_put_string_u8(&out_buffer, "0.0.4");
-        buff_put_u16(&out_buffer, 0);
-        buff_put_u8(&out_buffer, 8);
-        utils_rand_bytes(serial, 8);
-        buff_put_byte_array(&out_buffer, serial, 8);
+        buff_put_string_u8(&out_buffer, m_ver == BLE_AMIIBOLINK_VER_V1 ? "0.0.4" : "1.2.1.33");
+        buff_put_u8(&out_buffer, 1);
+        //buff_put_u8(&out_buffer, 0); //device mode
+        buff_put_u8(&out_buffer, 4);
+        utils_rand_bytes(serial, 4);
+        buff_put_byte_array(&out_buffer, serial, 4);
 
         ble_amiibolink_send_data(buff_get_data(&out_buffer), buff_get_size(&out_buffer));
         break;
@@ -171,7 +217,14 @@ void ble_amiibolink_received_data_v1(const uint8_t *data, size_t length){
 
 void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
     NRF_LOG_INFO("ble data received %d bytes", length);
-    NRF_LOG_HEXDUMP_INFO(data, length);
+    //NRF_LOG_HEXDUMP_INFO(data, length);
+
+    if (length < 16) {
+        NEW_BUFFER_READ(buffer, data, length);
+        NRF_LOG_WARNING("data length is too short, v1 protocol ?");
+        ble_amiibolink_process_cmd(&buffer);
+        return;
+    }
 
     //  13   45     10       02     76 98 8D 3D.....
     // key1 key2 datalen dedatalen data
@@ -203,10 +256,9 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
 
     NRF_LOG_INFO("decrypted data len: de_data_len=%d, decrypted_len=%d", link_data->de_data_len, out_len);
     NRF_LOG_INFO("nrf_crypto_aes_decrypt: %d %s", err, nrf_crypto_error_string_get(err));
+
     NRF_LOG_HEXDUMP_DEBUG(&buf, data_len);
-
-    NEW_BUFFER_READ(buffer, (void *) &buf, data_len);
-
+    NEW_BUFFER_READ(buffer, (void *)&buf, data_len);
     ble_amiibolink_process_cmd(&buffer);
 }
 
