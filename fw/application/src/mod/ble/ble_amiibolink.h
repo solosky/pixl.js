@@ -52,5 +52,6 @@ void ble_amiibolink_init(void);
 void ble_amiibolink_set_event_handler(ble_amiibolink_event_handler_t handler, void* context);
 void ble_amiibolink_received_data(const uint8_t *data, size_t length);
 void ble_amiibolink_set_version(ble_amiibolink_ver_t ver);
+void ble_amiibolink_set_mode(ble_amiibolink_mode_t mode);
 
 #endif
