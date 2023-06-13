@@ -320,6 +320,8 @@ void ble_amiloop_received_data(const uint8_t *m_data, size_t length) {
 
         if (xor != get_xor(m_data + 1, length - 3)) {
             NRF_LOG_WARNING("amiloop xor error: %02x", xor);
+            buff_put_u8(&output, 0x01);
+            amiloop_send_data(&output);
             return;
         }
 
