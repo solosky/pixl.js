@@ -280,7 +280,7 @@ uint8_t get_xor(const uint8_t *data, size_t length) {
     for (int i = 0; i < length; i++) {
         xor ^= data[i];
     }
-    return xor;
+    return xor & 255;
 }
 
 void amiloop_send_data(buffer_t *buf) {
