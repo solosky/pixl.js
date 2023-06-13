@@ -117,6 +117,8 @@ static void amiibolink_scene_switch_mode(app_amiibolink_t *app, ble_amiibolink_m
     amiibolink_view_set_index(app->p_amiibolink_view, initial_index);
     amiibolink_view_set_max_size(app->p_amiibolink_view, MAX_NTAG_INDEX);
 
+    ble_amiibolink_set_mode(mode);
+
     if(mode == BLE_AMIIBOLINK_MODE_NTAG){
         ntag_reload(app, DEFAULT_NTAG_INDEX);
     }else if(mode == BLE_AMIIBOLINK_MODE_CYCLE){
