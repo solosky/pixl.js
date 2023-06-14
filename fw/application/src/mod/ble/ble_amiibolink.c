@@ -275,54 +275,129 @@ void ble_amiibolink_received_data_v2(const uint8_t *data, size_t length) {
     ble_amiibolink_process_cmd(&buffer);
 }
 
-void ble_amiloop_received_data(const uint8_t *data, size_t length) {
-    // NRF_LOG_INFO("ble data received %d bytes", length);
-    amiloop_req_data_t *req = (amiloop_req_data_t *) data;
-    // NRF_LOG_INFO("req->magic: %d", req->magic);
-    // NRF_LOG_INFO("req->len: %d", req->len);
-    // NRF_LOG_INFO("req->code: %d", req->code);
-    // NRF_LOG_INFO("req->is_end: %d", req->is_end);
-    // NRF_LOG_INFO("req->index: %d", req->index);
-    // NRF_LOG_INFO("req->data: %d", req->data);
-    // NRF_LOG_INFO("req->xor: %d", req->xor);
-    // NRF_LOG_INFO("req->magic_end: %d", req->magic_end);
+uint8_t get_xor(const uint8_t *data, size_t length) {
+    uint8_t xor = 0;
+    for (int i = 0; i < length; i++) {
+        xor ^= data[i];
+    }
+    return xor & 255;
+}
 
-    if (req->len > length) {
-        NRF_LOG_INFO("req->len > length");
-        amiloop_res_data_t resp = {0};
-        resp.magic = 0x02;
-        resp.len = 0x01;
-        resp.data = 0x01;
-        resp.xor = 0x00;
-        resp.magic_end = 0x03;
-        ble_nus_tx_data(&resp, sizeof(amiloop_res_data_t));
+void amiloop_send_data(buffer_t *buf) {
+    NEW_BUFFER_LOCAL(buffer, MAX_MTU_DAT_SIZE);
+    buff_put_u8(&buffer, 0x02); // magic
+    buff_put_u8(&buffer, buff_get_size(buf)); // len
+    buff_put_byte_array(&buffer, buff_get_data(buf), buff_get_size(buf)); // data
+    buff_put_u8(&buffer, get_xor(buff_get_data(&buffer) + 1, buff_get_size(&buffer) - 1)); // xor
+    buff_put_u8(&buffer, 0x03); // magic end
+    NRF_LOG_HEXDUMP_DEBUG(buff_get_data(&buffer), buff_get_size(&buffer));
+    ble_nus_tx_data(buff_get_data(&buffer), buff_get_size(&buffer));
+}
+
+void ble_amiloop_received_data(const uint8_t *m_data, size_t length) {
+    NRF_LOG_INFO("ble data received %d bytes", length);
+    NEW_BUFFER_READ(buffer, (void *)m_data, length);
+    NEW_BUFFER_LOCAL(output, MAX_MTU_DAT_SIZE);
+    uint8_t magic = buff_get_u8(&buffer);
+    if (magic != 0x02) {
+        NRF_LOG_WARNING("amiloop magic error: %02x", magic);
         return;
     }
+    uint8_t len = buff_get_u8(&buffer);
+    NRF_LOG_INFO("amiloop len: %02x", len);
+    uint8_t flag = buff_get_u8(&buffer);
+    NRF_LOG_INFO("amiloop flag: %02x", flag);
+    switch (flag)
+    {
+    case 0x87: { // WRITE_ALL
+        uint8_t is_end = buff_get_u8(&buffer);
+        NRF_LOG_INFO("amiloop is_end: %02x", is_end);
+        uint8_t idx = buff_get_u8(&buffer);
+        NRF_LOG_INFO("amiloop idx: %02x", idx);
+        uint8_t data[len - 3];
+        buff_get_byte_array(&buffer, data, len - 3);
+        uint8_t xor = buff_get_u8(&buffer);
 
-    if (index < req->index) {
-        index = req->index;
-    } else {
-        index = 0;
-        m_data_pos = 0;
-    }
-
-    memcpy(m_ntag.data + m_data_pos, req->data, req->len - 3);
-    m_data_pos += req->len - 3;
-
-    if (req->is_end == 1) {
-        ntag_emu_set_tag(&m_ntag);
-        if (m_event_handler) {
-            m_event_handler(m_event_ctx, BLE_AMIIBOLINK_EVENT_TAG_UPDATED, &m_ntag, sizeof(m_ntag));
+        if (xor != get_xor(m_data + 1, length - 3)) {
+            NRF_LOG_WARNING("amiloop xor error: %02x", xor);
+            buff_put_u8(&output, 0x01);
+            amiloop_send_data(&output);
+            return;
         }
+
+        if (index < idx) {
+            index = idx;
+        } else {
+            index = 0;
+            m_data_pos = 0;
+        }
+        memcpy(m_ntag.data + m_data_pos, data, len - 3);
+        m_data_pos += len - 3;
+
+        if (is_end == 1) {
+            ntag_emu_set_tag(&m_ntag);
+            if (m_event_handler) {
+                m_event_handler(m_event_ctx, BLE_AMIIBOLINK_EVENT_TAG_UPDATED, &m_ntag, sizeof(m_ntag));
+            }
+        }
+        buff_put_u8(&output, 0x00);
+        amiloop_send_data(&output);
+        break;
     }
 
-    amiloop_res_data_t resp = {0};
-    resp.magic = 0x02;
-    resp.len = 0x01;
-    resp.data = 0x00;
-    resp.xor = 0x01;
-    resp.magic_end = 0x03;
-    ble_nus_tx_data(&resp, sizeof(amiloop_res_data_t));
+    case 0x89: // GET_VERSION
+        // AmiLoop_FW_V 检测是否为 AmiLoop 固件
+        // V1.0.0 不显示模式设置
+        buff_put_string(&output, "AmiLoop_FW_V1.0.7");
+        amiloop_send_data(&output);
+        break;
+    
+    case 0x8A: {// SET_MODE
+        // 0x00 随机模式
+        // 0x01 顺序模式
+        // 0x02 读写模式
+        uint8_t mode = buff_get_u8(&buffer);
+        ble_amiibolink_mode_t link_mode;
+        switch (mode)
+        {
+        case 0x00:
+            link_mode = BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN;
+            NRF_LOG_INFO("amiloop mode: random");
+            break;
+        
+        case 0x01:
+            link_mode = BLE_AMIIBOLINK_MODE_CYCLE;
+            NRF_LOG_INFO("amiloop mode: cycle");
+            break;
+
+        case 0x02:
+            link_mode = BLE_AMIIBOLINK_MODE_NTAG;
+            NRF_LOG_INFO("amiloop mode: ntag");
+            break;
+
+        default:
+            NRF_LOG_INFO("amiloop mode error: %02x", mode);
+            buff_put_u8(&output, 0x01);
+            amiloop_send_data(&output);
+            break;
+        }
+        if (m_event_handler) {
+            m_event_handler(m_event_ctx, BLE_AMIIBOLINK_EVENT_SET_MODE, &link_mode, sizeof(ble_amiibolink_mode_t));
+        }
+        buff_put_u8(&output, 0x00);
+        amiloop_send_data(&output);
+        break;
+    }
+
+    case 0x8F: // RESET_SETTING
+        buff_put_u8(&output, 0x00);
+        amiloop_send_data(&output);
+        break;
+
+    default:
+        NRF_LOG_INFO("amiloop flag error: %02x", flag);
+        break;
+    }
 }
 
 void ble_amiibolink_received_data(const uint8_t *data, size_t length) {
