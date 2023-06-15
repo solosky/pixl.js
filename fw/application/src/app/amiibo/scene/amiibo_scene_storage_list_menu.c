@@ -84,7 +84,7 @@ void amiibo_scene_storage_list_menu_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1cd, "格式化", (void *)STORAGE_LIST_MENU_FORMAT);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回列表", (void *)STORAGE_LIST_MENU_BACK);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "返回主菜单", (void *)STORAGE_LIST_MENU_BACK_MAIN_MENU);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, get_message(MESSAGE_ID_BACK_TO_MAIN_MENU), (void *)STORAGE_LIST_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_storage_list_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

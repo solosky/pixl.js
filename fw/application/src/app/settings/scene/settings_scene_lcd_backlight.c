@@ -26,7 +26,7 @@ static void settings_scene_lcd_backlight_event_cb(mui_progress_bar_event_t event
 void settings_scene_lcd_backlight_on_enter(void *user_data) {
     app_settings_t *app = user_data;
     settings_data_t *p_settings = settings_get_data();
-    mui_progress_bar_set_header(app->p_progress_bar, "背光亮度");
+    mui_progress_bar_set_header(app->p_progress_bar, get_message(MESSAGE_ID_BACKLIGHT_BRIGHTNESS));
     mui_progress_bar_set_min_value(app->p_progress_bar, 0);
     mui_progress_bar_set_max_value(app->p_progress_bar, 100);
     mui_progress_bar_set_current_value(app->p_progress_bar, p_settings->lcd_backlight);

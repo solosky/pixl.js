@@ -7,7 +7,7 @@
 #include "app_amiibolink.h"
 
 typedef struct {
-    bool backlight; //deprecated, keep for capability issue
+    bool backlight; // deprecated, keep for capability issue
     uint8_t sleep_timeout_sec;
     bool dirty;
     bool auto_gen_amiibo;
@@ -18,6 +18,7 @@ typedef struct {
     bool hibernate_enabled;
     bool show_mem_usage;
     uint8_t lcd_backlight;
+    message_languages_t language_id;
 } settings_data_t;
 
 int32_t settings_init();

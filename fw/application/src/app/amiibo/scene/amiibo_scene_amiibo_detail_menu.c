@@ -97,7 +97,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         char txt[32];
         settings_data_t* p_settings = settings_get_data();
         p_settings->auto_gen_amiibo = !p_settings->auto_gen_amiibo;
-        sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? "开" : "关");
+        sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? get_message(MESSAGE_ID_ON) : get_message(MESSAGE_ID_OFF));
         settings_save();
         
         string_set_str(p_item->text, txt);
@@ -149,12 +149,12 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     char txt[32];
     settings_data_t* p_settings = settings_get_data();
 
-    sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? "开" : "关");
+    sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? get_message(MESSAGE_ID_ON) : get_message(MESSAGE_ID_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
     mui_list_view_add_item(app->p_list_view, 0xe1c7, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
     mui_list_view_add_item(app->p_list_view, 0xe068, "返回详情", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
     mui_list_view_add_item(app->p_list_view, 0xe069, "返回文件列表", (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, get_message(MESSAGE_ID_BACK_TO_MAIN_MENU), (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_amiibo_detail_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
