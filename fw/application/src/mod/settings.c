@@ -7,6 +7,7 @@
 #define SETTINGS_FILE_NAME "/settings.bin"
 
 settings_data_t m_settings_data = {.backlight = 0,
+                                   .oled_contrast = 40,
                                    .auto_gen_amiibo = 0,
                                    .auto_gen_amiibolink = 0,
                                    .sleep_timeout_sec = 30,
@@ -48,6 +49,7 @@ static void validate_settings() {
     BOOL_VALIDATE(m_settings_data.auto_gen_amiibolink, 0);
     BOOL_VALIDATE(m_settings_data.backlight, 0);
     INT8_VALIDATE(m_settings_data.lcd_backlight, 0, 100, 0);
+    INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 0);
 }
 
 int32_t settings_init() {

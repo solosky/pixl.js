@@ -8,7 +8,11 @@
 #include "nrf_log.h"
 #include <stdio.h>
 
-#define LCD_X_SIZE 128
+#ifdef OLED_TYPE_SH1106
+    #define LCD_X_SIZE 132
+#else
+    #define LCD_X_SIZE 128
+#endif
 #define LCD_Y_SIZE 64
 
 static bool m_screen_enabled = true;
@@ -26,23 +30,53 @@ void delay(unsigned int delay) //锟接迟筹拷锟斤拷
 void lcd_init(void) {
     lcd_comm_init();
     lcd_reset(); //硬复位
+    #ifdef OLED_TYPE_SH1106
+        lcd_write_command(0xAE); /*display off*/ 
+        lcd_write_command(0x02); /*set lower column address*/ 
+        lcd_write_command(0x10); /*set higher column address*/ 
+        lcd_write_command(0x40); /*set display start line*/ 
+        lcd_write_command(0xB0); /*set page address*/
+        lcd_write_command(0x81); /*contract control*/ 
+        lcd_write_command(0xcf); /*128*/ 
+        lcd_write_command(0xA1); /*set segment remap*/ 
+        lcd_write_command(0xA6); /*normal / reverse*/ 
+        lcd_write_command(0xA8); /*multiplex ratio*/ 
+        lcd_write_command(0x3F); /*duty = 1/64*/ 
+        lcd_write_command(0xad); /*set charge pump enable*/ 
+        lcd_write_command(0x8b); /* 0x8B ÄÚ¹© VCC */ 
+        lcd_write_command(0x33); /*0X30---0X33 set VPP 9V */ 
+        lcd_write_command(0xC8); /*Com scan direction*/ 
+        lcd_write_command(0xD3); /*set display offset*/ 
+        lcd_write_command(0x00); /* 0x20 */ 
+        lcd_write_command(0xD5); /*set osc division*/ 
+        lcd_write_command(0x80); 
+        lcd_write_command(0xD9); /*set pre-charge period*/ 
+        lcd_write_command(0x1f); /*0x22*/ 
+        lcd_write_command(0xDA); /*set COM pins*/ 
+        lcd_write_command(0x12); 
+        lcd_write_command(0xdb); /*set vcomh*/ 
+        lcd_write_command(0x40);
+        lcd_clear();
+        lcd_write_command(0xAF); /*display ON*/
 
-    lcd_write_command(0xe2); //软复位
-    delay(10);
-    lcd_write_command(0xa2); //升压电路,电压管理电路
-    lcd_write_command(0xa0); //0x20~0x27 为V5电压内部电阻调整设置
-    lcd_write_command(0xc8); //设置EV 对比度
-    lcd_write_command(0x23); //对比度值
+    #else
+        lcd_write_command(0xe2); //软复位
+        delay(10);
+        lcd_write_command(0xa2); //升压电路,电压管理电路
+        lcd_write_command(0xa0); //0x20~0x27 为V5电压内部电阻调整设置
+        lcd_write_command(0xc8); //设置EV 对比度
+        lcd_write_command(0x23); //对比度值
 
-    lcd_write_command(0x81); //0x01~0x3f电量寄存器设置模式
+        lcd_write_command(0x81); //0x01~0x3f电量寄存器设置模式
 
-    lcd_write_command(0x32); //0xa0为Segment正向, 0xa1为Segment反向 
-    lcd_write_command(0x2f); //0xc0正向扫描, 0xc8反向扫描
-    lcd_write_command(0xb0); //0xa6正向显示, 0xa7反向显示
-    lcd_write_command(0xAF); //0xa4正常显示, 0xa5全屏显示
-    lcd_write_command(0xA6); //背压比设置
-    // lcd_write_command(0x10);		//背压比值:0~10
-    // lcd_write_command(0xaf);		//开显示
+        lcd_write_command(0x32); //0xa0为Segment正向, 0xa1为Segment反向 
+        lcd_write_command(0x2f); //0xc0正向扫描, 0xc8反向扫描
+        lcd_write_command(0xb0); //0xa6正向显示, 0xa7反向显示
+        lcd_write_command(0xAF); //0xa4正常显示, 0xa5全屏显示
+        lcd_write_command(0xA6); //背压比设置
+        // lcd_write_command(0x10);		//背压比值:0~10
+        // lcd_write_command(0xaf);		//开显示
+    #endif
 }
 
 void lcd_uninit() { lcd_comm_uninit(); }

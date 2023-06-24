@@ -10,6 +10,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 APP_VERSION ?= 1
 RELEASE ?= 0
 LFS_ENABLE ?= 0
+OLED_TYPE ?= 0
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/application.ld
@@ -557,6 +558,15 @@ LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
 LDFLAGS += -u _printf_float
+
+# oled
+ifeq ($(OLED_TYPE), sh1106)
+  SRC_FILES += \
+    $(U8G2_ROOT)/u8x8_d_ssd1306_128x64_noname.c \
+    $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c
+  CFLAGS += -DOLED_TYPE_SH1106
+  CFLAGS += -DOLED_SCREEN
+endif
 
 pixljs: CFLAGS += -D__HEAP_SIZE=8192
 pixljs: CFLAGS += -D__STACK_SIZE=8192
