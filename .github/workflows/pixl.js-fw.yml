@@ -8,7 +8,9 @@ on:
 
 jobs:
   build:
-
+    strategy:
+      matrix:
+        board: ["DEFAULT", "OLED"]
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
@@ -20,73 +22,40 @@ jobs:
       run: chown root:root .
 
     - name: build bootloader
-      run: cd fw && make bl RELEASE=1
+      run: cd fw && make bl RELEASE=1 BOARD=${{matrix.board}}
     - name: build firmware
-      run: cd fw && make app RELEASE=1
+      run: cd fw && make app RELEASE=1 BOARD=${{matrix.board}}
     - name: build ota
-      run: cd fw/application && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw/application && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
     - name: build all
-      run: cd fw/application && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
+      run: cd fw/application && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware_spiffs
+        name: pixljs_fw_${{matrix.board}}
         path: fw/_build/bootloader.hex
     - name: upload firmware
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware_spiffs
+        name: pixljs_fw_${{matrix.board}}
         path: fw/_build/pixljs.hex
     - name: upload all
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware_spiffs
+        name: pixljs_fw_${{matrix.board}}
         path: fw/_build/pixljs_all.hex
     - name: upload ota 
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware_spiffs
+        name: pixljs_fw_${{matrix.board}}
         path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
     - name: upload fw update script 
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware_spiffs
+        name: pixljs_fw_${{matrix.board}}
         path: fw/scripts/fw_update.bat
     - name: upload fw readme file 
       uses: actions/upload-artifact@v3
       with:
-        name: pixljs_firmware_spiffs
-        path: fw/docs/fw_readme.txt
-    
-    - name: build firmware with lfs
-      run: cd fw && make clean && make RELEASE=1 LFS_ENABLE=1
-    - name: build ota with lfs
-      run: cd fw/application && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
-    - name: build all with lfs
-      run: cd fw/application && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER
-    
-    - name: upload firmware with lfs
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_firmware_lfs
-        path: fw/_build/pixljs.hex
-    - name: upload all with lfs
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_firmware_lfs
-        path: fw/_build/pixljs_all.hex
-    - name: upload ota with lfs
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_firmware_lfs
-        path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
-    - name: upload fw update script 
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_firmware_lfs
-        path: fw/scripts/fw_update.bat
-    - name: upload fw readme file 
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_firmware_lfs
+        name: pixljs_fw_${{matrix.board}}
         path: fw/docs/fw_readme.txt

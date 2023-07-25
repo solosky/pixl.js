@@ -8,7 +8,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
-#define FLASH_CS_PIN 18
+#include "boards_defines.h"
 
 #define PAGE_SIZE 256
 #define CMD_ADDR_SIZE 4

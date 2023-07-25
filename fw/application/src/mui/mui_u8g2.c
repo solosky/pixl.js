@@ -78,10 +78,7 @@
 
 #include "app_pwm.h"
 
-#define LCD_CS_PIN 27
-#define LCD_RESET_PIN 29
-#define LCD_BL_PIN 30
-#define LCD_DC_PIN 28 // green wire (DC)
+#include "boards_defines.h"
 
 u8g2_t u8g2;
 static spi_device_t m_dev;

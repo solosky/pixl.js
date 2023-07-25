@@ -9,8 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 
 APP_VERSION ?= 1
 RELEASE ?= 0
-LFS_ENABLE ?= 0
-OLED_TYPE ?= 0
+BOARD ?= DEFAULT
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/application.ld
@@ -246,6 +245,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_version.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_sleep_timeout.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_lcd_backlight.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
@@ -303,7 +303,8 @@ SRC_FILES += \
   $(U8G2_ROOT)/u8x8_setup.c \
   $(U8G2_ROOT)/u8x8_string.c \
   $(U8G2_ROOT)/u8x8_u16toa.c \
-  $(U8G2_ROOT)/u8x8_u8toa.c 
+  $(U8G2_ROOT)/u8x8_u8toa.c \
+  $(U8G2_ROOT)/u8x8_d_ssd1306_128x64_noname.c
 
 # Include folders common to all targets
 INC_FOLDERS += \
@@ -498,7 +499,7 @@ CFLAGS += $(OPT)
 CFLAGS += -DAPP_TIMER_V2
 CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 #CFLAGS += -DBOARD_PCA10040
-CFLAGS += -DCUSTOM_BOARD_INC=am_board
+CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
@@ -508,14 +509,12 @@ CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DS112
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE 
+CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 else
 CFLAGS += -DNDEBUG
-endif
-ifeq ($(LFS_ENABLE), 1)
-CFLAGS += -DVFS_LFS_ENABLE
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0
@@ -558,15 +557,6 @@ LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
 LDFLAGS += -u _printf_float
-
-# oled
-ifeq ($(OLED_TYPE), sh1106)
-  SRC_FILES += \
-    $(U8G2_ROOT)/u8x8_d_ssd1306_128x64_noname.c \
-    $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c
-  CFLAGS += -DOLED_TYPE_SH1106
-  CFLAGS += -DOLED_SCREEN
-endif
 
 pixljs: CFLAGS += -D__HEAP_SIZE=8192
 pixljs: CFLAGS += -D__STACK_SIZE=8192

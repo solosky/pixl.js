@@ -2,7 +2,7 @@
 
 #include "app_error.h"
 #include "app_util_platform.h"
-#include "boards.h"
+#include "boards_defines.h"
 #include <stdio.h>
 
 #include <nrfx_spim.h>
@@ -12,13 +12,11 @@
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 
+
 #define SPI_INSTANCE 0
 
 static const nrfx_spim_t m_spi = NRFX_SPIM_INSTANCE(SPI_INSTANCE);
 
-#define NRFX_SPIM_SCK_PIN 26  // yellow wire (CLK)
-#define NRFX_SPIM_MOSI_PIN 25 // blue wire (DIN)
-#define NRFX_SPIM_MISO_PIN 19 // blue wire (DIN)
 
 void hal_spi_bus_init() {
     ret_code_t err_code;
