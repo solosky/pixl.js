@@ -9,6 +9,7 @@
 enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_VERSION,
     SETTINGS_MAIN_MENU_BACK_LIGHT,
+    SETTINGS_MAIN_MENU_OLED_CONTRAST,
     SETTINGS_MAIN_MENU_LI_MODE,
     SETTINGS_MAIN_MENU_ENABLE_HIBERNATE,
     SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT,
@@ -30,6 +31,12 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
     case SETTINGS_MAIN_MENU_BACK_LIGHT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LCD_BACKLIGHT);
         break;
+
+    #ifdef OLED_SCREEN
+        case SETTINGS_MAIN_MENU_OLED_CONTRAST:
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_OLED_CONTRAST);
+            break;
+    #endif
 
     case SETTINGS_MAIN_MENU_VERSION:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_VERSION);
@@ -88,12 +95,17 @@ void settings_scene_main_on_enter(void *user_data) {
     sprintf(txt, "自动选择存储 [%s]", p_settings->skip_driver_select ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
 
-    if (p_settings->lcd_backlight == 0) {
-        sprintf(txt, "背光亮度 [关]");
-    } else {
-        sprintf(txt, "背光亮度 [%d%%]", p_settings->lcd_backlight);
-    }
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+    #ifdef OLED_SCREEN
+        sprintf(txt, "OLED对比度 [%d%%]", p_settings->oled_contrast );
+        mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
+    #else
+        if (p_settings->lcd_backlight == 0) {
+            sprintf(txt, "背光亮度 [关]");
+        } else {
+            sprintf(txt, "背光亮度 [%d%%]", p_settings->lcd_backlight);
+        }
+        mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+    #endif    
 
     sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);

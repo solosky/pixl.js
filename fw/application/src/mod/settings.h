@@ -18,6 +18,7 @@ typedef struct {
     bool hibernate_enabled;
     bool show_mem_usage;
     uint8_t lcd_backlight;
+    uint8_t oled_contrast;
 } settings_data_t;
 
 int32_t settings_init();
