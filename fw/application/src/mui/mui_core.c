@@ -2,6 +2,7 @@
 
 #include "mui_defines.h"
 #include "mui_mem.h"
+#include "mui_anim.h"
 #include "mui_u8g2.h"
 #include "settings.h"
 #include "nrf_log.h"
@@ -148,6 +149,9 @@ void mui_init(mui_t *p_mui) {
     mui_event_queue_init(&p_mui->event_queue);
 
     mui_input_init();
+
+    mui_anim_core_init();
+
 
     p_mui->initialized = true;
 }

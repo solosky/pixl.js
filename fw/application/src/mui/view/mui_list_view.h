@@ -7,6 +7,8 @@
 #include "mui_defines.h"
 #include "mui_include.h"
 #include <stdint.h>
+#include "mui_anim.h"
+
 
 struct mui_list_item_s;
 typedef struct mui_list_item_s mui_list_item_t;
@@ -46,6 +48,8 @@ struct mui_list_view_s {
     void *user_data;
     uint32_t scroll_offset;
     uint8_t scroll_direction;
+    mui_anim_t anim;
+    uint8_t anim_value;
 };
 
 mui_list_view_t *mui_list_view_create();
