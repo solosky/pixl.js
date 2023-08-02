@@ -205,6 +205,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_element.c \
   $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/mui_anim.c \
+  $(PROJ_DIR)/mui/mui_math.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \

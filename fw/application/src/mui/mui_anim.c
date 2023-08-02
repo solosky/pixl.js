@@ -3,12 +3,15 @@
 #include "m-array.h"
 #include "mui_mlib.h"
 #include "mui_core.h"
+#include "mui_math.h"
 #include <stdbool.h>
 
 #define LV_ANIM_RESOLUTION 1024
 #define LV_ANIM_RES_SHIFT 10
+
 #define MUI_ANIM_TICK_INTERVAL_MS 50
 #define MUI_ANIM_REPEAT_INFINITE 0xFFFF
+
 
 ARRAY_DEF(mui_anim_ptr_array, mui_anim_t *, M_PTR_OPLIST);
 
@@ -17,32 +20,20 @@ bool m_anim_tmr_started = false;
 mui_anim_ptr_array_t m_anim_ptr_array;
 
 
-/**
- * Get the mapped of a number given an input and output range
- * @param x integer which mapped value should be calculated
- * @param min_in min input range
- * @param max_in max input range
- * @param min_out max output range
- * @param max_out max output range
- * @return the mapped number
- */
-int32_t lv_map(int32_t x, int32_t min_in, int32_t max_in, int32_t min_out, int32_t max_out)
+static int32_t lv_anim_path_cubic_bezier(const mui_anim_t * a, int32_t x1, int32_t y1, int32_t x2, int32_t y2)
 {
-    if(x >= max_in) return max_out;
-    if(x <= min_in) return min_out;
+    /*Calculate the current step*/
+    uint32_t t = lv_map(a->act_time, 0, a->time, 0, LV_BEZIER_VAL_MAX);
+    int32_t step = lv_cubic_bezier(t, x1, y1, x2, y2);
 
-    /**
-     * The equation should be:
-     *   ((x - min_in) * delta_out) / delta in) + min_out
-     * To avoid rounding error reorder the operations:
-     *   (x - min_in) * (delta_out / delta_min) + min_out
-     */
+    int32_t new_value;
+    new_value = step * (a->end_value - a->start_value);
+    new_value = new_value >> LV_BEZIER_VAL_SHIFT;
+    new_value += a->start_value;
 
-    int32_t delta_in = max_in - min_in;
-    int32_t delta_out = max_out - min_out;
-
-    return ((x - min_in) * delta_out) / delta_in + min_out;
+    return new_value;
 }
+
 
 int32_t lv_anim_path_linear(const mui_anim_t * a)
 {
@@ -55,6 +46,81 @@ int32_t lv_anim_path_linear(const mui_anim_t * a)
     new_value = step * (a->end_value - a->start_value);
     new_value = new_value >> LV_ANIM_RES_SHIFT;
     new_value += a->start_value;
+
+    return new_value;
+}
+
+
+int32_t lv_anim_path_ease_in(const mui_anim_t * a)
+{
+    return lv_anim_path_cubic_bezier(a, LV_BEZIER_VAL_FLOAT(0.42), LV_BEZIER_VAL_FLOAT(0),
+                                     LV_BEZIER_VAL_FLOAT(1), LV_BEZIER_VAL_FLOAT(1));
+}
+
+int32_t lv_anim_path_ease_out(const mui_anim_t * a)
+{
+    return lv_anim_path_cubic_bezier(a, LV_BEZIER_VAL_FLOAT(0), LV_BEZIER_VAL_FLOAT(0),
+                                     LV_BEZIER_VAL_FLOAT(0.58), LV_BEZIER_VAL_FLOAT(1));
+}
+
+int32_t lv_anim_path_ease_in_out(const mui_anim_t * a)
+{
+    return lv_anim_path_cubic_bezier(a, LV_BEZIER_VAL_FLOAT(0.42), LV_BEZIER_VAL_FLOAT(0),
+                                     LV_BEZIER_VAL_FLOAT(0.58), LV_BEZIER_VAL_FLOAT(1));
+}
+
+int32_t lv_anim_path_overshoot(const mui_anim_t * a)
+{
+    return lv_anim_path_cubic_bezier(a, 341, 0, 683, 1300);
+}
+
+int32_t lv_anim_path_bounce(const mui_anim_t * a)
+{
+    /*Calculate the current step*/
+    int32_t t = lv_map(a->act_time, 0, a->time, 0, LV_BEZIER_VAL_MAX);
+    int32_t diff = (a->end_value - a->start_value);
+
+    /*3 bounces has 5 parts: 3 down and 2 up. One part is t / 5 long*/
+
+    if(t < 408) {
+        /*Go down*/
+        t = (t * 2500) >> LV_BEZIER_VAL_SHIFT; /*[0..1024] range*/
+    }
+    else if(t >= 408 && t < 614) {
+        /*First bounce back*/
+        t -= 408;
+        t    = t * 5; /*to [0..1024] range*/
+        t    = LV_BEZIER_VAL_MAX - t;
+        diff = diff / 20;
+    }
+    else if(t >= 614 && t < 819) {
+        /*Fall back*/
+        t -= 614;
+        t    = t * 5; /*to [0..1024] range*/
+        diff = diff / 20;
+    }
+    else if(t >= 819 && t < 921) {
+        /*Second bounce back*/
+        t -= 819;
+        t    = t * 10; /*to [0..1024] range*/
+        t    = LV_BEZIER_VAL_MAX - t;
+        diff = diff / 40;
+    }
+    else if(t >= 921 && t <= LV_BEZIER_VAL_MAX) {
+        /*Fall back*/
+        t -= 921;
+        t    = t * 10; /*to [0..1024] range*/
+        diff = diff / 40;
+    }
+
+    if(t > LV_BEZIER_VAL_MAX) t = LV_BEZIER_VAL_MAX;
+    if(t < 0) t = 0;
+    int32_t step = lv_bezier3(t, LV_BEZIER_VAL_MAX, 800, 500, 0);
+
+    int32_t new_value;
+    new_value = step * diff;
+    new_value = new_value >> LV_BEZIER_VAL_SHIFT;
+    new_value = a->end_value - new_value;
 
     return new_value;
 }
@@ -117,7 +183,7 @@ void mui_anim_init(mui_anim_t *p_anim){
     p_anim->var = NULL;
     p_anim->exec_cb = NULL;
     p_anim->repeat_cnt = 1;
-    p_anim->path_cb = lv_anim_path_linear;
+    p_anim->path_cb = lv_anim_path_ease_in;
 }
 
 void mui_anim_start(mui_anim_t *p_anim) {
@@ -134,7 +200,7 @@ void mui_anim_start(mui_anim_t *p_anim) {
     }
 }
 void mui_anim_stop(mui_anim_t *p_anim) {
-    mui_anim_ptr_array_remove(m_anim_ptr_array, p_anim);
+    //mui_anim_ptr_array_remove(m_anim_ptr_array, p_anim);
     if (mui_anim_ptr_array_size(m_anim_ptr_array) <= 0 && m_anim_tmr_started) {
         m_anim_tmr_started = false;
         int32_t err_code = app_timer_stop(m_anim_tick_tmr);

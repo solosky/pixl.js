@@ -9,6 +9,13 @@ struct _mui_anim_t;
 typedef void (*mui_anim_exec_cb_t)(void* var, int32_t value);
 typedef int32_t (*mui_anim_path_cb_t)(const struct _mui_anim_t* p_anim);
 
+typedef struct _lv_anim_bezier3_para_t {
+    int16_t x1;
+    int16_t y1;
+    int16_t x2;
+    int16_t y2;
+} lv_anim_bezier3_para_t; /**< Parameter used when path is custom_bezier*/
+
 typedef struct _mui_anim_t {
     void* var;
     int32_t start_value;
@@ -21,6 +28,9 @@ typedef struct _mui_anim_t {
     uint16_t repeat_cnt; //
     uint16_t run_cnt; //
     void* user_data;
+    union _lv_anim_path_para_t {
+        lv_anim_bezier3_para_t bezier3; /**< Parameter used when path is custom_bezier*/
+    } parameter;
 } mui_anim_t;
 
 
@@ -55,4 +65,47 @@ static inline void mui_anim_set_values(mui_anim_t* p_anim, int16_t start, int16_
 static inline void mui_anim_set_user_data(mui_anim_t* p_anim, void* user_data){
     p_anim->user_data = user_data;
 }
+
+
+/**
+ * Calculate the current value of an animation applying linear characteristic
+ * @param a     pointer to an animation
+ * @return      the current value to set
+ */
+int32_t lv_anim_path_linear(const mui_anim_t * a);
+
+/**
+ * Calculate the current value of an animation slowing down the start phase
+ * @param a     pointer to an animation
+ * @return      the current value to set
+ */
+int32_t lv_anim_path_ease_in(const mui_anim_t * a);
+
+/**
+ * Calculate the current value of an animation slowing down the end phase
+ * @param a     pointer to an animation
+ * @return      the current value to set
+ */
+int32_t lv_anim_path_ease_out(const mui_anim_t * a);
+
+/**
+ * Calculate the current value of an animation applying an "S" characteristic (cosine)
+ * @param a     pointer to an animation
+ * @return      the current value to set
+ */
+int32_t lv_anim_path_ease_in_out(const mui_anim_t * a);
+
+/**
+ * Calculate the current value of an animation with overshoot at the end
+ * @param a     pointer to an animation
+ * @return      the current value to set
+ */
+int32_t lv_anim_path_overshoot(const mui_anim_t * a);
+
+/**
+ * Calculate the current value of an animation with 3 bounces
+ * @param a     pointer to an animation
+ * @return      the current value to set
+ */
+int32_t lv_anim_path_bounce(const mui_anim_t * a);
 #endif 

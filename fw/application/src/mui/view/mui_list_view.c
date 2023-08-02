@@ -63,7 +63,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             mui_canvas_draw_utf8(p_canvas, 13, y + 10, string_get_cstr(item->text));
             if (index == p_mui_list_view->focus_index) {
                 mui_canvas_set_draw_color(p_canvas, 2);
-                mui_canvas_draw_box(p_canvas, 0, y - LIST_ITEM_HEIGHT + p_mui_list_view->anim_value, mui_canvas_get_width(p_canvas), 12);
+                mui_canvas_draw_box(p_canvas, 0, y + p_mui_list_view->anim_value, mui_canvas_get_width(p_canvas), 12);
                 mui_canvas_set_draw_color(p_canvas, 1);
             }
         }
@@ -101,8 +101,8 @@ static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event)
                 p_mui_list_view->focus_index = 0;
                 p_mui_list_view->scroll_direction = LIST_SCROLL_TOP;
             }
-            p_mui_list_view->anim_value = 0;
-            mui_anim_set_values(&p_mui_list_view->anim, 0, LIST_ITEM_HEIGHT);
+            p_mui_list_view->anim_value = -LIST_ITEM_HEIGHT;
+            mui_anim_set_values(&p_mui_list_view->anim, -LIST_ITEM_HEIGHT, 0);
             mui_anim_start(&p_mui_list_view->anim);
             break;
 
