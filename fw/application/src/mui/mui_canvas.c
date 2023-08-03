@@ -26,6 +26,7 @@ void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offs
     p_canvas->offset_y = offset_y;
     p_canvas->width = width;
     p_canvas->height = height;
+    u8g2_SetClipWindow(p_canvas->fb, offset_x, offset_y, offset_x + width, offset_y + height);
 }
 
 void mui_canvas_set_draw_color(mui_canvas_t *p_canvas, uint8_t color) { u8g2_SetDrawColor(p_canvas->fb, color); }

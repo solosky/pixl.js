@@ -170,6 +170,22 @@ static void mui_anim_tick_handler(void *p_context) {
     }
 }
 
+static mui_anim_t* mui_anim_remove_ptr(mui_anim_t* p_anim){
+    mui_anim_ptr_array_it_t it;
+    mui_anim_ptr_array_it(it, m_anim_ptr_array);
+
+    while (!mui_anim_ptr_array_end_p(it)) {
+        mui_anim_t *p_cur_anim = *mui_anim_ptr_array_ref(it);
+
+        if(p_anim == p_cur_anim){
+            mui_anim_ptr_array_remove(m_anim_ptr_array, it)
+                ;
+            return p_cur_anim;
+        }
+        mui_anim_ptr_array_next(it);
+    }
+}
+
 void mui_anim_core_init() {
     int32_t err_code = app_timer_create(&m_anim_tick_tmr, APP_TIMER_MODE_REPEATED, mui_anim_tick_handler);
     APP_ERROR_CHECK(err_code);
@@ -183,7 +199,7 @@ void mui_anim_init(mui_anim_t *p_anim){
     p_anim->var = NULL;
     p_anim->exec_cb = NULL;
     p_anim->repeat_cnt = 1;
-    p_anim->path_cb = lv_anim_path_ease_in;
+    p_anim->path_cb = lv_anim_path_ease_in_out;
 }
 
 void mui_anim_start(mui_anim_t *p_anim) {
@@ -191,7 +207,7 @@ void mui_anim_start(mui_anim_t *p_anim) {
     assert(p_anim);
     assert(p_anim->var != NULL);
     int32_t err_code;
-
+    mui_anim_remove_ptr(p_anim);
     mui_anim_ptr_array_push_back(m_anim_ptr_array, p_anim);
     if (!m_anim_tmr_started) {
         err_code = app_timer_start(m_anim_tick_tmr, APP_TIMER_TICKS(MUI_ANIM_TICK_INTERVAL_MS), NULL);
@@ -199,8 +215,11 @@ void mui_anim_start(mui_anim_t *p_anim) {
         m_anim_tmr_started = true;
     }
 }
+
+
+
 void mui_anim_stop(mui_anim_t *p_anim) {
-    //mui_anim_ptr_array_remove(m_anim_ptr_array, p_anim);
+    mui_anim_remove_ptr(p_anim);
     if (mui_anim_ptr_array_size(m_anim_ptr_array) <= 0 && m_anim_tmr_started) {
         m_anim_tmr_started = false;
         int32_t err_code = app_timer_stop(m_anim_tick_tmr);
