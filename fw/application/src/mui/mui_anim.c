@@ -5,6 +5,7 @@
 #include "mui_core.h"
 #include "mui_math.h"
 #include <stdbool.h>
+#include "nrf_log.h"
 
 #define LV_ANIM_RESOLUTION 1024
 #define LV_ANIM_RES_SHIFT 10
@@ -199,6 +200,7 @@ void mui_anim_init(mui_anim_t *p_anim){
     p_anim->var = NULL;
     p_anim->exec_cb = NULL;
     p_anim->repeat_cnt = 1;
+    p_anim->run_cnt = 0;
     p_anim->path_cb = lv_anim_path_ease_in_out;
 }
 
@@ -209,6 +211,9 @@ void mui_anim_start(mui_anim_t *p_anim) {
     int32_t err_code;
     mui_anim_remove_ptr(p_anim);
     mui_anim_ptr_array_push_back(m_anim_ptr_array, p_anim);
+    p_anim->run_cnt = 0;
+    p_anim->act_time = 0;
+    NRF_LOG_INFO("anim start");
     if (!m_anim_tmr_started) {
         err_code = app_timer_start(m_anim_tick_tmr, APP_TIMER_TICKS(MUI_ANIM_TICK_INTERVAL_MS), NULL);
         APP_ERROR_CHECK(err_code);
