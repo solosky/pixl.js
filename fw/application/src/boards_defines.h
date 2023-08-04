@@ -13,14 +13,13 @@ extern "C" {
 #endif
 
 
-//#if defined(BOARD_OLED)
-//#include "boards/board_oled.h"
-//#elif defined(BOARD_DEFAULT)
-//#include "boards/board_default.h"
-//#else
-//#include "boards/board_default.h"
-//#endif
+#if defined(BOARD_OLED)
 #include "boards/board_oled.h"
+#elif defined(BOARD_LCD)
+#include "boards/board_lcd.h"
+#else
+#include "boards/board_lcd.h"
+#endif
 
 #ifdef __cplusplus
 }
