@@ -2,6 +2,7 @@
 #define AMIIBO_SCENE_H
 
 #include "mui_scene_dispatcher.h"
+#include "boards_defines.h"
 
 // Generate scene id and total number
 #define ADD_SCENE(prefix, name, id) SETTINGS_SCENE_##id,
