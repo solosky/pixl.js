@@ -126,6 +126,12 @@ static inline void buff_put_string(buffer_t *buffer, char *string) {
     buff_put_byte_array(buffer, string, len);
 }
 
+static inline void buff_put_string_u8(buffer_t *buffer, char *string) {
+    uint8_t len = strlen(string);
+    buff_put_u8(buffer, len);
+    buff_put_byte_array(buffer, string, len);
+}
+
 static inline uint64_t buff_get_u64(buffer_t *buffer) {
     uint64_t value = 0;
     value = *(uint32_t *)(&buffer->buff[buffer->pos]);

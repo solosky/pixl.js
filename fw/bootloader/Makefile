@@ -4,6 +4,7 @@ OUTPUT_DIRECTORY := ../_build
 
 SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
+OLED_TYPE ?= 0
 
 $(OUTPUT_DIRECTORY)/bootloader.out: \
   LINKER_SCRIPT  := ../ld/bootloader.ld
@@ -229,6 +230,10 @@ bootloader: ASMFLAGS += -D__HEAP_SIZE=0
 # that may need symbols provided by these libraries.
 LIB_FILES += -lc -lnosys -lm
 
+# oled
+ifeq ($(OLED_TYPE), sh1106)
+  CFLAGS += -DOLED_TYPE_SH1106
+endif
 
 .PHONY: default help
 

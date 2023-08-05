@@ -7,6 +7,8 @@
 #include "mui_defines.h"
 #include "mui_include.h"
 #include <stdint.h>
+#include "mui_anim.h"
+
 
 struct mui_list_item_s;
 typedef struct mui_list_item_s mui_list_item_t;
@@ -37,6 +39,9 @@ ARRAY_DEF(mui_list_item_array, mui_list_item_t, M_POD_OPLIST);
 #define LIST_SCROLL_TOP 3
 #define LIST_SCROLL_BOTTOM 4
 
+#define LIST_ANIM_SCROLL 1
+#define LIST_ANIM_FOCUS 0
+
 struct mui_list_view_s {
     mui_view_t *p_view;
     uint16_t focus_index;
@@ -44,8 +49,11 @@ struct mui_list_view_s {
     mui_list_view_item_cmp_cb cmp_cb;
     mui_list_item_array_t items;
     void *user_data;
-    uint32_t scroll_offset;
-    uint8_t scroll_direction;
+    uint16_t scroll_offset;
+    uint8_t canvas_height;
+    mui_anim_t anim;
+    uint8_t anim_type;
+    int16_t anim_value;
 };
 
 mui_list_view_t *mui_list_view_create();

@@ -9,11 +9,13 @@
 enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_VERSION,
     SETTINGS_MAIN_MENU_BACK_LIGHT,
+    SETTINGS_MAIN_MENU_OLED_CONTRAST,
     SETTINGS_MAIN_MENU_LI_MODE,
     SETTINGS_MAIN_MENU_ENABLE_HIBERNATE,
     SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT,
     SETTINGS_MAIN_MENU_SHOW_MEM_USAGE,
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
+    SETTINGS_MAIN_MENU_ANIM_ENABLED,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_EXIT
 };
@@ -30,6 +32,12 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
     case SETTINGS_MAIN_MENU_BACK_LIGHT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LCD_BACKLIGHT);
         break;
+
+    #ifdef OLED_SCREEN
+        case SETTINGS_MAIN_MENU_OLED_CONTRAST:
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_OLED_CONTRAST);
+            break;
+    #endif
 
     case SETTINGS_MAIN_MENU_VERSION:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_VERSION);
@@ -71,6 +79,14 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         mui_update(mui());
         break;
 
+    case SETTINGS_MAIN_MENU_ANIM_ENABLED:
+        p_settings->anim_enabled = !p_settings->anim_enabled;
+        sprintf(txt, "动画效果 [%s]", p_settings->anim_enabled ? "开" : "关");
+        string_set_str(p_item->text, txt);
+        mui_update(mui());
+        break;
+
+
     case SETTINGS_MAIN_MENU_EXIT:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_SETTINGS);
         break;
@@ -88,12 +104,19 @@ void settings_scene_main_on_enter(void *user_data) {
     sprintf(txt, "自动选择存储 [%s]", p_settings->skip_driver_select ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
 
-    if (p_settings->lcd_backlight == 0) {
-        sprintf(txt, "背光亮度 [关]");
-    } else {
-        sprintf(txt, "背光亮度 [%d%%]", p_settings->lcd_backlight);
-    }
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+    #ifdef OLED_SCREEN
+        sprintf(txt, "OLED对比度 [%d%%]", p_settings->oled_contrast );
+        mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
+    #else
+        if (p_settings->lcd_backlight == 0) {
+            sprintf(txt, "背光亮度 [关]");
+        } else {
+            sprintf(txt, "背光亮度 [%d%%]", p_settings->lcd_backlight);
+        }
+        mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+    #endif
+    sprintf(txt, "动画效果 [%s]", p_settings->anim_enabled ? "开" : "关");
+    mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_ANIM_ENABLED);
 
     sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
