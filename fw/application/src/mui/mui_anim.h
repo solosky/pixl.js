@@ -2,6 +2,7 @@
 #define MUI_ANIM_H
 
 #include <stdint.h>
+#include "mui_event.h"
 
 
 struct _mui_anim_t;
@@ -36,6 +37,7 @@ typedef struct _mui_anim_t {
 
 
 void mui_anim_core_init();
+void mui_anim_core_event(mui_event_t* p_event);
 
 void mui_anim_init(mui_anim_t *p_anim);
 void mui_anim_start(mui_anim_t* p_anim);

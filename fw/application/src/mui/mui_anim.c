@@ -126,8 +126,14 @@ int32_t lv_anim_path_bounce(const mui_anim_t * a)
     return new_value;
 }
 
-// TODO critial section????
-static void mui_anim_tick_handler(void *p_context) {
+//put anim tick into event queue process to avoid race conditions
+static void mui_anim_tick_tmr_cb(void* p_context) {
+    mui_event_t mui_event = {.id = MUI_EVENT_ID_ANIM};
+    mui_post(mui(), &mui_event);
+}
+
+
+static void mui_anim_tick_handler() {
     mui_anim_ptr_array_it_t it;
     int32_t err_code;
     bool mui_update_required = false;
@@ -188,8 +194,12 @@ static mui_anim_t* mui_anim_remove_ptr(mui_anim_t* p_anim){
 }
 
 void mui_anim_core_init() {
-    int32_t err_code = app_timer_create(&m_anim_tick_tmr, APP_TIMER_MODE_REPEATED, mui_anim_tick_handler);
+    int32_t err_code = app_timer_create(&m_anim_tick_tmr, APP_TIMER_MODE_REPEATED, mui_anim_tick_tmr_cb);
     APP_ERROR_CHECK(err_code);
+}
+
+void mui_anim_core_event(mui_event_t* p_event){
+    mui_anim_tick_handler();
 }
 
 void mui_anim_init(mui_anim_t *p_anim){

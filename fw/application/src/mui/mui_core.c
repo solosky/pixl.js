@@ -109,6 +109,10 @@ static void mui_process_input(mui_t *p_mui, mui_event_t *p_event) {
     }
 }
 
+static void mui_process_anim(mui_t *p_mui, mui_event_t *p_event) {
+    mui_anim_core_event(p_event);
+}
+
 static void mui_process_event(void *p_context, mui_event_t *p_event) {
     mui_t *p_mui = p_context;
     switch (p_event->id) {
@@ -118,6 +122,10 @@ static void mui_process_event(void *p_context, mui_event_t *p_event) {
 
     case MUI_EVENT_ID_INPUT:
         mui_process_input(p_mui, p_event);
+        break;
+
+    case MUI_EVENT_ID_ANIM:
+        mui_process_anim(p_mui, p_event);
         break;
     }
 }
