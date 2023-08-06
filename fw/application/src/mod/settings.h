@@ -5,6 +5,7 @@
 #include <stdint.h>
 
 #include "app_amiibolink.h"
+#include "i18n/language.h"
 
 typedef struct {
     bool backlight; //deprecated, keep for capability issue
@@ -18,6 +19,9 @@ typedef struct {
     bool hibernate_enabled;
     bool show_mem_usage;
     uint8_t lcd_backlight;
+    uint8_t oled_contrast;
+    bool anim_enabled;
+    Language language;
 } settings_data_t;
 
 int32_t settings_init();

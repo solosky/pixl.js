@@ -22,6 +22,6 @@ typedef struct {
 
 typedef enum { SETTINGS_VIEW_ID_MAIN, SETTINGS_VIEW_ID_PROGRESS_BAR } settings_view_id_t;
 
-extern const mini_app_t app_settings_info;
+extern mini_app_t app_settings_info;
 
 #endif

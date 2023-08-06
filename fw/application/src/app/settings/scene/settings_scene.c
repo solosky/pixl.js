@@ -2,6 +2,8 @@
 #include "mui_scene_dispatcher.h"
 
 #include "settings_scene.h"
+#include "boards_defines.h"
+
 
 #define ADD_SCENE(prefix, name, id) \
     void prefix##_scene_##name##_on_enter(void*); \

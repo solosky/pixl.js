@@ -78,10 +78,7 @@
 
 #include "app_pwm.h"
 
-#define LCD_CS_PIN 27
-#define LCD_RESET_PIN 29
-#define LCD_BL_PIN 30
-#define LCD_DC_PIN 28 // green wire (DC)
+#include "boards_defines.h"
 
 u8g2_t u8g2;
 static spi_device_t m_dev;
@@ -190,9 +187,19 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     nrf_gpio_cfg_output(LCD_BL_PIN);
     nrf_gpio_pin_clear(LCD_BL_PIN);
 
-    u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+    #ifdef OLED_TYPE_SH1106
+        u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+    #else
+        u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+    #endif
 
     u8g2_InitDisplay(p_u8g2);
+
+    #ifdef OLED_SCREEN
+        settings_data_t *p_settings = settings_get_data();
+        mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
+    #endif
+
     u8g2_SetPowerSave(p_u8g2, 0);
 
     pwm_init();
@@ -222,3 +229,8 @@ void mui_u8g2_set_backlight_level(uint8_t value) {
     }
 }
 int8_t mui_u8g2_get_backlight_level(void) { return (int8_t) app_pwm_channel_duty_get(&pwm1, 0); }
+
+void mui_u8g2_set_oled_contrast_level(uint8_t value) {
+    mui_t *p_mui = mui();
+    u8g2_SetContrast(&p_mui->u8g2,(value - 1) * (255.0 / 99.0));
+}

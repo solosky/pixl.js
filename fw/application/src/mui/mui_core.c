@@ -2,6 +2,7 @@
 
 #include "mui_defines.h"
 #include "mui_mem.h"
+#include "mui_anim.h"
 #include "mui_u8g2.h"
 #include "settings.h"
 #include "nrf_log.h"
@@ -108,6 +109,10 @@ static void mui_process_input(mui_t *p_mui, mui_event_t *p_event) {
     }
 }
 
+static void mui_process_anim(mui_t *p_mui, mui_event_t *p_event) {
+    mui_anim_core_event(p_event);
+}
+
 static void mui_process_event(void *p_context, mui_event_t *p_event) {
     mui_t *p_mui = p_context;
     switch (p_event->id) {
@@ -117,6 +122,10 @@ static void mui_process_event(void *p_context, mui_event_t *p_event) {
 
     case MUI_EVENT_ID_INPUT:
         mui_process_input(p_mui, p_event);
+        break;
+
+    case MUI_EVENT_ID_ANIM:
+        mui_process_anim(p_mui, p_event);
         break;
     }
 }
@@ -148,6 +157,9 @@ void mui_init(mui_t *p_mui) {
     mui_event_queue_init(&p_mui->event_queue);
 
     mui_input_init();
+
+    mui_anim_core_init();
+
 
     p_mui->initialized = true;
 }

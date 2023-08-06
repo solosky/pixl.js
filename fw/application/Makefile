@@ -8,8 +8,8 @@ COMP_DIR := ../components
 U8G2_ROOT := ../components/u8g2/csrc
 
 APP_VERSION ?= 1
-RELEASE ?= 0
-LFS_ENABLE ?= 0
+RELEASE ?= 1
+BOARD ?= LCD
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/application.ld
@@ -198,12 +198,15 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
   $(PROJ_DIR)/mui/mui_scene_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
+  $(PROJ_DIR)/mui/mui_u8g2_fonts.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
   $(PROJ_DIR)/mui/mui_input.c \
   $(PROJ_DIR)/mui/mui_element.c \
   $(PROJ_DIR)/mui/mui_mem.c \
+  $(PROJ_DIR)/mui/mui_anim.c \
+  $(PROJ_DIR)/mui/mui_math.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
@@ -245,6 +248,12 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_version.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_sleep_timeout.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_lcd_backlight.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_language.c \
+  $(PROJ_DIR)/i18n/en_US.c \
+  $(PROJ_DIR)/i18n/zh_Hans.c \
+  $(PROJ_DIR)/i18n/zh_TW.c \
+  $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
@@ -273,7 +282,6 @@ SRC_FILES += \
   $(U8G2_ROOT)/u8g2_d_memory.c \
   $(U8G2_ROOT)/u8g2_d_setup.c \
   $(U8G2_ROOT)/u8g2_font.c \
-  $(U8G2_ROOT)/u8g2_fonts.c \
   $(U8G2_ROOT)/u8g2_hvline.c \
   $(U8G2_ROOT)/u8g2_input_value.c \
   $(U8G2_ROOT)/u8g2_intersection.c \
@@ -302,7 +310,8 @@ SRC_FILES += \
   $(U8G2_ROOT)/u8x8_setup.c \
   $(U8G2_ROOT)/u8x8_string.c \
   $(U8G2_ROOT)/u8x8_u16toa.c \
-  $(U8G2_ROOT)/u8x8_u8toa.c 
+  $(U8G2_ROOT)/u8x8_u8toa.c \
+  $(U8G2_ROOT)/u8x8_d_ssd1306_128x64_noname.c
 
 # Include folders common to all targets
 INC_FOLDERS += \
@@ -497,7 +506,7 @@ CFLAGS += $(OPT)
 CFLAGS += -DAPP_TIMER_V2
 CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 #CFLAGS += -DBOARD_PCA10040
-CFLAGS += -DCUSTOM_BOARD_INC=am_board
+CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
@@ -507,14 +516,12 @@ CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DS112
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE 
+CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 else
 CFLAGS += -DNDEBUG
-endif
-ifeq ($(LFS_ENABLE), 1)
-CFLAGS += -DVFS_LFS_ENABLE
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0

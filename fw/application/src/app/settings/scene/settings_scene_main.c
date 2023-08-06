@@ -5,15 +5,19 @@
 #include "settings_scene.h"
 #include "utils.h"
 #include "version2.h"
+#include "i18n/language.h"
 
 enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_VERSION,
     SETTINGS_MAIN_MENU_BACK_LIGHT,
+    SETTINGS_MAIN_MENU_OLED_CONTRAST,
     SETTINGS_MAIN_MENU_LI_MODE,
     SETTINGS_MAIN_MENU_ENABLE_HIBERNATE,
     SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT,
+    SETTINGS_MAIN_MENU_LANGUAGE,
     SETTINGS_MAIN_MENU_SHOW_MEM_USAGE,
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
+    SETTINGS_MAIN_MENU_ANIM_ENABLED,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_EXIT
 };
@@ -31,12 +35,22 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LCD_BACKLIGHT);
         break;
 
+    #ifdef OLED_SCREEN
+        case SETTINGS_MAIN_MENU_OLED_CONTRAST:
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_OLED_CONTRAST);
+            break;
+    #endif
+
     case SETTINGS_MAIN_MENU_VERSION:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_VERSION);
         break;
 
     case SETTINGS_MAIN_MENU_SLEEP_TIMEOUT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_SLEEP_TIMEOUT);
+        break;
+    
+    case SETTINGS_MAIN_MENU_LANGUAGE:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LANGUAGE);
         break;
 
     case SETTINGS_MAIN_MENU_DFU:
@@ -45,28 +59,35 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT:
         p_settings->skip_driver_select = !p_settings->skip_driver_select;
-        sprintf(txt, "自动选择存储 [%s]", p_settings->skip_driver_select ? "开" : "关");
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_SKIP_DRIVER_SELECT), p_settings->skip_driver_select ? getLangString(_L_ON) : getLangString(_L_OFF));
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
 
     case SETTINGS_MAIN_MENU_LI_MODE:
         p_settings->bat_mode = !p_settings->bat_mode;
-        sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_LIPO_BAT), p_settings->bat_mode ? getLangString(_L_ON) : getLangString(_L_OFF));
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
 
     case SETTINGS_MAIN_MENU_SHOW_MEM_USAGE:
         p_settings->show_mem_usage = !p_settings->show_mem_usage;
-        sprintf(txt, "内存使用率 [%s]", p_settings->show_mem_usage ? "开" : "关");
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_SHOW_MEM_USAGE), p_settings->show_mem_usage ? getLangString(_L_ON) : getLangString(_L_OFF));
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
 
     case SETTINGS_MAIN_MENU_ENABLE_HIBERNATE:
         p_settings->hibernate_enabled = !p_settings->hibernate_enabled;
-        sprintf(txt, "快速唤醒 [%s]", p_settings->hibernate_enabled ? "开" : "关");
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_HIBERNATE), p_settings->hibernate_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+        string_set_str(p_item->text, txt);
+        mui_update(mui());
+        break;
+
+    case SETTINGS_MAIN_MENU_ANIM_ENABLED:
+        p_settings->anim_enabled = !p_settings->anim_enabled;
+        sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_ANIM), p_settings->anim_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
@@ -80,34 +101,46 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 void settings_scene_main_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
+    settings_data_t *p_settings = settings_get_data();
     char txt[32];
-    sprintf(txt, "版本 [%s]", version_get_version(version_get()));
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_VERSION), version_get_version(version_get()));
     mui_list_view_add_item(app->p_list_view, 0xe1c7, txt, (void *)SETTINGS_MAIN_MENU_VERSION);
 
-    settings_data_t *p_settings = settings_get_data();
-    sprintf(txt, "自动选择存储 [%s]", p_settings->skip_driver_select ? "开" : "关");
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_LANGUAGE), getLangDesc(p_settings->language));
+    mui_list_view_add_item(app->p_list_view, 0xe26d, txt, (void *)SETTINGS_MAIN_MENU_LANGUAGE);
+
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_SKIP_DRIVER_SELECT), p_settings->skip_driver_select ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
 
-    if (p_settings->lcd_backlight == 0) {
-        sprintf(txt, "背光亮度 [关]");
-    } else {
-        sprintf(txt, "背光亮度 [%d%%]", p_settings->lcd_backlight);
-    }
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+    #ifdef OLED_SCREEN
+        snprintf(txt, sizeof(txt), "%s [%d%%]", getLangString(_L_APP_SET_OLED_CONTRAST), p_settings->oled_contrast);
+        mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
+    #else
+        if (p_settings->lcd_backlight == 0) {
+            snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_LCD_BACKLIGHT), getLangString(_L_OFF));
+        } else {
+            snprintf(txt, sizeof(txt), "%s [%d%%]", getLangString(_L_APP_SET_LCD_BACKLIGHT), p_settings->lcd_backlight);
+        }
+        mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
+    #endif
+    sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_ANIM), p_settings->anim_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+    mui_list_view_add_item(app->p_list_view, 0xe1dc, txt, (void *)SETTINGS_MAIN_MENU_ANIM_ENABLED);
 
-    sprintf(txt, "LiPO电池 [%s]", p_settings->bat_mode ? "开" : "关");
+    snprintf(txt, sizeof(txt), "%s [%s]",getLangString(_L_APP_SET_LIPO_BAT), p_settings->bat_mode ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
 
-    sprintf(txt, "内存使用率 [%s]", p_settings->show_mem_usage ? "开" : "关");
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_SHOW_MEM_USAGE), p_settings->show_mem_usage ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe1f3, txt, (void *)SETTINGS_MAIN_MENU_SHOW_MEM_USAGE);
 
-    sprintf(txt, "快速唤醒 [%s]", p_settings->hibernate_enabled ? "开" : "关");
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_HIBERNATE), p_settings->hibernate_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe232, txt, (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
 
-    sprintf(txt, "休眠时间 [%ds]", nrf_pwr_mgmt_get_timeout());
+    snprintf(txt, sizeof(txt), "%s [%ds]", getLangString(_L_APP_SET_SLEEP_TIMEOUT), nrf_pwr_mgmt_get_timeout());
     mui_list_view_add_item(app->p_list_view, 0xe1c9, txt, (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
-    mui_list_view_add_item(app->p_list_view, 0xe1ca, "固件更新", (void *)SETTINGS_MAIN_MENU_DFU);
-    mui_list_view_add_item(app->p_list_view, 0xe069, "返回主菜单", (void *)SETTINGS_MAIN_MENU_EXIT);
+    
+    mui_list_view_add_item(app->p_list_view, 0xe1ca, getLangString(_L_APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
+
+    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
     mui_list_view_set_selected_cb(app->p_list_view, settings_scene_main_list_view_on_selected);
 

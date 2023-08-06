@@ -60,7 +60,7 @@ void app_desktop_on_kill(mini_app_inst_t *p_app_inst) {
 
 void app_desktop_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
 
-const mini_app_t app_desktop_info = {.id = MINI_APP_ID_DESKTOP,
+mini_app_t app_desktop_info = {.id = MINI_APP_ID_DESKTOP,
                                      .name = "desktop",
                                      .icon = 0xe1f0,
                                      .deamon = false,

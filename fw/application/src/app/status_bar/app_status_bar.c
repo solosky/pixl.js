@@ -60,7 +60,7 @@ void app_status_bar_set_ble_icon(uint16_t icon){
     mui_update(mui());
 }
 
-const mini_app_t app_status_bar_info = {.id = MINI_APP_ID_STATUS_BAR,
+mini_app_t app_status_bar_info = {.id = MINI_APP_ID_STATUS_BAR,
                                         .name = "status bar",
                                         .icon = 0xe1f0,
                                         .deamon = true,

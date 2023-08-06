@@ -14,6 +14,7 @@
 
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
+#include "i18n/language.h"
 
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
@@ -32,9 +33,9 @@ static void amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_
 }
 
 static void amiibo_scene_amiibo_detail_no_key_msg(app_amiibo_t *app) {
-    mui_msg_box_set_header(app->p_msg_box, "Amiibo Key未加载");
-    mui_msg_box_set_message(app->p_msg_box, "上传文件 key_retail.bin\n到存储根目录下。");
-    mui_msg_box_set_btn_text(app->p_msg_box, NULL, "知道了", NULL);
+    mui_msg_box_set_header(app->p_msg_box, getLangString(_L_AMIIBO_KEY_UNLOADED));
+    mui_msg_box_set_message(app->p_msg_box, getLangString(_L_UPLOAD_KEY_RETAIL_BIN));
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, getLangString(_L_KNOW), NULL);
     mui_msg_box_set_btn_focus(app->p_msg_box, 1);
     mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb);
 
@@ -97,7 +98,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         char txt[32];
         settings_data_t* p_settings = settings_get_data();
         p_settings->auto_gen_amiibo = !p_settings->auto_gen_amiibo;
-        sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? "开" : "关");
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION), p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
         settings_save();
         
         string_set_str(p_item->text, txt);
@@ -144,17 +145,17 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
 void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, 0xe1c5, "随机生成", (void *)AMIIBO_DETAIL_MENU_RAND_UID);
+    mui_list_view_add_item(app->p_list_view, 0xe1c5, getLangString(_L_RANDOM_GENERATION), (void *)AMIIBO_DETAIL_MENU_RAND_UID);
 
     char txt[32];
     settings_data_t* p_settings = settings_get_data();
 
-    sprintf(txt, "自动随机生成 [%s]", p_settings->auto_gen_amiibo ? "开" : "关");
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION), p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
-    mui_list_view_add_item(app->p_list_view, 0xe1c7, "删除标签", (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
-    mui_list_view_add_item(app->p_list_view, 0xe068, "返回详情", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
-    mui_list_view_add_item(app->p_list_view, 0xe069, "返回文件列表", (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, "返回主菜单", (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
+    mui_list_view_add_item(app->p_list_view, 0xe1c7, getLangString(_L_DELETE_TAG), (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
+    mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_BACK_TO_DETAILS), (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
+    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK_TO_FILE_LIST), (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_BACK_TO_MAIN_MENU), (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_amiibo_detail_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

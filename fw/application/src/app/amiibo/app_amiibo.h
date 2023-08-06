@@ -51,6 +51,6 @@ typedef struct {
 } app_amiibo_cache_data_t;
 
 
-extern const mini_app_t app_amiibo_info;
+extern mini_app_t app_amiibo_info;
 
 #endif
