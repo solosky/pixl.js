@@ -9,7 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 
 APP_VERSION ?= 1
 RELEASE ?= 1
-BOARD ?= DEFAULT
+BOARD ?= LCD
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/application.ld

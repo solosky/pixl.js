@@ -4,7 +4,7 @@ OUTPUT_DIRECTORY := ../_build
 
 SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
-OLED_TYPE ?= 0
+BOARD ?= LCD
 
 $(OUTPUT_DIRECTORY)/bootloader.out: \
   LINKER_SCRIPT  := ../ld/bootloader.ld
@@ -133,7 +133,8 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/balloc \
   $(SDK_ROOT)/components/libraries/atomic_fifo \
   $(SDK_ROOT)/external/micro-ecc/micro-ecc \
-  . \
+  $(PROJ_DIR) \
+  $(PROJ_DIR)/../../application/src \
   $(SDK_ROOT)/components/libraries/crypto/backend/nrf_sw \
   $(SDK_ROOT)/modules/nrfx/mdk \
   $(SDK_ROOT)/components/libraries/bootloader/ble_dfu \
@@ -160,7 +161,6 @@ OPT = -Os -g3
 # C flags common to all targets
 CFLAGS += $(OPT)
 CFLAGS += -DBLE_STACK_SUPPORT_REQD
-CFLAGS += -DBOARD_PCA10040
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
@@ -177,7 +177,6 @@ CFLAGS += -DuECC_OPTIMIZATION_LEVEL=3
 CFLAGS += -DuECC_SQUARE_FUNC=0
 CFLAGS += -DuECC_SUPPORT_COMPRESSED_POINT=0
 CFLAGS += -DuECC_VLI_NATIVE_LITTLE_ENDIAN=1
-CFLAGS += -DCUSTOM_BOARD_INC=am_board
 CFLAGS += -mcpu=cortex-m4
 CFLAGS += -mthumb -mabi=aapcs
 # CFLAGS += -Wall -Werror=array-bounds
@@ -185,6 +184,8 @@ CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # keep every function in a separate section, this allows linker to discard unused ones
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
+CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
+CFLAGS += -DBOARD_$(BOARD)
 
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
@@ -194,7 +195,6 @@ ASMFLAGS += -mcpu=cortex-m4
 ASMFLAGS += -mthumb -mabi=aapcs
 ASMFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 ASMFLAGS += -DBLE_STACK_SUPPORT_REQD
-ASMFLAGS += -DBOARD_PCA10040
 ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52
@@ -211,7 +211,8 @@ ASMFLAGS += -DuECC_OPTIMIZATION_LEVEL=3
 ASMFLAGS += -DuECC_SQUARE_FUNC=0
 ASMFLAGS += -DuECC_SUPPORT_COMPRESSED_POINT=0
 ASMFLAGS += -DuECC_VLI_NATIVE_LITTLE_ENDIAN=1
-ASMFLAGS += -DCUSTOM_BOARD_INC=am_board
+ASMFLAGS += -DCUSTOM_BOARD_INC=boards_defines
+ASMFLAGS += -DBOARD_$(BOARD)
 
 # Linker flags
 LDFLAGS += $(OPT)
