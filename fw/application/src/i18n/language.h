@@ -37,6 +37,7 @@ typedef enum {
     _L_APP_SET_OLED_CONTRAST_TITLE,
     _L_APP_SET_LCD_BACKLIGHT,
     _L_APP_SET_LCD_BACKLIGHT_TITLE,
+    _L_APP_SET_ANIM,
     _L_APP_SET_LIPO_BAT,
     _L_APP_SET_SHOW_MEM_USAGE,
     _L_APP_SET_HIBERNATE,
@@ -107,6 +108,7 @@ extern const char* lang_zh_tw[_L_COUNT];
 
 // 获取字符串的函数
 const char* getLangString(L_StringID stringID);
-void setLanguage(char *language);
+void setLanguage(Language lang);
+const char* getLangDesc(Language lang);
 
 #endif // LANGUAGE_H

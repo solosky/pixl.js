@@ -16,18 +16,16 @@ const char* getLangString(L_StringID stringID) {
     return string ? string : lang_zh_hans[stringID];  // 如果没有翻译，使用中文
 }
 
-void setLanguage(char* language) {
-    if (strcmp(language, "zh_Hans") == 0) {
-        currentLanguage = LANGUAGE_ZH_HANS;
-    } else if (strcmp(language, "en_US") == 0) {
-        currentLanguage = LANGUAGE_EN_US;
-    }else if (strcmp(language, "zh_TW") == 0) {
-        currentLanguage = LANGUAGE_ZH_TW;
-    }else if (strcmp(language, "ja_JP") == 0) {
-        currentLanguage = LANGUAGE_JA_JP;
-    }else if (strcmp(language, "ko_KR") == 0) {
-        currentLanguage = LANGUAGE_KO_KR;
-    } else {
-        currentLanguage = LANGUAGE_ZH_HANS; // 默认语言
+void setLanguage(Language lang) {
+   currentLanguage = lang;
+}
+
+const char* getLangDesc(Language lang){
+    if(lang == LANGUAGE_ZH_HANS){
+        return "简体中文";
+    }else if(lang == LANGUAGE_EN_US){
+        return "English";
+    }else if(lang == LANGUAGE_ZH_TW){
+        return "繁體中文(臺灣)";
     }
 }

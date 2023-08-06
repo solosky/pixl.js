@@ -22,19 +22,19 @@ static void settings_scene_language_list_view_on_selected(mui_list_view_event_t 
     settings_data_t *p_settings = settings_get_data();
     switch (selection) {
     case SETTINGS_LANGUAGE_ZH_HANS:
-        p_settings->language = "zh_Hans";
+        p_settings->language = LANGUAGE_ZH_HANS;
         settings_save();
         NVIC_SystemReset();
         break;
 
     case SETTINGS_LANGUAGE_EN_US:
-        p_settings->language = "en_US";
+        p_settings->language = LANGUAGE_EN_US;
         settings_save();
         NVIC_SystemReset();
         break;
     
     case SETTINGS_LANGUAGE_ZH_TW:
-        p_settings->language = "zh_TW";
+        p_settings->language = LANGUAGE_ZH_TW;
         settings_save();
         NVIC_SystemReset();
         break;

@@ -87,7 +87,7 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_ANIM_ENABLED:
         p_settings->anim_enabled = !p_settings->anim_enabled;
-        sprintf(txt, "动画效果 [%s]", p_settings->anim_enabled ? "开" : "关");
+        sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_ANIM), p_settings->anim_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
         string_set_str(p_item->text, txt);
         mui_update(mui());
         break;
@@ -101,11 +101,14 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 void settings_scene_main_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
+    settings_data_t *p_settings = settings_get_data();
     char txt[32];
     snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_VERSION), version_get_version(version_get()));
     mui_list_view_add_item(app->p_list_view, 0xe1c7, txt, (void *)SETTINGS_MAIN_MENU_VERSION);
 
-    settings_data_t *p_settings = settings_get_data();
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_LANGUAGE), getLangDesc(p_settings->language));
+    mui_list_view_add_item(app->p_list_view, 0xe26d, txt, (void *)SETTINGS_MAIN_MENU_LANGUAGE);
+
     snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_APP_SET_SKIP_DRIVER_SELECT), p_settings->skip_driver_select ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_SKIP_DRIVER_SELECT);
 
@@ -120,8 +123,8 @@ void settings_scene_main_on_enter(void *user_data) {
         }
         mui_list_view_add_item(app->p_list_view, 0xe1c8, txt, (void *)SETTINGS_MAIN_MENU_BACK_LIGHT);
     #endif
-    sprintf(txt, "动画效果 [%s]", p_settings->anim_enabled ? "开" : "关");
-    mui_list_view_add_item(app->p_list_view, 0xe146, txt, (void *)SETTINGS_MAIN_MENU_ANIM_ENABLED);
+    sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_ANIM), p_settings->anim_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+    mui_list_view_add_item(app->p_list_view, 0xe1dc, txt, (void *)SETTINGS_MAIN_MENU_ANIM_ENABLED);
 
     snprintf(txt, sizeof(txt), "%s [%s]",getLangString(_L_APP_SET_LIPO_BAT), p_settings->bat_mode ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
@@ -136,8 +139,6 @@ void settings_scene_main_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1c9, txt, (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
     
     mui_list_view_add_item(app->p_list_view, 0xe1ca, getLangString(_L_APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
-
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_APP_SET_LANGUAGE), (void *)SETTINGS_MAIN_MENU_LANGUAGE);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
