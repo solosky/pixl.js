@@ -1,11 +1,12 @@
 #include "ble_status_view.h"
+#include "i18n/language.h"
 
 static void ble_status_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     ble_status_view_t* p_status_view = p_view->user_data;
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_draw_glyph(p_canvas, 20, 12, 0xe1b5);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
-    mui_canvas_draw_utf8(p_canvas, 30, 12, "蓝牙传输模式");
+    mui_canvas_draw_utf8(p_canvas, 30, 12, getLangString(_L_APP_BLE_TITLE));
     mui_canvas_draw_utf8(p_canvas, 18, 24, p_status_view->ble_addr);
     mui_canvas_draw_utf8(p_canvas, 6, 36, "https://pixl.amiibo.xyz");
 }

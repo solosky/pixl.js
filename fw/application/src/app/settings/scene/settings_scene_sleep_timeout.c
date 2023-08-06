@@ -5,6 +5,7 @@
 #include "settings_scene.h"
 #include "utils.h"
 #include "version2.h"
+#include "i18n/language.h"
 
 enum settings_sleep_timeout_menu_t {
     SETTINGS_SLEEP_TIMEOUT_MENU_15S,
@@ -58,13 +59,13 @@ static void settings_scene_sleep_timeout_list_view_on_selected(mui_list_view_eve
 void settings_scene_sleep_timeout_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
-    mui_list_view_add_item(app->p_list_view, 0xe105, "15秒", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_15S);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "30秒", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_30S);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "45秒", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_45S);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "1分钟", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_1MIN);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "2分钟", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_2MIN);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "3分钟", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_3MIN);
-    mui_list_view_add_item(app->p_list_view, 0xe069, "返回", (void *)SETTINGS_SLEEP_TIMEOUT_MENU_EXIT);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_15S), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_15S);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_30S), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_30S);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_45S), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_45S);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_1MIN), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_1MIN);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_2MIN), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_2MIN);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_3MIN), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_3MIN);
+    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_EXIT);
 
     mui_list_view_set_selected_cb(app->p_list_view, settings_scene_sleep_timeout_list_view_on_selected);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SETTINGS_VIEW_ID_MAIN);

@@ -5,3 +5,4 @@ ADD_SCENE(settings, lcd_backlight, LCD_BACKLIGHT)
 #ifdef OLED_SCREEN
     ADD_SCENE(settings, oled_contrast, OLED_CONTRAST)
 #endif
+ADD_SCENE(settings, language, LANGUAGE)

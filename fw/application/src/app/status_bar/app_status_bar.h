@@ -7,6 +7,6 @@
 
 void app_status_bar_set_ble_icon(uint16_t icon);
 
-extern const mini_app_t app_status_bar_info;
+extern mini_app_t app_status_bar_info;
 
 #endif

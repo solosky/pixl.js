@@ -39,15 +39,15 @@ struct mini_app_inst_s {
 
 
 struct mini_app_s {
-    uint32_t id;
+    const uint32_t id;
     char name[16];
-    uint16_t icon;
-    uint8_t deamon;
-    uint8_t sys;
-    uint8_t hibernate_enabled;
-    mini_app_run_cb_t run_cb;
-    mini_app_kill_cb_t kill_cb;
-    mini_app_post_event_cb_t on_event_cb;
+    const uint16_t icon;
+    const uint8_t deamon;
+    const uint8_t sys;
+    const uint8_t hibernate_enabled;
+    const mini_app_run_cb_t run_cb;
+    const mini_app_kill_cb_t kill_cb;
+    const mini_app_post_event_cb_t on_event_cb;
 };
 
 #endif

@@ -9,6 +9,7 @@
 #include "nrf_log_ctrl.h"
 
 #include "settings.h"
+#include "i18n/language.h"
 
 #define ICON_MODE 0xe135
 #define ICON_BACK 0xe069
@@ -17,7 +18,6 @@
 #define ICON_PROTO 0xe042
 #define ICON_VER 0xe0be
 
-const char *mode_name[] = {"", "随机(手动)", "按序", "读写", "随机(自动)"};
 
 #define AMIIBOLINK_MENU_BACK_EXIT 0
 #define AMIIBOLINK_MENU_BACK_MAIN 1
@@ -34,9 +34,9 @@ static void amiibolink_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_ev
 }
 
 static void amiibolink_scene_amiibo_detail_no_key_msg(app_amiibolink_t *app) {
-    mui_msg_box_set_header(app->p_msg_box, "Amiibo Key未加载");
-    mui_msg_box_set_message(app->p_msg_box, "上传文件 key_retail.bin\n到存储根目录下。");
-    mui_msg_box_set_btn_text(app->p_msg_box, NULL, "知道了", NULL);
+    mui_msg_box_set_header(app->p_msg_box, getLangString(_L_AMIIBO_KEY_UNLOADED));
+    mui_msg_box_set_message(app->p_msg_box, getLangString(_L_UPLOAD_KEY_RETAIL_BIN));
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, getLangString(_L_KNOW), NULL);
     mui_msg_box_set_btn_focus(app->p_msg_box, 1);
     mui_msg_box_set_event_cb(app->p_msg_box, amiibolink_scene_amiibo_detail_menu_msg_box_no_key_cb);
 
@@ -67,7 +67,7 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
 
             p_settings->auto_gen_amiibolink = !p_settings->auto_gen_amiibolink;
             NRF_LOG_INFO("auto_generate: %d", p_settings->auto_gen_amiibolink);
-            sprintf(txt, "自动随机 [%s]", p_settings->auto_gen_amiibolink ? "开" : "关");
+            sprintf(txt, "%s [%s]", getLangString(_L_AUTO_RANDOM), p_settings->auto_gen_amiibolink ? getLangString(_L_ON) : getLangString(_L_OFF));
             settings_save();
 
             string_set_str(p_item->text, txt);
@@ -77,20 +77,33 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
 
 void amiibolink_scene_menu_on_enter(void *user_data) {
     app_amiibolink_t *app = user_data;
+    // char *mode_name[] = {"", "随机(手动)", "按序", "读写", "随机(自动)"};
+    char mode_name[32];
+    if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM) {
+        strcpy(mode_name, getLangString(_L_MODE_RANDOM));
+    }else if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
+        strcpy(mode_name, getLangString(_L_MODE_CYCLE));
+    }else if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_NTAG) {
+        strcpy(mode_name, getLangString(_L_MODE_NTAG));
+    }else if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
+        strcpy(mode_name, getLangString(_L_MODE_RANDOM_AUTO_GEN));
+    } else {
+        strcpy(mode_name, "");
+    }
 
     char txt[32];
-    sprintf(txt, "模式 [%s]", mode_name[app->amiibolink_mode]);
+    sprintf(txt, "%s [%s]", getLangString(_L_MODE), mode_name);
     mui_list_view_add_item(app->p_list_view, ICON_MODE, txt, (void *)AMIIBOLINK_MENU_MODE);
 
     settings_data_t* p_settings = settings_get_data();
-    sprintf(txt, "自动随机 [%s]", p_settings->auto_gen_amiibolink ? "开" : "关");
+    sprintf(txt, "%s [%s]", getLangString(_L_AUTO_RANDOM), p_settings->auto_gen_amiibolink ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, ICON_AUTO, txt, (void *)AMIIBOLINK_MENU_AUTO_GENERATE);
     
-    sprintf(txt, "兼容模式 [%s]", p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V1 ? "V1" : "AmiLoop"));
+    sprintf(txt, "%s [%s]", getLangString(_L_COMPATIBLE_MODE), p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2 ? "V2" : (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V1 ? "V1" : "AmiLoop"));
     mui_list_view_add_item(app->p_list_view, ICON_PROTO, txt, (void *)AMIIBOLINK_MENU_VER);
-    mui_list_view_add_item(app->p_list_view, ICON_VER, "标签详情", (void *)AMIIBOLINK_MENU_BACK_MAIN);
+    mui_list_view_add_item(app->p_list_view, ICON_VER, getLangString(_L_TAG_DETAILS), (void *)AMIIBOLINK_MENU_BACK_MAIN);
     
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)AMIIBOLINK_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, getLangString(_L_MAIN_MENU), (void *)AMIIBOLINK_MENU_BACK_EXIT);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibolink_scene_menu_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBOLINK_VIEW_ID_LIST);

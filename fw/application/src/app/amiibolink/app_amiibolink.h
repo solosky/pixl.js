@@ -18,6 +18,6 @@ typedef struct {
 
 typedef enum { AMIIBOLINK_VIEW_ID_LIST, AMIIBOLINK_VIEW_ID_MAIN, AMIIBOLINK_VIEW_ID_MSG_BOX } app_amiibolink_view_id_t;
 
-extern const mini_app_t app_amiibolink_info;
+extern mini_app_t app_amiibolink_info;
 
 #endif

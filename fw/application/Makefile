@@ -199,6 +199,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
   $(PROJ_DIR)/mui/mui_scene_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
+  $(PROJ_DIR)/mui/mui_u8g2_fonts.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -246,6 +247,11 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_version.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_sleep_timeout.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_lcd_backlight.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_language.c \
+  $(PROJ_DIR)/i18n/en_US.c \
+  $(PROJ_DIR)/i18n/zh_Hans.c \
+  $(PROJ_DIR)/i18n/zh_TW.c \
+  $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
@@ -274,7 +280,6 @@ SRC_FILES += \
   $(U8G2_ROOT)/u8g2_d_memory.c \
   $(U8G2_ROOT)/u8g2_d_setup.c \
   $(U8G2_ROOT)/u8g2_font.c \
-  $(U8G2_ROOT)/u8g2_fonts.c \
   $(U8G2_ROOT)/u8g2_hvline.c \
   $(U8G2_ROOT)/u8g2_input_value.c \
   $(U8G2_ROOT)/u8g2_intersection.c \

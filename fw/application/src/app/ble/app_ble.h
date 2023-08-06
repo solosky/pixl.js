@@ -12,6 +12,6 @@ typedef struct {
 
 typedef enum { BLE_VIEW_ID_MAIN } ble_view_id_t;
 
-extern const mini_app_t app_ble_info;
+extern mini_app_t app_ble_info;
 
 #endif
