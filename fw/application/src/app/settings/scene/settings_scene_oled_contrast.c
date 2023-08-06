@@ -8,6 +8,7 @@
 #include "version2.h"
 
 #include "mui_u8g2.h"
+#include "i18n/language.h"
 
 static void settings_scene_oled_contrast_event_cb(mui_progress_bar_event_t event, mui_progress_bar_t *p_progress_bar) {
     app_settings_t *app = p_progress_bar->user_data;
@@ -26,7 +27,7 @@ static void settings_scene_oled_contrast_event_cb(mui_progress_bar_event_t event
 void settings_scene_oled_contrast_on_enter(void *user_data) {
     app_settings_t *app = user_data;
     settings_data_t *p_settings = settings_get_data();
-    mui_progress_bar_set_header(app->p_progress_bar, "OLED对比度");
+    mui_progress_bar_set_header(app->p_progress_bar, getLangString(_L_APP_SET_OLED_CONTRAST_TITLE));
     mui_progress_bar_set_min_value(app->p_progress_bar, 0);
     mui_progress_bar_set_max_value(app->p_progress_bar, 100);
     mui_progress_bar_set_current_value(app->p_progress_bar, p_settings->oled_contrast);

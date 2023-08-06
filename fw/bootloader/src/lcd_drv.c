@@ -8,6 +8,9 @@
 #include "nrf_log.h"
 #include <stdio.h>
 
+#include "boards_defines.h"
+
+
 #ifdef OLED_TYPE_SH1106
     #define LCD_X_SIZE 132
 #else

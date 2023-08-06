@@ -34,6 +34,12 @@ hw/RevC为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打�
 
 [docs/boards-thirdparty.md](docs/boards-thirdparty.md)
 
+## OLED版本
+
+OLED版本由网友 @xiaohail 贡献，可以点[这里](https://gitlab.com/xiaohai/pixl.js)下载PCB。
+
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
+
 
 ## 编译
 

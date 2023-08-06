@@ -15,6 +15,6 @@ typedef struct {
 
 typedef enum { PLAYER_VIEW_ID_LIST, PLAYER_VIEW_ID_PLAYER } player_view_id_t;
 
-extern const mini_app_t app_player_info;
+extern mini_app_t app_player_info;
 
 #endif

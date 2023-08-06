@@ -14,6 +14,7 @@ settings_data_t m_settings_data = {.backlight = 0,
                                    .skip_driver_select = 0,
                                    .bat_mode = 0,
                                    .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
+                                   .language = LANGUAGE_ZH_HANS,
                                    .hibernate_enabled = false,
                                    .show_mem_usage = false,
                                    .anim_enabled = false};
@@ -52,6 +53,7 @@ static void validate_settings() {
     INT8_VALIDATE(m_settings_data.lcd_backlight, 0, 100, 0);
     INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 0);
     BOOL_VALIDATE(m_settings_data.anim_enabled, 0);
+    INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT, 0);
 }
 
 int32_t settings_init() {

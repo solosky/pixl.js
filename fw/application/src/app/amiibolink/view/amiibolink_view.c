@@ -6,6 +6,7 @@
 #include "nrf_pwr_mgmt.h"
 #include "ntag_def.h"
 #include "ntag_emu.h"
+#include "i18n/language.h"
 
 #define ICON_RANDOM 0xe20d
 #define ICON_NTAG 0xe1cf
@@ -87,7 +88,7 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
             sprintf(buff, "[%08x:%08x]", head, tail);
             mui_canvas_draw_utf8(p_canvas, 5, y += 15, buff);
         } else {
-            mui_canvas_draw_utf8(p_canvas, 5, y += 15, "空标签");
+            mui_canvas_draw_utf8(p_canvas, 5, y += 15, getLangString(_L_BLANK_TAG));
         }
     }
 }

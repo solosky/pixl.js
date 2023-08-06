@@ -9,6 +9,7 @@
 #include "mini_app_launcher.h"
 
 #include "settings.h"
+#include "i18n/language.h"
 
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed
@@ -42,7 +43,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
     if (string_cmp_str(app->current_folder, "/") == 0) {
         bool one_driver = (vfs_drive_enabled(VFS_DRIVE_INT) && !vfs_drive_enabled(VFS_DRIVE_EXT)) || (!vfs_drive_enabled(VFS_DRIVE_INT) && vfs_drive_enabled(VFS_DRIVE_EXT));
         settings_data_t* p_settings = settings_get_data();
-        mui_list_view_add_item(app->p_list_view, (one_driver && p_settings->skip_driver_select) ? ICON_HOME : ICON_BACK, (one_driver && p_settings->skip_driver_select) ? ">>主菜单<<" : "..", (void *)(one_driver && p_settings->skip_driver_select) ? -1 : FOLDER_LIST_PARENT);
+        mui_list_view_add_item(app->p_list_view, (one_driver && p_settings->skip_driver_select) ? ICON_HOME : ICON_BACK, (one_driver && p_settings->skip_driver_select) ? getLangString(_L_MAIN_MENU) : "..", (void *)(one_driver && p_settings->skip_driver_select) ? -1 : FOLDER_LIST_PARENT);
     } else {
         mui_list_view_add_item(app->p_list_view, ICON_BACK, "..", (void *)FOLDER_LIST_PARENT);
     }
@@ -64,7 +65,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
         }
         p_vfs_driver->close_dir(&dir);
     } else {
-        mui_list_view_add_item(app->p_list_view, ICON_ERROR, "打开文件夹失败", (void *)-1);
+        mui_list_view_add_item(app->p_list_view, ICON_ERROR, getLangString(_L_OPEN_FOLDER_FAILED), (void *)-1);
     }
 
     mui_list_view_sort(app->p_list_view, amiibo_scene_file_browser_list_item_cmp);

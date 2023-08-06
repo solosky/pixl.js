@@ -96,6 +96,7 @@
 
 #include "cache.h"
 #include "settings.h"
+#include "i18n/language.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
@@ -274,6 +275,8 @@ int main(void) {
 
     NRF_LOG_DEBUG("init done");
 
+    setLanguage(p_settings->language);
+    
     mui_t *p_mui = mui();
     mui_init(p_mui);
 
