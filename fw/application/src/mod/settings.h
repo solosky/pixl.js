@@ -20,6 +20,7 @@ typedef struct {
     uint8_t lcd_backlight;
     uint8_t oled_contrast;
     bool anim_enabled;
+    char* language;
 } settings_data_t;
 
 int32_t settings_init();

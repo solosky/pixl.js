@@ -51,7 +51,7 @@ void app_settings_on_kill(mini_app_inst_t *p_app_inst) {
 
 void app_settings_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
 
-const mini_app_t app_settings_info = {.id = MINI_APP_ID_SETTINGS,
+mini_app_t app_settings_info = {.id = MINI_APP_ID_SETTINGS,
                                       .name = "系统设置",
                                       .icon = 0xe02b,
                                       .deamon = false,

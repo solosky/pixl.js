@@ -76,7 +76,7 @@ void app_amiibolink_on_kill(mini_app_inst_t *p_app_inst) {
 
 void app_amiibolink_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
 
-const mini_app_t app_amiibolink_info = {.id = MINI_APP_ID_AMIIBOLINK,
+mini_app_t app_amiibolink_info = {.id = MINI_APP_ID_AMIIBOLINK,
                                         .name = "AmiiboLink",
                                         .icon = 0xe1c1,
                                         .deamon = false,

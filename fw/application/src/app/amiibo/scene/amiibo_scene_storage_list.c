@@ -9,6 +9,7 @@
 #include "mini_app_registry.h"
 
 #include "settings.h"
+#include "i18n/language.h"
 
 #define ICON_BACK 0xe069
 #define ICON_DRIVE 0xe1bb
@@ -48,7 +49,7 @@ static void amiibo_scene_storage_list_on_selected(mui_list_view_event_t event, m
 void amiibo_scene_storage_list_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, ">>主菜单<<", (void *)-1);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, getLangString(_L_MAIN_MENU), (void *)-1);
 
     if (vfs_drive_enabled(VFS_DRIVE_INT)) {
         mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "[Internal Flash]", (void *)VFS_DRIVE_INT);

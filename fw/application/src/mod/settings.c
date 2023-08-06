@@ -14,6 +14,7 @@ settings_data_t m_settings_data = {.backlight = 0,
                                    .skip_driver_select = 0,
                                    .bat_mode = 0,
                                    .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
+                                   .language = "zh_Hans",
                                    .hibernate_enabled = false,
                                    .show_mem_usage = false,
                                    .anim_enabled = false};
