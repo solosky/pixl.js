@@ -168,6 +168,7 @@ static void mui_anim_tick_handler() {
     if (mui_anim_ptr_array_size(m_anim_ptr_array) <= 0 && m_anim_tmr_started) {
         m_anim_tmr_started = false;
         err_code = app_timer_stop(m_anim_tick_tmr);
+        NRF_LOG_INFO("stop anim timer..");
         APP_ERROR_CHECK(err_code);
     }
 
