@@ -22,7 +22,6 @@ typedef struct  {
 	const char* notes;
 } amiibo_data_t;
 
-
 const amiibo_data_t* find_amiibo_data(uint32_t head, uint32_t tail);
 uint32_t to_little_endian_int32(uint8_t* data);
 

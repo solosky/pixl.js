@@ -70,5 +70,9 @@ void mui_list_view_set_focus(mui_list_view_t *p_view, uint16_t focus_index);
 void mui_list_view_sort(mui_list_view_t *p_view, mui_list_view_item_cmp_cb cmp_cb);
 uint16_t mui_list_view_get_focus(mui_list_view_t *p_view);
 
+static inline void* mui_list_view_get_user_data(mui_list_view_t *p_view){
+    return p_view->user_data;
+}
+
 
 #endif

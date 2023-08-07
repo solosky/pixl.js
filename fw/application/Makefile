@@ -235,6 +235,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/app_amiidb.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_main.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_view_game_series.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \

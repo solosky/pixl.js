@@ -10,34 +10,46 @@
 
 #include "settings.h"
 
-#define ICON_BACK 0xe069
-#define ICON_DRIVE 0xe1bb
-#define ICON_HOME 0xe1f0
+#include "mui_icons.h"
 
 typedef enum {
-    AMIIDB_MAIN_MENU_BACK_HOME,
-}amiidb_main_menu_t;
+    AMIIDB_MAIN_MENU_VIEW,
+    AMIIDB_MAIN_MENU_SEARCH,
+    AMIIDB_MAIN_MENU_SETTINGS,
+    AMIIDB_MAIN_MENU_DATA,
+    AMIIDB_MAIN_MENU_FAVORITE,
+    AMIIDB_MAIN_MENU_EXIT,
+} amiidb_main_menu_t;
 
 static void amiidb_scene_main_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
-                                                    mui_list_item_t *p_item){
-    amiidb_main_menu_t menu = (amiidb_main_menu_t) p_item->user_data;
-    switch(menu){
-    case AMIIDB_MAIN_MENU_BACK_HOME:
+                                                    mui_list_item_t *p_item) {
+    amiidb_main_menu_t menu = (amiidb_main_menu_t)p_item->user_data;
+    app_amiidb_t *app = mui_list_view_get_user_data(p_list_view);
+    switch (menu) {
+    case AMIIDB_MAIN_MENU_VIEW:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_VIEW_GAME_SERIES);
+        break;
+
+    case AMIIDB_MAIN_MENU_EXIT:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIDB);
         break;
     }
 }
 
-
 void amiidb_scene_main_on_enter(void *user_data) {
-    app_amiidb_t *app = (app_amiidb_t *) user_data;
-    mui_list_view_add_item(app->p_list_view, 0xe1c7, "按游戏浏览..", NULL);
-    mui_list_view_add_item(app->p_list_view, 0xe1c7, "返回主菜单", AMIIDB_MAIN_MENU_BACK_HOME);
+    app_amiidb_t *app = (app_amiidb_t *)user_data;
+    mui_list_view_add_item(app->p_list_view, ICON_VIEW, "查看..", (void *)AMIIDB_MAIN_MENU_VIEW);
+    mui_list_view_add_item(app->p_list_view, ICON_SEARCH, "搜索..", (void *)AMIIDB_MAIN_MENU_SEARCH);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, "我的收藏..", (void *)AMIIDB_MAIN_MENU_FAVORITE);
+    mui_list_view_add_item(app->p_list_view, ICON_DATA, "我的数据..", (void *)AMIIDB_MAIN_MENU_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_SETTINGS, "设置..", (void *)AMIIDB_MAIN_MENU_SETTINGS);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[退出]", (void *)AMIIDB_MAIN_MENU_EXIT);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_main_list_view_on_selected);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);
 }
 
 void amiidb_scene_main_on_exit(void *user_data) {
-
+    app_amiidb_t *app = (app_amiidb_t *)user_data;
+    mui_list_view_clear_items(app->p_list_view);
 }
