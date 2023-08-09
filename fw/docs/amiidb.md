@@ -106,3 +106,30 @@
 * Amiibo keys [已加载]
 * 数据槽位 [20]
 * [返回菜单]
+
+## 数据结构
+
+1.Amiibo: amiibo记录，包含id ，游戏系列，等信息，
+Amiibo id, amiibo key, name, character, game series
+2.Game: 以游戏纬度，组织游戏数据
+Game id, name,amiibo cnt
+3. Link: 游戏和amiibo之间的关联关系，掉落备等
+Link id, amiibo id, game id, usage
+4.Fav: 收藏记录
+Fav id, Amiibo id, game id
+5.FavFolder: 收藏夹记录，可以通过文件夹记录
+6.Figure: 用户保存的游戏数据
+7.i18n: 翻译记录
+I18n id, obj type, obj id, lang, text
+8.Avatar: 图片记录
+Amiibo id, tag, image data
+
+
+收藏实现方式一
+每个收藏夹对应一个文件夹
+每个收藏创建一个amiibo key对应的文件
+
+用户保存游戏数据实现方式
+固定一个文件夹，每个数据文件按ntag-xx.bin的方式保存
+
+做一个web界面用户更新数据？

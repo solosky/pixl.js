@@ -1,0 +1,63 @@
+{
+    "amiibo": [
+        {
+            "id": 1,
+            "head": "00000000",
+            "tail": "00000002",
+            "name": {
+                "en":"Minda & Wolf link",
+                "jp":"ミンダとワルフリンク",
+                "zh":"林克狼"
+            }
+        },
+        {
+            "id": 2,
+            "head": "00000000",
+            "tail": "00340102",
+            "name": {
+                "en":"Minda & Wolf link",
+                "jp":"ミンダとワルフリンク",
+                "zh":"林克狼"
+            } 
+            
+        }
+    ],
+    "game": [
+        {
+            "id": 1,
+            "name": {
+                "en": "Mario Kart 8",
+                "jp": "マリオカート8",
+                "zh": "马里奥赛车8"
+            }
+        },
+        {
+            "id": 2,
+            "name":{
+                "en": "Mario Kart 8 Deluxe",
+                "jp": "マリオカート8デラックス",
+                "zh": "马里奥赛车8 豪华版"
+            }
+        }
+    ],
+    "link": [
+        {
+            "game_id": 1,
+            "amiibo_id": 1,
+            "usage": {
+                "en": "Mario Kart 8",
+                "jp": "マリオカート8",
+                "zh": "马里奥赛车8"
+            }
+        },
+        {
+            "game_id": 1,
+            "amiibo_id": 2,
+            "usage": {
+                "en": "Mario Kart 8",
+                "jp": "マリオカート8",
+                "zh": "马里奥赛车8"
+            }
+        }
+    ]
+}
