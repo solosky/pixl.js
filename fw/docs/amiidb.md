@@ -133,3 +133,95 @@ Amiibo id, tag, image data
 固定一个文件夹，每个数据文件按ntag-xx.bin的方式保存
 
 做一个web界面用户更新数据？
+
+## 数据库数据格式
+
+db_header 
+------------------------------
+magic: 4 bytes fixed bytes: AMDB
+version: 2 bytes
+db_amiibo_offset: 4 bytes
+db_game_offset： 4 bytes
+db_link_offset： 4 bytes
+string_pool_offset: 4 bytes
+
+db_amiibo
+------------------------------
+record_header + record_data
+
+record_header(4 bytes):
+* version: 1 bytes
+* flags: 1 bytes
+* record_entry_size: 2 bytes
+* record_cnt: 2 bytes
+
+amiibo_record(14 bytes, fixed length):
+* id: 2 bytes
+* head: 4 bytes
+* tail: 4 bytes
+* name_en: 4 bytes (offset in string pool)
+* name_cn: 4 bytes (offset in string pool)
+-----------------------------
+
+db_game
+-----------------------------
+record_header + record_data
+
+record_header(4 bytes):
+* version: 1 bytes
+* flags: 1 bytes
+* record_entry_size: 2 bytes
+* record_cnt: 2 bytes
+
+record_data(N * game_record):
+
+game_record(18 bytes):
+* id: 2 bytes
+* parent_id: 2 bytes 
+* name_en: 4 bytes (offset in string pool)
+* name_cn: 4 bytes (offset in string pool)
+* link_cnt: 2 bytes
+* link_data: 4 bytes begin index of link_record
+-----------------------------
+
+
+db_link
+-----------------------------
+record_header + record_data
+
+record_header(4 bytes):
+* version: 1 bytes
+* flags: 1 bytes
+* record_entry_size: 2 bytes
+* record_cnt: 2 bytes
+
+record_data(N * link_record):
+
+link_record(16 bytes):
+* game_id: 2 bytes
+* amiibo_id: 2 bytes
+* usage_en: 4 bytes (offset in string pool)
+* usage_cn: 4 bytes (offset in string pool)
+----------------------------
+
+string_pool
+----------------------------
+record_header + record_data
+
+record_header(4 bytes):
+* version: 1 bytes
+* flags: 1 bytes
+* record_entry_size: 2 bytes: 0xFFFF NOT DEFINED
+* record_cnt: 2 bytes
+
+record_data(N * link_record):
+
+pool_record(X bytes):
+* str: N bytes
+* end: 1 bytes : \0 as string terminater
+----------------------------
+
+flags: 
+0000 0001: record db
+0000 0010: string pool
+0000 0100: data pool

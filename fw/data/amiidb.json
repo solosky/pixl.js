@@ -5,9 +5,9 @@
             "head": "00000000",
             "tail": "00000002",
             "name": {
-                "en":"Minda & Wolf link",
-                "jp":"ミンダとワルフリンク",
-                "zh":"林克狼"
+                "en": "Minda & Wolf link",
+                "jp": "ミンダとワルフリンク",
+                "zh": "林克狼"
             }
         },
         {
@@ -15,11 +15,10 @@
             "head": "00000000",
             "tail": "00340102",
             "name": {
-                "en":"Minda & Wolf link",
-                "jp":"ミンダとワルフリンク",
-                "zh":"林克狼"
-            } 
-            
+                "en": "Minda & Wolf link",
+                "jp": "ミンダとワルフリンク",
+                "zh": "林克狼"
+            }
         }
     ],
     "game": [
@@ -29,35 +28,80 @@
                 "en": "Mario Kart 8",
                 "jp": "マリオカート8",
                 "zh": "马里奥赛车8"
-            }
+            },
+            "links": [
+                {
+                    "amiibo_id": 1,
+                    "usage": {
+                        "en": "Mario Kart 8",
+                        "jp": "マリオカート8",
+                        "zh": "马里奥赛车8"
+                    }
+                },
+                {
+                    "amiibo_id": 1,
+                    "usage": {
+                        "en": "Mario Kart 8",
+                        "jp": "マリオカート8",
+                        "zh": "马里奥赛车8"
+                    }
+                }
+            ]
         },
         {
             "id": 2,
-            "name":{
+            "name": {
                 "en": "Mario Kart 8 Deluxe",
                 "jp": "マリオカート8デラックス",
                 "zh": "马里奥赛车8 豪华版"
-            }
-        }
-    ],
-    "link": [
-        {
-            "game_id": 1,
-            "amiibo_id": 1,
-            "usage": {
-                "en": "Mario Kart 8",
-                "jp": "マリオカート8",
-                "zh": "马里奥赛车8"
-            }
+            },
+            "links": [
+                {
+                    "amiibo_id": 1,
+                    "usage": {
+                        "en": "Mario Kart 8",
+                        "jp": "マリオカート8",
+                        "zh": "马里奥赛车8"
+                    }
+                },
+                {
+                    "amiibo_id": 1,
+                    "usage": {
+                        "en": "Mario Kart 8",
+                        "jp": "マリオカート8",
+                        "zh": "马里奥赛车8"
+                    }
+                }
+            ]
         },
         {
-            "game_id": 1,
-            "amiibo_id": 2,
-            "usage": {
-                "en": "Mario Kart 8",
-                "jp": "マリオカート8",
-                "zh": "马里奥赛车8"
-            }
+            "id": 3,
+            "name": {
+                "en": "Animal Crossing",
+                "jp": "マリオカート8デラックス",
+                "zh": "动物森友会"
+            },
+            "links": [],
+            "games": [
+                {
+                    "id": 4,
+                    "name": {
+                        "en": "100 Animal Series1",
+                        "jp": "ニューハイジングス",
+                        "zh": "动森100村民 1"
+                    },
+                    "link": [
+                        {
+                            "amiibo_id": 1,
+                            "usage": {
+                                "en": "Mario Kart 8",
+                                "jp": "マリオカート8",
+                                "zh": "马里奥赛车8"
+                            }
+                        }
+                    ]
+                }
+            ]
         }
     ]
 }
