@@ -235,7 +235,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/app_amiidb.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_main.c \
-  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_view_game_series.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_game_list.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -259,6 +259,9 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/zh_TW.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
+  $(PROJ_DIR)/amiidb/db_amiibo.c \
+  $(PROJ_DIR)/amiidb/db_game.c \
+  $(PROJ_DIR)/amiidb/db_link.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -470,6 +473,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mod/vfs \
   $(PROJ_DIR)/mod/ble \
   $(PROJ_DIR)/mod/df \
+  $(PROJ_DIR)/amiidb \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/ble \

@@ -144,6 +144,7 @@ db_amiibo_offset: 4 bytes
 db_game_offset： 4 bytes
 db_link_offset： 4 bytes
 string_pool_offset: 4 bytes
+data_pool_offset: 4 bytes
 
 db_amiibo
 ------------------------------
@@ -217,8 +218,8 @@ record_header(4 bytes):
 record_data(N * link_record):
 
 pool_record(X bytes):
-* str: N bytes
-* end: 1 bytes : \0 as string terminater
+* length: 2 bytes
+* data: X bytes + with trail \0 bytes
 ----------------------------
 
 flags: 

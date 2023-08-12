@@ -27,7 +27,7 @@ static void amiidb_scene_main_list_view_on_selected(mui_list_view_event_t event,
     app_amiidb_t *app = mui_list_view_get_user_data(p_list_view);
     switch (menu) {
     case AMIIDB_MAIN_MENU_VIEW:
-        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_VIEW_GAME_SERIES);
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_GAME_LIST);
         break;
 
     case AMIIDB_MAIN_MENU_EXIT:
