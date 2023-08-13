@@ -1,10 +1,10 @@
 #include "amiibo_helper.h"
 #include "amiibo_data.h"
+#include "db_header.h"
 #include "nfc3d/amiibo.h"
 #include "nrf_log.h"
 #include "ntag_store.h"
 #include "vfs.h"
-#include "db_header.h"
 
 #include "utils.h"
 
@@ -22,11 +22,14 @@ static nfc3d_amiibo_keys amiibo_keys;
 static bool amiibo_keys_loaded;
 
 // plain amiibo data static code
-static const uint8_t Internal_StaticLock[8] = {0x65, 0x48, 0x0F, 0xE0, 0xF1, 0x10, 0xFF, 0xEE};// 0x0
-static const uint8_t A5Static[4] = {0xA5, 0x00, 0x00, 0x00};// 0x28
-static const uint8_t DynLock[4] = {0x01, 0x00, 0x0F, 0xBD};// 0x208
-static const uint8_t Cfg0[4] = {0x00, 0x00, 0x00, 0x04};// 0x20C
-static const uint8_t Cfg1[4] = {0x5F, 0x00, 0x00, 0x00};// 0x210
+static const uint8_t Internal_StaticLock[8] = {0x65, 0x48, 0x0F, 0xE0, 0xF1, 0x10, 0xFF, 0xEE}; // 0x0
+static const uint8_t A5Static[4] = {0xA5, 0x00, 0x00, 0x00};                                    // 0x28
+static const uint8_t DynLock[4] = {0x01, 0x00, 0x0F, 0xBD};                                     // 0x208
+static const uint8_t Cfg0[4] = {0x00, 0x00, 0x00, 0x04};                                        // 0x20C
+static const uint8_t Cfg1[4] = {0x5F, 0x00, 0x00, 0x00};                                        // 0x210
+
+static const uint8_t LOCK[20] = {0x01, 0x00, 0x0f, 0xbd, 0x00, 0x00, 0x00, 0x04, 0x5f, 0x00,
+                                 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 void amiibo_helper_get_uuid(ntag_t *ntag, uint8_t *uid1) {
     uid1[0] = ntag->data[0];
@@ -73,22 +76,23 @@ void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
 // 使用uuid生成amiibo数据
 void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
     // set keygen salt
-    ret_code_t err_code = utils_rand_bytes(buffer+0x1E8, 32);
+    ret_code_t err_code = utils_rand_bytes(buffer + 0x1E8, 32);
     VERIFY_SUCCESS(err_code);
-    
+
     memcpy(buffer, Internal_StaticLock, 8);
     // set BCC
     buffer[0] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
 
     amiibo_helper_replace_uuid(buffer, uuid);
-    
-    memcpy(buffer+0x28, A5Static, 4);
-    memcpy(buffer+0x208, DynLock, 4);
-    memcpy(buffer+0x20C, Cfg0, 4);
-    memcpy(buffer+0x210, Cfg1, 4);
+    amiibo_helper_replace_password(buffer, uuid);
+
+    memcpy(buffer + 0x28, A5Static, 4);
+    memcpy(buffer + 0x208, DynLock, 4);
+    memcpy(buffer + 0x20C, Cfg0, 4);
+    memcpy(buffer + 0x210, Cfg1, 4);
     // auth magic value
-    buffer[0x218] = 0x80;
-    buffer[0x219] = 0x80;
+    buffer[0x218] = 0;
+    buffer[0x219] = 0;
 }
 
 ret_code_t amiibo_helper_load_keys(const uint8_t *data) {
@@ -134,7 +138,7 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     }
 
     err_code = ntag_store_uuid_rand(&ntag_new);
-    if(err_code != NRF_SUCCESS){
+    if (err_code != NRF_SUCCESS) {
         return err_code;
     }
 
@@ -146,7 +150,7 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     return err_code;
 }
 
-ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* ntag) {
+ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t *ntag) {
     if (!amiibo_helper_is_key_loaded()) {
         return NRF_ERROR_INVALID_DATA;
     }
@@ -165,14 +169,11 @@ ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* n
     // 填充特定数据
     amiibo_helper_set_defaults(modified, uuid);
 
-    //TODO: TEST ONLY
-    vfs_get_driver(VFS_DRIVE_EXT)->write_file_data("/plain.bin", modified, NTAG215_SIZE);
-
     // encrypt
     nfc3d_amiibo_pack(&amiibo_keys, modified, ntag->data);
 
-    //TODO: TEST ONLY
-    vfs_get_driver(VFS_DRIVE_EXT)->write_file_data("/encrypted.bin", ntag->data, NTAG215_SIZE);
+    // 最后20位字节，非常关键
+    memcpy(ntag->data + 520, LOCK, sizeof(LOCK));
 
     return NRF_SUCCESS;
 }
@@ -196,7 +197,7 @@ bool is_valid_amiibo_ntag(const ntag_t *ntag) {
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
 
-    if(ntag->data[0]!= 0x4) {
+    if (ntag->data[0] != 0x4) {
         return false;
     }
 
