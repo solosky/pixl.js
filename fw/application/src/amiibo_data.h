@@ -11,18 +11,6 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-
-typedef struct  {
-	const uint32_t head;
-	const uint32_t tail;
-	const char* amiibo_series;
-	const char* game_series;
-	const char* character;
-	const char* name;
-	const char* notes;
-} amiibo_data_t;
-
-const amiibo_data_t* find_amiibo_data(uint32_t head, uint32_t tail);
 uint32_t to_little_endian_int32(uint8_t* data);
 
 

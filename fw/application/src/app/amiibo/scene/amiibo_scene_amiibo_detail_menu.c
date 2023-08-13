@@ -15,6 +15,7 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 #include "i18n/language.h"
+#include "db_header.h"
 
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
@@ -58,7 +59,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
         uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
 
-        const amiibo_data_t *amd = find_amiibo_data(head, tail);
+        const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
         if (amd == NULL) {
             NRF_LOG_WARNING("amiibo not found:[%08x:%08x]", head, tail);
             return;

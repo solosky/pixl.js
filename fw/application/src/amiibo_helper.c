@@ -4,6 +4,7 @@
 #include "nrf_log.h"
 #include "ntag_store.h"
 #include "vfs.h"
+#include "db_header.h"
 
 #include "utils.h"
 
@@ -11,6 +12,7 @@
 
 #define UUID_OFFSET 468
 #define AMII_ID_OFFSET 476
+#define AMII_ID_OFFSET2 0x54
 #define PASSWORD_OFFSET 532
 #define PASSWORD_SIZE 4
 #define UUID_SIZE 7
@@ -77,6 +79,8 @@ void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
     memcpy(buffer, Internal_StaticLock, 8);
     // set BCC
     buffer[0] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
+
+    amiibo_helper_replace_uuid(buffer, uuid);
     
     memcpy(buffer+0x28, A5Static, 4);
     memcpy(buffer+0x208, DynLock, 4);
@@ -152,13 +156,23 @@ ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* n
     amiibo_helper_get_uuid(ntag, uuid);
 
     uint8_t modified[NTAG215_SIZE];
+    memset(modified, 0, NTAG215_SIZE);
     // 填充amiibo id
     int32_to_bytes_le(head, modified + AMII_ID_OFFSET);
     int32_to_bytes_le(tail, modified + AMII_ID_OFFSET + 4);
+    int32_to_bytes_le(head, modified + AMII_ID_OFFSET2);
+    int32_to_bytes_le(tail, modified + AMII_ID_OFFSET2 + 4);
     // 填充特定数据
     amiibo_helper_set_defaults(modified, uuid);
+
+    //TODO: TEST ONLY
+    vfs_get_driver(VFS_DRIVE_EXT)->write_file_data("/plain.bin", modified, NTAG215_SIZE);
+
     // encrypt
     nfc3d_amiibo_pack(&amiibo_keys, modified, ntag->data);
+
+    //TODO: TEST ONLY
+    vfs_get_driver(VFS_DRIVE_EXT)->write_file_data("/encrypted.bin", ntag->data, NTAG215_SIZE);
 
     return NRF_SUCCESS;
 }
@@ -186,7 +200,7 @@ bool is_valid_amiibo_ntag(const ntag_t *ntag) {
         return false;
     }
 
-    const amiibo_data_t *amd = find_amiibo_data(head, tail);
+    const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
     if (amd != NULL) {
         return true;
     }

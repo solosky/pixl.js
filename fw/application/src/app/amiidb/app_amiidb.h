@@ -8,23 +8,24 @@
 #include "mui_text_input.h"
 #include "ntag_def.h"
 #include "vfs.h"
+#include "amiibo_detail_view.h"
 
 #include "mlib_common.h"
+#include "db_header.h"
 
 
 typedef struct {
     mui_list_view_t *p_list_view;
     mui_text_input_t *p_text_input;
     mui_msg_box_t *p_msg_box;
+    amiibo_detail_view_t * p_detail_view;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
     ntag_t ntag;
     
     /** file browser*/
-    vfs_drive_t current_drive;
-    string_t current_folder;
-    string_t current_file;
-    uint32_t current_focus_index;
+    uint8_t cur_game_id;
+    const db_amiibo_t * cur_amiibo;
 
 } app_amiidb_t;
 

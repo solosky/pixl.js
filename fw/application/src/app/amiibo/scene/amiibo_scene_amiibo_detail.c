@@ -12,6 +12,7 @@
 #include "ntag_store.h"
 #include "settings.h"
 #include "i18n/language.h"
+#include "db_header.h"
 
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
@@ -107,12 +108,12 @@ static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
         uint32_t head = to_little_endian_int32(&p_ntag->data[84]);
         uint32_t tail = to_little_endian_int32(&p_ntag->data[88]);
 
-        const amiibo_data_t *amd = find_amiibo_data(head, tail);
+        const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
 
         if (amd && strcmp(string_get_cstr(app->current_file), "new.bin") == 0) {
             char new_path[VFS_MAX_PATH_LEN];
             char new_name[VFS_MAX_NAME_LEN];
-            snprintf(new_name, sizeof(new_name), "%s.bin", amd->name);
+            snprintf(new_name, sizeof(new_name), "%s.bin", amd->name_en);
             cwalk_append_segment(new_path, string_get_cstr(app->current_folder), new_name);
             res = p_driver->rename_file(path, new_path);
 

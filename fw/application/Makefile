@@ -171,7 +171,6 @@ SRC_FILES += \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
-  $(PROJ_DIR)/amiibo_data.c \
   $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
@@ -236,6 +235,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_main.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_game_list.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -262,6 +262,7 @@ SRC_FILES += \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
   $(PROJ_DIR)/amiidb/db_game.c \
   $(PROJ_DIR)/amiidb/db_link.c \
+  $(PROJ_DIR)/amiidb/db_search.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \

@@ -19,7 +19,7 @@ static void app_amiidb_on_kill(mini_app_inst_t *p_app_inst);
 static void app_amiidb_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event);
 
 static void app_amiidb_try_mount_drive(app_amiidb_t *p_app_inst) {
-    vfs_driver_t *p_driver = vfs_get_driver(p_app_inst->current_drive);
+    vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
     if (p_driver->mounted()) {
         amiibo_helper_try_load_amiibo_keys_from_vfs();
     } else {
@@ -41,11 +41,11 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     mui_text_input_set_user_data(p_app_handle->p_text_input, p_app_handle);
     p_app_handle->p_msg_box = mui_msg_box_create();
     mui_msg_box_set_user_data(p_app_handle->p_msg_box, p_app_handle);
+    p_app_handle->p_detail_view = amiibo_detail_view_create();
+    p_app_handle->p_detail_view->user_data = p_app_handle;
 
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
-    string_init(p_app_handle->current_file);
-    string_init(p_app_handle->current_folder);
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, amiidb_scene_defines, AMIIDB_SCENE_MAX);
@@ -53,14 +53,16 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
 
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_LIST,
                                  mui_list_view_get_view(p_app_handle->p_list_view));
-//    mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_DETAIL,
-//                                 amiidb_detail_view_get_view(p_app_handle->p_amiidb_detail_view));
+    mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_DETAIL,
+                                 amiibo_detail_view_get_view(p_app_handle->p_detail_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_INPUT,
                                  mui_text_input_get_view(p_app_handle->p_text_input));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_MSG_BOX,
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
+
+    app_amiidb_try_mount_drive(p_app_handle);
 
     settings_data_t *p_settings = settings_get_data();
 
@@ -127,9 +129,6 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
     mui_msg_box_free(p_app_handle->p_msg_box);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
 //    amiidb_detail_view_free(p_app_handle->p_amiidb_detail_view);
-
-    string_clear(p_app_handle->current_file);
-    string_clear(p_app_handle->current_folder);
 //    string_array_clear(p_app_handle->amiidb_files);
 
     mui_mem_free(p_app_handle);
