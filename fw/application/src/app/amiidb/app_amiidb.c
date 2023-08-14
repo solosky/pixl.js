@@ -41,8 +41,8 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     mui_text_input_set_user_data(p_app_handle->p_text_input, p_app_handle);
     p_app_handle->p_msg_box = mui_msg_box_create();
     mui_msg_box_set_user_data(p_app_handle->p_msg_box, p_app_handle);
-    p_app_handle->p_detail_view = amiibo_detail_view_create();
-    p_app_handle->p_detail_view->user_data = p_app_handle;
+    p_app_handle->p_amiibo_view = amiibo_view_create();
+    p_app_handle->p_amiibo_view->user_data = p_app_handle;
 
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
@@ -54,7 +54,7 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_LIST,
                                  mui_list_view_get_view(p_app_handle->p_list_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_DETAIL,
-                                 amiibo_detail_view_get_view(p_app_handle->p_detail_view));
+                                 amiibo_view_get_view(p_app_handle->p_amiibo_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_INPUT,
                                  mui_text_input_get_view(p_app_handle->p_text_input));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIDB_VIEW_ID_MSG_BOX,

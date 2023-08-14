@@ -8,7 +8,7 @@
 #include "mui_text_input.h"
 #include "ntag_def.h"
 #include "vfs.h"
-#include "amiibo_detail_view.h"
+#include "amiibo_view.h"
 
 #include "mlib_common.h"
 #include "db_header.h"
@@ -18,7 +18,7 @@ typedef struct {
     mui_list_view_t *p_list_view;
     mui_text_input_t *p_text_input;
     mui_msg_box_t *p_msg_box;
-    amiibo_detail_view_t * p_detail_view;
+    amiibo_view_t * p_amiibo_view;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
     ntag_t ntag;

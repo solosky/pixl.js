@@ -109,6 +109,8 @@ extern const char* lang_zh_tw[_L_COUNT];
 // 获取字符串的函数
 const char* getLangString(L_StringID stringID);
 void setLanguage(Language lang);
+Language getLanguage();
 const char* getLangDesc(Language lang);
+
 
 #endif // LANGUAGE_H

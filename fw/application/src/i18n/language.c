@@ -29,3 +29,7 @@ const char* getLangDesc(Language lang){
         return "繁體中文(臺灣)";
     }
 }
+
+Language getLanguage() {
+    return currentLanguage;
+}

@@ -35,5 +35,6 @@ extern const db_game_t game_list[];
 extern const db_link_t link_list[];
 
 const db_amiibo_t * get_amiibo_by_id(uint32_t head, uint32_t tail);
+const db_link_t* get_link_by_id(uint8_t game_id, uint32_t head, uint32_t tail);
 
 #endif

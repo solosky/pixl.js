@@ -236,6 +236,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_main.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_game_list.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_amiibo_detail.c \
+  $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -494,6 +495,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/amiibolink/scene \
   $(PROJ_DIR)/app/amiidb \
   $(PROJ_DIR)/app/amiidb\scene \
+  $(PROJ_DIR)/app/amiidb\view \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \

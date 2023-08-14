@@ -2,7 +2,6 @@
 #include "amiidb_scene.h"
 #include "app_amiidb.h"
 #include "mui_list_view.h"
-#include "amiibo_detail_view.h"
 
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
@@ -14,15 +13,19 @@
 
 APP_TIMER_DEF(m_amiibo_gen_delay_timer);
 
-static void ntag_random(void *p_context) {
-    app_amiidb_t *app = p_context;
-    ret_code_t err_code;
-    ntag_t *ntag_current = &app->ntag;
 
-    err_code = amiibo_helper_rand_amiibo_uuid(ntag_current);
-    if (err_code == NRF_SUCCESS) {
-//        ntag_emu_set_tag(&app->ntag);
+static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag) {
+
+    db_amiibo_t *app = context;
+
+    if (type == NTAG_EVENT_TYPE_WRITTEN) {
         mui_update(mui());
+    } else if (type == NTAG_EVENT_TYPE_READ) {
+        settings_data_t* p_settings = settings_get_data();
+        if (p_settings->auto_gen_amiibo) {
+            app_timer_stop(m_amiibo_gen_delay_timer);
+            app_timer_start(m_amiibo_gen_delay_timer, APP_TIMER_TICKS(1000), app);
+        }
     }
 }
 
@@ -32,13 +35,20 @@ static void ntag_reload(app_amiidb_t* app){
     ntag_emu_set_tag(&app->ntag);
 }
 
+static void ntag_random(void *p_context) {
+    app_amiidb_t *app = p_context;
+    ntag_reload(app);
+    mui_update(mui());
+}
 
-static void amiidb_scene_amiibo_detail_view_on_event(amiibo_detail_view_event_t event, amiibo_detail_view_t *p_view) {
+
+
+static void amiidb_scene_amiibo_view_on_event(amiibo_view_event_t event, amiibo_view_t *p_view) {
     app_amiidb_t *app = p_view->user_data;
-    if (event == AMIIBO_DETAIL_VIEW_EVENT_MENU) {
+    if (event == AMIIBO_VIEW_EVENT_MENU) {
         //mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL_MENU);
-    } else if (event == AMIIBO_DETAIL_VIEW_EVENT_UPDATE) {
-        uint8_t focus = amiibo_detail_view_get_focus(app->p_detail_view);
+    } else if (event == AMIIBO_VIEW_EVENT_UPDATE) {
+        uint8_t focus = amiibo_view_get_focus(app->p_amiibo_view);
 
         const db_link_t *p_link = link_list;
         uint8_t index = 0;
@@ -60,8 +70,8 @@ static void amiidb_scene_amiibo_detail_view_on_event(amiibo_detail_view_event_t 
 
 void amiidb_scene_amiibo_detail_on_enter(void *user_data) {
     app_amiidb_t *app = user_data;
-    amiibo_detail_view_set_ntag(app->p_detail_view, &app->ntag);
-    amiibo_detail_view_set_event_cb(app->p_detail_view, amiidb_scene_amiibo_detail_view_on_event);
+    amiibo_view_set_ntag(app->p_amiibo_view, &app->ntag);
+    amiibo_view_set_event_cb(app->p_amiibo_view, amiidb_scene_amiibo_view_on_event);
 
     //total count and focus
     uint8_t total = 0;
@@ -79,8 +89,11 @@ void amiidb_scene_amiibo_detail_on_enter(void *user_data) {
 
     ntag_reload(app);
 
-    amiibo_detail_view_set_max_ntags(app->p_detail_view, total);
-    amiibo_detail_view_set_focus(app->p_detail_view, focus);
+    ntag_emu_set_update_cb(ntag_update_cb, app);
+
+    amiibo_view_set_max_ntags(app->p_amiibo_view, total);
+    amiibo_view_set_focus(app->p_amiibo_view, focus);
+    amiibo_view_set_game_id(app->p_amiibo_view, app->cur_game_id);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_DETAIL);
     int32_t err_code = app_timer_create(&m_amiibo_gen_delay_timer, APP_TIMER_MODE_SINGLE_SHOT, ntag_random);
