@@ -1,5 +1,4 @@
 #include "amiibo_helper.h"
-#include "amiibo_data.h"
 #include "db_header.h"
 #include "nfc3d/amiibo.h"
 #include "nrf_log.h"
@@ -193,6 +192,20 @@ void amiibo_helper_try_load_amiibo_keys_from_vfs() {
     }
 }
 
+uint32_t to_little_endian_int32(uint8_t* data){
+    uint32_t val = 0;
+    val += data[0];
+    val <<= 8;
+    val += data[1];
+    val <<= 8;
+    val += data[2];
+    val <<=8;
+    val += data[3];
+    return val;
+}
+
+
+
 bool is_valid_amiibo_ntag(const ntag_t *ntag) {
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
@@ -211,3 +224,4 @@ bool is_valid_amiibo_ntag(const ntag_t *ntag) {
 
     return false;
 }
+

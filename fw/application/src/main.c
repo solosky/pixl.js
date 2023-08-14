@@ -74,8 +74,6 @@
 
 #include "ntag_store.h"
 
-#include "amiibo_data.h"
-
 #include "bat.h"
 #include "ble_main.h"
 

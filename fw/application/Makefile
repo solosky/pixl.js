@@ -171,7 +171,6 @@ SRC_FILES += \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
-  $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \

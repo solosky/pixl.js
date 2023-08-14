@@ -1,5 +1,4 @@
 #include "amiibolink_view.h"
-#include "amiibo_data.h"
 #include "amiibo_helper.h"
 #include "mui_element.h"
 #include "nrf_log.h"

@@ -1,5 +1,4 @@
 #include "amiibo_view.h"
-#include "amiibo_data.h"
 #include "db_header.h"
 #include "i18n/language.h"
 #include "mui_element.h"

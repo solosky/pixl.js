@@ -1,4 +1,3 @@
-#include "amiibo_data.h"
 #include "amiibo_helper.h"
 #include "amiibo_scene.h"
 #include "app_amiibo.h"
