@@ -46,7 +46,7 @@ static void ntag_random(void *p_context) {
 static void amiidb_scene_amiibo_view_on_event(amiibo_view_event_t event, amiibo_view_t *p_view) {
     app_amiidb_t *app = p_view->user_data;
     if (event == AMIIBO_VIEW_EVENT_MENU) {
-        //mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL_MENU);
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL_MENU);
     } else if (event == AMIIBO_VIEW_EVENT_UPDATE) {
         uint8_t focus = amiibo_view_get_focus(app->p_amiibo_view);
 
@@ -75,13 +75,13 @@ void amiidb_scene_amiibo_detail_on_enter(void *user_data) {
 
     //total count and focus
     uint8_t total = 0;
-    uint8_t focus = 0;
+    uint8_t focus = -1;
     const db_link_t *p_link = link_list;
     while (p_link->game_id > 0) {
         if(p_link->game_id == app->cur_game_id){
             total++;
             if(p_link->head == app->cur_amiibo->head && p_link->tail == app->cur_amiibo->tail){
-                focus = total;
+                focus = total - 1;
             }
         }
         p_link++;
@@ -92,7 +92,7 @@ void amiidb_scene_amiibo_detail_on_enter(void *user_data) {
     ntag_emu_set_update_cb(ntag_update_cb, app);
 
     amiibo_view_set_max_ntags(app->p_amiibo_view, total);
-    amiibo_view_set_focus(app->p_amiibo_view, focus);
+    amiibo_view_set_focus(app->p_amiibo_view, focus >= 0 ? focus : 0);
     amiibo_view_set_game_id(app->p_amiibo_view, app->cur_game_id);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_DETAIL);
