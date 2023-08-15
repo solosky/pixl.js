@@ -24,8 +24,10 @@ typedef struct {
     ntag_t ntag;
     
     /** file browser*/
-    uint8_t cur_game_id;
     const db_amiibo_t * cur_amiibo;
+    uint16_t game_id_path[8];
+    uint8_t game_id_index;
+    uint8_t link_page_index;
 
 } app_amiidb_t;
 

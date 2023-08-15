@@ -51,5 +51,7 @@ const db_game_t game_list[] = {
 {49, 0, "Yu-Gi-Oh! Rush Duel Saikyo Battle Royale ", "游戏王：激斗大逃杀", 0, 7}, 
 {50, 0, "Dark Souls Remastered", "黑暗之魂：重制版", 0, 1}, 
 {51, 0, "Super Mario Party", "超级马力欧派对", 84, 15}, 
+{52, 11, "100 Animals Series1", "动森100村民1", 0, 0}, 
+{53, 11, "100 Animals Series2", "动森100村民2", 0, 0}, 
 {0, 0, 0, 0, 0}
 };

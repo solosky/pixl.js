@@ -121,5 +121,3 @@ void amiibo_view_free(amiibo_view_t *p_view) {
 
 mui_view_t *amiibo_view_get_view(amiibo_view_t *p_view) { return p_view->p_view; }
 
-void amiibo_view_set_user_data(amiibo_view_t *p_view, void *user_data) { p_view->user_data = user_data; }
-void amiibo_view_set_ntag(amiibo_view_t *p_view, ntag_t *ntag) { p_view->ntag = ntag; }

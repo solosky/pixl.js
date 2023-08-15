@@ -31,8 +31,8 @@ struct amiibo_view_s {
 amiibo_view_t *amiibo_view_create();
 void amiibo_view_free(amiibo_view_t *p_view);
 mui_view_t *amiibo_view_get_view(amiibo_view_t *p_view);
-void amiibo_view_set_user_data(amiibo_view_t *p_view, void *user_data);
-void amiibo_view_set_ntag(amiibo_view_t *p_view, ntag_t *ntag);
+inline void amiibo_view_set_user_data(amiibo_view_t *p_view, void *user_data) { p_view->user_data = user_data; }
+inline void amiibo_view_set_ntag(amiibo_view_t *p_view, ntag_t *ntag) { p_view->ntag = ntag; }
 
 inline void amiibo_view_set_event_cb(amiibo_view_t *p_view, amiibo_view_event_cb event_cb) {
     p_view->event_cb = event_cb;

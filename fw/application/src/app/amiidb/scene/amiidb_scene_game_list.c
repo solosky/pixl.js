@@ -7,6 +7,9 @@
 #include "db_header.h"
 #include "mui_icons.h"
 #include "settings.h"
+#include <math.h>
+
+#define LINK_CNT_PER_PAGE 20
 
 static void amiidb_scene_game_list_reload(app_amiidb_t *app);
 
@@ -16,17 +19,29 @@ static void amiidb_scene_game_list_list_view_on_selected(mui_list_view_event_t e
     app_amiidb_t *app = mui_list_view_get_user_data(p_list_view);
     switch (icon) {
     case ICON_EXIT:
-        if (app->cur_game_id == 0) {
-            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        if (app->game_id_index <= 0) {
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
         } else {
-            app->cur_game_id = 0; // TODO
+            app->game_id_index--;
+            app->link_page_index = 0;
             amiidb_scene_game_list_reload(app);
         }
         break;
 
     case ICON_FOLDER: {
         const db_game_t *p_game = p_item->user_data;
-        app->cur_game_id = p_game->game_id;
+        app->game_id_path[++app->game_id_index] = p_game->game_id;
+        amiidb_scene_game_list_reload(app);
+    } break;
+
+
+    case ICON_PREV: {
+        app->link_page_index--;
+        amiidb_scene_game_list_reload(app);
+    } break;
+
+    case ICON_NEXT: {
+        app->link_page_index++;
         amiidb_scene_game_list_reload(app);
     } break;
 
@@ -59,36 +74,59 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
 
-    // add game list
-    const db_game_t *p_game = game_list;
-    while (p_game->game_id > 0 && p_game->parent_game_id == app->cur_game_id) {
-        sprintf(txt, "%s (%d)", (p_settings_data->language == LANGUAGE_ZH_HANS ? p_game->name_cn : p_game->name_en),
-                p_game->link_cnt);
-        mui_list_view_add_item(app->p_list_view, ICON_FOLDER, txt, (void *)p_game);
-        p_game++;
-    }
-    // game sort by order
-    mui_list_view_sort(app->p_list_view, amiidb_scene_game_list_list_view_sort_cb);
-
-    // add link list
-    const db_link_t *p_link = link_list;
-    while (p_link->game_id > 0) {
-        if (p_link->game_id == app->cur_game_id) {
-            const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_link->head, p_link->tail);
-            if (p_amiibo) {
-                const char *name =
-                    p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
-                mui_list_view_add_item(app->p_list_view, ICON_FILE, name, (void *)p_amiibo);
-            } else {
-                sprintf(txt, "Amiibo[%08x:%08x]", p_link->head, p_link->tail);
-                mui_list_view_add_item(app->p_list_view, ICON_FILE, txt, (void *)p_amiibo);
+    // add game list TODO FIX THIS
+    if(app->link_page_index == 0) {
+        uint8_t cur_game_id = app->game_id_path[app->game_id_index];
+        const db_game_t *p_game = game_list;
+        while (p_game->game_id > 0) {
+            if (p_game->parent_game_id == cur_game_id) {
+                sprintf(txt, "%s (%d)",
+                        (p_settings_data->language == LANGUAGE_ZH_HANS ? p_game->name_cn : p_game->name_en),
+                        p_game->link_cnt);
+                mui_list_view_add_item(app->p_list_view, ICON_FOLDER, txt, (void *)p_game);
             }
+            p_game++;
+        }
+        // game sort by order
+        mui_list_view_sort(app->p_list_view, amiidb_scene_game_list_list_view_sort_cb);
+    }
+
+    // add link list by page
+    const db_link_t *p_link = link_list;
+    uint16_t link_cnt = 0;
+    uint8_t cur_game_id = app->game_id_path[app->game_id_index];
+    while (p_link->game_id > 0) {
+        if (p_link->game_id == cur_game_id) {
+            if (link_cnt >= (app->link_page_index) * LINK_CNT_PER_PAGE && link_cnt < (app->link_page_index + 1) * LINK_CNT_PER_PAGE) {
+                const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_link->head, p_link->tail);
+                if (p_amiibo) {
+                    const char *name =
+                        p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+                    mui_list_view_add_item(app->p_list_view, ICON_FILE, name, (void *)p_amiibo);
+                } else {
+                    sprintf(txt, "Amiibo[%08x:%08x]", p_link->head, p_link->tail);
+                    mui_list_view_add_item(app->p_list_view, ICON_FILE, txt, (void *)p_amiibo);
+                }
+            }
+            link_cnt++;
         }
         p_link++;
     }
 
+    sprintf(txt, "[第%d页/共%d页]", app->link_page_index + 1, (uint32_t)ceil(link_cnt / (double)LINK_CNT_PER_PAGE));
+    mui_list_view_add_item(app->p_list_view, ICON_PAGE, txt, (void *)0);
+    if(app->link_page_index > 0){
+        mui_list_view_add_item(app->p_list_view, ICON_PREV, "[上一页]", (void *)0);
+    }
+
+    if (link_cnt >= (app->link_page_index + 1) * LINK_CNT_PER_PAGE) {
+        mui_list_view_add_item(app->p_list_view, ICON_NEXT, "[下一页]", (void *)0);
+    }
+
+
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_game_list_list_view_on_selected);
+    mui_list_view_set_user_data(app->p_list_view, app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);
 }
 

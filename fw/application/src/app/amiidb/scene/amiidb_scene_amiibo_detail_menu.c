@@ -136,6 +136,5 @@ void amiidb_scene_amiibo_detail_menu_on_enter(void *user_data) {
 void amiidb_scene_amiibo_detail_menu_on_exit(void *user_data) {
     app_amiidb_t *app = user_data;
     mui_list_view_set_selected_cb(app->p_list_view, NULL);
-    mui_list_view_set_user_data(app->p_list_view, NULL);
     mui_list_view_clear_items(app->p_list_view);
 }
