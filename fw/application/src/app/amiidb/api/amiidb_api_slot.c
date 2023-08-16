@@ -5,6 +5,7 @@
 #include "amiibo_helper.h"
 #include "vfs.h"
 #include "vfs_meta.h"
+#include "settings.h"
 #include <stdio.h>
 #include <string.h>
 
@@ -57,4 +58,51 @@ int32_t amiidb_api_slot_write(uint8_t slot, ntag_t *p_ntag) {
     }
 
     return 0;
+}
+
+int32_t amiidb_api_slot_remove(uint8_t slot){
+    char path[VFS_MAX_PATH_LEN];
+    sprintf(path, "/amiibo/data/%02d.bin", slot);
+    vfs_driver_t *p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
+    int32_t res = p_vfs_driver->remove_file(path);
+    if(res < 0){
+        return -1;
+    }
+    return 0;
+}
+
+int32_t amiidb_api_slot_info(uint8_t slot, amiidb_slot_info_t * p_info){
+    char path[VFS_MAX_PATH_LEN];
+    vfs_meta_t meta;
+    vfs_obj_t obj;
+
+    sprintf(path, "/amiibo/data/%02d.bin", slot);
+    vfs_driver_t *p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
+    int32_t res = p_vfs_driver->stat_file(path, &obj);
+    if(res < 0){
+        p_info->slot = slot;
+        p_info->is_empty = true;
+        return 0;
+    }
+
+    memset(&meta, 0, sizeof(vfs_meta_t));
+    vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
+
+    p_info->slot = slot;
+    p_info->is_empty = false;
+    p_info->amiibo_head = meta.amiibo_head;
+    p_info->amiibo_tail = meta.amiibo_tail;
+
+    return 0;
+}
+int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb){
+    uint8_t max_slot_num = settings_get_data()->amiidb_data_slot_num;
+    amiidb_slot_info_t info;
+    for(uint8_t i = 0; i<max_slot_num; i++){
+        amiidb_api_slot_info(i, &info);
+        cb(&info);
+    }
+
+    return 0;
+    
 }

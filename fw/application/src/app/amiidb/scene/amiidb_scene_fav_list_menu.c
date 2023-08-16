@@ -67,8 +67,7 @@ static void amiidb_scene_fav_list_menu_msg_box_delete_cb(mui_msg_box_event_t eve
             sprintf(path, "/amiibo/fav/%s/%s", string_get_cstr(app->cur_fav_dir), string_get_cstr(app->cur_fav_file));
             res = p_driver->remove_file(path);
         } else {
-            sprintf(path, "/amiibo/fav/%s", string_get_cstr(app->cur_fav_file));
-            res = p_driver->remove_dir(path);
+            amiidb_api_fav_remove_dir(app->cur_fav_file);
         }
         NRF_LOG_INFO("remove fav: %d", res);
         if (res == VFS_OK) {

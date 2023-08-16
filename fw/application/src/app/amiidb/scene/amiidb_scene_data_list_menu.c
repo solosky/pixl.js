@@ -11,6 +11,7 @@
 #include "mui_icons.h"
 #include "ntag_emu.h"
 #include "ntag_store.h"
+#include "amiidb_api_slot.h"
 
 #include "db_header.h"
 #include "i18n/language.h"
@@ -26,10 +27,7 @@ static void amiidb_scene_data_list_menu_on_selected(mui_list_view_event_t event,
         break;
 
     case ICON_DELETE: {
-        char path[VFS_MAX_PATH_LEN];
-        sprintf(path, "/amiibo/data/%02d.bin", app->cur_slot_index);
-        vfs_driver_t *p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
-        p_vfs_driver->remove_file(path);
+        amiidb_api_slot_remove(app->cur_slot_index);
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } break;
     }
