@@ -29,7 +29,6 @@ typedef struct _db_link_t {
     const char *note_cn;
 } db_link_t;
 
-
 extern const db_amiibo_t amiibo_list[];
 extern const db_game_t game_list[];
 extern const db_link_t link_list[];

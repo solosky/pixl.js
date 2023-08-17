@@ -28,7 +28,8 @@ typedef struct {
     uint16_t game_id_path[8];
     uint8_t game_id_index;
 
-    string_t cur_fav;
+    string_t cur_fav_dir;
+    string_t cur_fav_file;
 
 } app_amiidb_t;
 

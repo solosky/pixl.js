@@ -262,6 +262,20 @@ void mui_list_view_clear_items(mui_list_view_t *p_view) {
     mui_list_view_set_focus(p_view, 0);
 }
 
+void mui_list_view_clear_items_with_cb(mui_list_view_t *p_view, mui_list_view_item_clear_cb clear_cb) {
+    mui_list_item_array_it_t it;
+
+    mui_list_item_array_it(it, p_view->items);
+    while (!mui_list_item_array_end_p(it)) {
+        mui_list_item_t *item = mui_list_item_array_ref(it);
+        string_clear(item->text);
+        clear_cb(item);
+        mui_list_item_array_next(it);
+    }
+    mui_list_item_array_reset(p_view->items);
+    mui_list_view_set_focus(p_view, 0);
+}
+
 void mui_list_view_set_selected_cb(mui_list_view_t *p_view, mui_list_view_selected_cb selected_cb) {
     p_view->selected_cb = selected_cb;
 }

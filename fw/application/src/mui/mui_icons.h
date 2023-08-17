@@ -18,4 +18,8 @@
 #define ICON_PREV           0xe097
 #define ICON_PAGE           0xe0b4
 
+#define ICON_NEW            0xe191
+#define ICON_EMPTY          0xe1ca
+#define ICON_DELETE         0xe076
+
 #endif
