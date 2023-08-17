@@ -28,6 +28,8 @@ typedef struct {
     uint16_t game_id_path[8];
     uint8_t game_id_index;
 
+    string_t cur_fav;
+
 } app_amiidb_t;
 
 typedef enum {

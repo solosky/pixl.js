@@ -26,6 +26,10 @@ static void app_amiidb_try_mount_drive(app_amiidb_t *p_app_inst) {
         int32_t err = p_driver->mount();
         amiibo_helper_try_load_amiibo_keys_from_vfs();
     }
+
+    p_driver->create_dir("/amiibo");
+    p_driver->create_dir("/amiibo/fav");
+    p_driver->create_dir("/amiibo/fav/default");
 }
 
 void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
@@ -43,6 +47,8 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     mui_msg_box_set_user_data(p_app_handle->p_msg_box, p_app_handle);
     p_app_handle->p_amiibo_view = amiibo_view_create();
     p_app_handle->p_amiibo_view->user_data = p_app_handle;
+
+    string_init(p_app_handle->cur_fav);
 
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
@@ -130,6 +136,8 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
 //    amiidb_detail_view_free(p_app_handle->p_amiidb_detail_view);
 //    string_array_clear(p_app_handle->amiidb_files);
+
+    string_clear(p_app_handle->cur_fav);
 
     mui_mem_free(p_app_handle);
 

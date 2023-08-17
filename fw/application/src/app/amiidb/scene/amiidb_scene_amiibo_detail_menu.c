@@ -103,6 +103,10 @@ static void amiidb_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } break;
 
+    case AMIIBO_DETAIL_MENU_FAVORITE: {
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_SELECT);
+    } break;
+
     case AMIIBO_DETAIL_MENU_BACK_MAIN_MENU:
         mini_app_launcher_exit(mini_app_launcher());
         break;
