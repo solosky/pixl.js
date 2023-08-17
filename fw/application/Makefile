@@ -515,7 +515,7 @@ LIB_FILES += \
   $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
 OPT = -O3 -g3
-# OPT = -Os -ffunction-sections -fdata-sections
+OPT = -Os -ffunction-sections -fdata-sections
 # Uncomment the line below to enable link time optimization
 # OPT += -flto
 
