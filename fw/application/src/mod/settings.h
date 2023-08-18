@@ -22,6 +22,7 @@ typedef struct {
     uint8_t oled_contrast;
     bool anim_enabled;
     Language language;
+    uint8_t amiidb_data_slot_num;
 } settings_data_t;
 
 int32_t settings_init();

@@ -31,6 +31,9 @@ typedef struct {
     string_t cur_fav_dir;
     string_t cur_fav_file;
 
+    /** data slot */
+    uint8_t cur_slot_index;
+
 } app_amiidb_t;
 
 typedef enum {

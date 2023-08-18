@@ -54,6 +54,7 @@ static void validate_settings() {
     INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 0);
     BOOL_VALIDATE(m_settings_data.anim_enabled, 0);
     INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT, 0);
+    INT8_VALIDATE(m_settings_data.amiidb_data_slot_num, 1, 100, 20);
 }
 
 int32_t settings_init() {

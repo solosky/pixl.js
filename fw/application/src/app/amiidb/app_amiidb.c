@@ -29,7 +29,7 @@ static void app_amiidb_try_mount_drive(app_amiidb_t *p_app_inst) {
 
     p_driver->create_dir("/amiibo");
     p_driver->create_dir("/amiibo/fav");
-    p_driver->create_dir("/amiibo/fav/default");
+    p_driver->create_dir("/amiibo/data");
 }
 
 void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {

@@ -38,6 +38,10 @@ static void amiidb_scene_main_list_view_on_selected(mui_list_view_event_t event,
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_LIST);
         break;
 
+    case AMIIDB_MAIN_MENU_DATA:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_DATA_LIST);
+        break;
+
     case AMIIDB_MAIN_MENU_EXIT:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIDB);
         break;

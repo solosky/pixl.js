@@ -15,13 +15,17 @@ typedef enum {
 
 typedef enum {
     VFS_META_TYPE_NOTES = 1,
-    VFS_META_TYPE_FLAGS = 2
+    VFS_META_TYPE_FLAGS = 2,
+    VFS_META_TYPE_AMIIBO_ID = 3,
 } vfs_meta_type_t;
 
 
 typedef struct {
     bool has_notes;
     char notes[VFS_META_MAX_NOTES_SIZE];
+    bool has_amiibo_id;
+    uint32_t amiibo_head;
+    uint32_t amiibo_tail;
     bool has_flags;
     uint8_t flags;
 } vfs_meta_t;

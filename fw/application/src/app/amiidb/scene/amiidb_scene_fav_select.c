@@ -58,20 +58,6 @@ static void amiidb_scene_fav_select_list_view_on_selected(mui_list_view_event_t 
     }
 }
 
-static int amiidb_scene_fav_select_list_view_sort_cb(const mui_list_item_t *p_item_a, const mui_list_item_t *p_item_b) {
-    if (p_item_a->icon == ICON_FOLDER && p_item_b->icon == ICON_FOLDER) {
-        db_game_t *p_game_a = (db_game_t *)p_item_a->user_data;
-        db_game_t *p_game_b = (db_game_t *)p_item_b->user_data;
-        return p_game_b->order - p_game_a->order;
-    } else if (p_item_a->icon == ICON_FOLDER && p_item_b->icon == ICON_FILE) {
-        return -1;
-    } else {
-        db_amiibo_t *p_amiibo_a = (db_amiibo_t *)p_item_a->user_data;
-        db_amiibo_t *p_amiibo_b = (db_amiibo_t *)p_item_b->user_data;
-        return strcmp(p_amiibo_a->name_en, p_amiibo_b->name_en);
-    }
-}
-
 static void amiidb_scene_fav_select_reload(app_amiidb_t *app) {
     settings_data_t *p_settings_data = settings_get_data();
     char txt[64];

@@ -139,9 +139,9 @@ void amiidb_scene_fav_list_menu_on_enter(void *user_data) {
     char txt[32];
     settings_data_t *p_settings = settings_get_data();
     mui_list_view_clear_items(app->p_list_view);
-    mui_list_view_add_item(app->p_list_view, ICON_NEW, "新建收藏夹..", (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_EMPTY, "清空收藏夹..", (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_DELETE, "删除收藏(夹)", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_NEW, "新建..", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EMPTY, "清空..", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_DELETE, "删除..", (void *)0);
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_list_menu_on_selected);

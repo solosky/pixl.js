@@ -240,6 +240,9 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_fav_list.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_fav_select.c \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_fav_list_menu.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_data_list.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_data_select.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_data_list_menu.c \
   $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
@@ -498,8 +501,8 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/amiibolink/view \
   $(PROJ_DIR)/app/amiibolink/scene \
   $(PROJ_DIR)/app/amiidb \
-  $(PROJ_DIR)/app/amiidb\scene \
-  $(PROJ_DIR)/app/amiidb\view \
+  $(PROJ_DIR)/app/amiidb/scene \
+  $(PROJ_DIR)/app/amiidb/view \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
@@ -515,7 +518,7 @@ LIB_FILES += \
   $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
 OPT = -O3 -g3
-OPT = -Os -ffunction-sections -fdata-sections
+# OPT = -Os -ffunction-sections -fdata-sections
 # Uncomment the line below to enable link time optimization
 # OPT += -flto
 

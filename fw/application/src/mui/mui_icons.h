@@ -14,6 +14,8 @@
 #define ICON_ERROR          0xe1bb
 #define ICON_HOME           0xe1f0
 
+#define ICON_AMIIBO         0xe1e2
+
 #define ICON_NEXT           0xe09d
 #define ICON_PREV           0xe097
 #define ICON_PAGE           0xe0b4

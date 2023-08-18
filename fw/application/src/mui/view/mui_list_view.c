@@ -244,7 +244,12 @@ void mui_list_view_add_item(mui_list_view_t *p_view, uint32_t icon, const char *
 }
 
 void mui_list_view_set_item(mui_list_view_t *p_view, uint16_t index, uint32_t icon, char *text, void *user_data) {
-    // TODO
+    mui_list_item_t *p_item = mui_list_item_array_get(p_view->items, index);
+    if(p_item != NULL){
+        p_item->icon = icon;
+        p_item->user_data = user_data;
+        string_set_str(p_item->text, text);
+    }
 }
 
 uint32_t mui_list_view_item_size(mui_list_view_t *p_view) { return mui_list_item_array_size(p_view->items); }
