@@ -43,8 +43,8 @@ static void amiidb_scene_fav_select_list_view_on_selected(mui_list_view_event_t 
     case ICON_FOLDER: {
         uint8_t cur_game_id = app->game_id_path[app->game_id_index];
         const db_amiibo_t *p_amiibo = app->cur_amiibo;
-        db_link_t link = {.game_id = cur_game_id, .head = p_amiibo->head, .tail = p_amiibo->tail};
-        int res = amiidb_api_fav_add(string_get_cstr(p_item->text), &link);
+        amiidb_fav_t fav = {.game_id = cur_game_id, .amiibo_head = p_amiibo->head, .amiibo_tail = p_amiibo->tail};
+        int res = amiidb_api_fav_add(string_get_cstr(p_item->text), &fav);
         if (res == VFS_OK) {
             amiidb_scene_fav_select_msg_show(app, "收藏成功");
         } else {

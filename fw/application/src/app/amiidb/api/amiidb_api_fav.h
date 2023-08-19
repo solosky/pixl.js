@@ -17,13 +17,19 @@ typedef struct {
     vfs_meta_t meta;
 } amiidb_fav_dir_t;
 
+typedef struct {
+    uint8_t game_id;
+    uint32_t amiibo_head;
+    uint32_t amiibo_tail;
+} amiidb_fav_t;
+
 int32_t amiidb_api_fav_open_dir(const char *folder, amiidb_fav_dir_t *dir);
-int32_t amiidb_api_fav_read_dir(amiidb_fav_dir_t *dir, const db_link_t *link);
+int32_t amiidb_api_fav_read_dir(amiidb_fav_dir_t *dir, const amiidb_fav_t *fav);
 int32_t amiidb_api_fav_close_dir(amiidb_fav_dir_t *dir);
 int32_t amiidb_api_fav_remove_dir(const char *folder);
 int32_t amiidb_api_fav_empty_dir(const char *folder);
-int32_t amiidb_api_fav_add(const char *folder, const db_link_t *link);
-int32_t amiidb_api_fav_remove(const char *folder, const db_link_t *link);
+int32_t amiidb_api_fav_add(const char *folder, const amiidb_fav_t *fav);
+int32_t amiidb_api_fav_remove(const char *folder, const amiidb_fav_t *fav);
 int32_t amiidb_api_fav_remove_dir(const char *folder);
 
 #endif // FW_AMIIDB_API_SLOT_H
