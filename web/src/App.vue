@@ -148,6 +148,10 @@ export default {
         flags: {
           hide: false
         },
+        amiibo: {
+          head: 0,
+          tail: 0
+        },
         name: "",
         row: null
       }
@@ -505,6 +509,7 @@ export default {
       this.meta_form.name = row.name;
       this.meta_form.notes = row.notes;
       this.meta_form.flags = row.flags;
+      this.meta_form.amiibo = row.amiibo;
       this.meta_form.row = row;
       this.meta_diag_visible = true;
     },
@@ -512,7 +517,8 @@ export default {
     on_diag_meta_close() {
       var meta = {
         notes: this.meta_form.notes,
-        flags: this.meta_form.flags
+        flags: this.meta_form.flags,
+        amiibo: this.meta_form.amiibo
       }
       this.meta_diag_visible = false;
       var path = this.append_segment(this.current_dir, this.meta_form.name);
@@ -521,7 +527,8 @@ export default {
         if (res.status == 0) {
           meta_form.row.notes = meta_form.notes;
           meta_form.row.flags = meta_form.flags;
-        } else {
+          meta_form.row.amiibo = meta_form.amiibo;
+       } else {
           this.$message({
             type: 'error',
             message: "更新属性失败"
@@ -602,7 +609,8 @@ export default {
               type: file.type == 0 ? "REG" : "DIR",
               icon: file.type == 0 ? "el-icon-document" : "el-icon-folder",
               notes: file.meta.notes,
-              flags: file.meta.flags
+              flags: file.meta.flags,
+              amiibo: file.meta.amiibo
             };
 
             _table_data.push(row);
