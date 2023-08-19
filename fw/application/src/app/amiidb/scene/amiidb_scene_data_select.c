@@ -38,6 +38,8 @@ static void amiidb_scene_data_select_list_view_on_selected(mui_list_view_event_t
             //TODO msg box
             return;
         }
+
+        memset(&meta, 0, sizeof(meta));
         meta.has_amiibo_id = true;
         meta.amiibo_head = p_amiibo->head;
         meta.amiibo_tail = p_amiibo->tail;
