@@ -4,6 +4,7 @@
 #include "mui_list_view.h"
 #include "nrf_log.h"
 
+#include "amiidb_api_fav.h"
 #include "db_header.h"
 #include "mui_icons.h"
 #include "settings.h"
@@ -40,15 +41,10 @@ static void amiidb_scene_fav_select_list_view_on_selected(mui_list_view_event_t 
         break;
 
     case ICON_FOLDER: {
-        // TODO 收藏。。
-        char path[VFS_MAX_PATH_LEN];
         uint8_t cur_game_id = app->game_id_path[app->game_id_index];
         const db_amiibo_t *p_amiibo = app->cur_amiibo;
-        sprintf(path, "/amiibo/fav/%s/%d_%08X_%08X.fav", string_get_cstr(p_item->text), cur_game_id, p_amiibo->head,
-                p_amiibo->tail);
-        NRF_LOG_INFO("fav path: %s", nrf_log_push(path));
-        vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
-        int res = p_driver->write_file_data(path, NULL, 0); // create a empty file
+        db_link_t link = {.game_id = cur_game_id, .head = p_amiibo->head, .tail = p_amiibo->tail};
+        int res = amiidb_api_fav_add(string_get_cstr(p_item->text), &link);
         if (res == VFS_OK) {
             amiidb_scene_fav_select_msg_show(app, "收藏成功");
         } else {

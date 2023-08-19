@@ -21,7 +21,10 @@ typedef struct {
     amiibo_view_t * p_amiibo_view;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
+
+    /** amiibo detail */
     ntag_t ntag;
+    uint8_t prev_scene_id;
     
     /** file browser*/
     const db_amiibo_t * cur_amiibo;

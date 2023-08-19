@@ -38,6 +38,8 @@ static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t ev
         case ICON_FILE: {
             fav_item_t *p_fav_item = p_item->user_data;
             app->cur_amiibo = p_fav_item->p_amiibo;
+            app->prev_scene_id = AMIIDB_SCENE_FAV_LIST;
+            string_set(app->cur_fav_file, p_item->text);
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
         } break;
 

@@ -52,7 +52,7 @@ static void amiidb_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
 
     switch (selection) {
     case AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER:
-        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_GAME_LIST);
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, app->prev_scene_id);
         break;
     case AMIIBO_DETAIL_MENU_RAND_UID: {
         ret_code_t err_code;

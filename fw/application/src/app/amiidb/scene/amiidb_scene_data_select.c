@@ -4,6 +4,8 @@
 #include "mui_list_view.h"
 #include "nrf_log.h"
 
+#include "amiidb_api_slot.h"
+
 #include "db_header.h"
 #include "mui_icons.h"
 #include "settings.h"
@@ -25,27 +27,8 @@ static void amiidb_scene_data_select_list_view_on_selected(mui_list_view_event_t
 
     case ICON_AMIIBO:
     case ICON_FILE: {
-        char path[VFS_MAX_PATH_LEN];
-        vfs_meta_t meta;
-        uint8_t meta_encoded[VFS_META_MAX_SIZE];
-        const db_amiibo_t *p_amiibo = app->cur_amiibo;
-
         uint32_t index = mui_list_view_get_focus(p_list_view);
-        sprintf(path, "/amiibo/data/%02d.bin", index);
-        vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
-        int res = p_driver->write_file_data(path, app->ntag.data, sizeof(app->ntag.data));
-        if (res < 0) {
-            //TODO msg box
-            return;
-        }
-
-        memset(&meta, 0, sizeof(meta));
-        meta.has_amiibo_id = true;
-        meta.amiibo_head = p_amiibo->head;
-        meta.amiibo_tail = p_amiibo->tail;
-
-        vfs_meta_encode(meta_encoded, sizeof(meta_encoded), &meta);
-        res = p_driver->update_file_meta(path, meta_encoded, sizeof(meta_encoded));
+        int32_t res = amiidb_api_slot_write(index, &app->ntag);
         if(res < 0){
             //TODO msg box
             return;

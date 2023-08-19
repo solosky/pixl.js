@@ -25,15 +25,12 @@ static void amiidb_scene_data_list_list_view_on_selected(mui_list_view_event_t e
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
         } break;
 
-        case ICON_FOLDER: {
-            const db_game_t *p_game = p_item->user_data;
-            app->game_id_path[++app->game_id_index] = p_game->game_id;
-            amiidb_scene_data_list_reload(app);
-        } break;
-
+        case ICON_AMIIBO:
         case ICON_FILE: {
             const db_amiibo_t *p_amiibo = p_item->user_data;
             app->cur_amiibo = p_amiibo;
+            app->prev_scene_id = AMIIDB_SCENE_DATA_LIST;
+            app->cur_slot_index = mui_list_view_get_focus(p_list_view);
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
         } break;
         }
