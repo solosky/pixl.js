@@ -67,7 +67,7 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
 
         uint8_t utf8_size = mui_element_get_utf8_bytes(p);
         memcpy(utf8, p, utf8_size);
-        utf8[utf8_size + 1] = '\0';
+        utf8[utf8_size] = '\0';
         uint8_t utf8_x = mui_canvas_get_utf8_width(p_canvas, utf8);
         if (utf8_x + xi > x + w) {
             xi = x;
