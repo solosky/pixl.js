@@ -4,14 +4,13 @@
 #include "mui_list_view.h"
 #include "nrf_log.h"
 
+#include "amiidb_api_slot.h"
 #include "db_header.h"
 #include "mui_icons.h"
 #include "settings.h"
 #include "vfs.h"
 #include "vfs_meta.h"
 #include <math.h>
-
-#define LINK_MAX_DISPLAY_CNT 100
 
 void amiidb_scene_data_list_reload(app_amiidb_t *app);
 
@@ -40,53 +39,30 @@ static void amiidb_scene_data_list_list_view_on_selected(mui_list_view_event_t e
     }
 }
 
-void amiidb_scene_data_list_reload(app_amiidb_t *app) {
-    settings_data_t *p_settings_data = settings_get_data();
+void amiidb_scene_data_list_amiibo_slot_info_cb(amiidb_slot_info_t *p_info, void *ctx) {
     char txt[64];
-    vfs_driver_t *p_vfs_driver;
-    vfs_dir_t dir;
-    vfs_obj_t obj;
-    vfs_meta_t meta;
+    app_amiidb_t *app = ctx;
+    settings_data_t *p_settings_data = settings_get_data();
+    if (p_info->is_empty) {
+        sprintf(txt, "%02d <空标签>", p_info->slot + 1);
+        mui_list_view_add_item(app->p_list_view, ICON_FILE, txt, (void *)0);
+    } else {
+        const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_info->amiibo_head, p_info->amiibo_tail);
+        if (p_amiibo != NULL) {
+            const char *name = p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+            sprintf(txt, "%02d %s", p_info->slot + 1, name);
+        } else {
+            sprintf(txt, "Amiibo[%08x:%08x]", p_info->amiibo_head, p_info->amiibo_tail);
+        }
 
+        mui_list_view_add_item(app->p_list_view, ICON_AMIIBO, txt, (void *)0);
+    }
+}
+
+void amiidb_scene_data_list_reload(app_amiidb_t *app) {
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
-
-    // add item first
-    for (uint8_t i = 0; i < p_settings_data->amiidb_data_slot_num; i++) {
-        sprintf(txt, "%02d <空标签>", i + 1);
-        mui_list_view_add_item(app->p_list_view, ICON_FILE, txt, (void *)0);
-    }
-
-    // list file
-    p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
-    int32_t res = p_vfs_driver->open_dir("/amiibo/data", &dir);
-    if (res == VFS_OK) {
-        while (p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
-            if (obj.type == VFS_TYPE_DIR) {
-                // ignore, not supported now
-            } else {
-                uint8_t index;
-                if (sscanf(obj.name, "%02d.bin", &index) == 1) {
-                    memset(&meta, 0, sizeof(vfs_meta_t));
-                    vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-                    if (meta.has_amiibo_id) {
-                        const db_amiibo_t *p_amiibo = get_amiibo_by_id(meta.amiibo_head, meta.amiibo_tail);
-                        if (p_amiibo != NULL) {
-                            const char *name =
-                                p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
-                            sprintf(txt, "%02d %s", index + 1, name);
-                        } else {
-                            sprintf(txt, "Amiibo[%08x:%08x]", meta.amiibo_head, meta.amiibo_tail);
-                        }
-
-                        mui_list_view_set_item(app->p_list_view, index, ICON_AMIIBO, txt, (void *)0);
-                    }
-                }
-            }
-        }
-        p_vfs_driver->close_dir(&dir);
-    }
-
+    amiidb_api_slot_list(amiidb_scene_data_list_amiibo_slot_info_cb, app);
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
 }
 

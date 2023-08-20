@@ -11,8 +11,6 @@
 #include "vfs.h"
 #include <math.h>
 
-#define LINK_MAX_DISPLAY_CNT 100
-
 static void amiidb_scene_fav_select_reload(app_amiidb_t *app);
 
 static void amiidb_scene_fav_select_msg_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
@@ -54,29 +52,20 @@ static void amiidb_scene_fav_select_list_view_on_selected(mui_list_view_event_t 
     }
 }
 
-static void amiidb_scene_fav_select_reload(app_amiidb_t *app) {
-    settings_data_t *p_settings_data = settings_get_data();
-    char txt[64];
-    vfs_driver_t *p_vfs_driver;
-    vfs_dir_t dir;
-    vfs_obj_t obj;
+static void amiidb_scene_fav_select_read_cb(amiidb_fav_info_t *p_info, void *ctx) {
+    app_amiidb_t *app = ctx;
+    if (p_info->fav_type == FAV_TYPE_FOLDER) {
+        mui_list_view_add_item(app->p_list_view, ICON_FOLDER, p_info->fav_data.folder_name, 0);
+    }
+}
 
+static void amiidb_scene_fav_select_reload(app_amiidb_t *app) {
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
 
     mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, "选择收藏夹..", (void *)0);
-    p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
 
-    int32_t res = p_vfs_driver->open_dir("/amiibo/fav", &dir);
-    if (res == VFS_OK) {
-        while (p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
-            if (obj.type == VFS_TYPE_DIR) {
-                uint16_t icon = obj.type == VFS_TYPE_DIR ? ICON_FOLDER : ICON_FILE;
-                mui_list_view_add_item(app->p_list_view, icon, obj.name, (void *)-1);
-            }
-        }
-        p_vfs_driver->close_dir(&dir);
-    }
+    amiidb_api_fav_list_dir("", amiidb_scene_fav_select_read_cb, app);
 
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_select_list_view_on_selected);

@@ -49,7 +49,7 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_amiibo_view->user_data = p_app_handle;
 
     string_init(p_app_handle->cur_fav_dir);
-    string_init(p_app_handle->cur_fav_file);
+    //string_init(p_app_handle->cur_fav_file);
 
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
@@ -139,7 +139,7 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
 //    string_array_clear(p_app_handle->amiidb_files);
 
     string_clear(p_app_handle->cur_fav_dir);
-    string_clear(p_app_handle->cur_fav_file);
+    //string_clear(p_app_handle->cur_fav_file);
 
     mui_mem_free(p_app_handle);
 

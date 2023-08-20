@@ -1,4 +1,5 @@
 #include "amiibo_helper.h"
+#include "amiidb_api_fav.h"
 #include "amiidb_scene.h"
 #include "app_amiidb.h"
 #include "mui_list_view.h"
@@ -11,12 +12,6 @@
 #include <math.h>
 
 #define LINK_MAX_DISPLAY_CNT 100
-
-typedef struct {
-    uint8_t game_id;
-    const db_amiibo_t *p_amiibo;
-    string_t file_name;
-} fav_item_t;
 
 static void amiidb_scene_fav_list_reload(app_amiidb_t *app);
 
@@ -36,10 +31,9 @@ static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t ev
             break;
 
         case ICON_FILE: {
-            fav_item_t *p_fav_item = p_item->user_data;
-            app->cur_amiibo = p_fav_item->p_amiibo;
+            amiidb_fav_t *p_fav_item = p_item->user_data;
+            memcpy(&app->cur_fav, p_fav_item, sizeof(amiidb_fav_t));
             app->prev_scene_id = AMIIDB_SCENE_FAV_LIST;
-            string_set(app->cur_fav_file, p_item->text);
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
         } break;
 
@@ -48,12 +42,12 @@ static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t ev
             amiidb_scene_fav_list_reload(app);
         } break;
         }
-    } else {
+    } else if(event == MUI_LIST_VIEW_EVENT_LONG_SELECTED) {
         if (icon == ICON_FILE) {
-            fav_item_t *p_fav_item = p_item->user_data;
-            string_set(app->cur_fav_file, p_fav_item->file_name);
+            amiidb_fav_t *p_fav_item = p_item->user_data;
+            memcpy(&app->cur_fav, p_fav_item, sizeof(amiidb_fav_t));
         } else if (icon == ICON_FOLDER) {
-            string_set(app->cur_fav_file, p_item->text);
+            string_set(app->cur_fav_dir, p_item->text);
         }
 
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_LIST_MENU);
@@ -68,59 +62,41 @@ static int amiidb_scene_fav_list_list_view_sort_cb(const mui_list_item_t *p_item
     } else if (p_item_a->icon == ICON_FOLDER && p_item_b->icon == ICON_FILE) {
         return -1;
     } else {
-        db_amiibo_t *p_amiibo_a = (db_amiibo_t *)p_item_a->user_data;
-        db_amiibo_t *p_amiibo_b = (db_amiibo_t *)p_item_b->user_data;
-        return strcmp(p_amiibo_a->name_en, p_amiibo_b->name_en);
+        amiidb_fav_t *p_amiibo_a = (amiidb_fav_t *)p_item_a->user_data;
+        amiidb_fav_t *p_amiibo_b = (amiidb_fav_t *)p_item_b->user_data;
+        return p_amiibo_a->amiibo_head < p_amiibo_b->amiibo_head;
+    }
+}
+
+static void amiidb_scene_fav_list_read_cb(amiidb_fav_info_t *p_info, void *ctx) {
+
+    app_amiidb_t *app = ctx;
+    settings_data_t *p_settings_data = settings_get_data();
+    char txt[64];
+
+    if (p_info->fav_type == FAV_TYPE_FOLDER) {
+        mui_list_view_add_item(app->p_list_view, ICON_FOLDER, p_info->fav_data.folder_name, 0);
+    } else {
+
+        amiidb_fav_t *p_fav = mui_mem_malloc(sizeof(amiidb_fav_t));
+        memcpy(p_fav, &p_info->fav_data.fav, sizeof(amiidb_fav_t));
+
+        const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_fav->amiibo_head, p_fav->amiibo_tail);
+        if (p_amiibo) {
+            const char *name = p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+            mui_list_view_add_item(app->p_list_view, ICON_FILE, name, p_fav);
+        } else {
+            sprintf(txt, "Amiibo[%08x:%08x]", p_fav->amiibo_head, p_fav->amiibo_tail);
+            mui_list_view_add_item(app->p_list_view, ICON_FILE, txt, p_fav);
+        }
     }
 }
 
 static void amiidb_scene_fav_list_reload(app_amiidb_t *app) {
-    settings_data_t *p_settings_data = settings_get_data();
-    char txt[64];
-    vfs_driver_t *p_vfs_driver;
-    vfs_dir_t dir;
-    vfs_obj_t obj;
-
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
-    p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
-
-    strcpy(txt, "/amiibo/fav");
-    if (string_size(app->cur_fav_dir) > 0) {
-        strcat(txt, "/");
-        strcat(txt, string_get_cstr(app->cur_fav_dir));
-    }
-    int32_t res = p_vfs_driver->open_dir(txt, &dir);
-    if (res == VFS_OK) {
-        while (p_vfs_driver->read_dir(&dir, &obj) == VFS_OK) {
-            if (obj.type == VFS_TYPE_DIR) {
-                mui_list_view_add_item(app->p_list_view, ICON_FOLDER, obj.name, (void *)-1);
-            } else {
-                uint8_t game_id;
-                uint32_t head, tail;
-
-                if (sscanf(obj.name, "%d_%08X_%08X.fav", &game_id, &head, &tail) == 3) {
-                    const db_amiibo_t *p_amiibo = get_amiibo_by_id(head, tail);
-
-                    fav_item_t *p_item = mui_mem_malloc(sizeof(fav_item_t));
-                    p_item->p_amiibo = p_amiibo;
-                    p_item->game_id = game_id;
-                    string_init(p_item->file_name);
-                    m_string_set_cstr(p_item->file_name, obj.name);
-
-                    if (p_amiibo) {
-                        const char *name =
-                            p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
-                        mui_list_view_add_item(app->p_list_view, ICON_FILE, name, p_item);
-                    } else {
-                        sprintf(txt, "Amiibo[%08x:%08x]", head, tail);
-                        mui_list_view_add_item(app->p_list_view, ICON_FILE, obj.name, p_item);
-                    }
-                }
-            }
-        }
-        p_vfs_driver->close_dir(&dir);
-    }
+    amiidb_api_fav_list_dir(string_get_cstr(app->cur_fav_dir), amiidb_scene_fav_list_read_cb, app);
+    mui_list_view_sort(app->p_list_view, amiidb_scene_fav_list_list_view_sort_cb);
 
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_list_list_view_on_selected);
@@ -130,8 +106,7 @@ static void amiidb_scene_fav_list_reload(app_amiidb_t *app) {
 
 void amiidb_scene_fav_list_item_clear_cb(mui_list_item_t *p_item) {
     if (p_item->icon == ICON_FILE) {
-        fav_item_t *p_fav_item = (fav_item_t *)p_item->user_data;
-        string_clear(p_fav_item->file_name);
+        amiidb_fav_t *p_fav_item = (amiidb_fav_t *)p_item->user_data;
         mui_mem_free(p_fav_item);
     }
 }

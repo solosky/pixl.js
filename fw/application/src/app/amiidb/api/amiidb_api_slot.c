@@ -95,14 +95,15 @@ int32_t amiidb_api_slot_info(uint8_t slot, amiidb_slot_info_t * p_info){
 
     return 0;
 }
-int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb){
+
+//TODO optimize for speed
+int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb, void * ctx){
     uint8_t max_slot_num = settings_get_data()->amiidb_data_slot_num;
     amiidb_slot_info_t info;
     for(uint8_t i = 0; i<max_slot_num; i++){
         amiidb_api_slot_info(i, &info);
-        cb(&info);
+        cb(&info, ctx);
     }
 
     return 0;
-    
 }

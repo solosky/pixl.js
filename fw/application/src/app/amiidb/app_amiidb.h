@@ -10,6 +10,8 @@
 #include "vfs.h"
 #include "amiibo_view.h"
 
+#include "amiidb_api_fav.h"
+
 #include "mlib_common.h"
 #include "db_header.h"
 
@@ -31,8 +33,9 @@ typedef struct {
     uint16_t game_id_path[8];
     uint8_t game_id_index;
 
+    /** fav list*/
     string_t cur_fav_dir;
-    string_t cur_fav_file;
+    amiidb_fav_t cur_fav;
 
     /** data slot */
     uint8_t cur_slot_index;

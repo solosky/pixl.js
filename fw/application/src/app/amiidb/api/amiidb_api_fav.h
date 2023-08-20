@@ -12,22 +12,28 @@
 #include <stdint.h>
 
 typedef struct {
-    vfs_dir_t dir;
-    vfs_obj_t fd;
-    vfs_meta_t meta;
-} amiidb_fav_dir_t;
-
-typedef struct {
     uint8_t game_id;
     uint32_t amiibo_head;
     uint32_t amiibo_tail;
 } amiidb_fav_t;
 
-int32_t amiidb_api_fav_open_dir(const char *folder, amiidb_fav_dir_t *dir);
-int32_t amiidb_api_fav_read_dir(amiidb_fav_dir_t *dir, const amiidb_fav_t *fav);
-int32_t amiidb_api_fav_close_dir(amiidb_fav_dir_t *dir);
+#define FAV_TYPE_FOLDER 0
+#define FAV_TYPE_FAV 1
+
+typedef struct {
+    uint8_t fav_type; // 0: dir, 1: fav
+    union {
+        char folder_name[VFS_MAX_NAME_LEN];
+        amiidb_fav_t fav;
+    } fav_data;
+} amiidb_fav_info_t;
+
+typedef void (*amiidb_fav_cb_t)(amiidb_fav_info_t* fav_info, void* ctx);
+
+int32_t amiidb_api_fav_list_dir(const char *folder, amiidb_fav_cb_t cb, void* ctx);
 int32_t amiidb_api_fav_remove_dir(const char *folder);
 int32_t amiidb_api_fav_empty_dir(const char *folder);
+int32_t amiidb_api_fav_create_dir(const char *folder);
 int32_t amiidb_api_fav_add(const char *folder, const amiidb_fav_t *fav);
 int32_t amiidb_api_fav_remove(const char *folder, const amiidb_fav_t *fav);
 int32_t amiidb_api_fav_remove_dir(const char *folder);

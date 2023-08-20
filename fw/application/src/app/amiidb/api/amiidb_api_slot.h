@@ -16,7 +16,7 @@ typedef struct {
     uint32_t amiibo_tail;
 } amiidb_slot_info_t;
 
-typedef void (*amiibo_slot_info_cb_t)(amiidb_slot_info_t* p_info);
+typedef void (*amiibo_slot_info_cb_t)(amiidb_slot_info_t* p_info, void* ctx);
 
 int32_t amiidb_api_slot_read(uint8_t slot, ntag_t* p_ntag);
 int32_t amiidb_api_slot_write(uint8_t slot, ntag_t* p_ntag);
@@ -24,6 +24,6 @@ int32_t amiidb_api_slot_remove(uint8_t slot);
 
 
 int32_t amiidb_api_slot_info(uint8_t slot, amiidb_slot_info_t * p_info);
-int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb);
+int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb, void* ctx);
 
 #endif // FW_AMIIDB_API_SLOT_H
