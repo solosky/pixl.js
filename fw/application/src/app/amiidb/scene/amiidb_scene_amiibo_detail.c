@@ -16,8 +16,6 @@
 #include "amiidb_api_fav.h"
 #include "amiidb_api_slot.h"
 
-#define LINK_MAX_DISPLAY_CNT 50
-
 APP_TIMER_DEF(m_amiibo_gen_delay_timer);
 
 static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag) {
@@ -145,7 +143,7 @@ static void amiidb_scene_amiibo_fav_list_update(app_amiidb_t *app) {
 
 static void amiidb_scene_amiibo_search_cb(db_amiibo_t *p_amiibo, void *ctx) {
     app_amiidb_t *app = ctx;
-    if (amiidb_fav_array_size(app->fav_array) < LINK_MAX_DISPLAY_CNT) {
+    if (amiidb_fav_array_size(app->fav_array) < LIST_VIEW_ITEM_MAX_COUNT) {
         amiidb_fav_t *p_fav = amiidb_fav_array_push_new(app->fav_array);
         p_fav->amiibo_head = p_amiibo->head;
         p_fav->amiibo_tail = p_amiibo->tail;

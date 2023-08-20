@@ -9,8 +9,6 @@
 #include "settings.h"
 #include <math.h>
 
-#define LINK_MAX_DISPLAY_CNT 100
-
 static void amiidb_scene_game_list_reload(app_amiidb_t *app);
 
 static void amiidb_scene_game_list_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
@@ -85,7 +83,7 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
     while (p_link->game_id > 0) {
         if (p_link->game_id == cur_game_id) {
             link_cnt++;
-            if (add_cnt < LINK_MAX_DISPLAY_CNT) {
+            if (add_cnt < LIST_VIEW_ITEM_MAX_COUNT) {
                 const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_link->head, p_link->tail);
                 if (p_amiibo) {
                     const char *name =
@@ -101,7 +99,7 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
         p_link++;
     }
 
-    if (link_cnt > LINK_MAX_DISPLAY_CNT) {
+    if (link_cnt > LIST_VIEW_ITEM_MAX_COUNT) {
         mui_list_view_add_item(app->p_list_view, ICON_ERROR, "[更多..]", (void *)0);
     }
 

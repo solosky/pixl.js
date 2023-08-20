@@ -11,8 +11,6 @@
 #include "vfs.h"
 #include <math.h>
 
-#define LINK_MAX_DISPLAY_CNT 100
-
 static void amiidb_scene_fav_list_reload(app_amiidb_t *app);
 
 static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,

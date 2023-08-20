@@ -15,6 +15,7 @@
 #include "mlib_common.h"
 #include "db_header.h"
 
+#define LIST_VIEW_ITEM_MAX_COUNT 50
 
 ARRAY_DEF(amiidb_fav_array, amiidb_fav_t, M_POD_OPLIST);
 

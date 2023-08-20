@@ -11,7 +11,6 @@
 #include "settings.h"
 #include <math.h>
 
-#define LINK_MAX_DISPLAY_CNT 50
 
 static void amiidb_scene_amiibo_search_reload(app_amiidb_t *app);
 
@@ -56,7 +55,7 @@ static uint16_t amiibo_hit_total = 0;
 static void amiidb_scene_amiibo_search_cb(db_amiibo_t *p_amiibo, void *ctx) {
     settings_data_t *p_settings_data = settings_get_data();
     app_amiidb_t *app = ctx;
-    if (amiibo_hit_total < LINK_MAX_DISPLAY_CNT) {
+    if (amiibo_hit_total < LIST_VIEW_ITEM_MAX_COUNT) {
         const char *name = p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
         mui_list_view_add_item(app->p_list_view, ICON_FILE, name, (void *)p_amiibo);
     }
@@ -84,7 +83,7 @@ static void amiidb_scene_amiibo_search_reload(app_amiidb_t *app) {
         mui_list_view_set_item(app->p_list_view, 0, ICON_SEARCH, txt, (void *)0);
     }
 
-    if (amiibo_hit_total > LINK_MAX_DISPLAY_CNT) {
+    if (amiibo_hit_total > LIST_VIEW_ITEM_MAX_COUNT) {
         mui_list_view_add_item(app->p_list_view, ICON_ERROR, "[更多..]", (void *)0);
     }
 
