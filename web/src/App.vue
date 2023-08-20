@@ -565,6 +565,20 @@ export default {
         }
         this.current_dir = this.current_dir + row.name;
         this.reload_folder();
+      } else {
+        proto.vfs_helper_read_file(this.append_segment(this.current_dir, row.name), _ => {
+          var url = window.URL.createObjectURL(new Blob([_], { type: 'application/octet-stream' }));
+          // window.open(url);
+          var downloadLink = document.createElement("a");
+          downloadLink.style.display = 'none';
+          downloadLink.href = url;
+          downloadLink.download = row.name;
+
+          document.body.appendChild(downloadLink);
+          downloadLink.click();
+          document.body.removeChild(downloadLink);
+          window.URL.revokeObjectURL(url);
+        }, _ => { }, _ => { });
       }
     },
 

@@ -179,9 +179,6 @@ export function vfs_open_file(path, mode) {
                 file_id: b.readUint8()
             }
         });
-
-
-    return p;
 }
 
 export function vfs_close_file(file_id) {
@@ -196,7 +193,7 @@ export function vfs_read_file(file_id) {
     console.log("vfs_read_file", file_id);
     return op_queue_push(0x14,
         b => { b.writeUint8(file_id) },
-        b => { return b.readBytes(b.remaining()) });
+        b => { return b.readBytes(b.remaining()).toArrayBuffer() });
 }
 
 export function vfs_write_file(file_id, data) {
@@ -234,6 +231,49 @@ export function vfs_rename(old_path, new_path) {
 
 export function get_utf8_byte_size(str) {
     return encode_utf8(str).length;
+}
+
+export function vfs_helper_read_file(path, success_cb, error_cb, done_cb) {
+    vfs_open_file(path, "r").then(res => {
+        console.log(res)
+        if (res.status != 0) {
+            console.log("vfs_open_file error: status=", res.status);
+            error_cb(new Error("create file failed!"));
+            done_cb();
+            return;
+        }
+        //读取
+
+        var state = {
+            file_id: res.data.file_id,
+        }
+
+        vfs_read_file(state.file_id).then(data => {
+            console.log(data)
+            console.log("vfs read end");
+            vfs_close_file(state.file_id).then(data1 => {
+                success_cb(data.data);
+                done_cb();
+            }).catch(e => {
+                error_cb(e);
+                done_cb();
+            })
+        }).catch(e => {
+            console.log("vfs read error", e);
+            vfs_close_file(state.file_id).then(data => {
+                error_cb(e);
+                done_cb();
+            }).catch(e => {
+                console.log("vfs close error", e);
+                error_cb(e);
+                done_cb();
+            })
+        });
+    }).catch(e => {
+        console.log("vfs_open_file error", e);
+        error_cb(e);
+        done_cb();
+    });
 }
 
 var file_write_queue = []
@@ -444,26 +484,13 @@ function write_meta(bb, meta) {
 
 
 function decode_utf8(bytes) {
-    var encoded = "";
-    for (var i = 0; i < bytes.length; i++) {
-        encoded += '%' + bytes[i].toString(16);
-    }
-    return decodeURIComponent(encoded);
+    //return ByteBuffer.wrap(bytes).toUTF8();
+    return new TextDecoder().decode(new Uint8Array(bytes));
 }
 
 function encode_utf8(text) {
-    var code = encodeURIComponent(text);
-    var bytes = [];
-    for (var i = 0; i < code.length; i++) {
-        const c = code.charAt(i);
-        if (c === '%') {
-            const hex = code.charAt(i + 1) + code.charAt(i + 2);
-            const hexVal = parseInt(hex, 16);
-            bytes.push(hexVal);
-            i += 2;
-        } else bytes.push(c.charCodeAt(0));
-    }
-    return bytes;
+    //return Array.from(new Uint8Array(ByteBuffer.wrap(text, 'utf8').toArrayBuffer()));
+    return Array.from(new TextEncoder().encode(text));
 }
 
 function read_string(bb) {
