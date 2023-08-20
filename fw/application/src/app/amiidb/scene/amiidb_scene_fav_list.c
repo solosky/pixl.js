@@ -45,6 +45,7 @@ static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t ev
             amiidb_fav_t *p_fav_item = p_item->user_data;
             memcpy(&app->cur_fav, p_fav_item, sizeof(amiidb_fav_t));
         } else if (icon == ICON_FOLDER) {
+            memset(&app->cur_fav, 0, sizeof(amiidb_fav_t));
             string_set(app->cur_fav_dir, p_item->text);
         }
 

@@ -31,7 +31,7 @@ static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag
         mui_update(mui());
     } else if (type == NTAG_EVENT_TYPE_READ) {
         settings_data_t *p_settings = settings_get_data();
-        if (p_settings->auto_gen_amiibo) {
+        if (p_settings->auto_gen_amiibo && amiibo_helper_is_key_loaded()) {
             app_timer_stop(m_amiibo_gen_delay_timer);
             app_timer_start(m_amiibo_gen_delay_timer, APP_TIMER_TICKS(1000), app);
         }

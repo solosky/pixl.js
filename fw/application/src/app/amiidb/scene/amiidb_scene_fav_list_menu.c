@@ -27,7 +27,7 @@ static void amiidb_scene_fav_list_menu_msg_box_empty_cb(mui_msg_box_event_t even
         if (string_size(app->cur_fav_dir) > 0) {
             amiidb_api_fav_empty_dir(string_get_cstr(app->cur_fav_dir));
         } else {
-            //TODO ???
+            // TODO ???
         }
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } else {
@@ -41,10 +41,11 @@ static void amiidb_scene_fav_list_menu_msg_box_delete_cb(mui_msg_box_event_t eve
     if (event == MUI_MSG_BOX_EVENT_SELECT_LEFT) {
         // do delete
         int32_t res;
-        if (string_size(app->cur_fav_dir) > 0) {
+        if (app->cur_fav.amiibo_tail > 0 || app->cur_fav.amiibo_head > 0) {
             res = amiidb_api_fav_remove(string_get_cstr(app->cur_fav_dir), &app->cur_fav);
         } else {
             res = amiidb_api_fav_remove_dir(string_get_cstr(app->cur_fav_dir));
+            string_reset(app->cur_fav_dir);
         }
         NRF_LOG_INFO("remove fav: %d", res);
         if (res == VFS_OK) {
@@ -74,6 +75,7 @@ static void amiidb_scene_fav_list_menu_text_input_event_cb(mui_text_input_event_
         if (strlen(text) > 0) {
             int32_t res = amiidb_api_fav_create_dir(text);
             if (res == VFS_OK) {
+                string_reset(app->cur_fav_dir);
                 mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
             }
         }
