@@ -16,6 +16,10 @@
 #include "db_header.h"
 
 
+ARRAY_DEF(amiidb_fav_array, amiidb_fav_t, M_POD_OPLIST);
+
+
+
 typedef struct {
     mui_list_view_t *p_list_view;
     mui_text_input_t *p_text_input;
@@ -27,6 +31,8 @@ typedef struct {
     /** amiibo detail */
     ntag_t ntag;
     uint8_t prev_scene_id;
+
+    amiidb_fav_array_t fav_array;
     
     /** file browser*/
     const db_amiibo_t * cur_amiibo;

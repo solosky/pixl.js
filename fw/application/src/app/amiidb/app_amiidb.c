@@ -51,6 +51,8 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     string_init(p_app_handle->cur_fav_dir);
     //string_init(p_app_handle->cur_fav_file);
 
+    amiidb_fav_array_init(p_app_handle->fav_array);
+
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
 
@@ -140,6 +142,8 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
 
     string_clear(p_app_handle->cur_fav_dir);
     //string_clear(p_app_handle->cur_fav_file);
+
+    amiidb_fav_array_clear(p_app_handle->fav_array);
 
     mui_mem_free(p_app_handle);
 
