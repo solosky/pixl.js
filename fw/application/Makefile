@@ -247,6 +247,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_settings_slot_num.c \
   $(PROJ_DIR)/app/amiidb/api/amiidb_api_slot.c \
   $(PROJ_DIR)/app/amiidb/api/amiidb_api_fav.c \
+  $(PROJ_DIR)/app/amiidb/api/amiidb_api_db.c \
   $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \

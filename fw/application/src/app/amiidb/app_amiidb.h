@@ -32,6 +32,9 @@ typedef struct {
     ntag_t ntag;
     uint8_t prev_scene_id;
 
+    /** search */
+    string_t search_str;
+
     amiidb_fav_array_t fav_array;
     
     /** file browser*/
