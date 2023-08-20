@@ -24,4 +24,7 @@
 #define ICON_EMPTY          0xe1ca
 #define ICON_DELETE         0xe076
 
+#define ICON_KEY            0xe01b
+#define ICON_SLOT           0xe0b1
+
 #endif
