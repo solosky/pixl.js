@@ -408,28 +408,35 @@ void file_read_send_chunk(file_chunk_state_t *chunk_state, df_frame_t *out) {
     }
 
     void *data_buff = out->data;
-    size_t data_size = out->length;
+    size_t data_size = sizeof(out->data);
     bool chunk_eof = false;
 
     int32_t bytes_read = chunk_state->vfs_driver->read_file(&chunk_state->vfs_fd, data_buff, data_size);
-    if (bytes_read == VFS_ERR_EOF || bytes_read < data_size) {
+    if (bytes_read < 0) {
         chunk_state->err_code = bytes_read;
+        out->status = bytes_read;
         chunk_eof = true;
-    } else if (bytes_read < -1) {
-        chunk_state->err_code = bytes_read;
+        out->length = 0;
+    } else if (bytes_read < data_size) {
+        chunk_state->err_code = VFS_ERR_EOF;
+        out->status = DF_STATUS_OK;
         chunk_eof = true;
+        out->length = bytes_read;
+    } else {
+        chunk_state->err_code = VFS_OK;
+        out->status = DF_STATUS_OK;
+        out->length = data_size;
     }
 
     out->cmd = DF_PROTO_CMD_VFS_FILE_READ;
-    out->status = chunk_state->err_code;
     if (chunk_eof) {
         out->chunk = chunk_state->chunk;
     } else {
-        out->chunk = chunk_state->chunk & 0x8000;
+        out->chunk = chunk_state->chunk | 0x8000;
     }
 
     chunk_state->chunk++;
-    df_core_send_frame(&out);
+    df_core_send_frame(out);
 }
 
 void df_proto_handler_vfs_rename(df_event_t *evt) {
