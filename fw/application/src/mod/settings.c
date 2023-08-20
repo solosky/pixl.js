@@ -17,7 +17,8 @@ settings_data_t m_settings_data = {.backlight = 0,
                                    .language = LANGUAGE_ZH_HANS,
                                    .hibernate_enabled = false,
                                    .show_mem_usage = false,
-                                   .anim_enabled = false};
+                                   .anim_enabled = false,
+                                   .amiidb_data_slot_num = 20};
 
 static vfs_driver_t *get_enabled_vfs_driver() {
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {

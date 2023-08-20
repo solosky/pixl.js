@@ -195,11 +195,32 @@ static void amiidb_scene_amiibo_view_on_event(amiibo_view_event_t event, amiibo_
         }
     }
 }
+static void amiidb_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+    app_amiidb_t *app = p_msg_box->user_data;
+    if (event == MUI_MSG_BOX_EVENT_SELECT_CENTER) {
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+    }
+}
+
+static void amiidb_scene_amiibo_detail_no_key_msg(app_amiidb_t *app) {
+    mui_msg_box_set_header(app->p_msg_box, getLangString(_L_AMIIBO_KEY_UNLOADED));
+    mui_msg_box_set_message(app->p_msg_box, getLangString(_L_UPLOAD_KEY_RETAIL_BIN));
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, getLangString(_L_KNOW), NULL);
+    mui_msg_box_set_btn_focus(app->p_msg_box, 1);
+    mui_msg_box_set_event_cb(app->p_msg_box, amiidb_scene_amiibo_detail_menu_msg_box_no_key_cb);
+
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_MSG_BOX);
+}
 
 void amiidb_scene_amiibo_detail_on_enter(void *user_data) {
     app_amiidb_t *app = user_data;
     amiibo_view_set_ntag(app->p_amiibo_view, &app->ntag);
     amiibo_view_set_event_cb(app->p_amiibo_view, amiidb_scene_amiibo_view_on_event);
+
+    if (!amiibo_helper_is_key_loaded() && app->prev_scene_id != AMIIDB_SCENE_DATA_LIST) {
+        amiidb_scene_amiibo_detail_no_key_msg(app);
+        return;
+    }
 
     if (app->prev_scene_id == AMIIDB_SCENE_GAME_LIST) {
         amiidb_scene_amiibo_game_list_init(app);
