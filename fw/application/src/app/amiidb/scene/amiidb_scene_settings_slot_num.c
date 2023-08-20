@@ -9,6 +9,7 @@
 #include "nrf_log.h"
 #include "ntag_emu.h"
 #include "settings.h"
+#include "i18n/language.h"
 
 static void amiidb_scene_settings_slot_num_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                        mui_list_item_t *p_item) {
@@ -38,7 +39,7 @@ void amiidb_scene_settings_slot_num_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "30", (void *)30);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "40", (void *)40);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "50", (void *)50);
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     uint8_t focus = p_settings->amiidb_data_slot_num / 10 - 1;
     if (focus >= 5) {
         focus = 0;

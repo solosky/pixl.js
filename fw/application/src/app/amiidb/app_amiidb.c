@@ -3,7 +3,6 @@
 
 #include "mui_include.h"
 
-
 #include "amiidb_scene.h"
 
 #include "mui_list_view.h"
@@ -49,14 +48,12 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_amiibo_view->user_data = p_app_handle;
 
     string_init(p_app_handle->cur_fav_dir);
-    //string_init(p_app_handle->cur_fav_file);
 
     string_init(p_app_handle->search_str);
 
     amiidb_fav_array_init(p_app_handle->fav_array);
 
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
-
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, amiidb_scene_defines, AMIIDB_SCENE_MAX);
@@ -75,77 +72,22 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
 
     app_amiidb_try_mount_drive(p_app_handle);
 
-    settings_data_t *p_settings = settings_get_data();
-
-    if (p_app_inst->p_retain_data) {
-//        app_amiidb_cache_data_t *p_cache_data = (app_amiidb_cache_data_t *)p_app_inst->p_retain_data;
-//        if (p_cache_data->cached_enabled) {
-//            p_app_handle->current_drive = p_cache_data->current_drive;
-//            string_set_str(p_app_handle->current_file, p_cache_data->current_file);
-//            string_set_str(p_app_handle->current_folder, p_cache_data->current_folder);
-//            p_app_handle->current_focus_index = p_cache_data->current_focus_index;
-//            memcpy(&(p_app_handle->ntag), &(cache_get_data()->ntag), sizeof(ntag_t));
-//
-//            if (p_app_handle->current_drive == VFS_DRIVE_EXT || p_app_handle->current_drive == VFS_DRIVE_INT) {
-//                app_amiidb_try_mount_drive(p_app_handle);
-//            }
-//
-//            if (p_cache_data->current_scene_id == AMIIBO_SCENE_AMIIBO_DETAIL) {
-//                p_app_handle->reload_amiidb_files = true;
-//                mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
-//            } else if (p_cache_data->current_scene_id == AMIIBO_SCENE_FILE_BROWSER) {
-//                mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-//            } else {
-//                mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
-//            }
-//            return;
-//        }
-    }
-
-//    if (p_settings->skip_driver_select) {
-//        p_app_handle->current_drive = vfs_get_default_drive();
-//        string_set_str(p_app_handle->current_folder, "/");
-//        app_amiidb_try_mount_drive(p_app_handle);
-//        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-//    } else {
-//        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
-//    }
-
     mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
 }
 
 void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
     app_amiidb_t *p_app_handle = p_app_inst->p_handle;
 
-//    uint32_t current_scene_id = mui_scene_dispatcher_current_scene(p_app_handle->p_scene_dispatcher);
-//    if (app_amiidb_info.hibernate_enabled && (current_scene_id == AMIIBO_SCENE_AMIIBO_DETAIL || current_scene_id == AMIIBO_SCENE_FILE_BROWSER)) {
-//        app_amiidb_cache_data_t p_cache_data = {0};
-//        p_cache_data.cached_enabled = true;
-//        strcpy(p_cache_data.current_file, string_get_cstr(p_app_handle->current_file));
-//        strcpy(p_cache_data.current_folder, string_get_cstr(p_app_handle->current_folder));
-//        p_cache_data.current_drive = p_app_handle->current_drive;
-//        p_cache_data.current_scene_id = current_scene_id;
-//        p_cache_data.current_focus_index = mui_list_view_get_focus(p_app_handle->p_list_view);
-//
-//        memcpy(p_app_inst->p_retain_data, &p_cache_data, sizeof(app_amiidb_cache_data_t));
-//    } else {
-//        memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
-//        memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
-//    }
-
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     mui_list_view_free(p_app_handle->p_list_view);
     mui_text_input_free(p_app_handle->p_text_input);
     mui_msg_box_free(p_app_handle->p_msg_box);
+    amiibo_view_free(p_app_handle->p_amiibo_view);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
-//    amiidb_detail_view_free(p_app_handle->p_amiidb_detail_view);
-//    string_array_clear(p_app_handle->amiidb_files);
 
     string_clear(p_app_handle->cur_fav_dir);
-    //string_clear(p_app_handle->cur_fav_file);
     string_clear(p_app_handle->search_str);
-
     amiidb_fav_array_clear(p_app_handle->fav_array);
 
     mui_mem_free(p_app_handle);
@@ -157,6 +99,7 @@ void app_amiidb_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event)
 
 const mini_app_t app_amiidb_info = {.id = MINI_APP_ID_AMIIDB,
                                     .name = "Amiibo数据库",
+                                    .name_i18n_key = _L_APP_AMIIDB,
                                     .icon = 0xe0ba,
                                     .sys = false,
                                     .deamon = false,

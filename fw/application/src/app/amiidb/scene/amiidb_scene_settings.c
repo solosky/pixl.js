@@ -2,11 +2,10 @@
 #include "amiidb_scene.h"
 #include "app_amiidb.h"
 #include "cwalk2.h"
-#include "settings.h"
 #include "mui_icons.h"
+#include "settings.h"
 
 #include "i18n/language.h"
-
 
 static void amiidb_scene_settings_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                               mui_list_item_t *p_item) {
@@ -30,11 +29,13 @@ void amiidb_scene_settings_on_enter(void *user_data) {
     settings_data_t *p_settings = settings_get_data();
     mui_list_view_clear_items(app->p_list_view);
 
-    sprintf(txt, "Keys [%s]", amiibo_helper_is_key_loaded() ? "已加载" : "未加载");
+    sprintf(txt, "%s [%s]", getLangString(_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY),
+            (amiibo_helper_is_key_loaded() ? getLangString(_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_LOADED)
+                                           : getLangString(_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_NOT_LOADED)));
     mui_list_view_add_item(app->p_list_view, ICON_KEY, txt, (void *)0);
-    sprintf(txt, "数据槽位 [%d]", p_settings->amiidb_data_slot_num);
+    sprintf(txt, "%s [%d]", getLangString(_L_APP_AMIIDB_SETTINGS_SLOT_NUM), p_settings->amiidb_data_slot_num);
     mui_list_view_add_item(app->p_list_view, ICON_SLOT, txt, (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_settings_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

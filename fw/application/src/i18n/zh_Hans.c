@@ -82,5 +82,16 @@ const char * lang_zh_hans[_L_COUNT] = {
     [_L_MODE_NTAG] = "读写",
     [_L_MODE_RANDOM_AUTO_GEN] = "随机(自动)",
     [_L_BLANK_TAG] = "空标签",
-    
+    [_L_APP_AMIIDB] = "Amiibo数据库",
+    [_L_APP_AMMIDB_BROWSER] = "查看..",
+    [_L_APP_AMIIDB_SEARCH] = "搜索..",
+    [_L_APP_AMIIDB_MY_FAVORITES] = "我的收藏..",
+    [_L_APP_AMIIDB_MY_TAGS] = "我的数据..",
+    [_L_APP_AMIIDB_SETTINGS] = "设置..",
+    [_L_APP_AMIIDB_EXIT] = "[退出]",
+    [_L_APP_AMIIDB_BACK] = "[返回]",
+    [_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY] = "密钥文件",
+    [_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_LOADED] = "已加载",
+    [_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_NOT_LOADED] = "未加载",
+    [_L_APP_AMIIDB_SETTINGS_SLOT_NUM] = "[数据槽位]",
 };

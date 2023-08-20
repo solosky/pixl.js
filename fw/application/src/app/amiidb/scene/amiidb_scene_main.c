@@ -54,12 +54,12 @@ static void amiidb_scene_main_list_view_on_selected(mui_list_view_event_t event,
 
 void amiidb_scene_main_on_enter(void *user_data) {
     app_amiidb_t *app = (app_amiidb_t *)user_data;
-    mui_list_view_add_item(app->p_list_view, ICON_VIEW, "查看..", (void *)AMIIDB_MAIN_MENU_VIEW);
-    mui_list_view_add_item(app->p_list_view, ICON_SEARCH, "搜索..", (void *)AMIIDB_MAIN_MENU_SEARCH);
-    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, "我的收藏..", (void *)AMIIDB_MAIN_MENU_FAVORITE);
-    mui_list_view_add_item(app->p_list_view, ICON_DATA, "我的数据..", (void *)AMIIDB_MAIN_MENU_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_SETTINGS, "设置..", (void *)AMIIDB_MAIN_MENU_SETTINGS);
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[退出]", (void *)AMIIDB_MAIN_MENU_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_VIEW,  getLangString(_L_APP_AMMIDB_BROWSER), (void *)AMIIDB_MAIN_MENU_VIEW);
+    mui_list_view_add_item(app->p_list_view, ICON_SEARCH, getLangString(_L_APP_AMIIDB_SEARCH), (void *)AMIIDB_MAIN_MENU_SEARCH);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_MY_FAVORITES), (void *)AMIIDB_MAIN_MENU_FAVORITE);
+    mui_list_view_add_item(app->p_list_view, ICON_DATA, getLangString(_L_APP_AMIIDB_MY_TAGS), (void *)AMIIDB_MAIN_MENU_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_SETTINGS, getLangString(_L_APP_AMIIDB_SETTINGS), (void *)AMIIDB_MAIN_MENU_SETTINGS);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_EXIT), (void *)AMIIDB_MAIN_MENU_EXIT);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_main_list_view_on_selected);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);
