@@ -196,7 +196,8 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
   $(PROJ_DIR)/mui/mui_scene_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
-  $(PROJ_DIR)/mui/mui_u8g2_fonts.c \
+  $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
