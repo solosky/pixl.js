@@ -1,6 +1,7 @@
 #include "mui_element.h"
 #include "m-string.h"
 #include "mui_defines.h"
+#include "nrf_log.h"
 
 uint8_t mui_element_get_utf8_bytes(const char *p) {
     char c = *p;
@@ -56,6 +57,7 @@ void mui_element_multiline_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, co
 
 void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *text) {
 
+    NRF_LOG_HEXDUMP_INFO(text, strlen(text));
     uint8_t font_height = mui_canvas_current_font_height(p_canvas);
     uint8_t xi = x;
     uint8_t yi = y;

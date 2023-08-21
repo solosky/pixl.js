@@ -40,6 +40,7 @@ struct mini_app_inst_s {
 struct mini_app_s {
     const uint32_t id;
     char name[16];
+    uint16_t name_i18n_key;
     const uint16_t icon;
     const uint8_t deamon;
     const uint8_t sys;

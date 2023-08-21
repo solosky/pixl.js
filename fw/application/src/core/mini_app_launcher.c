@@ -66,6 +66,11 @@ void mini_app_launcher_kill(mini_app_launcher_t *p_launcher, uint32_t id) {
         p_launcher->p_main_app_inst = *mui_app_inst_dict_get(p_launcher->app_inst_dict, MINI_APP_ID_DESKTOP);
     }
 }
+
+void mini_app_launcher_exit(mini_app_launcher_t* p_launcher){
+    mini_app_launcher_kill(p_launcher, p_launcher->p_main_app_inst->p_app->id);
+}
+
 void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
 
     mui_app_inst_dict_init(p_launcher->app_inst_dict);

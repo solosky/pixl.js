@@ -1,4 +1,3 @@
-#include "amiibo_data.h"
 #include "amiibo_helper.h"
 #include "amiibo_scene.h"
 #include "app_amiibo.h"
@@ -15,6 +14,7 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 #include "i18n/language.h"
+#include "db_header.h"
 
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
@@ -54,15 +54,13 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         break;
     case AMIIBO_DETAIL_MENU_RAND_UID: {
         ret_code_t err_code;
-        ntag_t ntag_new;
         ntag_t *ntag_current = &app->ntag;
         uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
         uint32_t tail = to_little_endian_int32(&ntag_current->data[88]);
 
-        memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
-
-        const amiibo_data_t *amd = find_amiibo_data(head, tail);
+        const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
         if (amd == NULL) {
+            NRF_LOG_WARNING("amiibo not found:[%08x:%08x]", head, tail);
             return;
         }
 
@@ -71,13 +69,9 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
             return;
         }
 
-        err_code = ntag_store_uuid_rand(&ntag_new);
+        err_code = amiibo_helper_rand_amiibo_uuid(ntag_current);
         APP_ERROR_CHECK(err_code);
-
-        // sign new
-        err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
         if (err_code == NRF_SUCCESS) {
-            memcpy(&app->ntag, &ntag_new, sizeof(ntag_t));
             ntag_emu_set_tag(&app->ntag);
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }

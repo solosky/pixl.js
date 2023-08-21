@@ -74,8 +74,6 @@
 
 #include "ntag_store.h"
 
-#include "amiibo_data.h"
-
 #include "bat.h"
 #include "ble_main.h"
 
@@ -260,9 +258,6 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     check_wakeup_src();
-
-    //    err_code = ntag_store_init();
-    //    APP_ERROR_CHECK(err_code);
 
     err_code = settings_init();
     // we ignore error here, cause flash may not be presented or settings.bin did not exist

@@ -1,6 +1,7 @@
 #include "app_settings.h"
 #include "settings_scene.h"
 #include "settings.h"
+#include "i18n/language.h"
 
 static void app_settings_on_run(mini_app_inst_t *p_app_inst);
 static void app_settings_on_kill(mini_app_inst_t *p_app_inst);
@@ -53,6 +54,7 @@ void app_settings_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_even
 
 mini_app_t app_settings_info = {.id = MINI_APP_ID_SETTINGS,
                                       .name = "系统设置",
+                                      .name_i18n_key = _L_APP_SET,
                                       .icon = 0xe02b,
                                       .deamon = false,
                                       .sys = false,

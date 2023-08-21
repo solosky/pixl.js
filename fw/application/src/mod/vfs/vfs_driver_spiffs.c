@@ -1,4 +1,6 @@
-#include "vfs_driver_spiffs.h"
+#ifdef SPIFFS_ENABLE
+
+#include "vfs_driver_fs.h"
 
 #include "hal_spi_flash.h"
 
@@ -431,7 +433,10 @@ int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_siz
     if (fd < 0) {
         return vfs_spiffs_map_error_code(fd);
     }
-    int res = SPIFFS_write(&fs, fd, buff, buff_size);
+    int res = VFS_OK;
+    if (buff != NULL && buff_size > 0) {
+        res = SPIFFS_write(&fs, fd, buff, buff_size);
+    }
     SPIFFS_close(&fs, fd);
     if (res > 0) {
         return res;
@@ -470,29 +475,30 @@ int32_t vfs_spiffs_remove_file(const char *file) {
 }
 
 // TODO
-const vfs_driver_t vfs_driver_spiffs = {.mount = vfs_spiffs_mount,
-                                        .umount = vfs_spiffs_umount,
-                                        .format = vfs_spiffs_format,
-                                        .mounted = vfs_spiffs_mounted,
-                                        .stat = vfs_spiffs_stat,
+const vfs_driver_t vfs_driver_fs = {.mount = vfs_spiffs_mount,
+                                    .umount = vfs_spiffs_umount,
+                                    .format = vfs_spiffs_format,
+                                    .mounted = vfs_spiffs_mounted,
+                                    .stat = vfs_spiffs_stat,
 
-                                        .stat_file = vfs_spiffs_stat_file,
+                                    .stat_file = vfs_spiffs_stat_file,
 
-                                        .open_dir = vfs_spiffs_open_dir,
-                                        .read_dir = vfs_spiffs_read_dir,
-                                        .close_dir = vfs_spiffs_close_dir,
-                                        .create_dir = vfs_spiffs_create_dir,
-                                        .remove_dir = vfs_spiffs_remove_dir,
-                                        .rename_dir = vfs_spiffs_rename_dir,
+                                    .open_dir = vfs_spiffs_open_dir,
+                                    .read_dir = vfs_spiffs_read_dir,
+                                    .close_dir = vfs_spiffs_close_dir,
+                                    .create_dir = vfs_spiffs_create_dir,
+                                    .remove_dir = vfs_spiffs_remove_dir,
+                                    .rename_dir = vfs_spiffs_rename_dir,
 
-                                        .open_file = vfs_spiffs_open_file,
-                                        .close_file = vfs_spiffs_close_file,
-                                        .read_file = vfs_spiffs_read_file,
-                                        .write_file = vfs_spiffs_write_file,
-                                        .update_file_meta = vfs_spiffs_update_file_meta,
+                                    .open_file = vfs_spiffs_open_file,
+                                    .close_file = vfs_spiffs_close_file,
+                                    .read_file = vfs_spiffs_read_file,
+                                    .write_file = vfs_spiffs_write_file,
+                                    .update_file_meta = vfs_spiffs_update_file_meta,
 
-                                        .write_file_data = vfs_spiffs_write_file_data,
-                                        .read_file_data = vfs_spiffs_read_file_data,
+                                    .write_file_data = vfs_spiffs_write_file_data,
+                                    .read_file_data = vfs_spiffs_read_file_data,
 
-                                        .rename_file = vfs_spiffs_rename_file,
-                                        .remove_file = vfs_spiffs_remove_file};
+                                    .rename_file = vfs_spiffs_rename_file,
+                                    .remove_file = vfs_spiffs_remove_file};
+#endif

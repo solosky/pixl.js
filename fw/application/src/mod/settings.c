@@ -17,7 +17,8 @@ settings_data_t m_settings_data = {.backlight = 0,
                                    .language = LANGUAGE_ZH_HANS,
                                    .hibernate_enabled = false,
                                    .show_mem_usage = false,
-                                   .anim_enabled = false};
+                                   .anim_enabled = false,
+                                   .amiidb_data_slot_num = 20};
 
 static vfs_driver_t *get_enabled_vfs_driver() {
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
@@ -54,6 +55,7 @@ static void validate_settings() {
     INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 0);
     BOOL_VALIDATE(m_settings_data.anim_enabled, 0);
     INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT, 0);
+    INT8_VALIDATE(m_settings_data.amiidb_data_slot_num, 1, 100, 20);
 }
 
 int32_t settings_init() {

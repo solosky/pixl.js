@@ -411,6 +411,10 @@ function read_meta(bb) {
         notes: "",
         flags: {
             hide: false
+        },
+        amiibo: {
+            head: 0,
+            tail: 0
         }
     }
     if (size == 0) {
@@ -432,6 +436,9 @@ function read_meta(bb) {
             if (flags & 1) {
                 meta.flags.hide = true;
             }
+        }else if(type == 3){
+            meta.amiibo.head = mb.readUint32();
+            meta.amiibo.tail = mb.readUint32();
         }
     }
 
@@ -463,6 +470,12 @@ function write_meta(bb, meta) {
         flags |= 1;
     }
     tb.writeUint8(flags);
+
+    if(meta.amiibo.head > 0 || meta.amiibo.tail > 0){
+        tb.writeUint8(3);
+        tb.writeUint32(meta.amiibo.head);
+        tb.writeUint32(meta.amiibo.tail);
+    }
     tb.flip();
 
     bb.writeUint8(tb.remaining());

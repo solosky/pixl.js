@@ -21,6 +21,7 @@ typedef struct {
 mini_app_launcher_t* mini_app_launcher();
 void mini_app_launcher_run(mini_app_launcher_t* p_launcher, uint32_t id);
 void mini_app_launcher_kill(mini_app_launcher_t* p_launcher, uint32_t id);
+void mini_app_launcher_exit(mini_app_launcher_t* p_launcher);
 void mini_app_launcher_init(mini_app_launcher_t* p_launcher);
 void mini_app_launcher_sleep(mini_app_launcher_t* p_launcher);
 void mini_app_launcher_post_event(mini_app_launcher_t* p_launcher, uint32_t id, mini_app_event_t* p_event);
