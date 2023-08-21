@@ -134,13 +134,17 @@ def read_link_from_csv():
     return links
 
 
-def count_game_links(links, game_id):
+def count_game_links(games, links, game_id):
+
     count = 0
     for link in links:
         if link.game_id == game_id:
             count = count + 1
-    return count
+    for game in games:
+        if game.parent_id == game_id:
+            count = count + count_game_links(games, links, game.id)
 
+    return count
 
 
 def gen_amiibo_link_c_file(links):
@@ -164,7 +168,7 @@ def gen_amiibo_game_c_file(games, links):
         for game in games:
             f.write('{%s, %s, "%s", "%s", %s, %s}, \n' % 
                     (game.id, game.parent_id, game.name_en, 
-             game.name_cn, game.order, count_game_links(links, game.id)))
+             game.name_cn, game.order, count_game_links( games, links, game.id)))
         f.write("{0, 0, 0, 0, 0}\n")
         f.write("};\n")    
     
