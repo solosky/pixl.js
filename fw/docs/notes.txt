@@ -30,5 +30,5 @@ LCD ON, BL ON, SYS OFF: 6.04mA
 
 //new2
 0, 0x19000: MBR + SD  (100KB)
-0x19000, 0x57000: app (372KB)
+0x19000, 0x5D000: app (372KB)
 0x76000, 0xa000: bl + param (40KB)
