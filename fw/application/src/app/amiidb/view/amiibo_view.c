@@ -66,25 +66,29 @@ static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     amiibo_view_t *p_amiibo_view = p_view->user_data;
     switch (event->key) {
     case INPUT_KEY_LEFT:
-        if (p_amiibo_view->focus > 0) {
-            p_amiibo_view->focus--;
-        } else {
-            p_amiibo_view->focus = p_amiibo_view->max_ntags - 1;
-        }
+        if (p_amiibo_view->max_ntags > 1) {
+            if (p_amiibo_view->focus > 0) {
+                p_amiibo_view->focus--;
+            } else {
+                p_amiibo_view->focus = p_amiibo_view->max_ntags - 1;
+            }
 
-        if (p_amiibo_view->event_cb) {
-            p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+            if (p_amiibo_view->event_cb) {
+                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+            }
         }
         break;
     case INPUT_KEY_RIGHT:
-        if (p_amiibo_view->focus < p_amiibo_view->max_ntags - 1) {
-            p_amiibo_view->focus++;
-        } else {
-            p_amiibo_view->focus = 0;
-        }
+        if (p_amiibo_view->max_ntags > 1) {
+            if (p_amiibo_view->focus < p_amiibo_view->max_ntags - 1) {
+                p_amiibo_view->focus++;
+            } else {
+                p_amiibo_view->focus = 0;
+            }
 
-        if (p_amiibo_view->event_cb) {
-            p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+            if (p_amiibo_view->event_cb) {
+                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+            }
         }
         break;
     case INPUT_KEY_CENTER:
@@ -120,4 +124,3 @@ void amiibo_view_free(amiibo_view_t *p_view) {
 }
 
 mui_view_t *amiibo_view_get_view(amiibo_view_t *p_view) { return p_view->p_view; }
-
