@@ -9,6 +9,7 @@
 #include "db_header.h"
 #include "mui_icons.h"
 #include "settings.h"
+#include "i18n/language.h"
 #include <math.h>
 
 
@@ -44,7 +45,7 @@ static void amiidb_scene_amiibo_search_list_view_on_selected(mui_list_view_event
     } break;
 
     case ICON_SEARCH: {
-        mui_text_input_set_header(app->p_text_input, "搜索:");
+        mui_text_input_set_header(app->p_text_input, getLangString(_L_APP_AMIIDB_SEARCH_HEAD));
         mui_text_input_set_event_cb(app->p_text_input, amiidb_scene_amiibo_search_text_input_event_cb);
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_INPUT);
     } break;
@@ -69,7 +70,7 @@ static void amiidb_scene_amiibo_search_reload(app_amiidb_t *app) {
 
     const char *text = mui_text_input_get_input_text(app->p_text_input);
 
-    sprintf(txt, "搜索: %s", text);
+    sprintf(txt, "%s %s", getLangString(_L_APP_AMIIDB_SEARCH_HEAD), text);
     mui_list_view_add_item(app->p_list_view, ICON_SEARCH, txt, (void *)0);
     string_set_str(app->search_str, text);
 
@@ -79,15 +80,15 @@ static void amiidb_scene_amiibo_search_reload(app_amiidb_t *app) {
 
     // update stats
     if(strlen(text) > 0 ) {
-        sprintf(txt, "搜索: %s (%d)", text, amiibo_hit_total);
+        sprintf(txt, "%s %s (%d)",getLangString(_L_APP_AMIIDB_SEARCH_HEAD), text, amiibo_hit_total);
         mui_list_view_set_item(app->p_list_view, 0, ICON_SEARCH, txt, (void *)0);
     }
 
     if (amiibo_hit_total > LIST_VIEW_ITEM_MAX_COUNT) {
-        mui_list_view_add_item(app->p_list_view, ICON_ERROR, "[更多..]", (void *)0);
+        mui_list_view_add_item(app->p_list_view, ICON_ERROR, getLangString(_L_APP_AMIIDB_MORE), (void *)0);
     }
 
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_amiibo_search_list_view_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);

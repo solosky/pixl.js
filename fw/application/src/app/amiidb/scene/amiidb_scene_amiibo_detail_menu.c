@@ -129,11 +129,11 @@ void amiidb_scene_amiibo_detail_menu_on_enter(void *user_data) {
     snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION),
              p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
-    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, "收藏..", (void *)AMIIBO_DETAIL_MENU_FAVORITE);
-    mui_list_view_add_item(app->p_list_view, ICON_DATA, "保存为..", (void *)AMIIBO_DETAIL_MENU_SAVE_AS);
-    mui_list_view_add_item(app->p_list_view, 0xe068, "[返回详情]", (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
-    mui_list_view_add_item(app->p_list_view, 0xe069, "[返回列表]", (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, "[退出应用]", (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_DETAIL_FAVORITE), (void *)AMIIBO_DETAIL_MENU_FAVORITE);
+    mui_list_view_add_item(app->p_list_view, ICON_DATA, getLangString(_L_APP_AMIIDB_DETAIL_SAVE_AS), (void *)AMIIBO_DETAIL_MENU_SAVE_AS);
+    mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_APP_AMIIDB_DETAIL_BACK_DETAIL), (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
+    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_APP_AMIIDB_DETAIL_BACK_LIST), (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_APP_AMIIDB_EXIT), (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_amiibo_detail_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

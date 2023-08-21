@@ -100,10 +100,10 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
     }
 
     if (link_cnt > LIST_VIEW_ITEM_MAX_COUNT) {
-        mui_list_view_add_item(app->p_list_view, ICON_ERROR, "[更多..]", (void *)0);
+        mui_list_view_add_item(app->p_list_view, ICON_ERROR, getLangString(_L_APP_AMIIDB_MORE), (void *)0);
     }
 
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_game_list_list_view_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);

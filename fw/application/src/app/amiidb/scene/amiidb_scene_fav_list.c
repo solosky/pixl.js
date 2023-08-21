@@ -97,7 +97,7 @@ static void amiidb_scene_fav_list_reload(app_amiidb_t *app) {
     amiidb_api_fav_list_dir(string_get_cstr(app->cur_fav_dir), amiidb_scene_fav_list_read_cb, app);
     mui_list_view_sort(app->p_list_view, amiidb_scene_fav_list_list_view_sort_cb);
 
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_list_list_view_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);

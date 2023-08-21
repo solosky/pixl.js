@@ -36,8 +36,8 @@ static void amiidb_scene_data_list_menu_on_selected(mui_list_view_event_t event,
 void amiidb_scene_data_list_menu_on_enter(void *user_data) {
     app_amiidb_t *app = user_data;
     mui_list_view_clear_items(app->p_list_view);
-    mui_list_view_add_item(app->p_list_view, ICON_DELETE, "重置..", (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_DELETE, getLangString(_L_APP_AMIIDB_SLOT_DELETE), (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_data_list_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

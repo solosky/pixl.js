@@ -9,6 +9,7 @@
 #include "mui_icons.h"
 #include "settings.h"
 #include "vfs.h"
+#include "i18n/language.h"
 #include <math.h>
 
 static void amiidb_scene_fav_select_reload(app_amiidb_t *app);
@@ -19,9 +20,9 @@ static void amiidb_scene_fav_select_msg_cb(mui_msg_box_event_t event, mui_msg_bo
 }
 
 static void amiidb_scene_fav_select_msg_show(app_amiidb_t *app, const char *message) {
-    mui_msg_box_set_header(app->p_msg_box, "提示");
+    mui_msg_box_set_header(app->p_msg_box, getLangString(_L_APP_AMIIDB_TIPS));
     mui_msg_box_set_message(app->p_msg_box, message);
-    mui_msg_box_set_btn_text(app->p_msg_box, NULL, "确定", NULL);
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, getLangString(_L_APP_AMIIDB_CONFIRM), NULL);
     mui_msg_box_set_btn_focus(app->p_msg_box, 1);
     mui_msg_box_set_event_cb(app->p_msg_box, amiidb_scene_fav_select_msg_cb);
 
@@ -44,9 +45,9 @@ static void amiidb_scene_fav_select_list_view_on_selected(mui_list_view_event_t 
         amiidb_fav_t fav = {.game_id = cur_game_id, .amiibo_head = p_amiibo->head, .amiibo_tail = p_amiibo->tail};
         int res = amiidb_api_fav_add(string_get_cstr(p_item->text), &fav);
         if (res == VFS_OK) {
-            amiidb_scene_fav_select_msg_show(app, "收藏成功");
+            amiidb_scene_fav_select_msg_show(app, getLangString(_L_APP_AMIIDB_FAV_SUCCESS));
         } else {
-            amiidb_scene_fav_select_msg_show(app, "收藏失败");
+            amiidb_scene_fav_select_msg_show(app, getLangString(_L_APP_AMIIDB_FAV_FAILED));
         }
     } break;
     }
@@ -63,11 +64,11 @@ static void amiidb_scene_fav_select_reload(app_amiidb_t *app) {
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
 
-    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, "选择收藏夹..", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_FAV_SELECT_FOLDER), (void *)0);
 
     amiidb_api_fav_list_dir("", amiidb_scene_fav_select_read_cb, app);
 
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_select_list_view_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);

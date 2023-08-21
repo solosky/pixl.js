@@ -60,7 +60,8 @@ static void amiidb_scene_fav_list_menu_msg_box(app_amiidb_t *app, const char *he
                                                mui_msg_box_event_cb_t cb) {
     mui_msg_box_set_header(app->p_msg_box, header);
     mui_msg_box_set_message(app->p_msg_box, msg);
-    mui_msg_box_set_btn_text(app->p_msg_box, "确认", NULL, "取消");
+    mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_APP_AMIIDB_CONFIRM), NULL,
+                             getLangString(_L_APP_AMIIDB_CANCEL));
     mui_msg_box_set_btn_focus(app->p_msg_box, 0);
     mui_msg_box_set_event_cb(app->p_msg_box, cb);
 
@@ -92,18 +93,21 @@ static void amiidb_scene_fav_list_menu_on_selected(mui_list_view_event_t event, 
         break;
 
     case ICON_NEW: {
-        mui_text_input_set_header(app->p_text_input, "新建收藏夹:");
+        mui_text_input_set_header(app->p_text_input, getLangString(_L_APP_AMIIDB_FAV_NEW_HEAD));
         mui_text_input_set_event_cb(app->p_text_input, amiidb_scene_fav_list_menu_text_input_event_cb);
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_INPUT);
     } break;
 
     case ICON_EMPTY: {
-        amiidb_scene_fav_list_menu_msg_box(app, "提示", "确认清空收藏夹？",
+        amiidb_scene_fav_list_menu_msg_box(app, getLangString(_L_APP_AMIIDB_TIPS),
+                                           getLangString(_L_APP_AMIIDB_FAV_EMPTY_MSG),
                                            amiidb_scene_fav_list_menu_msg_box_empty_cb);
     } break;
 
     case ICON_DELETE: {
-        amiidb_scene_fav_list_menu_msg_box(app, "提示", "确认删除？", amiidb_scene_fav_list_menu_msg_box_delete_cb);
+        amiidb_scene_fav_list_menu_msg_box(app, getLangString(_L_APP_AMIIDB_TIPS),
+                                           getLangString(_L_APP_AMIIDB_FAV_DELETE_MSG),
+                                           amiidb_scene_fav_list_menu_msg_box_delete_cb);
     } break;
     }
 }
@@ -114,10 +118,10 @@ void amiidb_scene_fav_list_menu_on_enter(void *user_data) {
     char txt[32];
     settings_data_t *p_settings = settings_get_data();
     mui_list_view_clear_items(app->p_list_view);
-    mui_list_view_add_item(app->p_list_view, ICON_NEW, "新建..", (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_EMPTY, "清空..", (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_DELETE, "删除..", (void *)0);
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_NEW, getLangString(_L_APP_AMIIDB_NEW), (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EMPTY, getLangString(_L_APP_AMIIDB_EMPTY), (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_DELETE, getLangString(_L_APP_AMIIDB_DELETE), (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_list_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

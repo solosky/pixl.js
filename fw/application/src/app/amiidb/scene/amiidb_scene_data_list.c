@@ -10,6 +10,7 @@
 #include "settings.h"
 #include "vfs.h"
 #include "vfs_meta.h"
+#include "i18n/language.h"
 #include <math.h>
 
 void amiidb_scene_data_list_reload(app_amiidb_t *app);
@@ -44,7 +45,7 @@ void amiidb_scene_data_list_amiibo_slot_info_cb(amiidb_slot_info_t *p_info, void
     app_amiidb_t *app = ctx;
     settings_data_t *p_settings_data = settings_get_data();
     if (p_info->is_empty) {
-        sprintf(txt, "%02d <空标签>", p_info->slot + 1);
+        sprintf(txt, "%02d %s", p_info->slot + 1, getLangString(_L_APP_AMIIDB_EMPTY_TAG));
         mui_list_view_add_item(app->p_list_view, ICON_FILE, txt, (void *)0);
     } else {
         const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_info->amiibo_head, p_info->amiibo_tail);
@@ -63,7 +64,7 @@ void amiidb_scene_data_list_reload(app_amiidb_t *app) {
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
     amiidb_api_slot_list(amiidb_scene_data_list_amiibo_slot_info_cb, app);
-    mui_list_view_add_item(app->p_list_view, ICON_EXIT, "[返回]", (void *)0);
+    mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
 }
 
 static void amiidb_scene_data_list_setup(app_amiidb_t *app) {
