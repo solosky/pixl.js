@@ -53,9 +53,13 @@ struct mui_list_view_s {
     void *user_data;
     uint16_t scroll_offset;
     uint8_t canvas_height;
+    uint8_t canvas_width;
     mui_anim_t anim;
     uint8_t anim_type;
     int16_t anim_value;
+    mui_anim_t text_anim;
+    uint8_t text_offset;
+    uint8_t first_draw;
 };
 
 mui_list_view_t *mui_list_view_create();

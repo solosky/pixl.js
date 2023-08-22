@@ -3,18 +3,7 @@
 #include "mui_defines.h"
 #include "nrf_log.h"
 
-uint8_t mui_element_get_utf8_bytes(const char *p) {
-    char c = *p;
-    if (c >> 7 == 0) { // 0xxxxxxx (一位的情况,为ASCII)
-        return 1;
-    } else if (c >> 5 == 0x6) { // 110xxxxx 10xxxxxx (110开头,代表两位)
-        return 2;
-    } else if (c >> 4 == 0xE) { // 1110xxxx 10xxxxxx 10xxxxxx (1110开头代表三位)
-        return 3;
-    } else {
-        return 4;
-    }
-}
+
 
 void mui_element_scrollbar(mui_canvas_t *p_canvas, uint32_t pos, uint16_t total) {
     uint8_t width = mui_canvas_get_width(p_canvas);
@@ -67,7 +56,7 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
 
     while (*p != 0 && yi < y + h) {
 
-        uint8_t utf8_size = mui_element_get_utf8_bytes(p);
+        uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
         memcpy(utf8, p, utf8_size);
         utf8[utf8_size] = '\0';
         uint8_t utf8_x = mui_canvas_get_utf8_width(p_canvas, utf8);
@@ -80,6 +69,8 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
         p += utf8_size;
     }
 }
+
+
 
 void mui_element_button(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *str, uint8_t selected) {
     uint8_t font_height = mui_canvas_current_font_height(p_canvas);

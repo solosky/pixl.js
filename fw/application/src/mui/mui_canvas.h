@@ -13,15 +13,27 @@ typedef struct {
     uint8_t height;
 } mui_canvas_t;
 
+typedef struct {
+    uint8_t x;
+    uint8_t y;
+    uint8_t w;
+    uint8_t h;
+} mui_rect_t;
+
 void mui_canvas_flush(mui_canvas_t *p_canvas);
 void mui_canvas_clear(mui_canvas_t *p_canvas);
 
-void mui_canvas_set_font(mui_canvas_t *p_canvas, const uint8_t *font);
+uint8_t mui_canvas_get_utf8_bytes(const char *p);
+
+    void mui_canvas_set_font(mui_canvas_t *p_canvas, const uint8_t *font);
 uint8_t mui_canvas_draw_utf8(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *str);
+uint8_t mui_canvas_draw_utf8_clip(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *text);
 uint8_t mui_canvas_draw_glyph(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint16_t encoding);
 uint16_t mui_canvas_get_utf8_width(mui_canvas_t *p_canvas, const char *s);
 
 void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offset_y, uint8_t width, uint8_t height);
+void mui_canvas_get_clip_window(mui_canvas_t *p_canvas, mui_rect_t* p_rect);
+void mui_canvas_set_clip_window(mui_canvas_t *p_canvas, mui_rect_t* p_rect);
 
 void mui_canvas_set_draw_color(mui_canvas_t *p_canvas, uint8_t color);
 void mui_canvas_draw_box(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h);

@@ -28,6 +28,7 @@ typedef struct _mui_anim_t {
     uint32_t act_time; //act time in ms
     uint16_t repeat_cnt; //
     uint16_t run_cnt; //
+    bool auto_restart;
     void* user_data;
     union _lv_anim_path_para_t {
         lv_anim_bezier3_para_t bezier3; /**< Parameter used when path is custom_bezier*/
@@ -56,6 +57,10 @@ static inline void mui_anim_set_path_cb(mui_anim_t* p_anim, mui_anim_path_cb_t p
 
 static inline void mui_anim_set_time(mui_anim_t* p_anim, uint32_t time){
     p_anim->time = time;
+}
+
+static inline void mui_anim_set_auto_restart(mui_anim_t* p_anim, bool auto_restart){
+    p_anim->auto_restart = auto_restart;
 }
 
 static inline void mui_anim_set_values(mui_anim_t* p_anim, int16_t start, int16_t end){
