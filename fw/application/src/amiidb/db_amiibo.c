@@ -734,8 +734,6 @@ const db_amiibo_t amiibo_list[] = {
 {0x018a0000, 0x02450502, "Reese", "Reese"}, 
 {0x01840000, 0x024d0502, "Timmy _ Tommy", "Timmy _ Tommy"}, 
 {0x01810000, 0x024b0502, "Summertime Isabelle", "Summertime Isabelle"}, 
-{0x22410000, 0x00000002, "Pyra", "焰"}, 
-{0x22420000, 0x00000002, "Mythra", "光"}, 
 {0x01000000, 0x041a0902, "Ganondorf - Tears of the Kingdom", "加侬多夫 - 王国之泪"}, 
 {0x01000000, 0x04190902, "Zelda - Tears of the Kingdom", "塞尔达 - 王国之泪"}, 
 {0x00000000, 0x02390602, "8-Bit Mario Modern Color", ""}, 
@@ -842,8 +840,8 @@ const db_amiibo_t amiibo_list[] = {
 {0x09d10301, 0x02c00e02, "Pink Gold Peach - Tennis", ""}, 
 {0x09d10401, 0x02c10e02, "Pink Gold Peach - Golf", ""}, 
 {0x09d10501, 0x02c20e02, "Pink Gold Peach - Horse Racing", ""}, 
-{0x22410000, 0x041e0002, "Pyra", ""}, 
-{0x22420000, 0x041f0002, "Mythra", ""}, 
+{0x22410000, 0x041e0002, "Pyra", "焰"}, 
+{0x22420000, 0x041f0002, "Mythra", "光"}, 
 {0x22c00000, 0x003a0202, "Chibi Robo", ""}, 
 {0, 0, 0, 0}
 };
