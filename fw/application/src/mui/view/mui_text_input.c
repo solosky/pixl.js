@@ -4,7 +4,6 @@
 
 #define LIST_ITEM_HEIGHT 13
 
-
 typedef struct {
     const char text;
     const uint8_t x;
@@ -176,32 +175,47 @@ static void mui_text_input_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
 static void mui_text_input_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     mui_text_input_t *p_mui_text_input = p_view->user_data;
-    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || INPUT_TYPE_LONG) {
+    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || event->type == INPUT_TYPE_LONG) {
         switch (event->key) {
         case INPUT_KEY_LEFT:
-
-            if (p_mui_text_input->focus_column > 0) {
-                p_mui_text_input->focus_column--;
-            } else {
+            if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT) {
+                if (p_mui_text_input->focus_column > 0) {
+                    p_mui_text_input->focus_column--;
+                } else {
+                    if (p_mui_text_input->focus_row > 0) {
+                        p_mui_text_input->focus_row--;
+                    } else {
+                        p_mui_text_input->focus_row = 2;
+                    }
+                    p_mui_text_input->focus_column = get_row_size(p_mui_text_input->focus_row) - 1;
+                }
+            } else if (event->type == INPUT_TYPE_LONG) {
                 if (p_mui_text_input->focus_row > 0) {
                     p_mui_text_input->focus_row--;
                 } else {
                     p_mui_text_input->focus_row = 2;
                 }
-                p_mui_text_input->focus_column = get_row_size(p_mui_text_input->focus_row) - 1;
             }
             break;
 
         case INPUT_KEY_RIGHT:
-            if (p_mui_text_input->focus_column < get_row_size(p_mui_text_input->focus_row) - 1) {
-                p_mui_text_input->focus_column++;
-            } else {
+            if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT) {
+                if (p_mui_text_input->focus_column < get_row_size(p_mui_text_input->focus_row) - 1) {
+                    p_mui_text_input->focus_column++;
+                } else {
+                    if (p_mui_text_input->focus_row < 2) {
+                        p_mui_text_input->focus_row++;
+                    } else {
+                        p_mui_text_input->focus_row = 0;
+                    }
+                    p_mui_text_input->focus_column = 0;
+                }
+            } else if (event->type == INPUT_TYPE_LONG) {
                 if (p_mui_text_input->focus_row < 2) {
                     p_mui_text_input->focus_row++;
                 } else {
                     p_mui_text_input->focus_row = 0;
                 }
-                p_mui_text_input->focus_column = 0;
             }
             break;
 

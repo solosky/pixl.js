@@ -1,5 +1,4 @@
 #include "amiibolink_view.h"
-#include "amiibo_data.h"
 #include "amiibo_helper.h"
 #include "mui_element.h"
 #include "nrf_log.h"
@@ -7,6 +6,7 @@
 #include "ntag_def.h"
 #include "ntag_emu.h"
 #include "i18n/language.h"
+#include "db_header.h"
 
 #define ICON_RANDOM 0xe20d
 #define ICON_NTAG 0xe1cf
@@ -71,16 +71,11 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
 
-    const amiibo_data_t *amd = find_amiibo_data(head, tail);
+    const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
     if (amd != NULL) {
-        NRF_LOG_INFO("amd: %s", nrf_log_push(amd->name));
-        mui_canvas_draw_utf8(p_canvas, 5, y += 15, amd->name);
+        mui_canvas_draw_utf8(p_canvas, 5, y += 15, amd->name_cn);
         if (strlen(ntag->notes) > 0) {
-            NRF_LOG_INFO("ntag notes: %s", nrf_log_push(ntag->notes));
             mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, ntag->notes);
-        } else {
-            NRF_LOG_INFO("amd notes: %s", nrf_log_push(amd->notes));
-            mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, amd->notes);
         }
     } else {
         if (head > 0 && tail > 0) {

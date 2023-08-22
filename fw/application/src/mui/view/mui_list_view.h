@@ -25,6 +25,8 @@ typedef void (*mui_list_view_selected_cb)(mui_list_view_event_t event, mui_list_
 
 typedef int (*mui_list_view_item_cmp_cb)(const mui_list_item_t* p_item_a, const mui_list_item_t* p_item_b);
 
+typedef void (*mui_list_view_item_clear_cb)(mui_list_item_t *p_item);
+
 struct mui_list_item_s {
     uint16_t icon;
     string_t text;
@@ -51,9 +53,13 @@ struct mui_list_view_s {
     void *user_data;
     uint16_t scroll_offset;
     uint8_t canvas_height;
+    uint8_t canvas_width;
     mui_anim_t anim;
     uint8_t anim_type;
     int16_t anim_value;
+    mui_anim_t text_anim;
+    uint8_t text_offset;
+    uint8_t first_draw;
 };
 
 mui_list_view_t *mui_list_view_create();
@@ -66,9 +72,14 @@ void mui_list_view_set_item(mui_list_view_t *p_view, uint16_t index, uint32_t ic
 uint32_t mui_list_view_item_size(mui_list_view_t *p_view);
 void mui_list_view_set_selected_cb(mui_list_view_t *p_view, mui_list_view_selected_cb selected_cb);
 void mui_list_view_clear_items(mui_list_view_t *p_view);
+void mui_list_view_clear_items_with_cb(mui_list_view_t *p_view, mui_list_view_item_clear_cb clear_cb);
 void mui_list_view_set_focus(mui_list_view_t *p_view, uint16_t focus_index);
 void mui_list_view_sort(mui_list_view_t *p_view, mui_list_view_item_cmp_cb cmp_cb);
 uint16_t mui_list_view_get_focus(mui_list_view_t *p_view);
+
+static inline void* mui_list_view_get_user_data(mui_list_view_t *p_view){
+    return p_view->user_data;
+}
 
 
 #endif

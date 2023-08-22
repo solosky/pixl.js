@@ -5,6 +5,7 @@
 
 #include "player_scene.h"
 #include "player_view.h"
+#include "i18n/language.h"
 
 static void app_player_on_run(mini_app_inst_t *p_app_inst);
 static void app_player_on_kill(mini_app_inst_t *p_app_inst);
@@ -57,6 +58,7 @@ void app_player_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event)
 
 mini_app_t app_player_info = {.id = MINI_APP_ID_PLAYER,
                                  .name = "动画播放器",
+                                 .name_i18n_key = _L_APP_PLAYER,
                                  .icon = 0xe020,
                                  .deamon = false,
                                  .sys = false,

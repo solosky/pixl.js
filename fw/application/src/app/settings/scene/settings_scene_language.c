@@ -23,20 +23,17 @@ static void settings_scene_language_list_view_on_selected(mui_list_view_event_t 
     switch (selection) {
     case SETTINGS_LANGUAGE_ZH_HANS:
         p_settings->language = LANGUAGE_ZH_HANS;
-        settings_save();
-        NVIC_SystemReset();
+        setLanguage(p_settings->language);
         break;
 
     case SETTINGS_LANGUAGE_EN_US:
         p_settings->language = LANGUAGE_EN_US;
-        settings_save();
-        NVIC_SystemReset();
+        setLanguage(p_settings->language);
         break;
     
     case SETTINGS_LANGUAGE_ZH_TW:
         p_settings->language = LANGUAGE_ZH_TW;
-        settings_save();
-        NVIC_SystemReset();
+        setLanguage(p_settings->language);
         break;
     }
     mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);

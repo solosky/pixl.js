@@ -150,8 +150,17 @@ static void mui_anim_tick_handler() {
                 p_anim->current_value = p_anim->start_value;
                 p_anim->run_cnt = 0;
             } else {
-                // reached end of animation
-                mui_anim_ptr_array_remove(m_anim_ptr_array, it);
+                if(p_anim->auto_restart) {
+                    p_anim->act_time = 0;
+                    int32_t start_value = p_anim->start_value;
+                    p_anim->current_value = p_anim->end_value;
+                    p_anim->start_value = p_anim->end_value;
+                    p_anim->end_value = start_value;
+                    p_anim->run_cnt = 0;
+                }else {
+                    // reached end of animation
+                    mui_anim_ptr_array_remove(m_anim_ptr_array, it);
+                }
             }
         } else {
             int32_t new_value = p_anim->path_cb(p_anim);
@@ -168,6 +177,7 @@ static void mui_anim_tick_handler() {
     if (mui_anim_ptr_array_size(m_anim_ptr_array) <= 0 && m_anim_tmr_started) {
         m_anim_tmr_started = false;
         err_code = app_timer_stop(m_anim_tick_tmr);
+        NRF_LOG_INFO("stop anim timer..");
         APP_ERROR_CHECK(err_code);
     }
 
@@ -211,6 +221,7 @@ void mui_anim_init(mui_anim_t *p_anim){
     p_anim->exec_cb = NULL;
     p_anim->repeat_cnt = 1;
     p_anim->run_cnt = 0;
+    p_anim->auto_restart = false;
     p_anim->path_cb = lv_anim_path_ease_in_out;
 }
 

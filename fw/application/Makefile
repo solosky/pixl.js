@@ -166,13 +166,11 @@ SRC_FILES += \
 	$(SDK_ROOT)/external/mbedtls/library/x509write_csr.c \
 	$(SDK_ROOT)/external/mbedtls/library/xtea.c \
   $(PROJ_DIR)/main.c \
-  $(PROJ_DIR)/ntag_emu_v2.c \
-  $(PROJ_DIR)/ntag_store.c \
+  $(PROJ_DIR)/ntag/ntag_emu_v2.c \
+  $(PROJ_DIR)/ntag/ntag_store.c \
   $(PROJ_DIR)/bat.c \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
-  $(PROJ_DIR)/amiibo_data.c \
-  $(PROJ_DIR)/amiibo_data_lookup.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
@@ -198,7 +196,8 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
   $(PROJ_DIR)/mui/mui_scene_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
-  $(PROJ_DIR)/mui/mui_u8g2_fonts.c \
+  $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -232,6 +231,25 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu_mode.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene_menu_ver.c \
+  $(PROJ_DIR)/app/amiidb/app_amiidb.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_main.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_game_list.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_amiibo_detail.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_amiibo_detail_menu.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_amiibo_search.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_fav_list.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_fav_select.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_fav_list_menu.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_data_list.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_data_select.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_data_list_menu.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_settings.c \
+  $(PROJ_DIR)/app/amiidb/scene/amiidb_scene_settings_slot_num.c \
+  $(PROJ_DIR)/app/amiidb/api/amiidb_api_slot.c \
+  $(PROJ_DIR)/app/amiidb/api/amiidb_api_fav.c \
+  $(PROJ_DIR)/app/amiidb/api/amiidb_api_db.c \
+  $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -255,6 +273,10 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/zh_TW.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
+  $(PROJ_DIR)/amiidb/db_amiibo.c \
+  $(PROJ_DIR)/amiidb/db_game.c \
+  $(PROJ_DIR)/amiidb/db_link.c \
+  $(PROJ_DIR)/amiidb/db_search.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -461,10 +483,12 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mui \
   $(PROJ_DIR)/mui/view \
   $(PROJ_DIR)/core \
+  $(PROJ_DIR)/ntag \
   $(PROJ_DIR)/mod \
   $(PROJ_DIR)/mod/vfs \
   $(PROJ_DIR)/mod/ble \
   $(PROJ_DIR)/mod/df \
+  $(PROJ_DIR)/amiidb \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
   $(PROJ_DIR)/app/ble \
@@ -482,6 +506,10 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/amiibolink \
   $(PROJ_DIR)/app/amiibolink/view \
   $(PROJ_DIR)/app/amiibolink/scene \
+  $(PROJ_DIR)/app/amiidb \
+  $(PROJ_DIR)/app/amiidb/scene \
+  $(PROJ_DIR)/app/amiidb/view \
+  $(PROJ_DIR)/app/amiidb/api \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
@@ -497,7 +525,7 @@ LIB_FILES += \
   $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
 OPT = -O3 -g3
-# OPT = -Os -ffunction-sections -fdata-sections
+OPT = -Os -ffunction-sections -fdata-sections
 # Uncomment the line below to enable link time optimization
 # OPT += -flto
 

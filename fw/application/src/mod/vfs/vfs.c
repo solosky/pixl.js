@@ -1,12 +1,7 @@
 #include "vfs.h"
 
-#ifdef VFS_LFS_ENABLE
-    #include "vfs_driver_lfs.h"
-    #define VFS_DRIVER {.enabled = true, .p_driver = &vfs_driver_lfs}
-#else
-    #include "vfs_driver_spiffs.h"
-    #define VFS_DRIVER {.enabled = true, .p_driver = &vfs_driver_spiffs}
-#endif
+#include "vfs_driver_fs.h"
+#define VFS_DRIVER {.enabled = true, .p_driver = &vfs_driver_fs}
 
 typedef struct {
     bool enabled;
