@@ -121,7 +121,7 @@ Amiibo是任天堂的注册商标，NTAG21X为NXP的注册商标。
 内置的Amiibo数据库来源分别如下：
 
 * [amiiloop](https://download.amiloop.app/)
-* [AmiiboAPI] (https://www.amiiboapi.com/)
+* [AmiiboAPI](https://www.amiiboapi.com/)
 
 源代码没有包含任何有任天堂版权的资源（比如相关密钥，Amiibo原始数据等）。
 
