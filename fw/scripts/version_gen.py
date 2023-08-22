@@ -100,7 +100,7 @@ class Main(object):
         new_version_info_fmt = "\n".join(version_values) + "\n"
 
         current_version_info = None
-        outdir = os.path.join(self.get_root_dir(), "src") 
+        outdir = os.path.join(self.get_root_dir(),"application", "src") 
         version_header_name = os.path.join(outdir, "version.inc.h")
         version_json_name = os.path.join(outdir, "version.json")
 

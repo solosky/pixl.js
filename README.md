@@ -34,6 +34,12 @@ hw/RevC为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打�
 
 [docs/boards-thirdparty.md](docs/boards-thirdparty.md)
 
+## OLED版本
+
+OLED版本由网友 @xiaohail 贡献，可以点[这里](https://gitlab.com/xiaohai/pixl.js)下载PCB。
+
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
+
 
 ## 编译
 
@@ -111,6 +117,13 @@ App Store上第三方作者开发的iOS应用 iNFC。
 
 本项目为开源项目，仅为学习研究用途，请勿用于商业用途。 <br />
 Amiibo是任天堂的注册商标，NTAG21X为NXP的注册商标。
+
+内置的Amiibo数据库来源分别如下：
+
+* [amiiloop](https://download.amiloop.app/)
+* [AmiiboAPI](https://www.amiiboapi.com/)
+
+源代码没有包含任何有任天堂版权的资源（比如相关密钥，Amiibo原始数据等）。
 
 # License
 
