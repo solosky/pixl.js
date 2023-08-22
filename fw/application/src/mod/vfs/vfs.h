@@ -5,6 +5,8 @@
 #include <stddef.h>
 #include <stdint.h>
 
+#include "boards_defines.h"
+
 // Virtual Object Storage
 
 #define VFS_MAX_FOLDER_SIZE 32
