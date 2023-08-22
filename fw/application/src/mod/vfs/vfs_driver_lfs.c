@@ -1,6 +1,7 @@
-#define LFS_ENABLE
-#ifdef LFS_ENABLE
 
+#include "boards_defines.h"
+
+#ifdef VFS_LFS_ENABLE
 #include "vfs_driver_fs.h"
 
 #include "nrf_log.h"

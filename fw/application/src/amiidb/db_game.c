@@ -51,7 +51,7 @@ const db_game_t game_list[] = {
 {49, 0, "Yu-Gi-Oh! Rush Duel Saikyo Battle Royale ", "游戏王：激斗大逃杀", 0, 7}, 
 {50, 0, "Dark Souls Remastered", "黑暗之魂：重制版", 0, 1}, 
 {51, 0, "Super Mario Party", "超级马力欧派对", 84, 15}, 
-{52, 11, "Amiibo Cards", "Amiibo Figures", 0, 509}, 
+{52, 11, "Amiibo Cards", "Amiibo Cards", 0, 509}, 
 {53, 11, "Amiibo Figures", "Amiibo Figures", 0, 16}, 
 {54, 52, "!Amiibo Festival", "!Amiibo Festival", 0, 3}, 
 {55, 52, "!Sanrio Cards", "!Sanrio Cards", 0, 6}, 
