@@ -63,7 +63,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     while (!mui_list_item_array_end_p(it)) {
         mui_list_item_t *item = mui_list_item_array_ref(it);
         int32_t y = index * LIST_ITEM_HEIGHT - offset_y;
-        int8_t text_offset = index == p_mui_list_view->focus_index ? p_mui_list_view->text_offset : 0;
+        int32_t text_offset = index == p_mui_list_view->focus_index ? p_mui_list_view->text_offset : 0;
         if (y >= -LIST_ITEM_HEIGHT && y <= mui_canvas_get_height(p_canvas)) { // visible object
             mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
             mui_canvas_draw_glyph(p_canvas, 0, y + 10, item->icon);
