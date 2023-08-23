@@ -34,7 +34,7 @@ static void ntag_generate_cb() {
     }
 }
 
-#ifdef AMIIBOLINK_STORE_FDS
+#ifdef INTERNAL_ENABLE
 static void ntag_update(app_amiibolink_t *app, uint8_t index, ntag_t *p_ntag) {
     ret_code_t err_code = ntag_store_write(index, p_ntag);
     NRF_LOG_INFO("ntag_update: index=%d, err_code=%d", index, err_code);
@@ -47,8 +47,9 @@ static void ntag_reload(app_amiibolink_t *app, uint8_t index){
         ntag_emu_set_tag(&ntag);
     }
 }
+
+static void ntag_init(){ }
 #else
-#endif
 
 static void ntag_update(app_amiibolink_t *app, uint8_t index, ntag_t *p_ntag) {
     char path[VFS_MAX_PATH_LEN] = {0};
@@ -80,6 +81,8 @@ static void ntag_init(){
     vfs_driver_t * p_driver = vfs_get_driver(VFS_DRIVE_EXT);
     p_driver->create_dir("/amiibolink");
 }
+
+#endif
 
 static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag) {
 
