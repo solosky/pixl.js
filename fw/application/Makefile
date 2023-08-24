@@ -250,6 +250,12 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/api/amiidb_api_fav.c \
   $(PROJ_DIR)/app/amiidb/api/amiidb_api_db.c \
   $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
+  $(PROJ_DIR)/app/chameleon/app_chameleon.c \
+  $(PROJ_DIR)/app/chameleon/view/chameleon_view.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_main.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
+  $(PROJ_DIR)/app/chameleon/app_chameleon.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -510,6 +516,9 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/amiidb/scene \
   $(PROJ_DIR)/app/amiidb/view \
   $(PROJ_DIR)/app/amiidb/api \
+  $(PROJ_DIR)/app/chameleon \
+  $(PROJ_DIR)/app/chameleon/view \
+  $(PROJ_DIR)/app/chameleon/scene \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \

@@ -114,4 +114,5 @@ const char * lang_zh_hans[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_SELECT_FOLDER] = "选择收藏夹..",
     [_L_APP_AMIIDB_FAV_SUCCESS] = "收藏成功",
     [_L_APP_AMIIDB_FAV_FAILED] = "收藏失败",
+    [_L_APP_CHAMELEON] = "变色龙",
 };

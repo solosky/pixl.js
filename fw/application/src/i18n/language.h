@@ -132,6 +132,8 @@ typedef enum {
     _L_APP_AMIIDB_FAV_SELECT_FOLDER,
     _L_APP_AMIIDB_FAV_SUCCESS,
     _L_APP_AMIIDB_FAV_FAILED,
+
+    _L_APP_CHAMELEON,
     _L_COUNT  // 字符串的数量
 } L_StringID;
 
