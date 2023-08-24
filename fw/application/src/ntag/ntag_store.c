@@ -97,7 +97,7 @@ void ntag_store_new_rand(ntag_t* ntag){
     ntag_store_uuid_rand(ntag);
 }
 
-#ifdef STORAGE_FDS
+#ifdef INTERNAL_ENABLE
 
 static volatile bool m_fds_ready =
     false; /**< Flag used to indicate that FDS initialization is finished. */
@@ -316,94 +316,6 @@ static ret_code_t fds_wait_ready() {
     while (!m_fds_ready)
         ;
     return m_fs_op_retcode;
-}
-
-#endif
-
-#ifdef STORAGE_LFS
-
-#include "lfs.h"
-#include "lfs_port.h"
-
-#define FILE_MAX_PATH 16
-
-#define NTAG_STORAGE_NOT_FOUND 10000
-#define NTAG_STORAGE_READ_ERROR 10001
-#define NTAG_STORAGE_WRITE_ERROR 10002
-#define NTAG_STORAGE_READ_CORRUPT 10003
-
-ret_code_t ntag_store_init() { return NRF_SUCCESS; }
-
-void ntag_store_format_path(uint8_t idx, char *path) {
-    sprintf(path, "amiibo/%02d.bin", idx);
-}
-
-ret_code_t ntag_store_read(uint8_t idx, ntag_t *ntag) {
-    char path[FILE_MAX_PATH];
-    lfs_file_t file;
-
-    ntag_store_format_path(idx, path);
-    int err = lfs_file_open(&lfs, &file, path, LFS_O_RDONLY);
-    NRF_LOG_INFO("lfs_file_open: %d", err);
-    if (err == LFS_ERR_NOENT) {
-        return NTAG_STORAGE_NOT_FOUND;
-    } else if (err) {
-        return NTAG_STORAGE_READ_ERROR;
-    }
-
-    err = lfs_file_read(&lfs, &file, ntag->data, 540);
-    NRF_LOG_INFO("lfs_file_read: %d", err);
-
-    if (err < 540) {
-        lfs_file_close(&lfs, &file);
-        return NTAG_STORAGE_READ_CORRUPT;
-    }
-
-    lfs_file_close(&lfs, &file);
-    ntag->size = 540;
-    ntag->type = NTAG_215;
-    ntag->index = 0;
-}
-
-ret_code_t ntag_store_write(uint8_t idx, ntag_t *ntag) {
-    char path[FILE_MAX_PATH];
-    lfs_file_t file;
-
-    ntag_store_format_path(idx, path);
-    int err = lfs_file_open(&lfs, &file, path, LFS_O_WRONLY | LFS_O_CREAT);
-    if (err) {
-        return NTAG_STORAGE_WRITE_ERROR;
-    }
-
-    if (lfs_file_write(&lfs, &file, ntag->data, 540) < 540) {
-        lfs_file_close(&lfs, &file);
-        return NTAG_STORAGE_WRITE_ERROR;
-    }
-
-    lfs_file_close(&lfs, &file);
-
-    return NRF_SUCCESS;
-}
-
-ret_code_t ntag_store_read_default(uint8_t idx, ntag_t *ntag) {
-    char path[16];
-    ret_code_t err = ntag_store_read(idx, ntag);
-    NRF_LOG_INFO("read ntag: %d", idx);
-    if (err == NTAG_STORAGE_NOT_FOUND || err == NTAG_STORAGE_READ_CORRUPT) {
-        NRF_LOG_INFO("generate ntag: %d", idx);
-        ntag_store_generate(idx, ntag);
-        return ntag_store_write(idx, ntag);
-    }
-
-    return err;
-}
-ret_code_t ntag_store_write_with_gc(uint8_t idx, ntag_t *ntag) {
-    return ntag_store_write(idx, ntag);
-}
-
-ret_code_t ntag_store_reset(uint8_t idx, ntag_t *ntag) {
-    ntag_store_generate(idx, ntag);
-    return ntag_store_write(idx, ntag);
 }
 
 #endif

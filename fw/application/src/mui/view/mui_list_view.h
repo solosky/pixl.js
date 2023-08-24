@@ -58,7 +58,7 @@ struct mui_list_view_s {
     uint8_t anim_type;
     int16_t anim_value;
     mui_anim_t text_anim;
-    uint8_t text_offset;
+    int16_t text_offset;
     uint8_t first_draw;
 };
 
