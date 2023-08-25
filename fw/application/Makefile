@@ -6,6 +6,7 @@ SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
 COMP_DIR := ../components
 U8G2_ROOT := ../components/u8g2/csrc
+CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
 RELEASE ?= 1
@@ -299,6 +300,16 @@ SRC_FILES += \
   $(COMP_DIR)/spiffs/src/spiffs_gc.c \
   $(COMP_DIR)/spiffs/src/spiffs_hydrogen.c \
   $(COMP_DIR)/spiffs/src/spiffs_nucleus.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/crypto1_helper.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_14a.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_mf1.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_ntag.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/crc_utils.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/hex_utils.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/mf1_crapto1.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/parity.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_emulation.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_persistence.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
@@ -527,7 +538,13 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
-  $(SDK_ROOT)/components/libraries/bsp
+  $(SDK_ROOT)/components/libraries/bsp \
+  $(CHAMELEON_ROOT)/application/src/rfid \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf \
+  $(CHAMELEON_ROOT)/application/src/utils \
+  $(CHAMELEON_ROOT)/application/src
+
 
 # Libraries common to all targets
 LIB_FILES += \
