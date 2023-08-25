@@ -115,7 +115,7 @@ ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {
     // encrypt
     amiibo_helper_get_uuid(new_ntag, new_uuid);
     amiibo_helper_replace_uuid(modified, new_uuid);
-
+    amiibo_helper_set_defaults(modified, new_uuid);
     nfc3d_amiibo_pack(&amiibo_keys, modified, new_ntag->data);
 
     return NRF_SUCCESS;
