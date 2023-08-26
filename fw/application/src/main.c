@@ -104,6 +104,9 @@
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
+
+int8_t g_usb_led_marquee_enable = 0; /** dummy for chameleon */
+
 // #define SPI_FLASH
 
 /**

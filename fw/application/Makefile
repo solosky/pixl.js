@@ -256,7 +256,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_main.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
-  $(PROJ_DIR)/app/chameleon/app_chameleon.c \
+  $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -284,6 +284,7 @@ SRC_FILES += \
   $(PROJ_DIR)/amiidb/db_game.c \
   $(PROJ_DIR)/amiidb/db_link.c \
   $(PROJ_DIR)/amiidb/db_search.c \
+  $(PROJ_DIR)/sdk/nrfx/nrfx_nfct.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \

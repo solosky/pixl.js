@@ -22,6 +22,7 @@
 #define DEFAULT_NTAG_INDEX 99
 #define MAX_NTAG_INDEX 26
 
+#include "hal_nfc_t2t.h"
 #include "tag_emulation.h"
 
 
@@ -38,6 +39,10 @@ static void chameleon_scene_main_event_cb(chameleon_view_event_t event, chameleo
 void chameleon_scene_main_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
+    hal_nfc_set_nrfx_irq_enable(true);
+
+    tag_emulation_factory_init();
+
     tag_emulation_init();
 
     tag_emulation_sense_run();
@@ -49,7 +54,6 @@ void chameleon_scene_main_on_enter(void *user_data) {
 void chameleon_scene_main_on_exit(void *user_data) {
     app_chameleon_t *app = user_data;
 
-    ble_disable();
-    ble_nus_set_handler(NULL, NULL);
-    ntag_emu_set_update_cb(NULL, NULL);
+    tag_emulation_sense_end();
+    hal_nfc_set_nrfx_irq_enable(false);
 }
