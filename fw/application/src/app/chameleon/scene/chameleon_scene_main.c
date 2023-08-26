@@ -22,6 +22,8 @@
 #define DEFAULT_NTAG_INDEX 99
 #define MAX_NTAG_INDEX 26
 
+#include "tag_emulation.h"
+
 
 static void chameleon_scene_main_event_cb(chameleon_view_event_t event, chameleon_view_t *p_view) {
     app_amiibolink_t *app = p_view->user_data;
@@ -35,6 +37,11 @@ static void chameleon_scene_main_event_cb(chameleon_view_event_t event, chameleo
 
 void chameleon_scene_main_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
+
+    tag_emulation_init();
+
+    tag_emulation_sense_run();
+
     chameleon_view_set_event_cb(app->p_chameleon_view, chameleon_scene_main_event_cb);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_MAIN);
 }

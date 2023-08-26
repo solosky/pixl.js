@@ -307,6 +307,7 @@ SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/rfid/crc_utils.c \
   $(CHAMELEON_ROOT)/application/src/rfid/hex_utils.c \
   $(CHAMELEON_ROOT)/application/src/rfid/mf1_crapto1.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/mf1_crypto1.c \
   $(CHAMELEON_ROOT)/application/src/rfid/parity.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_emulation.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_persistence.c \
@@ -494,6 +495,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/stack_guard \
   $(SDK_ROOT)/components/libraries/log/src \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls \
+  $(SDK_ROOT)/components/libraries/fds \
   $(SDK_ROOT)/external/mbedtls/include \
   $(PROJ_DIR) \
   $(PROJ_DIR)/hal \
