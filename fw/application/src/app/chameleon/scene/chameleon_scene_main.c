@@ -54,6 +54,7 @@ void chameleon_scene_main_on_enter(void *user_data) {
 void chameleon_scene_main_on_exit(void *user_data) {
     app_chameleon_t *app = user_data;
 
+    tag_emulation_save();
     tag_emulation_sense_end();
     hal_nfc_set_nrfx_irq_enable(false);
 }

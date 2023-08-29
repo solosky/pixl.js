@@ -43,6 +43,8 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, chameleon_scene_defines,
                                            CHAMELEON_SCENE_MAX);
 
+    vfs_get_default_driver()->create_dir("/chameleon");
+
     if (p_app_inst->p_retain_data) {
         app_chameleon_retain_data_t *p_retain = (app_chameleon_retain_data_t *)p_app_inst->p_retain_data;
 

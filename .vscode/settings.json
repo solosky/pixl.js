@@ -3,6 +3,8 @@
         "vfs.h": "c",
         "ntag_def.h": "c",
         "vfs_driver_fs.h": "c",
-        "vfs_meta.h": "c"
+        "vfs_meta.h": "c",
+        "rgb_marquee.h": "c",
+        "utils.h": "c"
     }
 }
