@@ -11,7 +11,7 @@ const db_game_t game_list[] = {
 {9, 0, "Captain Toad: Treasure Tracker", "蘑菇队长:宝藏追踪者", 0, 4}, 
 {10, 0, "Bayonetta 2", "猎天使魔女2", 0, 13}, 
 {11, 0, "Animal Crossing: New Horizons", "集合啦！动物森友会", 99, 525}, 
-{12, 0, "Splatoon 3", "斯普拉遁 3", 40, 20}, 
+{12, 0, "Splatoon 3", "斯普拉遁3", 40, 20}, 
 {13, 0, "Fire Emblem Warriors: Three Hopes", "火焰纹章：风花雪月无双", 15, 13}, 
 {14, 0, "Fire Emblem Warriors", "火焰纹章：无双", 15, 13}, 
 {15, 0, "Fire Emblem Three Houses", "火焰纹章：风花雪月", 30, 13}, 
