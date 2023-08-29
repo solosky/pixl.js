@@ -31,7 +31,7 @@ const db_game_t game_list[] = {
 {29, 0, "MegaMan11", "洛克人11", 0, 1}, 
 {30, 0, "Mega Man Legacy Collection 2", "洛克人传奇合集2", 0, 1}, 
 {31, 0, "Mega Man Legacy Collection", "洛克人传奇合集", 0, 1}, 
-{32, 0, "Metroid Dread", "密特罗德：生存恐惧", 10, 8}, 
+{32, 0, "Metroid Dread", "密特罗德：生存恐惧", 10, 7}, 
 {33, 0, "Miitopia", "迷托邦", 0, 26}, 
 {34, 0, "MONSTER HUNTER RISE", "怪物猎人：崛起", 95, 15}, 
 {35, 0, "Monster Hunter Stories 2: Wings of Ruin", "怪物猎人物语2：毁灭之翼", 0, 3}, 
@@ -67,7 +67,7 @@ const db_game_t game_list[] = {
 {65, 0, "Fire Emblem Echoes: Shadows of Valentia", "火焰纹章回声：另一个英雄王", 15, 9}, 
 {66, 0, "Detective Pikachu", "名侦探皮卡丘", 0, 1}, 
 {67, 0, "Hey! Pikmin", "Hey! 皮克敏", 0, 2}, 
-{68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说 黄昏公主HD", 10, 10}, 
+{68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说：黄昏公主HD", 10, 10}, 
 {69, 0, "Luigi's Mansion", "路易吉洋楼1", 5, 4}, 
 {0, 0, 0, 0, 0}
 };

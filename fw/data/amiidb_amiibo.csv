@@ -34,7 +34,7 @@
 3500020002e20f02,One-Eyed Rathalos and Rider - Female,独眼雄火龙与女骑士
 3501000002e30f02,Nabiru,纳比露
 3502010002e40f02,Rathian and Cheval,雌火龙与修瓦尔
-3503010002e50f02,Barioth and Ayuria,冰牙龙与亚尤利娅
+3503010002e50f02,Barioth and Ayuria,冰牙龙与亚尤利亚
 3504010002e60f02,Qurupeco and Dan,彩鸟与丹前辈
 35050000040c0f02,Razewing Ratha,毁灭火龙
 35060000040d0f02,Ena,艾娜
@@ -42,11 +42,11 @@
 38c0000003911602,Loot Goblin,藏宝哥布林
 0017000002680102,Boo,嘘嘘鬼
 0006000000150002,Bowser Jr.,酷霸王Jr.
-00130000037a0002,Daisy,黛西公主
-0008000002640102,Donkey Kong,咚奇刚
+00130000037a0002,Daisy,菊花公主
+0008000002640102,Donkey Kong,大金刚
 00010000000c0002,Luigi,路易吉
-0002000000010002,Peach,碧姬公主
-0004010000130002,Rosalina & Luma,罗莎塔&琪琪
+0002000000010002,Peach,桃花公主
+0004010000130002,Rosalina & Luma,罗莎塔&其其
 0014000002670102,Waluigi,瓦路易吉
 0003010200420302,Pink Yarn Yoshi,粉色毛线耀西
 0005000000140002,Bowser,酷霸王
@@ -57,7 +57,7 @@
 0007000002630102,Wario,瓦力欧
 21000000000b0002,Marth,马尔斯
 2101000000180002,Ike,艾克
-2102000000290002,Lucina,露琪娜
+2102000000290002,Lucina,露奇娜
 21030000002a0002,Robin,鲁弗莱
 2104000002520002,Roy,罗伊
 21050000025a0002,Corrin,神威
@@ -66,7 +66,7 @@
 2107000003611202,Celica,赛莉卡
 21080000036f1202,Chrom,库洛姆
 2108000003880002,Chrom,库洛姆
-2109000003701202,Tiki,琪姬
+2109000003701202,Tiki,Tiki
 210b000003a50002,Byleth,贝雷丝
 0005000003730102,Bowser - Wedding,礼服酷霸王
 0000010000190002,Dr. Mario,马力欧医生
@@ -77,7 +77,7 @@
 00000000003c0102,Mario - Gold Edition,金马力欧
 0000000003710102,Mario - Wedding,礼服马力欧
 00000000003d0102,Mario - Silver Edition,银马力欧
-0002000003720102,Peach - Wedding,婚纱碧姬公主
+0002000003720102,Peach - Wedding,婚纱桃花公主
 0005000000390102,Bowser,酷霸王
 3740000103741402,Super Mario Cereal,马力欧联名麦片
 0005ff00023a0702,Hammer Slam Bowser,Hammer Slam Bowser
@@ -86,7 +86,7 @@
 3200000000300002,Sonic,索尼克
 08000100025f0402,Inkling Girl - Lime Green,Inkling Girl - Lime Green
 0600000000120002,Captain Falcon,飞隼队长
-0008000000030002,Donkey Kong,咚奇刚
+0008000000030002,Donkey Kong,大金刚
 1f000000000a0002,Kirby,卡比
 3340000000320002,Pac-Man,吃豆人
 0004000002620102,Rosalina,罗莎塔
@@ -106,12 +106,12 @@
 0374010103190502,[AC] XS1 - Rilla,[AC] XS1 - Rilla
 0003010200410302,Green Yarn Yoshi,绿色毛线耀西
 0003010200430302,Light Blue Yarn Yoshi,淡蓝毛线耀西
-0002000000360102,Peach,碧姬公主
+0002000000360102,Peach,桃花公主
 00800102035d0302,Poochy,波奇
 22400000002b0002,Shulk,修尔克
 08000100003e0402,Inkling Girl,Inkling Girl
 0800010003690402,Inkling Girl - Neon Pink,Inkling Girl - Neon Pink
-0800010003820002,Inkling,Inkling
+0800010003820002,Inkling,乌贼娘
 0800010004150402,Inkling - Yellow,Inkling - Yellow
 08000200003f0402,Inkling Boy,Inkling Boy
 0800020002600402,Inkling Boy - Purple,Inkling Boy - Purple
@@ -128,9 +128,9 @@
 08050200041b0402,Octoling - Blue,Octoling - Blue
 0805030003900402,Octoling Octopus,Octoling Octopus
 08060100041c0402,Smallfry,Smallfry
-00240000038d0002,Piranha Plant,Piranha Plant
-00c00000037b0002,King K. Rool,King K. Rool
-01810000037d0002,Isabelle,Isabelle
+00240000038d0002,Piranha Plant,吞食花
+00c00000037b0002,King K. Rool,库鲁鲁王
+01810000037d0002,Isabelle,西施惠
 05810000001c0002,Falco,弗克
 05840000037e0002,Wolf,沃鲁夫
 05c00100001d0002,Zero Suit Samus,零装甲萨姆斯
@@ -191,8 +191,8 @@
 3845000104291902,Nail Saionji,Nail Saionji
 38460001042a1902,Asana Mutsuba,Asana Mutsuba
 0000030003a60102,Mario - Cat,猫猫马力欧
-0002010003a70102,Peach - Cat,猫猫碧姬公主
-0013000002660102,Daisy,黛西公主
+0002010003a70102,Peach - Cat,猫猫桃花公主
+0013000002660102,Daisy,菊花公主
 00030102023e0302,Mega Yarn Yoshi,毛线耀西
 1f02000002560c02,King Dedede,迪迪迪大王
 1f01000002550c02,Meta Knight,梅塔骑士
@@ -225,7 +225,7 @@
 028f0101031a0502,[AC] XS2 - Marty,[AC] XS2 - Marty
 0000000002380602,8-Bit Mario Classic Color,像素马力欧 - 经典配色
 01810100023f0502,Isabelle,西施惠
-00020003039dff02,Peach - Power Up Band,碧姬公主 - 能量手环
+00020003039dff02,Peach - Power Up Band,桃花公主 - 能量手环
 0183000002420502,Tom Nook,狸克狸克
 0182000002400502,K.K. Slider,K.K.
 018e000002490502,Resetti,里赛特先生
@@ -741,7 +741,7 @@
 0003000000370102,Yoshi,耀西
 00030003039fff02,Yoshi - Power Up Band,耀西 - 能量手环
 0008ff00023b0702,Turbo Charge Donkey Kong,
-00130003039eff02,Daisy - Power Up Band,黛西公主 - 能量手环
+00130003039eff02,Daisy - Power Up Band,菊花公主 - 能量手环
 0181000101d40502,[AC] CP1 - Isabelle,[AC] CP1 - Isabelle
 0182000101d80502,[AC] CP2 - K.K Slider,[AC] CP2 - K.K Slider
 025f000101d70502,[AC] AF2 - Rosie,[AC] AF2 - Rosie
