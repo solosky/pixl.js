@@ -2,7 +2,7 @@
 const db_game_t game_list[] = {
 {1, 0, "The Legend of Zelda: Tears of the Kingdom", "塞尔达传说：王国之泪", 100, 28}, 
 {2, 0, "The Legend of Zelda: Skyward Sword", "塞尔达传说：御天之剑", 10, 1}, 
-{3, 0, "Hyrule Warriors：Definitive Edition", "塞尔达无双：海拉鲁全明星豪华版", 0, 6}, 
+{3, 0, "Hyrule Warriors：Definitive Edition", "塞尔达无双：海拉鲁全明星豪华版", 15, 6}, 
 {4, 0, "The Legend of Zelda：Breath of the Wild", "塞尔达传说：旷野之息", 150, 25}, 
 {5, 0, "The Legend of Zelda: Link's Awakening for Nintendo Switch", "塞尔达传说：织梦岛", 35, 25}, 
 {6, 0, "Hyrule Warriors: Age of Calamity", "塞尔达无双：灾厄启示录", 15, 10}, 
@@ -63,11 +63,11 @@ const db_game_t game_list[] = {
 {61, 52, "!Special Edition", "!Special Edition", 0, 2}, 
 {62, 52, "!Welcome Amiibo", "!Welcome Amiibo", 0, 50}, 
 {63, 0, "Metroid Samus Return", "密特罗德：萨姆斯归来", 10, 4}, 
-{64, 0, "Fire Emblem Fates", "火焰纹章if", 5, 4}, 
+{64, 0, "Fire Emblem Fates", "火焰纹章if", 15, 4}, 
 {65, 0, "Fire Emblem Echoes: Shadows of Valentia", "火焰纹章回声：另一个英雄王", 15, 9}, 
 {66, 0, "Detective Pikachu", "名侦探皮卡丘", 0, 1}, 
 {67, 0, "Hey! Pikmin", "Hey! 皮克敏", 0, 2}, 
-{68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说：黄昏公主HD", 10, 10}, 
+{68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说：黄昏公主HD", 15, 10}, 
 {69, 0, "Luigi's Mansion", "路易吉洋楼1", 5, 4}, 
 {0, 0, 0, 0, 0}
 };
