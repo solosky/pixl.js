@@ -748,96 +748,96 @@
 05c0000003651302,Samus Aran,萨姆斯 阿兰
 05c1000003661302,Metroid,密特罗德
 05c4000004131302,E.M.M.I.,E.M.M.I.
-09c0010102690e02,Mario - Soccer,
-09c00201026a0e02,Mario - Baseball,
-09c00301026b0e02,Mario - Tennis,
-09c00401026c0e02,Mario - Golf,
-09c00501026d0e02,Mario - Horse Racing,
-09c10101026e0e02,Luigi - Soccer,
-09c10201026f0e02,Luigi - Baseball,
-09c1030102700e02,Luigi - Tennis,
-09c1040102710e02,Luigi - Golf,
-09c1050102720e02,Luigi - Horse Racing,
-09c2010102730e02,Peach - Soccer,
-09c2020102740e02,Peach - Baseball,
-09c2030102750e02,Peach - Tennis,
-09c2040102760e02,Peach - Golf,
-09c2050102770e02,Peach - Horse Racing,
-09c3010102780e02,Daisy - Soccer,
-09c3020102790e02,Daisy - Baseball,
-09c30301027a0e02,Daisy - Tennis,
-09c30401027b0e02,Daisy - Golf,
-09c30501027c0e02,Daisy - Horse Racing,
-09c40101027d0e02,Yoshi - Soccer,
-09c40201027e0e02,Yoshi - Baseball,
-09c40301027f0e02,Yoshi - Tennis,
-09c4040102800e02,Yoshi - Golf,
-09c4050102810e02,Yoshi - Horse Racing,
-09c5010102820e02,Wario - Soccer,
-09c5020102830e02,Wario - Baseball,
-09c5030102840e02,Wario - Tennis,
-09c5040102850e02,Wario - Golf,
-09c5050102860e02,Wario - Horse Racing,
-09c6010102870e02,Waluigi - Soccer,
-09c6020102880e02,Waluigi - Baseball,
-09c6030102890e02,Waluigi - Tennis,
-09c60401028a0e02,Waluigi - Golf,
-09c60501028b0e02,Waluigi - Horse Racing,
-09c70101028c0e02,Donkey Kong - Soccer,
-09c70201028d0e02,Donkey Kong - Baseball,
-09c70301028e0e02,Donkey Kong - Tennis,
-09c70401028f0e02,Donkey Kong - Golf,
-09c7050102900e02,Donkey Kong - Horse Racing,
-09c8010102910e02,Diddy Kong - Soccer,
-09c8020102920e02,Diddy Kong - Baseball,
-09c8030102930e02,Diddy Kong - Tennis,
-09c8040102940e02,Diddy Kong - Golf,
-09c8050102950e02,Diddy Kong - Horse Racing,
-09c9010102960e02,Bowser - Soccer,
-09c9020102970e02,Bowser - Baseball,
-09c9030102980e02,Bowser - Tennis,
-09c9040102990e02,Bowser - Golf,
-09c90501029a0e02,Bowser - Horse Racing,
-09ca0101029b0e02,Bowser Jr. - Soccer,
-09ca0201029c0e02,Bowser Jr. - Baseball,
-09ca0301029d0e02,Bowser Jr. - Tennis,
-09ca0401029e0e02,Bowser Jr. - Golf,
-09ca0501029f0e02,Bowser Jr. - Horse Racing,
-09cb010102a00e02,Boo - Soccer,
-09cb020102a10e02,Boo - Baseball,
-09cb030102a20e02,Boo - Tennis,
-09cb040102a30e02,Boo - Golf,
-09cb050102a40e02,Boo - Horse Racing,
-09cc010102a50e02,Baby Mario - Soccer,
-09cc020102a60e02,Baby Mario - Baseball,
-09cc030102a70e02,Baby Mario - Tennis,
-09cc040102a80e02,Baby Mario - Golf,
-09cc050102a90e02,Baby Mario - Horse Racing,
-09cd010102aa0e02,Baby Luigi - Soccer,
-09cd020102ab0e02,Baby Luigi - Baseball,
-09cd030102ac0e02,Baby Luigi - Tennis,
-09cd040102ad0e02,Baby Luigi - Golf,
-09cd050102ae0e02,Baby Luigi - Horse Racing,
-09ce010102af0e02,Birdo - Soccer,
-09ce020102b00e02,Birdo - Baseball,
-09ce030102b10e02,Birdo - Tennis,
-09ce040102b20e02,Birdo - Golf,
-09ce050102b30e02,Birdo - Horse Racing,
-09cf010102b40e02,Rosalina - Soccer,
-09cf020102b50e02,Rosalina - Baseball,
-09cf030102b60e02,Rosalina - Tennis,
-09cf040102b70e02,Rosalina - Golf,
-09cf050102b80e02,Rosalina - Horse Racing,
-09d0010102b90e02,Metal Mario - Soccer,
-09d0020102ba0e02,Metal Mario - Baseball,
-09d0030102bb0e02,Metal Mario - Tennis,
-09d0040102bc0e02,Metal Mario - Golf,
-09d0050102bd0e02,Metal Mario - Horse Racing,
-09d1010102be0e02,Pink Gold Peach - Soccer,
-09d1020102bf0e02,Pink Gold Peach - Baseball,
-09d1030102c00e02,Pink Gold Peach - Tennis,
-09d1040102c10e02,Pink Gold Peach - Golf,
-09d1050102c20e02,Pink Gold Peach - Horse Racing,
+09c0010102690e02,Mario - Soccer,Mario - Soccer
+09c00201026a0e02,Mario - Baseball,Mario - Baseball
+09c00301026b0e02,Mario - Tennis,Mario - Tennis
+09c00401026c0e02,Mario - Golf,Mario - Golf
+09c00501026d0e02,Mario - Horse Racing,Mario - Horse Racing
+09c10101026e0e02,Luigi - Soccer,Luigi - Soccer
+09c10201026f0e02,Luigi - Baseball,Luigi - Baseball
+09c1030102700e02,Luigi - Tennis,Luigi - Tennis
+09c1040102710e02,Luigi - Golf,Luigi - Golf
+09c1050102720e02,Luigi - Horse Racing,Luigi - Horse Racing
+09c2010102730e02,Peach - Soccer,Peach - Soccer
+09c2020102740e02,Peach - Baseball,Peach - Baseball
+09c2030102750e02,Peach - Tennis,Peach - Tennis
+09c2040102760e02,Peach - Golf,Peach - Golf
+09c2050102770e02,Peach - Horse Racing,Peach - Horse Racing
+09c3010102780e02,Daisy - Soccer,Daisy - Soccer
+09c3020102790e02,Daisy - Baseball,Daisy - Baseball
+09c30301027a0e02,Daisy - Tennis,Daisy - Tennis
+09c30401027b0e02,Daisy - Golf,Daisy - Golf
+09c30501027c0e02,Daisy - Horse Racing,Daisy - Horse Racing
+09c40101027d0e02,Yoshi - Soccer,Yoshi - Soccer
+09c40201027e0e02,Yoshi - Baseball,Yoshi - Baseball
+09c40301027f0e02,Yoshi - Tennis,Yoshi - Tennis
+09c4040102800e02,Yoshi - Golf,Yoshi - Golf
+09c4050102810e02,Yoshi - Horse Racing,oshi - Horse Racing
+09c5010102820e02,Wario - Soccer,Wario - Soccer
+09c5020102830e02,Wario - Baseball,Wario - Baseball
+09c5030102840e02,Wario - Tennis,Wario - Tennis
+09c5040102850e02,Wario - Golf,Wario - Golf
+09c5050102860e02,Wario - Horse Racing,Wario - Horse Racing
+09c6010102870e02,Waluigi - Soccer,Waluigi - Soccer
+09c6020102880e02,Waluigi - Baseball,Waluigi - Baseball
+09c6030102890e02,Waluigi - Tennis,Waluigi - Tennis
+09c60401028a0e02,Waluigi - Golf,Waluigi - Golf
+09c60501028b0e02,Waluigi - Horse Racing,Waluigi - Horse Racing
+09c70101028c0e02,Donkey Kong - Soccer,Donkey Kong - Soccer
+09c70201028d0e02,Donkey Kong - Baseball,Donkey Kong - Baseball
+09c70301028e0e02,Donkey Kong - Tennis,Donkey Kong - Tennis
+09c70401028f0e02,Donkey Kong - Golf,Donkey Kong - Golf
+09c7050102900e02,Donkey Kong - Horse Racing,Donkey Kong - Horse Racing
+09c8010102910e02,Diddy Kong - Soccer,Diddy Kong - Soccer
+09c8020102920e02,Diddy Kong - Baseball,iddy Kong - Baseball
+09c8030102930e02,Diddy Kong - Tennis,iddy Kong - Tennis
+09c8040102940e02,Diddy Kong - Golf,Diddy Kong - Golf
+09c8050102950e02,Diddy Kong - Horse Racing,Diddy Kong - Horse Racing
+09c9010102960e02,Bowser - Soccer,Bowser - Soccer
+09c9020102970e02,Bowser - Baseball,Bowser - Baseball
+09c9030102980e02,Bowser - Tennis,Bowser - Tennis
+09c9040102990e02,Bowser - Golf,Bowser - Golf
+09c90501029a0e02,Bowser - Horse Racing,Bowser - Horse Racing
+09ca0101029b0e02,Bowser Jr. - Soccer,Bowser Jr. - Soccer
+09ca0201029c0e02,Bowser Jr. - Baseball,Bowser Jr. - Baseball
+09ca0301029d0e02,Bowser Jr. - Tennis,Bowser Jr. - Tennis
+09ca0401029e0e02,Bowser Jr. - Golf,Bowser Jr. - Golf
+09ca0501029f0e02,Bowser Jr. - Horse Racing,Bowser Jr. - Horse Racing
+09cb010102a00e02,Boo - Soccer,Boo - Soccer
+09cb020102a10e02,Boo - Baseball,Boo - Baseball
+09cb030102a20e02,Boo - Tennis,Boo - Tennis
+09cb040102a30e02,Boo - Golf,Boo - Golf
+09cb050102a40e02,Boo - Horse Racing,Boo - Horse Racing
+09cc010102a50e02,Baby Mario - Soccer,Baby Mario - Soccer
+09cc020102a60e02,Baby Mario - Baseball,Baby Mario - Baseball
+09cc030102a70e02,Baby Mario - Tennis,Baby Mario - Tennis
+09cc040102a80e02,Baby Mario - Golf,Baby Mario - Golf
+09cc050102a90e02,Baby Mario - Horse Racing,Baby Mario - Horse Racing
+09cd010102aa0e02,Baby Luigi - Soccer,Baby Luigi - Soccer
+09cd020102ab0e02,Baby Luigi - Baseball,Baby Luigi - Baseball
+09cd030102ac0e02,Baby Luigi - Tennis,Baby Luigi - Tennis
+09cd040102ad0e02,Baby Luigi - Golf,Baby Luigi - Golf
+09cd050102ae0e02,Baby Luigi - Horse Racing,aby Luigi - Horse Racing
+09ce010102af0e02,Birdo - Soccer,Birdo - Soccer
+09ce020102b00e02,Birdo - Baseball,Birdo - Baseball
+09ce030102b10e02,Birdo - Tennis,Birdo - Tennis
+09ce040102b20e02,Birdo - Golf,Birdo - Golf
+09ce050102b30e02,Birdo - Horse Racing,Birdo - Horse Racing
+09cf010102b40e02,Rosalina - Soccer,Rosalina - Soccer
+09cf020102b50e02,Rosalina - Baseball,Rosalina - Baseball
+09cf030102b60e02,Rosalina - Tennis,Rosalina - Tennis
+09cf040102b70e02,Rosalina - Golf,Rosalina - Golf
+09cf050102b80e02,Rosalina - Horse Racing,Rosalina - Horse Racing
+09d0010102b90e02,Metal Mario - Soccer,Metal Mario - Soccer
+09d0020102ba0e02,Metal Mario - Baseball,Metal Mario - Baseball
+09d0030102bb0e02,Metal Mario - Tennis,Metal Mario - Tennis
+09d0040102bc0e02,Metal Mario - Golf,Metal Mario - Golf
+09d0050102bd0e02,Metal Mario - Horse Racing,Metal Mario - Horse Racing
+09d1010102be0e02,Pink Gold Peach - Soccer,Pink Gold Peach - Soccer
+09d1020102bf0e02,Pink Gold Peach - Baseball,Pink Gold Peach - Baseball
+09d1030102c00e02,Pink Gold Peach - Tennis,Pink Gold Peach - Tennis
+09d1040102c10e02,Pink Gold Peach - Golf,Pink Gold Peach - Golf
+09d1050102c20e02,Pink Gold Peach - Horse Racing,Pink Gold Peach - Horse Racing
 22410000041e0002,Pyra,焰
 22420000041f0002,Mythra,光
 22c00000003a0202,Chibi Robo,小机器人

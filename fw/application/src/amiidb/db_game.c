@@ -69,5 +69,6 @@ const db_game_t game_list[] = {
 {67, 0, "Hey! Pikmin", "Hey! 皮克敏", 0, 2}, 
 {68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说：黄昏公主HD", 15, 10}, 
 {69, 0, "Luigi's Mansion", "路易吉洋楼1", 5, 4}, 
+{255, 0, "Others", "未分类", 0, 101}, 
 {0, 0, 0, 0, 0}
 };
