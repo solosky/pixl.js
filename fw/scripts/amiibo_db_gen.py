@@ -172,6 +172,24 @@ def gen_amiibo_game_c_file(games, links):
         f.write("{0, 0, 0, 0, 0}\n")
         f.write("};\n")    
     
+def gen_other_link(amiibos, links):
+    linked_amiibo_ids = set()
+    new_link = list()
+    for link in links:
+        linked_amiibo_ids.add(link.amiibo_id)
+    for amiibo in amiibos:
+        if amiibo.id not in linked_amiibo_ids:
+            link = Link()
+            link.game_id = "255" # other
+            link.amiibo_id = amiibo.id
+            link.note_en = ""
+            link.note_cn = ""
+            new_link.append(link)
+    if len(new_link) > 0:
+        print("add %d uncategoried amiibo to other." %(len(new_link)))
+    for link in new_link:
+        links.append(link)
+    return links
 
 
 amiibos_api = fetch_amiibo_from_api()
@@ -182,6 +200,7 @@ print("Found %d amiibo records." % len(amiibos_merged))
 gen_amiibo_data_c_file(amiibos_merged)
 games = read_games_from_csv()
 links = read_link_from_csv()
+links = gen_other_link(amiibos_merged, links)
 gen_amiibo_game_c_file(games, links)
 gen_amiibo_link_c_file(links)
 
