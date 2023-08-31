@@ -742,7 +742,7 @@ const db_amiibo_t amiibo_list[] = {
 {0x00010003, 0x039cff02, "Luigi - Power Up Band", "路易吉 - 能量手环"}, 
 {0x00030000, 0x00370102, "Yoshi", "耀西"}, 
 {0x00030003, 0x039fff02, "Yoshi - Power Up Band", "耀西 - 能量手环"}, 
-{0x0008ff00, 0x023b0702, "Turbo Charge Donkey Kong", ""}, 
+{0x0008ff00, 0x023b0702, "Turbo Charge Donkey Kong", "Turbo Charge Donkey Kong"}, 
 {0x00130003, 0x039eff02, "Daisy - Power Up Band", "黛西公主 - 能量手环"}, 
 {0x01810001, 0x01d40502, "[AC] CP1 - Isabelle", "[AC] CP1 - Isabelle"}, 
 {0x01820001, 0x01d80502, "[AC] CP2 - K.K Slider", "[AC] CP2 - K.K Slider"}, 
