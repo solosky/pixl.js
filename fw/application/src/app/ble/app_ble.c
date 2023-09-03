@@ -20,6 +20,8 @@ void app_ble_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_ble_view = ble_status_view_create();
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
+    ble_status_view_set_user_data(p_app_handle->p_ble_view, p_app_handle);
+
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, BLE_VIEW_ID_MAIN,
                                  ble_status_view_get_view(p_app_handle->p_ble_view));
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);

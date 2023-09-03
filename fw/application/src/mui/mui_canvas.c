@@ -81,6 +81,7 @@ void mui_canvas_set_clip_window(mui_canvas_t *p_canvas, mui_rect_t *p_rect) {
                        p_rect->x + p_rect->w, p_rect->y + p_rect->w);
 }
 
+uint8_t mui_canvas_get_draw_color(mui_canvas_t *p_canvas) { return u8g2_GetDrawColor(p_canvas->fb); }
 void mui_canvas_set_draw_color(mui_canvas_t *p_canvas, uint8_t color) { u8g2_SetDrawColor(p_canvas->fb, color); }
 
 void mui_canvas_draw_box(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h) {
