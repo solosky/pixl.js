@@ -1,7 +1,7 @@
 #include "db_header.h"
 const db_game_t game_list[] = {
 {1, 0, "The Legend of Zelda: Tears of the Kingdom", "塞尔达传说：王国之泪", 100, 28}, 
-{2, 0, "The Legend of Zelda: Skyward Sword", "塞尔达传说：御天之剑", 10, 1}, 
+{2, 0, "The Legend of Zelda: Skyward Sword HD", "塞尔达传说：御天之剑HD", 15, 1}, 
 {3, 0, "Hyrule Warriors: Definitive Edition", "塞尔达无双：海拉鲁全明星豪华版", 15, 6}, 
 {4, 0, "The Legend of Zelda: Breath of the Wild", "塞尔达传说：旷野之息", 150, 25}, 
 {5, 0, "The Legend of Zelda: Link's Awakening for Nintendo Switch", "塞尔达传说：织梦岛", 35, 25}, 
