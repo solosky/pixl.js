@@ -55,7 +55,7 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
     uint8_t idx = bsp_button_pin_to_index(pin_no);
     if (button_action == APP_BUTTON_PUSH) {
         // trigger pressed first
-        //bsp_button_callback(idx, BSP_BTN_EVENT_PRESSED);
+        bsp_button_callback(idx, BSP_BTN_EVENT_PRESSED);
 
         switch (m_bsp_btns[idx].state) {
         case BTN_STATE_IDLE:
@@ -76,7 +76,7 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
 
     } else if (button_action == APP_BUTTON_RELEASE) {
         // trigger release first
-        //bsp_button_callback(idx, BSP_BTN_EVENT_RELEASED);
+        bsp_button_callback(idx, BSP_BTN_EVENT_RELEASED);
 
         switch (m_bsp_btns[idx].state) {
         case BTN_STATE_PRESSED:

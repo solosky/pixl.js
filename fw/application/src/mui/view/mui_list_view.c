@@ -100,7 +100,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
 static void mui_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     mui_list_view_t *p_mui_list_view = p_view->user_data;
-    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || INPUT_TYPE_LONG) {
+    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || event->type == INPUT_TYPE_LONG) {
         switch (event->key) {
         case INPUT_KEY_LEFT:
 

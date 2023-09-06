@@ -64,39 +64,41 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
 static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     amiibo_view_t *p_amiibo_view = p_view->user_data;
-    switch (event->key) {
-    case INPUT_KEY_LEFT:
-        if (p_amiibo_view->max_ntags > 1) {
-            if (p_amiibo_view->focus > 0) {
-                p_amiibo_view->focus--;
-            } else {
-                p_amiibo_view->focus = p_amiibo_view->max_ntags - 1;
+    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || event->type == INPUT_TYPE_LONG) {
+        switch (event->key) {
+        case INPUT_KEY_LEFT:
+            if (p_amiibo_view->max_ntags > 1) {
+                if (p_amiibo_view->focus > 0) {
+                    p_amiibo_view->focus--;
+                } else {
+                    p_amiibo_view->focus = p_amiibo_view->max_ntags - 1;
+                }
+
+                if (p_amiibo_view->event_cb) {
+                    p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                }
             }
+            break;
+        case INPUT_KEY_RIGHT:
+            if (p_amiibo_view->max_ntags > 1) {
+                if (p_amiibo_view->focus < p_amiibo_view->max_ntags - 1) {
+                    p_amiibo_view->focus++;
+                } else {
+                    p_amiibo_view->focus = 0;
+                }
+
+                if (p_amiibo_view->event_cb) {
+                    p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                }
+            }
+            break;
+        case INPUT_KEY_CENTER:
 
             if (p_amiibo_view->event_cb) {
-                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_MENU, p_amiibo_view);
             }
+            break;
         }
-        break;
-    case INPUT_KEY_RIGHT:
-        if (p_amiibo_view->max_ntags > 1) {
-            if (p_amiibo_view->focus < p_amiibo_view->max_ntags - 1) {
-                p_amiibo_view->focus++;
-            } else {
-                p_amiibo_view->focus = 0;
-            }
-
-            if (p_amiibo_view->event_cb) {
-                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
-            }
-        }
-        break;
-    case INPUT_KEY_CENTER:
-
-        if (p_amiibo_view->event_cb) {
-            p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_MENU, p_amiibo_view);
-        }
-        break;
     }
 }
 
