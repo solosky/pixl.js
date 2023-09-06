@@ -2,6 +2,7 @@
 #include "db_header.h"
 #include "i18n/language.h"
 #include "mui_element.h"
+#include "mui_qrcode_helper.h"
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa
@@ -49,10 +50,14 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             const char *notes = getLanguage() == LANGUAGE_ZH_HANS ? link->note_cn : link->note_en;
             mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, notes);
         }
+        sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
+        draw_qrcode(p_canvas, 91, 27, 33, buff);
     } else if (head > 0 && tail > 0) {
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, "Amiibo");
         sprintf(buff, "[%08x:%08x]", head, tail);
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, buff);
+        sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
+        draw_qrcode(p_canvas, 91, 27, 33, buff);
     } else {
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, getLangString(_L_BLANK_TAG));
     }
