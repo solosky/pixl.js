@@ -86,7 +86,7 @@ const db_amiibo_t amiibo_list[] = {
 {0x05800000, 0x00050002, "Fox", "火狐"}, 
 {0x34800000, 0x00310002, "Mega Man", "洛克人"}, 
 {0x32000000, 0x00300002, "Sonic", "索尼克"}, 
-{0x08000100, 0x025f0402, "Inkling Girl - Lime Green", "墨灵女孩 - 青柠绿"}, 
+{0x08000100, 0x025f0402, "Inkling Girl - Lime Green", "鱿鱼族女孩 - 青柠绿"}, 
 {0x06000000, 0x00120002, "Captain Falcon", "飞隼队长"}, 
 {0x00080000, 0x00030002, "Donkey Kong", "咚奇刚"}, 
 {0x1f000000, 0x000a0002, "Kirby", "卡比"}, 
