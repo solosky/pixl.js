@@ -31,7 +31,7 @@ const db_game_t game_list[] = {
 {29, 0, "Mega Man 11", "洛克人11", 1, 1}, 
 {30, 0, "Mega Man Legacy Collection 2", "洛克人传奇合集2", 1, 1}, 
 {31, 0, "Mega Man Legacy Collection", "洛克人传奇合集", 1, 1}, 
-{32, 0, "Metroid Dread", "密特罗德：生存恐惧", 10, 7}, 
+{32, 0, "Metroid Dread", "密特罗德：生存恐惧", 10, 8}, 
 {33, 0, "Miitopia", "迷托邦", 1, 26}, 
 {34, 0, "Monster Hunter Rise", "怪物猎人：崛起", 95, 15}, 
 {35, 0, "Monster Hunter Stories 2: Wings of Ruin", "怪物猎人物语2：毁灭之翼", 1, 3}, 
@@ -45,7 +45,7 @@ const db_game_t game_list[] = {
 {43, 0, "Splatoon 2", "喷射战士2", 1, 19}, 
 {44, 0, "Super Kirby Clash", "超级卡比猎人队", 1, 8}, 
 {45, 0, "Super Mario 3D World + Bowser's Fury", "超级马力欧 3D世界+狂怒世界", 1, 19}, 
-{46, 0, "Super Mario Odyssey", "超级马力欧：奥德赛", 70, 14}, 
+{46, 0, "Super Mario Odyssey", "超级马力欧：奥德赛", 70, 20}, 
 {47, 0, "Super Smash Bros Ultimate", "任天堂明星大乱斗", 35, 95}, 
 {48, 0, "Yoshi's Crafted World", "耀西的手工世界", 50, 11}, 
 {49, 0, "Yu-Gi-Oh! Rush Duel Saikyo Battle Royale ", "游戏王：激斗大逃杀", 1, 7}, 
@@ -69,6 +69,7 @@ const db_game_t game_list[] = {
 {67, 0, "Hey! Pikmin", "Hey! 皮克敏", 0, 2}, 
 {68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说：黄昏公主HD", 15, 10}, 
 {69, 0, "Luigi's Mansion", "路易吉洋楼1", 5, 4}, 
-{255, 0, "Others", "未分类", 0, 101}, 
+{70, 0, "Mario Sports Superstars", "马里奥运动：超级明星", 5, 90}, 
+{255, 0, "Others", "未分类", 0, 4}, 
 {0, 0, 0, 0, 0}
 };
