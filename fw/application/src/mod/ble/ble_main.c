@@ -532,7 +532,6 @@ void ble_set_device_name(const char *device_name) {
 
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
     uint32_t err_code = sd_ble_gap_device_name_set(&sec_mode, (const uint8_t *)device_name, strlen(device_name));
-    NRF_LOG_INFO("ble_set_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
     APP_ERROR_CHECK(err_code);
 }
 

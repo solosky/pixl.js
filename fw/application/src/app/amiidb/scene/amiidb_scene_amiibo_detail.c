@@ -141,7 +141,7 @@ static void amiidb_scene_amiibo_fav_list_update(app_amiidb_t *app) {
     amiidb_scene_amiibo_game_list_generate(app);
 }
 
-static void amiidb_scene_amiibo_search_cb(db_amiibo_t *p_amiibo, void *ctx) {
+static void amiidb_scene_amiibo_search_cb(const db_amiibo_t *p_amiibo, void *ctx) {
     app_amiidb_t *app = ctx;
     if (amiidb_fav_array_size(app->fav_array) < LIST_VIEW_ITEM_MAX_COUNT) {
         amiidb_fav_t *p_fav = amiidb_fav_array_push_new(app->fav_array);

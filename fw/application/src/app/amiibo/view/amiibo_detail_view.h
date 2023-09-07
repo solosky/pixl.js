@@ -46,7 +46,7 @@ inline void amiibo_detail_view_set_max_ntags(amiibo_detail_view_t *p_view, uint8
     p_view->max_ntags = max_ntags;
 }
 
-inline void amiibo_detail_view_set_file_name(amiibo_detail_view_t *p_view, const char* file_name){
+static inline void amiibo_detail_view_set_file_name(amiibo_detail_view_t *p_view, const char* file_name){
     string_set_str(p_view->file_name, file_name);
 }
 #endif

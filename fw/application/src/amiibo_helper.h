@@ -18,7 +18,7 @@ ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t* n
 
 bool is_valid_amiibo_ntag(const ntag_t* ntag);
 
-uint32_t to_little_endian_int32(uint8_t* data);
+uint32_t to_little_endian_int32(const uint8_t* data);
 
 
 #endif //AMIIBO_HELPER_H
