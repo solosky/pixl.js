@@ -3,10 +3,6 @@
 
 #include "u8x8.h"
 
-#ifndef U8G2_USE_LARGE_FONTS
-#define U8G2_USE_LARGE_FONTS
-#endif
-
 
 /*
   Fontname: -wenquanyi-wenquanyi bitmap song-medium-r-normal--12-120-75-75-P-119-ISO10646-1
@@ -14,7 +10,7 @@
   Glyphs: 4032/29895
   BBX Build Mode: 0
 */
-#ifdef U8G2_USE_LARGE_FONTS
+#ifdef U8G2_USE_LARGE_GB2312_FONT
 const uint8_t u8g2_font_wqy12_t_gb2312a[111873] U8G2_FONT_SECTION("u8g2_font_wqy12_t_gb2312a") = 
   "\300\0\3\2\4\4\5\5\5\14\15\0\376\10\376\12\377\1j\2\346\4{ \5\0\60Z!\7\221\22"
   "Z\234\2\42\10\64\361ZD\246\0#\17\226\20\336D-\303\22\365\62,Q\13\0$\17\245\360Ye"
@@ -3513,4 +3509,4 @@ const uint8_t u8g2_font_wqy12_t_gb2312a[111873] U8G2_FONT_SECTION("u8g2_font_wqy
   "\0\377\32\11r\66r\14\361\20\377^\14<p\362\355\200f\7\26\0\377\340\23\227\22\362fCT\321"
   "\242Z\224%Y\42U$\0\377\341\26\252\21\362\352@\24\347P\16\245\303\220\3\361*M\221&\1\0"
   "";
-#endif /* U8G2_USE_LARGE_FONTS */
+#endif /* U8G2_USE_LARGE_GB2312_FONT */
