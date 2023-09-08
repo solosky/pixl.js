@@ -185,6 +185,7 @@ def gen_other_link(amiibos, links):
             link.note_en = ""
             link.note_cn = ""
             new_link.append(link)
+            print("uncategorized amiibo (%s, %s)" % (link.amiibo_id, amiibo.name_en))
     if len(new_link) > 0:
         print("add %d uncategoried amiibo to other." %(len(new_link)))
     for link in new_link:

@@ -260,6 +260,7 @@ int main(void) {
     err_code = ntag_emu_init(&default_ntag215);
     APP_ERROR_CHECK(err_code);
 
+    //cache_clean(); //FOR TESTING
     check_wakeup_src();
 
     err_code = settings_init();

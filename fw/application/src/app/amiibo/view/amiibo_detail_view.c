@@ -2,6 +2,7 @@
 #include "mui_element.h"
 #include "i18n/language.h"
 #include "db_header.h"
+#include "amiibo_helper.h"
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa

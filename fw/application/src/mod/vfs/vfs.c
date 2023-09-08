@@ -5,10 +5,10 @@
 
 typedef struct {
     bool enabled;
-    vfs_driver_t *p_driver;
+    const vfs_driver_t *p_driver;
 } vfs_drive_item_t;
 
-static vfs_drive_item_t vfs_drive_items[VFS_DRIVE_MAX] = {
+static const vfs_drive_item_t vfs_drive_items[VFS_DRIVE_MAX] = {
     [VFS_DRIVE_INT] =
         {
             .enabled = false,

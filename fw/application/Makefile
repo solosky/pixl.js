@@ -199,6 +199,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_u8g2.c \
   $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a_lite.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -554,8 +555,11 @@ INC_FOLDERS += \
 LIB_FILES += \
   $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
-OPT = -O3 -g3
+ifneq ($(RELEASE), 1)
+OPT = -O2 -g3
+else
 OPT = -Os -ffunction-sections -fdata-sections
+endif
 # Uncomment the line below to enable link time optimization
 # OPT += -flto
 
@@ -580,6 +584,7 @@ CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 else
 CFLAGS += -DNDEBUG
+CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0

@@ -7,7 +7,7 @@
 
 #include "db_header.h"
 
-typedef void (*amiidb_db_search_cb_t)(db_amiibo_t *p_amiibo, void *ctx);
+typedef void (*amiidb_db_search_cb_t)(const db_amiibo_t *p_amiibo, void *ctx);
 
 int32_t amiidb_api_db_search(const char *search, amiidb_db_search_cb_t cb, void *ctx);
 

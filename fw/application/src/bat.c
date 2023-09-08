@@ -40,7 +40,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const *p_event) { NRF_LOG_INFO("ADC even
 
 chrg_data_t chrg = {0};
 
-void chrg_read(void) {
+void chrg_read(void* p_context) {
     uint32_t new_stats = nrf_gpio_pin_read(CHRG_PIN);
     if (new_stats == chrg.stats) return;
     chrg.stats = new_stats;

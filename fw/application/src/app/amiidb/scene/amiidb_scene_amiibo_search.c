@@ -53,7 +53,7 @@ static void amiidb_scene_amiibo_search_list_view_on_selected(mui_list_view_event
 }
 
 static uint16_t amiibo_hit_total = 0;
-static void amiidb_scene_amiibo_search_cb(db_amiibo_t *p_amiibo, void *ctx) {
+static void amiidb_scene_amiibo_search_cb(const db_amiibo_t *p_amiibo, void *ctx) {
     settings_data_t *p_settings_data = settings_get_data();
     app_amiidb_t *app = ctx;
     if (amiibo_hit_total < LIST_VIEW_ITEM_MAX_COUNT) {
