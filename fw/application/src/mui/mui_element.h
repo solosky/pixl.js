@@ -9,5 +9,6 @@ void mui_element_multiline_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, co
 
 void mui_element_button(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *str, uint8_t selected);
 void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *text);
+uint16_t mui_element_text_height(mui_canvas_t *p_canvas, uint8_t w, const char *text);
 
 #endif

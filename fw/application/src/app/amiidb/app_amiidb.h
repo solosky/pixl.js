@@ -9,6 +9,7 @@
 #include "ntag_def.h"
 #include "vfs.h"
 #include "amiibo_view.h"
+#include "mui_toast_view.h"
 
 #include "amiidb_api_fav.h"
 
@@ -26,8 +27,11 @@ typedef struct {
     mui_text_input_t *p_text_input;
     mui_msg_box_t *p_msg_box;
     amiibo_view_t * p_amiibo_view;
+    mui_toast_view_t *p_toast_view;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
+
+    mui_view_dispatcher_t *p_view_dispatcher_toast;
 
     /** amiibo detail */
     ntag_t ntag;
@@ -57,6 +61,7 @@ typedef enum {
     AMIIDB_VIEW_ID_DETAIL,
     AMIIDB_VIEW_ID_INPUT,
     AMIIDB_VIEW_ID_MSG_BOX,
+    AMIIDB_VIEW_ID_TOAST
 } amiidb_view_id_t;
 
 typedef struct {
