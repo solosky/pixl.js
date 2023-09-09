@@ -8,8 +8,8 @@ COMP_DIR := ../components
 U8G2_ROOT := ../components/u8g2/csrc
 
 APP_VERSION ?= 1
-RELEASE ?= 1
-BOARD ?= LCD
+RELEASE ?= 0
+BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/application.ld
@@ -173,6 +173,7 @@ SRC_FILES += \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
+  $(PROJ_DIR)/libc_nano_stubs.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
@@ -198,6 +199,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_u8g2.c \
   $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a_lite.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -210,6 +212,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
   $(PROJ_DIR)/mui/view/mui_progress_bar.c \
+  $(PROJ_DIR)/mui/view/mui_toast_view.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
   $(PROJ_DIR)/core/mini_app_data.c \
@@ -524,8 +527,11 @@ INC_FOLDERS += \
 LIB_FILES += \
   $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
-OPT = -O3 -g3
+ifneq ($(RELEASE), 1)
+OPT = -O2 -g3
+else
 OPT = -Os -ffunction-sections -fdata-sections
+endif
 # Uncomment the line below to enable link time optimization
 # OPT += -flto
 
@@ -550,6 +556,7 @@ CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 else
 CFLAGS += -DNDEBUG
+CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0
@@ -657,3 +664,12 @@ ota:
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
+
+flash_openocd:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+
+flash_openocd_all:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+
+reset_openocd:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -c "init" -c "reset" -c "exit"

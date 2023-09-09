@@ -114,4 +114,6 @@ const char * lang_zh_tw[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_SELECT_FOLDER] = "選擇收藏夾..",
     [_L_APP_AMIIDB_FAV_SUCCESS] = "收藏成功",
     [_L_APP_AMIIDB_FAV_FAILED] = "收藏失敗",
+    [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "保存成功",
+    [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "保存失敗",
 };

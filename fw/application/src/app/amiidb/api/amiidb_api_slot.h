@@ -9,6 +9,8 @@
 #include <stdint.h>
 #include "ntag_def.h"
 
+#define MAX_SLOT_COUNT 50
+
 typedef struct {
     uint8_t slot;
     uint8_t is_empty;

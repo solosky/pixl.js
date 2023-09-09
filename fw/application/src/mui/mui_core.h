@@ -23,6 +23,7 @@ typedef enum {
     MUI_LAYER_WINDOW,
     MUI_LAYER_STATUS_BAR, 
     MUI_LAYER_FULLSCREEN,
+    MUI_LAYER_TOAST,
     MUI_LAYER_MAX
 } mui_layer_t;
 

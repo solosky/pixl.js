@@ -76,7 +76,7 @@ void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
 void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
     // set keygen salt
     ret_code_t err_code = utils_rand_bytes(buffer + 0x1E8, 32);
-    VERIFY_SUCCESS(err_code);
+    APP_ERROR_CHECK(err_code);
 
     memcpy(buffer, Internal_StaticLock, 8);
     // set BCC
@@ -192,7 +192,7 @@ void amiibo_helper_try_load_amiibo_keys_from_vfs() {
     }
 }
 
-uint32_t to_little_endian_int32(uint8_t* data){
+uint32_t to_little_endian_int32(const uint8_t* data){
     uint32_t val = 0;
     val += data[0];
     val <<= 8;

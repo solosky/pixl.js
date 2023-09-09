@@ -81,8 +81,9 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     return NRF_SUCCESS;
 }
 
-static void ntag_gen(app_amiibo_t *app) {
+static void ntag_gen(void *p_context) {
     ret_code_t err_code;
+    app_amiibo_t * app = p_context;
     ntag_t *ntag_current = &app->ntag;
 
     err_code = amiibo_helper_rand_amiibo_uuid(ntag_current);

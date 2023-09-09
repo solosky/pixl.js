@@ -3,8 +3,6 @@
 #include "mui_defines.h"
 #include "nrf_log.h"
 
-
-
 void mui_element_scrollbar(mui_canvas_t *p_canvas, uint32_t pos, uint16_t total) {
     uint8_t width = mui_canvas_get_width(p_canvas);
     uint8_t height = mui_canvas_get_height(p_canvas);
@@ -45,14 +43,12 @@ void mui_element_multiline_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, co
 }
 
 void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h, const char *text) {
-
-    NRF_LOG_HEXDUMP_INFO(text, strlen(text));
     uint8_t font_height = mui_canvas_current_font_height(p_canvas);
     uint8_t xi = x;
     uint8_t yi = y;
 
     char *p = text;
-    char utf8[5];    
+    char utf8[5];
 
     while (*p != 0 && yi < y + h) {
 
@@ -65,12 +61,34 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
             yi += font_height;
         }
         uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, xi, yi, utf8);
-         xi += utf8_w;
+        xi += utf8_w;
         p += utf8_size;
     }
 }
 
+uint16_t mui_element_text_height(mui_canvas_t *p_canvas, uint8_t w, const char *text) {
+    uint8_t font_height = mui_canvas_current_font_height(p_canvas);
+    uint8_t xi = 0;
+    uint16_t yi = 0;
 
+    char *p = text;
+    char utf8[5];
+
+    while (*p != 0) {
+
+        uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
+        memcpy(utf8, p, utf8_size);
+        utf8[utf8_size] = '\0';
+        uint8_t utf8_x = mui_canvas_get_utf8_width(p_canvas, utf8);
+        if (utf8_x + xi > w) {
+            xi = 0;
+            yi += font_height;
+        }
+        xi += utf8_x;
+        p += utf8_size;
+    }
+    return yi + font_height;
+}
 
 void mui_element_button(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *str, uint8_t selected) {
     uint8_t font_height = mui_canvas_current_font_height(p_canvas);
