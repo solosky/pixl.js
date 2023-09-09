@@ -28,7 +28,6 @@ static void mui_draw_mem_mon(mui_canvas_t *p_canvas) {
         mui_mem_monitor_t mon;
         mui_mem_monitor(&mon);
         sprintf(mem, "u:%02d%% f:%02d%%", mon.used_pct, mon.frag_pct);
-        uint8_t len = strlen(mem);
         uint8_t w = (uint8_t)mui_canvas_get_utf8_width(p_canvas, mem);
         uint8_t x = mui_canvas_get_width(p_canvas) - w;
         uint8_t y = mui_canvas_get_height(p_canvas);
@@ -42,6 +41,7 @@ static void mui_draw_mem_mon(mui_canvas_t *p_canvas) {
 }
 
 static void mui_buffer_flush(mui_t *p_mui) {
+    mui_canvas_set_frame(&p_mui->canvas, 0, 0, p_mui->screen_width, p_mui->screen_height);
     mui_draw_mem_mon(&p_mui->canvas);
     mui_canvas_flush(&p_mui->canvas);
 }

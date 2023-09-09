@@ -42,13 +42,8 @@ static void amiidb_scene_main_list_view_on_selected(mui_list_view_event_t event,
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_DATA_LIST);
         break;
 
-    case AMIIDB_MAIN_MENU_SETTINGS: {
-        char text[32];
-        static uint8_t i = 0;
-        sprintf(text, "%s %d", "Settings 中文显示", ++i);
-        // mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_SETTINGS);
-        mui_toast_view_show(app->p_toast_view, text);
-    }
+    case AMIIDB_MAIN_MENU_SETTINGS:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_SETTINGS);
         break;
 
     case AMIIDB_MAIN_MENU_EXIT:
