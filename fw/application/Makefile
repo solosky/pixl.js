@@ -8,8 +8,8 @@ COMP_DIR := ../components
 U8G2_ROOT := ../components/u8g2/csrc
 
 APP_VERSION ?= 1
-RELEASE ?= 1
-BOARD ?= LCD
+RELEASE ?= 0
+BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/application.ld
@@ -173,6 +173,7 @@ SRC_FILES += \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
+  $(PROJ_DIR)/libc_nano_stubs.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
