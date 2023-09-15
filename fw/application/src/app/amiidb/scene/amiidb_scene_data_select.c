@@ -1,7 +1,6 @@
 #include "amiibo_helper.h"
 #include "amiidb_api_slot.h"
 #include "amiidb_scene.h"
-#include "app_amiibo.h"
 #include "app_amiidb.h"
 #include "i18n/language.h"
 #include "mui_icons.h"
