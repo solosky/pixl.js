@@ -149,7 +149,7 @@ const mini_app_t app_amiidb_info = {.id = MINI_APP_ID_AMIIDB,
                                     .icon = 0xe0ba,
                                     .sys = false,
                                     .deamon = false,
-                                    .hibernate_enabled = true,
+                                    .hibernate_enabled = false,
                                     .run_cb = app_amiidb_on_run,
                                     .kill_cb = app_amiidb_on_kill,
                                     .on_event_cb = app_amiidb_on_event};
