@@ -8,19 +8,11 @@ echo ---------------------------------------------------------------------------
 
 set openocd_win64_download_url="https://ghproxy.com/https://github.com/openocd-org/openocd/releases/download/v0.12.0/openocd-v0.12.0-i686-w64-mingw32.tar.gz"
 set openocd_win64_file="openocd-v0.12.0-i686-w64-mingw32.tar.gz"
-set wget_win64_download_url="https://eternallybored.org/misc/wget/1.21.4/64/wget.exe"
 set openocd_bin="./bin/openocd.exe"
 
 if not exist %openocd_bin% (
-    echo œ¬‘ÿwget...
-    curl -o wget.exe %wget_win64_download_url%
-    if not  %errorlevel%==0 (
-        echo "wget œ¬‘ÿ ß∞‹£¨«Î÷ÿ ‘£°"
-        exit -1
-    )
-
     echo œ¬‘ÿopenocd.. 
-    wget.exe -O %openocd_win64_file% %openocd_win64_download_url%
+    curl -Lo %openocd_win64_file% %openocd_win64_download_url%
     if not  %errorlevel%==0 (
         echo "openocd œ¬‘ÿ ß∞‹£¨«Î÷ÿ ‘£°"
         exit -1
