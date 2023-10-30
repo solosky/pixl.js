@@ -13,6 +13,7 @@ typedef enum {
     LANGUAGE_ZH_HANS,
     LANGUAGE_EN_US,
     LANGUAGE_ZH_TW,
+    LANGUAGE_ES_CO,
     LANGUAGE_JA_JP,
     LANGUAGE_KO_KR,
     LANGUAGE_COUNT
@@ -140,6 +141,7 @@ typedef enum {
 extern const char* lang_en_us[_L_COUNT];
 extern const char* lang_zh_hans[_L_COUNT];
 extern const char* lang_zh_tw[_L_COUNT];
+extern const char* lang_es_co[_L_COUNT];
 
 // 获取字符串的函数
 const char* getLangString(L_StringID stringID);
