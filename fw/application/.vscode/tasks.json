@@ -4,25 +4,13 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "make flash (pca10040)",
+      "label": "make flash openocd",
       "type": "shell",
       "options": {
-        "cwd": "${workspaceFolder}/blinky/pca10040/blank/armgcc"
+        "cwd": "${workspaceFolder}"
       },
-      "command": "make flash -j$(nproc)",
+      "command": "make all flash_openocd -j8",
       "group": "build"
-    },
-    {
-      "label": "make flash (pca10056)",
-      "type": "shell",
-      "options": {
-        "cwd": "${workspaceFolder}/blinky/pca10056/blank/armgcc"
-      },
-      "command": "make flash -j$(nproc)",
-      "group": {
-        "kind": "build",
-        "isDefault": true
-      }
     }
   ]
 }

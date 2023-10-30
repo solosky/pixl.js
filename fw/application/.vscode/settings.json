@@ -86,4 +86,5 @@
     "player_scene_config.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
+  "cortex-debug.openocdPath.windows": "openocd",
 }
