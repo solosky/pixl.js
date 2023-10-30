@@ -19,6 +19,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
     SETTINGS_MAIN_MENU_ANIM_ENABLED,
     SETTINGS_MAIN_MENU_DFU,
+    SETTINGS_MAIN_MENU_REBOOT,
     SETTINGS_MAIN_MENU_EXIT
 };
 
@@ -95,6 +96,11 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
     case SETTINGS_MAIN_MENU_EXIT:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_SETTINGS);
         break;
+
+    case SETTINGS_MAIN_MENU_REBOOT:
+        settings_save();
+        system_reboot();
+        break;
     }
 }
 
@@ -139,6 +145,7 @@ void settings_scene_main_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1c9, txt, (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
     
     mui_list_view_add_item(app->p_list_view, 0xe1ca, getLangString(_L_APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
+    mui_list_view_add_item(app->p_list_view, 0xe1cb, getLangString(_L_APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
