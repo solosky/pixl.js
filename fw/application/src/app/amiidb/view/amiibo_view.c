@@ -35,18 +35,14 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     y += 12;
 
-    // mui_canvas_draw_utf8(p_canvas, 0, y += 12, string_get_cstr(p_amiibo_view->file_name));
-
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
 
     const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
     if (amd != NULL) {
-        const char *name = getLanguage() == LANGUAGE_ZH_HANS ? amd->name_cn : amd->name_en;
+        const char *name = getLanguage() == LANGUAGE_EN_US ? amd->name_en : amd->name_cn;
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, name);
-
         const db_link_t *link = get_link_by_id(p_amiibo_view->game_id, head, tail);
-
         if (strlen(ntag->notes) > 0) {
             mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, ntag->notes);
         } else if (link != NULL) {

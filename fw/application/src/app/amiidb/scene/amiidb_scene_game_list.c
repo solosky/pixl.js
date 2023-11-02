@@ -106,12 +106,18 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_game_list_list_view_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);
+    mui_list_view_set_focus(app->p_list_view, 0);
+    mui_list_view_set_scroll_offset(app->p_list_view, 0);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);
 }
 
 void amiidb_scene_game_list_on_enter(void *user_data) {
     app_amiidb_t *app = (app_amiidb_t *)user_data;
     amiidb_scene_game_list_reload(app);
+
+    //restore states
+    mui_list_view_set_focus(app->p_list_view, app->cur_focus_index);
+    mui_list_view_set_scroll_offset(app->p_list_view, app->cur_scroll_offset);
 }
 
 void amiidb_scene_game_list_on_exit(void *user_data) {

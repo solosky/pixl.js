@@ -35,7 +35,8 @@ static bool validate_path(char *path) {
 
 void df_proto_handler_vfs_drive_list(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {
-        df_frame_t out;
+        df_frame_t out = {0};
+        vfs_stat_t stat = {0};
 
         NEW_BUFFER_ZERO(buff, out.data, sizeof(out.data));
 
@@ -44,7 +45,7 @@ void df_proto_handler_vfs_drive_list(df_event_t *evt) {
 
         if (vfs_drive_enabled(VFS_DRIVE_INT)) {
             vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
-            vfs_stat_t stat;
+
             if (p_driver->stat(&stat) == VFS_OK && !stat.avaliable) {
                 p_driver->mount();
             }
@@ -66,7 +67,6 @@ void df_proto_handler_vfs_drive_list(df_event_t *evt) {
 
         if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
             vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
-            vfs_stat_t stat;
 
             if (p_driver->stat(&stat) == VFS_OK && !stat.avaliable) {
                 p_driver->mount();

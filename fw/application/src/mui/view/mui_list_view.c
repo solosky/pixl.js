@@ -17,18 +17,20 @@ static bool mui_list_view_anim_enabled() { return settings_get_data()->anim_enab
 static uint16_t mui_list_view_get_utf8_width(const char *str) { return u8g2_GetUTF8Width(&(mui()->u8g2), str); }
 
 static void mui_list_view_start_text_anim(mui_list_view_t *p_view) {
-    mui_list_item_t *p_item = mui_list_item_array_get(p_view->items, p_view->focus_index);
-    uint32_t focus_text_width = mui_list_view_get_utf8_width(string_get_cstr(p_item->text));
-    if (focus_text_width > p_view->canvas_width - 13) {
-        p_view->text_offset = 0;
-        int32_t overflowed_width = focus_text_width - p_view->canvas_width + 20;
-        mui_anim_set_time(&p_view->text_anim, overflowed_width * 100);
-        mui_anim_set_values(&p_view->text_anim, 0, -overflowed_width);
-        mui_anim_set_auto_restart(&p_view->text_anim, true);
-        mui_anim_start(&p_view->text_anim);
-    } else {
-        p_view->text_offset = 0;
-        mui_anim_stop(&p_view->text_anim);
+    if(mui_list_view_anim_enabled()) {
+        mui_list_item_t *p_item = mui_list_item_array_get(p_view->items, p_view->focus_index);
+        uint32_t focus_text_width = mui_list_view_get_utf8_width(string_get_cstr(p_item->text));
+        if (focus_text_width > p_view->canvas_width - 13) {
+            p_view->text_offset = 0;
+            int32_t overflowed_width = focus_text_width - p_view->canvas_width + 20;
+            mui_anim_set_time(&p_view->text_anim, overflowed_width * 100);
+            mui_anim_set_values(&p_view->text_anim, 0, -overflowed_width);
+            mui_anim_set_auto_restart(&p_view->text_anim, true);
+            mui_anim_start(&p_view->text_anim);
+        } else {
+            p_view->text_offset = 0;
+            mui_anim_stop(&p_view->text_anim);
+        }
     }
 }
 

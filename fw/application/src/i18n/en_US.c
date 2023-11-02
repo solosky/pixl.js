@@ -113,5 +113,7 @@ const char * lang_en_us[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_SELECT_FOLDER] = "Select Fav. Folder..",
     [_L_APP_AMIIDB_FAV_SUCCESS] = "Favorite Successfully!",
     [_L_APP_AMIIDB_FAV_FAILED] = "Favorite Failed!",
+    [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "Save Successfully",
+    [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "Save Failed!",
     [_L_APP_CHAMELEON] = "Chameleon",
 };

@@ -9,6 +9,7 @@
 #include "ntag_def.h"
 #include "vfs.h"
 #include "amiibo_view.h"
+#include "mui_toast_view.h"
 
 #include "amiidb_api_fav.h"
 
@@ -26,8 +27,11 @@ typedef struct {
     mui_text_input_t *p_text_input;
     mui_msg_box_t *p_msg_box;
     amiibo_view_t * p_amiibo_view;
+    mui_toast_view_t *p_toast_view;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
+
+    mui_view_dispatcher_t *p_view_dispatcher_toast;
 
     /** amiibo detail */
     ntag_t ntag;
@@ -50,6 +54,9 @@ typedef struct {
     /** data slot */
     uint8_t cur_slot_index;
 
+    uint8_t cur_focus_index;
+    uint16_t cur_scroll_offset;
+
 } app_amiidb_t;
 
 typedef enum {
@@ -57,14 +64,17 @@ typedef enum {
     AMIIDB_VIEW_ID_DETAIL,
     AMIIDB_VIEW_ID_INPUT,
     AMIIDB_VIEW_ID_MSG_BOX,
+    AMIIDB_VIEW_ID_TOAST
 } amiidb_view_id_t;
 
 typedef struct {
     bool cached_enabled;
-    vfs_drive_t current_drive;
-    char current_folder[128];
-    char current_file[64];
-    uint32_t current_focus_index;
+    char search_str[16];
+    uint16_t game_id_path[8];
+    uint8_t game_id_index;
+    uint8_t current_focus_index;
+    uint16_t cur_scroll_offset;
+    uint32_t prev_scene_id;
     uint32_t current_scene_id;
 } app_amiidb_cache_data_t;
 

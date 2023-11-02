@@ -81,5 +81,13 @@ static inline void* mui_list_view_get_user_data(mui_list_view_t *p_view){
     return p_view->user_data;
 }
 
+static inline uint16_t mui_list_view_get_scroll_offset(mui_list_view_t *p_view){
+    return p_view->scroll_offset;
+}
+
+static inline void mui_list_view_set_scroll_offset(mui_list_view_t *p_view, uint16_t offset){
+    p_view->scroll_offset = offset;
+}
+
 
 #endif
