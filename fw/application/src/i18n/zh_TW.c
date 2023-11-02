@@ -26,6 +26,7 @@ const char * lang_zh_tw[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "休眠時間",
     [_L_APP_SET_LANGUAGE] = "系統語言",
     [_L_APP_SET_DFU] = "軟體升級",
+    [_L_APP_SET_REBOOT] = "重啟設備",
     [_L_APP_SET_MENU_EXIT] = "返回主選單",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",

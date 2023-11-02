@@ -4,8 +4,9 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
     {
-      "name": "Pixl.js Debug",
+      "name": "Pixl.js JLink Debug",
       "cwd": "${workspaceRoot}",
       "executable": "_build/pixljs.out",
       "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
@@ -16,6 +17,35 @@
       "interface": "swd",
       "ipAddress": null,
       "serialNumber": null,
+    },
+    {
+      "name": "Pixl.js Pyocd Debug",
+      "cwd": "${workspaceRoot}",
+      "executable": "../_build/pixljs.out",
+      "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "pyocd",
+      "device": "nrf52",
+      "interface": "swd",
+      "ipAddress": null,
+      "serialNumber": null,
+    },
+    {
+      "name": "Pixl.js Openocd Debug",
+      "cwd": "${workspaceRoot}",
+      "executable": "../_build/pixljs.out",
+      "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "openocd",
+      "device": "nrf52",
+      "interface": "swd",
+      "ipAddress": null,
+      "serialNumber": null,
+      "configFiles": [
+        "${workspaceRoot}/config/pixljs.cfg"
+      ]
     }
   ]
 }

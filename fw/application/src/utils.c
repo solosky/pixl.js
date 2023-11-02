@@ -38,3 +38,7 @@ void enter_dfu() {
     sd_power_gpregret_set(0, BOOTLOADER_DFU_START);
     sd_nvic_SystemReset();
 }
+
+void system_reboot(){
+    sd_nvic_SystemReset();
+}
