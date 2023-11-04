@@ -61,11 +61,15 @@ void app_chameleon_on_kill(mini_app_inst_t *p_app_inst) {
 
     p_retain->cycle_mode_index = chameleon_view_get_index(p_app_handle->p_chameleon_view);
 
+
+    mui_scene_dispatcher_exit(p_app_handle->p_scene_dispatcher);
+    mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
+
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     mui_list_view_free(p_app_handle->p_list_view);
     chameleon_view_free(p_app_handle->p_chameleon_view);
-    mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
+   
 
     mui_mem_free(p_app_handle);
 

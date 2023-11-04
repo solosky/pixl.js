@@ -45,6 +45,9 @@ void app_amiibolink_on_run(mini_app_inst_t *p_app_inst) {
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, amiibolink_scene_defines,
                                            AMIIBOLINK_SCENE_MAX);
 
+    extern const ntag_t default_ntag215;
+    APP_ERROR_CHECK(ntag_emu_init(&default_ntag215));
+
     if (p_app_inst->p_retain_data) {
         app_amiibolink_retain_data_t *p_retain = (app_amiibolink_retain_data_t *)p_app_inst->p_retain_data;
         p_app_handle->amiibolink_mode = p_retain->amiibolink_mode;

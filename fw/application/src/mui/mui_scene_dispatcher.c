@@ -12,8 +12,21 @@ mui_scene_dispatcher_t *mui_scene_dispatcher_create() {
 }
 
 void mui_scene_dispatcher_free(mui_scene_dispatcher_t *p_dispatcher) {
+    //call last sence exit to free resources
+    // if (scene_id_stack_size(p_dispatcher->scene_id_stack) > 0) {
+    //     uint32_t cur_scene_id = *scene_id_stack_back(p_dispatcher->scene_id_stack);
+    //     p_dispatcher->p_scene_defines[cur_scene_id].exit_cb(p_dispatcher->user_data);
+    // }
     scene_id_stack_clear(p_dispatcher->scene_id_stack);
     mui_mem_free(p_dispatcher);
+}
+
+void mui_scene_dispatcher_exit(mui_scene_dispatcher_t* p_dispatcher){
+    //call last sence exit to free resources
+    if (scene_id_stack_size(p_dispatcher->scene_id_stack) > 0) {
+        uint32_t cur_scene_id = *scene_id_stack_back(p_dispatcher->scene_id_stack);
+        p_dispatcher->p_scene_defines[cur_scene_id].exit_cb(p_dispatcher->user_data);
+    }
 }
 
 void mui_scene_dispatcher_set_scene_defines(mui_scene_dispatcher_t *p_dispatcher, const mui_scene_t *p_scene_defines,

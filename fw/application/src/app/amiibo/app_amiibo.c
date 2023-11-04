@@ -67,6 +67,9 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
+    extern const ntag_t default_ntag215;
+    APP_ERROR_CHECK(ntag_emu_init(&default_ntag215));
+
     settings_data_t *p_settings = settings_get_data();
 
     if (p_app_inst->p_retain_data) {
