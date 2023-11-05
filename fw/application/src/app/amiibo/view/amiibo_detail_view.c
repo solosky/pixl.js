@@ -43,7 +43,7 @@ static void amiibo_detail_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canva
 
     const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
     if (amd != NULL) {
-        const char *name = getLanguage() == LANGUAGE_EN_US ? amd->name_en : amd->name_cn;
+        const char *name =(getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) ? amd->name_cn : amd->name_en;
         mui_element_autowrap_text(p_canvas, 0, y += 15, mui_canvas_get_width(p_canvas), 24, name);
         if (strlen(ntag->notes) > 0) {
             mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, ntag->notes);
