@@ -78,14 +78,47 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher_toast, MUI_LAYER_TOAST);
     mui_view_dispatcher_switch_to_view(p_app_handle->p_view_dispatcher_toast, AMIIDB_VIEW_ID_TOAST);
 
-
     app_amiidb_try_mount_drive(p_app_handle);
 
-    mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
+    if (p_app_inst->p_retain_data) {
+        app_amiidb_cache_data_t *p_cache_data = (app_amiidb_cache_data_t *)p_app_inst->p_retain_data;
+        if (p_cache_data->cached_enabled) {
+            //recover states from retain data
+            p_app_handle->game_id_index = p_cache_data->game_id_index;
+            memcpy(p_app_handle->game_id_path, p_cache_data->game_id_path, sizeof(p_app_handle->game_id_path));
+            p_app_handle->prev_scene_id = p_cache_data->prev_scene_id;
+            p_app_handle->cur_focus_index = p_cache_data->current_focus_index;
+            p_app_handle->cur_scroll_offset = p_cache_data->cur_scroll_offset;
+            mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, p_cache_data->current_scene_id);
+
+        } else {
+            mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
+        }
+    } else {
+        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
+    }
 }
 
 void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
     app_amiidb_t *p_app_handle = p_app_inst->p_handle;
+
+    uint32_t current_scene_id = mui_scene_dispatcher_current_scene(p_app_handle->p_scene_dispatcher);
+
+    if (app_amiidb_info.hibernate_enabled) {
+        app_amiidb_cache_data_t p_cache_data = {0};
+        p_cache_data.cached_enabled = true;
+        memcpy(p_cache_data.game_id_path, p_app_handle->game_id_path, sizeof(p_app_handle->game_id_path));
+        p_cache_data.game_id_index = p_app_handle->game_id_index;
+        p_cache_data.prev_scene_id = p_app_handle->prev_scene_id;
+        p_cache_data.current_scene_id = current_scene_id;
+        p_cache_data.current_focus_index = mui_list_view_get_focus(p_app_handle->p_list_view);
+        p_cache_data.cur_scroll_offset = mui_list_view_get_scroll_offset(p_app_handle->p_list_view);
+
+        memcpy(p_app_inst->p_retain_data, &p_cache_data, sizeof(app_amiidb_cache_data_t));
+    } else {
+        memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
+        memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
+    }
 
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);

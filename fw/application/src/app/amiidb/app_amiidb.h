@@ -54,6 +54,9 @@ typedef struct {
     /** data slot */
     uint8_t cur_slot_index;
 
+    uint8_t cur_focus_index;
+    uint16_t cur_scroll_offset;
+
 } app_amiidb_t;
 
 typedef enum {
@@ -66,10 +69,12 @@ typedef enum {
 
 typedef struct {
     bool cached_enabled;
-    vfs_drive_t current_drive;
-    char current_folder[128];
-    char current_file[64];
-    uint32_t current_focus_index;
+    char search_str[16];
+    uint16_t game_id_path[8];
+    uint8_t game_id_index;
+    uint8_t current_focus_index;
+    uint16_t cur_scroll_offset;
+    uint32_t prev_scene_id;
     uint32_t current_scene_id;
 } app_amiidb_cache_data_t;
 
