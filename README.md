@@ -52,7 +52,7 @@ root@b10d54636088:/builds# git clone https://github.com/solosky/pixl.js
 root@b10d54636088:/builds# cd pixl.js
 root@b10d54636088:/builds/pixl.js# git submodule update --init --recursive
 root@b10d54636088:/builds/pixl.js# cd fw && make all
-root@b10d54636088:/builds/pixl.js/fw# pushd application && make full ota; popd
+root@b10d54636088:/builds/pixl.js/fw# cd application && make full ota
 ```
 构建出来的固件在 fw/_build/pixjs_all.hex，ota（无线跟新包）在fw/_build/pixjs_ota_vXXXX.zip
 
