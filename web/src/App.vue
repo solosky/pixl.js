@@ -703,7 +703,7 @@ export default {
 
     handle_set_language(lang) {
       this.$i18n.locale = lang
-      cookies.set("lang", lang)
+      cookies.set("lang", lang, 60 * 60 * 24 * 365)
       if (this.connected) {
         this.connBtnText = `${this.$t("conn.disconnect")}`;
       } else {
@@ -730,10 +730,12 @@ export default {
 
     var lang = cookies.get("lang")
     if (!lang) {
-      lang = "zh_CN";
+      lang = "zh_CN"
     }
+
     this.language = lang
     this.$i18n.locale = lang
+    this.connBtnText = `${this.$t("conn.connect")}`;
   },
 }
 </script>
