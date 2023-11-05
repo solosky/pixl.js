@@ -13,3 +13,4 @@ echo '''
 cat application/src/mui/u8g2_font_wqy12_t_gb2312a_t.c >> application/src/mui/u8g2_font_wqy12_t_gb2312a.c
 sed -i 's/U8G2_USE_LARGE_FONTS/U8G2_USE_LARGE_GB2312_FONT/g' application/src/mui/u8g2_font_wqy12_t_gb2312a.c
 rm application/src/mui/u8g2_font_wqy12_t_gb2312a_t.c
+rm data/gb2312a.map data/pixjs.txt 

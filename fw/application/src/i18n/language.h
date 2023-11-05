@@ -13,8 +13,6 @@ typedef enum {
     LANGUAGE_ZH_HANS,
     LANGUAGE_EN_US,
     LANGUAGE_ZH_TW,
-    LANGUAGE_JA_JP,
-    LANGUAGE_KO_KR,
     LANGUAGE_COUNT
 } Language;
 
@@ -44,6 +42,7 @@ typedef enum {
     _L_APP_SET_SLEEP_TIMEOUT,
     _L_APP_SET_LANGUAGE,
     _L_APP_SET_DFU,
+    _L_APP_SET_REBOOT,
     _L_APP_SET_MENU_EXIT,
     _L_15S,
     _L_30S,

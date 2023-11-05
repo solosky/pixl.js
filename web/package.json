@@ -10,7 +10,9 @@
   "dependencies": {
     "element-ui": "^2.15.11",
     "vue": "^2.5.16",
-    "bytebuffer": "5.0.1"
+    "bytebuffer": "5.0.1",
+    "vue-i18n": "8",
+    "vue-cookie": "1.1.4"
   },
   "engines": {
     "node": ">=6"
@@ -28,7 +30,7 @@
     "style-loader": "^0.13.2",
     "url-loader": "^0.5.8",
     "vue-loader": "^13.3.0",
-    "vue-template-compiler": "^2.5.16",
+    "vue-template-compiler": "^2.7.15",
     "webpack": "^2.4.1",
     "webpack-dev-server": "^2.4.2"
   }

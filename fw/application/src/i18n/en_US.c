@@ -26,6 +26,7 @@ const char * lang_en_us[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "Sleep Timer",
     [_L_APP_SET_LANGUAGE] = "Language",
     [_L_APP_SET_DFU] = "Firmware Update",
+    [_L_APP_SET_REBOOT] = "System Reboot",
     [_L_15S] = "15 Seconds",
     [_L_30S] = "30 Seconds",
     [_L_45S] = "45 Seconds",

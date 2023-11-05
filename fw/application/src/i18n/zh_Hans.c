@@ -26,6 +26,7 @@ const char * lang_zh_hans[_L_COUNT] = {
     [_L_APP_SET_SLEEP_TIMEOUT] = "休眠时间",
     [_L_APP_SET_LANGUAGE] = "系统语言",
     [_L_APP_SET_DFU] = "固件更新",
+    [_L_APP_SET_REBOOT] = "重启设备",
     [_L_APP_SET_MENU_EXIT] = "返回主菜单",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
