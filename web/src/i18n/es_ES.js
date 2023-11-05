@@ -1,9 +1,9 @@
 export default {
   lang: {
-    choose: 'Idioma',
-    zhcn: 'Chino Simplificado',
-    zhtw: 'Chino Tradicional (Taiwan)',
-    en: 'Inglés',
+    choose: '语言/Language',
+    zhcn: '简体中文',
+    zhtw: '繁體中文(臺灣)',
+    en: 'English',
     es: 'Español',
     changeok: 'Cambio Idioma Satisfactorio'
   },

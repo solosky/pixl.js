@@ -1,10 +1,10 @@
 export default {
   lang: {
-    choose: '选择语言',
+    choose: '语言/Language',
     zhcn: '简体中文',
     zhtw: '繁體中文(臺灣)',
-    en: '英语',
-    es: '西班牙语',
+    en: 'English',
+    es: 'Español',
     changeok: '语言切换成功！'
   },
   btn: {

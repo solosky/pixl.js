@@ -1,10 +1,10 @@
 export default {
   lang: {
-    choose: 'Select Language',
-    zhcn: 'Simplified Chinese',
-    zhtw: 'Traditional Chinese (Taiwan)',
+    choose: '语言/Language',
+    zhcn: '简体中文',
+    zhtw: '繁體中文(臺灣)',
     en: 'English',
-    es: 'Spanish',
+    es: 'Español',
     changeok: 'Switch Language Success'
   },
   btn: {
@@ -76,7 +76,7 @@ export default {
     formaterr: 'Format failed!: '
   },
   del: {
-    title: 'Borrar',
+    title: 'Delete',
     message: 'Delete file: ',
     messageend: ' ?',
     error: 'Failed to delete file!: ',

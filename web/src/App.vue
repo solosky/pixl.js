@@ -2,7 +2,7 @@
 
   <div id="app">
     <div class="action-right">
-      <el-dropdown trigger="click" class="international" @command="handleSetLanguage">
+      <el-dropdown trigger="click" class="international" @command="handle_set_language">
         <div>
           <el-button size="mini" type="primary" icon="el-icon-setting" @click="dialogVisible = true" >{{ $t('lang.choose') }}</el-button>
         </div>
@@ -10,21 +10,21 @@
           <el-dropdown-item Enabled="language==='zh_CN'" command="zh_CN" divided>
             {{ $t('lang.zhcn') }}
           </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='zh_TW'" command="zh_TW" divided>
+            {{ $t('lang.zhtw') }}
+          </el-dropdown-item>
           <el-dropdown-item Enabled="language==='en'" command="en" divided>
             {{ $t('lang.en') }}
           </el-dropdown-item>
           <el-dropdown-item Enabled="language==='es'" command="es" divided>
             {{ $t('lang.es') }}
           </el-dropdown-item>
-          <el-dropdown-item Enabled="language==='zh_TW'" command="zh_TW" divided>
-            {{ $t('lang.zhtw') }}
-          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
     <h1 class="header">Pixl.js</h1>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="14">
         <div class="action-left">
           <el-button-group>
             <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload"
@@ -42,7 +42,7 @@
           </el-button-group>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="10">
         <div class="action-right">
           <el-button type="success" size="mini" v-if="version" icon="el-icon-warning">{{ version }}</el-button>
           <el-button-group>
@@ -114,7 +114,7 @@
           <el-input v-model="meta_form.notes"></el-input>
         </el-form-item>
         <el-form-item :label="$t('properties.attrib')">
-          <el-checkbox label="Oculto" v-model="meta_form.flags.hide"></el-checkbox>
+          <el-checkbox :label="$t('properties.hide')" v-model="meta_form.flags.hide"></el-checkbox>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -150,6 +150,9 @@
 import * as pixl from "./lib/pixl.ble"
 import { sharedEventDispatcher } from "./lib/event"
 import * as proto from "./lib/pixl.proto"
+import cookies from "vue-cookie"
+
+
 
 export default {
   data() {
@@ -163,7 +166,7 @@ export default {
       current_dir: "",
       upload_diag_visible: false,
       table_selection: [],
-
+      language: "zh_CN",
       meta_diag_visible: false,
       meta_form: {
         notes: "",
@@ -177,13 +180,6 @@ export default {
         name: "",
         row: null
       }
-    }
-  },
-
-
-  computed: {
-    language() {
-      return this.$store.getters.language
     }
   },
 
@@ -705,8 +701,9 @@ export default {
       }
     },
 
-    handleSetLanguage(lang) {
+    handle_set_language(lang) {
       this.$i18n.locale = lang
+      cookies.set("lang", lang)
       if (this.connected) {
         this.connBtnText = `${this.$t("conn.disconnect")}`;
       } else {
@@ -730,6 +727,13 @@ export default {
     dispatcher.addListener("ble_connect_error", this.on_ble_connect_error);
 
     proto.init();
+
+    var lang = cookies.get("lang")
+    if (!lang) {
+      lang = "zh_CN";
+    }
+    this.language = lang
+    this.$i18n.locale = lang
   },
 }
 </script>
