@@ -1,31 +1,53 @@
 <template>
+
   <div id="app">
+    <div class="action-right">
+      <el-dropdown trigger="click" class="international" @command="handle_set_language">
+        <div>
+          <el-button size="mini" type="primary" icon="el-icon-setting" @click="dialogVisible = true" >{{ $t('lang.choose') }}</el-button>
+        </div>
+        <el-dropdown-menu slot="dropdown">
+          <el-dropdown-item Enabled="language==='zh_CN'" command="zh_CN" divided>
+            {{ $t('lang.zhcn') }}
+          </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='zh_TW'" command="zh_TW" divided>
+            {{ $t('lang.zhtw') }}
+          </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='en'" command="en" divided>
+            {{ $t('lang.en') }}
+          </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='es'" command="es" divided>
+            {{ $t('lang.es') }}
+          </el-dropdown-item>
+        </el-dropdown-menu>
+      </el-dropdown>
+    </div>
     <h1 class="header">Pixl.js</h1>
     <el-row>
-      <el-col :span="12">
+      <el-col :span="14">
         <div class="action-left">
           <el-button-group>
             <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload"
-              :disabled="btn_disabled()">上传</el-button>
+              :disabled="btn_disabled()">{{ $t('menu.upload')  }}</el-button>
           </el-button-group>
           <el-button-group>
             <el-button size="mini" icon="el-icon-plus" @click="on_btn_new_folder"
-              :disabled="btn_disabled()">新建文件夹</el-button>
+              :disabled="btn_disabled()">{{ $t('menu.newfolder')  }}</el-button>
             <el-button size="mini" type="danger" icon="el-icon-delete" @click="on_btn_remove"
-              :disabled="btn_disabled()">删除</el-button>
+              :disabled="btn_disabled()">{{ $t('menu.del')  }}</el-button>
           </el-button-group>
           <el-button-group>
-            <el-button size="mini" icon="el-icon-top" @click="on_btn_up" :disabled="btn_disabled()">上级目录</el-button>
-            <el-button size="mini" icon="el-icon-refresh" @click="on_btn_refresh" :disabled="!connected">刷新</el-button>
+            <el-button size="mini" icon="el-icon-top" @click="on_btn_up" :disabled="btn_disabled()">{{ $t('menu.up')  }}</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="on_btn_refresh" :disabled="!connected">{{ $t('menu.refresh') }}</el-button>
           </el-button-group>
         </div>
       </el-col>
-      <el-col :span="12">
+      <el-col :span="10">
         <div class="action-right">
           <el-button type="success" size="mini" v-if="version" icon="el-icon-warning">{{ version }}</el-button>
           <el-button-group>
             <el-button type="info" size="mini" icon="el-icon-cpu" @click="on_btn_enter_dfu"
-              :disabled="!connected">DFU</el-button>
+              :disabled="!connected">{{ $t('menu.dfu')  }}</el-button>
             <el-button :type="connBtnType" size="mini" icon="el-icon-connection" @click="on_btn_ble_connect">{{
               connBtnText
             }}</el-button>
@@ -44,23 +66,23 @@
     </el-row>
     <div>
       <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" v-loading="table_loading"
-        element-loading-text="加载中.." element-loading-spinner="el-icon-loading" cell-class-name="file-cell"
+        :element-loading-text="$t('status.loading')" element-loading-spinner="el-icon-loading" cell-class-name="file-cell"
         @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
         :default-sort="{ prop: 'name', order: 'ascending' }">
         <el-table-column type="selection" width="42">
         </el-table-column>
-        <el-table-column prop="name" label="文件" sortable @sort-method="sort_table_row_name" width="320">
+        <el-table-column prop="name" :label="$t('labels.name')" sortable @sort-method="sort_table_row_name" width="320">
           <template slot-scope="scope">
             <i :class="scope.row.icon"></i>
             <el-link :underline="false" @click="handle_name_click(scope.$index, scope.row)">
               {{ scope.row.name }}</el-link>
           </template>
         </el-table-column>
-        <el-table-column prop="size" label="大小" sortable width="150">
+        <el-table-column prop="size" :label="$t('labels.size')" sortable width="150">
         </el-table-column>
-        <el-table-column prop="type" label="类型" sortable width="80">
+        <el-table-column prop="type" :label="$t('labels.type')" sortable width="80">
         </el-table-column>
-        <el-table-column prop="notes" label="备注" sortable>
+        <el-table-column prop="notes" :label="$t('labels.remark')" sortable>
         </el-table-column>
         <el-table-column label="" fixed="right" width="40">
           <template slot-scope="scope">
@@ -70,15 +92,15 @@
               </span>
               <el-dropdown-menu slot="dropdown">
                 <el-dropdown-item @click.native="on_row_btn_remove(scope.$index, scope.row)"
-                  v-if="scope.row.type != 'DRIVE'">删除</el-dropdown-item>
+                  v-if="scope.row.type != 'DRIVE'">{{ $t('contxmenu.del') }}</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_rename(scope.$index, scope.row)"
-                  v-if="scope.row.type != 'DRIVE'">重命名..</el-dropdown-item>
+                  v-if="scope.row.type != 'DRIVE'">{{ $t('contxmenu.rename') }}</el-dropdown-item>
                 <!-- <el-dropdown-item @click.native="on_row_btn_notes(scope.$index, scope.row)"
-                  v-if="scope.row.type != 'DRIVE'">备注..</el-dropdown-item> -->
+                  v-if="scope.row.type != 'DRIVE'">{{ $t('contxmenu.prop') }}</el-dropdown-item> -->
                 <el-dropdown-item @click.native="on_row_btn_meta(scope.$index, scope.row)"
-                  v-if="scope.row.type != 'DRIVE'">元信息..</el-dropdown-item>
+                  v-if="scope.row.type != 'DRIVE'">{{ $t('contxmenu.prop') }}</el-dropdown-item>
                 <el-dropdown-item @click.native="on_row_btn_format(scope.$index, scope.row)"
-                  v-if="scope.row.type == 'DRIVE'">格式化</el-dropdown-item>
+                  v-if="scope.row.type == 'DRIVE'">{{ $t('contxmenu.format') }}</el-dropdown-item>
               </el-dropdown-menu>
             </el-dropdown>
           </template>
@@ -86,31 +108,31 @@
       </el-table>
     </div>
 
-    <el-dialog title="元信息" :visible.sync="meta_diag_visible" width="30%">
+    <el-dialog :title="$t('properties.title')" :visible.sync="meta_diag_visible" width="30%">
       <el-form ref="form" :model="meta_form" label-width="80px">
-        <el-form-item label="备注">
+        <el-form-item :label="$t('properties.remark')">
           <el-input v-model="meta_form.notes"></el-input>
         </el-form-item>
-        <el-form-item label="属性">
-          <el-checkbox label="隐藏" v-model="meta_form.flags.hide"></el-checkbox>
+        <el-form-item :label="$t('properties.attrib')">
+          <el-checkbox :label="$t('properties.hide')" v-model="meta_form.flags.hide"></el-checkbox>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
-        <el-button @click="meta_diag_visible = false">取 消</el-button>
-        <el-button type="primary" @click="on_diag_meta_close">确 定</el-button>
+        <el-button @click="meta_diag_visible = false">{{ $t('btn.cancel') }}</el-button>
+        <el-button type="primary" @click="on_diag_meta_close">{{ $t('btn.ok') }}</el-button>
       </span>
     </el-dialog>
 
-    <el-dialog title="上传" :visible.sync="upload_diag_visible" width="30%" :before-close="on_upload_diag_close">
+    <el-dialog :title="$t('upload.title')" :visible.sync="upload_diag_visible" width="30%" :before-close="on_upload_diag_close">
       <div>
         <el-upload ref="upload" class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple
           :http-request="on_upload_request" :on-error="on_upload_error">
           <i class="el-icon-upload"></i>
-          <div class="el-upload__text">将文件拖到此处，或<em>点击上传</em></div>
+          <div class="el-upload__text">{{ $t('upload.drag') }} <em>{{ $t('upload.click') }}</em></div>
           <div class="el-upload__tip" slot="tip">
             <ul>
-              <li>文件路径总长度不能超过63个字节，超过部分会被截断。</li>
-              <li>文件名不能超过47个字节，超过部分会被截断。</li>
+              <li>{{ $t('upload.maxsize') }}</li>
+              <li>{{ $t('upload.maxname') }}</li>
             </ul>
           </div>
         </el-upload>
@@ -128,20 +150,23 @@
 import * as pixl from "./lib/pixl.ble"
 import { sharedEventDispatcher } from "./lib/event"
 import * as proto from "./lib/pixl.proto"
+import cookies from "vue-cookie"
+
+
 
 export default {
   data() {
     return {
       tableData: [],
       connBtnType: "",
-      connBtnText: "连接",
+      connBtnText: `${this.$t("conn.connect")}`,
       version: "",
       connected: false,
       table_loading: false,
       current_dir: "",
       upload_diag_visible: false,
       table_selection: [],
-
+      language: "zh_CN",
       meta_diag_visible: false,
       meta_form: {
         notes: "",
@@ -157,34 +182,35 @@ export default {
       }
     }
   },
+
   methods: {
     on_btn_ble_connect() {
       if (this.connected) {
         pixl.disconnect();
-        this.connBtnText = "连接";
+        this.connBtnText = `${this.$t("conn.connect")}`;
       } else {
-        this.connBtnText = "连接中..";
+        this.connBtnText = `${this.$t("conn.connecting")}`;
         pixl.connect();
       }
     },
     on_ble_connected() {
-      this.connBtnText = "断开";
+      this.connBtnText = `${this.$t("conn.disconnect")}`;
       this.connBtnType = "success";
       this.connected = true;
       this.$notify({
         title: 'Pixl.js',
         type: 'success',
-        message: '已成功连接到Pixl.js!',
+        message: `${this.$t("conn.consuccess")}`,
         duration: 5000
       });
 
       proto.get_version().then(res => {
         console.log("get version result", res);
-        this.version = "已连接, ver: " + res.data.ver;
+        this.version = `${this.$t("status.connected")}` + res.data.ver;
 
         if (res.data.ver.startsWith("2.0.0")) {
-          this.$alert('您设备的固件版本过低，请更新最新版本固件再使用上传功能', '升级提示', {
-            confirmButtonText: '确定',
+          this.$alert(`${this.$t("oldfirm.message")}`, `${this.$t("oldfirm.title")}`, {
+            confirmButtonText: `${this.$t("btn.ok")}`,
             callback: action => {
             }
           });
@@ -200,7 +226,7 @@ export default {
     on_ble_disconnected() {
       this.connBtnType = "";
       this.connected = false;
-      this.connBtnText = "连接";
+      this.connBtnText = `${this.$t("conn.connect")}`;
       this.version = "";
       this.table_loading = false;
       this.tableData = [];
@@ -208,7 +234,7 @@ export default {
       this.$notify({
         title: 'Pixl.js',
         type: 'error',
-        message: 'Pixl.js已经断开连接!',
+        message: `${this.$t("conn.disconnected")}`,
         duration: 5000
       });
 
@@ -216,7 +242,7 @@ export default {
     },
     on_ble_connect_error() {
       this.connBtnType = "";
-      this.connBtnText = "连接";
+      this.connBtnText = `${this.$t("conn.connect")}`;
       this.version = "";
       this.table_loading = false;
       this.tableData = [];
@@ -224,22 +250,22 @@ export default {
       this.$notify({
         title: 'Pixl.js',
         type: 'error',
-        message: 'Pixl.js连接失败!',
+        message: `${this.$t("conn.connfailed")}`,
         duration: 5000
       });
     },
 
     on_btn_enter_dfu() {
-      this.$confirm('是否进入DFU模式?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(`${this.$t("dfumode.startconfirm")}`, `${this.$t("dfumode.title")}`, {
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}` ,
         type: 'warning'
       }).then(() => {
         proto.enter_dfu().then(data => {
 
-          this.$confirm('进入DFU模式成功，是否打开DFU升级页面？', '提示', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+          this.$confirm(`${this.$t("dfumode.updateconfirm")}`, `${this.$t("dfumode.updatetitle")}`, {
+            confirmButtonText: `${this.$t("btn.ok")}`,
+            cancelButtonText: `${this.$t("btn.cancel")}`,
             type: 'success'
           }).then(_ => {
             document.location.href = "https://thegecko.github.io/web-bluetooth-dfu/examples/web.html";
@@ -278,9 +304,9 @@ export default {
 
     on_btn_new_folder() {
       var thiz = this;
-      this.$prompt('请输入文件夹名', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt(`${this.$t("newfolder.message")}`, `${this.$t("newfolder.title")}`, {
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
         inputValue: ""
       }).then(({ value }) => {
         if (value == "") {
@@ -295,14 +321,14 @@ export default {
           } else {
             this.$message({
               type: 'error',
-              message: "创建文件夹失败[" + res.status + "]"
+              message: `${this.$t("newfolder.newfoldererr")}` + " [" + res.status + "]"
             });
           }
         }).catch(e => {
           thiz.table_loading = false;
           this.$message({
             type: 'error',
-            message: "创建文件夹失败[" + e.message + "]"
+            message: `${this.$t("newfolder.newfoldererr")}` + " [" + e.message + "]"
           });
         });
 
@@ -334,7 +360,7 @@ export default {
         }).catch(e => {
           this.$message({
             type: 'error',
-            message: v.name + "删除失败: " + e
+            message: v.name + `${this.$t("del.error")}` + e
           });
           proceed_count++;
           if (proceed_count == total_count) {
@@ -345,15 +371,17 @@ export default {
     },
 
 
-
     on_upload_diag_close(done) {
-      this.$confirm('确认关闭？关闭将清空上传记录。')
-        .then(_ => {
-          this.$refs.upload.clearFiles();
-          this.reload_folder();
-          done();
-        })
-        .catch(_ => { });
+      this.$confirm(`${this.$t("upload.closemessage")}`, `${this.$t("upload.closetitle")}`,{
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
+      })
+      .then(_ => {
+        this.$refs.upload.clearFiles();
+        this.reload_folder();
+        done();
+      })
+      .catch(_ => { });
     },
 
     on_upload_request(options) {
@@ -370,15 +398,15 @@ export default {
     on_upload_error(err, file, filelist) {
       this.$message({
         type: 'error',
-        message: file.name + "上传失败: " + err
+        message: file.name + `${this.$t("upload.errupload")}` + err
       });
     },
 
     on_row_btn_format(index, row) {
       var thiz = this;
-      this.$confirm('是否格式化 ' + row.name + '? \n格式化会删除所有数据！\n格式化可能需要10秒钟左右，请耐心等待。', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(`${this.$t("format.messrow1a")}` + row.name + `${this.$t("format.messrow1b")}` + "\n" + `${this.$t("format.messrow2")}` + '\n' +`${this.$t("format.messrow3")}`, `${this.$t("format.title")}`, {
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
         type: 'warning'
       }).then(() => {
         thiz.table_loading = true;
@@ -386,14 +414,14 @@ export default {
         proto.vfs_drive_format(path).then(data => {
           this.$message({
             type: 'success',
-            message: row.name + ' 格式化完成!'
+            message: row.name + `${this.$t("format.formatok")}`
           });
           thiz.table_loading = false;
           this.reload_drive();
         }).catch(e => {
           this.$message({
             type: 'error',
-            message: row.name + " 格式化失败: " + err
+            message: row.name + `${this.$t("format.formaterr")}` + err
           });
           thiz.table_loading = false;
         });
@@ -402,9 +430,9 @@ export default {
 
     on_row_btn_remove(index, row) {
       var thiz = this;
-      this.$confirm('是否删除 ' + row.name + '?', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$confirm(`${this.$t("del.message")}` + row.name + `${this.$t("del.messageend")}`, `${this.$t("del.title")}`, {
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
         type: 'warning'
       }).then(() => {
         thiz.table_loading = true;
@@ -414,20 +442,20 @@ export default {
           if (data.status == 0) {
             this.$message({
               type: 'success',
-              message: '删除文件成功!'
+              message: `${this.$t("del.deleteok")}`
             });
 
             this.reload_folder();
           } else {
             this.$message({
               type: 'error',
-              message: row.name + " 删除文件失败[" + data.status + "]"
+              message: row.name + `${this.$t("del.error")}` + "[" + data.status + "]"
             });
           }
         }).catch(e => {
           this.$message({
             type: 'error',
-            message: row.name + " 删除文件失败[" + err + "]"
+            message: row.name + `${this.$t("del.error")}` + "[" + err + "]"
           });
           thiz.table_loading = false;
         });
@@ -436,9 +464,9 @@ export default {
 
     on_row_btn_notes(index, row) {
       var thiz = this;
-      this.$prompt('请输入备注', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt(`${this.$t("properties.entermsg")}`, `${this.$t("properties.title")}`, {
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
         inputValue: row.notes
       }).then(({ value }) => {
         var meta = {
@@ -453,7 +481,7 @@ export default {
           } else {
             this.$message({
               type: 'error',
-              message: "更新备注失败"
+              message: `${this.$t("properties.errupdate")}`
             });
           }
         }).catch(e => {
@@ -470,9 +498,9 @@ export default {
 
     on_row_btn_rename(index, row) {
       var thiz = this;
-      this.$prompt('请输入新的文件名', '提示', {
-        confirmButtonText: '确定',
-        cancelButtonText: '取消',
+      this.$prompt(`${this.$t("rename.message")}`, `${this.$t("rename.title")}`, {
+        confirmButtonText: `${this.$t("btn.ok")}`,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
         inputValue: row.name
       }).then(({ value }) => {
         if (value == row.name) {
@@ -488,14 +516,14 @@ export default {
           } else {
             this.$message({
               type: 'error',
-              message: "重命名失败[" + res.status + "]"
+              message: `${this.$t("rename.errrename")}` + " [" + res.status + "]"
             });
           }
         }).catch(e => {
           thiz.table_loading = false;
           this.$message({
             type: 'error',
-            message: "重命名失败[" + e.message + "]"
+            message: `${this.$t("rename.errrename")}` + " [" + e.message + "]"
           });
         });
 
@@ -531,7 +559,7 @@ export default {
        } else {
           this.$message({
             type: 'error',
-            message: "更新属性失败"
+            message: `${this.$t("properties.errupdate")}`
           });
         }
       }).catch(e => {
@@ -593,7 +621,7 @@ export default {
           var drive = data[i];
           var row = {
             name: drive.label + ":/ [" + drive.name + "]",
-            size: drive.status == 0 ? thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size) : "(磁盘不可用[错误代码:" + drive.status + "])",
+            size: drive.status == 0 ? thiz.format_size(drive.used_size) + "/" + thiz.format_size(drive.total_size) : `${this.$t("drive.message")}` + drive.status + `${this.$t("drive.messageend")}`,
             type: "DRIVE",
             icon: "el-icon-box",
             notes: ""
@@ -671,7 +699,26 @@ export default {
           return;
         }
       }
+    },
+
+    handle_set_language(lang) {
+      this.$i18n.locale = lang
+      cookies.set("lang", lang, 60 * 60 * 24 * 365)
+      if (this.connected) {
+        this.connBtnText = `${this.$t("conn.disconnect")}`;
+      } else {
+        this.connBtnText = `${this.$t("conn.connect")}`;
+      }
+      proto.get_version().then(res => {
+        console.log("get version result", res);
+        this.version = `${this.$t("status.connected")}` + res.data.ver;
+      });
+      this.$message({
+        message: `${this.$t("lang.changeok")}`,
+        type: 'success'
+      })
     }
+
 
   }, mounted() {
     var dispatcher = sharedEventDispatcher();
@@ -680,6 +727,15 @@ export default {
     dispatcher.addListener("ble_connect_error", this.on_ble_connect_error);
 
     proto.init();
+
+    var lang = cookies.get("lang")
+    if (!lang) {
+      lang = "zh_CN"
+    }
+
+    this.language = lang
+    this.$i18n.locale = lang
+    this.connBtnText = `${this.$t("conn.connect")}`;
   },
 }
 </script>

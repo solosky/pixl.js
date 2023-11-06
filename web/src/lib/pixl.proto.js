@@ -2,6 +2,9 @@ import { sharedEventDispatcher } from "./event"
 import * as pixl from "./pixl.ble"
 import * as ByteBuffer from "bytebuffer"
 
+import i18n from '../i18n'
+
+
 const MTU_SIZE = 250
 const MTU_MAX_DATA_SIZE = 247
 const DF_HEADER_SIZE = 4
@@ -24,6 +27,7 @@ export function op_queue_push(cmd, tx_data_cb, rx_data_cb) {
     });
 
 }
+
 
 function process_op_queue() {
     if (!op_ongoing && op_queue.length > 0) {
@@ -371,13 +375,13 @@ function vfs_process_file_write(path, file, progress_cb, success_cb, error_cb, d
 
 function path_validation(path) {
     if (get_utf8_byte_size(path) > 63) {
-        throw new Error("文件路径最大不能超过63个字节");
+        throw new Error(i18n.t('rename.nametoolong'));
     }
     if (path.length > 3) {
         var p = path.lastIndexOf('/');
         var file_name = path.substring(p + 1);
         if (get_utf8_byte_size(file_name) > 47) {
-            throw new Error("文件名最大不能超过47个字节");
+            throw new Error(i18n.t('rename.pathtoolong'));
         }
     }
 }
@@ -450,7 +454,7 @@ function write_meta(bb, meta) {
     var bytes = encode_utf8(notes);
 
     if (bytes.length > 90) {
-        throw new Error("备注最大只能是90字节，即90个字符或30个汉字！（当前" + bytes.length + "字节）")
+        throw new Error(i18n.t('properties.remarktoolong') + bytes.length + i18n.t('properties.remarktoolongend') )
     }
 
     var tb = new ByteBuffer();
@@ -600,4 +604,9 @@ function on_ble_disconnected() {
     op_ongoing = false;
 
 }
+
+
+
+
+
 
