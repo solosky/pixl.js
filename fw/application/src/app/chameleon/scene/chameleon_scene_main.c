@@ -41,7 +41,7 @@ void chameleon_scene_main_on_enter(void *user_data) {
 
     hal_nfc_set_nrfx_irq_enable(true);
 
-    tag_emulation_factory_init();
+    //tag_emulation_factory_init();
 
     tag_emulation_init();
 

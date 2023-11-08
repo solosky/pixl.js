@@ -19,47 +19,30 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     ntag_t *ntag = ntag_emu_get_current_tag();
     char buff[64];
 
-    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+    mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 
-    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
-
-    uint8_t y = 0;
+    uint8_t x = 0, y = 0;
     mui_canvas_draw_box(p_canvas, 0, y, mui_canvas_get_width(p_canvas), 12);
     mui_canvas_set_draw_color(p_canvas, 0);
 
+    sprintf(buff, "[%02d] %02x:%02x:%02x:%02x:%02x:%02x:%02x", 0, 11, 22, 33, 0xAA, 0xBB, 0xCC, 0xDD);
+    mui_canvas_draw_utf8(p_canvas, 0, y + 10, buff);
 
-    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
-    sprintf(buff, "%02x:%02x:%02x:%02x:%02x:%02x:%02x", ntag->data[0], ntag->data[1], ntag->data[2], ntag->data[4],
-            ntag->data[5], ntag->data[6], ntag->data[7]);
-    mui_canvas_draw_utf8(p_canvas, 25, y + 10, buff);
-
-    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_set_draw_color(p_canvas, 1);
-    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
+    const char *name = "我的卡1";
+    y = 13 + (mui_canvas_get_height(p_canvas) - 20) / 2;
+    x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, name)) / 2;
+    mui_canvas_draw_utf8(p_canvas, x, y, name);
+    mui_canvas_draw_utf8(p_canvas, 0, y, "<");
+    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 8, y, ">");
 
-    y += 12;
+    mui_canvas_set_font(p_canvas, MUI_FONT_SMALL);
+    mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), "N215 <00/44 00> G2A");
 
-    mui_canvas_draw_rframe(p_canvas, 0, y + 3, mui_canvas_get_width(p_canvas), mui_canvas_get_height(p_canvas) - y - 3,
-                           3);
+    mui_canvas_set_font(p_canvas, MUI_FONT_ICON);
+    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas),  ICON_NTAG);
 
-    uint32_t head = to_little_endian_int32(&ntag->data[84]);
-    uint32_t tail = to_little_endian_int32(&ntag->data[88]);
-
-    const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
-    if (amd != NULL) {
-        mui_canvas_draw_utf8(p_canvas, 5, y += 15, amd->name_cn);
-        if (strlen(ntag->notes) > 0) {
-            mui_element_autowrap_text(p_canvas, 5, y += 15, mui_canvas_get_width(p_canvas), 24, ntag->notes);
-        }
-    } else {
-        if (head > 0 && tail > 0) {
-            mui_canvas_draw_utf8(p_canvas, 5, y += 15, "Amiibo");
-            sprintf(buff, "[%08x:%08x]", head, tail);
-            mui_canvas_draw_utf8(p_canvas, 5, y += 15, buff);
-        } else {
-            mui_canvas_draw_utf8(p_canvas, 5, y += 15, getLangString(_L_BLANK_TAG));
-        }
-    }
+    mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 }
 
 static void chameleon_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
@@ -73,13 +56,12 @@ static void chameleon_view_on_input(mui_view_t *p_view, mui_input_event_t *event
     }
     case INPUT_TYPE_SHORT: {
 
-        if(event->key == INPUT_KEY_CENTER){
+        if (event->key == INPUT_KEY_CENTER) {
             if (p_chameleon_view->event_cb) {
                 p_chameleon_view->event_cb(CHAMELEON_VIEW_EVENT_MENU, p_chameleon_view);
             }
             return;
         }
-
     }
     }
 }

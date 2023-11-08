@@ -18,11 +18,11 @@
 #define ICON_PROTO 0xe042
 #define ICON_VER 0xe0be
 
-#define AMIIBOLINK_MENU_BACK_EXIT 0
-#define AMIIBOLINK_MENU_BACK_MAIN 1
-#define AMIIBOLINK_MENU_MODE 2
-#define AMIIBOLINK_MENU_VER 3
-#define AMIIBOLINK_MENU_AUTO_GENERATE 4
+#define CHAMELEON_MENU_BACK_EXIT 0
+#define CHAMELEON_MENU_BACK_MAIN 1
+#define CHAMELEON_MENU_MODE 2
+#define CHAMELEON_MENU_VER 3
+#define CHAMELEON_MENU_AUTO_GENERATE 4
 
 
 void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
@@ -37,13 +37,22 @@ void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t 
 void chameleon_scene_menu_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, ICON_VER, getLangString(_L_TAG_DETAILS),
-                           (void *)AMIIBOLINK_MENU_BACK_MAIN);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "卡槽: 01", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "卡类型 [Mifare 4K]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "ID [00:11:22:AA:BB:CC]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "SAK [00]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "ATQA [00 44]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "Gen1A 模式 [开]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "Gen2 模式 [开]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "区块0 识别 [开]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, "写模式 [正常]", (void *)CHAMELEON_MENU_BACK_EXIT);
 
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, getLangString(_L_MAIN_MENU), (void *)AMIIBOLINK_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_VER, getLangString(_L_TAG_DETAILS), (void *)CHAMELEON_MENU_BACK_MAIN);
+
+    mui_list_view_add_item(app->p_list_view, ICON_HOME, getLangString(_L_MAIN_MENU), (void *)CHAMELEON_MENU_BACK_EXIT);
 
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_on_event);
-    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBOLINK_VIEW_ID_LIST);
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);
 }
 
 void chameleon_scene_menu_on_exit(void *user_data) {
