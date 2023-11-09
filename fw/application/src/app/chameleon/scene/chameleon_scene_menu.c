@@ -11,12 +11,7 @@
 #include "i18n/language.h"
 #include "settings.h"
 
-#define ICON_MODE 0xe135
-#define ICON_BACK 0xe069
-#define ICON_HOME 0xe1f0
-#define ICON_AUTO 0xe11f
-#define ICON_PROTO 0xe042
-#define ICON_VER 0xe0be
+#include "mui_icons.h"
 
 #define CHAMELEON_MENU_BACK_EXIT 0
 #define CHAMELEON_MENU_BACK_MAIN 1
@@ -24,12 +19,27 @@
 #define CHAMELEON_MENU_VER 3
 #define CHAMELEON_MENU_AUTO_GENERATE 4
 
-
 void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
     app_chameleon_t *app = p_list_view->user_data;
     switch (p_item->icon) {
     case ICON_HOME:
         mini_app_launcher_exit(mini_app_launcher());
+        break;
+
+    case ICON_BACK:
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        break;
+
+    case ICON_SLOT:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_SLOT);
+        break;
+
+    case ICON_FILE:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_DATA);
+        break;
+
+    case ICON_PAGE:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED);
         break;
     }
 }
@@ -37,17 +47,18 @@ void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t 
 void chameleon_scene_menu_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "卡槽: 01", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "卡类型 [Mifare 4K]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "ID [00:11:22:AA:BB:CC]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "SAK [00]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "ATQA [00 44]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "Gen1A 模式 [开]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "Gen2 模式 [开]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "区块0 识别 [开]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_HOME, "写模式 [正常]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "当前卡槽", "[01]", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "ID", "[00:11:22:AA:BB:CC]",
+                               (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_FAVORITE, "卡类型", "[Mifare 4K]",
+                               (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, "卡数据..", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_PAGE, "卡高级设置..", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_SLOT, "卡槽管理..", (void *)CHAMELEON_MENU_BACK_EXIT);
+    mui_list_view_add_item(app->p_list_view, ICON_SETTINGS, "全局设置..", (void *)CHAMELEON_MENU_BACK_EXIT);
 
-    mui_list_view_add_item(app->p_list_view, ICON_VER, getLangString(_L_TAG_DETAILS), (void *)CHAMELEON_MENU_BACK_MAIN);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_TAG_DETAILS),
+                           (void *)CHAMELEON_MENU_BACK_MAIN);
 
     mui_list_view_add_item(app->p_list_view, ICON_HOME, getLangString(_L_MAIN_MENU), (void *)CHAMELEON_MENU_BACK_EXIT);
 

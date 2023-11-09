@@ -30,6 +30,7 @@ typedef void (*mui_list_view_item_clear_cb)(mui_list_item_t *p_item);
 struct mui_list_item_s {
     uint16_t icon;
     string_t text;
+    string_t sub_text;
     void *user_data;
 };
 
@@ -68,6 +69,7 @@ mui_view_t *mui_list_view_get_view(mui_list_view_t *p_view);
 void mui_list_view_set_user_data(mui_list_view_t *p_view, void *user_data);
 //// view functions //
 void mui_list_view_add_item(mui_list_view_t *p_view, uint32_t icon, const char *text, void *user_data);
+void mui_list_view_add_item_ext(mui_list_view_t *p_view, uint32_t icon, const char *text, const char* sub_text, void *user_data);
 void mui_list_view_set_item(mui_list_view_t *p_view, uint16_t index, uint32_t icon, char *text, void *user_data);
 uint32_t mui_list_view_item_size(mui_list_view_t *p_view);
 void mui_list_view_set_selected_cb(mui_list_view_t *p_view, mui_list_view_selected_cb selected_cb);

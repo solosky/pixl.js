@@ -1,2 +1,5 @@
 ADD_SCENE(chameleon, main, MAIN)
 ADD_SCENE(chameleon, menu, MENU)
+ADD_SCENE(chameleon, menu_card_advanced, MENU_CARD_ADVANCED)
+ADD_SCENE(chameleon, menu_card_slot, MENU_CARD_SLOT)
+ADD_SCENE(chameleon, menu_card_data, MENU_CARD_DATA)

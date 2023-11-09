@@ -259,6 +259,9 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/view/chameleon_view.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_main.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
