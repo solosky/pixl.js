@@ -25,7 +25,7 @@ const db_game_t game_list[] = {
 {23, 0, "Kirby's Return to Dream Land DELUXE", "星之卡比：重返梦幻岛豪华版", 1, 5}, 
 {24, 0, "Kirby: Star Allies", "星之卡比：新星同盟", 1, 5}, 
 {25, 0, "Little Nightmares Complete Edition", "小小梦魇完全版", 1, 1}, 
-{26, 0, "Mario Kart 8 Deluxe", "马里奥赛车8豪华版", 60, 29}, 
+{26, 0, "Mario Kart 8 Deluxe", "马里奥赛车8豪华版", 60, 31}, 
 {27, 0, "Mario + Rabbids Kingdom Battle", "马里奥+疯兔:王国之战", 1, 4}, 
 {28, 0, "Megabyte Punch", "兆字节重击", 1, 1}, 
 {29, 0, "Mega Man 11", "洛克人11", 1, 1}, 
