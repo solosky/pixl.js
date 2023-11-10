@@ -133,7 +133,7 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
     mui_toast_view_free(p_app_handle->p_toast_view);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
 
-    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_TOAST);
+    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher_toast, MUI_LAYER_TOAST);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher_toast);
 
     string_clear(p_app_handle->cur_fav_dir);

@@ -709,8 +709,5 @@ flash_all_ocd:
 reset_ocd:
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -c "init" -c "reset" -c "exit"
 
-erase_ocd:
+erase_openocd:
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "reset" -c exit
-
-rtt_ocd:
-	openocd -f openocd/rtt.cfg
