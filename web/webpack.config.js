@@ -3,7 +3,7 @@ const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
 const url = require('url')
-const publicPath = ''
+const publicPath = '/'
 
 module.exports = (options = {}) => ({
   entry: {
