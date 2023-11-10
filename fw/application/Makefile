@@ -274,6 +274,7 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/en_US.c \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
+  $(PROJ_DIR)/i18n/es_CO.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
@@ -669,10 +670,10 @@ flash_openocd:
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
 flash_openocd_all:
-	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
 reset_openocd:
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -c "init" -c "reset" -c "exit"
 
 erase_openocd:
-	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "reset" -c exit
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "reset" -c exit

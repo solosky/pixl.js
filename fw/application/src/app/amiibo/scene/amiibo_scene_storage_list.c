@@ -52,10 +52,10 @@ void amiibo_scene_storage_list_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, ICON_HOME, getLangString(_L_MAIN_MENU), (void *)-1);
 
     if (vfs_drive_enabled(VFS_DRIVE_INT)) {
-        mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "[Internal Flash]", (void *)VFS_DRIVE_INT);
+        mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "Internal Flash", (void *)VFS_DRIVE_INT);
     }
     if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
-        mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "[External Flash]", (void *)VFS_DRIVE_EXT);
+        mui_list_view_add_item(app->p_list_view, ICON_DRIVE, "External Flash", (void *)VFS_DRIVE_EXT);
     }
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_storage_list_on_selected);
