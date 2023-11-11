@@ -10,7 +10,8 @@ typedef struct chameleon_view_s chameleon_view_t;
 
 typedef enum {
     CHAMELEON_VIEW_EVENT_MENU,
-    CHAMELEON_VIEW_EVENT_UPDATE
+    CHAMELEON_VIEW_EVENT_PREV,
+    CHAMELEON_VIEW_EVENT_NEXT
 } chameleon_view_event_t;
 
 typedef void (*chameleon_view_event_cb)(chameleon_view_event_t event, chameleon_view_t *p_view);

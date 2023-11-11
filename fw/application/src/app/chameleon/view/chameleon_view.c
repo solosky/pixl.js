@@ -4,9 +4,9 @@
 #include "i18n/language.h"
 #include "mui_element.h"
 #include "nrf_log.h"
-#include "nrf_pwr_mgmt.h"
-#include "ntag_def.h"
-#include "ntag_emu.h"
+
+#include "tag_emulation.h"
+#include "tag_helper.h"
 
 #define ICON_RANDOM 0xe20d
 #define ICON_NTAG 0xe1cf
@@ -25,7 +25,24 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_draw_box(p_canvas, 0, y, mui_canvas_get_width(p_canvas), 12);
     mui_canvas_set_draw_color(p_canvas, 0);
 
-    sprintf(buff, "[%02d] %02x:%02x:%02x:%02x:%02x:%02x:%02x", 0, 11, 22, 33, 0xAA, 0xBB, 0xCC, 0xDD);
+    uint8_t slot = tag_emulation_get_slot();
+
+    tag_specific_type_t tag_type[2];
+    tag_emulation_get_specific_type_by_slot(slot, tag_type);
+    const tag_specific_type_name_t *tag_name = tag_helper_get_tag_type_name(tag_type[0]);
+    const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_tag_type_coll_res_entity(tag_type[0]);
+
+    if (*(coll_res->size) == NFC_TAG_14A_UID_SINGLE_SIZE) {
+        sprintf(buff, "[%02d]%02x:%02x:%02x:%02x", slot + 1, coll_res->uid[0], coll_res->uid[1], coll_res->uid[2],
+                coll_res->uid[3]);
+    } else if (*(coll_res->size) == NFC_TAG_14A_UID_DOUBLE_SIZE) {
+        sprintf(buff, "[%02d]%02x:%02x:%02x:%02x:%02x:%02x:%02x", slot + 1, coll_res->uid[0], coll_res->uid[1],
+                coll_res->uid[2], coll_res->uid[3], coll_res->uid[4], coll_res->uid[5], coll_res->uid[6]);
+    } else {
+        sprintf(buff, "[%02d]%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x:%02x", slot + 1, coll_res->uid[0],
+                coll_res->uid[1], coll_res->uid[2], coll_res->uid[3], coll_res->uid[4], coll_res->uid[5],
+                coll_res->uid[6], coll_res->uid[7], coll_res->uid[8], coll_res->uid[9]);
+    }
     mui_canvas_draw_utf8(p_canvas, 0, y + 10, buff);
 
     mui_canvas_set_draw_color(p_canvas, 1);
@@ -37,10 +54,12 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 8, y, ">");
 
     mui_canvas_set_font(p_canvas, MUI_FONT_SMALL);
-    mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), "N215 <00/44 00> G2A");
+    sprintf(buff, "%s <%02x/%02x %02x> G2A", tag_name->short_name, coll_res->sak[0], coll_res->atqa[0],
+            coll_res->atqa[1]);
+    mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), buff);
 
     mui_canvas_set_font(p_canvas, MUI_FONT_ICON);
-    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas),  ICON_NTAG);
+    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas), ICON_NTAG);
 
     mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 }
@@ -60,7 +79,14 @@ static void chameleon_view_on_input(mui_view_t *p_view, mui_input_event_t *event
             if (p_chameleon_view->event_cb) {
                 p_chameleon_view->event_cb(CHAMELEON_VIEW_EVENT_MENU, p_chameleon_view);
             }
-            return;
+        } else if (event->key == INPUT_KEY_LEFT) {
+            if (p_chameleon_view->event_cb) {
+                p_chameleon_view->event_cb(CHAMELEON_VIEW_EVENT_PREV, p_chameleon_view);
+            }
+        } else if (event->key == INPUT_KEY_RIGHT) {
+            if (p_chameleon_view->event_cb) {
+                p_chameleon_view->event_cb(CHAMELEON_VIEW_EVENT_NEXT, p_chameleon_view);
+            }
         }
     }
     }
