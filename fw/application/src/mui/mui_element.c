@@ -123,25 +123,29 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
         p += utf8_size;
     }
 
-    pos = pos < total - 1 ? pos : total - 1;
+    uint8_t first_page = h / font_height;
+    total = total < first_page ? 1 : total - first_page + 1;
 
-    // scrollbar
-    uint8_t width = w;
-    uint8_t height = h;
-    // prevent overflows
-    mui_canvas_set_draw_color(p_canvas, 0);
-    mui_canvas_draw_box(p_canvas, width - 4, y, 4, height);
-    // dot line
-    mui_canvas_set_draw_color(p_canvas, 1);
-    for (uint8_t i = y; i < y + height; i += 2) {
-        mui_canvas_draw_dot(p_canvas, width - 2, i);
-    }
-    // Position block
-    if (total) {
-        float block_h = ((float)height) / total;
-        mui_canvas_draw_box(p_canvas, width - 3, y + block_h * pos, 3, block_h > 1 ? block_h : 1);
-    }
+    if (total > 1) {
+        pos = pos < total - 1 ? pos : total - 1;
 
+        // scrollbar
+        uint8_t width = w;
+        uint8_t height = h;
+        // prevent overflows
+        mui_canvas_set_draw_color(p_canvas, 0);
+        mui_canvas_draw_box(p_canvas, width - 4, y, 4, height);
+        // dot line
+        mui_canvas_set_draw_color(p_canvas, 1);
+        for (uint8_t i = y; i < y + height; i += 2) {
+            mui_canvas_draw_dot(p_canvas, width - 2, i);
+        }
+        // Position block
+        if (total) {
+            float block_h = ((float)height) / total;
+            mui_canvas_draw_box(p_canvas, width - 3, y + block_h * pos, 3, block_h > 1 ? block_h : 1);
+        }
+    }
 
     mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
 }

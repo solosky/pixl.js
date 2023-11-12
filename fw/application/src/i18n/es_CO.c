@@ -20,6 +20,7 @@ const char * lang_es_co[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Brillo",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Brillo de Fondo",
     [_L_APP_SET_ANIM] = "Animación Menú",
+    [_L_APP_SET_QRCODE] = "Mostrar código QR",
     [_L_APP_SET_LIPO_BAT] = "Batería LiPO",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Mem. Usada",
     [_L_APP_SET_HIBERNATE] = "Encend. Rápido",

@@ -3,6 +3,7 @@
 #include "i18n/language.h"
 #include "mui_element.h"
 #include "mui_qrcode_helper.h"
+#include "settings.h"
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa
@@ -55,22 +56,28 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
 
         // text+qrcode
+        uint8_t square_r = 0;
+        if (settings_get_data()->qrcode_enabled) {
+            square_r = 37;
+            sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
+            draw_qrcode(p_canvas, 91, start_y - p_amiibo_view->desc_offset, 33, buff);
+        }
         const db_link_t *link = get_link_by_id(p_amiibo_view->game_id, head, tail);
         if (strlen(ntag->notes) > 0) {
-            mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, 33 + 4, ntag->notes);
+            mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, ntag->notes);
         } else if (link != NULL) {
             const char *notes = getLanguage() == LANGUAGE_ZH_HANS ? link->note_cn : link->note_en;
-            mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, 33 + 4, notes);
+            mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, notes);
         }
-        sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
-        draw_qrcode(p_canvas, 91, start_y - p_amiibo_view->desc_offset, 33, buff);
         mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
     } else if (head > 0 && tail > 0) {
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, "Amiibo");
         sprintf(buff, "[%08x:%08x]", head, tail);
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, buff);
-        sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
-        draw_qrcode(p_canvas, 91, 27, 33, buff);
+        if (settings_get_data()->qrcode_enabled) {
+            sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
+            draw_qrcode(p_canvas, 91, 27, 33, buff);
+        }
     } else {
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, getLangString(_L_BLANK_TAG));
     }
@@ -82,7 +89,7 @@ static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
         switch (event->key) {
         case INPUT_KEY_LEFT:
             if (p_amiibo_view->desc_offset > 0) {
-                p_amiibo_view->desc_offset--;
+                p_amiibo_view->desc_offset -= 8;
             }
 
             if (p_amiibo_view->event_cb) {
@@ -90,7 +97,7 @@ static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
             }
             break;
         case INPUT_KEY_RIGHT:
-            p_amiibo_view->desc_offset++;
+            p_amiibo_view->desc_offset += 8;
 
             if (p_amiibo_view->event_cb) {
                 p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_DESC_UPDATE, p_amiibo_view);
