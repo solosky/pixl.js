@@ -59,11 +59,91 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
         if (utf8_x + xi > x + w) {
             xi = x;
             yi += font_height;
+            if (yi >= y + h) break;
         }
         uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, xi, yi, utf8);
         xi += utf8_w;
         p += utf8_size;
     }
+}
+
+void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h,
+                                   uint16_t offset_y, uint8_t square_r, const char *text) {
+
+    mui_rect_t clip_win_prev;
+    mui_rect_t clip_win_cur;
+    mui_canvas_get_clip_window(p_canvas, &clip_win_prev);
+    clip_win_cur.x = x;
+    clip_win_cur.y = y;
+    clip_win_cur.w = w;
+    clip_win_cur.h = h;
+    mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
+
+    uint8_t canvas_height = mui_canvas_get_height(p_canvas);
+    uint8_t font_height = mui_canvas_current_font_height(p_canvas);
+    uint16_t xi = x;
+    uint16_t text_y = y - offset_y + font_height;
+    uint16_t yi = text_y;
+    uint16_t wi = w - 4;
+    uint16_t total = 1;
+    uint16_t pos = offset_y / font_height;
+
+    const char *p = text;
+    char utf8[5];
+
+    while (*p != 0) {
+        wi = w - 4;
+        // -- may be wrong
+        if (yi < text_y) {                    // 溢出
+            if (text_y > text_y + square_r) { // 溢出
+                if (yi < text_y + square_r) {
+                    wi -= square_r;
+                }
+            }
+        } else {
+            if (text_y > text_y + square_r) { // 溢出
+                wi -= square_r;
+            } else if (yi < text_y + square_r) {
+                wi -= square_r;
+            }
+        }
+        // --
+
+        uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
+        memcpy(utf8, p, utf8_size);
+        utf8[utf8_size] = '\0';
+        uint8_t utf8_x = mui_canvas_get_utf8_width(p_canvas, utf8);
+        if (utf8_x + xi > x + wi) {
+            xi = x;
+            yi += font_height;
+            total++;
+        }
+        uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, xi, yi, utf8);
+        xi += utf8_w;
+        p += utf8_size;
+    }
+
+    pos = pos < total - 1 ? pos : total - 1;
+
+    // scrollbar
+    uint8_t width = w;
+    uint8_t height = h;
+    // prevent overflows
+    mui_canvas_set_draw_color(p_canvas, 0);
+    mui_canvas_draw_box(p_canvas, width - 4, y, 4, height);
+    // dot line
+    mui_canvas_set_draw_color(p_canvas, 1);
+    for (uint8_t i = y; i < y + height; i += 2) {
+        mui_canvas_draw_dot(p_canvas, width - 2, i);
+    }
+    // Position block
+    if (total) {
+        float block_h = ((float)height) / total;
+        mui_canvas_draw_box(p_canvas, width - 3, y + block_h * pos, 3, block_h > 1 ? block_h : 1);
+    }
+
+
+    mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
 }
 
 uint16_t mui_element_text_height(mui_canvas_t *p_canvas, uint8_t w, const char *text) {

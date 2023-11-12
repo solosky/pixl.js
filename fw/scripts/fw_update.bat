@@ -6,7 +6,7 @@ echo ---------------------------------------------------------------------------
 echo Pixl.js 固件自动烧写脚本 @solosky
 echo ------------------------------------------------------------------------------
 
-set openocd_win64_download_url="https://ghproxy.com/https://github.com/openocd-org/openocd/releases/download/v0.12.0/openocd-v0.12.0-i686-w64-mingw32.tar.gz"
+set openocd_win64_download_url="https://mirror.ghproxy.com/https://github.com/openocd-org/openocd/releases/download/v0.12.0/openocd-v0.12.0-i686-w64-mingw32.tar.gz"
 set openocd_win64_file="openocd-v0.12.0-i686-w64-mingw32.tar.gz"
 set openocd_bin="./bin/openocd.exe"
 
