@@ -26,6 +26,7 @@ typedef struct {
 
 mui_scene_dispatcher_t* mui_scene_dispatcher_create();
 void mui_scene_dispatcher_free(mui_scene_dispatcher_t* p_dispatcher);
+void mui_scene_dispatcher_exit(mui_scene_dispatcher_t* p_dispatcher);
 
 void mui_scene_dispatcher_set_scene_defines(mui_scene_dispatcher_t *p_dispatcher, const mui_scene_t *p_scene_defines,
                                             uint32_t scene_num);

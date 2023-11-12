@@ -12,34 +12,108 @@
 #include "settings.h"
 
 #include "mui_icons.h"
+#include "tag_helper.h"
 
-#define CHAMELEON_MENU_BACK_EXIT 0
-#define CHAMELEON_MENU_BACK_MAIN 1
-#define CHAMELEON_MENU_MODE 2
-#define CHAMELEON_MENU_VER 3
-#define CHAMELEON_MENU_AUTO_GENERATE 4
+typedef enum {
+    CHAMELEON_MENU_CUSTOM,
+    CHAMELEON_MENU_UID,
+    CHAMELEON_MENU_SAK,
+    CHAMELEON_MENU_ATQA,
+    CHAMELEON_MENU_GEN1A,
+    CHAMELEON_MENU_GEN2,
+    CHAMELEON_MENU_WRITE_MODE,
+    CHAMELEON_MENU_BACK,
+} chameleon_menu_item_t;
 
-
-void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view, mui_list_item_t *p_item) {
+void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view,
+                                                 mui_list_item_t *p_item) {
     app_chameleon_t *app = p_list_view->user_data;
-    switch (p_item->icon) {
-    case ICON_BACK:
+    chameleon_menu_item_t item = (chameleon_menu_item_t)p_item->user_data;
+    switch (item) {
+
+    case CHAMELEON_MENU_CUSTOM: {
+        nfc_tag_mf1_set_use_mf1_coll_res(!nfc_tag_mf1_is_use_mf1_coll_res());
+        chameleon_scene_menu_card_advanced_reload(app);
+        break;
+    }
+
+    case CHAMELEON_MENU_UID: {
+        // TODO
+    } break;
+
+    case CHAMELEON_MENU_SAK: {
+        // TODO
+    } break;
+
+    case CHAMELEON_MENU_ATQA: {
+        // TODO
+    } break;
+
+    case CHAMELEON_MENU_GEN1A: {
+        nfc_tag_mf1_set_gen1a_magic_mode(!nfc_tag_mf1_is_gen1a_magic_mode());
+        chameleon_scene_menu_card_advanced_reload(app);
+    } break;
+
+    case CHAMELEON_MENU_GEN2: {
+        nfc_tag_mf1_set_gen2_magic_mode(!nfc_tag_mf1_is_gen2_magic_mode());
+        chameleon_scene_menu_card_advanced_reload(app);
+    } break;
+
+    case CHAMELEON_MENU_WRITE_MODE: {
+        // TODO
+    } break;
+
+    case CHAMELEON_MENU_BACK:
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         break;
     }
 }
 
+void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
+    char buff[32];
+
+    uint16_t focus = mui_list_view_get_focus(app->p_list_view);
+    uint16_t scroll_offset = mui_list_view_get_scroll_offset(app->p_list_view);
+    mui_list_view_clear_items(app->p_list_view);
+
+    tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
+    tag_group_type_t tag_group = tag_helper_get_tag_group_type(tag_type);
+    const tag_specific_type_name_t *tag_name = tag_helper_get_tag_type_name(tag_type);
+    const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
+
+    if (tag_group == TAG_GROUP_MIFLARE) {
+        mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "自定义模式",
+                                   (nfc_tag_mf1_is_use_mf1_coll_res() ? "[关]" : "[开]"), CHAMELEON_MENU_CUSTOM);
+    }
+
+    tag_helper_format_uid(buff, coll_res->uid, *(coll_res->size));
+    mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "ID", buff, CHAMELEON_MENU_UID);
+
+    sprintf(buff, "[%02X]", coll_res->sak[0]);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_FAVORITE, "SAK", buff, CHAMELEON_MENU_SAK);
+
+    sprintf(buff, "[%02X %02X]", coll_res->atqa[1], coll_res->atqa[0]);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_FILE, "ATQA", buff, CHAMELEON_MENU_ATQA);
+
+    if (tag_group == TAG_GROUP_MIFLARE) {
+        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "Gen1A模式",
+                                   (nfc_tag_mf1_is_gen1a_magic_mode() ? "[开]" : "[关]"), CHAMELEON_MENU_GEN1A);
+        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "Gen2模式",
+                                   (nfc_tag_mf1_is_gen2_magic_mode() ? "[开]" : "[关]"), CHAMELEON_MENU_GEN2);
+
+        sprintf(buff, "[%s]", tag_helper_get_mf_write_mode_name(nfc_tag_mf1_get_write_mode()));
+        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "写入模式", buff, CHAMELEON_MENU_WRITE_MODE);
+    }
+
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
+
+    mui_list_view_set_focus(app->p_list_view, focus);
+    mui_list_view_set_scroll_offset(app->p_list_view, scroll_offset);
+}
+
 void chameleon_scene_menu_card_advanced_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
-
-    mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "ID", "[00:11:22:AA:BB:CC]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_FAVORITE, "SAK", "[00]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_FILE, "ATQA", "[44 00]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "Gen1A模式", "[开]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "Gen2模式", "[开]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "写入模式", "[写入]", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_VIEW, "加载0扇区..", (void *)CHAMELEON_MENU_BACK_EXIT);
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK_MAIN);
+    chameleon_scene_menu_card_advanced_reload(app);
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_advanced_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);
 }

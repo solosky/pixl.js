@@ -35,18 +35,18 @@ static void chameleon_scene_main_event_cb(chameleon_view_event_t event, chameleo
         slot = tag_emulation_slot_find_prev(slot);
         tag_emulation_change_slot(slot, true);
 
-        nfc_tag_mf1_set_gen1a_magic_mode(true);
-        nfc_tag_mf1_set_gen2_magic_mode(true);
-        nfc_tag_mf1_set_use_mf1_coll_res(true);
+        // nfc_tag_mf1_set_gen1a_magic_mode(true);
+        // nfc_tag_mf1_set_gen2_magic_mode(true);
+        // nfc_tag_mf1_set_use_mf1_coll_res(true);
 
     } else if (event == CHAMELEON_VIEW_EVENT_NEXT) {
         uint8_t slot = tag_emulation_get_slot();
         slot = tag_emulation_slot_find_next(slot);
         tag_emulation_change_slot(slot, true);
 
-        nfc_tag_mf1_set_gen1a_magic_mode(true);
-        nfc_tag_mf1_set_gen2_magic_mode(true);
-        nfc_tag_mf1_set_use_mf1_coll_res(true);
+        // nfc_tag_mf1_set_gen1a_magic_mode(true);
+        // nfc_tag_mf1_set_gen2_magic_mode(true);
+        // nfc_tag_mf1_set_use_mf1_coll_res(true);
     }
 }
 
@@ -57,11 +57,9 @@ void chameleon_scene_main_on_enter(void *user_data) {
 
     //tag_emulation_factory_init();
 
-    tag_emulation_init();
-
-    nfc_tag_mf1_set_gen1a_magic_mode(true);
-    nfc_tag_mf1_set_gen2_magic_mode(true);
-    nfc_tag_mf1_set_use_mf1_coll_res(true);
+    // nfc_tag_mf1_set_gen1a_magic_mode(true);
+    // nfc_tag_mf1_set_gen2_magic_mode(true);
+    // nfc_tag_mf1_set_use_mf1_coll_res(true);
 
     tag_emulation_sense_run();
 
@@ -71,8 +69,6 @@ void chameleon_scene_main_on_enter(void *user_data) {
 
 void chameleon_scene_main_on_exit(void *user_data) {
     app_chameleon_t *app = user_data;
-
-    tag_emulation_save();
     tag_emulation_sense_end();
     hal_nfc_set_nrfx_irq_enable(false);
 }

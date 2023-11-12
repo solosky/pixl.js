@@ -23,10 +23,14 @@
 void chameleon_scene_menu_card_slot_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                              mui_list_item_t *p_item) {
     app_chameleon_t *app = p_list_view->user_data;
+    char buff[16];
     switch (p_item->icon) {
-    case ICON_HOME:
-        mini_app_launcher_exit(mini_app_launcher());
-        break;
+    case ICON_DATA: {
+        int32_t slot = mui_list_view_get_focus(p_list_view) - 1;
+        tag_emulation_slot_set_enable(slot, !tag_emulation_slot_is_enable(slot));
+        sprintf(buff, "[%s]", tag_emulation_slot_is_enable(slot) ? "开" : "关");
+        mui_list_view_item_set_sub_text(p_item, buff);
+    } break;
 
     case ICON_BACK:
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
@@ -37,12 +41,13 @@ void chameleon_scene_menu_card_slot_on_event(mui_list_view_event_t event, mui_li
 void chameleon_scene_menu_card_slot_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
-    char buff[64];
-    char buff2[64];
+    char buff[32];
+    char buff2[32];
     sprintf(buff, "[%0d]", TAG_MAX_SLOT_NUM);
 
     mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "卡槽数量..", buff, (void *)CHAMELEON_MENU_BACK_EXIT);
 
+   
     for (uint32_t i = 0; i < TAG_MAX_SLOT_NUM; i++) {
         sprintf(buff, "[%s]", tag_emulation_slot_is_enable(i) ? "开" : "关");
         sprintf(buff2, "卡槽 %02d", i + 1);

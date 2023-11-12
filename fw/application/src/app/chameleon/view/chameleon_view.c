@@ -27,10 +27,10 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     uint8_t slot = tag_emulation_get_slot();
 
-    tag_specific_type_t tag_type[2];
-    tag_emulation_get_specific_type_by_slot(slot, tag_type);
-    const tag_specific_type_name_t *tag_name = tag_helper_get_tag_type_name(tag_type[0]);
-    const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_tag_type_coll_res_entity(tag_type[0]);
+    tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
+    tag_group_type_t tag_group = tag_helper_get_tag_group_type(tag_type);
+    const tag_specific_type_name_t *tag_name = tag_helper_get_tag_type_name(tag_type);
+    const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
 
     if (*(coll_res->size) == NFC_TAG_14A_UID_SINGLE_SIZE) {
         sprintf(buff, "[%02d]%02x:%02x:%02x:%02x", slot + 1, coll_res->uid[0], coll_res->uid[1], coll_res->uid[2],
@@ -47,15 +47,22 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     mui_canvas_set_draw_color(p_canvas, 1);
     const char *name = "我的卡1";
-    y = 13 + (mui_canvas_get_height(p_canvas) - 20) / 2;
+    y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
     x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, name)) / 2;
     mui_canvas_draw_utf8(p_canvas, x, y, name);
     mui_canvas_draw_utf8(p_canvas, 0, y, "<");
     mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 8, y, ">");
 
     mui_canvas_set_font(p_canvas, MUI_FONT_SMALL);
-    sprintf(buff, "%s <%02x/%02x %02x> G2A", tag_name->short_name, coll_res->sak[0], coll_res->atqa[0],
-            coll_res->atqa[1]);
+    sprintf(buff, "%s <%02x/%02x %02x>", tag_name->short_name, coll_res->sak[0], coll_res->atqa[0], coll_res->atqa[1]);
+    if (tag_group == TAG_GROUP_MIFLARE) {
+        if (nfc_tag_mf1_is_gen1a_magic_mode()) {
+            strcat(buff, " 1A");
+        }
+        if (nfc_tag_mf1_is_gen2_magic_mode()) {
+            strcat(buff, " G2");
+        }
+    }
     mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), buff);
 
     mui_canvas_set_font(p_canvas, MUI_FONT_ICON);

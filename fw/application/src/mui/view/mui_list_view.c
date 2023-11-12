@@ -81,7 +81,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             // sub text
             if (string_size(item->sub_text) > 0) {
                 uint8_t w = mui_canvas_get_utf8_width(p_canvas, string_get_cstr(item->sub_text));
-                mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - w - 3, y + 10,
+                mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - w - 5, y + 10,
                                      string_get_cstr(item->sub_text));
             }
         }

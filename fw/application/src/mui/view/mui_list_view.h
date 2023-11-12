@@ -45,6 +45,8 @@ ARRAY_DEF(mui_list_item_array, mui_list_item_t, M_POD_OPLIST);
 #define LIST_ANIM_SCROLL 1
 #define LIST_ANIM_FOCUS 0
 
+#define NULL_USER_DATA ((void*) -1)
+
 struct mui_list_view_s {
     mui_view_t *p_view;
     uint16_t focus_index;
@@ -78,6 +80,15 @@ void mui_list_view_clear_items_with_cb(mui_list_view_t *p_view, mui_list_view_it
 void mui_list_view_set_focus(mui_list_view_t *p_view, uint16_t focus_index);
 void mui_list_view_sort(mui_list_view_t *p_view, mui_list_view_item_cmp_cb cmp_cb);
 uint16_t mui_list_view_get_focus(mui_list_view_t *p_view);
+
+
+static inline void mui_list_view_item_set_text(mui_list_item_t* p_item, const char *text){
+    string_set_str(p_item->text, text);
+}
+
+static inline void mui_list_view_item_set_sub_text(mui_list_item_t* p_item, const char *text){
+    string_set_str(p_item->sub_text, text);
+}
 
 static inline void* mui_list_view_get_user_data(mui_list_view_t *p_view){
     return p_view->user_data;

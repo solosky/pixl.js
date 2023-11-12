@@ -83,7 +83,10 @@
     "ntag_emu.h": "c",
     "settings.h": "c",
     "m-string.h": "c",
-    "player_scene_config.h": "c"
+    "player_scene_config.h": "c",
+    "nfc_14a.h": "c",
+    "tag_helper.h": "c",
+    "tag_emulation.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
   "cortex-debug.openocdPath.windows": "openocd",
