@@ -60,7 +60,7 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
     } break;
 
     case CHAMELEON_MENU_WRITE_MODE: {
-        // TODO
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_WRITE_MODE_SELECT);
     } break;
 
     case CHAMELEON_MENU_BACK:
@@ -86,7 +86,9 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
                                    (nfc_tag_mf1_is_use_mf1_coll_res() ? "[关]" : "[开]"), CHAMELEON_MENU_CUSTOM);
     }
 
-    tag_helper_format_uid(buff, coll_res->uid, *(coll_res->size));
+    strcpy(buff, "[");
+    tag_helper_format_uid(buff + 1, coll_res->uid, *(coll_res->size));
+    strcat(buff, "]");
     mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "ID", buff, CHAMELEON_MENU_UID);
 
     sprintf(buff, "[%02X]", coll_res->sak[0]);

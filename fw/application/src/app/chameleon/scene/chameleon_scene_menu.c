@@ -18,6 +18,8 @@ typedef enum {
     CHAMELEON_MENU_HOME,
     CHAMELEON_MENU_BACK,
     CHAMELEON_MENU_SLOT,
+    CHAMELEON_MENU_CARD_NAME,
+    CHAMELEON_MENU_SLOT_SELECT,
     CHAMELEON_MENU_CARD_DATA,
     CHAMELEON_MENU_CARD_TYPE,
     CHAMELEON_MENU_CARD_ADVANCED,
@@ -37,6 +39,10 @@ void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t 
 
     case CHAMELEON_MENU_SLOT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_SLOT);
+        break;
+
+    case CHAMELEON_MENU_SLOT_SELECT:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_SLOT_SELECT);
         break;
 
     case CHAMELEON_MENU_CARD_DATA:
@@ -63,10 +69,12 @@ void chameleon_scene_menu_on_enter(void *user_data) {
     const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
 
     sprintf(buff, "[%02d]", slot + 1);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "当前卡槽", buff, (void *)-1);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_KEY, "卡名", "我的家1", (void *)-1);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "当前卡槽", buff, (void *)CHAMELEON_MENU_SLOT_SELECT);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_KEY, "卡名", "我的家1", (void *)CHAMELEON_MENU_CARD_NAME);
 
-    tag_helper_format_uid(buff, coll_res->uid, *(coll_res->size));
+    strcpy(buff, "[");
+    tag_helper_format_uid(buff + 1, coll_res->uid, *(coll_res->size));
+    strcat(buff, "]");
     mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "ID", buff, (void *)-1);
 
     sprintf(buff, "[%s]", tag_name->long_name);
@@ -86,5 +94,6 @@ void chameleon_scene_menu_on_enter(void *user_data) {
 
 void chameleon_scene_menu_on_exit(void *user_data) {
     app_chameleon_t *app = user_data;
+    tag_emulation_save();
     mui_list_view_clear_items(app->p_list_view);
 }

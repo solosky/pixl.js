@@ -1,4 +1,7 @@
 #include "tag_helper.h"
+#include "fds_ids.h"
+#include "fds_utils.h"
+#include <string.h>
 
 const static tag_specific_type_name_t tag_type_names[] = {
     [TAG_TYPE_UNKNOWN] = {"UKNOWN", "UKNOWN"},
@@ -15,14 +18,13 @@ const static tag_specific_type_name_t tag_type_names[] = {
     [TAG_TYPE_NTAG_216] = {"N216", "NTAG 216"},
 };
 
-
 // typedef enum {
 //     NFC_TAG_MF1_WRITE_NORMAL    = 0u,
 //     NFC_TAG_MF1_WRITE_DENIED    = 1u,
 //     NFC_TAG_MF1_WRITE_DECEIVE   = 2u,
 //     NFC_TAG_MF1_WRITE_SHADOW    = 3u,
 // } nfc_tag_mf1_write_mode_t;
-const static char* mf1_write_mode_names[] = {
+const static char *mf1_write_mode_names[] = {
     [NFC_TAG_MF1_WRITE_NORMAL] = "正常",
     [NFC_TAG_MF1_WRITE_DENIED] = "拒绝",
     [NFC_TAG_MF1_WRITE_DECEIVE] = "忽略",
@@ -77,7 +79,7 @@ const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
     }
 }
 
-tag_specific_type_t tag_helper_get_active_tag_type(){
+tag_specific_type_t tag_helper_get_active_tag_type() {
     tag_specific_type_t tag_type[2];
     uint8_t slot = tag_emulation_get_slot();
     tag_emulation_get_specific_type_by_slot(slot, tag_type);
@@ -97,4 +99,19 @@ void tag_helper_format_uid(char *buff, uint8_t *uid, uint8_t uid_len) {
 
 const char *tag_helper_get_mf_write_mode_name(nfc_tag_mf1_write_mode_t write_mode) {
     return mf1_write_mode_names[write_mode];
+}
+
+void tag_helper_get_nickname(char *buff, size_t buff_len) {
+    uint8_t slot = tag_emulation_get_slot();
+    vfs_meta_t meta = {0};
+    memset(buff, 0, buff_len);
+    if (fds_read_meta(FDS_SLOT_TAG_DUMP_FILE_ID_BASE + slot, TAG_SENSE_HF, &meta)) {
+        if (meta.has_notes) {
+            strncpy(buff, meta.notes, buff_len);
+        }
+    }
+
+    if (strlen(buff) == 0) {
+        sprintf(buff, "卡槽 %02d", slot + 1);
+    }
 }

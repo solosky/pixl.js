@@ -46,10 +46,12 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_draw_utf8(p_canvas, 0, y + 10, buff);
 
     mui_canvas_set_draw_color(p_canvas, 1);
-    const char *name = "我的卡1";
+    
+    tag_helper_get_nickname(buff, sizeof(buff));
+
     y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
-    x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, name)) / 2;
-    mui_canvas_draw_utf8(p_canvas, x, y, name);
+    x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
+    mui_canvas_draw_utf8(p_canvas, x, y, buff);
     mui_canvas_draw_utf8(p_canvas, 0, y, "<");
     mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 8, y, ">");
 
