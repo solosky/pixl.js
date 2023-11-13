@@ -60,7 +60,9 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         if (settings_get_data()->qrcode_enabled) {
             square_r = 37;
             sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
-            draw_qrcode(p_canvas, 91, start_y - p_amiibo_view->desc_offset, 33, buff);
+            if (p_amiibo_view->desc_offset <= 33) {
+                draw_qrcode(p_canvas, 91, start_y - p_amiibo_view->desc_offset, 33, buff);
+            }
         }
         const db_link_t *link = get_link_by_id(p_amiibo_view->game_id, head, tail);
         if (strlen(ntag->notes) > 0) {

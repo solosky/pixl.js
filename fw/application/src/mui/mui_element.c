@@ -82,32 +82,19 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
     uint8_t canvas_height = mui_canvas_get_height(p_canvas);
     uint8_t font_height = mui_canvas_current_font_height(p_canvas);
     uint16_t xi = x;
-    uint16_t text_y = y - offset_y + font_height;
+    uint16_t text_y = y + font_height;
     uint16_t yi = text_y;
     uint16_t wi = w - 4;
-    uint16_t total = 1;
-    uint16_t pos = offset_y / font_height;
+    uint16_t lines = 1;
 
     const char *p = text;
     char utf8[5];
 
     while (*p != 0) {
-        wi = w - 4;
-        // -- may be wrong
-        if (yi < text_y) {                    // 溢出
-            if (text_y > text_y + square_r) { // 溢出
-                if (yi < text_y + square_r) {
-                    wi -= square_r;
-                }
-            }
-        } else {
-            if (text_y > text_y + square_r) { // 溢出
-                wi -= square_r;
-            } else if (yi < text_y + square_r) {
-                wi -= square_r;
-            }
+        wi = w - 4; // scrollbar width
+        if (yi < text_y + square_r) {
+            wi -= square_r;
         }
-        // --
 
         uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
         memcpy(utf8, p, utf8_size);
@@ -116,15 +103,21 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
         if (utf8_x + xi > x + wi) {
             xi = x;
             yi += font_height;
-            total++;
+            lines++;
         }
-        uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, xi, yi, utf8);
+        uint8_t utf8_w = 0;
+        if (yi > offset_y) {
+            utf8_w = mui_canvas_draw_utf8(p_canvas, xi, yi - offset_y, utf8);
+        } else {
+            // not draw
+            utf8_w = utf8_x;
+        }
         xi += utf8_w;
         p += utf8_size;
     }
 
-    uint8_t first_page = h / font_height;
-    total = total < first_page ? 1 : total - first_page + 1;
+    uint16_t total = lines * font_height / h;
+    uint16_t pos = offset_y / h;
 
     if (total > 1) {
         pos = pos < total - 1 ? pos : total - 1;
