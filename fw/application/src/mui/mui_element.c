@@ -112,11 +112,11 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
             // not draw
             utf8_w = utf8_x;
         }
-        xi += utf8_w;
+        xi += utf8_x;
         p += utf8_size;
     }
 
-    uint16_t total = lines * font_height / h;
+    uint16_t total = (lines * font_height + h - 1) / h;
     uint16_t pos = offset_y / h;
 
     if (total > 1) {
