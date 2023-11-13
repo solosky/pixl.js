@@ -95,7 +95,7 @@
 0003000000020002,Yoshi,耀西
 06400100001e0002,Olimar,欧力玛
 06420000035f1102,Pikmin,皮克敏
-0188000002410502,Mabel,Mabel
+0188000002410502,Mabel,绢儿
 0194000100aa0502,[AC] 103 - Kicks,[AC] 103 - Kicks
 019c000101730502,[AC] 304 - Phineas,[AC] 304 - Phineas
 0180000000080002,Villager,村民
@@ -207,10 +207,10 @@
 3380000003781402,Solaire of Astora,太阳骑士
 3800000103931702,Pawapuro,Pawapuro
 3801000103941702,Ikari,Ikari
-3802000103951702,Daijobu,Daijobu
+3802000103951702,Yabe,Yabe
 3803000103961702,Hayakawa,Hayakawa
-3804000103971702,Yabe,Yabe
-3805000103981702,Ganda,Ganda
+3804000103971702,Ganda,Ganda
+3805000103981702,Daijobu,Daijobu
 1d000001025c0d02,Shadow Mewtwo,Shadow Mewtwo
 1d01000003750d02,Detective Pikachu,名侦探皮卡丘
 000a000303a0ff02,Toad - Power Up Band,奇诺比奥 - 能量手环
@@ -732,8 +732,8 @@
 018a000002450502,Reese,Reese
 01840000024d0502,Timmy & Tommy,Timmy & Tommy
 01810000024b0502,Summertime Isabelle,Summertime Isabelle
-01000000041a0902,Ganondorf - Tears of the Kingdom,加侬多夫 - 王国之泪
-0100000004190902,Zelda - Tears of the Kingdom,塞尔达 - 王国之泪
+01020100041a0902,Ganondorf - Tears of the Kingdom,加侬多夫 - 王国之泪
+0101000004190902,Zelda - Tears of the Kingdom,塞尔达 - 王国之泪
 0000000002390602,8-Bit Mario Modern Color,像素马力欧 - 现代配色
 00000003039bff02,Mario - Power Up Band,马力欧 - 能量手环
 000000030430ff02,Golden - Power Up Band,金色 - 能量手环

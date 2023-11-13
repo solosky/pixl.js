@@ -9,7 +9,7 @@ static void app_settings_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t 
 
 void app_settings_on_run(mini_app_inst_t *p_app_inst) {
 
-    app_settings_t *p_app_handle = malloc(sizeof(app_settings_t));
+    app_settings_t *p_app_handle = mui_mem_malloc(sizeof(app_settings_t));
 
     p_app_inst->p_handle = p_app_handle;
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
@@ -45,7 +45,7 @@ void app_settings_on_kill(mini_app_inst_t *p_app_inst) {
     mui_list_view_free(p_app_handle->p_list_view);
     mui_progress_bar_free(p_app_handle->p_progress_bar);
 
-    free(p_app_handle);
+    mui_mem_free(p_app_handle);
 
     p_app_inst->p_handle = NULL;
 }
