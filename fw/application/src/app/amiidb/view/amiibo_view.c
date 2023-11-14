@@ -35,7 +35,7 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_draw_color(p_canvas, 1);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
 
-    y += 12;
+    y += 11;
 
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
@@ -77,7 +77,7 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, buff);
         if (settings_get_data()->qrcode_enabled) {
             sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
-            draw_qrcode(p_canvas, 91, 27, 33, buff);
+            draw_qrcode(p_canvas, 91, 26, 33, buff);
         }
     } else {
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, getLangString(_L_BLANK_TAG));
