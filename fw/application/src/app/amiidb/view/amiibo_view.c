@@ -45,14 +45,13 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         const char *name =(getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) ? amd->name_cn : amd->name_en;
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, name);
 
-        uint16_t start_y = 27;
         mui_rect_t clip_win_prev;
         mui_rect_t clip_win_cur;
         mui_canvas_get_clip_window(p_canvas, &clip_win_prev);
         clip_win_cur.x = 0;
-        clip_win_cur.y = start_y;
+        clip_win_cur.y = y;
         clip_win_cur.w = mui_canvas_get_width(p_canvas);
-        clip_win_cur.h = mui_canvas_get_height(p_canvas) - start_y;
+        clip_win_cur.h = mui_canvas_get_height(p_canvas) - y;
         mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
 
         // text+qrcode
@@ -61,7 +60,7 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             square_r = 37;
             sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
             if (p_amiibo_view->desc_offset <= 33) {
-                draw_qrcode(p_canvas, 91, start_y - p_amiibo_view->desc_offset, 33, buff);
+                draw_qrcode(p_canvas, 91, y + 2 - p_amiibo_view->desc_offset, 33, buff);
             }
         }
         const db_link_t *link = get_link_by_id(p_amiibo_view->game_id, head, tail);
