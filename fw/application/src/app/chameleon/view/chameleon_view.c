@@ -5,13 +5,9 @@
 #include "mui_element.h"
 #include "nrf_log.h"
 
+#include "mui_icons.h"
 #include "tag_emulation.h"
 #include "tag_helper.h"
-
-#define ICON_RANDOM 0xe20d
-#define ICON_NTAG 0xe1cf
-#define ICON_LEFT 0xe1ac
-#define ICON_RIGHT 0xe1aa
 
 static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
@@ -46,7 +42,7 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_draw_utf8(p_canvas, 0, y + 10, buff);
 
     mui_canvas_set_draw_color(p_canvas, 1);
-    
+
     tag_helper_get_nickname(buff, sizeof(buff));
 
     y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
@@ -67,9 +63,15 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     }
     mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), buff);
 
+    
+    nfc_tag_mf1_write_mode_t write_mode = nfc_tag_mf1_get_write_mode();
+    uint16_t icon_glyph = ICON_SAVE;
+    if (write_mode == NFC_TAG_MF1_WRITE_DENIED) {
+        icon_glyph = ICON_DENY;
+    }
+    
     mui_canvas_set_font(p_canvas, MUI_FONT_ICON);
-    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas), ICON_NTAG);
-
+    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas), icon_glyph);
     mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 }
 

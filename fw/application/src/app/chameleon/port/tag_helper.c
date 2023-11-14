@@ -98,7 +98,10 @@ void tag_helper_format_uid(char *buff, uint8_t *uid, uint8_t uid_len) {
 }
 
 const char *tag_helper_get_mf_write_mode_name(nfc_tag_mf1_write_mode_t write_mode) {
-    return mf1_write_mode_names[write_mode];
+    if (write_mode >= 0 && write_mode < 4) {
+        return mf1_write_mode_names[write_mode];
+    }
+    return "";
 }
 
 void tag_helper_get_nickname(char *buff, size_t buff_len) {

@@ -70,7 +70,10 @@ void chameleon_scene_menu_on_enter(void *user_data) {
 
     sprintf(buff, "[%02d]", slot + 1);
     mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "当前卡槽", buff, (void *)CHAMELEON_MENU_SLOT_SELECT);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_KEY, "卡名", "我的家1", (void *)CHAMELEON_MENU_CARD_NAME);
+    strcpy(buff, "[");
+    tag_helper_get_nickname(buff + 1, sizeof(buff) - 3);
+    strcat(buff, "]");
+    mui_list_view_add_item_ext(app->p_list_view, ICON_KEY, "卡名", buff, (void *)CHAMELEON_MENU_CARD_NAME);
 
     strcpy(buff, "[");
     tag_helper_format_uid(buff + 1, coll_res->uid, *(coll_res->size));

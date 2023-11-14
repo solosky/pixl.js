@@ -70,7 +70,7 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
 }
 
 void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
-    char buff[32];
+    char buff[64];
 
     uint16_t focus = mui_list_view_get_focus(app->p_list_view);
     uint16_t scroll_offset = mui_list_view_get_scroll_offset(app->p_list_view);

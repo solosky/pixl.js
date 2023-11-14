@@ -27,4 +27,8 @@
 #define ICON_KEY            0xe01b
 #define ICON_SLOT           0xe0b1
 
+
+#define ICON_SAVE           0xe1bb
+#define ICON_DENY           0xe1cf
+
 #endif

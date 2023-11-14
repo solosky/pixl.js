@@ -105,7 +105,7 @@ void app_chameleon_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_eve
 mini_app_t app_chameleon_info = {.id = MINI_APP_ID_CHAMELEON,
                                  .name = "Chameleon",
                                  .name_i18n_key = _L_APP_CHAMELEON,
-                                 .icon = 0xe19b,
+                                 .icon = 0xe1db,
                                  .deamon = false,
                                  .sys = false,
                                  .hibernate_enabled = true,
