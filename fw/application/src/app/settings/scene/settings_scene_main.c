@@ -18,7 +18,6 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_SHOW_MEM_USAGE,
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
     SETTINGS_MAIN_MENU_ANIM_ENABLED,
-    SETTINGS_MAIN_MENU_QRCODE_ENABLED,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_REBOOT,
     SETTINGS_MAIN_MENU_EXIT
@@ -94,13 +93,6 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         mui_update(mui());
         break;
 
-    case SETTINGS_MAIN_MENU_QRCODE_ENABLED:
-        p_settings->qrcode_enabled = !p_settings->qrcode_enabled;
-        sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_QRCODE), p_settings->qrcode_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
-        string_set_str(p_item->text, txt);
-        mui_update(mui());
-        break;
-
     case SETTINGS_MAIN_MENU_EXIT:
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_SETTINGS);
         break;
@@ -139,9 +131,6 @@ void settings_scene_main_on_enter(void *user_data) {
     #endif
     sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_ANIM), p_settings->anim_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe1dc, txt, (void *)SETTINGS_MAIN_MENU_ANIM_ENABLED);
-
-    sprintf(txt, "%s [%s]", getLangString(_L_APP_SET_QRCODE), p_settings->qrcode_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
-    mui_list_view_add_item(app->p_list_view, 0xe006, txt, (void *)SETTINGS_MAIN_MENU_QRCODE_ENABLED);
 
     snprintf(txt, sizeof(txt), "%s [%s]",getLangString(_L_APP_SET_LIPO_BAT), p_settings->bat_mode ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe08f, txt, (void *)SETTINGS_MAIN_MENU_LI_MODE);
