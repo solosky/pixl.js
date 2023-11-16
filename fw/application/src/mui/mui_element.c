@@ -67,7 +67,7 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
     }
 }
 
-void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h,
+uint16_t mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h,
                                    uint16_t offset_y, uint8_t square_r, const char *text) {
 
     mui_rect_t clip_win_prev;
@@ -85,7 +85,6 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
     uint16_t text_y = y + font_height;
     uint16_t yi = text_y;
     uint16_t wi = w - 4;
-    uint16_t lines = 1;
 
     const char *p = text;
     char utf8[5];
@@ -100,10 +99,9 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
         memcpy(utf8, p, utf8_size);
         utf8[utf8_size] = '\0';
         uint8_t utf8_x = mui_canvas_get_utf8_width(p_canvas, utf8);
-        if (utf8_x + xi > x + wi) {
+        if (utf8_x + 1 + xi > x + wi) {
             xi = x;
             yi += font_height;
-            lines++;
         }
         uint8_t utf8_w = 0;
         if (yi > offset_y) {
@@ -112,11 +110,11 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
             // not draw
             utf8_w = utf8_x;
         }
-        xi += utf8_x;
+        xi += utf8_x + 1;//1 pix for margin
         p += utf8_size;
     }
 
-    uint16_t total = (lines * font_height + h - 1) / h;
+    uint16_t total = (yi - y + h - 1) / h;
     uint16_t pos = offset_y / h;
 
     if (total > 1) {
@@ -140,7 +138,9 @@ void mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t 
         }
     }
 
+    // mui_canvas_draw_line(p_canvas, x, y, x + w, y);
     mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
+    return yi - y;
 }
 
 uint16_t mui_element_text_height(mui_canvas_t *p_canvas, uint8_t w, const char *text) {

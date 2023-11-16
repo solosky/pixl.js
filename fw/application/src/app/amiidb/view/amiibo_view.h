@@ -28,6 +28,9 @@ struct amiibo_view_s {
     uint8_t game_id;
     amiibo_view_event_cb event_cb;
     uint16_t desc_offset;
+    uint16_t desc_total;
+    uint16_t desc_page_size;
+    uint8_t desc_step;
 };
 
 amiibo_view_t *amiibo_view_create();
