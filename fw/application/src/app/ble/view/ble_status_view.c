@@ -1,8 +1,13 @@
 #include "ble_status_view.h"
 #include "i18n/language.h"
+#include "mui_qrcode_helper.h"
 
 static void ble_status_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     ble_status_view_t* p_status_view = p_view->user_data;
+    if (p_status_view->page == 1) {
+        draw_qrcode(p_canvas, 39, 0, 50, "https://pixl.amiibo.xyz");
+        return;
+    }
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_draw_glyph(p_canvas, 20, 12, 0xe1b5);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
@@ -13,8 +18,26 @@ static void ble_status_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
 
 static void ble_status_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     ble_status_view_t *p_ble_status_view = p_view->user_data;
-    if (p_ble_status_view->event_cb) {
-        p_ble_status_view->event_cb(BLE_STATUS_VIEW_BLE_DISABLE, p_ble_status_view);
+    if (event->type == INPUT_TYPE_SHORT || event->type == INPUT_TYPE_REPEAT || event->type == INPUT_TYPE_LONG) {
+        switch (event->key) {
+        case INPUT_KEY_LEFT:
+        case INPUT_KEY_RIGHT:
+            if (p_ble_status_view->page == 1) {
+                p_ble_status_view->page = 0;
+            } else {
+                p_ble_status_view->page = 1;
+            }
+
+            if (p_ble_status_view->event_cb) {
+                p_ble_status_view->event_cb(BLE_STATUS_VIEW_EVENT_UPDATE, p_ble_status_view);
+            }
+            break;
+        case INPUT_KEY_CENTER:
+            if (p_ble_status_view->event_cb) {
+                p_ble_status_view->event_cb(BLE_STATUS_VIEW_BLE_DISABLE, p_ble_status_view);
+            }
+            break;
+        }
     }
 }
 

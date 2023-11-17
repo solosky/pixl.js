@@ -12,6 +12,7 @@
     "vue": "^2.5.16",
     "bytebuffer": "5.0.1",
     "vue-i18n": "8",
+    "vue-router": "^3.0.1",
     "vue-cookie": "1.1.4"
   },
   "engines": {
@@ -22,6 +23,7 @@
     "babel-core": "^6.24.1",
     "babel-loader": "^6.4.0",
     "babel-preset-vue-app": "^1.2.0",
+    "copy-webpack-plugin": "^4.2.1",
     "css-loader": "^0.27.0",
     "file-loader": "^0.10.1",
     "html-webpack-plugin": "^2.24.1",
