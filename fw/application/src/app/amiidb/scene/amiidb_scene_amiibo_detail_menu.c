@@ -20,6 +20,7 @@
 static enum amiidb_detail_menu_t {
     AMIIDB_DETAIL_MENU_RAND_UID,
     AMIIDB_DETAIL_MENU_AUTO_RAND_UID,
+    AMIIDB_DETAIL_MENU_SHOW_QRCODE,
     AMIIDB_DETAIL_MENU_FAVORITE,
     AMIIDB_DETAIL_MENU_SAVE_AS,
     AMIIDB_DETAIL_MENU_BACK_AMIIBO_DETAIL,
@@ -103,6 +104,19 @@ static void amiidb_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } break;
 
+    case AMIIDB_DETAIL_MENU_SHOW_QRCODE: {
+        char txt[32];
+        settings_data_t *p_settings = settings_get_data();
+        p_settings->qrcode_enabled = !p_settings->qrcode_enabled;
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_SHOW_QRCODE),
+                 p_settings->qrcode_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+        settings_save();
+
+        string_set_str(p_item->text, txt);
+
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+    } break;
+
     case AMIIDB_DETAIL_MENU_FAVORITE: {
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_SELECT);
     } break;
@@ -129,6 +143,9 @@ void amiidb_scene_amiibo_detail_menu_on_enter(void *user_data) {
     snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION),
              p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
     mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIDB_DETAIL_MENU_AUTO_RAND_UID);
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_SHOW_QRCODE),
+             p_settings->qrcode_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+    mui_list_view_add_item(app->p_list_view, 0xe006, txt, (void *)AMIIDB_DETAIL_MENU_SHOW_QRCODE);
     mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_DETAIL_FAVORITE), (void *)AMIIDB_DETAIL_MENU_FAVORITE);
     mui_list_view_add_item(app->p_list_view, ICON_DATA, getLangString(_L_APP_AMIIDB_DETAIL_SAVE_AS), (void *)AMIIDB_DETAIL_MENU_SAVE_AS);
     mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_APP_AMIIDB_DETAIL_BACK_DETAIL), (void *)AMIIDB_DETAIL_MENU_BACK_AMIIBO_DETAIL);
