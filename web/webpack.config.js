@@ -1,9 +1,8 @@
 const resolve = require('path').resolve
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CopyWebpackPlugin = require('copy-webpack-plugin')
 const url = require('url')
-const publicPath = '/'
+const publicPath = ''
 
 module.exports = (options = {}) => ({
   entry: {
@@ -45,12 +44,6 @@ module.exports = (options = {}) => ({
     new webpack.optimize.CommonsChunkPlugin({
       names: ['vendor', 'manifest']
     }),
-    new CopyWebpackPlugin([
-      {
-        from: resolve(__dirname, 'src/public'),
-        to: resolve(__dirname, 'dist')
-      }
-    ]),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
     })
