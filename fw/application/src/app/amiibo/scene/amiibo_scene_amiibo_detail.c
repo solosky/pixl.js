@@ -187,7 +187,7 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (obj.type == VFS_TYPE_REG && obj.size == NTAG_DATA_SIZE &&
+            if (obj.type == VFS_TYPE_REG && (obj.size == NTAG_DATA_SIZE || obj.size == 532 || obj.size == 572) &&
                 (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
                 string_set_str(file_name, obj.name);
                 string_array_push_back(app->amiibo_files, file_name);
