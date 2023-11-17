@@ -54,7 +54,7 @@ root@b10d54636088:/builds/pixl.js# git submodule update --init --recursive
 root@b10d54636088:/builds/pixl.js# cd fw && make all
 root@b10d54636088:/builds/pixl.js/fw# cd application && make full ota
 ```
-构建出来的固件在 fw/_build/pixjs_all.hex，ota（无线跟新包）在fw/_build/pixjs_ota_vXXXX.zip
+构建出来的固件在 fw/_build/pixjs_all.hex，ota（无线更新包）在fw/_build/pixjs_ota_vXXXX.zip
 
 ## 固件烧写
 
@@ -62,7 +62,7 @@ root@b10d54636088:/builds/pixl.js/fw# cd application && make full ota
 烧写完毕后，后续固件更新可以使用OTA的方式更新。
 也可以用OpenOCD烧录。
 ```
-openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program pixjs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
+openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixjs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
 ```
 
 ## OTA更新

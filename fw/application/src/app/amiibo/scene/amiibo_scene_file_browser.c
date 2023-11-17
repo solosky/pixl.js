@@ -43,7 +43,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
     if (string_cmp_str(app->current_folder, "/") == 0) {
         bool one_driver = (vfs_drive_enabled(VFS_DRIVE_INT) && !vfs_drive_enabled(VFS_DRIVE_EXT)) || (!vfs_drive_enabled(VFS_DRIVE_INT) && vfs_drive_enabled(VFS_DRIVE_EXT));
         settings_data_t* p_settings = settings_get_data();
-        mui_list_view_add_item(app->p_list_view, (one_driver && p_settings->skip_driver_select) ? ICON_HOME : ICON_BACK, (one_driver && p_settings->skip_driver_select) ? getLangString(_L_MAIN_MENU) : "..", (void *)(one_driver && p_settings->skip_driver_select) ? -1 : FOLDER_LIST_PARENT);
+        mui_list_view_add_item(app->p_list_view, (one_driver && p_settings->skip_driver_select) ? ICON_HOME : ICON_BACK, (one_driver && p_settings->skip_driver_select) ? getLangString(_L_MAIN_MENU) : "..", (void *)((one_driver && p_settings->skip_driver_select) ? -1 : FOLDER_LIST_PARENT));
     } else {
         mui_list_view_add_item(app->p_list_view, ICON_BACK, "..", (void *)FOLDER_LIST_PARENT);
     }

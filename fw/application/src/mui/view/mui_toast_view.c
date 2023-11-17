@@ -84,7 +84,7 @@ mui_toast_view_t *mui_toast_view_create() {
     return p_toast_view;
 }
 void mui_toast_view_free(mui_toast_view_t *p_view) {
-    app_timer_stop(&m_toast_timer_id);
+    app_timer_stop(m_toast_timer_id);
     string_clear(p_view->message);
     mui_mem_free(p_view->p_view);
     mui_mem_free(p_view);
