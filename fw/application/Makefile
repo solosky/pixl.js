@@ -172,7 +172,6 @@ SRC_FILES += \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_helper.c \
-  $(PROJ_DIR)/mui_qrcode_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/libc_nano_stubs.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
@@ -301,7 +300,6 @@ SRC_FILES += \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
-  $(COMP_DIR)/qrcode/c/qrcodegen.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
   $(U8G2_ROOT)/u8g2_buffer.c \
@@ -524,7 +522,6 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
-  $(COMP_DIR)/qrcode/c \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets

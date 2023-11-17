@@ -9,14 +9,8 @@
 
 
 void ble_scene_connect_status_view_event_cb(ble_status_view_event_t event, ble_status_view_t *p_view){
-    app_ble_t *app = p_view->user_data;
-    if (event == BLE_STATUS_VIEW_BLE_DISABLE) {
-        ble_disable();
-        mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_BLE);
-    } else if (event == BLE_STATUS_VIEW_EVENT_UPDATE) {
-        // NOOP
-        ble_status_view_set_page(app->p_ble_view, ble_status_view_get_page(app->p_ble_view));
-    }
+    ble_disable();
+    mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_BLE);
 }
 
 

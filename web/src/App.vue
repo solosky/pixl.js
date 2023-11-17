@@ -150,6 +150,7 @@
 import * as pixl from "./lib/pixl.ble"
 import { sharedEventDispatcher } from "./lib/event"
 import * as proto from "./lib/pixl.proto"
+import cookies from "vue-cookie"
 
 
 
@@ -702,16 +703,16 @@ export default {
 
     handle_set_language(lang) {
       this.$i18n.locale = lang
-      this.$cookie.set("lang", lang, 60 * 60 * 24 * 365)
+      cookies.set("lang", lang, 60 * 60 * 24 * 365)
       if (this.connected) {
         this.connBtnText = `${this.$t("conn.disconnect")}`;
-        proto.get_version().then(res => {
-          console.log("get version result", res);
-          this.version = `${this.$t("status.connected")}` + res.data.ver;
-        });
       } else {
         this.connBtnText = `${this.$t("conn.connect")}`;
       }
+      proto.get_version().then(res => {
+        console.log("get version result", res);
+        this.version = `${this.$t("status.connected")}` + res.data.ver;
+      });
       this.$message({
         message: `${this.$t("lang.changeok")}`,
         type: 'success'
@@ -727,7 +728,7 @@ export default {
 
     proto.init();
 
-    var lang = this.$cookie.get("lang")
+    var lang = cookies.get("lang")
     if (!lang) {
       lang = "zh_CN"
     }
