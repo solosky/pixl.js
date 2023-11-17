@@ -57,6 +57,7 @@ typedef enum {
     _L_KNOW,
     _L_RANDOM_GENERATION,
     _L_AUTO_RANDOM_GENERATION,
+    _L_SHOW_QRCODE,
     _L_DELETE_TAG,
     _L_BACK_TO_DETAILS,
     _L_BACK_TO_FILE_LIST,

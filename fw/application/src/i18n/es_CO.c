@@ -38,6 +38,7 @@ const char * lang_es_co[_L_COUNT] = {
     [_L_KNOW] = "Entendido",
     [_L_RANDOM_GENERATION] = "Amiibo Aleatorio",
     [_L_AUTO_RANDOM_GENERATION] = "Aleat. Auto.",
+    [_L_SHOW_QRCODE] = "Mostrar código QR",
     [_L_DELETE_TAG] = "Borrar Amiibo",
     [_L_BACK_TO_DETAILS] = "Volver Detll. Amiibo",
     [_L_BACK_TO_FILE_LIST] = "Volver Lista Archivos",
