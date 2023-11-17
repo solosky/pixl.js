@@ -58,7 +58,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         return NRF_ERR_READ_ERROR;
     }
 
-    if (obj.size != 540) {
+    if (obj.size != 540 && obj.size != 532 && obj.size != 572) {
         return NRF_ERR_NOT_AMIIBO;
     }
 
@@ -75,7 +75,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     }
 
     res = p_vfs_driver->read_file_data(path, ntag->data, 540);
-    if (res != 540) {
+    if (res != 540 && res != 532) {
         return NRF_ERR_READ_ERROR;
     }
     return NRF_SUCCESS;
