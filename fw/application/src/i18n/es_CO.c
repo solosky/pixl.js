@@ -122,4 +122,5 @@ const char * lang_es_CO[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_FAILED] = "¡Favorito Faillido!",
     [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "Asignación Correcta",
     [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "¡Asignación Fallida!",
+    [_L_APP_CHAMELEON] = "",
 };

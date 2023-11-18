@@ -81,7 +81,7 @@ const char * lang_zh_Hans[_L_COUNT] = {
     [_L_MODE] = "模式",
     [_L_AUTO_RANDOM] = "自动随机",
     [_L_COMPATIBLE_MODE] = "兼容模式",
-    [_L_TAG_DETAILS] = "标签详情",
+    [_L_TAG_DETAILS] = "[标签详情]",
     [_L_MAIN_MENU] = "[主菜单]",
     [_L_MODE_RANDOM] = "随机(手动)",
     [_L_MODE_CYCLE] = "按序",
@@ -122,5 +122,5 @@ const char * lang_zh_Hans[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_FAILED] = "收藏失败",
     [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "保存成功",
     [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "保存失敗",
-    [_L_APP_CHAMELEON] = "我的卡包",
+    [_L_APP_CHAMELEON] = "卡模拟器",
 };

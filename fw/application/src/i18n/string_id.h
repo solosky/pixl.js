@@ -123,6 +123,7 @@ typedef enum {
     _L_APP_AMIIDB_FAV_FAILED,
     _L_APP_AMIIDB_SLOT_SAVE_SUCCESS,
     _L_APP_AMIIDB_SLOT_SAVE_FAILED,
+    _L_APP_CHAMELEON,
     _L_COUNT,
 } L_StringID;
 #endif

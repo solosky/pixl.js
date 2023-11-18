@@ -122,5 +122,5 @@ const char * lang_en_US[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_FAILED] = "Favorite Failed!",
     [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "Save Successfully",
     [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "Save Failed!",
-    [_L_APP_CHAMELEON] = "Chameleon",
+    [_L_APP_CHAMELEON] = "Card Emulator",
 };
