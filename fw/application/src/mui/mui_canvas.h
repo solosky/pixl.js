@@ -1,9 +1,7 @@
 #ifndef MUI_CANVAS_H
 #define MUI_CANVAS_H
 
-#include "mui_defines.h"
-#include "u8g2.h"
-#include <stdint.h>
+#include "mui_common.h"
 
 typedef struct {
     u8g2_t *fb;

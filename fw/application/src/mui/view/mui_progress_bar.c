@@ -1,7 +1,4 @@
 #include "mui_progress_bar.h"
-#include "mui_element.h"
-#include "mui_mem.h"
-#include <math.h>
 
 static void mui_progress_bar_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);

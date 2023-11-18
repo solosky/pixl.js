@@ -1,12 +1,7 @@
 #ifndef MUI_CORE_H
 #define MUI_CORE_H
 
-#include "mui_defines.h"
-#include <stdint.h>
-#include "u8g2.h"
-
-#include "m-array.h"
-#include "m-algo.h"
+#include "mui_common.h"
 #include "mui_event.h"
 #include "mui_input.h"
 #include "mui_view_port.h"

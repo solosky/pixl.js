@@ -1,8 +1,7 @@
 #ifndef MUI_INPUT_H
 #define MUI_INPUT_H
 
-#include "mui_defines.h"
-#include <stdint.h>
+#include "mui_common.h"
 #include "bsp.h"
 
 

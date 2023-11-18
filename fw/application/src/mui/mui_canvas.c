@@ -1,5 +1,4 @@
 #include "mui_canvas.h"
-#include <string.h>
 
 void mui_canvas_flush(mui_canvas_t *p_canvas) { u8g2_SendBuffer(p_canvas->fb); }
 

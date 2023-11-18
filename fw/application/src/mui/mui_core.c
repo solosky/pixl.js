@@ -1,8 +1,6 @@
 #include "mui_core.h"
 
 #include "mui_anim.h"
-#include "mui_defines.h"
-#include "mui_mem.h"
 #include "mui_u8g2.h"
 #include "nrf_log.h"
 #include "settings.h"

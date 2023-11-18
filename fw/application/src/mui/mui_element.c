@@ -1,6 +1,4 @@
 #include "mui_element.h"
-#include "m-string.h"
-#include "mui_defines.h"
 #include "nrf_log.h"
 
 void mui_element_scrollbar(mui_canvas_t *p_canvas, uint32_t pos, uint16_t total) {

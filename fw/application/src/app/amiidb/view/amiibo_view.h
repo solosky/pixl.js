@@ -1,11 +1,7 @@
 #ifndef AMIIBO_DETAIL_VIEW2_H
 #define AMIIBO_DETAIL_VIEW2_H
 #include "mui_include.h"
-#include <stdint.h>
-
 #include "ntag_def.h"
-#include "mui_mlib.h"
-#include "m-string.h"
 
 
 struct amiibo_view_s;

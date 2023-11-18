@@ -1,12 +1,7 @@
 #ifndef MUI_MSG_BOX_H
 #define MUI_MSG_BOX_H
 
-#include "mui_mlib.h"
-#include "m-array.h"
-#include "m-string.h"
-#include "mui_defines.h"
 #include "mui_include.h"
-#include <stdint.h>
 
 struct mui_msg_box_s;
 typedef struct mui_msg_box_s mui_msg_box_t;

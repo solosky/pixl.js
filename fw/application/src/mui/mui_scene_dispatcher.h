@@ -1,10 +1,7 @@
 #ifndef MUI_SCENE_DISPATCHER_H
 #define MUI_SCENE_DISPATCHER_H
 
-#include "mui_defines.h"
-#include <stdint.h>
-
-#include "m-array.h"
+#include "mui_common.h"
 typedef void (*mui_scene_enter_cb_t)(void *user_data);
 typedef void (*mui_scene_exit_cb_t)(void *user_data);
 

@@ -1,11 +1,10 @@
 #ifndef MUI_VIEW_PORT_H
 #define MUI_VIEW_PORT_H
 
-#include "mui_defines.h"
+#include "mui_common.h"
 #include "mui_canvas.h"
 #include "mui_event.h"
 #include "mui_input.h"
-#include <stdint.h>
 
 struct mui_view_port_s;
 typedef struct mui_view_port_s mui_view_port_t;
