@@ -1,9 +1,9 @@
 #ifndef MUI_ANIM_H
 #define MUI_ANIM_H
 
-#include <stdint.h>
+#include "mui_common.h"
 #include "mui_event.h"
-
+#include "mui_math.h"
 
 struct _mui_anim_t;
 

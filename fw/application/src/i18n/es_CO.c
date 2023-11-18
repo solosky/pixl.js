@@ -1,7 +1,5 @@
-
-#include "language.h"
-
-const char * lang_es_co[_L_COUNT] = {
+#include "string_id.h"
+const char * lang_es_CO[_L_COUNT] = {
     [_L_ON] = "ENC",
     [_L_OFF] = "APA",
     [_L_BACK] = "Atrás",
@@ -38,7 +36,9 @@ const char * lang_es_co[_L_COUNT] = {
     [_L_KNOW] = "Entendido",
     [_L_RANDOM_GENERATION] = "Amiibo Aleatorio",
     [_L_AUTO_RANDOM_GENERATION] = "Aleat. Auto.",
+    [_L_SHOW_QRCODE] = "Mostrar código QR",
     [_L_DELETE_TAG] = "Borrar Amiibo",
+    [_L_DELETE_TAG_CONFIRM] = "",
     [_L_BACK_TO_DETAILS] = "Volver Detll. Amiibo",
     [_L_BACK_TO_FILE_LIST] = "Volver Lista Archivos",
     [_L_BACK_TO_MAIN_MENU] = "Volver Menú Principal",
@@ -59,8 +59,14 @@ const char * lang_es_co[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "Nombre Amiibo:",
     [_L_DELETE] = "Borrar",
     [_L_INPUT_NEW_NAME] = "Nuevo Nombre:",
+    [_L_INVALID_INPUT] = "",
     [_L_CREATE_NEW_FOLDER] = "Crear Nueva Carpeta...",
     [_L_CREATE_NEW_TAG] = "Crer Nuevo Amiibo...",
+    [_L_CREATE_NEW_TAG_BATCH] = "Crer Nuevo Amiibo en lote..",
+    [_L_INPUT_TAG_NUM] = "",
+    [_L_CREATE_TOO_MANY_NUM] = "",
+    [_L_CREATING_TAG_BATCH] = "",
+    [_L_CREATING_TAG_FAILED] = "",
     [_L_RENAME] = "Renombrar",
     [_L_OPEN_FOLDER_FAILED] = "Fallo al abrir carpeta",
     [_L_RENAME_FAILED] = "Fallo al renombrar\nCódigo de Error",
@@ -109,7 +115,7 @@ const char * lang_es_co[_L_COUNT] = {
     [_L_APP_AMIIDB_EMPTY] = "Vacía...",
     [_L_APP_AMIIDB_DELETE] = "Borrar...",
     [_L_APP_AMIIDB_FAV_NEW_HEAD] = "Nueva Carp. Favoritos:",
-    [_L_APP_AMIIDB_FAV_EMPTY_MSG] = "¿Borrar Carp. Favoritos?",
+    [_L_APP_AMIIDB_FAV_EMPTY_MSG] = "Borrar Carp. Favoritos?",
     [_L_APP_AMIIDB_FAV_DELETE_MSG] = "¿Confirma Borrado?",
     [_L_APP_AMIIDB_FAV_SELECT_FOLDER] = "Selec. Carp. Favoritos...",
     [_L_APP_AMIIDB_FAV_SUCCESS] = "¡Favorito Correcto!",

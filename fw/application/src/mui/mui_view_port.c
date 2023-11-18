@@ -1,6 +1,5 @@
 #include "mui_view_port.h"
 #include "mui_core.h"
-#include "mui_mem.h"
 
 
 mui_view_port_t *mui_view_port_create(){

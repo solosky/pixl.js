@@ -112,6 +112,15 @@ App Store上第三方作者开发的iOS应用 iNFC。
 * 特别感谢 @Caleeeeeeeeeeeee 完善的Bootloader。
 * 特别感谢 @白橙 制作的外壳。 
 
+## 讨论群
+
+国内用户可以加入QQ群 109761876 进行交流。
+
+## Office Channel
+
+Where do you find the community?
+* [Pixl.js community discord server](https://discord.gg/t8naCqy4)
+
 
 ## 声明
 

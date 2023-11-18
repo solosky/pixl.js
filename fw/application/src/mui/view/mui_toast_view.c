@@ -4,10 +4,6 @@
 
 #include "mui_toast_view.h"
 #include "app_timer.h"
-#include "mui_core.h"
-#include "mui_element.h"
-#include "mui_math.h"
-#include "string.h"
 
 #define MUI_TOAST_DISPLAY_TIME 2000
 

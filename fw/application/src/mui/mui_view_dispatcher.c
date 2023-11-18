@@ -1,6 +1,5 @@
 #include "mui_view_dispatcher.h"
 #include "mui_core.h"
-#include "mui_mem.h"
 
 static void mui_view_dispatcher_set_curent_view(mui_view_dispatcher_t *p_dispatcher,
                                                 mui_view_t *p_view) {

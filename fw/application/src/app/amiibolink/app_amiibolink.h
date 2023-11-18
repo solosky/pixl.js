@@ -1,11 +1,11 @@
 #ifndef app_amiibolink_H
 #define app_amiibolink_H
 
-#include "mini_app_defines.h"
 #include "mui_list_view.h"
 #include "amiibolink_view.h"
 #include "ble_amiibolink.h"
 #include "mui_msg_box.h"
+#include "mini_app_defines.h"
 
 typedef struct {
     amiibolink_view_t *p_amiibolink_view;

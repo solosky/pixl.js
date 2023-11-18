@@ -1,5 +1,4 @@
 #include "mui_scene_dispatcher.h"
-#include "mui_mem.h"
 
 mui_scene_dispatcher_t *mui_scene_dispatcher_create() {
     mui_scene_dispatcher_t *p_dispatcher = mui_mem_malloc(sizeof(mui_scene_dispatcher_t));
