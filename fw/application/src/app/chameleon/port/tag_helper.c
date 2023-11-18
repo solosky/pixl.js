@@ -1,39 +1,41 @@
 #include "tag_helper.h"
 #include "fds_ids.h"
 #include "fds_utils.h"
+#include "i18n/language.h"
 #include <string.h>
+#include "nrf_log.h"
 
 const static tag_specific_type_name_t tag_type_names[] = {
-    [TAG_TYPE_UNKNOWN] = {"UKNOWN", "UKNOWN"},
+    {TAG_TYPE_UNDEFINED, "UNDEFINED", "UNDEFINED"},
     // 125kHz (ID card) series
-    [TAG_TYPE_EM410X] = {"EM410X", "EM410X"},
+    {TAG_TYPE_EM410X, "EM410X", "EM410X"},
     // MiFare series
-    [TAG_TYPE_MIFARE_Mini] = {"MF Mini", "MiFare Mini"},
-    [TAG_TYPE_MIFARE_1024] = {"MF 1K", "MiFare 1K"},
-    [TAG_TYPE_MIFARE_2048] = {"MF 2K", "MiFare 2K"},
-    [TAG_TYPE_MIFARE_4096] = {"MF 4K", "MiFare 4K"},
+    {TAG_TYPE_MIFARE_Mini, "MF Mini", "MiFare Mini"},
+    {TAG_TYPE_MIFARE_1024, "MF 1K", "MiFare 1K"},
+    {TAG_TYPE_MIFARE_2048, "MF 2K", "MiFare 2K"},
+    {TAG_TYPE_MIFARE_4096, "MF 4K", "MiFare 4K"},
     // NTAG series
-    [TAG_TYPE_NTAG_213] = {"N213", "NTAG 213"},
-    [TAG_TYPE_NTAG_215] = {"N215", "NTAG 215"},
-    [TAG_TYPE_NTAG_216] = {"N216", "NTAG 216"},
+    {TAG_TYPE_NTAG_213, "N213", "NTAG 213"},
+    {TAG_TYPE_NTAG_215, "N215", "NTAG 215"},
+    {TAG_TYPE_NTAG_216, "N216", "NTAG 216"},
 };
-
 // typedef enum {
 //     NFC_TAG_MF1_WRITE_NORMAL    = 0u,
 //     NFC_TAG_MF1_WRITE_DENIED    = 1u,
 //     NFC_TAG_MF1_WRITE_DECEIVE   = 2u,
 //     NFC_TAG_MF1_WRITE_SHADOW    = 3u,
 // } nfc_tag_mf1_write_mode_t;
-const static char *mf1_write_mode_names[] = {
-    [NFC_TAG_MF1_WRITE_NORMAL] = "正常",
-    [NFC_TAG_MF1_WRITE_DENIED] = "拒绝",
-    [NFC_TAG_MF1_WRITE_DECEIVE] = "忽略",
-    [NFC_TAG_MF1_WRITE_SHADOW] = "缓存",
+
+const static uint32_t mf1_write_mode_names[4] = {
+    [NFC_TAG_MF1_WRITE_NORMAL] = _L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,
+    [NFC_TAG_MF1_WRITE_DENIED] = _L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,
+    [NFC_TAG_MF1_WRITE_DECEIVE] = _L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,
+    [NFC_TAG_MF1_WRITE_SHADOW] = _L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,
 };
 
 const tag_specific_type_t hf_tag_specific_types[] = {
     // Specific and necessary signs do not exist
-    TAG_TYPE_UNKNOWN,
+    TAG_TYPE_UNDEFINED,
     // MiFare series
     TAG_TYPE_MIFARE_Mini,
     TAG_TYPE_MIFARE_1024,
@@ -57,11 +59,12 @@ tag_group_type_t tag_helper_get_tag_group_type(tag_specific_type_t tag_type) {
 }
 
 const tag_specific_type_name_t *tag_helper_get_tag_type_name(tag_specific_type_t tag_type) {
-    if (tag_type >= 0 && tag_type < TAG_TYPE_MAX) {
-        return &tag_type_names[tag_type];
-    } else {
-        return 0;
+    for (uint32_t i = 0; i < ARRAY_SIZE(tag_type_names); i++) {
+        if (tag_type_names[i].tag_type == tag_type) {
+            return &(tag_type_names[i]);
+        }
     }
+    return NULL;
 }
 
 const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
@@ -82,7 +85,7 @@ const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
 tag_specific_type_t tag_helper_get_active_tag_type() {
     tag_specific_type_t tag_type[2];
     uint8_t slot = tag_emulation_get_slot();
-    tag_emulation_get_specific_type_by_slot(slot, tag_type);
+    tag_emulation_get_specific_types_by_slot(slot, tag_type);
     return tag_type[0];
 }
 
@@ -99,7 +102,7 @@ void tag_helper_format_uid(char *buff, uint8_t *uid, uint8_t uid_len) {
 
 const char *tag_helper_get_mf_write_mode_name(nfc_tag_mf1_write_mode_t write_mode) {
     if (write_mode >= 0 && write_mode < 4) {
-        return mf1_write_mode_names[write_mode];
+        return getLangString(mf1_write_mode_names[write_mode]);
     }
     return "";
 }

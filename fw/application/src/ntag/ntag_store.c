@@ -8,7 +8,7 @@
 #include "ntag_store.h"
 //#include "fds.h"
 #include "nrf_log.h"
-#include "utils.h"
+#include "utils2.h"
 
 #include "vfs.h"
 

@@ -11,6 +11,7 @@
 #define SLOT_MAX 8
 
 typedef struct {
+    tag_specific_type_t tag_type;
     const char *short_name;
     const char *long_name;
 } tag_specific_type_name_t;

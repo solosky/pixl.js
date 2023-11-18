@@ -123,4 +123,8 @@ const char * lang_en_US[_L_COUNT] = {
     [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "Save Successfully",
     [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "Save Failed!",
     [_L_APP_CHAMELEON] = "Card Emulator",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Deny",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE] = "Ignore",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW] = "Cache",
 };

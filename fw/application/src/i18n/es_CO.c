@@ -123,4 +123,8 @@ const char * lang_es_CO[_L_COUNT] = {
     [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "Asignación Correcta",
     [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "¡Asignación Fallida!",
     [_L_APP_CHAMELEON] = "",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE] = "",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW] = "",
 };

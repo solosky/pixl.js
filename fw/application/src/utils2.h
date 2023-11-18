@@ -5,8 +5,8 @@
  *      Author: solos
  */
 
-#ifndef UTILS_H_
-#define UTILS_H_
+#ifndef UTILS2_H_
+#define UTILS2_H_
 
 #include <stdint.h>
 #include "sdk_errors.h"

@@ -120,5 +120,9 @@ _L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收
 _L_APP_AMIIDB_FAV_SUCCESS,Favorite Successfully!,收藏成功,收藏成功,¡Favorito Correcto!
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito Faillido!
 _L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Successfully,保存成功,保存成功,Asignación Correcta
-_L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失敗,保存失敗,¡Asignación Fallida!
+_L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación Fallida!
 _L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,
+_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒绝,
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,
+_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,缓存,

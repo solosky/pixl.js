@@ -563,7 +563,8 @@ INC_FOLDERS += \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf \
   $(CHAMELEON_ROOT)/application/src/utils \
   $(CHAMELEON_ROOT)/application/src \
-  $(CHAMELEON_ROOT)/application/src/bsp
+  $(CHAMELEON_ROOT)/application/src/bsp \
+  $(COMP_DIR)/chameleon-ultra/firmware/common
 
 # Libraries common to all targets
 LIB_FILES += \

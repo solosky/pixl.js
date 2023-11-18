@@ -117,9 +117,9 @@ uint8_t bat_get_level(void) {
             break;
         }
     }
-    char txt[32];
-    sprintf(txt, "BAT: %d, %.02fV, %d", adc_value, voltage, level);
-    NRF_LOG_INFO("%s", nrf_log_push(txt));
+    // char txt[32];
+    // sprintf(txt, "BAT: %d, %.02fV, %d", adc_value, voltage, level);
+    // NRF_LOG_INFO("%s", nrf_log_push(txt));
 
     return level;
 }

@@ -121,6 +121,10 @@ const char * lang_zh_Hans[_L_COUNT] = {
     [_L_APP_AMIIDB_FAV_SUCCESS] = "收藏成功",
     [_L_APP_AMIIDB_FAV_FAILED] = "收藏失败",
     [_L_APP_AMIIDB_SLOT_SAVE_SUCCESS] = "保存成功",
-    [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "保存失敗",
+    [_L_APP_AMIIDB_SLOT_SAVE_FAILED] = "保存失败",
     [_L_APP_CHAMELEON] = "卡模拟器",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "正常",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "拒绝",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE] = "忽略",
+    [_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW] = "缓存",
 };

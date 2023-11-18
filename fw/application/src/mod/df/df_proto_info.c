@@ -1,6 +1,6 @@
 #include "df_proto_info.h"
 #include "df_buffer.h"
-#include "utils.h"
+#include "utils2.h"
 
 #include "nrf_log.h"
 #include "ble_main.h"
