@@ -110,7 +110,7 @@ static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
 
         const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
 
-        if (amd && strcmp(string_get_cstr(app->current_file), "new.bin") == 0) {
+        if (amd && strncmp(string_get_cstr(app->current_file), "new", 3) == 0) {
             char new_path[VFS_MAX_PATH_LEN];
             char new_name[VFS_MAX_NAME_LEN];
             snprintf(new_name, sizeof(new_name), "%s.bin", amd->name_en);

@@ -225,3 +225,9 @@ void mui_update(mui_t *p_mui) {
     mui_event_t event = {.id = MUI_EVENT_ID_REDRAW};
     mui_post(p_mui, &event);
 }
+
+
+void mui_update_now(mui_t* p_mui){
+     mui_event_t event = {.id = MUI_EVENT_ID_REDRAW};
+    mui_event_dispatch_now(&p_mui->event_queue, &event);
+}

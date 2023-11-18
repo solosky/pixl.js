@@ -44,6 +44,7 @@ void mui_panic(mui_t *p_mui, char* err);
 void mui_add_view_port(mui_t* p_mui, mui_view_port_t* p_vp, mui_layer_t layer);
 void mui_remove_view_port(mui_t* p_mui, mui_view_port_t* p_vp, mui_layer_t layer);
 void mui_update(mui_t* p_mui);
+void mui_update_now(mui_t* p_mui);
 
 
 #endif

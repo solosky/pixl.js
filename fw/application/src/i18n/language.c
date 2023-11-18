@@ -1,11 +1,16 @@
 
 #include "language.h"
 
+
+typedef struct {
+    const char** strings;
+} LanguageData;
+
 LanguageData languageData[LANGUAGE_COUNT] = {
-    [LANGUAGE_ZH_HANS] = { .strings = lang_zh_hans },
-    [LANGUAGE_EN_US] = { .strings = lang_en_us },
-    [LANGUAGE_ZH_TW] = { .strings = lang_zh_tw },
-    [LANGUAGE_ES_CO] = { .strings = lang_es_co },
+    [LANGUAGE_ZH_HANS] = { .strings = lang_zh_Hans },
+    [LANGUAGE_EN_US] = { .strings = lang_en_US },
+    [LANGUAGE_ZH_TW] = { .strings = lang_zh_TW },
+    [LANGUAGE_ES_CO] = { .strings = lang_es_CO },
 };
 
 // 当前语言设置
@@ -14,7 +19,7 @@ Language currentLanguage = LANGUAGE_ZH_HANS;
 
 const char* getLangString(L_StringID stringID) {
     const char* string = languageData[currentLanguage].strings[stringID];
-    return string ? string : lang_en_us[stringID];  // 如果没有翻译，使用中文
+    return string && strlen(string) > 0 ? string : lang_en_US[stringID];
 }
 
 void setLanguage(Language lang) {

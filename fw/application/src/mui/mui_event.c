@@ -27,3 +27,7 @@ void mui_event_dispatch(mui_event_queue_t *p_queue) {
         p_queue->dispatcher(p_queue->dispatch_context, &event);
     }
 }
+
+void mui_event_dispatch_now(mui_event_queue_t *p_queue, mui_event_t* p_event){
+    p_queue->dispatcher(p_queue->dispatch_context, p_event);
+}

@@ -1,13 +1,11 @@
-
-#include "language.h"
-
-const char * lang_zh_tw[_L_COUNT] = {
-    [_L_ON] = "開", 
-    [_L_OFF] = "關", 
+#include "string_id.h"
+const char * lang_zh_TW[_L_COUNT] = {
+    [_L_ON] = "開",
+    [_L_OFF] = "關",
     [_L_BACK] = "返回",
     [_L_ERR] = "錯誤",
     [_L_ERR_CODE] = "錯誤碼",
-    [_L_APP_AMIIBO] = "Amiibo模擬器", 
+    [_L_APP_AMIIBO] = "Amiibo模擬器",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "藍牙傳送",
     [_L_APP_BLE_TITLE] = "藍牙傳送",
@@ -27,7 +25,6 @@ const char * lang_zh_tw[_L_COUNT] = {
     [_L_APP_SET_LANGUAGE] = "系統語言",
     [_L_APP_SET_DFU] = "軟體升級",
     [_L_APP_SET_REBOOT] = "重啟設備",
-    [_L_APP_SET_MENU_EXIT] = "返回主選單",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
     [_L_45S] = "45秒",
@@ -61,10 +58,15 @@ const char * lang_zh_tw[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "輸入amiibo名稱:",
     [_L_DELETE] = "刪除",
     [_L_INPUT_NEW_NAME] = "輸入新名稱:",
+    [_L_INVALID_INPUT] = "無效的輸入",
     [_L_CREATE_NEW_FOLDER] = "新建資料夾..",
     [_L_CREATE_NEW_TAG] = "新建標籤..",
+    [_L_CREATE_NEW_TAG_BATCH] = "批量創建標簽..",
+    [_L_INPUT_TAG_NUM] = "輸入標簽數量:",
+    [_L_CREATE_TOO_MANY_NUM] = "一次最多只能創建%d個標簽",
+    [_L_CREATING_TAG_BATCH] = "創建標簽",
+    [_L_CREATING_TAG_FAILED] = "寫入 %s 標簽失敗",
     [_L_RENAME] = "重新命名",
-    [_L_MAIN_MENU] = "[主選單]",
     [_L_OPEN_FOLDER_FAILED] = "開啟資料夾失敗",
     [_L_RENAME_FAILED] = "重新命名失敗",
     [_L_MAIN_RETURN] = "[返回]",
@@ -79,6 +81,7 @@ const char * lang_zh_tw[_L_COUNT] = {
     [_L_AUTO_RANDOM] = "自動隨機",
     [_L_COMPATIBLE_MODE] = "相容模式",
     [_L_TAG_DETAILS] = "標籤詳情",
+    [_L_MAIN_MENU] = "[主選單]",
     [_L_MODE_RANDOM] = "隨機(手動)",
     [_L_MODE_CYCLE] = "按序",
     [_L_MODE_NTAG] = "讀寫",
