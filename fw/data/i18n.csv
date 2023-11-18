@@ -80,7 +80,7 @@ _L_AMILOOP,AmiLoop,AmiLoop,AmiLoop,AmiLoop
 _L_MODE,Mode,模式,模式,Modo
 _L_AUTO_RANDOM,Auto Random.,自动随机,自動隨機,Aleat. Autom.
 _L_COMPATIBLE_MODE,Compati. Mode,兼容模式,相容模式,Compatibil.
-_L_TAG_DETAILS,Tag Details,标签详情,標籤詳情,Detalles Amiibo
+_L_TAG_DETAILS,[Tag Details],[标签详情],[標籤詳情],[Detalles Amiibo]
 _L_MAIN_MENU,[Main Menu],[主菜单],[主選單],[Menú Principal]
 _L_MODE_RANDOM,Rand. (Manual),随机(手动),隨機(手動),Aleat. Man.
 _L_MODE_CYCLE,Sequential,按序,按序,Secuencial
@@ -121,3 +121,4 @@ _L_APP_AMIIDB_FAV_SUCCESS,Favorite Successfully!,收藏成功,收藏成功,¡Fav
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito Faillido!
 _L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Successfully,保存成功,保存成功,Asignación Correcta
 _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失敗,保存失敗,¡Asignación Fallida!
+_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,
