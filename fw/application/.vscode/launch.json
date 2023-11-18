@@ -44,7 +44,7 @@
       "ipAddress": null,
       "serialNumber": null,
       "configFiles": [
-        "${workspaceRoot}/config/pixljs.cfg"
+        "${workspaceRoot}/openocd/debug.cfg"
       ]
     }
   ]
