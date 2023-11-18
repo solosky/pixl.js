@@ -12,6 +12,8 @@
 #include <stdbool.h>
 
 #define NTAG_DATA_SIZE 540
+#define NTAG_TAGMO_DATA_SIZE 532
+#define NTAG_THENAYA_DATA_SIZE 572
 
 typedef enum
 {
