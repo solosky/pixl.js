@@ -37,6 +37,7 @@ _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Amiibo Aleatorio
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Aleat. Auto.
 _L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar código QR
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar Amiibo
+_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,
 _L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,Volver Detll. Amiibo
 _L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,Volver Lista Archivos
 _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,Volver Menú Principal
@@ -46,9 +47,9 @@ _L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数
 _L_CONFIRM,Confirm,确定,確定,Confirmar
 _L_CANCEL,Cancel,取消,取消,Cancelar
 _L_BACK_TO_LIST,Back List,返回列表,返回清單,Voler a Lista
-_L_NOT_MOUNTED,=====Not Mounted=====,=====未挂载=====,=====未掛載=====,
-_L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,
-_L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,
+_L_NOT_MOUNTED,=====Not Mounted=====,=====未挂载=====,=====未掛載=====,=====No Montado=====
+_L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[LFS]Montado===
+_L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===
 _L_TOTAL_SPACE,Total Space,总空间,總空間,Espacio Total
 _L_AVAILABLE_SPACE,Free Space,可用空间,可用空間,Espacio Libre
 _L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\nAmiibo Válido

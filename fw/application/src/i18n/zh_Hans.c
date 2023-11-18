@@ -38,6 +38,7 @@ const char * lang_zh_Hans[_L_COUNT] = {
     [_L_AUTO_RANDOM_GENERATION] = "自动随机生成",
     [_L_SHOW_QRCODE] = "显示二维码",
     [_L_DELETE_TAG] = "删除标签",
+    [_L_DELETE_TAG_CONFIRM] = "确认删除 %s ?",
     [_L_BACK_TO_DETAILS] = "返回详情",
     [_L_BACK_TO_FILE_LIST] = "返回文件列表",
     [_L_BACK_TO_MAIN_MENU] = "返回主菜单",

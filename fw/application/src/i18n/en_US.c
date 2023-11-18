@@ -38,6 +38,7 @@ const char * lang_en_US[_L_COUNT] = {
     [_L_AUTO_RANDOM_GENERATION] = "Auto Rand.",
     [_L_SHOW_QRCODE] = "Display QR Code",
     [_L_DELETE_TAG] = "Delete Tag",
+    [_L_DELETE_TAG_CONFIRM] = "Confirm Delete %s ?",
     [_L_BACK_TO_DETAILS] = "Back to Tag Details",
     [_L_BACK_TO_FILE_LIST] = "Back to File List",
     [_L_BACK_TO_MAIN_MENU] = "Back to Main Menu",
