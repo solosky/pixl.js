@@ -4,8 +4,8 @@
 #include "mui_include.h"
 
 #include "chameleon_scene.h"
-#include "i18n/language.h"
 #include "fds_utils.h"
+#include "i18n/language.h"
 
 static void app_chameleon_on_run(mini_app_inst_t *p_app_inst);
 static void app_chameleon_on_kill(mini_app_inst_t *p_app_inst);
@@ -26,7 +26,7 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_list_view = mui_list_view_create();
     p_app_handle->p_msg_box = mui_msg_box_create();
     p_app_handle->p_toast_view = mui_toast_view_create();
-    //p_app_handle->p_text_input = mui_text_input_create();
+    p_app_handle->p_text_input = mui_text_input_create();
 
     mui_list_view_set_user_data(p_app_handle->p_list_view, p_app_handle);
     chameleon_view_set_user_data(p_app_handle->p_chameleon_view, p_app_handle);
@@ -39,8 +39,8 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_list_view_get_view(p_app_handle->p_list_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, CHAMELEON_VIEW_ID_MSG_BOX,
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
-    // mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, CHAMELEON_VIEW_ID_TEXT_INPUT,
-    //                              mui_text_input_get_view(p_app_handle->p_text_input));
+    mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, CHAMELEON_VIEW_ID_TEXT_INPUT,
+                                  mui_text_input_get_view(p_app_handle->p_text_input));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
@@ -54,8 +54,6 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher_toast, MUI_LAYER_TOAST);
     mui_view_dispatcher_switch_to_view(p_app_handle->p_view_dispatcher_toast, CHAMELEON_VIEW_ID_TOAST);
 
-    
-
     if (p_app_inst->p_retain_data) {
         app_chameleon_retain_data_t *p_retain = (app_chameleon_retain_data_t *)p_app_inst->p_retain_data;
     }
@@ -63,7 +61,7 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     // init emulation
     tag_emulation_init();
 
-    if(!fds_config_file_exists()){
+    if (!fds_config_file_exists()) {
         vfs_get_default_driver()->create_dir("/chameleon");
         vfs_get_default_driver()->create_dir("/chameleon/slots");
         vfs_get_default_driver()->create_dir("/chameleon/dump");
@@ -88,7 +86,7 @@ void app_chameleon_on_kill(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     mui_list_view_free(p_app_handle->p_list_view);
-    //mui_text_input_free(p_app_handle->p_text_input);
+    mui_text_input_free(p_app_handle->p_text_input);
     chameleon_view_free(p_app_handle->p_chameleon_view);
 
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher_toast, MUI_LAYER_TOAST);

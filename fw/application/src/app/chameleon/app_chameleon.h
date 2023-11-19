@@ -12,12 +12,12 @@ typedef struct {
     chameleon_view_t *p_chameleon_view;
     mui_list_view_t *p_list_view;
     mui_msg_box_t *p_msg_box;
-    //mui_text_input_t* p_text_input;
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_scene_dispatcher_t *p_scene_dispatcher;
 
     mui_toast_view_t *p_toast_view;
     mui_view_dispatcher_t *p_view_dispatcher_toast;
+    mui_text_input_t* p_text_input;
 } app_chameleon_t;
 
 typedef enum {

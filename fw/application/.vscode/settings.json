@@ -99,7 +99,8 @@
     "stdbool.h": "c",
     "app_timer.h": "c",
     "language.h": "c",
-    "tag_helper.h": "c"
+    "tag_helper.h": "c",
+    "fds_utils.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
   "cortex-debug.openocdPath.windows": "openocd",

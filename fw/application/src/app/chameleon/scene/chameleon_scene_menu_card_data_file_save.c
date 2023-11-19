@@ -21,54 +21,40 @@ typedef enum {
     CHAMELEON_MENU_FILE,
 } chameleon_menu_item_t;
 
-int32_t chameleon_scene_menu_card_data_file_save_from_file(app_chameleon_t *app, const char *file_name){
-
-}
-
-int32_t chameleon_scene_menu_card_data_file_save_reload(app_chameleon_t *app) {
-    vfs_dir_t dir;
-    vfs_obj_t obj;
-
-    vfs_driver_t *p_driver = vfs_get_driver(VFS_DRIVE_EXT);
-    int32_t res = p_driver->open_dir(CHELEMEON_DUMP_FOLDER, &dir);
-    if (res < 0) {
-        return -1;
-    }
-
-    while (p_driver->read_dir(&dir, &obj) == VFS_OK) {
-        if (obj.type == VFS_TYPE_REG) {
-            mui_list_view_add_item(app->p_list_view, ICON_FILE, obj.name, (void *)CHAMELEON_MENU_FILE);
+static void chameleon_scene_menu_card_data_file_save_text_input_event_cb(mui_text_input_event_t event,
+                                                                         mui_text_input_t *p_text_input) {
+    app_chameleon_t *app = p_text_input->user_data;
+    if (event == MUI_TEXT_INPUT_EVENT_CONFIRMED) {
+        const char *text = mui_text_input_get_input_text(p_text_input);
+        if (strlen(text) > 0) {
+            char path[VFS_MAX_PATH_LEN];
+            vfs_driver_t *p_driver = vfs_get_default_driver();
+            uint8_t *tag_buffer = tag_helper_get_active_tag_memory_data();
+            size_t tag_data_size = tag_helper_get_active_tag_data_size();
+            sprintf(path, "%s/%s", CHELEMEON_DUMP_FOLDER, text);
+            int32_t err = p_driver->write_file_data(path, tag_buffer, tag_data_size);
+            if (err < 0) {
+                mui_toast_view_show(app->p_toast_view, "写入文件失败");
+                return;
+            }
+            mui_toast_view_show(app->p_toast_view, "加载卡片数据成功");
+            mui_scene_dispatcher_back_scene(app->p_scene_dispatcher, 2);
+        } else {
+            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
-    }
-    p_driver->close_dir(&dir);
-    return 0;
-}
-
-void chameleon_scene_menu_card_data_file_save_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view,
-                                                         mui_list_item_t *p_item) {
-    app_chameleon_t *app = p_list_view->user_data;
-    chameleon_menu_item_t item = (chameleon_menu_item_t)p_item->user_data;
-    switch (item) {
-    case CHAMELEON_MENU_FILE: {
-        uint8_t slot = tag_emulation_get_slot();
-
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
-    } break;
-
-    case CHAMELEON_MENU_BACK:
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
-        break;
     }
 }
 
 void chameleon_scene_menu_card_data_file_save_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
+    char file_name[32];
 
-    chameleon_scene_menu_card_data_file_save_reload(app);
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
+    sprintf(file_name, "%02d.bin", tag_emulation_get_slot());
 
-    mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_data_file_save_on_event);
-    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);
+    mui_text_input_set_header(app->p_text_input, "输入文件名");
+    mui_text_input_set_input_text(app->p_text_input, file_name);
+    mui_text_input_set_event_cb(app->p_text_input, chameleon_scene_menu_card_data_file_save_text_input_event_cb);
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_TEXT_INPUT);
 }
 
 void chameleon_scene_menu_card_data_file_save_on_exit(void *user_data) {
