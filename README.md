@@ -30,10 +30,6 @@ hw/RevC为最新PCB版本，使用[Kicad 6](https://www.kicad.org/download/)打�
 * [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
 * [RevC 物料清单购买指南](docs/RevC-bom.md)
 
-## 衍生版本
-
-[docs/boards-thirdparty.md](docs/boards-thirdparty.md)
-
 ## OLED版本
 
 OLED版本由网友 @xiaohail 贡献，可以点[这里](https://gitlab.com/xiaohai/pixl.js)下载PCB。
