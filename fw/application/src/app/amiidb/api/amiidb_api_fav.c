@@ -78,7 +78,7 @@ int32_t amiidb_api_fav_empty_dir(const char *folder) {
     }
 
     while (p_driver->read_dir(&dir, &obj) == VFS_OK) {
-        sprintf(sub_path, "/%s/%s", path, obj.name);
+        sprintf(sub_path, "%s/%s", path, obj.name);
         if (obj.type == VFS_TYPE_DIR) {
             p_driver->remove_dir(sub_path);
         } else {
