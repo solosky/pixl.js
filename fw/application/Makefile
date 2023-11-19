@@ -266,6 +266,8 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_type.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot_select.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_write_mode_select.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_load.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_save.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/chameleon/port/tag_helper.c \
@@ -711,7 +713,7 @@ full: settingsgen
 flash_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
-flash_all_ocd:
+flash_all_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
 reset_ocd:

@@ -2,22 +2,20 @@
 #include "fds_ids.h"
 #include "fds_utils.h"
 #include "i18n/language.h"
-#include <string.h>
 #include "nrf_log.h"
+#include <string.h>
 
 const static tag_specific_type_name_t tag_type_names[] = {
-    {TAG_TYPE_UNDEFINED, "UNDEFINED", "UNDEFINED"},
-    // 125kHz (ID card) series
-    {TAG_TYPE_EM410X, "EM410X", "EM410X"},
+    {TAG_TYPE_UNDEFINED, "UNDEFINED", "UNDEFINED", 0},
     // MiFare series
-    {TAG_TYPE_MIFARE_Mini, "MF Mini", "MiFare Mini"},
-    {TAG_TYPE_MIFARE_1024, "MF 1K", "MiFare 1K"},
-    {TAG_TYPE_MIFARE_2048, "MF 2K", "MiFare 2K"},
-    {TAG_TYPE_MIFARE_4096, "MF 4K", "MiFare 4K"},
+    {TAG_TYPE_MIFARE_Mini, "MF Mini", "MiFare Mini", 20 * NFC_TAG_MF1_DATA_SIZE},
+    {TAG_TYPE_MIFARE_1024, "MF 1K", "MiFare 1K", 64 * NFC_TAG_MF1_DATA_SIZE},
+    {TAG_TYPE_MIFARE_2048, "MF 2K", "MiFare 2K", 128 * NFC_TAG_MF1_DATA_SIZE},
+    {TAG_TYPE_MIFARE_4096, "MF 4K", "MiFare 4K", 256 * NFC_TAG_MF1_DATA_SIZE},
     // NTAG series
-    {TAG_TYPE_NTAG_213, "N213", "NTAG 213"},
-    {TAG_TYPE_NTAG_215, "N215", "NTAG 215"},
-    {TAG_TYPE_NTAG_216, "N216", "NTAG 216"},
+    {TAG_TYPE_NTAG_213, "N213", "NTAG 213", 45 * NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_215, "N215", "NTAG 215", 135 * NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_216, "N216", "NTAG 216", 231 * NFC_TAG_NTAG_DATA_SIZE},
 };
 // typedef enum {
 //     NFC_TAG_MF1_WRITE_NORMAL    = 0u,
@@ -119,5 +117,24 @@ void tag_helper_get_nickname(char *buff, size_t buff_len) {
 
     if (strlen(buff) == 0) {
         sprintf(buff, "卡槽 %02d", slot + 1);
+    }
+}
+
+size_t tag_helper_get_active_tag_data_size() {
+    tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
+    const tag_specific_type_name_t *tag_type_name = tag_helper_get_tag_type_name(tag_type);
+    return tag_type_name->data_size;
+}
+
+uint8_t *tag_helper_get_active_tag_memory_data() {
+    tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
+    tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
+    tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
+    if (tag_group_type == TAG_GROUP_MIFLARE) {
+        nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
+        return &m_tag_information->memory;
+    } else {
+        nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        return &m_tag_information->memory;
     }
 }

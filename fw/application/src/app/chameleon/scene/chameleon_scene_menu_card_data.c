@@ -38,11 +38,11 @@ void chameleon_scene_menu_card_data_on_event(mui_list_view_event_t event, mui_li
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } break;
     case CHAMELEON_MENU_LOAD_DATA: {
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_DATA_FILE_LOAD);
     } break;
 
     case CHAMELEON_MENU_SAVE_DATA: {
-
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_DATA_FILE_SAVE);
     } break;
     }
 }

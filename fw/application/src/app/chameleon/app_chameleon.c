@@ -65,7 +65,7 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
 
     if(!fds_config_file_exists()){
         vfs_get_default_driver()->create_dir("/chameleon");
-        vfs_get_default_driver()->create_dir("/chameleon/data");
+        vfs_get_default_driver()->create_dir("/chameleon/slots");
         vfs_get_default_driver()->create_dir("/chameleon/dump");
         tag_emulation_factory_init();
     }

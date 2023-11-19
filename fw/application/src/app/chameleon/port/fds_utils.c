@@ -14,11 +14,11 @@
 
 static void fds_map_file_name(uint16_t id, uint16_t key, char *path) {
     if (id == FDS_EMULATION_CONFIG_FILE_ID) {
-        strcpy(path, "/chameleon/data/config.bin");
+        strcpy(path, "/chameleon/slots/config.bin");
     } else if (id >= FDS_SLOT_TAG_DUMP_FILE_ID_BASE && id < FDS_SLOT_TAG_DUMP_FILE_ID_BASE + SLOT_MAX) {
-        sprintf(path, "/chameleon/data/slot_%02d.bin", id - FDS_SLOT_TAG_DUMP_FILE_ID_BASE);
+        sprintf(path, "/chameleon/slots/%02d.bin", id - FDS_SLOT_TAG_DUMP_FILE_ID_BASE);
     } else {
-        sprintf(path, "/chameleon/data/%d_%d.bin", id, key);
+        sprintf(path, "/chameleon/slots/%d_%d.bin", id, key);
     }
 }
 
