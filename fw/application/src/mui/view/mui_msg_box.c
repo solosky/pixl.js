@@ -1,6 +1,4 @@
 #include "mui_msg_box.h"
-#include "mui_element.h"
-#include "mui_mem.h"
 
 static uint8_t mui_msg_box_get_button_num(mui_msg_box_t *p_mui_msg_box) {
     return (string_size(p_mui_msg_box->btn_left_text) > 0) + (string_size(p_mui_msg_box->btn_center_text) > 0) +

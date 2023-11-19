@@ -5,6 +5,8 @@ fw/src/amiibo_private.c
 fw/src/version.inc.h
 fw/src/version.json
 
+fw/application/log.log
+
 
 fw/log.log
 
@@ -24,8 +26,12 @@ hw/RevA/pixl.js/*.zip
 hw/RevA/pixl.js/*.pdf
 hw/RevA/pixl.js/*.kicad_prl
 
+hw/RevC
+hw/RevD
 hw/SP.RevA
 hw/PRO.RevA
+hw/LIPO.RevA
+3d
 
 dist
 # venv stuff

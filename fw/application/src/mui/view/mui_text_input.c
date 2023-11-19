@@ -1,6 +1,4 @@
 #include "mui_text_input.h"
-#include "mui_element.h"
-#include "mui_mem.h"
 
 #define LIST_ITEM_HEIGHT 13
 

@@ -1,12 +1,7 @@
 #ifndef MUI_PROGRESS_BAR_H
 #define MUI_PROGRESS_BAR_H
 
-#include "mui_mlib.h"
-#include "m-array.h"
-#include "m-string.h"
-#include "mui_defines.h"
 #include "mui_include.h"
-#include <stdint.h>
 
 struct mui_progress_bar_s;
 typedef struct mui_progress_bar_s mui_progress_bar_t;

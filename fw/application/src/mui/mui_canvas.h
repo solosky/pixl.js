@@ -1,9 +1,7 @@
 #ifndef MUI_CANVAS_H
 #define MUI_CANVAS_H
 
-#include "mui_defines.h"
-#include "u8g2.h"
-#include <stdint.h>
+#include "mui_common.h"
 
 typedef struct {
     u8g2_t *fb;
@@ -35,6 +33,7 @@ void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offs
 void mui_canvas_get_clip_window(mui_canvas_t *p_canvas, mui_rect_t* p_rect);
 void mui_canvas_set_clip_window(mui_canvas_t *p_canvas, mui_rect_t* p_rect);
 
+uint8_t mui_canvas_get_draw_color(mui_canvas_t *p_canvas);
 void mui_canvas_set_draw_color(mui_canvas_t *p_canvas, uint8_t color);
 void mui_canvas_draw_box(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h);
 void mui_canvas_draw_dot(mui_canvas_t *p_canvas, uint8_t x, uint8_t y);

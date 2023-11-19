@@ -1,8 +1,6 @@
 #include "mui_core.h"
 
 #include "mui_anim.h"
-#include "mui_defines.h"
-#include "mui_mem.h"
 #include "mui_u8g2.h"
 #include "nrf_log.h"
 #include "settings.h"
@@ -226,4 +224,10 @@ void mui_remove_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer
 void mui_update(mui_t *p_mui) {
     mui_event_t event = {.id = MUI_EVENT_ID_REDRAW};
     mui_post(p_mui, &event);
+}
+
+
+void mui_update_now(mui_t* p_mui){
+     mui_event_t event = {.id = MUI_EVENT_ID_REDRAW};
+    mui_event_dispatch_now(&p_mui->event_queue, &event);
 }

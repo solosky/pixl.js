@@ -1,12 +1,7 @@
 #ifndef MUI_TEXT_INPUT_H
 #define MUI_TEXT_INPUT_H
 
-#include "mui_mlib.h"
-#include "m-array.h"
-#include "m-string.h"
-#include "mui_defines.h"
 #include "mui_include.h"
-#include <stdint.h>
 
 #define ENTER_KEY '\r'
 #define BACKSPACE_KEY '\b'

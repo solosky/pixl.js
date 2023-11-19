@@ -5,8 +5,7 @@
 #ifndef FW_MUI_TOAST_VIEW_H
 #define FW_MUI_TOAST_VIEW_H
 
-#include "mui_view.h"
-#include "m-string.h"
+#include "mui_include.h"
 
 typedef struct {
     mui_view_t *p_view;

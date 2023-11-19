@@ -172,6 +172,7 @@ SRC_FILES += \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_helper.c \
+  $(PROJ_DIR)/mui_qrcode_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
   $(PROJ_DIR)/libc_nano_stubs.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
@@ -300,6 +301,7 @@ SRC_FILES += \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
+  $(COMP_DIR)/qrcode/c/qrcodegen.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
   $(U8G2_ROOT)/u8g2_buffer.c \
@@ -522,6 +524,7 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
+  $(COMP_DIR)/qrcode/c \
   $(SDK_ROOT)/components/libraries/bsp
 
 # Libraries common to all targets
@@ -666,14 +669,17 @@ ota:
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
 
-flash_openocd:
+flash_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
-flash_openocd_all:
-	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+flash_all_ocd:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
-reset_openocd:
+reset_ocd:
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -c "init" -c "reset" -c "exit"
 
-erase_openocd:
-	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "reset" -c exit
+erase_ocd:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "reset" -c exit
+
+rtt_ocd:
+	openocd -f openocd/rtt.cfg

@@ -13,6 +13,20 @@
 
 static void amiidb_scene_fav_list_reload(app_amiidb_t *app);
 
+static void amiidb_scene_fav_list_text_input_event_cb(mui_text_input_event_t event, mui_text_input_t *p_text_input) {
+    app_amiidb_t *app = p_text_input->user_data;
+    if (event == MUI_TEXT_INPUT_EVENT_CONFIRMED) {
+        const char *text = mui_text_input_get_input_text(p_text_input);
+        if (strlen(text) > 0) {
+            int32_t res = amiidb_api_fav_create_dir(text);
+            if (res == VFS_OK) {
+                string_reset(app->cur_fav_dir);
+                amiidb_scene_fav_list_reload(app);
+            }
+        }
+    }
+}
+
 static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                         mui_list_item_t *p_item) {
     uint16_t icon = p_item->icon;
@@ -21,9 +35,11 @@ static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t ev
         switch (icon) {
         case ICON_EXIT:
             if (string_size(app->cur_fav_dir) == 0) {
+                app->in_fav_folders = true;
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_MAIN);
             } else {
                 string_reset(app->cur_fav_dir);
+                app->in_fav_folders = false;
                 amiidb_scene_fav_list_reload(app);
             }
             break;
@@ -37,19 +53,28 @@ static void amiidb_scene_fav_list_list_view_on_selected(mui_list_view_event_t ev
 
         case ICON_FOLDER: {
             string_set(app->cur_fav_dir, p_item->text);
+            app->in_fav_folders = false;
             amiidb_scene_fav_list_reload(app);
         } break;
+
+        case ICON_NEW: {
+            mui_text_input_set_header(app->p_text_input, getLangString(_L_APP_AMIIDB_FAV_NEW_HEAD));
+            mui_text_input_set_event_cb(app->p_text_input, amiidb_scene_fav_list_text_input_event_cb);
+            mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_INPUT);
+        } break;
         }
-    } else if(event == MUI_LIST_VIEW_EVENT_LONG_SELECTED) {
+    } else if (event == MUI_LIST_VIEW_EVENT_LONG_SELECTED) {
         if (icon == ICON_FILE) {
             amiidb_fav_t *p_fav_item = p_item->user_data;
             memcpy(&app->cur_fav, p_fav_item, sizeof(amiidb_fav_t));
+            app->in_fav_folders = false;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_LIST_MENU);
         } else if (icon == ICON_FOLDER) {
             memset(&app->cur_fav, 0, sizeof(amiidb_fav_t));
             string_set(app->cur_fav_dir, p_item->text);
+            app->in_fav_folders = true;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_LIST_MENU);
         }
-
-        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_LIST_MENU);
     }
 }
 
@@ -94,8 +119,13 @@ static void amiidb_scene_fav_list_read_cb(amiidb_fav_info_t *p_info, void *ctx) 
 static void amiidb_scene_fav_list_reload(app_amiidb_t *app) {
     // clear list view
     mui_list_view_clear_items(app->p_list_view);
+
     amiidb_api_fav_list_dir(string_get_cstr(app->cur_fav_dir), amiidb_scene_fav_list_read_cb, app);
     mui_list_view_sort(app->p_list_view, amiidb_scene_fav_list_list_view_sort_cb);
+
+    if (mui_list_view_item_size(app->p_list_view) == 0 && app->in_fav_folders) {
+        mui_list_view_add_item(app->p_list_view, ICON_NEW, getLangString(_L_APP_AMIIDB_NEW), (void *)0);
+    }
 
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_fav_list_list_view_on_selected);

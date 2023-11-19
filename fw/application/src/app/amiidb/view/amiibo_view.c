@@ -2,6 +2,8 @@
 #include "db_header.h"
 #include "i18n/language.h"
 #include "mui_element.h"
+#include "mui_qrcode_helper.h"
+#include "settings.h"
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa
@@ -33,7 +35,7 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_draw_color(p_canvas, 1);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
 
-    y += 12;
+    y += 11;
 
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
     uint32_t tail = to_little_endian_int32(&ntag->data[88]);
@@ -42,17 +44,43 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     if (amd != NULL) {
         const char *name =(getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) ? amd->name_cn : amd->name_en;
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, name);
+
+        mui_rect_t clip_win_prev;
+        mui_rect_t clip_win_cur;
+        mui_canvas_get_clip_window(p_canvas, &clip_win_prev);
+        clip_win_cur.x = 0;
+        clip_win_cur.y = y;
+        clip_win_cur.w = mui_canvas_get_width(p_canvas);
+        clip_win_cur.h = mui_canvas_get_height(p_canvas) - y;
+        mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
+
+        // text+qrcode
+        uint8_t square_r = 0;
+        if (settings_get_data()->qrcode_enabled) {
+            square_r = 37;
+            sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
+            if (p_amiibo_view->desc_offset <= 33) {
+                draw_qrcode(p_canvas, 91, y + 2 - p_amiibo_view->desc_offset, 33, buff);
+            }
+        }
+        p_amiibo_view->desc_step = 8;
+        p_amiibo_view->desc_page_size = clip_win_cur.h;
         const db_link_t *link = get_link_by_id(p_amiibo_view->game_id, head, tail);
         if (strlen(ntag->notes) > 0) {
-            mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, ntag->notes);
+            p_amiibo_view->desc_total = mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, ntag->notes);
         } else if (link != NULL) {
             const char *notes = getLanguage() == LANGUAGE_ZH_HANS ? link->note_cn : link->note_en;
-            mui_element_autowrap_text(p_canvas, 0, y += 13, mui_canvas_get_width(p_canvas), 24, notes);
+            p_amiibo_view->desc_total = mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, notes);
         }
+        mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
     } else if (head > 0 && tail > 0) {
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, "Amiibo");
         sprintf(buff, "[%08x:%08x]", head, tail);
         mui_canvas_draw_utf8(p_canvas, 0, y += 15, buff);
+        if (settings_get_data()->qrcode_enabled) {
+            sprintf(buff, "https://pixl.amiibo.xyz/a/%08X-%08X", head, tail);
+            draw_qrcode(p_canvas, 91, 26, 33, buff);
+        }
     } else {
         mui_canvas_draw_utf8(p_canvas, 0, y += 13, getLangString(_L_BLANK_TAG));
     }
@@ -60,39 +88,64 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
 static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     amiibo_view_t *p_amiibo_view = p_view->user_data;
-    switch (event->key) {
-    case INPUT_KEY_LEFT:
-        if (p_amiibo_view->max_ntags > 1) {
-            if (p_amiibo_view->focus > 0) {
-                p_amiibo_view->focus--;
-            } else {
-                p_amiibo_view->focus = p_amiibo_view->max_ntags - 1;
+    if (event->type == INPUT_TYPE_REPEAT || event->type == INPUT_TYPE_LONG) {
+        switch (event->key) {
+        case INPUT_KEY_LEFT:
+            if (p_amiibo_view->desc_offset >= p_amiibo_view->desc_step) {
+                p_amiibo_view->desc_offset -= p_amiibo_view->desc_step;
             }
 
             if (p_amiibo_view->event_cb) {
-                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_DESC_UPDATE, p_amiibo_view);
             }
-        }
-        break;
-    case INPUT_KEY_RIGHT:
-        if (p_amiibo_view->max_ntags > 1) {
-            if (p_amiibo_view->focus < p_amiibo_view->max_ntags - 1) {
-                p_amiibo_view->focus++;
-            } else {
-                p_amiibo_view->focus = 0;
+            break;
+        case INPUT_KEY_RIGHT:
+            if (p_amiibo_view->desc_total > 0 && p_amiibo_view->desc_offset < p_amiibo_view->desc_page_size * ((p_amiibo_view->desc_total + p_amiibo_view->desc_page_size - 1) / p_amiibo_view->desc_page_size - 1)) {
+                p_amiibo_view->desc_offset += p_amiibo_view->desc_step;
             }
 
             if (p_amiibo_view->event_cb) {
-                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_DESC_UPDATE, p_amiibo_view);
             }
+            break;
         }
-        break;
-    case INPUT_KEY_CENTER:
+    } else if (event->type == INPUT_TYPE_SHORT) {
+        switch (event->key) {
+        case INPUT_KEY_LEFT:
+            p_amiibo_view->desc_offset = 0;
+            if (p_amiibo_view->max_ntags > 1) {
+                if (p_amiibo_view->focus > 0) {
+                    p_amiibo_view->focus--;
+                } else {
+                    p_amiibo_view->focus = p_amiibo_view->max_ntags - 1;
+                }
 
-        if (p_amiibo_view->event_cb) {
-            p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_MENU, p_amiibo_view);
+                if (p_amiibo_view->event_cb) {
+                    p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                }
+            }
+            break;
+        case INPUT_KEY_RIGHT:
+            p_amiibo_view->desc_offset = 0;
+            if (p_amiibo_view->max_ntags > 1) {
+                if (p_amiibo_view->focus < p_amiibo_view->max_ntags - 1) {
+                    p_amiibo_view->focus++;
+                } else {
+                    p_amiibo_view->focus = 0;
+                }
+
+                if (p_amiibo_view->event_cb) {
+                    p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_UPDATE, p_amiibo_view);
+                }
+            }
+            break;
+        case INPUT_KEY_CENTER:
+
+            if (p_amiibo_view->event_cb) {
+                p_amiibo_view->event_cb(AMIIBO_VIEW_EVENT_MENU, p_amiibo_view);
+            }
+            break;
         }
-        break;
     }
 }
 
