@@ -8,10 +8,10 @@
 #include "settings.h"
 #include "vfs.h"
 
+#include "amiidb_api_slot.h"
 #include "mui_icons.h"
 #include "ntag_emu.h"
 #include "ntag_store.h"
-#include "amiidb_api_slot.h"
 
 #include "db_header.h"
 #include "i18n/language.h"

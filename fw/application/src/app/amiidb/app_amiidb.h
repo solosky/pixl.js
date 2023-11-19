@@ -50,6 +50,7 @@ typedef struct {
     /** fav list*/
     string_t cur_fav_dir;
     amiidb_fav_t cur_fav;
+    uint8_t in_fav_folders;
 
     /** data slot */
     uint8_t cur_slot_index;

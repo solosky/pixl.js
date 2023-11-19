@@ -20,6 +20,13 @@
 
 void amiidb_scene_fav_list_menu_on_enter(void *user_data);
 
+static void amiidb_scene_fav_list_menu_back(app_amiidb_t *app) {
+    if (app->in_fav_folders) {
+        string_reset(app->cur_fav_dir);
+    }
+    mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+}
+
 static void amiidb_scene_fav_list_menu_msg_box_empty_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
     app_amiidb_t *app = p_msg_box->user_data;
     if (event == MUI_MSG_BOX_EVENT_SELECT_LEFT) {
@@ -29,10 +36,11 @@ static void amiidb_scene_fav_list_menu_msg_box_empty_cb(mui_msg_box_event_t even
         } else {
             // TODO ???
         }
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+
+        amiidb_scene_fav_list_menu_back(app);
     } else {
         // reload menu
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        amiidb_scene_fav_list_menu_back(app);
     }
 }
 
@@ -49,10 +57,10 @@ static void amiidb_scene_fav_list_menu_msg_box_delete_cb(mui_msg_box_event_t eve
         }
         NRF_LOG_INFO("remove fav: %d", res);
         if (res == VFS_OK) {
-            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+            amiidb_scene_fav_list_menu_back(app);
         }
     } else {
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        amiidb_scene_fav_list_menu_back(app);
     }
 }
 
@@ -77,7 +85,7 @@ static void amiidb_scene_fav_list_menu_text_input_event_cb(mui_text_input_event_
             int32_t res = amiidb_api_fav_create_dir(text);
             if (res == VFS_OK) {
                 string_reset(app->cur_fav_dir);
-                mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+                amiidb_scene_fav_list_menu_back(app);
             }
         }
     }
@@ -89,7 +97,7 @@ static void amiidb_scene_fav_list_menu_on_selected(mui_list_view_event_t event, 
 
     switch (p_item->icon) {
     case ICON_EXIT:
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        amiidb_scene_fav_list_menu_back(app);
         break;
 
     case ICON_NEW: {
