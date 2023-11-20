@@ -34,11 +34,11 @@ static void chameleon_scene_menu_card_data_file_save_text_input_event_cb(mui_tex
             sprintf(path, "%s/%s", CHELEMEON_DUMP_FOLDER, text);
             int32_t err = p_driver->write_file_data(path, tag_buffer, tag_data_size);
             if (err < 0) {
-                mui_toast_view_show(app->p_toast_view, "写入文件失败");
+                mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_SAVE_FAILED));
                 return;
             }
-            mui_toast_view_show(app->p_toast_view, "加载卡片数据成功");
-            mui_scene_dispatcher_back_scene(app->p_scene_dispatcher, 2);
+            mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS));
+            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         } else {
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
@@ -51,7 +51,7 @@ void chameleon_scene_menu_card_data_file_save_on_enter(void *user_data) {
 
     sprintf(file_name, "%02d.bin", tag_emulation_get_slot());
 
-    mui_text_input_set_header(app->p_text_input, "输入文件名");
+    mui_text_input_set_header(app->p_text_input, _T(APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME));
     mui_text_input_set_input_text(app->p_text_input, file_name);
     mui_text_input_set_event_cb(app->p_text_input, chameleon_scene_menu_card_data_file_save_text_input_event_cb);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_TEXT_INPUT);

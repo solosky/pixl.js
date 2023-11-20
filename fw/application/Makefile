@@ -268,6 +268,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_write_mode_select.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_load.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_save.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_set_name.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/chameleon/port/tag_helper.c \

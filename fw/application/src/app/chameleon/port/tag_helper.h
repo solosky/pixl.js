@@ -32,6 +32,7 @@ void tag_helper_format_uid(char *buff, uint8_t *uid, uint8_t uid_len);
 const char *tag_helper_get_mf_write_mode_name(nfc_tag_mf1_write_mode_t write_mode);
 
 void tag_helper_get_nickname(char *buff, size_t buff_len);
+int32_t tag_helper_set_nickname(const char *nickname);
 
 size_t tag_helper_get_active_tag_data_size();
 uint8_t *tag_helper_get_active_tag_memory_data();

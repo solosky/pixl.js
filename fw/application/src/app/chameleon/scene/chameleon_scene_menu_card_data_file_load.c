@@ -37,25 +37,25 @@ void chameleon_scene_menu_card_data_file_load_from_file(app_chameleon_t *app, co
 
     err = p_driver->stat_file(path, &obj);
     if (err < 0) {
-        mui_toast_view_show(app->p_toast_view, "文件不存在");
+        mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_LOAD_NOT_FOUND));
         return;
     }
 
     // TODO file size check
     if (tag_data_size != obj.size) {
-        mui_toast_view_show(app->p_toast_view, "文件大小不匹配");
+        mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_LOAD_SIZE_NOT_MATCH));
         return;
     }
 
     // load file to buffer directly
     err = p_driver->read_file_data(path, tag_buffer, tag_data_size);
     if (err < 0) {
-        mui_toast_view_show(app->p_toast_view, "读取文件失败");
+        mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_LOAD_FAILED));
         return;
     }
-    
+
     NRF_LOG_INFO("load card data:%d", err);
-    mui_toast_view_show(app->p_toast_view, "加载卡片数据成功");
+    mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS));
     mui_scene_dispatcher_back_scene(app->p_scene_dispatcher, 2);
 }
 
@@ -97,8 +97,7 @@ void chameleon_scene_menu_card_data_file_load_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
     chameleon_scene_menu_card_data_file_load_reload(app);
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
-
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_data_file_load_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);
 }

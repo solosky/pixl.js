@@ -37,11 +37,11 @@ void chameleon_scene_menu_card_slot_select_on_enter(void *user_data) {
 
     for (uint32_t i = 0; i < TAG_MAX_SLOT_NUM; i++) {
         if (tag_emulation_slot_is_enabled(i, TAG_SENSE_HF)) {
-            sprintf(buff, "卡槽 %02d", i + 1);
+            sprintf(buff, "%s %02d", _T(APP_CHAMELEON_CARD_SLOT), i + 1);
             mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, buff, NULL, i);
         }
     }
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), NULL_USER_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), NULL_USER_DATA);
 
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_slot_select_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);

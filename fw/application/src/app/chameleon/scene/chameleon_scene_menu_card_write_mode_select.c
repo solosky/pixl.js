@@ -37,7 +37,7 @@ void chameleon_scene_menu_card_write_mode_select_on_enter(void *user_data) {
     for (uint32_t i = 0; i < 4; i++) {
         mui_list_view_add_item(app->p_list_view, ICON_DATA, tag_helper_get_mf_write_mode_name(i), i);
     }
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), NULL_USER_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), NULL_USER_DATA);
 
     mui_list_view_set_focus(app->p_list_view, nfc_tag_mf1_get_write_mode());
 

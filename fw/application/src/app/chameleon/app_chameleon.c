@@ -32,6 +32,7 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     chameleon_view_set_user_data(p_app_handle->p_chameleon_view, p_app_handle);
     mui_msg_box_set_user_data(p_app_handle->p_msg_box, p_app_handle);
     mui_toast_view_set_user_data(p_app_handle->p_toast_view, p_app_handle);
+    mui_text_input_set_user_data(p_app_handle->p_text_input, p_app_handle);
 
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, CHAMELEON_VIEW_ID_MAIN,
                                  chameleon_view_get_view(p_app_handle->p_chameleon_view));

@@ -46,7 +46,7 @@ void chameleon_scene_menu_card_type_on_enter(void *user_data) {
         mui_list_view_add_item(app->p_list_view, ICON_FILE, tag_name->long_name, (void *)CHAMELEON_MENU_CARD_TYPE);
     }
 
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
 
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_type_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);

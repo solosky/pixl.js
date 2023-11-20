@@ -1,6 +1,8 @@
 CODE,en_US,zh_Hans,zh_TW,es_CO
 _L_ON,ON,开,開,ENC
 _L_OFF,OFF,关,關,APA
+_L_ON_F,[ON],[开],[開],[ENC]
+_L_OFF_F,[OFF],[关],[關],[APA]
 _L_BACK,Back,返回,返回,Atrás
 _L_ERR,Error,错误,錯誤,Error
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código Error
@@ -117,12 +119,38 @@ _L_APP_AMIIDB_FAV_NEW_HEAD,New Fav. Folder:,新建收藏夹:,新建收藏夾:,Nu
 _L_APP_AMIIDB_FAV_EMPTY_MSG,Empty Fav. Folder?,确认清空收藏夹?,確認清空收藏夾?,Vaciar Carp. Favoritos?
 _L_APP_AMIIDB_FAV_DELETE_MSG,Confirm Delete?,确认删除?,確認刪除?,¿Confirma Borrado?
 _L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收藏夾..,Selec. Carp. Favoritos...
-_L_APP_AMIIDB_FAV_SUCCESS,Favorite Successfully!,收藏成功,收藏成功,¡Favorito Correcto!
+_L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito Correcto!
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito Faillido!
-_L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Successfully,保存成功,保存成功,Asignación Correcta
+_L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación Correcta
 _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación Fallida!
 _L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,
 _L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒绝,
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,
 _L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,缓存,
+_L_APP_CHAMELEON_CARD_SLOT,Slot,卡槽,卡槽,
+_L_APP_CHAMELEON_CARD_NICK,Nick,卡名,卡名,
+_L_APP_CHAMELEON_CARD_ID,ID,ID,ID,
+_L_APP_CHAMELEON_CARD_TYPE,Type ..,卡类型,卡类型,
+_L_APP_CHAMELEON_CARD_DATA,Data ..,卡数据..,卡数据..,
+_L_APP_CHAMELEON_CARD_ADVANCED,Advanced..,卡高级设置..,卡高级设置..,
+_L_APP_CHAMELEON_CARD_SLOT_SETTINGS,Slots Settings..,卡槽管理..,卡槽管理..,
+_L_APP_CHAMELEON_CARD_SLOT_NUM,Slot Num..,卡槽数量..,卡槽数量..,
+_L_APP_CHAMELEON_CARD_SET_NICK_SUCCESS,Set Nick Success,设置卡名成功,设置卡名成功,
+_L_APP_CHAMELEON_CARD_SET_NICK_FAILED,Set Nick Failed!,设置卡名失败,设置卡名失败,
+_L_APP_CHAMELEON_CARD_INPUT_NICK,Input Nick:,输入卡名:,输入卡名:,
+_L_APP_CHAMELEON_CARD_DATA_LOAD,Load..,加载..,加载..,
+_L_APP_CHAMELEON_CARD_DATA_SAVE,Save..,导出..,导出..,
+_L_APP_CHAMELEON_CARD_DATA_FACTORY,Factory..,重置..,重置..,
+_L_APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS,Data Factory Success,卡片初始化成功,卡片初始化成功,
+_L_APP_CHAMELEON_CARD_DATA_LOAD_NOT_FOUND,File Not Found,文件不存在,文件不存在,
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SIZE_NOT_MATCH,File Size Not Match,文件大小不匹配,文件大小不匹配,
+_L_APP_CHAMELEON_CARD_DATA_LOAD_FAILED,Load File Failed,读取文件失败,读取文件失败,
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS,Load File Success,加载卡片数据成功,加载卡片数据成功,
+_L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名,输入文件名,
+_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,写入文件失败,
+_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,导出卡片数据成功,
+_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定义模式,
+_L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,
+_L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,
+_L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,写入模式,

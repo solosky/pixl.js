@@ -34,7 +34,7 @@ void chameleon_scene_menu_card_data_on_event(mui_list_view_event_t event, mui_li
         uint8_t slot = tag_emulation_get_slot();
         tag_emulation_factory_data(slot, tag_helper_get_active_tag_type());
         tag_emulation_save();
-        mui_toast_view_show(app->p_toast_view, "卡片初始化成功");
+        mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS));
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } break;
     case CHAMELEON_MENU_LOAD_DATA: {
@@ -50,10 +50,10 @@ void chameleon_scene_menu_card_data_on_event(mui_list_view_event_t event, mui_li
 void chameleon_scene_menu_card_data_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, ICON_VIEW, "加载..", (void *)CHAMELEON_MENU_LOAD_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, "导出到..", (void *)CHAMELEON_MENU_SAVE_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_DATA, "重置", (void *)CHAMELEON_MENU_FACTORY);
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
+    mui_list_view_add_item(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_DATA_LOAD), (void *)CHAMELEON_MENU_LOAD_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, _T(APP_CHAMELEON_CARD_DATA_SAVE), (void *)CHAMELEON_MENU_SAVE_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_DATA_FACTORY), (void *)CHAMELEON_MENU_FACTORY);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
 
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_data_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);

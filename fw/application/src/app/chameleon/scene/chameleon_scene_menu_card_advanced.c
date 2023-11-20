@@ -82,8 +82,8 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
     const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
 
     if (tag_group == TAG_GROUP_MIFLARE) {
-        mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, "自定义模式",
-                                   (nfc_tag_mf1_is_use_mf1_coll_res() ? "[关]" : "[开]"), CHAMELEON_MENU_CUSTOM);
+        mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_ADV_CUSTOM_MODE),
+                                   (nfc_tag_mf1_is_use_mf1_coll_res() ? _T(OFF_F) : _T(ON_F)), CHAMELEON_MENU_CUSTOM);
     }
 
     strcpy(buff, "[");
@@ -98,13 +98,14 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
     mui_list_view_add_item_ext(app->p_list_view, ICON_FILE, "ATQA", buff, CHAMELEON_MENU_ATQA);
 
     if (tag_group == TAG_GROUP_MIFLARE) {
-        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "Gen1A模式",
-                                   (nfc_tag_mf1_is_gen1a_magic_mode() ? "[开]" : "[关]"), CHAMELEON_MENU_GEN1A);
-        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "Gen2模式",
-                                   (nfc_tag_mf1_is_gen2_magic_mode() ? "[开]" : "[关]"), CHAMELEON_MENU_GEN2);
+        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_GEN1A_MODE),
+                                   (nfc_tag_mf1_is_gen1a_magic_mode() ? _T(ON_F) : _T(OFF_F)), CHAMELEON_MENU_GEN1A);
+        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_GEN2_MODE),
+                                   (nfc_tag_mf1_is_gen2_magic_mode() ? _T(ON_F) : _T(OFF_F)), CHAMELEON_MENU_GEN2);
 
         sprintf(buff, "[%s]", tag_helper_get_mf_write_mode_name(nfc_tag_mf1_get_write_mode()));
-        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, "写入模式", buff, CHAMELEON_MENU_WRITE_MODE);
+        mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_WRITE_MODE), buff,
+                                   CHAMELEON_MENU_WRITE_MODE);
     }
 
     mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);

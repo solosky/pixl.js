@@ -109,15 +109,30 @@ void tag_helper_get_nickname(char *buff, size_t buff_len) {
     uint8_t slot = tag_emulation_get_slot();
     vfs_meta_t meta = {0};
     memset(buff, 0, buff_len);
-    if (fds_read_meta(FDS_SLOT_TAG_DUMP_FILE_ID_BASE + slot, TAG_SENSE_HF, &meta)) {
-        if (meta.has_notes) {
-            strncpy(buff, meta.notes, buff_len);
-        }
+    int32_t err = fds_read_meta(FDS_SLOT_TAG_DUMP_FILE_ID_BASE + slot, TAG_SENSE_HF, &meta);
+
+    if (err == 0 && meta.has_notes) {
+        strncpy(buff, meta.notes, buff_len);
     }
 
     if (strlen(buff) == 0) {
-        sprintf(buff, "卡槽 %02d", slot + 1);
+        sprintf(buff, "%s %02d", _T(APP_CHAMELEON_CARD_SLOT), slot + 1);
     }
+}
+
+int32_t tag_helper_set_nickname(const char *nickname) {
+    uint8_t slot = tag_emulation_get_slot();
+    vfs_meta_t meta = {0};
+
+    int32_t err = fds_read_meta(FDS_SLOT_TAG_DUMP_FILE_ID_BASE + slot, TAG_SENSE_HF, &meta);
+    if (err != 0) {
+        return err;
+    }
+    meta.has_notes = 1;
+    strcpy(meta.notes, nickname);
+    return fds_write_meta(FDS_SLOT_TAG_DUMP_FILE_ID_BASE + slot, TAG_SENSE_HF, &meta);
+
+    return -1;
 }
 
 size_t tag_helper_get_active_tag_data_size() {

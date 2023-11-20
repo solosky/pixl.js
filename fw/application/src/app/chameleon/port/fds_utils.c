@@ -48,15 +48,25 @@ bool fds_is_exists(uint16_t id, uint16_t key) {
 
 bool fds_config_file_exists() { return fds_is_exists(FDS_EMULATION_CONFIG_FILE_ID, FDS_EMULATION_CONFIG_RECORD_KEY); }
 
-bool fds_read_meta(uint16_t id, uint16_t key, vfs_meta_t *meta) {
+int32_t fds_read_meta(uint16_t id, uint16_t key, vfs_meta_t *meta) {
     char path[VFS_MAX_PATH_LEN];
     vfs_obj_t obj;
     fds_map_file_name(id, key, path);
     int32_t ret = vfs_get_default_driver()->stat_file(path, &obj);
     if (ret == VFS_OK) {
         vfs_meta_decode(obj.meta, sizeof(obj.meta), meta);
-        return true;
+        return 0;
     } else {
-        return false;
+        return -1;
     }
+}
+
+int32_t fds_write_meta(uint16_t id, uint16_t key, vfs_meta_t *meta) {
+    char path[VFS_MAX_PATH_LEN];
+    uint8_t meta_buf[VFS_MAX_META_LEN];
+    vfs_obj_t obj;
+    fds_map_file_name(id, key, path);
+
+    vfs_meta_encode(meta_buf, sizeof(meta_buf), meta);
+    return vfs_get_default_driver()->update_file_meta(path, meta_buf, sizeof(meta_buf));
 }
