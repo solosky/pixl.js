@@ -9,7 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
-RELEASE ?= 0
+RELEASE ?= 1
 BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \

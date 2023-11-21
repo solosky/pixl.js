@@ -2,7 +2,7 @@
 
 cat application/src/i18n/*.c application/src/amiidb/*.c  |grep -Po '".*?"' | tr -d '[:print:]' |sort|uniq > data/pixjs.txt
 echo '32-128,' > data/gb2312a.map
-cat data/gb2312a.txt data/pixjs.txt  | iconv -f utf-8 -t c99 | sed 's/\\u\([0-9a-f]\{4\}\)/\$\1,\n/g' | sort | uniq | sed '/^$/d' | tr '/a-f/' '/A-F/' >> data/gb2312a.map
+cat data/chinese3.txt data/pixjs.txt  | iconv -f utf-8 -t c99 | sed 's/\\u\([0-9a-f]\{4\}\)/\$\1,\n/g' | sort | uniq | sed '/^$/d' | tr '/a-f/' '/A-F/' >> data/gb2312a.map
 scripts/bdfconv -b 0 -f 1 -M data/gb2312a.map -n u8g2_font_wqy12_t_gb2312a -o application/src/mui/u8g2_font_wqy12_t_gb2312a_t.c data/wenquanyi_9pt_u8g2.bdf
 echo '''
 #include "mui_u8g2.h"
