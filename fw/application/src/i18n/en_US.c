@@ -132,7 +132,7 @@ const char * lang_en_US[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_SLOT] = "Slot",
     [_L_APP_CHAMELEON_CARD_NICK] = "Nick",
     [_L_APP_CHAMELEON_CARD_ID] = "ID",
-    [_L_APP_CHAMELEON_CARD_TYPE] = "Type ..",
+    [_L_APP_CHAMELEON_CARD_TYPE] = "Type",
     [_L_APP_CHAMELEON_CARD_DATA] = "Data ..",
     [_L_APP_CHAMELEON_CARD_ADVANCED] = "Advanced..",
     [_L_APP_CHAMELEON_CARD_SLOT_SETTINGS] = "Slots Settings..",
@@ -155,4 +155,5 @@ const char * lang_en_US[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_GEN1A_MODE] = "Gen1A Enabled",
     [_L_APP_CHAMELEON_CARD_GEN2_MODE] = "Gen2 Enabled",
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "Write Mode",
+    [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Invalid Input!",
 };

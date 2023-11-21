@@ -59,5 +59,4 @@ void chameleon_scene_menu_card_data_file_save_on_enter(void *user_data) {
 
 void chameleon_scene_menu_card_data_file_save_on_exit(void *user_data) {
     app_chameleon_t *app = user_data;
-    mui_list_view_clear_items(app->p_list_view);
 }

@@ -38,15 +38,24 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
     }
 
     case CHAMELEON_MENU_UID: {
-        // TODO
+        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+            app->id_edit_type = APP_CHAMELEON_ID_EDIT_TYPE_UID;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_EDIT);
+        }
     } break;
 
     case CHAMELEON_MENU_SAK: {
-        // TODO
+        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+            app->id_edit_type = APP_CHAMELEON_ID_EDIT_TYPE_SAK;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_EDIT);
+        }
     } break;
 
     case CHAMELEON_MENU_ATQA: {
-        // TODO
+        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+            app->id_edit_type = APP_CHAMELEON_ID_EDIT_TYPE_ATQA;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_EDIT);
+        }
     } break;
 
     case CHAMELEON_MENU_GEN1A: {

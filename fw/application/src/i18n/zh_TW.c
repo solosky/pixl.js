@@ -155,4 +155,5 @@ const char * lang_zh_TW[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_GEN1A_MODE] = "Gen1A模式",
     [_L_APP_CHAMELEON_CARD_GEN2_MODE] = "Gen2模式",
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "写入模式",
+    [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "无效的输入!",
 };
