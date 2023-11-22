@@ -1,4 +1,4 @@
-#Bluetooth parameters
+# Bluetooth parameters
 
 Currently, NRF52 SDK is used to provide Nordic UART Service, which provides a BLE virtual serial port to communicate with the host.
 
@@ -17,7 +17,7 @@ Two features are provided:
 
 (The official version of the above descriptors may be modified.)
 
-#Protocol format
+# Protocol format
 
 ## Protocol definition
 

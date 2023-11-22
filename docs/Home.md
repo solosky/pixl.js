@@ -1,20 +1,20 @@
 
-# **Welcome to the pixl.j project wiki!**
+# **Welcome to the pixl.js project documentation !**
 
 The pixl.jx project is a forked version of the original [Pixl.js](http://www.espruino.com/Pixl.js). This fork have Its main focus to simulate Amiibo.
 
 This fork is divided in two main sections, Hardware and Firmware
 
 
-## **[Hardware](01-Hardware)**
+## **[Hardware](01-Hardware.md)**
 [![Example](https://github.com/solosky/pixl.js/raw/main/assets/pixljs-3.jpg "Example")](https://github.com/solosky/pixl.js/raw/main/assets/pixljs-3.jpg "Example")
-- ### [PCB](01-Hardware#PCB)
-- ### [BOM](01-Hardware#BOM)
-- ### [Pictures](01-Hardware#Pictures)
-- ### [Demo](01-Hardware#Demo)
-- ### [Shell](01-Hardware#Shell)
-- ### [OLED version](01-Hardware#OLED-version) 
-- ### [Alternative Boards](01-Hardware#alternative-boards)
+- ### [PCB](01-Hardware.md#PCB)
+- ### [BOM](01-Hardware.md#BOM)
+- ### [Pictures](01-Hardware.md#Pictures)
+- ### [Demo](01-Hardware.md#Demo)
+- ### [Shell](01-Hardware.md#Shell)
+- ### [OLED version](01-Hardware.md#OLED-version) 
+- ### [Alternative Boards](01-Hardware.md#alternative-boards)
 
 ## **Firmware**
 In order to use some features of the firmware you must to provide the «key_retail.bin» file, should be uploaded to the root directory of the device storage before it can be used.  You need to provide a legally adquired one, you can use a tool to extract it from your console (3DS or Switch).
@@ -25,19 +25,19 @@ In order to use some features of the firmware you must to provide the «key_reta
 - ### A guide to [Flash the Firmware](02-Flash-Firmware "Flash the Firmware")
 - ### To help on the internationalization of the Firmware you can follow the [Guide](https://github.com/solosky/pixl.js/blob/develop/fw/docs/translation.md).
 - ### [Building the firmware](03-Build-Firmware)
-- ### [Using the firmware](04-Using-Firmware)
-    - #### [Concepts](04-Using-Firmware/#Firmware-Concepts)
-    - #### [Amiibo Emulator App](04-Using-Firmware/#Amiibo-Emulator)
-    - #### [Amiibo Database App](04-Using-Firmware/#Amiibo-Database)
-    - #### [AmiiboLink Emulator APP](04-Using-Firmware/#AmiiboLink)
-    - #### [BLE File Transfer APP](04-Using-Firmware/#BLE-File-Transfer)
-    - #### [Settings APP](04-Using-Firmware/#Settings-1)
+- ### [Using the firmware](04-Using-Firmware.md)
+    - #### [Concepts](04-Using-Firmware.md/#Firmware-Concepts)
+    - #### [Amiibo Emulator App](04-Using-Firmware.md/#Amiibo-Emulator)
+    - #### [Amiibo Database App](04-Using-Firmware.md/#Amiibo-Database)
+    - #### [AmiiboLink Emulator APP](04-Using-Firmware.md/#AmiiboLink)
+    - #### [BLE File Transfer APP](04-Using-Firmware.md/#BLE-File-Transfer)
+    - #### [Settings APP](04-Using-Firmware.md/#Settings-1)
 
 ## Techinical Documentation
-- ### [Bluetooth BLE File Transfer protocol](05+1-ble_protocol)
-- ### [AmiiboLink BLE Protocol](05+2-amiibolink_ble)
-- ### [Amiibo Database Doc.](05+3-amiidb)
-- ### [video player](05+4-video_player) (Retired on Firmware 2.5.2 due to flash size restrictions.
+- ### [Bluetooth BLE File Transfer protocol](05+1-ble_protocol.md)
+- ### [AmiiboLink BLE Protocol](05+2-amiibolink_ble.md)
+- ### [Amiibo Database Doc.](05+3-amiidb.md)
+- ### [video player](05+4-video_player.md) (Retired on Firmware 2.5.2 due to flash size restrictions.
 
 ## Credits
 
