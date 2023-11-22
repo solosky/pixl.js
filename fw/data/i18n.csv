@@ -37,13 +37,13 @@ _L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of
 _L_KNOW,Got it,知道了,知道了,Entendido
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Amiibo Aleatorio
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Aleat. Auto.
-_L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar código QR
+_L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar Amiibo
-_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,
+_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿Borrar %s?
 _L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,Volver Detll. Amiibo
 _L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,Volver Lista Archivos
 _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,Volver Menú Principal
-_L_FORMAT,Format,格式化,格式化,Formato
+_L_FORMAT,Format,格式化,格式化,Formatear...
 _L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear Almacenamiento
 _L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。确认格式化?,將刪除所有資料。\n確認格式化?,Ésto borrará todos los\ndatos. ¿Confirmas formateo?
 _L_CONFIRM,Confirm,确定,確定,Confirmar
@@ -60,14 +60,14 @@ _L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名�
 _L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre Amiibo:
 _L_DELETE,Delete,删除,刪除,Borrar
 _L_INPUT_NEW_NAME,Input New Name:,输入新名:,輸入新名稱:,Nuevo Nombre:
-_L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,
-_L_CREATE_NEW_FOLDER,Create New Folder..,新建文件夹..,新建資料夾..,Crear Nueva Carpeta...
-_L_CREATE_NEW_TAG,Create New Tag..,新建标签..,新建標籤..,Crer Nuevo Amiibo...
-_L_CREATE_NEW_TAG_BATCH,Batch Create New Tag..,批量创建标签..,批量創建標簽..,Crer Nuevo Amiibo en lote..
-_L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,
-_L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,
-_L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,
-_L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,
+_L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,Entrada Inválida
+_L_CREATE_NEW_FOLDER,Create New Folder..,新建文件夹..,新建資料夾..,Crear Carpeta...
+_L_CREATE_NEW_TAG,Create New Tag..,新建标签..,新建標籤..,Crear Amiibo...
+_L_CREATE_NEW_TAG_BATCH,Batch Create New Tag..,批量创建标签..,批量創建標簽..,Crear lote Amiibo...
+_L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,¿Cuántos?
+_L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,Sólo se puede crear %d en lote
+_L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,Creando
+_L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,¡Error al crear %s!
 _L_RENAME,Rename,重命名,重新命名,Renombrar
 _L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta
 _L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗,Fallo al renombrar\nCódigo de Error
@@ -123,7 +123,7 @@ _L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito 
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito Faillido!
 _L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación Correcta
 _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación Fallida!
-_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,
+_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,Emulador de tarjetas
 _L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒绝,
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,
@@ -154,4 +154,4 @@ _L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定义模�
 _L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,
 _L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,
 _L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,写入模式,
-_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,无效的输入!,
+_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,无效的输入!,Emulador de tarjetas

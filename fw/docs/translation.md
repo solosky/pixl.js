@@ -5,9 +5,10 @@
 1. Edit fw/data/i18n.csv with your favorite text editor. For vscode, extension "Edit csv" is recommended.
 2. Run `fw/scripts/i18n_gen.py` to generate new language files.
 3. Optional: Run `fw/scripts/font_data_gen.sh` to generate new font data if you add new charaters in i18n.csv
+4. Run `make full` rebuild firmware
 
 note: <br />
-The script "font_data_gen.sh" only can be run in Git Bash windows in Windows. please cd fw and run "scripts/font_data_gen.sh". 
+The script `font_data_gen.sh` only can be run in Git Bash windows in Windows.
 
 ## How to add new language translation
 
@@ -16,7 +17,7 @@ The script "font_data_gen.sh" only can be run in Git Bash windows in Windows. pl
 3. Optional: Run `fw/scripts/font_data_gen.sh` to generate new font data if you add new charaters in i18n.csv
 4. Edit `fw/application/src/i18n/language.h` and `fw/application/src/i18n/language.c` to adopt new language
 5. Edit Makefile to include `$(PROJ_DIR)/i18n/ja_JP.c` as C source files
-6. Run `make -j8` rebuild firmware
+6. Run `make full` rebuild firmware
 
 ## Font notes 
 
