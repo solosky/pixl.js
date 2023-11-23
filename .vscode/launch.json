@@ -8,7 +8,7 @@
     {
       "name": "Pixl.js JLink Debug",
       "cwd": "${workspaceRoot}",
-      "executable": "_build/pixljs.out",
+      "executable": "fw/_build/pixljs.out",
       "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
       "request": "launch",
       "type": "cortex-debug",
@@ -21,7 +21,7 @@
     {
       "name": "Pixl.js Pyocd Debug",
       "cwd": "${workspaceRoot}",
-      "executable": "../_build/pixljs.out",
+      "executable": "fw/_build/pixljs.out",
       "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
       "request": "launch",
       "type": "cortex-debug",
@@ -34,7 +34,7 @@
     {
       "name": "Pixl.js Openocd Debug",
       "cwd": "${workspaceRoot}",
-      "executable": "../_build/pixljs.out",
+      "executable": "fw/_build/pixljs.out",
       "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
       "request": "launch",
       "type": "cortex-debug",
@@ -44,7 +44,7 @@
       "ipAddress": null,
       "serialNumber": null,
       "configFiles": [
-        "${workspaceRoot}/openocd/debug.cfg"
+        "${workspaceRoot}/fw/application/openocd/debug.cfg"
       ]
     }
   ]
