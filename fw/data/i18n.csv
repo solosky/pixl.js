@@ -21,8 +21,8 @@ _L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Br
 _L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animación Menú
 _L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO
 _L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Mem. Usada
-_L_APP_SET_HIBERNATE,Fast Resume,快速唤醒,快速喚醒,Encend. Rápido
-_L_APP_SET_SLEEP_TIMEOUT,Sleep Timer,休眠时间,休眠時間,Dormir en
+_L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Encend. Rápido
+_L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar Firmware
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar
@@ -124,39 +124,39 @@ _L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito 
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito Faillido!
 _L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación Correcta
 _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación Fallida!
-_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,Emulador de tarjetas
+_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模擬器,Emulador de tarjetas
 _L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,Normal
-_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒绝,Negar
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒絕,Negar
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,Ignorar
-_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,缓存,Caché
-_L_APP_CHAMELEON_INITIALIZING,Initializing data ..,"初始化, 请稍后..","初始化, 请稍后..",
+_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,緩存,Caché
+_L_APP_CHAMELEON_INITIALIZING,Initializing data ..,"初始化, 请稍后..","初始化, 請稍後..","Inicializando, por favor espera..."
 _L_APP_CHAMELEON_CARD_SLOT,Slot,卡槽,卡槽,Ranura
 _L_APP_CHAMELEON_CARD_NICK,Nick,卡名,卡名,Apodo
 _L_APP_CHAMELEON_CARD_ID,ID,ID,ID,ID
-_L_APP_CHAMELEON_CARD_TYPE,Type,卡类型,卡类型,Tipo
-_L_APP_CHAMELEON_CARD_DATA,Data..,卡数据..,卡数据..,Datos..
-_L_APP_CHAMELEON_CARD_ADVANCED,Advanced..,卡高级设置..,卡高级设置..,Avanzado..
+_L_APP_CHAMELEON_CARD_TYPE,Type,卡类型,卡類型,Tipo
+_L_APP_CHAMELEON_CARD_DATA,Data..,卡数据..,卡數據..,Datos..
+_L_APP_CHAMELEON_CARD_ADVANCED,Advanced..,卡高级设置..,卡高級設置..,Avanzado..
 _L_APP_CHAMELEON_CARD_SLOT_SETTINGS,Slots Settings..,卡槽管理..,卡槽管理..,Configuración..
-_L_APP_CHAMELEON_CARD_SLOT_NUM,Slot Num..,卡槽数量..,卡槽数量..,Cant. Ranuras..
-_L_APP_CHAMELEON_CARD_SET_NICK_SUCCESS,Set Nick Success,设置卡名成功,设置卡名成功,Apodo correcto.
-_L_APP_CHAMELEON_CARD_SET_NICK_FAILED,Set Nick Failed!,设置卡名失败,设置卡名失败,¡Apodo fallido!
-_L_APP_CHAMELEON_CARD_INPUT_NICK,Input Nick:,输入卡名:,输入卡名:,Apodo:
-_L_APP_CHAMELEON_CARD_DATA_LOAD,Load..,加载..,加载..,Cargar..
-_L_APP_CHAMELEON_CARD_DATA_SAVE,Save..,导出..,导出..,Guardar..
+_L_APP_CHAMELEON_CARD_SLOT_NUM,Slot Num..,卡槽数量..,卡槽數量..,Cant. Ranuras..
+_L_APP_CHAMELEON_CARD_SET_NICK_SUCCESS,Set Nick Success,设置卡名成功,設置卡名成功,Apodo correcto.
+_L_APP_CHAMELEON_CARD_SET_NICK_FAILED,Set Nick Failed!,设置卡名失败,設置卡名失敗,¡Apodo fallido!
+_L_APP_CHAMELEON_CARD_INPUT_NICK,Input Nick:,输入卡名:,輸入卡名:,Apodo:
+_L_APP_CHAMELEON_CARD_DATA_LOAD,Load..,加载..,加載..,Cargar..
+_L_APP_CHAMELEON_CARD_DATA_SAVE,Save..,导出..,導出..,Guardar..
 _L_APP_CHAMELEON_CARD_DATA_FACTORY,Factory..,重置..,重置..,Fábrica..
 _L_APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS,Data Factory Success,卡片初始化成功,卡片初始化成功,Conf. Fabrica Correcta!
 _L_APP_CHAMELEON_CARD_DATA_LOAD_NOT_FOUND,File Not Found,文件不存在,文件不存在,Archivo no encontrado
 _L_APP_CHAMELEON_CARD_DATA_LOAD_SIZE_NOT_MATCH,File Size Not Match,文件大小不匹配,文件大小不匹配,Tamaño Archivo Incorrecto
-_L_APP_CHAMELEON_CARD_DATA_LOAD_FAILED,Load File Failed,读取文件失败,读取文件失败,Falla Carga Archivo
-_L_APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS,Load File Success,加载卡片数据成功,加载卡片数据成功,Carga Archivo Correcta
-_L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名,输入文件名,Nombre Archivo:
-_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,写入文件失败,¡Error al Guardar!
-_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,导出卡片数据成功,Guardado Correcto
-_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定义模式,Modo Personalizado
+_L_APP_CHAMELEON_CARD_DATA_LOAD_FAILED,Load File Failed,读取文件失败,讀取文件失敗,Falla Carga Archivo
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS,Load File Success,加载卡片数据成功,加載卡片數據成功,Carga Archivo Correcta
+_L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名,輸入文件名,Nombre Archivo:
+_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,寫入文件失敗,¡Error al Guardar!
+_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,導出卡片數據成功,Guardado Correcto
+_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定義模式,Modo Personalizado
 _L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A Habilitada
-_L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,
-_L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,
+_L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,Generar UID
+_L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,UID generado
 _L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 Habilitada
-_L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,写入模式,Modo Escritura
-_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,无效的输入!,¡Entrada Inválida!
-_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡类型已修改\n重置卡数据?,
+_L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,寫入模式,Modo Escritura
+_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,無效的輸入!,¡Entrada Inválida!
+_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡類型已修改\n重置卡數據?,Tipo de tarjeta modificado\nRestablecer datos de la tarjeta?
