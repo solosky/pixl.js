@@ -63,15 +63,17 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     }
     mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), buff);
 
-    
-    nfc_tag_mf1_write_mode_t write_mode = nfc_tag_mf1_get_write_mode();
-    uint16_t icon_glyph = ICON_SAVE;
-    if (write_mode == NFC_TAG_MF1_WRITE_DENIED) {
-        icon_glyph = ICON_DENY;
+    if (tag_group == TAG_GROUP_MIFLARE) {
+        nfc_tag_mf1_write_mode_t write_mode = nfc_tag_mf1_get_write_mode();
+        uint16_t icon_glyph = ICON_SAVE;
+        if (write_mode == NFC_TAG_MF1_WRITE_DENIED) {
+            icon_glyph = ICON_DENY;
+        }
+        mui_canvas_set_font(p_canvas, MUI_FONT_ICON);
+        mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas),
+                              icon_glyph);
     }
-    
-    mui_canvas_set_font(p_canvas, MUI_FONT_ICON);
-    mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 10, mui_canvas_get_height(p_canvas), icon_glyph);
+
     mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 }
 

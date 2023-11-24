@@ -258,6 +258,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
   $(PROJ_DIR)/app/chameleon/app_chameleon.c \
   $(PROJ_DIR)/app/chameleon/view/chameleon_view.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_factory.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_main.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced.c \

@@ -41,7 +41,7 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, CHAMELEON_VIEW_ID_MSG_BOX,
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, CHAMELEON_VIEW_ID_TEXT_INPUT,
-                                  mui_text_input_get_view(p_app_handle->p_text_input));
+                                 mui_text_input_get_view(p_app_handle->p_text_input));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
@@ -63,13 +63,10 @@ void app_chameleon_on_run(mini_app_inst_t *p_app_inst) {
     tag_emulation_init();
 
     if (!fds_config_file_exists()) {
-        vfs_get_default_driver()->create_dir("/chameleon");
-        vfs_get_default_driver()->create_dir("/chameleon/slots");
-        vfs_get_default_driver()->create_dir("/chameleon/dump");
-        tag_emulation_factory_init();
+        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, CHAMELEON_SCENE_FACTORY);
+    } else {
+        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, CHAMELEON_SCENE_MAIN);
     }
-
-    mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, CHAMELEON_SCENE_MAIN);
 }
 
 void app_chameleon_on_kill(mini_app_inst_t *p_app_inst) {

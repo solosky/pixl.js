@@ -130,6 +130,7 @@ const char * lang_es_CO[_L_COUNT] = {
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Negar",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE] = "Ignorar",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW] = "Caché",
+    [_L_APP_CHAMELEON_INITIALIZING] = "",
     [_L_APP_CHAMELEON_CARD_SLOT] = "Ranura",
     [_L_APP_CHAMELEON_CARD_NICK] = "Apodo",
     [_L_APP_CHAMELEON_CARD_ID] = "ID",
