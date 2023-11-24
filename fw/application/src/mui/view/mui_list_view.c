@@ -1,6 +1,6 @@
 #include "mui_list_view.h"
-#include "settings.h"
 #include "nrf_log.h"
+#include "settings.h"
 
 #define LIST_ITEM_HEIGHT 13
 
@@ -15,6 +15,7 @@ static void mui_list_view_start_text_anim(mui_list_view_t *p_view) {
     if (mui_list_view_anim_enabled()) {
         mui_list_item_t *p_item = mui_list_item_array_get(p_view->items, p_view->focus_index);
         uint32_t focus_text_width = mui_list_view_get_utf8_width(string_get_cstr(p_item->text));
+        focus_text_width += mui_list_view_get_utf8_width(string_get_cstr(p_item->sub_text));
         if (focus_text_width > p_view->canvas_width - 13) {
             p_view->text_offset = 0;
             int32_t overflowed_width = focus_text_width - p_view->canvas_width + 20;
@@ -70,15 +71,21 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             clip_win_cur.y = y;
             clip_win_cur.h = LIST_ITEM_HEIGHT, clip_win_cur.w = mui_canvas_get_width(p_canvas);
             mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
-            mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset, y + 10, string_get_cstr(item->text));
-            mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
 
+            uint32_t focus_text_width =
+                mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset, y + 10, string_get_cstr(item->text));
             // sub text
             if (string_size(item->sub_text) > 0) {
                 uint8_t w = mui_canvas_get_utf8_width(p_canvas, string_get_cstr(item->sub_text));
-                mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - w - 5, y + 10,
-                                     string_get_cstr(item->sub_text));
+                if (focus_text_width + w > p_mui_list_view->canvas_width - 13) {
+                    mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset + focus_text_width, y + 10, string_get_cstr(item->sub_text));
+                } else {
+                    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - w - 5, y + 10,
+                                         string_get_cstr(item->sub_text));
+                }
             }
+
+            mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
         }
 
         mui_list_item_array_next(it);
