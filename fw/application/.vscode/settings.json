@@ -97,7 +97,12 @@
     "mui_anim.h": "c",
     "mui_common.h": "c",
     "stdbool.h": "c",
-    "app_timer.h": "c"
+    "app_timer.h": "c",
+    "language.h": "c",
+    "tag_helper.h": "c",
+    "fds_utils.h": "c",
+    "boards_defines.h": "c",
+    "app_chameleon.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
   "cortex-debug.openocdPath.windows": "openocd",

@@ -21,15 +21,6 @@ settings_data_t m_settings_data = {.backlight = 0,
                                    .amiidb_data_slot_num = 20,
                                    .qrcode_enabled = true};
 
-static vfs_driver_t *get_enabled_vfs_driver() {
-    if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
-        return vfs_get_driver(VFS_DRIVE_EXT);
-    } else if (vfs_drive_enabled(VFS_DRIVE_INT)) {
-        return vfs_get_driver(VFS_DRIVE_INT);
-    }
-
-    return NULL;
-}
 
 #define BOOL_VALIDATE(expr, default_val) if((expr) != 0 && (expr) !=1) { (expr) = (default_val);}
 #define INT8_VALIDATE(expr, min, max, default_val) if((expr) < (min) || (expr) > (max)) { (expr) = (default_val);}
@@ -61,7 +52,7 @@ static void validate_settings() {
 }
 
 int32_t settings_init() {
-    vfs_driver_t *p_driver = get_enabled_vfs_driver();
+    vfs_driver_t *p_driver = vfs_get_default_driver();
     if (p_driver == NULL) {
         return NRF_ERROR_NOT_SUPPORTED;
     }
@@ -86,7 +77,7 @@ int32_t settings_init() {
 }
 
 int32_t settings_save() {
-    vfs_driver_t *p_driver = get_enabled_vfs_driver();
+    vfs_driver_t *p_driver = vfs_get_default_driver();
     int32_t err;
 
     if (p_driver == NULL) {

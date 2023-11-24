@@ -6,3 +6,4 @@ ADD_SCENE(settings, lcd_backlight, LCD_BACKLIGHT)
     ADD_SCENE(settings, oled_contrast, OLED_CONTRAST)
 #endif
 ADD_SCENE(settings, language, LANGUAGE)
+ADD_SCENE(settings, storage, STORAGE)

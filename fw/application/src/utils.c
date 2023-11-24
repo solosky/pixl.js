@@ -5,7 +5,7 @@
  *      Author: solos
  */
 
-#include "utils.h"
+#include "utils2.h"
 #include "nrf_bootloader_info.h"
 #include "nrf_sdh.h"
 #include "nrf_soc.h"
