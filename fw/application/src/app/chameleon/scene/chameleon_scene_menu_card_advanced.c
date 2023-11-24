@@ -21,6 +21,7 @@ typedef enum {
     CHAMELEON_MENU_ATQA,
     CHAMELEON_MENU_GEN1A,
     CHAMELEON_MENU_GEN2,
+    CHAMELEON_MENU_GEN_UID,
     CHAMELEON_MENU_WRITE_MODE,
     CHAMELEON_MENU_BACK,
 } chameleon_menu_item_t;
@@ -56,6 +57,15 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
             app->id_edit_type = APP_CHAMELEON_ID_EDIT_TYPE_ATQA;
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_EDIT);
         }
+    } break;
+
+    case CHAMELEON_MENU_GEN_UID: {
+
+        tag_helper_generate_uid();
+        mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS));
+
+        chameleon_scene_menu_card_advanced_reload(app);
+
     } break;
 
     case CHAMELEON_MENU_GEN1A: {
@@ -115,6 +125,9 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
         sprintf(buff, "[%s]", tag_helper_get_mf_write_mode_name(nfc_tag_mf1_get_write_mode()));
         mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_WRITE_MODE), buff,
                                    CHAMELEON_MENU_WRITE_MODE);
+    } else if (tag_group == TAG_GROUP_NTAG) {
+        mui_list_view_add_item(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_GENERATE_UID),
+                               CHAMELEON_MENU_GEN_UID);
     }
 
     mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);

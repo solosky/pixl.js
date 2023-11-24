@@ -3,6 +3,7 @@
 #include "fds_utils.h"
 #include "i18n/language.h"
 #include "nrf_log.h"
+#include "utils2.h"
 #include <string.h>
 
 const static tag_specific_type_name_t tag_type_names[] = {
@@ -151,5 +152,36 @@ uint8_t *tag_helper_get_active_tag_memory_data() {
     } else {
         nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
         return &m_tag_information->memory;
+    }
+}
+
+void tag_helper_generate_uid() {
+    tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
+    tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
+    tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
+    if (tag_group_type == TAG_GROUP_NTAG) {
+        nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        uint8_t uuid[7];
+        ret_code_t err_code = utils_rand_bytes(uuid, sizeof(uuid));
+        if (err_code == NRF_SUCCESS) {
+            uuid[0] = 04; // fixed
+            m_tag_information->memory[0][0] = uuid[0]; 
+            m_tag_information->memory[0][1] = uuid[1];
+            m_tag_information->memory[0][2] = uuid[2];
+            // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
+            m_tag_information->memory[0][3] = m_tag_information->memory[0][0] ^ m_tag_information->memory[0][1] ^
+                                              m_tag_information->memory[0][2] ^ 0x88;
+
+            m_tag_information->memory[1][0] = uuid[3];
+            m_tag_information->memory[1][1] = uuid[4];
+            m_tag_information->memory[1][2] = uuid[5];
+            m_tag_information->memory[1][3] = uuid[6];
+
+            // BCC 1 is always equal to UID3 ⊕ UID 4 ⊕ UID 5 ⊕ UID6
+            m_tag_information->memory[2][0] = m_tag_information->memory[1][0] ^ m_tag_information->memory[1][1] ^
+                                              m_tag_information->memory[1][2] ^ m_tag_information->memory[1][3];
+
+            memcpy(m_tag_information->res_coll.uid, uuid, sizeof(uuid));
+        }
     }
 }

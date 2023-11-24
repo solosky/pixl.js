@@ -42,16 +42,13 @@ void chameleon_scene_menu_card_slot_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
     char buff[32];
-    char buff2[32];
     sprintf(buff, "[%0d]", TAG_MAX_SLOT_NUM);
-
     mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_SLOT_NUM), buff,
                                (void *)CHAMELEON_MENU_BACK_EXIT);
 
     for (uint32_t i = 0; i < TAG_MAX_SLOT_NUM; i++) {
-        sprintf(buff, "[%s]", tag_emulation_slot_is_enabled(i, TAG_SENSE_HF) ? _T(ON) : _T(OFF));
         sprintf(buff, "%s %02d", _T(APP_CHAMELEON_CARD_SLOT), i + 1);
-        mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, buff2, buff, (void *)CHAMELEON_MENU_BACK_EXIT);
+        mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, buff, tag_emulation_slot_is_enabled(i, TAG_SENSE_HF) ? _T(ON_F) : _T(OFF_F), (void *)CHAMELEON_MENU_BACK_EXIT);
     }
     mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), (void *)CHAMELEON_MENU_BACK_MAIN);
 

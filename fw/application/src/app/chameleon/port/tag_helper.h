@@ -37,5 +37,7 @@ int32_t tag_helper_set_nickname(const char *nickname);
 size_t tag_helper_get_active_tag_data_size();
 uint8_t *tag_helper_get_active_tag_memory_data();
 
+void tag_helper_generate_uid();
+
 
 #endif

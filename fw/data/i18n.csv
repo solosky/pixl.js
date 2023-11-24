@@ -46,6 +46,7 @@ _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,Volver Me
 _L_FORMAT,Format,格式化,格式化,Formatear..
 _L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear Almacenamiento
 _L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。确认格式化?,將刪除所有資料。\n確認格式化?,Ésto borrará todos los\ndatos. ¿Confirmas formateo?
+_L_MESSAGE,Message,提示,提示,
 _L_CONFIRM,Confirm,确定,確定,Confirmar
 _L_CANCEL,Cancel,取消,取消,Cancelar
 _L_BACK_TO_LIST,Back List,返回列表,返回清單,Voler a Lista
@@ -152,6 +153,9 @@ _L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,写�
 _L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,导出卡片数据成功,Guardado Correcto
 _L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定义模式,Modo Personalizado
 _L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A Habilitada
+_L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,
+_L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,
 _L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 Habilitada
 _L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,写入模式,Modo Escritura
 _L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,无效的输入!,¡Entrada Inválida!
+_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡类型已修改\n重置卡数据?,
