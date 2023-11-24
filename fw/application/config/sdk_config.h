@@ -6242,7 +6242,7 @@
  
 
 #ifndef TIMER4_ENABLED
-#define TIMER4_ENABLED 1
+#define TIMER4_ENABLED 0
 #endif
 
 // </e>
