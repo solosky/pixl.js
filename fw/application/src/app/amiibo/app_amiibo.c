@@ -54,7 +54,7 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, amiibo_scene_defines, AMIIBO_SCENE_MAX);
-    mui_mui_scene_dispatcher_set_default_scene_id(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
+    mui_mui_scene_dispatcher_set_default_scene_id(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
 
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, AMIIBO_VIEW_ID_LIST,
                                  mui_list_view_get_view(p_app_handle->p_list_view));
@@ -94,21 +94,15 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
                 }
             } else if (p_cache_data->current_scene_id == AMIIBO_SCENE_FILE_BROWSER) {
                 mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-            } else {
-                mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
             }
             return;
         }
     }
 
-    if (p_settings->skip_driver_select) {
-        p_app_handle->current_drive = vfs_get_default_drive();
-        string_set_str(p_app_handle->current_folder, "/");
-        app_amiibo_try_mount_drive(p_app_handle);
-        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
-    } else {
-        mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_STORAGE_LIST);
-    }
+    p_app_handle->current_drive = vfs_get_default_drive();
+    string_set_str(p_app_handle->current_folder, "/");
+    app_amiibo_try_mount_drive(p_app_handle);
+    mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
 }
 
 void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {

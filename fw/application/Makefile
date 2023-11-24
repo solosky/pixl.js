@@ -278,8 +278,6 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser.c \
@@ -292,6 +290,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_lcd_backlight.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_language.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_storage.c \
   $(PROJ_DIR)/i18n/en_US.c \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \

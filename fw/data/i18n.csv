@@ -13,7 +13,8 @@ _L_APP_BLE_TITLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE
 _L_APP_PLAYER,Video Player,动画播放器,動畫播放器,Reproductor Vídeo
 _L_APP_SET,Settings,系统设置,系統設定,Configuraciones
 _L_APP_SET_VERSION,Version,版本,版本,Versión
-_L_APP_SET_SKIP_DRIVER_SELECT,Auto Storage,自动选择存储,自動選擇儲存,Almacén Aut.
+_L_APP_SET_STORAGE_USED,Used,已用,已用,Usado
+_L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,Almacenamiento externo
 _L_APP_SET_OLED_CONTRAST,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED
 _L_APP_SET_OLED_CONTRAST_TITLE,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED
 _L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo
@@ -33,7 +34,7 @@ _L_1MIN,1 Minute,1分钟,1分鐘,1 Minuto
 _L_2MIN,2 Minutes,2分钟,2分鐘,2 Minutos
 _L_3MIN,3 Minutes,3分钟,3分鐘,3 Minutos
 _L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin Llave Amiibo
-_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin 到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.
+_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.
 _L_KNOW,Got it,知道了,知道了,Entendido
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Amiibo Aleatorio
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Aleat. Auto.
@@ -45,12 +46,13 @@ _L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,Vol
 _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,Volver Menú Principal
 _L_FORMAT,Format,格式化,格式化,Formatear..
 _L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear Almacenamiento
-_L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。确认格式化?,將刪除所有資料。\n確認格式化?,Ésto borrará todos los\ndatos. ¿Confirmas formateo?
+_L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。\n确认格式化?,將刪除所有資料。\n確認格式化?,Ésto borrará todos los\ndatos. ¿Confirmas formateo?
+_L_DELETING_MESSAGE,Formatting ..,格式化中..,格式化中..,
 _L_MESSAGE,Message,提示,提示,
 _L_CONFIRM,Confirm,确定,確定,Confirmar
 _L_CANCEL,Cancel,取消,取消,Cancelar
 _L_BACK_TO_LIST,Back List,返回列表,返回清單,Voler a Lista
-_L_NOT_MOUNTED,=====Not Mounted=====,=====未挂载=====,=====未掛載=====,=====No Montado=====
+_L_NOT_MOUNTED,Not Mounted,未挂载,未掛載,No Montado
 _L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[LFS]Montado===
 _L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===
 _L_TOTAL_SPACE,Total Space,总空间,總空間,Espacio Total
