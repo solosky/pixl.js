@@ -27,6 +27,7 @@
 
 * 特别感谢 @Caleeeeeeeeeeeee 完善的Bootloader。
 * 特别感谢 @白橙 制作的外壳。 
+* 特别感谢 @impeeza 提供的文档翻译 。
 
 ## 讨论群
 
