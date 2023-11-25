@@ -36,7 +36,7 @@ Amiibo的数据可以被导出到一个文件，该文件以.BIN扩展名存储�
 ## 多功能按钮
 这是设备顶部的微型开关，是一个具有三个按钮的设备，一个“**中键**“和两个“**侧边**”按钮。将微型开关推向两侧会按下“侧边”按钮。按下微型开关时，会按下“中间”按钮。
 
-在本文档中，按下多功能按钮的两侧被称为“**左键**”和”**右键**“，按下多功能按钮被称为“**中键**”；在菜单中导航项目时，使用侧面按钮，要选择一个项目，请按下”中间“按钮。
+在本文档中，按下多功能按钮的两侧被称为“**左键**”和”**右键**“，按下多功能按钮被称为“**中键**”；在菜单中导航项目时，使用侧面按钮，要选择一个项目，请按下”中间“按钮。长按”**中键**“超过1秒钟可以进入上下文菜单。
 
 # 使用固件
 
@@ -48,6 +48,7 @@ Pixl.js固件的主屏幕分为几个应用程序，每个应用程序都可以�
 |  Amiibo模拟器|
 |  Amiibo数据库|
 | ֍ AmiiboLink|
+|  卡模拟器 |
 | ᛡᛒ 文件传输 |
 |  Settings |
 |   |
@@ -61,272 +62,276 @@ Pixl.js固件的主屏幕分为几个应用程序，每个应用程序都可以�
 
 一旦选择了一个 .BIN 文件，其数据就会被用作当前的Amiibo，屏幕显示当前Amiibo的详细信息，如Amiibo当前UUID、文件名和Amiibo名称。
 
-## Amiibo details screen
-You can use side buttons to change the current amiibo with the next or previous one on the current folder.  Pressing the middle button you can change the behavior of the current amiibo, on the sub menu:
+## Amiibo详情
+
+您可以使用侧面按钮在当前文件夹中切换到下一个或上一个Amiibo。按下中间按钮，您可以更改当前Amiibo的行为，在子菜单中：
 
 |   |
 | ------------ |
-| Rand. Tag<BR>Auto Rand.<BR>Delete Tag<BR>Back to Tag Details<BR>Back to File List<BR>Back to Main Menu<BR>Rand. Tag |
+| 随机生成 |
+| 自动随机生成 [开] |
+| 删除标签 | 
+| 返回详情 |
+| 返回文件列表 |
+| 返回主菜单 |
 |   |
 
-### Randomize Tag.
-Changes the current UUID presented to game to current amiibo. The new UUID stays in place until you change the current amiibo or select this option again.
-### Auto Rand. (Automatic Random)
-Turning ON this feature, will generate a new random UUID for the current amiibo each time a game read it.  Allowing to use the same amiibo multiple times on games with restrictions.
-### Delete Tag
-Delete the file associated to current amiibo.
-### Back to Tag Details
-Returns to the details of the current amiibo.
-### Back to File List
-Returns to the file list of current folder.
-### Back to Main Menu
-Exit the amiibo emulator application.
+* 随机生成：更改呈现给游戏的当前Amiibo的UID。新的UID会保持不变，直到您更改当前Amiibo或再次选择此选项。
+* 自动随机生成：打开此功能将为当前Amiibo生成一个新的随机UID，每次游戏读取它时都会生成一个新的UID。这允许在具有限制的游戏中多次使用同一Amiibo。
+* 删除标签：删除当前显示的标签
+* 返回详情：返回当前详情页
+* 返回文件列表：返回文件列表
+* 返回主菜单：退出应用返回主菜单
 
-_If you enable UUID random generation, manually or automatic the original UUID of the .BIN file is used the next time that file is loaded._
+_如果启用UID的随机生成（无论是手动还是自动），则在下一次加载该文件时将使用该文件的原始UID。_
 
-## File explorer.
-If you have **highlighted a folder or a file** and you press and hold the middle button for 1 second a properties sub menu is open:
+## 文件浏览器
 
-|   |
-| ------------ |
-| Create New Folder…<BR>Create New Tag…<BR>Rename…<BR>Delete...<BR>Back to File List<BR>Back to Main Menu |
-|   |
-
-### Create New Folder…
-Dialog to create a new sub folder on current one.
-### Create New Tag…
-Creates a blank amiibo .BIN file on the current folder.  That .BIN file is now a simil of a New Ntag215, ready to be programmed, you can assign that .BIN file as current amiibo and using a NFC programmer you can write the amiibo data, by example you can use iNFC or Tagmo for phones, Thenaya for the 3DS.  If the programmed amiibo is on the database the .BIN file is even renamed to the name of the amiibo.
-### Rename…
-Dialog to rename highlighted .BIN file or folder
-### Delete…
-Remove highlighted object, asking for confirmation.  If is a folder, all subfolders and files are deleted too.
-### Back to File List
-Returns to the file list of current folder.
-### Back to Main Menu
-Exit the amiibo emulator application.
-
-If you have **highlighted a storage** the properties sub menu is different:
+如果选择了一个文件，长按中键可以进入文件菜单。
 
 |   |
 | ------------ |
-| Storage Status<BR>Total Space<BR>Free Space<BR>Format…<BR>Back List<BR>Back to Main Menu |
-|   |
+| 新建文件夹..|
+| 新建标签.. |
+| 批量创建标签.. |
+| 重命名.. |
+| 删除.. |
+| 返回文件列表|
+| 返回主菜单 |
 
-### Storage Status
-Shows the current status and type of the storage, by example:
-```
-=====Not Mounted=====
-===Mounted[LFS]===
-===Mounted[FFS]===
-```
+### 新建文件夹
+显示一个对话框输入文件夹名字在当前文件夹创建一个子文件夹。
+### 新建标签..
+在当前文件夹中创建一个空的Amiibo BIN文件。该.BIN文件现在类似于一个新的Ntag215，准备好被编程，您可以将该.BIN文件分配为当前Amiibo，并使用NFC编程器写入Amiibo数据，例如您可以使用手机上的iNFC或Tagmo，或者在3DS上使用Thenaya。如果编程的Amiibo在数据库中，.BIN文件甚至会被重命名为Amiibo的名称。
+### 批量创建标签
+在当前文件夹批量创建空的Amiibo BIN文件，点击之后会提示输入创建数量，创建amiibo的文件名为newXX.bin, XX为序号。
+### 重命名
+重命名选中的文件夹或者文件名。
+### 删除
+删除选中文件或者文件夹。如果是文件夹，则所有子文件夹和文件都会被删除。
+### 返回文件列表
+返回文件列表。
+### 返回主菜单
+退出应用返回主菜单。
 
-### Total Space
-Shows total space of the mounted storage on KB.
-### Free Space
-Shows the actual free space of the mounted storage on KB.
-### Format…
-Ask confirmation for formatting the current storage, WARNING ALL DATA WILL BE LOST!
-### Back to File List
-Returns to the file list of current folder.
-### Back to Main Menu
-Exit the amiibo emulator application.
+> 从2.9.0开始，存储管理移入了设置菜单中。
 
 ----
-# Amiibo Database
-This application allows the emulation of amiibo from the list of well know ones, using legally available information like the model info, then when you select one, a new virtual amiibo is created on memory using a random UUID.  In order to use this application you must to provide your «key_retail.bin» file.
+# Amiibo数据库
 
-_Each time one an amiibo is used the initial UUID is random generated._
+TODO
 
-Once you open the application the main menu have the options
-
-|   |
-| ------------ |
-| Browser…<BR>Search…<BR>My Favorites…<BR>My Amiibo…<BR>Settings… |
-|   |
-
-## Browser… 
-Let you browse the database, first by category, then all amiibo on that category.
-After you select an amiibo, the details are shown, the first line contains the actual UUID and second line the amiibo name.
-
-On the amiibo details page you can use the side buttons to navigate through all the amiibo on the category, if you press the middle button you can change the behavior of the current amiibo, with the sub menu:
-
-|   |
-| ------------ |
-| Rand. Tag<BR>Auto Rand.<BR>Favorite…<BR>Save As…<BR>[Back to Details]<BR>[Back to List]<BR>[Exit] |
-|   |
-
-### Rand. Tag
-Randomize Tag, changes the current UUID presented to game to current amiibo. The new UUID stays in place until you change the current amiibo or select this option again.
-### Auto Rand.
-Automatic Random, Turning ON this feature, will generate a new random UUID for the current amiibo each time a game reads it.  Allowing to use the same amiibo multiple times on games with restrictions.
-### Favorite…
-Open a new submenu to manage Favorite folders.  You have the options:
-
-```
-New…
-Folder1
-Folder2
-[Back]
-```
-
-**New…** allows you to create a new Favorites folder, **Back** go back to current amiibo details, if you select an existing folder, that amiibo definition will be added to selected folder.
-
-### Save As…
-Allows you to assign the current amiibo to one of the «My Amiibo» slots.
-### [Back to Details]
-Returns to the details of the current amiibo.
-### [Back to List]
-Returns to the amiibo list of current category.
-### [Exit]
-Exit the Amiibo Database application.
-
-
-## Search…
-Allows to search the database using partial name, the search result is like a category, you can select any amiibo on it and set it like another one.
-
-## My Favorites…
-Display the existent favorites folders, you can browse them with side buttons and select one with middle button.  If you press and Hold the middle button a sub menu is open:
-
-|   |
-| ------------ |
-| New…<BR>Empty…<BR>Delete…<BR>[Back] |
-|   |
-
-### New…
-Allows you to create a new favorites folder.
-### Empty…
-After confirmation, removes all amiibo associated to the selected folder.
-### Delete…
-After confirmation, removes the favorite folder.
-### [Back]
-Returns to Folder list.
-
-Once you select a folder a list of the associated amiibo to that favorite folder is shown, you can browse using side buttons and select an amiibo with middle button, the selected amiibo becomes the current one, and behave like an amiibo of the browser.
-
-## My Amiibo…
-List the configured slots, you can browse the slots using side buttons, select one with middle button and the amiibo associated to that slot becomes the current one.
-
-If you press and hold middle button a sub menu with the option of reset the slot is shown allowing to empty the slot.
-
-## Settings…
-The settings menu show you the Keys status and number of slot set up.
-
-|   |
-| ------------ |
-| Keys []<BR>Slot Num. []<BR>[Back] |
-|   |
-
-### Keys []
-Show the status of the «key_retail.bin» file, can be «Loaded» or «NOT Loaded»
-### Slot Num. []
-Allows to select how many slots are available to «My Amiibo» section, values from 10 to 50 on tenths increments.
-### [Back]
-Exit the Amiibo Database and returns to Main Menu.
 
 ----
 # AmiiboLink
-This application emulates an AmiiboLink (AmiLoop or omllbolink) device.
 
-These devices are generic espruino boards sell on different forms, normally are Keychains drop shaped, but also there are some Puck or Sheika Slate shaped.
+TODO
 
-Almost all have a button and some LEDs as indicators and runs from CR2032 cell batteries or lipo cells.
+----
+# 蓝牙传输
 
-All of them are controlled from phone applications via Bluetooth, also you can upload one or several .BIN amiibo files using the phone to the device.
 
-Starting this application the details for current amiibo are shown.  If you are on sequential mode you can use the side buttons to walk through all the uploaded amiibo, in all modes, you can press the middle button to open the AmiiboLink APP config sub menu, the menu have this items:
+这个应用程序允许您连接iNFC或pixl.js网页，以管理设备存储上的文件或更新固件。
+
+官方网页是 [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/ "https://pixl.amiibo.xyz/.").
+
+iNFC APP 是一个第三方应用程序。
+
+进入此模式后，设备的蓝牙MAC地址和官方URL会显示在屏幕上。
+
+也可以按左键或者右键展示二维码，用手机扫码即可快速打开网页。不过很遗憾，大部分手机都不支持通过浏览器连接蓝牙设备。
+
+----
+
+# 卡模拟器
+
+这个应用可以用来模拟Mifare卡片和NTAG系列卡片。
+
+Mifare卡片常见用于门禁卡，设备可以支持完整模拟Mifare类型的卡片。支持Mifare卡片类型有：
+
+* Mifare Mini
+* Mifare 1K
+* Mifare 2K
+* Mifare 4K
+
+NTAG系列卡片常用于设备识别。支持的NTAG卡片类型有：
+
+* NTAG 213
+* NTAG 215
+* NTAG 216
+
+目前总共支持存储8张卡片，后续开放自定义卡片数量。
+
+> **注意**：<br/> 
+NTAG系列的模拟功能还是测试中，功能还不太完善，未完全模拟NTAG125的特性。 <br />
+>后续会持续完善这一部分的功能。
+
+只有在此界面才开启模拟功能，如果离开这个界面就会关闭模拟。
+
+在磁盘格式化后或者第一次进入卡模拟器会初始化数据，这个过程可能需要几秒钟，请稍微等待下。
+
+## 模拟卡界面
+
+模拟页面的界面如下：
 
 |   |
 | ------------ |
-| Mode []<BR>Auto Random. []<BR>Compati. Mode []<BR>Tag Details<BR>[Main Menu] |
+| [01] de:ad:be:ef|
+|  |
+| <    卡槽 01      >|
+|  |
+| MF 1K <08/04 00>  |
 |   |
 
-## Mode []
-Shows the actual operation mode, when selected you can choose the mode of amiibo working, the available modes are:
-- ### Randomize (Manual)
-On the actual AmiiboLink device the current amiibo changes the UUID when you press the device button
-- ### Randomize (Auto)
-A new random UUID for the current amiibo is generated after each time a game read it.  Allowing to use the same amiibo multiple times on games with restrictions. You cannot change the active amiibo on this mode.
-- ### Sequential mode
-On this mode you can change the actual amiibo using the side buttons, rolling through all amiibo uploaded with the phone app. All uploaded .BIN files are stored on the 01.bin to 26.bin files at the /amiibolink/ folder.
-- ### Read-write mode
-The device use a "special" amiibo slot where only an amiibo can be used, the amiibo can be replaced by another .BIN file from the phone app. On the local storage this amiibo is saved with at the /amiibolink/99.bin file.
+界面说明如下：
+* 第一行：`01` 是卡片序号，`de:ad:be:ef`是卡号。
+* 第二行：`卡槽 01`是当前卡的名字，可以自由设置
+* 第三行：`MF 1K` 显示了卡类型，类型简写见下表，`08`是卡的SAK，`04 00`是卡的ATQA 最后一个符号是写入模式，如果是存储类型标记，则允许写入，否则不允许写入
 
-Changing the mode preserve the current selected amiibo, with exception of «Read-write mode».
+| 显示 | 类型 | 数据文件大小 |
+| ---- | --- | --- |
+| MF mini | Mifare Mini | 320 |
+| MF 1k | Mifare 1K | 1024 |
+| MF 2k | Mifare 2K | 2048 |
+| MF 4k | Mifare 4K | 4096 |
+| N213 | NTAG 213 | 180 |
+| N215 | NTAG 215 | 540 |
+| N216 | NTAG 216 | 924 |
 
-## Auto Random. []
-When this option is turn ON a new random UUID for the current amiibo is generated after each time a game read it.  Allowing to use the same amiibo multiple times on games with restrictions. You cannot change the active amiibo on this mode.  Cannot be turned OFF for «Randomize (Auto)» mode, cannot be turned ON for «Randomize (Manual)»mode; 
-## Compati. Mode []
-Shows the emulation firmware mode, the supported values are V1, V2 and AmiLoop, there are several APPs each one designed for a AmiiboLink firmware version or to the AmiLoop protocol.  Using this setting you can match the emulation with the protocol needed by the APP you use on your phone.
-## Tag Details
-Return to amiibo details page
-## [Main Menu]
-Exit the AmiiboLink Emulator application.
+# 主菜单
 
-## AmiiboLink Compatible Applications
-So far the only two AmiiboLink/AmiLoop mode manager phone Apps are translated to English, they are "Umiibo" and "AmiLoop" this applications are compatible only with the AmiLoop Mode.
+按中键可以进入主菜单。如下：
+|   |
+| ------------ |
+|  卡槽  [01]|
+|  卡名 [卡槽 01]|
+|  ID [de:ad:be:ef]|
+|  卡类型 [MiFare 1K] |
+|  卡数据.. |
+|  卡高级设置.. |
+|  卡槽管理.. |
+|  [标签详情] |
+|  [主菜单] |
+|   |
 
-Other oddity is what the modes on applications do not correspond with the modes set up on the device.
+* 卡槽: 显示了当前显示的卡槽，可以按中键选择卡槽
+* 卡名：卡当前的名字，按中键可以进入设置卡名界面
+* ID：显示了当前卡ID
+* 卡类型：显示了当前卡类型
+* 卡数据：按中键可以进行卡数据管理
+* 卡高级设置：按中键可以进入卡高级设置
+* 卡槽管理：按中键进入卡槽管理界面，可以开启关闭卡槽
+* [标签详情]：返回标签详情页面
+* [主菜单]：退出此应用，进入主菜单
 
-| Umiibo APP | Pixl.js Emulation Mode |
-| ------------ |------------ |
-| Manual Mode | Random automatic |
-| File Mode | Sequential |
-| Auto Mode | Read/Write |
+> **特别注意**：<br/>
+> 部分的修改需要在退出到标签详情才会保存到存储，如果修改了部分配置，请务必进入到标签详情页面保存下。
 
-| AmiiLoop APP | Pixl.js Emulation Mode |
-| ------------ |------------ |
-| Manual Mode | Random automatic |
-| File Mode | Sequential |
-| Auto Mode | Read/Write |
+## 卡名修改
 
-----
-# BLE File Transfer
-This application allows you to connect the iNFC or the pixl.js web page, to manage files on the device storage or update the firmware.
+在此界面可以修改卡的名字。
 
-The official web page is [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/ "https://pixl.amiibo.xyz/.").
+由于显示区域有限，只能输入英文字符。
 
-The **iNFC APP** is a third party APP
+特别的，如果是中文字符，由于utf8编码的原因，删除请至少按2次才能完全删除。
 
-Entering this mode the Bluetooth MAC address of device and official URL are shown at the screen.
+如果想给卡片写中文备注，可以通过网页修改 `/chameleon/slots/00.bin`的备注来实现中文备注。<br />
+00.bin为第一个卡槽文件，01.bin为第二个卡槽文件以此类推。
 
-----
-# Settings
-This application allows to configure the device working settings, the application have the next items on the menu:
+> 由于固件大小限制，目前仅有1000个左右的中文字符可以正常显示，如果输入中文没有显示，请提issue写上需要显示的字符，下一个版本可以加上特定的字符。
+
+## 卡数据
+
+在此界面可以执行卡片数据的导入导出。
+|   |
+| ------------ |
+|  加载.. |
+|  导出.. |
+|  重置.. |
+|   |
+
+导入导出的文件都存在了 `/chameleon/dump/` 文件夹下。<br />
+如需要导入数据，则需要提前通过网页把需要导入的数据文件写入到上面的文件夹。
+
+* 加载：按中键可以进入加载界面，界面会读取`/chameleon/dump/`下面所有文件，按中键可以执行导入。
+* 导出：按中键可以将当前的卡片导出到`/chameleon/dump/`文件夹下。
+* 重置：按中键可以重置当前卡片数据为默认内置的空卡片数据。
+
+> 加载的文件大小必须和当前卡类型完全一致才能导入。不同卡片的数据文件大小参考`模拟卡界面`表格。
+
+
+## 卡高级设置
+
+这个界面根据MiFare系列卡片和NTAG系列卡片显示不同的内容。
+
+> **特别注意**：<br/>
+> 这个界面是卡片模拟的高级设置，不建议普通用户修改，如要修改，请修改前请确定了解你在做什么再修改！<br/>
+> 如果修改此部分导致卡片模拟失败，请先还原默认设置再试试。
+
+### MiFare系列
+|   |
+| ------------ |
+|  自定义模式 [关] |
+|  ID [de:ad:be:ef]|
+|  SAK [08] |
+|  ATQA: [00 40]|
+|  Gen1A模式 [关] |
+|  Gen2模式 [关] |
+|  写入模式 [正常] |
+|  [返回] |
+|   |
+
+* 自定义模式：默认为关。关：ID卡识别阶段的ID/SAK/ATQA从卡片数据的0扇区读取，开：可以在下面ID/SAK/ATQA菜单设置独立的资源。
+* ID: 显示当前卡ID。如果自定义模式为开，按中键可以进入输入界面修改。自定义模式为关，按中键不生效。
+* SAK: 显示当前卡SAK。如果自定义模式为开，按中键可以进入输入界面修改。自定义模式为关，按中键不生效。
+* ATQA：显示当前卡ATQA。如果自定义模式为开，按中键可以进入输入界面修改。自定义模式为关，按中键不生效。
+* Gen1A模式：默认为关。开启后，允许模拟器响应国产高级后门指令。这些后门指令可以直接解锁卡，而无需密钥。
+* Gen2模式：默认为关。开启后，允许写入0扇区。 (0扇区主要存放了ID/SAK/ATQA这些信息，允许写入则可以修改卡片的ID)
+* 写入模式：默认为正常。可以有4个值，见下表。
+
+|  写入模式 | 说明 |
+| ----- | --- |
+| 正常 | 数据正常写入到内存，切换卡或者退出保存 |
+| 拒绝 | 写入任何操作返回失败 |
+| 忽略 | 写入操作返回成功，但是不写入内存也不保存 |
+| 缓存 | 数据正常写入内存，切换卡或者退出不保存 |
+
+> Gen1A模式和Gen2模式建议在复制卡时候打开，复制完卡后关闭，避免被读卡器识别为克隆卡。
+
+### NTAG系列
+|   |
+| ------------ |
+|  ID [04:68:95:71:fa:5c:64]|
+|  SAK [00] |
+|  ATQA: [00 44] |
+|  生成UID |
+|  [返回] |
+|   |
+
+* ID: 显示当前卡ID。不可编辑。
+* SAK: 显示当前卡SAK。不可编辑。
+* ATQA：显示当前卡ATQA。不可编辑。
+* 生成UID：按中键可以随机生成一个新的ID，注意需要返回模拟界面才能模拟和保存新的卡片ID。
+
+## 卡槽管理 
+
+这个界面显示所有卡槽的启用状态，可以单独开启和关闭卡槽。
 
 |   |
 | ------------ |
-| Version []<BR>Language []<BR>Auto Storage []<BR>Backlight / OLED Contrast []<BR>Menu Animation []<BR>LiPO Battery []<BR>Memory Used []<BR>Fast Resume []<BR>Sleep Timer []<BR>Firmware Update<BR>System Reboot |
+|  卡槽数量.. [8]|
+|  卡槽 01   [开] |
+|  卡槽 02   [开] |
+|  .. |
+|  [返回] |
 |   |
 
-## Version
-This submenu shows the version details of the firmware.
-- Version
-- Build date
-- Githash
-- Branch
-- Target
-- Dirty
-## Language
-You can change the language displayed on the device
-## Auto Storage
-Turning ON this setting the local storage(s) of the device are hidden on the root of the Amiibo Emulator application, if this setting is OFF the «External Flash» object is shown at the root of the Amiibo Emulator application.
-## Backlight / OLED Contrast
-With this setting you can control the brightness of the LCD screen or the contrast of the OLED screen.
-## Menu Animation
-Enable / disable the animation of items larger than screen allowing to read them completely, enabling this option increase the battery consumption.
-## LiPO Battery
-Enable the use of a LiPO battery.  It requires an hardware mod. If you build a LiPO version of Pixl.js device, you can enable this option. For CR2032 version, this option will not work and should not be enabled.
+* 卡槽数量: 显示当前卡槽数量，默认为8，暂不支持修改数量，后续固件开放。
+* 卡槽 xx: 显示卡槽开启关闭状态，按中键可以切换开启和关闭状态。
 
-If you enable LiPO option, the device will use LiPO voltage level to display the battery level, and also can display a charge label when the battery is in charge mode.
-## Memory Used
-Shows the % used storage memory at the bottom of the screen
-## Fast Resume
-Enables hibernation of device, allowing a quicker response of the reading of the current amiibo by a game, and resume to the application open at the moment of sleep, when disabled the resume after sleep takes 1 second more and the device restore to the Main Menu.
-## Sleep Timer
-Set the time when the device go to sleep after the last user input or amiibo read.
-## Firmware Update
-This option put the device in the DFU mode, allowing OTA firmware update, you can update the firmware using the iNFC or the web page.
 
-You can go to the URL [https://thegecko.github.io/web-bluetooth-dfu/](https://thegecko.github.io/web-bluetooth-dfu/) to upload the firmware, this page also can be open through the official site [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/)
-## System Reboot
-Allows you to reboot the device and get back to the state after you remove and put the battery.
+
+
+# 设置
+
+TODO

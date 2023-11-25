@@ -78,7 +78,7 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
         if (idx == FOLDER_LIST_PARENT) {
             if (string_cmp_str(app->current_folder, "/") == 0) {
-                amiibo_scene_file_browser_reload_folders(app);
+                mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
             } else {
                 struct cwk_segment segment;
                 const char *folder_cstr = string_get_cstr(app->current_folder);
@@ -99,9 +99,6 @@ static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, m
             } else if (p_item->icon == ICON_HOME) {
                 mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_AMIIBO);
             } else {
-                // TODO AMIIBO test ..
-
-                // read tag
                 app->reload_amiibo_files = true;
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_AMIIBO_DETAIL);
             }

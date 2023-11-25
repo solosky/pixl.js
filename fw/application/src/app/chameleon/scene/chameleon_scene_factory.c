@@ -6,6 +6,9 @@
 
 #include "nrf_log.h"
 
+#include "vfs.h"
+#include "vfs_meta.h"
+
 void chameleon_scene_factory_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
@@ -17,9 +20,20 @@ void chameleon_scene_factory_on_enter(void *user_data) {
 
     mui_update_now(mui());
 
-    vfs_get_default_driver()->create_dir("/chameleon");
-    vfs_get_default_driver()->create_dir("/chameleon/slots");
-    vfs_get_default_driver()->create_dir("/chameleon/dump");
+    vfs_driver_t *p_driver = vfs_get_default_driver();
+
+    p_driver->create_dir("/chameleon");
+    p_driver->create_dir("/chameleon/slots");
+    p_driver->create_dir("/chameleon/dump");
+
+    vfs_meta_t meta = {0};
+    uint8_t buff[VFS_META_MAX_SIZE];
+    meta.has_flags = true;
+    meta.flags = VFS_OBJ_FLAG_HIDDEN;
+    vfs_meta_encode(buff,sizeof(buff), &meta);
+    p_driver->update_file_meta("/chameleon", buff, sizeof(buff));
+
+
     tag_emulation_factory_init();
 
     tag_emulation_change_slot(0, false);
