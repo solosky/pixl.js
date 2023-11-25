@@ -4,7 +4,7 @@
 #include "mui_event.h"
 #include "nrf_log.h"
 
-#include "utils.h"
+#include "utils2.h"
 
 static void mui_input_post_event(mui_input_event_t *p_input_event) {
     uint32_t arg = p_input_event->type;
@@ -58,7 +58,7 @@ void mui_input_on_bsp_btn_event(uint8_t btn, bsp_btn_event_t evt) {
         NRF_LOG_DEBUG("Key %d stick push", btn);
         if (btn == INPUT_KEY_CENTER) {
             NRF_LOG_DEBUG("reset system by stick push");
-            reboot_system();
+            system_reboot();
         }
         break;
     }

@@ -69,6 +69,12 @@
 
 // APP 
 //#define APP_PLAYER_ENABLED 
+// APP
+#define APP_LEGLAMIIBO_ENABLE
+// #define APP_PLAYER_ENABLE
+#if defined(INTERNAL_ENABLE)
+#undef APP_LEGLAMIIBO_ENABLE
+#endif
 
 
 #endif

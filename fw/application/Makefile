@@ -10,7 +10,7 @@ CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
 RELEASE ?= 0
-BOARD ?= OLED
+BOARD ?= QMIIBO
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/ble_app_blinky_gcc_nrf52833.ld

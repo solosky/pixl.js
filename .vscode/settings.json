@@ -20,6 +20,7 @@
         "vector": "c",
         "string_view": "c",
         "initializer_list": "c",
-        "ranges": "c"
+        "ranges": "c",
+        "hal_nfc_t2t.h": "c"
     }
 }

@@ -946,10 +946,12 @@ static inline void hal_nfc_re_setup(void) {
     NRF_LOG_INFO("Reinitialize");
 }
 
+
+#endif // HAL_NFC_ENGINEERING_BC_FTPAN_WORKAROUND
+
 void hal_nfc_set_nrfx_irq_enable(uint8_t nrfx_irq_enabled){
     m_nrfx_irq_enabled = nrfx_irq_enabled;
 }
 
-#endif // HAL_NFC_ENGINEERING_BC_FTPAN_WORKAROUND
 
 #endif // NFC_T2T_HAL_ENABLED

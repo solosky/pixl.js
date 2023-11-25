@@ -96,7 +96,7 @@
 #include "settings.h"
 #include "i18n/language.h"
 
-#include "usbd.h"
+//#include "usbd.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
