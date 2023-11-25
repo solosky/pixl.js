@@ -1,4 +1,4 @@
-# Firmware Concepts
+# 概念
 ## Amiibo
 
 Amiibo是任天堂销售的游戏周边，通常呈现为一个游戏角色的手办，但也包括卡片、手腕带等其他形式。
