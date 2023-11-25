@@ -28,6 +28,7 @@ typedef struct {
 
 int32_t settings_init();
 int32_t settings_save();
+int32_t settings_reset();
 settings_data_t *settings_get_data();
 
 #endif

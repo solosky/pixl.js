@@ -27,6 +27,7 @@ _L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar Firmware
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar
+_L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,
 _L_15S,15 Seconds,15秒,15秒,15 Segundos
 _L_30S,30 Seconds,30秒,30秒,30 Segundos
 _L_45S,45 Seconds,45秒,45秒,45 Segundos
@@ -55,8 +56,8 @@ _L_BACK_TO_LIST,Back List,返回列表,返回清單,Voler a Lista
 _L_NOT_MOUNTED,Not Mounted,未挂载,未掛載,No Montado
 _L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[LFS]Montado===
 _L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===
-_L_TOTAL_SPACE,Total Space,总空间,總空間,Espacio Total
-_L_AVAILABLE_SPACE,Free Space,可用空间,可用空間,Espacio Libre
+_L_TOTAL_SPACE,Total,总空间,總空間,Espacio Total
+_L_AVAILABLE_SPACE,Free,可用空间,可用空間,Espacio Libre
 _L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\nAmiibo Válido
 _L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo
 _L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre Carpeta:

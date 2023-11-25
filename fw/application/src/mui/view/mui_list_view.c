@@ -15,7 +15,9 @@ static void mui_list_view_start_text_anim(mui_list_view_t *p_view) {
     if (mui_list_view_anim_enabled()) {
         mui_list_item_t *p_item = mui_list_item_array_get(p_view->items, p_view->focus_index);
         uint32_t focus_text_width = mui_list_view_get_utf8_width(string_get_cstr(p_item->text));
+         NRF_LOG_INFO("%d", focus_text_width);
         focus_text_width += mui_list_view_get_utf8_width(string_get_cstr(p_item->sub_text));
+        NRF_LOG_INFO("%d", focus_text_width);
         if (focus_text_width > p_view->canvas_width - 13) {
             p_view->text_offset = 0;
             int32_t overflowed_width = focus_text_width - p_view->canvas_width + 20;

@@ -21,8 +21,11 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_ANIM_ENABLED,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_REBOOT,
+    SETTINGS_MAIN_MENU_RESET_DEFAULT,
     SETTINGS_MAIN_MENU_EXIT
 };
+
+static void settings_scene_main_reload(void *user_data);
 
 static void settings_scene_main_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                       mui_list_item_t *p_item) {
@@ -65,26 +68,22 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_LI_MODE:
         p_settings->bat_mode = !p_settings->bat_mode;
-        string_set_str(p_item->sub_text, p_settings->bat_mode ? _T(ON_F) : _T(OFF_F));
-        mui_update(mui());
+        settings_scene_main_reload(app);
         break;
 
     case SETTINGS_MAIN_MENU_SHOW_MEM_USAGE:
         p_settings->show_mem_usage = !p_settings->show_mem_usage;
-        string_set_str(p_item->sub_text, p_settings->show_mem_usage ? _T(ON_F) : _T(OFF_F));
-        mui_update(mui());
+        settings_scene_main_reload(app);
         break;
 
     case SETTINGS_MAIN_MENU_ENABLE_HIBERNATE:
         p_settings->hibernate_enabled = !p_settings->hibernate_enabled;
-        string_set_str(p_item->sub_text, p_settings->hibernate_enabled ? _T(ON_F) : _T(OFF_F));
-        mui_update(mui());
+        settings_scene_main_reload(app);
         break;
 
     case SETTINGS_MAIN_MENU_ANIM_ENABLED:
         p_settings->anim_enabled = !p_settings->anim_enabled;
-        string_set_str(p_item->sub_text, p_settings->anim_enabled ? _T(ON_F) : _T(OFF_F));
-        mui_update(mui());
+        settings_scene_main_reload(app);
         break;
 
     case SETTINGS_MAIN_MENU_EXIT:
@@ -95,14 +94,25 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         settings_save();
         system_reboot();
         break;
+
+    case SETTINGS_MAIN_MENU_RESET_DEFAULT:
+        settings_reset();
+        settings_scene_main_reload(app);
+        break;
     }
 }
 
-void settings_scene_main_on_enter(void *user_data) {
+static void settings_scene_main_reload(void *user_data) {
 
     app_settings_t *app = user_data;
     settings_data_t *p_settings = settings_get_data();
-    char txt[32];
+    char txt[64];
+
+    uint16_t scroll_offset = mui_list_view_get_scroll_offset(app->p_list_view);
+    uint16_t foucs_index = mui_list_view_get_focus(app->p_list_view);
+
+    mui_list_view_clear_items(app->p_list_view);
+
     snprintf(txt, sizeof(txt), "[%s]", version_get_version(version_get()));
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c7, _T(APP_SET_VERSION), txt, (void *)SETTINGS_MAIN_MENU_VERSION);
 
@@ -156,11 +166,20 @@ void settings_scene_main_on_enter(void *user_data) {
 
     mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
     mui_list_view_add_item(app->p_list_view, 0xe1cb, _T(APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
+    mui_list_view_add_item(app->p_list_view, 0xe1ce, _T(APP_SET_RESET_DEFAULT), (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, _T(BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
-    mui_list_view_set_selected_cb(app->p_list_view, settings_scene_main_list_view_on_selected);
+    mui_list_view_set_focus(app->p_list_view, foucs_index);
+    mui_list_view_set_scroll_offset(app->p_list_view, scroll_offset);
+  
+}
 
+void settings_scene_main_on_enter(void *user_data) {
+    app_settings_t *app = user_data;
+    mui_list_view_clear_items(app->p_list_view);
+    settings_scene_main_reload(user_data);
+    mui_list_view_set_selected_cb(app->p_list_view, settings_scene_main_list_view_on_selected);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SETTINGS_VIEW_ID_MAIN);
 }
 
