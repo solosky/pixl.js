@@ -59,6 +59,7 @@ static void validate_settings() {
 }
 
 int32_t settings_init() {
+    memcpy(&m_settings_data, &def_settings_data, sizeof(settings_data_t));
     vfs_driver_t *p_driver = vfs_get_default_driver();
     if (p_driver == NULL) {
         return NRF_ERROR_NOT_SUPPORTED;
@@ -71,8 +72,6 @@ int32_t settings_init() {
     if (!p_driver->mounted()) {
         return NRF_ERROR_INVALID_STATE;
     }
-
-    memcpy(&m_settings_data, &def_settings_data, sizeof(settings_data_t));
 
     err = p_driver->read_file_data(SETTINGS_FILE_NAME, &m_settings_data, sizeof(settings_data_t));
     if (err < 0) {
