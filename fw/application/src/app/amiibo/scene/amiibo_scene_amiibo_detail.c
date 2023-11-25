@@ -58,7 +58,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         return NRF_ERR_READ_ERROR;
     }
 
-    if (obj.size != 540) {
+    if (obj.size != 540 && obj.size != 532 && obj.size != 572) {
         return NRF_ERR_NOT_AMIIBO;
     }
 
@@ -75,14 +75,15 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     }
 
     res = p_vfs_driver->read_file_data(path, ntag->data, 540);
-    if (res != 540) {
+    if (res != 540 && res != 532) {
         return NRF_ERR_READ_ERROR;
     }
     return NRF_SUCCESS;
 }
 
-static void ntag_gen(app_amiibo_t *app) {
+static void ntag_gen(void *p_context) {
     ret_code_t err_code;
+    app_amiibo_t * app = p_context;
     ntag_t *ntag_current = &app->ntag;
 
     err_code = amiibo_helper_rand_amiibo_uuid(ntag_current);
@@ -109,7 +110,7 @@ static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
 
         const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
 
-        if (amd && strcmp(string_get_cstr(app->current_file), "new.bin") == 0) {
+        if (amd && strncmp(string_get_cstr(app->current_file), "new", 3) == 0) {
             char new_path[VFS_MAX_PATH_LEN];
             char new_name[VFS_MAX_NAME_LEN];
             snprintf(new_name, sizeof(new_name), "%s.bin", amd->name_en);
@@ -186,7 +187,7 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (obj.type == VFS_TYPE_REG && obj.size == NTAG_DATA_SIZE &&
+            if (obj.type == VFS_TYPE_REG && (obj.size == NTAG_DATA_SIZE || obj.size == NTAG_TAGMO_DATA_SIZE || obj.size == NTAG_THENAYA_DATA_SIZE) &&
                 (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
                 string_set_str(file_name, obj.name);
                 string_array_push_back(app->amiibo_files, file_name);

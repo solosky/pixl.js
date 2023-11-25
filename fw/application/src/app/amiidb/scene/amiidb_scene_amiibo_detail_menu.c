@@ -17,14 +17,15 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 
-static enum amiibo_detail_menu_t {
-    AMIIBO_DETAIL_MENU_RAND_UID,
-    AMIIBO_DETAIL_MENU_AUTO_RAND_UID,
-    AMIIBO_DETAIL_MENU_FAVORITE,
-    AMIIBO_DETAIL_MENU_SAVE_AS,
-    AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL,
-    AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER,
-    AMIIBO_DETAIL_MENU_BACK_MAIN_MENU,
+static enum amiidb_detail_menu_t {
+    AMIIDB_DETAIL_MENU_RAND_UID,
+    AMIIDB_DETAIL_MENU_AUTO_RAND_UID,
+    AMIIDB_DETAIL_MENU_SHOW_QRCODE,
+    AMIIDB_DETAIL_MENU_FAVORITE,
+    AMIIDB_DETAIL_MENU_SAVE_AS,
+    AMIIDB_DETAIL_MENU_BACK_AMIIBO_DETAIL,
+    AMIIDB_DETAIL_MENU_BACK_FILE_BROWSER,
+    AMIIDB_DETAIL_MENU_BACK_MAIN_MENU,
 };
 
 static void amiidb_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
@@ -51,10 +52,10 @@ static void amiidb_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
     uint32_t selection = (uint32_t)p_item->user_data;
 
     switch (selection) {
-    case AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER:
+    case AMIIDB_DETAIL_MENU_BACK_FILE_BROWSER:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, app->prev_scene_id);
         break;
-    case AMIIBO_DETAIL_MENU_RAND_UID: {
+    case AMIIDB_DETAIL_MENU_RAND_UID: {
         ret_code_t err_code;
         ntag_t *ntag_current = &app->ntag;
         uint32_t head = to_little_endian_int32(&ntag_current->data[84]);
@@ -81,12 +82,12 @@ static void amiidb_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         break;
     }
 
-    case AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL: {
+    case AMIIDB_DETAIL_MENU_BACK_AMIIBO_DETAIL: {
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         break;
     }
 
-    case AMIIBO_DETAIL_MENU_AUTO_RAND_UID: {
+    case AMIIDB_DETAIL_MENU_AUTO_RAND_UID: {
         if (!amiibo_helper_is_key_loaded()) {
             amiidb_scene_amiibo_detail_no_key_msg(app);
             return;
@@ -103,15 +104,28 @@ static void amiidb_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     } break;
 
-    case AMIIBO_DETAIL_MENU_FAVORITE: {
+    case AMIIDB_DETAIL_MENU_SHOW_QRCODE: {
+        char txt[32];
+        settings_data_t *p_settings = settings_get_data();
+        p_settings->qrcode_enabled = !p_settings->qrcode_enabled;
+        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_SHOW_QRCODE),
+                 p_settings->qrcode_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+        settings_save();
+
+        string_set_str(p_item->text, txt);
+
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+    } break;
+
+    case AMIIDB_DETAIL_MENU_FAVORITE: {
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_FAV_SELECT);
     } break;
 
-    case AMIIBO_DETAIL_MENU_SAVE_AS: {
+    case AMIIDB_DETAIL_MENU_SAVE_AS: {
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_DATA_SELECT);
     } break;
 
-    case AMIIBO_DETAIL_MENU_BACK_MAIN_MENU:
+    case AMIIDB_DETAIL_MENU_BACK_MAIN_MENU:
         mini_app_launcher_exit(mini_app_launcher());
         break;
     }
@@ -121,19 +135,22 @@ void amiidb_scene_amiibo_detail_menu_on_enter(void *user_data) {
     app_amiidb_t *app = user_data;
 
     mui_list_view_add_item(app->p_list_view, 0xe1c5, getLangString(_L_RANDOM_GENERATION),
-                           (void *)AMIIBO_DETAIL_MENU_RAND_UID);
+                           (void *)AMIIDB_DETAIL_MENU_RAND_UID);
 
     char txt[32];
     settings_data_t *p_settings = settings_get_data();
 
     snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION),
              p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
-    mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
-    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_DETAIL_FAVORITE), (void *)AMIIBO_DETAIL_MENU_FAVORITE);
-    mui_list_view_add_item(app->p_list_view, ICON_DATA, getLangString(_L_APP_AMIIDB_DETAIL_SAVE_AS), (void *)AMIIBO_DETAIL_MENU_SAVE_AS);
-    mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_APP_AMIIDB_DETAIL_BACK_DETAIL), (void *)AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL);
-    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_APP_AMIIDB_DETAIL_BACK_LIST), (void *)AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_APP_AMIIDB_EXIT), (void *)AMIIBO_DETAIL_MENU_BACK_MAIN_MENU);
+    mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIDB_DETAIL_MENU_AUTO_RAND_UID);
+    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_SHOW_QRCODE),
+             p_settings->qrcode_enabled ? getLangString(_L_ON) : getLangString(_L_OFF));
+    mui_list_view_add_item(app->p_list_view, 0xe006, txt, (void *)AMIIDB_DETAIL_MENU_SHOW_QRCODE);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_DETAIL_FAVORITE), (void *)AMIIDB_DETAIL_MENU_FAVORITE);
+    mui_list_view_add_item(app->p_list_view, ICON_DATA, getLangString(_L_APP_AMIIDB_DETAIL_SAVE_AS), (void *)AMIIDB_DETAIL_MENU_SAVE_AS);
+    mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_APP_AMIIDB_DETAIL_BACK_DETAIL), (void *)AMIIDB_DETAIL_MENU_BACK_AMIIBO_DETAIL);
+    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_APP_AMIIDB_DETAIL_BACK_LIST), (void *)AMIIDB_DETAIL_MENU_BACK_FILE_BROWSER);
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_APP_AMIIDB_EXIT), (void *)AMIIDB_DETAIL_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_amiibo_detail_menu_on_selected);
     mui_list_view_set_user_data(app->p_list_view, app);

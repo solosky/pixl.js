@@ -1,7 +1,6 @@
 #include "mui_input.h"
 #include "bsp_btn.h"
 #include "mui_core.h"
-#include "mui_defines.h"
 #include "mui_event.h"
 #include "nrf_log.h"
 

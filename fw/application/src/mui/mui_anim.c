@@ -1,10 +1,6 @@
 #include "mui_anim.h"
-#include "app_timer.h"
-#include "m-array.h"
-#include "mui_mlib.h"
 #include "mui_core.h"
-#include "mui_math.h"
-#include <stdbool.h>
+#include "app_timer.h"
 #include "nrf_log.h"
 
 #define LV_ANIM_RESOLUTION 1024

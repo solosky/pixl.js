@@ -240,7 +240,7 @@ void ntag_emu_uninit(ntag_t *ntag) {
     // TODO
 }
 
-void ntag_emu_set_tag(ntag_t *ntag) {
+void ntag_emu_set_tag(const ntag_t *ntag) {
     memcpy(&(ntag_emu.ntag), ntag, sizeof(ntag_t));
     ntag_emu.dirty = false;
 
@@ -256,7 +256,7 @@ void ntag_emu_set_tag(ntag_t *ntag) {
     hal_nfc_parameter_set(NFC_T2T_PARAM_NFCID1, uid1, sizeof(uid1));
 }
 
-void ntag_emu_set_uuid_only(ntag_t *ntag) {
+void ntag_emu_set_uuid_only(const ntag_t *ntag) {
     uint8_t uid1[7];
     uid1[0] = ntag->data[0];
     uid1[1] = ntag->data[1];

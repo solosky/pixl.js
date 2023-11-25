@@ -5,7 +5,7 @@
 #include "ntag_store.h"
 #include "vfs.h"
 
-#include "utils.h"
+#include "utils2.h"
 
 #include <string.h>
 
@@ -76,7 +76,7 @@ void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
 void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
     // set keygen salt
     ret_code_t err_code = utils_rand_bytes(buffer + 0x1E8, 32);
-    VERIFY_SUCCESS(err_code);
+    APP_ERROR_CHECK(err_code);
 
     memcpy(buffer, Internal_StaticLock, 8);
     // set BCC
@@ -115,7 +115,7 @@ ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {
     // encrypt
     amiibo_helper_get_uuid(new_ntag, new_uuid);
     amiibo_helper_replace_uuid(modified, new_uuid);
-
+    amiibo_helper_set_defaults(modified, new_uuid);
     nfc3d_amiibo_pack(&amiibo_keys, modified, new_ntag->data);
 
     return NRF_SUCCESS;
@@ -192,7 +192,7 @@ void amiibo_helper_try_load_amiibo_keys_from_vfs() {
     }
 }
 
-uint32_t to_little_endian_int32(uint8_t* data){
+uint32_t to_little_endian_int32(const uint8_t* data){
     uint32_t val = 0;
     val += data[0];
     val <<= 8;

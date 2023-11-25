@@ -21,12 +21,14 @@ typedef struct {
     uint8_t lcd_backlight;
     uint8_t oled_contrast;
     bool anim_enabled;
+    bool qrcode_enabled;
     Language language;
     uint8_t amiidb_data_slot_num;
 } settings_data_t;
 
 int32_t settings_init();
 int32_t settings_save();
+int32_t settings_reset();
 settings_data_t *settings_get_data();
 
 #endif

@@ -106,6 +106,9 @@
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
 
+
+int8_t g_usb_led_marquee_enable = 0; /** dummy for chameleon */
+
 // #define SPI_FLASH
 
 /**
@@ -259,6 +262,7 @@ int main(void) {
     err_code = ntag_emu_init(&default_ntag215);
     APP_ERROR_CHECK(err_code);
 
+    //cache_clean(); //FOR TESTING
     check_wakeup_src();
 
     err_code = settings_init();

@@ -9,7 +9,7 @@ static void app_settings_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t 
 
 void app_settings_on_run(mini_app_inst_t *p_app_inst) {
 
-    app_settings_t *p_app_handle = malloc(sizeof(app_settings_t));
+    app_settings_t *p_app_handle = mui_mem_malloc(sizeof(app_settings_t));
 
     p_app_inst->p_handle = p_app_handle;
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
@@ -17,6 +17,9 @@ void app_settings_on_run(mini_app_inst_t *p_app_inst) {
     mui_list_view_set_user_data(p_app_handle->p_list_view, p_app_handle);
     p_app_handle->p_progress_bar = mui_progress_bar_create();
     mui_progress_bar_set_user_data(p_app_handle->p_progress_bar, p_app_handle);
+
+    p_app_handle->p_msg_box = mui_msg_box_create();
+    mui_msg_box_set_user_data(p_app_handle->p_msg_box, p_app_handle);
 
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
@@ -28,6 +31,8 @@ void app_settings_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_list_view_get_view(p_app_handle->p_list_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, SETTINGS_VIEW_ID_PROGRESS_BAR,
                                  mui_progress_bar_get_view(p_app_handle->p_progress_bar));
+                                 mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, SETTINGS_VIEW_ID_MSG_BOX,
+                                 mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
 
@@ -44,8 +49,9 @@ void app_settings_on_kill(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     mui_list_view_free(p_app_handle->p_list_view);
     mui_progress_bar_free(p_app_handle->p_progress_bar);
+    mui_msg_box_free(p_app_handle->p_msg_box);
 
-    free(p_app_handle);
+    mui_mem_free(p_app_handle);
 
     p_app_inst->p_handle = NULL;
 }

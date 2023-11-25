@@ -1,18 +1,9 @@
 #include "amiibo_helper.h"
+#include "amiidb_api_slot.h"
 #include "amiidb_scene.h"
 #include "app_amiidb.h"
-#include "mui_list_view.h"
-#include "nrf_log.h"
-
-#include "amiidb_api_slot.h"
-
-#include "db_header.h"
+#include "i18n/language.h"
 #include "mui_icons.h"
-#include "settings.h"
-#include "vfs.h"
-#include "vfs_meta.h"
-
-#include <math.h>
 
 void amiidb_scene_data_list_reload(app_amiidb_t *app);
 
@@ -29,11 +20,8 @@ static void amiidb_scene_data_select_list_view_on_selected(mui_list_view_event_t
     case ICON_FILE: {
         uint32_t index = mui_list_view_get_focus(p_list_view);
         int32_t res = amiidb_api_slot_write(index, &app->ntag);
-        if(res < 0){
-            //TODO msg box
-            return;
-        }
-
+        mui_toast_view_show(app->p_toast_view,
+                            getLangString(res < 0 ? _L_APP_AMIIDB_SLOT_SAVE_FAILED : _L_APP_AMIIDB_SLOT_SAVE_SUCCESS));
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
     } break;
     }
@@ -44,7 +32,6 @@ static void amiidb_scene_data_select_setup(app_amiidb_t *app) {
     mui_list_view_set_user_data(app->p_list_view, app);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);
 }
-
 
 void amiidb_scene_data_select_on_enter(void *user_data) {
     app_amiidb_t *app = (app_amiidb_t *)user_data;

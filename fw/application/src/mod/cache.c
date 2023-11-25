@@ -25,7 +25,7 @@ static __attribute__((section(".noinit"))) int32_t m_cache_crc32;
 bool cache_valid(){
     NRF_LOG_INFO("noinit area: [0x%X, 0x%X], %d bytes",  &__start_noinit, &__stop_noinit, (&__stop_noinit - &__start_noinit));
     NRF_LOG_INFO("m_cache_data address: 0x%X", &m_cache_data);
-    return m_cache_crc32 == crc32_compute(&m_cache_data, sizeof(cache_data_t), NULL);
+    return m_cache_crc32 == crc32_compute((const int8_t *)&m_cache_data, sizeof(cache_data_t), NULL);
 }
 
 int32_t cache_clean() {

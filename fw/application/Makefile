@@ -6,10 +6,11 @@ SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
 COMP_DIR := ../components
 U8G2_ROOT := ../components/u8g2/csrc
+CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
-RELEASE ?= 1
-BOARD ?= LCD
+RELEASE ?= 0
+BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/ble_app_blinky_gcc_nrf52833.ld
@@ -180,7 +181,9 @@ SRC_FILES += \
   $(PROJ_DIR)/utils.c \
   $(PROJ_DIR)/version2.c \
   $(PROJ_DIR)/amiibo_helper.c \
+  $(PROJ_DIR)/mui_qrcode_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
+  $(PROJ_DIR)/libc_nano_stubs.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
@@ -208,8 +211,10 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_scene_dispatcher.c \
   $(PROJ_DIR)/mui/mui_u8g2.c \
   $(PROJ_DIR)/mui/mui_u8g2_st7789.c \
+  $(PROJ_DIR)/mui/u8g2_font_likeminecraft_te.c \
   $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a_lite.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -223,6 +228,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
   $(PROJ_DIR)/mui/view/mui_progress_bar.c \
   $(PROJ_DIR)/mui/display/st7789.c \
+  $(PROJ_DIR)/mui/view/mui_toast_view.c \
   $(PROJ_DIR)/core/mini_app_launcher.c \
   $(PROJ_DIR)/core/mini_app_registry.c \
   $(PROJ_DIR)/core/mini_app_data.c \
@@ -263,12 +269,28 @@ SRC_FILES += \
   $(PROJ_DIR)/app/amiidb/api/amiidb_api_fav.c \
   $(PROJ_DIR)/app/amiidb/api/amiidb_api_db.c \
   $(PROJ_DIR)/app/amiidb/view/amiibo_view.c \
+  $(PROJ_DIR)/app/chameleon/app_chameleon.c \
+  $(PROJ_DIR)/app/chameleon/view/chameleon_view.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_factory.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_main.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced_id_edit.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_type.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot_select.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_write_mode_select.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_load.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_save.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_set_name.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
+  $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
+  $(PROJ_DIR)/app/chameleon/port/tag_helper.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list.c \
-  $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_storage_list_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_amiibo_detail_menu.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene_file_browser.c \
@@ -281,15 +303,18 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_lcd_backlight.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_language.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_storage.c \
   $(PROJ_DIR)/i18n/en_US.c \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
+  $(PROJ_DIR)/i18n/es_CO.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
   $(PROJ_DIR)/amiidb/db_game.c \
   $(PROJ_DIR)/amiidb/db_link.c \
   $(PROJ_DIR)/amiidb/db_search.c \
+  $(PROJ_DIR)/sdk/nrfx/nrfx_nfct.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
@@ -306,6 +331,17 @@ SRC_FILES += \
   $(COMP_DIR)/spiffs/src/spiffs_gc.c \
   $(COMP_DIR)/spiffs/src/spiffs_hydrogen.c \
   $(COMP_DIR)/spiffs/src/spiffs_nucleus.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/crypto1_helper.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_14a.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_mf1.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_ntag.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/crc_utils.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/hex_utils.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/mf1_crapto1.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/mf1_crypto1.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/parity.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_emulation.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_persistence.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
@@ -315,6 +351,7 @@ SRC_FILES += \
   $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
   $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
+  $(COMP_DIR)/qrcode/c/qrcodegen.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
   $(U8G2_ROOT)/u8g2_box.c \
   $(U8G2_ROOT)/u8g2_buffer.c \
@@ -496,6 +533,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/stack_guard \
   $(SDK_ROOT)/components/libraries/log/src \
   $(SDK_ROOT)/components/libraries/crypto/backend/mbedtls \
+  $(SDK_ROOT)/components/libraries/fds \
   $(SDK_ROOT)/external/mbedtls/include \
   $(SDK_ROOT)/components/libraries/usbd \
   $(PROJ_DIR) \
@@ -532,6 +570,10 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/amiidb/scene \
   $(PROJ_DIR)/app/amiidb/view \
   $(PROJ_DIR)/app/amiidb/api \
+  $(PROJ_DIR)/app/chameleon \
+  $(PROJ_DIR)/app/chameleon/port \
+  $(PROJ_DIR)/app/chameleon/view \
+  $(PROJ_DIR)/app/chameleon/scene \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \
@@ -540,16 +582,27 @@ INC_FOLDERS += \
   $(COMP_DIR)/littlefs \
   $(COMP_DIR)/tlsf \
   $(COMP_DIR)/cwalk/include \
+  $(COMP_DIR)/qrcode/c \
   $(COMP_DIR)/usb_mtp/class \
   $(COMP_DIR)/usb_mtp/driver \
-  $(SDK_ROOT)/components/libraries/bsp
+  $(SDK_ROOT)/components/libraries/bsp \
+  $(CHAMELEON_ROOT)/application/src/rfid \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf \
+  $(CHAMELEON_ROOT)/application/src/utils \
+  $(CHAMELEON_ROOT)/application/src \
+  $(CHAMELEON_ROOT)/application/src/bsp \
+  $(COMP_DIR)/chameleon-ultra/firmware/common
 
 # Libraries common to all targets
 LIB_FILES += \
   $(SDK_ROOT)/components/nfc/t2t_lib/nfc_t2t_lib_gcc.a \
 # Optimization flags
-OPT = -O3 -g3
+ifneq ($(RELEASE), 1)
+OPT = -O2 -g3
+else
 OPT = -Os -ffunction-sections -fdata-sections
+endif
 # Uncomment the line below to enable link time optimization
 # OPT += -flto
 
@@ -573,6 +626,7 @@ CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
 else
 CFLAGS += -DNDEBUG
+CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
 endif
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0
@@ -615,9 +669,9 @@ LDFLAGS += -Wl,--gc-sections
 LDFLAGS += --specs=nano.specs
 LDFLAGS += -u _printf_float
 
-pixljs: CFLAGS += -D__HEAP_SIZE=8192
+pixljs: CFLAGS += -D__HEAP_SIZE=4096
 pixljs: CFLAGS += -D__STACK_SIZE=8192
-pixljs: ASMFLAGS += -D__HEAP_SIZE=8192
+pixljs: ASMFLAGS += -D__HEAP_SIZE=4096
 pixljs: ASMFLAGS += -D__STACK_SIZE=8192
 
 # Add standard libraries at the very end of the linker input, after all objects
@@ -679,3 +733,18 @@ ota:
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s113/hex/s113_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
+
+flash_ocd: default
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+
+flash_all_ocd: default
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+
+reset_ocd:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -c "init" -c "reset" -c "exit"
+
+erase_ocd:
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "reset" -c exit
+
+rtt_ocd:
+	openocd -f openocd/rtt.cfg

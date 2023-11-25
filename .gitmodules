@@ -13,3 +13,6 @@
 [submodule "fw/components/littlefs"]
 	path = fw/components/littlefs
 	url = https://github.com/littlefs-project/littlefs.git
+[submodule "fw/components/chameleon-ultra"]
+	path = fw/components/chameleon-ultra
+	url = git@github.com:solosky/ChameleonUltra.git

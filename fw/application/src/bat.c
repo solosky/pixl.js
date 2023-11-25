@@ -41,7 +41,7 @@ void saadc_callback(nrf_drv_saadc_evt_t const *p_event) { NRF_LOG_INFO("ADC even
 
 chrg_data_t chrg = {0};
 
-void chrg_read(void) {
+void chrg_read(void* p_context) {
     uint32_t new_stats = nrf_gpio_pin_read(CHRG_PIN);
     if (new_stats == chrg.stats) return;
     chrg.stats = new_stats;
@@ -118,9 +118,9 @@ uint8_t bat_get_level(void) {
             break;
         }
     }
-    char txt[32];
-    sprintf(txt, "BAT: %d, %.02fV, %d", adc_value, voltage, level);
-    NRF_LOG_INFO("%s", nrf_log_push(txt));
+    // char txt[32];
+    // sprintf(txt, "BAT: %d, %.02fV, %d", adc_value, voltage, level);
+    // NRF_LOG_INFO("%s", nrf_log_push(txt));
 
     return level;
 }

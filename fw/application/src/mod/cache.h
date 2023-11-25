@@ -1,8 +1,6 @@
 #ifndef CACHE_H_
 #define CACHE_H_
 
-#include "m-string.h"
-
 #include "ntag_def.h"
 #include "vfs.h"
 

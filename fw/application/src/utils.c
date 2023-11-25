@@ -5,7 +5,7 @@
  *      Author: solos
  */
 
-#include "utils.h"
+#include "utils2.h"
 #include "nrf_bootloader_info.h"
 #include "nrf_sdh.h"
 #include "nrf_soc.h"
@@ -39,7 +39,7 @@ void enter_dfu() {
     sd_nvic_SystemReset();
 }
 
-void reboot_system() {
-    cache_clean();
+void system_reboot(){
+     cache_clean();
     sd_nvic_SystemReset();
 }

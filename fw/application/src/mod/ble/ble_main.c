@@ -123,8 +123,7 @@
 #define DEAD_BEEF                                                                                                      \
     0xDEADBEEF /**< Value used as error code on stack dump, can be used to identify stack location on stack unwind. */
 
-#define UART_TX_BUF_SIZE 256 /**< UART TX buffer size. */
-#define UART_RX_BUF_SIZE 256 /**< UART RX buffer size. */
+
 
 BLE_NUS_DEF(m_nus, NRF_SDH_BLE_TOTAL_LINK_COUNT); /**< BLE NUS service instance. */
 NRF_BLE_GATT_DEF(m_gatt);                         /**< GATT module instance. */
@@ -152,6 +151,9 @@ static nus_tx_ready_handler_t m_nus_tx_ready_handler =
 static ble_gap_addr_t m_default_gap_addr = {0};
 
 static uint8_t m_ble_initialized = false;
+
+#define BLE_CONNECT_SLEEP_TIMEOUT_SECONDS 180 /**< Sleep timeout when ble connection established. */
+uint16_t m_previous_pwr_mgmt_sleep_timeout = BLE_CONNECT_SLEEP_TIMEOUT_SECONDS;
 
 /**@brief Function for assert macro callback.
  *
@@ -363,12 +365,15 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
         APP_ERROR_CHECK(err_code);
 
         err_code = sd_ble_gap_device_name_get(device_name, &device_name_len);
-        NRF_LOG_INFO("ble_get_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
+        APP_ERROR_CHECK(err_code);
 
         if (strcmp(device_name, DEVICE_NAME_AMILOOP) == 0) {
             NRF_LOG_INFO("Set mtu to %d", NRF_SDH_BLE_GATT_MAX_MTU_SIZE);
             sd_ble_gattc_exchange_mtu_request(p_ble_evt->evt.gap_evt.conn_handle, NRF_SDH_BLE_GATT_MAX_MTU_SIZE);
         }
+
+        m_previous_pwr_mgmt_sleep_timeout = nrf_pwr_mgmt_get_timeout();
+        nrf_pwr_mgmt_set_timeout(BLE_CONNECT_SLEEP_TIMEOUT_SECONDS);
 
         break;
 
@@ -376,6 +381,8 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
         NRF_LOG_INFO("Disconnected");
         // LED indication will be changed when advertising starts.
         m_conn_handle = BLE_CONN_HANDLE_INVALID;
+        nrf_pwr_mgmt_set_timeout(m_previous_pwr_mgmt_sleep_timeout);
+
         break;
 
     case BLE_GAP_EVT_PHY_UPDATE_REQUEST: {
@@ -525,7 +532,6 @@ void ble_set_device_name(const char *device_name) {
 
     BLE_GAP_CONN_SEC_MODE_SET_OPEN(&sec_mode);
     uint32_t err_code = sd_ble_gap_device_name_set(&sec_mode, (const uint8_t *)device_name, strlen(device_name));
-    NRF_LOG_INFO("ble_set_device_name[ %s ]: %d", nrf_log_push(device_name), err_code);
     APP_ERROR_CHECK(err_code);
 }
 
