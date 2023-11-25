@@ -265,7 +265,7 @@ Other oddity is what the modes on applications do not correspond with the modes 
 | Auto Mode | Read/Write |
 
 
-# CardEmulator
+# Card Emulator
 
 This application can be used to emulate Mifare cards and NTAG series cards.
 
@@ -323,7 +323,7 @@ Abbreviations for card types:
 | N215 | NTAG 215 | 540 |
 | N216 | NTAG 216 | 924 |
 
-# 主菜单
+# Main Menu
 
 Pressing the middle button allows you to enter the main menu. As follows:
 
