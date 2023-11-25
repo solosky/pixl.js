@@ -1,7 +1,7 @@
 #include "app_settings.h"
 #include "mini_app_launcher.h"
 #include "settings_scene.h"
-#include "utils.h"
+#include "utils2.h"
 #include "version2.h"
 #include "i18n/language.h"
 

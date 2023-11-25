@@ -5,7 +5,7 @@
 #include "ntag_store.h"
 #include "vfs.h"
 
-#include "utils.h"
+#include "utils2.h"
 
 #include <string.h>
 

@@ -12,6 +12,7 @@
 #include "settings.h"
 
 #include "amiibo_helper.h"
+#include "ntag_emu.h"
 
 static void app_amiidb_on_run(mini_app_inst_t *p_app_inst);
 static void app_amiidb_on_kill(mini_app_inst_t *p_app_inst);
@@ -80,6 +81,9 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_switch_to_view(p_app_handle->p_view_dispatcher_toast, AMIIDB_VIEW_ID_TOAST);
 
     app_amiidb_try_mount_drive(p_app_handle);
+
+    extern const ntag_t default_ntag215;
+    APP_ERROR_CHECK(ntag_emu_init(&default_ntag215));
 
     if (p_app_inst->p_retain_data) {
         app_amiidb_cache_data_t *p_cache_data = (app_amiidb_cache_data_t *)p_app_inst->p_retain_data;

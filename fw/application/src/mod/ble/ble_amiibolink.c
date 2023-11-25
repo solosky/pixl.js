@@ -7,7 +7,7 @@
 
 #include "nrf_crypto.h"
 #include "nrf_crypto_aes.h"
-#include "utils.h"
+#include "utils2.h"
 
 static ntag_t m_ntag = {0};
 uint32_t m_data_pos = 0;

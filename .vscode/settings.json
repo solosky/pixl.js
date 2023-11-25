@@ -7,6 +7,19 @@
         "u8x8.h": "c",
         "mui_u8g2.h": "c",
         "mui_defines.h": "c",
-        "u8g2.h": "c"
+        "u8g2.h": "c",
+        "rgb_marquee.h": "c",
+        "utils.h": "c",
+        "array": "c",
+        "deque": "c",
+        "forward_list": "c",
+        "list": "c",
+        "string": "c",
+        "unordered_map": "c",
+        "unordered_set": "c",
+        "vector": "c",
+        "string_view": "c",
+        "initializer_list": "c",
+        "ranges": "c"
     }
 }

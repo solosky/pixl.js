@@ -196,6 +196,8 @@ ret_code_t hal_nfc_done(void);
 
 ret_code_t hal_send_ack_nack(uint8_t ack_nack_code);
 
+void hal_nfc_set_nrfx_irq_enable(uint8_t nrfx_irq_enable);
+
 #ifdef __cplusplus
 }
 #endif

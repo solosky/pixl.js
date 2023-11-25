@@ -1,6 +1,8 @@
 CODE,en_US,zh_Hans,zh_TW,es_CO
 _L_ON,ON,开,開,ENC
 _L_OFF,OFF,关,關,APA
+_L_ON_F,[ON],[开],[開],[ENC]
+_L_OFF_F,[OFF],[关],[關],[APA]
 _L_BACK,Back,返回,返回,Atrás
 _L_ERR,Error,错误,錯誤,Error
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código Error
@@ -11,7 +13,8 @@ _L_APP_BLE_TITLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE
 _L_APP_PLAYER,Video Player,动画播放器,動畫播放器,Reproductor Vídeo
 _L_APP_SET,Settings,系统设置,系統設定,Configuraciones
 _L_APP_SET_VERSION,Version,版本,版本,Versión
-_L_APP_SET_SKIP_DRIVER_SELECT,Auto Storage,自动选择存储,自動選擇儲存,Almacén Aut.
+_L_APP_SET_STORAGE_USED,Used,已用,已用,Usado
+_L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,Almacenamiento externo
 _L_APP_SET_OLED_CONTRAST,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED
 _L_APP_SET_OLED_CONTRAST_TITLE,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED
 _L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo
@@ -19,11 +22,12 @@ _L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Br
 _L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animación Menú
 _L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO
 _L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Mem. Usada
-_L_APP_SET_HIBERNATE,Fast Resume,快速唤醒,快速喚醒,Encend. Rápido
-_L_APP_SET_SLEEP_TIMEOUT,Sleep Timer,休眠时间,休眠時間,Dormir en
+_L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Encend. Rápido
+_L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar Firmware
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar
+_L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,
 _L_15S,15 Seconds,15秒,15秒,15 Segundos
 _L_30S,30 Seconds,30秒,30秒,30 Segundos
 _L_45S,45 Seconds,45秒,45秒,45 Segundos
@@ -31,41 +35,43 @@ _L_1MIN,1 Minute,1分钟,1分鐘,1 Minuto
 _L_2MIN,2 Minutes,2分钟,2分鐘,2 Minutos
 _L_3MIN,3 Minutes,3分钟,3分鐘,3 Minutos
 _L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin Llave Amiibo
-_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin 到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.
+_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.
 _L_KNOW,Got it,知道了,知道了,Entendido
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Amiibo Aleatorio
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Aleat. Auto.
-_L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar código QR
+_L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar Amiibo
-_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,
+_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿Borrar %s?
 _L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,Volver Detll. Amiibo
 _L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,Volver Lista Archivos
 _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,Volver Menú Principal
-_L_FORMAT,Format,格式化,格式化,Formato
+_L_FORMAT,Format,格式化,格式化,Formatear..
 _L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear Almacenamiento
-_L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。确认格式化?,將刪除所有資料。\n確認格式化?,Ésto borrará todos los\ndatos. ¿Confirmas formateo?
+_L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。\n确认格式化?,將刪除所有資料。\n確認格式化?,Ésto borrará todos los\ndatos. ¿Confirmas formateo?
+_L_DELETING_MESSAGE,Formatting ..,格式化中..,格式化中..,
+_L_MESSAGE,Message,提示,提示,
 _L_CONFIRM,Confirm,确定,確定,Confirmar
 _L_CANCEL,Cancel,取消,取消,Cancelar
 _L_BACK_TO_LIST,Back List,返回列表,返回清單,Voler a Lista
-_L_NOT_MOUNTED,=====Not Mounted=====,=====未挂载=====,=====未掛載=====,=====No Montado=====
+_L_NOT_MOUNTED,Not Mounted,未挂载,未掛載,No Montado
 _L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[LFS]Montado===
 _L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===
-_L_TOTAL_SPACE,Total Space,总空间,總空間,Espacio Total
-_L_AVAILABLE_SPACE,Free Space,可用空间,可用空間,Espacio Libre
+_L_TOTAL_SPACE,Total,总空间,總空間,Espacio Total
+_L_AVAILABLE_SPACE,Free,可用空间,可用空間,Espacio Libre
 _L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\nAmiibo Válido
 _L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo
 _L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre Carpeta:
 _L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre Amiibo:
 _L_DELETE,Delete,删除,刪除,Borrar
 _L_INPUT_NEW_NAME,Input New Name:,输入新名:,輸入新名稱:,Nuevo Nombre:
-_L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,
-_L_CREATE_NEW_FOLDER,Create New Folder..,新建文件夹..,新建資料夾..,Crear Nueva Carpeta...
-_L_CREATE_NEW_TAG,Create New Tag..,新建标签..,新建標籤..,Crer Nuevo Amiibo...
-_L_CREATE_NEW_TAG_BATCH,Batch Create New Tag..,批量创建标签..,批量創建標簽..,Crer Nuevo Amiibo en lote..
-_L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,
-_L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,
-_L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,
-_L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,
+_L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,Entrada Inválida
+_L_CREATE_NEW_FOLDER,Create New Folder..,新建文件夹..,新建資料夾..,Crear Carpeta..
+_L_CREATE_NEW_TAG,Create New Tag..,新建标签..,新建標籤..,Crear Amiibo..
+_L_CREATE_NEW_TAG_BATCH,Batch Create New Tag..,批量创建标签..,批量創建標簽..,Crear lote Amiibo..
+_L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,¿Cuántos?
+_L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,Sólo se puede crear %d en lote
+_L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,Creando
+_L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,¡Error al crear %s!
 _L_RENAME,Rename,重命名,重新命名,Renombrar
 _L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta
 _L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗,Fallo al renombrar\nCódigo de Error
@@ -88,37 +94,72 @@ _L_MODE_NTAG,Read/Write,读写,讀寫,Lect./Escr.
 _L_MODE_RANDOM_AUTO_GEN,Rand. (Auto),随机(自动),隨機(自動),Aleat. Auto.
 _L_BLANK_TAG,Blank NFC tag,空标签,空標籤,No Amiibo Asignado
 _L_APP_AMIIDB,Amiibo Database,Amiibo数据库,Amiibo數據庫,Base datos Amiibo
-_L_APP_AMMIDB_BROWSER,Browser..,查看..,查看..,Explorar...
-_L_APP_AMIIDB_SEARCH,Search..,搜索..,搜索..,Buscar...
-_L_APP_AMIIDB_MY_FAVORITES,My Favorites..,我的收藏..,我的收藏..,Mis Favoritos...
-_L_APP_AMIIDB_MY_TAGS,My Amiibo..,我的数据..,我的數據..,Mis Amiibo...
-_L_APP_AMIIDB_SETTINGS,Settings..,设置..,設置..,Configuraciones...
+_L_APP_AMMIDB_BROWSER,Browser..,查看..,查看..,Explorar..
+_L_APP_AMIIDB_SEARCH,Search..,搜索..,搜索..,Buscar..
+_L_APP_AMIIDB_MY_FAVORITES,My Favorites..,我的收藏..,我的收藏..,Mis Favoritos..
+_L_APP_AMIIDB_MY_TAGS,My Amiibo..,我的数据..,我的數據..,Mis Amiibo..
+_L_APP_AMIIDB_SETTINGS,Settings..,设置..,設置..,Configuraciones..
 _L_APP_AMIIDB_EXIT,[Exit],[退出],[退出],[Salir]
 _L_APP_AMIIDB_BACK,[Back],[返回],[返回],[Regresar]
 _L_APP_AMIIDB_SETTINGS_AMIIBO_KEY,Keys,密钥文件,密鑰文件,Llaves
 _L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_LOADED,Loaded,已加载,已加載,Cargadas
 _L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_NOT_LOADED,NOT Loaded,未加载,未加載,NO Cargadas
 _L_APP_AMIIDB_SETTINGS_SLOT_NUM,Slot Num.,数据槽位,數據槽位,Cant. Ranuras
-_L_APP_AMIIDB_DETAIL_FAVORITE,Favorite..,收藏..,收藏..,Favorito...
-_L_APP_AMIIDB_DETAIL_SAVE_AS,Save As..,保存为..,保存爲..,Asiganar en...
+_L_APP_AMIIDB_DETAIL_FAVORITE,Favorite..,收藏..,收藏..,Favorito..
+_L_APP_AMIIDB_DETAIL_SAVE_AS,Save As..,保存为..,保存爲..,Asiganar en..
 _L_APP_AMIIDB_DETAIL_BACK_DETAIL,[Back to Detail],[返回详情],[返回詳情],[Volver a Detalles]
 _L_APP_AMIIDB_DETAIL_BACK_LIST,[Back to List],[返回列表],[返回列表],[Volver a Lista]
 _L_APP_AMIIDB_SEARCH_HEAD,Search:,搜索:,搜索:,Buscar:
-_L_APP_AMIIDB_MORE,[More..],[更多],[更多],[Más...]
+_L_APP_AMIIDB_MORE,[More..],[更多],[更多],[Más..]
 _L_APP_AMIIDB_EMPTY_TAG,<Blank Amiibo>,<空标签>,<空標簽>,<No Asignado>
-_L_APP_AMIIDB_SLOT_DELETE,Reset..,重置..,重置..,Borrar...
+_L_APP_AMIIDB_SLOT_DELETE,Reset..,重置..,重置..,Borrar..
 _L_APP_AMIIDB_CONFIRM,Confirm,确认,確認,Confirmar
 _L_APP_AMIIDB_CANCEL,Cancel,取消,取消,Cancelar
 _L_APP_AMIIDB_TIPS,Confirm,提示,提示,Confirmar
-_L_APP_AMIIDB_NEW,New..,新建..,新建..,Nueva...
-_L_APP_AMIIDB_EMPTY,Empty..,清空..,清空..,Vaciar...
-_L_APP_AMIIDB_DELETE,Delete..,删除..,删除..,Borrar...
+_L_APP_AMIIDB_NEW,New..,新建..,新建..,Nueva..
+_L_APP_AMIIDB_EMPTY,Empty..,清空..,清空..,Vaciar..
+_L_APP_AMIIDB_DELETE,Delete..,删除..,删除..,Borrar..
 _L_APP_AMIIDB_FAV_NEW_HEAD,New Fav. Folder:,新建收藏夹:,新建收藏夾:,Nueva Carp. Favoritos:
-_L_APP_AMIIDB_FAV_EMPTY_MSG,Empty Fav. Folder?,确认清空收藏夹?,確認清空收藏夾?,Vaciar Carp. Favoritos?
+_L_APP_AMIIDB_FAV_EMPTY_MSG,Empty Fav. Folder?,确认清空收藏夹?,確認清空收藏夾?,¿Vaciar Carp. Favoritos?
 _L_APP_AMIIDB_FAV_DELETE_MSG,Confirm Delete?,确认删除?,確認刪除?,¿Confirma Borrado?
-_L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收藏夾..,Selec. Carp. Favoritos...
-_L_APP_AMIIDB_FAV_SUCCESS,Favorite Successfully!,收藏成功,收藏成功,¡Favorito Correcto!
+_L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收藏夾..,Selec. Carp. Favoritos..
+_L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito Correcto!
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito Faillido!
-_L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Successfully,保存成功,保存成功,Asignación Correcta
-_L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失敗,保存失敗,¡Asignación Fallida!
-_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模拟器,
+_L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación Correcta
+_L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación Fallida!
+_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模擬器,Emulador de tarjetas
+_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,Normal
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒絕,Negar
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,Ignorar
+_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,緩存,Caché
+_L_APP_CHAMELEON_INITIALIZING,Initializing data ..,"初始化, 请稍后..","初始化, 請稍後..","Inicializando, por favor espera..."
+_L_APP_CHAMELEON_CARD_SLOT,Slot,卡槽,卡槽,Ranura
+_L_APP_CHAMELEON_CARD_NICK,Nick,卡名,卡名,Apodo
+_L_APP_CHAMELEON_CARD_ID,ID,ID,ID,ID
+_L_APP_CHAMELEON_CARD_TYPE,Type,卡类型,卡類型,Tipo
+_L_APP_CHAMELEON_CARD_DATA,Data..,卡数据..,卡數據..,Datos..
+_L_APP_CHAMELEON_CARD_ADVANCED,Advanced..,卡高级设置..,卡高級設置..,Avanzado..
+_L_APP_CHAMELEON_CARD_SLOT_SETTINGS,Slots Settings..,卡槽管理..,卡槽管理..,Configuración..
+_L_APP_CHAMELEON_CARD_SLOT_NUM,Slot Num..,卡槽数量..,卡槽數量..,Cant. Ranuras..
+_L_APP_CHAMELEON_CARD_SET_NICK_SUCCESS,Set Nick Success,设置卡名成功,設置卡名成功,Apodo correcto.
+_L_APP_CHAMELEON_CARD_SET_NICK_FAILED,Set Nick Failed!,设置卡名失败,設置卡名失敗,¡Apodo fallido!
+_L_APP_CHAMELEON_CARD_INPUT_NICK,Input Nick:,输入卡名:,輸入卡名:,Apodo:
+_L_APP_CHAMELEON_CARD_DATA_LOAD,Load..,加载..,加載..,Cargar..
+_L_APP_CHAMELEON_CARD_DATA_SAVE,Save..,导出..,導出..,Guardar..
+_L_APP_CHAMELEON_CARD_DATA_FACTORY,Factory..,重置..,重置..,Fábrica..
+_L_APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS,Data Factory Success,卡片初始化成功,卡片初始化成功,Conf. Fabrica Correcta!
+_L_APP_CHAMELEON_CARD_DATA_LOAD_NOT_FOUND,File Not Found,文件不存在,文件不存在,Archivo no encontrado
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SIZE_NOT_MATCH,File Size Not Match,文件大小不匹配,文件大小不匹配,Tamaño Archivo Incorrecto
+_L_APP_CHAMELEON_CARD_DATA_LOAD_FAILED,Load File Failed,读取文件失败,讀取文件失敗,Falla Carga Archivo
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS,Load File Success,加载卡片数据成功,加載卡片數據成功,Carga Archivo Correcta
+_L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名,輸入文件名,Nombre Archivo:
+_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,寫入文件失敗,¡Error al Guardar!
+_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,導出卡片數據成功,Guardado Correcto
+_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定義模式,Modo Personalizado
+_L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A Habilitada
+_L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,Generar UID
+_L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,UID generado
+_L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 Habilitada
+_L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,寫入模式,Modo Escritura
+_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,無效的輸入!,¡Entrada Inválida!
+_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡類型已修改\n重置卡數據?,Tipo de tarjeta modificado\nRestablecer datos de la tarjeta?

@@ -6,33 +6,31 @@
 
 #define SETTINGS_FILE_NAME "/settings.bin"
 
-settings_data_t m_settings_data = {.backlight = 0,
-                                   .oled_contrast = 40,
-                                   .auto_gen_amiibo = 0,
-                                   .auto_gen_amiibolink = 0,
-                                   .sleep_timeout_sec = 30,
-                                   .skip_driver_select = 0,
-                                   .bat_mode = 0,
-                                   .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
-                                   .language = LANGUAGE_ZH_HANS,
-                                   .hibernate_enabled = false,
-                                   .show_mem_usage = false,
-                                   .anim_enabled = false,
-                                   .amiidb_data_slot_num = 20,
-                                   .qrcode_enabled = true};
+const settings_data_t def_settings_data = {.backlight = 0,
+                                           .oled_contrast = 40,
+                                           .auto_gen_amiibo = 0,
+                                           .auto_gen_amiibolink = 0,
+                                           .sleep_timeout_sec = 30,
+                                           .skip_driver_select = 0,
+                                           .bat_mode = 0,
+                                           .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
+                                           .language = LANGUAGE_ZH_HANS,
+                                           .hibernate_enabled = false,
+                                           .show_mem_usage = false,
+                                           .anim_enabled = false,
+                                           .amiidb_data_slot_num = 20,
+                                           .qrcode_enabled = true};
 
-static vfs_driver_t *get_enabled_vfs_driver() {
-    if (vfs_drive_enabled(VFS_DRIVE_EXT)) {
-        return vfs_get_driver(VFS_DRIVE_EXT);
-    } else if (vfs_drive_enabled(VFS_DRIVE_INT)) {
-        return vfs_get_driver(VFS_DRIVE_INT);
+settings_data_t m_settings_data = {0};
+
+#define BOOL_VALIDATE(expr, default_val)                                                                               \
+    if ((expr) != 0 && (expr) != 1) {                                                                                  \
+        (expr) = (default_val);                                                                                        \
     }
-
-    return NULL;
-}
-
-#define BOOL_VALIDATE(expr, default_val) if((expr) != 0 && (expr) !=1) { (expr) = (default_val);}
-#define INT8_VALIDATE(expr, min, max, default_val) if((expr) < (min) || (expr) > (max)) { (expr) = (default_val);}
+#define INT8_VALIDATE(expr, min, max, default_val)                                                                     \
+    if ((expr) < (min) || (expr) > (max)) {                                                                            \
+        (expr) = (default_val);                                                                                        \
+    }
 
 static void validate_settings() {
     if (m_settings_data.sleep_timeout_sec == 0 || m_settings_data.sleep_timeout_sec > 180) {
@@ -61,7 +59,7 @@ static void validate_settings() {
 }
 
 int32_t settings_init() {
-    vfs_driver_t *p_driver = get_enabled_vfs_driver();
+    vfs_driver_t *p_driver = vfs_get_default_driver();
     if (p_driver == NULL) {
         return NRF_ERROR_NOT_SUPPORTED;
     }
@@ -73,6 +71,8 @@ int32_t settings_init() {
     if (!p_driver->mounted()) {
         return NRF_ERROR_INVALID_STATE;
     }
+
+    memcpy(&m_settings_data, &def_settings_data, sizeof(settings_data_t));
 
     err = p_driver->read_file_data(SETTINGS_FILE_NAME, &m_settings_data, sizeof(settings_data_t));
     if (err < 0) {
@@ -86,7 +86,7 @@ int32_t settings_init() {
 }
 
 int32_t settings_save() {
-    vfs_driver_t *p_driver = get_enabled_vfs_driver();
+    vfs_driver_t *p_driver = vfs_get_default_driver();
     int32_t err;
 
     if (p_driver == NULL) {
@@ -128,3 +128,9 @@ int32_t settings_save() {
 }
 
 settings_data_t *settings_get_data() { return &m_settings_data; }
+
+int32_t settings_reset() {
+    memcpy(&m_settings_data, &def_settings_data, sizeof(settings_data_t));
+    vfs_driver_t *p_driver = vfs_get_default_driver();
+    return p_driver->remove_file(SETTINGS_FILE_NAME);
+}
