@@ -264,6 +264,203 @@ Other oddity is what the modes on applications do not correspond with the modes 
 | File Mode | Sequential |
 | Auto Mode | Read/Write |
 
+
+# CardEmulator
+
+This application can be used to emulate Mifare cards and NTAG series cards.
+
+Mifare cards are commonly used for access control cards, and the device can fully emulate Mifare types of cards. Supported Mifare card types include:
+
+* Mifare Mini
+* Mifare 1K
+* Mifare 2K
+* Mifare 4K
+
+NTAG series cards are commonly used for device identification. Supported NTAG card types include:
+
+* NTAG 213
+* NTAG 215
+* NTAG 216
+
+Currently, a total of 8 cards are supported, with the option for customizing the number of cards in the future.
+
+> Note:<br/>
+> The emulation function of the NTAG series is still in testing, and the functionality is not yet complete. It does not fully emulate > the features of NTAG125. <br/>
+> Further improvements to this part of the functionality will continue.
+
+Emulation can only be activated in this interface, and it will be deactivated if you leave this interface.
+
+After disk formatting or the first entry into the card emulator, data will be initialized. This process may take a few seconds, so please be patient.
+
+
+## Card Emulation
+
+The interface of the card emulation page is as follows:
+
+|   |
+| ------------ |
+| [01] de:ad:be:ef|
+|  |
+| <    Slot 01      >|
+|  |
+| MF 1K <08/04 00>  |
+|   |
+
+The interface is explained as follows:
+
+* The first line: `01` is the card number, and `de:ad:be:ef` is the card ID.
+* The second line: Slot 01 is the name of the current card, which can be freely set.
+* The third line: `MF 1K` displays the card type. The type abbreviations are shown in the table below. `08` is the card's SAK, `04 00` is the card's ATQA. The last symbol indicates the writing mode. If it is marked as a disk, writing is allowed; otherwise, writing is not allowed.
+Abbreviations for card types:
+
+| Display Name | Card Type | Data File Size |
+| ---- | --- | --- |
+| MF mini | Mifare Mini | 320 |
+| MF 1k | Mifare 1K | 1024 |
+| MF 2k | Mifare 2K | 2048 |
+| MF 4k | Mifare 4K | 4096 |
+| N213 | NTAG 213 | 180 |
+| N215 | NTAG 215 | 540 |
+| N216 | NTAG 216 | 924 |
+
+# 主菜单
+
+Pressing the middle button allows you to enter the main menu. As follows:
+
+|   |
+| ------------ |
+|  Slot  [01]|
+|  Nick [Slot 01]|
+|  ID [de:ad:be:ef]|
+|  Type [MiFare 1K] |
+|  Data.. |
+|  Advanced.. |
+|  Slot Settings.. |
+|  [Tag Details] |
+|  [Main Menu] |
+|   |
+
+* Slot: Displays the current selected card slot. You can select a card slot by pressing the middle button.
+* Nick: The current name of the card. Pressing the middle button can enter the card name setting interface.
+* ID: Displays the current card ID.
+* Type: Displays the current card type.
+* Data: Pressing the middle button can manage card data.
+* Advanced: Pressing the middle button can enter advanced card settings.
+* Slot Settings: Pressing the middle button enters the slot management interface, where you can enable or disable card slots.
+* [Tag Details]: Returns to the tag details page.
+* [Main Menu]: Exits this application and enters the main menu.
+
+> **Special Note:**：<br/>
+> Some modifications need to be saved to storage when exiting to the tag details. If you have modified some configurations, be sure to enter the tag details page to save them.
+
+## Nick Update
+
+In this interface, you can modify the name of the card.
+
+Due to limited display space, only English characters can be entered.
+
+In particular, if using Chinese characters, due to UTF-8 encoding, deletion requires at least 2 presses to completely delete.
+
+If you want to add Chinese notes to the card, you can modify the notes of `/chameleon/slots/00.bin` through the webpage to achieve Chinese notes.<br />
+00.bin is the file for the first card slot, 01.bin is the file for the second card slot, and so on.
+
+> Due to firmware size limitations, currently only around 1000 Chinese characters can be displayed properly. If Chinese characters are not displayed, please raise an issue with the characters you need to display. Specific characters can be added in the next version.
+
+## Card Data
+
+
+In this interface, you can perform the import and export of card data.
+
+|   |
+| ------------ |
+|  Load.. |
+|  Save.. |
+|  Factory.. |
+|   |
+
+The import and export files are stored in the `/chameleon/dump/` folder.<br />
+If you need to import data, you need to write the data file you want to import to the above folder through the webpage in advance.
+
+* Load: Pressing the middle button allows you to enter the load interface. The interface will read all files under `/chameleon/dump/`, and pressing the middle button can perform the import.
+* Save: Pressing the middle button allows you to export the current card to the `/chameleon/dump/` folder.
+* Factory: Pressing the middle button allows you to reset the current card data to the default built-in empty card data.
+
+> The file size loaded must be exactly the same as the current card type to be imported. The data file size for different cards refers to the table in the `Card Emulation`.
+
+
+## Advanced
+
+
+This interface displays different content based on MiFare series cards and NTAG series cards.
+
+> **Special Note**:<br/>
+> This interface is the advanced settings for card emulation, and it is not recommended for ordinary users to modify. If you intend to make changes, please make sure you understand what you are doing before modifying!<br/>
+> If modifying this part leads to card emulation failure, try restoring default settings first.
+
+### MiFare Series
+|   |
+| ------------ |
+|  Custom Mode [OFF] |
+|  ID [de:ad:be:ef]|
+|  SAK [08] |
+|  ATQA: [00 40]|
+|  Gen1A Enabled [OFF] |
+|  Gen2 Enabled [OFF] |
+|  Write Mode [Normal] |
+|  [RETURN] |
+|   |
+
+
+* Custom Mode: Default is off. Off: During the ID card recognition phase, ID/SAK/ATQA are read from sector 0 of the card data. On: You can set independent resources in the ID/SAK/ATQA menu below.
+* ID: Displays the current card ID. If the custom mode is on, pressing the middle button allows you to enter the input interface for modification. If the custom mode is off, pressing the middle button has no effect.
+* SAK: Displays the current card SAK. If the custom mode is on, pressing the middle button allows you to enter the input interface for modification. If the custom mode is off, pressing the middle button has no effect.
+* ATQA: Displays the current card ATQA. If the custom mode is on, pressing the middle button allows you to enter the input interface for modification. If the custom mode is off, pressing the middle button has no effect.
+* Gen1A Enabled: Default is off. When enabled, allows the emulator to respond to domestic advanced backdoor commands. These backdoor commands can directly unlock the card without the need for a key.
+* Gen2 Enabled: Default is off. When enabled, allows writing to sector 0. (Sector 0 mainly stores information such as ID/SAK/ATQA, and allowing writing can modify the card's ID)
+* Write Mode: Default is normal. There can be 4 values, see the table below.
+
+|  Write Mode | Description |
+| ----- | --- |
+| Nromal | Data is written normally to memory, switch card or exit to persist |
+| Deny | Any write operation returns failure |
+| Ingore | Write operation returns success, but does not write to memory or persist |
+| Cache | Data is written normally to memory, switching cards or exiting does not persist |
+
+> It is recommended to enable Gen1A mode and Gen2 mode when copying cards, and close them after copying to avoid being recognized as a clone card by card readers.
+
+### NTAG Series
+|   |
+| ------------ |
+|  ID [04:68:95:71:fa:5c:64]|
+|  SAK [00] |
+|  ATQA: [00 44] |
+|  Rand. UID |
+|  [RETURN] |
+|   |
+
+
+* ID: Displays the current card ID. Not editable.
+* SAK: Displays the current card SAK. Not editable.
+* ATQA: Displays the current card ATQA. Not editable.
+* Rand. UID: Pressing the middle button can randomly generate a new ID. Note that you need to return to the emulation interface to simulate and save the new card ID.
+
+## Slot Settings
+
+
+This interface displays the enable/disable status of all card slots and allows you to individually enable or disable each card slot.
+
+|   |
+| ------------ |
+|  Slot Num.. [8]|
+|  Slot 01   [ON] |
+|  Slot 02   [OFF] |
+|  .. |
+|  [RETURN] |
+|   |
+
+* Slot Num: Displays the current number of card slots, which is default set to 8. Currently, the modification of the slot quantity is not supported, and it will be available in future firmware updates.
+* Slot xx: Displays the open/close status of the card slot. Pressing the middle button can toggle between open and close status.
+
 ----
 # BLE File Transfer
 This application allows you to connect the iNFC or the pixl.js web page, to manage files on the device storage or update the firmware.
