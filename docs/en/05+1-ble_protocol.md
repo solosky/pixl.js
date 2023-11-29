@@ -63,11 +63,11 @@ For example, writing to a file process:
 ```
 c -> s: 0x12, mode: wc, open file
 s -> c: 0x12, status 0, file id 0xa1, the file has been created and can be written
-c -> s: 0x14, chunk 0 | 0x8000, file id 0xa1, 246 bytes of data
-c -> s: 0x14, chunk 1 | 0x8000, file id 0xa1, 246 bytes of data
+c -> s: 0x15, chunk 0 | 0x8000, file id 0xa1, 246 bytes of data
+c -> s: 0x15, chunk 1 | 0x8000, file id 0xa1, 246 bytes of data
 ...
-c -> s: 0x14, chunk N, file id 0xa1, 56 bytes of data
-s -> c: 0x14, status 0, writing completed
+c -> s: 0x15, chunk N, file id 0xa1, 56 bytes of data
+s -> c: 0x15, status 0, writing completed
 c -> s: 0x13, file id 0xa1, close the file,
 s -> c: 0x13, status 0,
 ```
@@ -77,10 +77,10 @@ Read file process
 ```
 c -> s: 0x12, mode: r, open file
 s -> c: 0x12, status 0, file id 0xa1, the file is open and can be read
-c -> s: 0x15, chunk 0, file id 0xa1
-s -> c: 0x15, status 0, chunk 1 | 0x8000, file id 0xa1, 246 bytes of data
+c -> s: 0x14, chunk 0, file id 0xa1
+s -> c: 0x14, status 0, chunk 1 | 0x8000, file id 0xa1, 246 bytes of data
 ...
-s -> c: 0x15, status 0, chunk N, file id 0xa1, 56 bytes of data
+s -> c: 0x14, status 0, chunk N, file id 0xa1, 56 bytes of data
 c -> s: 0x13, file id 0xa1, close the file,
 s -> c: 0x13, status 0,
 ```
