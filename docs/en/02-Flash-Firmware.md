@@ -17,7 +17,7 @@ You need to connect the 3.3 Volt, GND, SWDIO and SWDCLK leads.  you can use the 
 
 You can also use OpenOCD to flash the device, this is an example of the command to execute:
 ```
-openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixjs_all. hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
+openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf5 mass_erase" -c "program pixjs_all.hex verify" -c "program nrf52832_xxaa.hex verify" -c exit
 ```
 After first flash is completed, subsequent firmware updates can be done via OTA.
 

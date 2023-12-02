@@ -19,9 +19,9 @@ This fork is divided in two main sections, Hardware and Firmware
 
 # Firmware 
 
-- A guide to [Flash the Firmware](02-Flash-Firmware "Flash the Firmware")
-- To help on the internationalization of the Firmware you can follow the [Guide](https://github.com/solosky/pixl.js/blob/develop/fw/docs/translation.md).
-- [Building the firmware](03-Build-Firmware)
+- A guide to [Flash the Firmware](02-Flash-Firmware.md "Flash the Firmware")
+- To help on the internationalization of the Firmware you can follow the [Guide](05+5-translation.md).
+- [Building the firmware](03-Build-Firmware.md)
 - [Using the firmware](04-Using-Firmware.md)
 
 
@@ -39,7 +39,6 @@ This fork is divided in two main sections, Hardware and Firmware
 
 - [Bluetooth BLE File Transfer protocol](05+1-ble_protocol.md)
 - [AmiiboLink BLE Protocol](05+2-amiibolink_ble.md)
-- [Amiibo Database Doc.](05+3-amiidb.md)
 - [video player](05+4-video_player.md) (Retired on Firmware 2.5.2 due to flash size restrictions.
 
 

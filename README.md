@@ -36,8 +36,7 @@
 ## Office Channel
 
 Where do you find the community?
-* [Pixl.js community discord server](https://discord.gg/t8naCqy4)
-
+* [Pixl.js community discord server](https://discord.gg/4mqeQwcAB2)
 
 ## 声明
 
