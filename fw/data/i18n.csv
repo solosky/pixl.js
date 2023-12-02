@@ -28,6 +28,7 @@ _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar Firmware
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar
 _L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,
+_L_APP_SET_RESET_DEFAULT_SUCCESS,Reset Success!,重置成功,重置成功,
 _L_15S,15 Seconds,15秒,15秒,15 Segundos
 _L_30S,30 Seconds,30秒,30秒,30 Segundos
 _L_45S,45 Seconds,45秒,45秒,45 Segundos

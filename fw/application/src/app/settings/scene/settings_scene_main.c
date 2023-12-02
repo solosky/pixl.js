@@ -25,6 +25,19 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_EXIT
 };
 
+static void settings_reset_default(void *user_data) {
+    app_settings_t *app = user_data;
+    settings_data_t *p_settings = settings_get_data();
+#ifdef OLED_SCREEN
+    mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
+#else
+    mui_u8g2_set_backlight_level(p_settings->lcd_backlight);
+#endif
+    nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
+    setLanguage(p_settings->language);
+
+    mui_toast_view_show(app->p_toast_view, _T(APP_SET_RESET_DEFAULT_SUCCESS));
+}
 static void settings_scene_main_reload(void *user_data);
 
 static void settings_scene_main_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
@@ -97,6 +110,7 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     case SETTINGS_MAIN_MENU_RESET_DEFAULT:
         settings_reset();
+        settings_reset_default(app);
         settings_scene_main_reload(app);
         break;
     }
@@ -166,13 +180,13 @@ static void settings_scene_main_reload(void *user_data) {
 
     mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
     mui_list_view_add_item(app->p_list_view, 0xe1cb, _T(APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
-    mui_list_view_add_item(app->p_list_view, 0xe1ce, _T(APP_SET_RESET_DEFAULT), (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
+    mui_list_view_add_item(app->p_list_view, 0xe1ce, _T(APP_SET_RESET_DEFAULT),
+                           (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, _T(BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
     mui_list_view_set_focus(app->p_list_view, foucs_index);
     mui_list_view_set_scroll_offset(app->p_list_view, scroll_offset);
-  
 }
 
 void settings_scene_main_on_enter(void *user_data) {

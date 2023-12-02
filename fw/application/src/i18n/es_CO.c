@@ -29,6 +29,7 @@ const char * lang_es_CO[_L_COUNT] = {
     [_L_APP_SET_DFU] = "Actualizar Firmware",
     [_L_APP_SET_REBOOT] = "Reiniciar",
     [_L_APP_SET_RESET_DEFAULT] = "",
+    [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "",
     [_L_15S] = "15 Segundos",
     [_L_30S] = "30 Segundos",
     [_L_45S] = "45 Segundos",

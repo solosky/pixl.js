@@ -14,7 +14,7 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                            .skip_driver_select = 0,
                                            .bat_mode = 0,
                                            .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
-                                           .language = LANGUAGE_ZH_HANS,
+                                           .language = LANGUAGE_EN_US,
                                            .hibernate_enabled = false,
                                            .show_mem_usage = false,
                                            .anim_enabled = false,
@@ -54,7 +54,7 @@ static void validate_settings() {
     INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 0);
     BOOL_VALIDATE(m_settings_data.anim_enabled, 0);
     BOOL_VALIDATE(m_settings_data.qrcode_enabled, 0);
-    INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, 0);
+    INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, LANGUAGE_EN_US);
     INT8_VALIDATE(m_settings_data.amiidb_data_slot_num, 1, 100, 20);
 }
 
