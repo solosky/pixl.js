@@ -6,10 +6,13 @@
 #include "ntag_def.h"
 #include "ntag_store.h"
 #include "vfs.h"
+#include "mui_icons.h"
+
 
 #include "i18n/language.h"
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
+
 
 #define AMIIBO_MAX_AMIIBO_IN_BATCH 50
 
@@ -109,7 +112,6 @@ static void amiibo_scene_file_browser_text_input_create_amiibo_batch_event_cb(mu
         char file_name[VFS_MAX_NAME_LEN];
         ntag_t ntag;
 
-
         mui_msg_box_set_header(app->p_msg_box, _T(CREATING_TAG_BATCH));
         mui_msg_box_set_btn_text(app->p_msg_box, NULL, NULL, NULL);
         mui_msg_box_set_btn_focus(app->p_msg_box, 1);
@@ -118,7 +120,7 @@ static void amiibo_scene_file_browser_text_input_create_amiibo_batch_event_cb(mu
         for (uint8_t i = 0; i < num_amiibo; i++) {
             sprintf(file_name, "new_%02d.bin", i + 1);
 
-            sprintf(msg, "%s %s ..",_T(CREATING_TAG_BATCH), file_name);
+            sprintf(msg, "%s %s ..", _T(CREATING_TAG_BATCH), file_name);
             mui_msg_box_set_message(app->p_msg_box, msg);
             mui_update_now(mui());
 
@@ -193,7 +195,7 @@ static void amiibo_scene_file_browser_menu_msg_box_remove_folder_event_cb(mui_ms
     vfs_obj_t obj;
     cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
 
-    if (event == MUI_MSG_BOX_EVENT_SELECT_RIGHT) {
+    if (event == MUI_MSG_BOX_EVENT_SELECT_LEFT) {
 
         int32_t res = p_driver->stat_file(path, &obj);
         if (res == VFS_OK) {
@@ -205,12 +207,12 @@ static void amiibo_scene_file_browser_menu_msg_box_remove_folder_event_cb(mui_ms
         }
 
         if (res == VFS_OK) {
-            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
+            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
 
     } else {
         // cancel, return to menu
-        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER_MENU);
+        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
     }
 }
 
@@ -256,8 +258,8 @@ static void amiibo_scene_file_browser_menu_on_selected(mui_list_view_event_t eve
         snprintf(msg, sizeof(msg), "%s %s ?", getLangString(_L_DELETE), string_get_cstr(app->current_file));
         mui_msg_box_set_header(app->p_msg_box, getLangString(_L_DELETE));
         mui_msg_box_set_message(app->p_msg_box, msg);
-        mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_CANCEL), NULL, getLangString(_L_DELETE));
-        mui_msg_box_set_btn_focus(app->p_msg_box, 2);
+        mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_DELETE), NULL, getLangString(_L_CANCEL));
+        mui_msg_box_set_btn_focus(app->p_msg_box, 0);
         mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_file_browser_menu_msg_box_remove_folder_event_cb);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);
@@ -286,24 +288,24 @@ static void amiibo_scene_file_browser_menu_on_selected(mui_list_view_event_t eve
 void amiibo_scene_file_browser_menu_on_enter(void *user_data) {
     app_amiibo_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, 0xe1c7, string_get_cstr(app->current_file), FILE_BROWSER_MENU_FILE_NAME);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, string_get_cstr(app->current_file), FILE_BROWSER_MENU_FILE_NAME);
 
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_CREATE_NEW_FOLDER),
+    mui_list_view_add_item(app->p_list_view, ICON_NEW, getLangString(_L_CREATE_NEW_FOLDER),
                            (void *)FILE_BROWSER_MENU_CREATE_FOLDER);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_CREATE_NEW_TAG),
+    mui_list_view_add_item(app->p_list_view, ICON_NEW, getLangString(_L_CREATE_NEW_TAG),
                            (void *)FILE_BROWSER_MENU_CREATE_AMIIBO);
-    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_CREATE_NEW_TAG_BATCH),
+    mui_list_view_add_item(app->p_list_view, ICON_NEW, getLangString(_L_CREATE_NEW_TAG_BATCH),
                            (void *)FILE_BROWSER_MENU_CREATE_AMIIBO_BATCH);
     if (string_cmp_str(app->current_file, "..") != 0) {
         char txt[32];
         snprintf(txt, sizeof(txt), "%s..", getLangString(_L_RENAME));
-        mui_list_view_add_item(app->p_list_view, 0xe1c9, txt, (void *)FILE_BROWSER_MENU_RENAME_FOLDER);
+        mui_list_view_add_item(app->p_list_view, ICON_EMPTY, txt, (void *)FILE_BROWSER_MENU_RENAME_FOLDER);
         snprintf(txt, sizeof(txt), "%s..", getLangString(_L_DELETE));
-        mui_list_view_add_item(app->p_list_view, 0xe1ca, txt, (void *)FILE_BROWSER_MENU_REMOVE_FOLDER);
+        mui_list_view_add_item(app->p_list_view, ICON_DELETE, txt, (void *)FILE_BROWSER_MENU_REMOVE_FOLDER);
     }
-    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK_TO_FILE_LIST),
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_BACK_TO_FILE_LIST),
                            (void *)FILE_BROWSER_MENU_BACK_FILE_BROWSER);
-    mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK_TO_MAIN_MENU),
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_BACK_TO_MAIN_MENU),
                            (void *)FILE_BROWSER_MENU_BACK_MAIN_MENU);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiibo_scene_file_browser_menu_on_selected);
