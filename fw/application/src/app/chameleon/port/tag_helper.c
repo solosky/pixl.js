@@ -7,7 +7,7 @@
 #include <string.h>
 
 const static tag_specific_type_name_t tag_type_names[] = {
-    {TAG_TYPE_UNDEFINED, "UNDEFINED", "UNDEFINED", 0},
+    {TAG_TYPE_UNDEFINED, "-", "-", 0},
     // MiFare series
     {TAG_TYPE_MIFARE_Mini, "MF Mini", "MiFare Mini", 20 * NFC_TAG_MF1_DATA_SIZE},
     {TAG_TYPE_MIFARE_1024, "MF 1K", "MiFare 1K", 64 * NFC_TAG_MF1_DATA_SIZE},
