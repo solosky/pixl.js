@@ -39,7 +39,18 @@ This fork is divided in two main sections, Hardware and Firmware
 
 - [Bluetooth BLE File Transfer protocol](05+1-ble_protocol.md)
 - [AmiiboLink BLE Protocol](05+2-amiibolink_ble.md)
-- [video player](05+4-video_player.md) (Retired on Firmware 2.5.2 due to flash size restrictions.
+- [video player](05+4-video_player.md) (Retired on Firmware 2.5.2 due to flash size restrictions.)
+
+
+# Tutorial
+
+## iNFC
+
+- [Pixl Firmware Upgrade Tutorial](https://www.youtube.com/watch?v=vldNVaoqJg0)
+
+## MTools Lite
+
+- [How to use card emulator on Pixl js OLED LCD](https://www.youtube.com/watch?v=KiuyfBKalhI)
 
 
 # **key_retail.bin**
