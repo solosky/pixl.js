@@ -10,7 +10,7 @@ LanguageData languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_ZH_HANS] = { .strings = lang_zh_Hans },
     [LANGUAGE_EN_US] = { .strings = lang_en_US },
     [LANGUAGE_ZH_TW] = { .strings = lang_zh_TW },
-    [LANGUAGE_ES_CO] = { .strings = lang_es_CO },
+    [LANGUAGE_ES_ES] = { .strings = lang_es_ES },
 };
 
 // 当前语言设置
@@ -33,8 +33,8 @@ const char* getLangDesc(Language lang){
         return "English";
     }else if(lang == LANGUAGE_ZH_TW){
         return "繁體中文(臺灣)";
-    }else if(lang == LANGUAGE_ES_CO){
-        return  "Español(Colombia)";
+    }else if(lang == LANGUAGE_ES_ES){
+        return  "Español";
     }
 }
 
