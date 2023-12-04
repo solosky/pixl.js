@@ -24,7 +24,7 @@ void settings_scene_version_on_enter(void *user_data) {
     sprintf(txt, "[%s]", version_get_githash(NULL));
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, "GitHash", txt, (void *)0xFF);
 
-    sprintf(txt, " [%s]", version_get_gitbranch(NULL));
+    sprintf(txt, "[%s]", version_get_gitbranch(NULL));
     mui_list_view_add_item_ext(app->p_list_view, 0xe1ca, "Branch", txt, (void *)0xFF);
 
     sprintf(txt, "[%d]", version_get_target(NULL));
