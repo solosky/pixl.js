@@ -63,7 +63,7 @@ export default {
     maxsize: 'The total length of the file path cannot exceed 63 bytes.',
     maxname: 'The file name cannot exceed 47 bytes.',
     closetitle: 'Confirm to close?',
-    closemessage: 'Closing dialog will clear the upload record.',
+    closemessage: 'Closing dialog will clear the upload record.  And will abort the upload queue.',
     errupload: 'Upload failed: '
   },
   format: {
