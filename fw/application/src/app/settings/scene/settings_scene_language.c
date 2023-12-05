@@ -54,9 +54,9 @@ static void settings_scene_language_list_view_on_selected(mui_list_view_event_t 
 void settings_scene_language_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
-    mui_list_view_add_item(app->p_list_view, 0xe105, "简体中文", (void *)SETTINGS_LANGUAGE_ZH_HANS);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "繁體中文(臺灣)", (void *)SETTINGS_LANGUAGE_ZH_TW);
-    mui_list_view_add_item(app->p_list_view, 0xe105, "English", (void *)SETTINGS_LANGUAGE_EN_US);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangDesc(LANGUAGE_ZH_HANS), (void *)SETTINGS_LANGUAGE_ZH_HANS);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangDesc(LANGUAGE_ZH_TW), (void *)SETTINGS_LANGUAGE_ZH_TW);
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangDesc(LANGUAGE_EN_US), (void *)SETTINGS_LANGUAGE_EN_US);
     mui_list_view_add_item(app->p_list_view, 0xe105, getLangDesc(LANGUAGE_ES_ES), (void *)SETTINGS_LANGUAGE_ES_ES);
     mui_list_view_add_item(app->p_list_view, 0xe105, getLangDesc(LANGUAGE_HU_HU), (void *)SETTINGS_LANGUAGE_HU_HU);
     mui_list_view_add_item(app->p_list_view, 0xe069, getLangString(_L_BACK), (void *)SETTINGS_LANGUAGE_MENU_EXIT);
