@@ -63,7 +63,7 @@ export default {
     maxsize: 'El tamaño máximo de la ruta es 63 bytes.',
     maxname: 'El nombre puede ser máximo 47 bytes.',
     closetitle: '¿Cerrar el diálogo?',
-    closemessage: 'Cerrando el diálogo se eliminará el registro de elementos subidos.',
+    closemessage: 'Cerrando el diálogo se eliminará el registro de elementos subidos. También se detendrá la cola de archivos que falta por subir',
     errupload: 'Fallo al subir: '
   },
   format: {
