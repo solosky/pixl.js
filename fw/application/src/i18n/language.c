@@ -11,6 +11,7 @@ LanguageData languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_EN_US] = { .strings = lang_en_US },
     [LANGUAGE_ZH_TW] = { .strings = lang_zh_TW },
     [LANGUAGE_ES_ES] = { .strings = lang_es_ES },
+    [LANGUAGE_HU_HU] = { .strings = lang_hu_HU },
 };
 
 // 当前语言设置
@@ -35,6 +36,8 @@ const char* getLangDesc(Language lang){
         return "繁體中文(臺灣)";
     }else if(lang == LANGUAGE_ES_ES){
         return  "Español";
+    }else if(lang == LANGUAGE_HU_HU){
+        return  "Magyar";
     }
 }
 
