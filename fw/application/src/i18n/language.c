@@ -14,7 +14,7 @@ LanguageData languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_HU_HU] = { .strings = lang_hu_HU },
 };
 
-// 当前语言设置
+// 当前语言设置 (Current language setting)
 Language currentLanguage = LANGUAGE_ZH_HANS;
 
 

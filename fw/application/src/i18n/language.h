@@ -25,7 +25,7 @@ extern const char* lang_zh_TW[_L_COUNT];
 extern const char* lang_es_ES[_L_COUNT];
 extern const char* lang_hu_HU[_L_COUNT];
 
-// 获取字符串的函数
+// 获取字符串的函数 (Get language string function)
 const char* getLangString(L_StringID stringID);
 void setLanguage(Language lang);
 Language getLanguage();
