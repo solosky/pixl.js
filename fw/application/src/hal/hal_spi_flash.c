@@ -1,3 +1,7 @@
+#include "boards_defines.h"
+
+#ifdef SPI_FLASH
+
 #include "hal_spi_flash.h"
 #include "hal_spi_bus.h"
 #include "nordic_common.h"
@@ -7,8 +11,6 @@
 
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-
-#include "boards_defines.h"
 
 #define PAGE_SIZE 256
 #define CMD_ADDR_SIZE 4
@@ -235,3 +237,5 @@ ret_code_t hal_spi_flash_erase(uint32_t address) {
 void hal_spi_flash_sleep(){
     hal_spi_flash_write_cmd(CMD_DP);
 }
+
+#endif

@@ -97,7 +97,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     if (p_mui_list_view->anim_type == LIST_ANIM_FOCUS) {
         focus_yi = focus_yi + p_mui_list_view->anim_value;
     }
-    focus_yi = LV_MIN(LV_MAX(focus_yi, 0), mui_canvas_get_height(p_canvas) - LIST_ITEM_HEIGHT);
+    focus_yi = LV_MIN(LV_MAX(focus_yi, 0), mui_canvas_get_height(p_canvas));
     uint32_t focus_h = 12;
     mui_canvas_set_draw_color(p_canvas, 2);
     mui_canvas_draw_box(p_canvas, 0, focus_yi, mui_canvas_get_width(p_canvas), focus_h);

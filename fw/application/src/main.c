@@ -276,7 +276,7 @@ int main(void) {
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
 
     amiibo_helper_try_load_amiibo_keys_from_vfs();
-    //usb_init();
+    usb_init();
 
     NRF_LOG_DEBUG("init done");
 
@@ -294,7 +294,7 @@ int main(void) {
 
         app_sched_execute();
         mui_tick(p_mui);
-        //usb_tick();
+        usb_tick();
         NRF_LOG_FLUSH();
         if (NRF_LOG_PROCESS() == false) {
             nrf_pwr_mgmt_run();

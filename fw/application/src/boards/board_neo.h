@@ -23,9 +23,9 @@
 #define BUTTONS_NUMBER 3
 
 #define BUTTON_START   13
-#define BUTTON_1       15
+#define BUTTON_1       33
 #define BUTTON_2       13
-#define BUTTON_3       33
+#define BUTTON_3       15
 #define BUTTON_STOP    33
 #define BUTTON_PULL    NRF_GPIO_PIN_PULLUP
 
@@ -60,11 +60,24 @@
 //#define VFS_SPIFFS_ENABLE
 
 #define SPI_INSTANCE 3
-#define NRFX_SPIM_SCK_PIN 8  // yellow wire (CLK)
-#define NRFX_SPIM_MOSI_PIN 41 // blue wire (DIN)
-#define NRFX_SPIM_MISO_PIN -1 // blue wire (DIN)
+#define NRFX_SPIM_SCK_PIN 8  
+#define NRFX_SPIM_MOSI_PIN 41 
+#define NRFX_SPIM_MISO_PIN -1
 
 // flash 
+#define QSPI_FLASH 1
+//#define SPI_FLASH 1
+
+#ifdef QSPI_FLASH
+#define QSPI_SCK_PIN 20  
+#define QSPI_CS_PIN 17 
+#define QSPI_IO0_PIN 22 
+#define QSPI_IO1_PIN 24
+#define QSPI_IO2_PIN 25
+#define QSPI_IO3_PIN 32 
+#endif
+
+
 #define FLASH_CS_PIN -1
 
 // Power

@@ -330,7 +330,7 @@ int32_t vfs_lfs_update_file_meta(const char *file, void *meta, size_t meta_size)
 
 /**short opearation*/
 int32_t vfs_lfs_write_file_data(const char *file, void *buff, size_t buff_size) {
-    struct lfs_file fd;
+    struct lfs_file fd = {0};
     int32_t file_written_size = 0;
 
     NRF_LOG_INFO("write file data %s\n", nrf_log_push(file));
