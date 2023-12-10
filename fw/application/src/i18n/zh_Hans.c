@@ -29,6 +29,7 @@ const char * lang_zh_Hans[_L_COUNT] = {
     [_L_APP_SET_DFU] = "固件更新",
     [_L_APP_SET_REBOOT] = "重启设备",
     [_L_APP_SET_RESET_DEFAULT] = "重置默认配置",
+    [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "重置成功",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
     [_L_45S] = "45秒",

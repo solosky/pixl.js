@@ -29,6 +29,7 @@ const char * lang_zh_TW[_L_COUNT] = {
     [_L_APP_SET_DFU] = "軟體升級",
     [_L_APP_SET_REBOOT] = "重啟設備",
     [_L_APP_SET_RESET_DEFAULT] = "重置默認配置",
+    [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "重置成功",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
     [_L_45S] = "45秒",

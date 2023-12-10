@@ -1,5 +1,6 @@
 fw/.settings
 fw/_build
+fw/.idea
 
 fw/src/amiibo_private.c
 fw/src/version.inc.h

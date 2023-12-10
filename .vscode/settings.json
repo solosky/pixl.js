@@ -21,6 +21,15 @@
         "string_view": "c",
         "initializer_list": "c",
         "ranges": "c",
-        "hal_nfc_t2t.h": "c"
+        "hal_nfc_t2t.h": "c",
+        "optional": "c",
+        "istream": "c",
+        "ostream": "c",
+        "ratio": "c",
+        "system_error": "c",
+        "functional": "c",
+        "tuple": "c",
+        "type_traits": "c",
+        "utility": "c"
     }
 }

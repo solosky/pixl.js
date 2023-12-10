@@ -15,9 +15,9 @@
 
 # 固件
 
-- [固件](02-Flash-Firmware "Flash the Firmware")
-- [国际化](fw/docs/translation.md)
-- [构建固件](03-Build-Firmware)
+- [固件](02-Flash-Firmware.md "Flash the Firmware")
+- [国际化](05+5-translation.md)
+- [构建固件](03-Build-Firmware.md)
 
 
 # [使用手册](04-Using-Firmware.md)

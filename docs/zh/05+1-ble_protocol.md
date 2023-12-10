@@ -64,11 +64,11 @@ chunk 字段为2个字节，chunk传输流最多能传输7.8M字节。
 ```
 c -> s: 0x12，mode: wc, 打开文件
 s -> c: 0x12, status 0, file id 0xa1，文件已经创建好，可以写入
-c -> s: 0x14, chunk 0 | 0x8000, file id 0xa1,  246字节数据
-c -> s: 0x14, chunk 1 | 0x8000, file id 0xa1, 246字节数据
+c -> s: 0x15, chunk 0 | 0x8000, file id 0xa1,  246字节数据
+c -> s: 0x15, chunk 1 | 0x8000, file id 0xa1, 246字节数据
 ...
-c -> s: 0x14, chunk N , file id 0xa1, 56字节数据
-s -> c: 0x14， status 0, 写入完毕
+c -> s: 0x15, chunk N , file id 0xa1, 56字节数据
+s -> c: 0x15， status 0, 写入完毕
 c -> s: 0x13, file id 0xa1，关闭文件，
 s -> c: 0x13, status 0, 
 ```
@@ -78,10 +78,10 @@ s -> c: 0x13, status 0,
 ```
 c -> s: 0x12，mode: r, 打开文件
 s -> c: 0x12, status 0, file id 0xa1，文件已经打开，可以读取
-c -> s: 0x15, chunk 0 , file id 0xa1
-s -> c: 0x15, status 0, chunk 1 | 0x8000, file id 0xa1, 246字节数据
+c -> s: 0x14, chunk 0 , file id 0xa1
+s -> c: 0x14, status 0, chunk 1 | 0x8000, file id 0xa1, 246字节数据
 ...
-s -> c: 0x15, status 0, chunk N , file id 0xa1, 56字节数据
+s -> c: 0x14, status 0, chunk N , file id 0xa1, 56字节数据
 c -> s: 0x13, file id 0xa1，关闭文件，
 s -> c: 0x13, status 0, 
 ```

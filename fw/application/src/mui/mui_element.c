@@ -50,6 +50,13 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
 
     while (*p != 0 && yi < y + h) {
 
+        if (*p == '\n') {
+            xi = x;
+            yi += font_height;
+            p++;
+            continue;
+        }
+
         uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
         memcpy(utf8, p, utf8_size);
         utf8[utf8_size] = '\0';
@@ -66,7 +73,7 @@ void mui_element_autowrap_text(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uin
 }
 
 uint16_t mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint16_t y, uint16_t w, uint16_t h,
-                                   uint16_t offset_y, uint8_t square_r, const char *text) {
+                                       uint16_t offset_y, uint8_t square_r, const char *text) {
 
     mui_rect_t clip_win_prev;
     mui_rect_t clip_win_cur;
@@ -88,6 +95,14 @@ uint16_t mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint1
     char utf8[5];
 
     while (*p != 0) {
+
+        if (*p == '\n') {
+            xi = x;
+            yi += font_height;
+            p++;
+            continue;
+        }
+
         wi = w - 4; // scrollbar width
         if (yi < text_y + square_r) {
             wi -= square_r;
@@ -108,7 +123,7 @@ uint16_t mui_element_autowrap_text_box(mui_canvas_t *p_canvas, uint16_t x, uint1
             // not draw
             utf8_w = utf8_x;
         }
-        xi += utf8_x + 1;//1 pix for margin
+        xi += utf8_x + 1; // 1 pix for margin
         p += utf8_size;
     }
 

@@ -30,6 +30,7 @@ typedef enum {
     _L_APP_SET_DFU,
     _L_APP_SET_REBOOT,
     _L_APP_SET_RESET_DEFAULT,
+    _L_APP_SET_RESET_DEFAULT_SUCCESS,
     _L_15S,
     _L_30S,
     _L_45S,
