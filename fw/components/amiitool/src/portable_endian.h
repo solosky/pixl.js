@@ -58,7 +58,7 @@
 #       define be64toh(x) betoh64(x)
 #       define le64toh(x) letoh64(x)
 
-#elif defined(NRF52832_XXAA) || defined(NRF52833_XXAA) || defined(__WINDOWS__)
+#elif defined(NRF52832_XXAA) || defined(NRF52833_XXAA) || defined(NRF52840_XXAA) || defined(__WINDOWS__)
 
 #       if defined(__WINDOWS__)
 #           include <windows.h>

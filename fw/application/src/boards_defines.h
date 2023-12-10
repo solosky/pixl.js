@@ -17,6 +17,8 @@ extern "C" {
 #include "boards/board_lcd.h"
 #elif defined(BOARD_QMIIBO)
 #include "boards/board_qmiibo.h"
+#elif defined(BOARD_NEO)
+#include "boards/board_neo.h"
 #else
 #include "boards/board_lcd.h"
 #endif

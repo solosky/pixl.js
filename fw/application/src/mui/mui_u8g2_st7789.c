@@ -78,11 +78,6 @@
 #include "u8g2.h"
 #include "u8x8.h"
 
-#define LCD_CS_PIN 27
-#define LCD_RESET_PIN 29
-#define LCD_BL_PIN 20
-#define LCD_DC_PIN 28 // green wire (DC)
-
 #include "app_pwm.h"
 
 u8g2_t u8g2;

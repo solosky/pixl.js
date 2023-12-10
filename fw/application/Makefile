@@ -10,14 +10,14 @@ CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
 RELEASE ?= 0
-BOARD ?= QMIIBO
+BOARD ?= NEO
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
-  LINKER_SCRIPT  := ../ld/ble_app_blinky_gcc_nrf52833.ld
+  LINKER_SCRIPT  := ../ld/ble_app_blinky_gcc_nrf52840.ld
 
 # Source files common to all targets
 SRC_FILES += \
-  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52.S \
+  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
@@ -46,7 +46,7 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/pwm/app_pwm.c \
   $(SDK_ROOT)/components/libraries/sortlist/nrf_sortlist.c \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
-  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52833.c \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c \
 	$(SDK_ROOT)/components/libraries/usbd/app_usbd.c \
 	$(SDK_ROOT)/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c \
 	$(SDK_ROOT)/components/libraries/usbd/app_usbd_core.c \
@@ -319,7 +319,7 @@ SRC_FILES += \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
-  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52833.c \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c \
   $(SDK_ROOT)/components/nfc/platform/nfc_platform.c \
   $(COMP_DIR)/amiitool/src/amiibo.c \
   $(COMP_DIR)/amiitool/src/drbg.c \
@@ -614,7 +614,7 @@ CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52833_XXAA
+CFLAGS += -DNRF52840_XXAA
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
 CFLAGS += -DS113
@@ -624,6 +624,7 @@ CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
+CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
 else
 CFLAGS += -DNDEBUG
 CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
@@ -651,7 +652,7 @@ ASMFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 ASMFLAGS += -DCUSTOM_BOARD_INC=am_board
 # ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
-ASMFLAGS += -DNRF52833_XXAA
+ASMFLAGS += -DNRF52840_XXAA
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
 ASMFLAGS += -DS113
