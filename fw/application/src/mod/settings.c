@@ -14,7 +14,7 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                            .skip_driver_select = 0,
                                            .bat_mode = 0,
                                            .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
-                                           .language = LANGUAGE_ZH_HANS,
+                                           .language = LANGUAGE_EN_US,
                                            .hibernate_enabled = false,
                                            .show_mem_usage = false,
                                            .anim_enabled = false,
@@ -54,11 +54,12 @@ static void validate_settings() {
     INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 0);
     BOOL_VALIDATE(m_settings_data.anim_enabled, 0);
     BOOL_VALIDATE(m_settings_data.qrcode_enabled, 0);
-    INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, 0);
+    INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, LANGUAGE_EN_US);
     INT8_VALIDATE(m_settings_data.amiidb_data_slot_num, 1, 100, 20);
 }
 
 int32_t settings_init() {
+    memcpy(&m_settings_data, &def_settings_data, sizeof(settings_data_t));
     vfs_driver_t *p_driver = vfs_get_default_driver();
     if (p_driver == NULL) {
         return NRF_ERROR_NOT_SUPPORTED;
@@ -71,8 +72,6 @@ int32_t settings_init() {
     if (!p_driver->mounted()) {
         return NRF_ERROR_INVALID_STATE;
     }
-
-    memcpy(&m_settings_data, &def_settings_data, sizeof(settings_data_t));
 
     err = p_driver->read_file_data(SETTINGS_FILE_NAME, &m_settings_data, sizeof(settings_data_t));
     if (err < 0) {
