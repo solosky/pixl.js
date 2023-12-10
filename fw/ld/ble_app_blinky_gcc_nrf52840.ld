@@ -5,9 +5,15 @@ GROUP(-lgcc -lc -lnosys)
 
 MEMORY
 {
-    FLASH (rx) : ORIGIN = 0x1c000, LENGTH = 0x64000
-    RAM (rwx) :  ORIGIN = 0x20003000, LENGTH = 0x1D000
-    NOINIT (rwx) : ORIGIN = 0x200026A8, LENGTH = 0x976
+  /* Internal flash */
+  FLASH (rx) : ORIGIN = 0x27000, LENGTH = 0xf3000
+
+  /*QSPI flash XIP*/
+  /*FLASH (rx) : ORIGIN = 0x12000000, LENGTH = 0x800000*/
+
+  RAM (rwx) :  ORIGIN = 0x20003000, LENGTH = 0x3D000
+  /* Put a noinit region at RAM  */
+  NOINIT (rwx) : ORIGIN = 0x20002bd0, LENGTH = 0x430
 }
 
 SECTIONS

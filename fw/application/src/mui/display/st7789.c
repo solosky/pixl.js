@@ -53,10 +53,10 @@
 
 #include "hal_spi_bus.h"
 
-#define ST7789_DC_PIN 30
-#define ST7789_RST_PIN 31
-#define ST7789_LEDA_PIN 20
-#define ST7789_CS_PIN 29
+#define ST7789_DC_PIN LCD_DC_PIN
+#define ST7789_RST_PIN LCD_RESET_PIN
+#define ST7789_LEDA_PIN LCD_BL_PIN
+#define ST7789_CS_PIN LCD_CS_PIN
 
 // Set of commands described in ST7789 datasheet.
 #define ST7789_NOP         0x00
