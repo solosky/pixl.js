@@ -7,23 +7,22 @@
 #include "ble_amiibolink.h"
 
 struct amiibolink_view_s;
-typedef struct amiibolink_view_s amiibolink_view_t;
 
 typedef enum {
     AMIIBOLINK_VIEW_EVENT_MENU,
     AMIIBOLINK_VIEW_EVENT_UPDATE
 } amiibolink_view_event_t;
 
-typedef void (*amiibolink_view_event_cb)(amiibolink_view_event_t event, amiibolink_view_t *p_view);
+typedef void (*amiibolink_view_event_cb)(amiibolink_view_event_t event, struct amiibolink_view_s *p_view);
 
- struct amiibolink_view_s{
+typedef struct amiibolink_view_s {
     mui_view_t* p_view;
     amiibolink_view_event_cb event_cb;
     void* user_data;
     ble_amiibolink_mode_t amiibolink_mode;
     uint8_t index;
     uint8_t max_size;
-} ;
+} amiibolink_view_t;
 
 amiibolink_view_t* amiibolink_view_create();
 void amiibolink_view_free(amiibolink_view_t* p_view);
