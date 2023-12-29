@@ -178,10 +178,14 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, _T(APP_SET_SLEEP_TIMEOUT), txt,
                                (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
 
-    mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
     mui_list_view_add_item(app->p_list_view, 0xe1cb, _T(APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
     mui_list_view_add_item(app->p_list_view, 0xe1ce, _T(APP_SET_RESET_DEFAULT),
                            (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
+
+    // Please keep DFU menu item as the second last of settings. If someone messed up their firmware upgrade,
+    // for example, by uploading LCD firmware to an OLED device, they can reliably turn on DFU mode by pressing
+    // the following button sequence: LEFT, DOWN, LEFT, LEFT, DOWN.
+    mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, _T(BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
