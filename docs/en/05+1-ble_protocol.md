@@ -248,7 +248,7 @@ TODO Supplement the error code in detail. .
 | cmd | uint8 | 1 | fixed 0x12 |
 | status | uint8 | 1 | Status code, see status code description |
 | chunk | uint16 | 2 | 0 |
-| file id | uint8 | 1 | File ID, used for subsequent read and write requests |
+| file id | uint8 | 1 | file id, used for subsequent read and write requests |
 
 ## 0x13: Close file
 
@@ -257,4 +257,184 @@ TODO Supplement the error code in detail. .
 | Field name | Type | Length (bytes) | Description |
 | ---- | ----- |---- | ---- |
 | cmd | uint8 | 1 | 0x13 |
-| sta
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | 0 | 
+| file id | uint8 | 1 | file id |
+
+
+2. Service response
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x13  |
+| status | uint8 | 1 | Status code, see status code description |
+| chunk | uint16 | 2 |  0 | 
+| file id | uint8 | 1 | file id, used for subsequent read and write requests |
+
+
+## 0x14: Read file
+
+1. The client sends a request
+
+Only support sequential reading.
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x14  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 |  0 | 
+| file id | uint8 | 1| file id |
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x14  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  Enable chunk transfer | 
+| data  | byte | N | File data |
+
+
+## 0x15 Write to file
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x15  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | Enable chunk transfer | 
+| file id | uint8 | 1 | file id | 
+| data | byte | N | File data, max length = MTU - 4 |
+
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x15  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  Same as Request | 
+
+
+## 0x16：Read folder
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x16  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 |  0 | 
+| path length | uint16 | 2 | Path length under bytes |
+| path  | byte | N | Path string bytes |
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x16  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  Enable chunk transfer | 
+| file N name length| uint16 | 2 | File name bytes length|
+| file N name | byte | N| File name bytes |
+| file N size | uint32 | 4 |File size |
+| file N type | uint8 | 1 | File Type： 0 => File, 1 => Folder |
+| file N meta length | uint8 | 1 | File meta data length, 64 max|
+| file N meta | byte | N | File meta data |
+
+## 0x17 Create folder
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x17  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | 0 | 
+| path length | uint16 | 2 | Path length under bytes |
+| path  | byte | N | Path string bytes |
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x17  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  0 | 
+
+
+
+## 0x18 Delete file or folder
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x18  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | 0 | 
+| path length | uint16 | 2 | Path length under bytes |
+| path  | byte | N | Path string bytes |
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x18  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  0 | 
+
+
+## 0x19 Rename file or folder
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x18  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | Enable chunk transfer | 
+| old path length | uint16 | 2 | Path length under bytes |
+| old path  | byte | N | Path string bytes |
+| new path length | uint16 | 2 | Path length under bytes |
+| new path  | byte | N | Path string bytes |
+
+If data length is larger than MTU, use chunk transfer.
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x18  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  0 | 
+
+
+## 0x1A Update file meta
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x1a  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | 0 | 
+| path length | uint16 | 2 | Path length under bytes |
+| path  | byte | N | Path string bytes |
+| meta data | byte | N | File Meta Data | 
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x1a  |
+| status | uint8 | 1 |Status code, see status code description |
+| chunk | uint16 | 2 |  0 | 
+
