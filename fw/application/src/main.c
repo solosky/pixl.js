@@ -270,6 +270,14 @@ int main(void) {
     NRF_LOG_INFO("settings init: %d", err_code);
     // APP_ERROR_CHECK(err_code);
 
+
+
+    nrf_gpio_cfg_output(HF_ANT_SEL);
+    nrf_gpio_pin_clear(HF_ANT_SEL);
+
+    nrf_gpio_cfg_output(RD_PWR);
+    nrf_gpio_pin_clear(RD_PWR);
+
     chrg_init();
 
     settings_data_t *p_settings = settings_get_data();

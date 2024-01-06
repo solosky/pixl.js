@@ -63,7 +63,7 @@
  * placed in the main directory of this project in a folder u8g2.
  */
 
-#if (1)
+#if (0)
 #include <stdio.h>
 
 #include "hal_spi_bus.h"

@@ -63,8 +63,7 @@
  * placed in the main directory of this project in a folder u8g2.
  */
 
-
-#if(0)
+#if (1)
 #include <stdio.h>
 
 #include "hal_spi_bus.h"
@@ -108,7 +107,6 @@ static ret_code_t pwm_init(void) {
         app_pwm_enable(&pwm1);
         while (app_pwm_channel_duty_set(&pwm1, 0, init_duty) == NRF_ERROR_BUSY)
             ;
-
     }
 
     return NRF_SUCCESS;
@@ -181,6 +179,8 @@ uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, voi
     return 1;
 }
 void mui_u8g2_init(u8g2_t *p_u8g2) {
+
+    NRF_LOG_INFO("mui_u8g2_init..");
     m_dev.cs_pin = LCD_CS_PIN;
     hal_spi_bus_attach(&m_dev);
 
@@ -189,18 +189,19 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     nrf_gpio_cfg_output(LCD_BL_PIN);
     nrf_gpio_pin_clear(LCD_BL_PIN);
 
-    #ifdef OLED_TYPE_SH1106
-        u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
-    #else
-        u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
-    #endif
+#ifdef OLED_TYPE_SH1106
+    NRF_LOG_INFO("init oled display..");
+    u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+#else
+    u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+#endif
 
     u8g2_InitDisplay(p_u8g2);
 
-    #ifdef OLED_SCREEN
-        settings_data_t *p_settings = settings_get_data();
-        mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
-    #endif
+#ifdef OLED_SCREEN
+    settings_data_t *p_settings = settings_get_data();
+    mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
+#endif
 
     u8g2_SetPowerSave(p_u8g2, 0);
 
@@ -230,11 +231,11 @@ void mui_u8g2_set_backlight_level(uint8_t value) {
             ;
     }
 }
-int8_t mui_u8g2_get_backlight_level(void) { return (int8_t) app_pwm_channel_duty_get(&pwm1, 0); }
+int8_t mui_u8g2_get_backlight_level(void) { return (int8_t)app_pwm_channel_duty_get(&pwm1, 0); }
 
 void mui_u8g2_set_oled_contrast_level(uint8_t value) {
     mui_t *p_mui = mui();
-    u8g2_SetContrast(&p_mui->u8g2,(value - 1) * (255.0 / 99.0));
+    u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
 }
 
 #endif

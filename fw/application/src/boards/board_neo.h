@@ -1,13 +1,13 @@
 #ifndef BOARD_OLED_H
 #define BOARD_OLED_H
 
-#define LEDS_NUMBER    1
+#define LEDS_NUMBER    3
 
-#define LED_START      5
-#define LED_1          5
-#define LED_2          7
-#define LED_3          27
-#define LED_STOP       27
+#define LED_START      11
+#define LED_1          11
+#define LED_2          12
+#define LED_3          33
+#define LED_STOP       33
 
 #define LEDS_ACTIVE_STATE 0
 
@@ -23,10 +23,10 @@
 #define BUTTONS_NUMBER 3
 
 #define BUTTON_START   13
-#define BUTTON_1       33
-#define BUTTON_2       13
-#define BUTTON_3       15
-#define BUTTON_STOP    33
+#define BUTTON_1       15
+#define BUTTON_2       17
+#define BUTTON_3       13
+#define BUTTON_STOP    17
 #define BUTTON_PULL    NRF_GPIO_PIN_PULLUP
 
 #define BUTTONS_ACTIVE_STATE 0
@@ -39,20 +39,20 @@
 
 
 // display config
-//#define OLED_SCREEN
-//#define OLED_SH1106
-//#define OLED_TYPE_SH1106
-//#define OLED_TYPE sh1106
+#define OLED_SCREEN
+#define OLED_SH1106
+#define OLED_TYPE_SH1106
+#define OLED_TYPE sh1106
 
-#define LCD
-#define LCD_ST7567
+// #define LCD
+// #define LCD_ST7567
 
 
 // screen drivers
-#define LCD_CS_PIN 12
-#define LCD_RESET_PIN 6
-#define LCD_BL_PIN 43
-#define LCD_DC_PIN 11 // green wire (DC)
+#define LCD_CS_PIN 3
+#define LCD_RESET_PIN 28
+#define LCD_BL_PIN 23 //NOT USED
+#define LCD_DC_PIN 30 // green wire (DC)
 
 
 // VFS driver
@@ -60,8 +60,8 @@
 //#define VFS_SPIFFS_ENABLE
 
 #define SPI_INSTANCE 3
-#define NRFX_SPIM_SCK_PIN 8  
-#define NRFX_SPIM_MOSI_PIN 41 
+#define NRFX_SPIM_SCK_PIN 29  
+#define NRFX_SPIM_MOSI_PIN 31
 #define NRFX_SPIM_MISO_PIN -1
 
 // flash 
@@ -69,12 +69,12 @@
 //#define SPI_FLASH 1
 
 #ifdef QSPI_FLASH
-#define QSPI_SCK_PIN 20  
-#define QSPI_CS_PIN 17 
-#define QSPI_IO0_PIN 22 
-#define QSPI_IO1_PIN 24
-#define QSPI_IO2_PIN 25
-#define QSPI_IO3_PIN 32 
+#define QSPI_SCK_PIN 26  
+#define QSPI_CS_PIN  4 
+#define QSPI_IO0_PIN 7 
+#define QSPI_IO1_PIN 6
+#define QSPI_IO2_PIN 27
+#define QSPI_IO3_PIN 8 
 #endif
 
 
@@ -82,7 +82,12 @@
 
 // Power
 #define CHRG_PIN -1
-#define ADC_PIN 31
+#define ADC_PIN 5
+
+//READER
+
+#define HF_ANT_SEL 36
+#define RD_PWR  34
 
 // APP 
 //#define APP_PLAYER_ENABLED 
