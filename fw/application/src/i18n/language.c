@@ -17,6 +17,7 @@ LanguageData languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_NL_NL] = { .strings = lang_nl_NL },
     [LANGUAGE_PT_BR] = { .strings = lang_pt_BR },
     [LANGUAGE_JA_JP] = { .strings = lang_ja_JP },
+    [LANGUAGE_PT_PT] = { .strings = lang_pt_PT },
 };
 
 // 当前语言设置 (Current language setting)
@@ -53,6 +54,8 @@ const char* getLangDesc(Language lang){
         return  "Português(Brazil)";
     }else if(lang == LANGUAGE_JA_JP){
         return  "日本語";
+    }else if(lang == LANGUAGE_PT_PT){
+        return  "Português(Portugal)";
     }
 }
 
