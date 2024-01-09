@@ -12,6 +12,12 @@ LanguageData languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_ZH_TW] = { .strings = lang_zh_TW },
     [LANGUAGE_ES_ES] = { .strings = lang_es_ES },
     [LANGUAGE_HU_HU] = { .strings = lang_hu_HU },
+    [LANGUAGE_DE_DE] = { .strings = lang_de_DE },
+    [LANGUAGE_FR_FR] = { .strings = lang_fr_FR },
+    [LANGUAGE_NL_NL] = { .strings = lang_nl_NL },
+    [LANGUAGE_PT_BR] = { .strings = lang_pt_BR },
+    [LANGUAGE_JA_JP] = { .strings = lang_ja_JP },
+    [LANGUAGE_PT_PT] = { .strings = lang_pt_PT },
 };
 
 // 当前语言设置 (Current language setting)
@@ -38,6 +44,18 @@ const char* getLangDesc(Language lang){
         return  "Español";
     }else if(lang == LANGUAGE_HU_HU){
         return  "Magyar";
+    }else if(lang == LANGUAGE_DE_DE){
+        return  "Deutsch";
+    }else if(lang == LANGUAGE_FR_FR){
+        return  "Français";
+    }else if(lang == LANGUAGE_NL_NL){
+        return  "Dutch (Nederlands)";
+    }else if(lang == LANGUAGE_PT_BR){
+        return  "Português(Brazil)";
+    }else if(lang == LANGUAGE_JA_JP){
+        return  "日本語";
+    }else if(lang == LANGUAGE_PT_PT){
+        return  "Português(Portugal)";
     }
 }
 
