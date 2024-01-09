@@ -301,6 +301,7 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/ja_JP.c \
   $(PROJ_DIR)/i18n/nl_NL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \
+  $(PROJ_DIR)/i18n/pt_PT.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
