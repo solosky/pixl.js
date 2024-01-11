@@ -1,5 +1,5 @@
 #include "string_id.h"
-const char * lang_zh_Hans[_L_COUNT] = {
+const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_ON] = "开",
     [_L_OFF] = "关",
     [_L_ON_F] = "[开]",
