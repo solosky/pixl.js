@@ -277,6 +277,9 @@ int main(void) {
 
     NRF_LOG_DEBUG("init done");
 
+    if (p_settings->language >= LANGUAGE_COUNT) {
+        p_settings->language = LANGUAGE_EN_US;
+    }
     setLanguage(p_settings->language);
     
     mui_t *p_mui = mui();
