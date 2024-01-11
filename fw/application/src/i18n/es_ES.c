@@ -1,5 +1,5 @@
 #include "string_id.h"
-const char * lang_es_ES[_L_COUNT] = {
+const char * const lang_es_ES[_L_COUNT] = {
     [_L_ON] = "SI",
     [_L_OFF] = "NO",
     [_L_ON_F] = "[SI]",

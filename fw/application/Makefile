@@ -10,7 +10,7 @@ CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
 RELEASE ?= 0
-BOARD ?= NEO
+BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
   LINKER_SCRIPT  := ../ld/ble_app_blinky_gcc_nrf52840.ld
@@ -216,6 +216,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/u8g2_font_likeminecraft_te.c \
   $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a_lite.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -317,6 +318,7 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/ja_JP.c \
   $(PROJ_DIR)/i18n/nl_NL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \
+  $(PROJ_DIR)/i18n/pt_PT.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
@@ -633,7 +635,7 @@ CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
-CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
+# CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
 else
 CFLAGS += -DNDEBUG
 CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT

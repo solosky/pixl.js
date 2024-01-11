@@ -49,7 +49,7 @@ def write_i18n_language_c(i18n, idx, lang):
     c_file = get_prorject_directory() + "/application/src/i18n/" + lang + ".c"
     with open(c_file, "w+", newline="\n", encoding="utf8") as f:
         f.write('#include "string_id.h"\n')
-        f.write('const char * lang_'+lang+'[_L_COUNT] = {\n')
+        f.write('const char * const lang_'+lang+'[_L_COUNT] = {\n')
         for item in i18n.i18n_items:
             f.write('    [%s] = "%s",\n' % (item[0], item[idx]))
         f.write('};\n')
