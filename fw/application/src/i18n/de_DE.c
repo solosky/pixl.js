@@ -1,9 +1,9 @@
 #include "string_id.h"
 const char * const lang_de_DE[_L_COUNT] = {
     [_L_ON] = "AN",
-    [_L_OFF] = "AUF",
+    [_L_OFF] = "AUS",
     [_L_ON_F] = "[AN]",
-    [_L_OFF_F] = "[AUF]",
+    [_L_OFF_F] = "[AUS]",
     [_L_BACK] = "Zurück",
     [_L_ERR] = "Fehler",
     [_L_ERR_CODE] = "Fehlercode",
