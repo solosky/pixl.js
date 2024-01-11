@@ -52,16 +52,14 @@ void chameleon_scene_menu_card_read_on_enter(void *user_data) {
 
     char buff[32];
     sprintf(buff, "[%0d]", TAG_MAX_SLOT_NUM);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_SLOT_NUM), buff,
-                               (void *)CHAMELEON_MENU_BACK_EXIT);
 
     for (uint32_t i = 0; i < TAG_MAX_SLOT_NUM; i++) {
         sprintf(buff, "%s %02d", _T(APP_CHAMELEON_CARD_SLOT), i + 1);
         mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, buff,
                                    tag_emulation_slot_is_enabled(i, TAG_SENSE_HF) ? _T(ON_F) : _T(OFF_F),
-                                   (void *)CHAMELEON_MENU_BACK_EXIT);
+                                   (void *)NULL_USER_DATA);
     }
-    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), (void *)CHAMELEON_MENU_BACK_MAIN);
+    mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), NULL_USER_DATA);
 
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_read_on_event);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_LIST);
