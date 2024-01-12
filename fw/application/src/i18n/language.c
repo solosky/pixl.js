@@ -18,6 +18,12 @@ const LanguageData const languageData[LANGUAGE_COUNT] = {
 Language currentLanguage = LANGUAGE_ZH_HANS;
 
 const char *getLangString(L_StringID stringID) {
+    if (stringID >= _L_COUNT) {
+        return "@@STR@@";
+    }
+    if (currentLanguage >= LANGUAGE_COUNT) {
+        return lang_en_US[stringID];
+    }
     const char *string = languageData[currentLanguage].strings[stringID];
     return string && strlen(string) > 0 ? string : lang_en_US[stringID];
 }
@@ -47,6 +53,8 @@ const char *getLangDesc(Language lang) {
         return "日本語";
     } else if (lang == LANGUAGE_PT_PT) {
         return "Português(Portugal)";
+    } else {
+        return "@@LANG@@";
     }
 }
 
