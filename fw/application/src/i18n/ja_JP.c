@@ -1,5 +1,5 @@
 #include "string_id.h"
-const char * lang_ja_JP[_L_COUNT] = {
+const char * const lang_ja_JP[_L_COUNT] = {
     [_L_ON] = "オン",
     [_L_OFF] = "オフ",
     [_L_ON_F] = "[オン]",

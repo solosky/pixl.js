@@ -1,5 +1,5 @@
 #include "string_id.h"
-const char * lang_pt_BR[_L_COUNT] = {
+const char * const lang_pt_BR[_L_COUNT] = {
     [_L_ON] = "LIGADO",
     [_L_OFF] = "DESLIGADO",
     [_L_ON_F] = "[LIGADO]",
