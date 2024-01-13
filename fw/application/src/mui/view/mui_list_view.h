@@ -57,6 +57,8 @@ struct mui_list_view_s {
     mui_anim_t text_anim;
     int16_t text_offset;
     uint8_t first_draw;
+    mui_anim_t gap_anim;
+    uint8_t item_gap;
 };
 
 mui_list_view_t *mui_list_view_create();

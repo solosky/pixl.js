@@ -93,8 +93,8 @@
 #include "hal_spi_flash.h"
 
 #include "cache.h"
-#include "settings.h"
 #include "i18n/language.h"
+#include "settings.h"
 
 //#include "usbd.h"
 
@@ -105,7 +105,6 @@
 #define BTN_ACTION_KEY1_LONGPUSH BSP_EVENT_KEY_LAST + 9
 
 #define APP_SHUTDOWN_HANDLER_PRIORITY 1
-
 
 int8_t g_usb_led_marquee_enable = 0; /** dummy for chameleon */
 
@@ -167,8 +166,6 @@ static bool shutdown_handler(nrf_pwr_mgmt_evt_t event) {
 
         // save settings
         settings_save();
-
-
 
         hal_spi_flash_sleep();
 
@@ -262,7 +259,7 @@ int main(void) {
     err_code = ntag_emu_init(&default_ntag215);
     APP_ERROR_CHECK(err_code);
 
-    //cache_clean(); //FOR TESTING
+    // cache_clean(); //FOR TESTING
     check_wakeup_src();
 
     err_code = settings_init();
@@ -289,7 +286,7 @@ int main(void) {
     NRF_LOG_DEBUG("init done");
 
     setLanguage(p_settings->language);
-    
+
     mui_t *p_mui = mui();
     mui_init(p_mui);
 
