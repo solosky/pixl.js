@@ -32,7 +32,9 @@ static void mui_list_view_start_text_anim(mui_list_view_t *p_view) {
 
 static void mui_list_view_start_gap_anim(mui_list_view_t *p_view) {
     if (mui_list_view_anim_enabled()) {
-         mui_anim_start(&p_view->gap_anim);
+        mui_anim_start(&p_view->gap_anim);
+    } else {
+        p_view->item_gap = LIST_ITEM_HEIGHT;
     }
 }
 
@@ -49,7 +51,6 @@ static void mui_list_view_gap_anim_exec(void *p, int32_t value) {
     mui_list_view_t *p_view = (mui_list_view_t *)p;
     p_view->item_gap = value;
 }
-
 
 static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
