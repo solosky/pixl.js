@@ -353,6 +353,10 @@ SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/rfid/parity.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_emulation.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_persistence.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/rc522.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/mf1_toolbox.c \
+  $(CHAMELEON_ROOT)/application/src/bsp/bsp_time.c \
+  $(CHAMELEON_ROOT)/application/src/bsp/bsp_delay.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
   $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
@@ -600,6 +604,7 @@ INC_FOLDERS += \
   $(CHAMELEON_ROOT)/application/src/rfid \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf \
+  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf \
   $(CHAMELEON_ROOT)/application/src/utils \
   $(CHAMELEON_ROOT)/application/src \
   $(CHAMELEON_ROOT)/application/src/bsp \

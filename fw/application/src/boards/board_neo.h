@@ -1,5 +1,5 @@
-#ifndef BOARD_OLED_H
-#define BOARD_OLED_H
+#ifndef BOARD_NEO_H
+#define BOARD_NEO_H
 
 #define LEDS_NUMBER    3
 
@@ -59,7 +59,7 @@
 #define VFS_LFS_ENABLE
 //#define VFS_SPIFFS_ENABLE
 
-#define SPI_INSTANCE 3
+#define SPI_BUS_INSTANCE 3
 #define NRFX_SPIM_SCK_PIN 29  
 #define NRFX_SPIM_MOSI_PIN 31
 #define NRFX_SPIM_MISO_PIN -1
@@ -88,6 +88,10 @@
 
 #define HF_ANT_SEL 36
 #define RD_PWR  34
+#define RC522_SPI_SELECT 42
+#define RC522_SPI_MOSI 47
+#define RC522_SPI_SCK  45
+#define RC522_SPI_MISO 2
 
 // APP 
 //#define APP_PLAYER_ENABLED 

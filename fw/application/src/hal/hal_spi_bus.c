@@ -15,8 +15,7 @@
 
 
 
-static const nrfx_spim_t m_spi = NRFX_SPIM_INSTANCE(SPI_INSTANCE);
-
+static const nrfx_spim_t m_spi = NRFX_SPIM_INSTANCE(SPI_BUS_INSTANCE);
 
 void hal_spi_bus_init() {
     ret_code_t err_code;

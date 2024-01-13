@@ -55,7 +55,7 @@
 #define VFS_LFS_ENABLE
 //#define VFS_SPIFFS_ENABLE
 
-#define SPI_INSTANCE 3
+#define SPI_BUS_INSTANCE 3
 #define NRFX_SPIM_SCK_PIN 3  // yellow wire (CLK)
 #define NRFX_SPIM_MOSI_PIN 28 // blue wire (DIN)
 #define NRFX_SPIM_MISO_PIN 2 // blue wire (DIN)

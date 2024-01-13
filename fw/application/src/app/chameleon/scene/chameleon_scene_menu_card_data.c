@@ -19,6 +19,7 @@ typedef enum {
     CHAMELEON_MENU_BACK,
     CHAMELEON_MENU_LOAD_DATA,
     CHAMELEON_MENU_SAVE_DATA,
+    CHAMELEON_MENU_READ_DATA,
     CHAMELEON_MENU_FACTORY,
 } chameleon_menu_item_t;
 
@@ -44,15 +45,23 @@ void chameleon_scene_menu_card_data_on_event(mui_list_view_event_t event, mui_li
     case CHAMELEON_MENU_SAVE_DATA: {
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_DATA_FILE_SAVE);
     } break;
+
+    case CHAMELEON_MENU_READ_DATA: {
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_READ);
+    } break;
     }
 }
 
 void chameleon_scene_menu_card_data_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
-    mui_list_view_add_item(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_DATA_LOAD), (void *)CHAMELEON_MENU_LOAD_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, _T(APP_CHAMELEON_CARD_DATA_SAVE), (void *)CHAMELEON_MENU_SAVE_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_DATA_FACTORY), (void *)CHAMELEON_MENU_FACTORY);
+    mui_list_view_add_item(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_DATA_LOAD),
+                           (void *)CHAMELEON_MENU_LOAD_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, _T(APP_CHAMELEON_CARD_DATA_SAVE),
+                           (void *)CHAMELEON_MENU_SAVE_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_NEW, "读取", (void *)CHAMELEON_MENU_READ_DATA);
+    mui_list_view_add_item(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_DATA_FACTORY),
+                           (void *)CHAMELEON_MENU_FACTORY);
     mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(MAIN_RETURN), (void *)CHAMELEON_MENU_BACK);
 
     mui_list_view_set_selected_cb(app->p_list_view, chameleon_scene_menu_card_data_on_event);
