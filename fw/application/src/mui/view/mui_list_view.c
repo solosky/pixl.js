@@ -15,9 +15,7 @@ static void mui_list_view_start_text_anim(mui_list_view_t *p_view) {
     if (mui_list_view_anim_enabled()) {
         mui_list_item_t *p_item = mui_list_item_array_get(p_view->items, p_view->focus_index);
         uint32_t focus_text_width = mui_list_view_get_utf8_width(string_get_cstr(p_item->text));
-         NRF_LOG_INFO("%d", focus_text_width);
         focus_text_width += mui_list_view_get_utf8_width(string_get_cstr(p_item->sub_text));
-        NRF_LOG_INFO("%d", focus_text_width);
         if (focus_text_width > p_view->canvas_width - 13) {
             p_view->text_offset = 0;
             int32_t overflowed_width = focus_text_width - p_view->canvas_width + 20;
@@ -32,6 +30,12 @@ static void mui_list_view_start_text_anim(mui_list_view_t *p_view) {
     }
 }
 
+static void mui_list_view_start_gap_anim(mui_list_view_t *p_view) {
+    if (mui_list_view_anim_enabled()) {
+         mui_anim_start(&p_view->gap_anim);
+    }
+}
+
 static void mui_list_view_anim_exec(void *p, int32_t value) {
     mui_list_view_t *p_view = (mui_list_view_t *)p;
     p_view->anim_value = value;
@@ -41,6 +45,11 @@ static void mui_list_view_text_anim_exec(void *p, int32_t value) {
     mui_list_view_t *p_view = (mui_list_view_t *)p;
     p_view->text_offset = value;
 }
+static void mui_list_view_gap_anim_exec(void *p, int32_t value) {
+    mui_list_view_t *p_view = (mui_list_view_t *)p;
+    p_view->item_gap = value;
+}
+
 
 static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
@@ -65,24 +74,26 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         int32_t y = index * LIST_ITEM_HEIGHT - offset_y;
         int32_t text_offset = index == p_mui_list_view->focus_index ? p_mui_list_view->text_offset : 0;
         if (y >= -LIST_ITEM_HEIGHT && y <= mui_canvas_get_height(p_canvas)) { // visible object
+            uint32_t actual_y = index * p_mui_list_view->item_gap - offset_y;
             mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
-            mui_canvas_draw_glyph(p_canvas, 0, y + 10, item->icon);
+            mui_canvas_draw_glyph(p_canvas, 0, actual_y + 10, item->icon);
             mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
             mui_canvas_get_clip_window(p_canvas, &clip_win_prev);
             clip_win_cur.x = 13;
-            clip_win_cur.y = y;
+            clip_win_cur.y = actual_y;
             clip_win_cur.h = LIST_ITEM_HEIGHT, clip_win_cur.w = mui_canvas_get_width(p_canvas);
             mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
 
             uint32_t focus_text_width =
-                mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset, y + 10, string_get_cstr(item->text));
+                mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset, actual_y + 10, string_get_cstr(item->text));
             // sub text
             if (string_size(item->sub_text) > 0) {
                 uint8_t w = mui_canvas_get_utf8_width(p_canvas, string_get_cstr(item->sub_text));
                 if (focus_text_width + w > p_mui_list_view->canvas_width - 13) {
-                    mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset + focus_text_width, y + 10, string_get_cstr(item->sub_text));
+                    mui_canvas_draw_utf8_clip(p_canvas, 13 + text_offset + focus_text_width, actual_y + 10,
+                                              string_get_cstr(item->sub_text));
                 } else {
-                    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - w - 5, y + 10,
+                    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - w - 5, actual_y + 10,
                                          string_get_cstr(item->sub_text));
                 }
             }
@@ -108,6 +119,7 @@ static void mui_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     if (!p_mui_list_view->first_draw) {
         p_mui_list_view->first_draw = 1;
         mui_list_view_start_text_anim(p_mui_list_view);
+        mui_list_view_start_gap_anim(p_mui_list_view);
     }
 }
 
@@ -263,6 +275,7 @@ mui_list_view_t *mui_list_view_create() {
 
     mui_anim_init(&p_mui_list_view->anim);
     mui_anim_set_var(&p_mui_list_view->anim, p_mui_list_view);
+    mui_anim_set_path_cb(&p_mui_list_view->gap_anim, lv_anim_path_ease_in_out);
     mui_anim_set_exec_cb(&p_mui_list_view->anim, mui_list_view_anim_exec);
     mui_anim_set_values(&p_mui_list_view->anim, 0, LIST_ITEM_HEIGHT);
     mui_anim_set_time(&p_mui_list_view->anim, 200);
@@ -274,6 +287,13 @@ mui_list_view_t *mui_list_view_create() {
     mui_anim_set_path_cb(&p_mui_list_view->text_anim, lv_anim_path_linear);
     mui_anim_set_exec_cb(&p_mui_list_view->text_anim, mui_list_view_text_anim_exec);
     mui_anim_set_time(&p_mui_list_view->text_anim, 200);
+
+    mui_anim_init(&p_mui_list_view->gap_anim);
+    mui_anim_set_var(&p_mui_list_view->gap_anim, p_mui_list_view);
+    mui_anim_set_path_cb(&p_mui_list_view->gap_anim, lv_anim_path_ease_in_out);
+    mui_anim_set_values(&p_mui_list_view->gap_anim, 0, LIST_ITEM_HEIGHT);
+    mui_anim_set_exec_cb(&p_mui_list_view->gap_anim, mui_list_view_gap_anim_exec);
+    mui_anim_set_time(&p_mui_list_view->gap_anim, 200);
 
     mui_list_item_array_init(p_mui_list_view->items);
 
