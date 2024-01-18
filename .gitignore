@@ -13,6 +13,7 @@ fw/log.log
 
 fp-info-cache
 pixl.js-backups
+log.log
 
 hw/RevB/pixl.js/gerber
 hw/RevB/pixl.js/bom

@@ -290,6 +290,13 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/chameleon/port/tag_helper.c \
+  $(PROJ_DIR)/app/reader/app_reader.c \
+  $(PROJ_DIR)/app/reader/view/nfc_scan_view.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene_scan.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene_scan_menu.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene_card_found.c \
+  $(PROJ_DIR)/app/reader/nfc/nfc_reader.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
@@ -589,6 +596,10 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/chameleon/port \
   $(PROJ_DIR)/app/chameleon/view \
   $(PROJ_DIR)/app/chameleon/scene \
+  $(PROJ_DIR)/app/reader \
+  $(PROJ_DIR)/app/reader/scene \
+  $(PROJ_DIR)/app/reader/view \
+  $(PROJ_DIR)/app/reader/nfc \
   $(PROJ_DIR)/sdk/pwr_mgmt \
   $(COMP_DIR)/amiitool/include \
   $(COMP_DIR)/mlib \

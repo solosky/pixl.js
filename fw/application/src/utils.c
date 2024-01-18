@@ -12,6 +12,7 @@
 #include "nrf_nvic.h"
 #include "cache.h"
 #include "string.h"
+#include "app_timer.h"
 
 ret_code_t utils_rand_bytes(uint8_t rand[], uint8_t bytes) {
     ret_code_t err;
@@ -42,4 +43,15 @@ void enter_dfu() {
 void system_reboot(){
      cache_clean();
     sd_nvic_SystemReset();
+}
+
+
+uint32_t app_timer_ms(uint32_t ticks) {
+    float numerator = (((float)(APP_TIMER_CONFIG_RTC_FREQUENCY + 1)) + 1.0f) * 1000.0f;
+    float denominator = (float)APP_TIMER_CLOCK_FREQ;
+    float ms_per_tick = numerator / denominator;
+
+    uint32_t ms = ms_per_tick * ticks;
+
+    return ms;
 }
