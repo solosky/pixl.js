@@ -41,7 +41,7 @@ settings_data_t m_settings_data = {0};
     }
 
 static void validate_settings() {
-    if (m_settings_data.sleep_timeout_sec == 0 || m_settings_data.sleep_timeout_sec > 180) {
+    if (m_settings_data.sleep_timeout_sec > 180) {
         m_settings_data.sleep_timeout_sec = 30;
     }
 

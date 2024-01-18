@@ -91,43 +91,30 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
 
 static void amiibolink_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     amiibolink_view_t *p_amiibolink_view = p_view->user_data;
-    switch (event->type) {
-    case INPUT_TYPE_LONG: {
+    if(event->key == INPUT_KEY_CENTER){
         if (p_amiibolink_view->event_cb) {
             p_amiibolink_view->event_cb(AMIIBOLINK_VIEW_EVENT_MENU, p_amiibolink_view);
         }
-        break;
+        return;
     }
-    case INPUT_TYPE_SHORT: {
-
-        if(event->key == INPUT_KEY_CENTER){
-            if (p_amiibolink_view->event_cb) {
-                p_amiibolink_view->event_cb(AMIIBOLINK_VIEW_EVENT_MENU, p_amiibolink_view);
+    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
+        if (event->key == INPUT_KEY_LEFT) {
+            if (p_amiibolink_view->index > 0) {
+                p_amiibolink_view->index--;
+            } else {
+                p_amiibolink_view->index = p_amiibolink_view->max_size - 1;
             }
-            return;
+        } else if (event->key == INPUT_KEY_RIGHT) {
+            if (p_amiibolink_view->index < p_amiibolink_view->max_size - 1) {
+                p_amiibolink_view->index++;
+            } else {
+                p_amiibolink_view->index = 0;
+            }
         }
 
-        if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
-            if (event->key == INPUT_KEY_LEFT) {
-                if (p_amiibolink_view->index > 0) {
-                    p_amiibolink_view->index--;
-                } else {
-                    p_amiibolink_view->index = p_amiibolink_view->max_size - 1;
-                }
-            } else if (event->key == INPUT_KEY_RIGHT) {
-                if (p_amiibolink_view->index < p_amiibolink_view->max_size - 1) {
-                    p_amiibolink_view->index++;
-                } else {
-                    p_amiibolink_view->index = 0;
-                }
-            }
-
-            if (p_amiibolink_view->event_cb) {
-                p_amiibolink_view->event_cb(AMIIBOLINK_VIEW_EVENT_UPDATE, p_amiibolink_view);
-            }
+        if (p_amiibolink_view->event_cb) {
+            p_amiibolink_view->event_cb(AMIIBOLINK_VIEW_EVENT_UPDATE, p_amiibolink_view);
         }
-        break;
-    }
     }
 }
 

@@ -174,7 +174,13 @@ static void settings_scene_main_reload(void *user_data) {
                                p_settings->hibernate_enabled ? _T(ON_F) : _T(OFF_F),
                                (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
 
-    snprintf(txt, sizeof(txt), "[%ds]", nrf_pwr_mgmt_get_timeout());
+    if (nrf_pwr_mgmt_get_timeout() == 0) {
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_OFF_F));
+    } else if (nrf_pwr_mgmt_get_timeout() > 0 && nrf_pwr_mgmt_get_timeout() < 60) {
+        snprintf(txt, sizeof(txt), "[%ds]", nrf_pwr_mgmt_get_timeout());
+    } else {
+        snprintf(txt, sizeof(txt), "[%dm]", nrf_pwr_mgmt_get_timeout() / 60);
+    }
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, _T(APP_SET_SLEEP_TIMEOUT), txt,
                                (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
 
