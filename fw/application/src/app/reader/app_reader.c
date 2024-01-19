@@ -28,7 +28,7 @@ void app_reader_on_run(mini_app_inst_t *p_app_inst) {
                                  nfc_scan_view_get_view(p_app_handle->p_nfc_scan_view));
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, READER_VIEW_ID_LIST,
                                  mui_list_view_get_view(p_app_handle->p_list_view));                             
-    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, reader_scene_defines, READER_SCENE_MAX);
@@ -39,7 +39,7 @@ void app_reader_on_run(mini_app_inst_t *p_app_inst) {
 void app_reader_on_kill(mini_app_inst_t *p_app_inst) {
     app_reader_t *p_app_handle = p_app_inst->p_handle;
 
-    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);
     nfc_scan_view_free(p_app_handle->p_nfc_scan_view);
     mui_list_view_free(p_app_handle->p_list_view);

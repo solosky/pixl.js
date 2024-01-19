@@ -6,7 +6,7 @@ static void nfc_scan_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_draw_glyph(p_canvas, 20, 12, 0xe1b5);
     mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
-    mui_canvas_draw_utf8(p_canvas, 30, 12, "请靠近卡片..");
+    mui_canvas_draw_utf8(p_canvas, 30, 12, _T(APP_READER_SCANNING));
 }
 
 static void nfc_scan_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {

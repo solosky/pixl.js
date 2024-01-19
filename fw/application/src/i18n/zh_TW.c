@@ -166,4 +166,5 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "無效的輸入!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "卡類型已修改\n重置卡數據?",
     [_L_APP_READER] = "读卡器",
+    [_L_APP_READER_SCANNING] = "",
 };

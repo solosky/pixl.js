@@ -166,4 +166,5 @@ const char * const lang_pt_BR[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Entrada Inválida!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "O tipo de cartão foi alterado. \nRedefinir dados do cartão?",
     [_L_APP_READER] = "",
+    [_L_APP_READER_SCANNING] = "",
 };

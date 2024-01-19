@@ -166,4 +166,5 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "無効な入力",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "カードの種類が変更されました。\nカードデータを初期化しますか？",
     [_L_APP_READER] = "",
+    [_L_APP_READER_SCANNING] = "",
 };
