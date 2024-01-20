@@ -79,6 +79,7 @@ mini_app_t app_settings_info = {.id = MINI_APP_ID_SETTINGS,
                                       .deamon = false,
                                       .sys = false,
                                       .hibernate_enabled = false,
+                                      .icon_32x32 = &app_settings_32x32,
                                       .run_cb = app_settings_on_run,
                                       .kill_cb = app_settings_on_kill,
                                       .on_event_cb = app_settings_on_event};

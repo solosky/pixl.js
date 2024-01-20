@@ -105,6 +105,7 @@ mini_app_t app_chameleon_info = {.id = MINI_APP_ID_CHAMELEON,
                                  .deamon = false,
                                  .sys = false,
                                  .hibernate_enabled = true,
+                                 .icon_32x32 = &app_card_emulator_32x32,
                                  .run_cb = app_chameleon_on_run,
                                  .kill_cb = app_chameleon_on_kill,
                                  .on_event_cb = app_chameleon_on_event};

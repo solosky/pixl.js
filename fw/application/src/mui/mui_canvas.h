@@ -41,6 +41,7 @@ void mui_canvas_draw_rframe(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_
                             uint8_t radius);
 
 void mui_canvas_draw_xbm(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t *bitmap);
+void mui_canvas_draw_bitmap(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t *bitmap);
 
 uint16_t mui_canvas_string_width(mui_canvas_t *p_canvas, const char *str);
 

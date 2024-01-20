@@ -211,6 +211,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/mui_anim.c \
   $(PROJ_DIR)/mui/mui_math.c \
+  $(PROJ_DIR)/mui/mui_resource.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
@@ -275,6 +276,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/chameleon/port/tag_helper.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
+  $(PROJ_DIR)/app/desktop/view/app_list_view.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
@@ -541,6 +543,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/ble/scene \
   $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
+  $(PROJ_DIR)/app/desktop/view \
   $(PROJ_DIR)/app/settings \
   $(PROJ_DIR)/app/settings/scene \
   $(PROJ_DIR)/app/amiibo \
