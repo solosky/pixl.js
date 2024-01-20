@@ -69,7 +69,11 @@ def gen_bmp():
     files.sort()
 
     for file in files:
+        
         file_name_abs = project_dir + "/resources/bmp/" + file
+        if os.path.isdir(file_name_abs):
+            continue
+
         img_size = get_im_size(file_name_abs)
         xbm_data = get_xbm(file_name_abs)
 
