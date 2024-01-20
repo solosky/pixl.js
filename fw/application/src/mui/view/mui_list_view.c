@@ -295,6 +295,7 @@ mui_list_view_t *mui_list_view_create() {
     mui_anim_set_values(&p_mui_list_view->gap_anim, 0, LIST_ITEM_HEIGHT);
     mui_anim_set_exec_cb(&p_mui_list_view->gap_anim, mui_list_view_gap_anim_exec);
     mui_anim_set_time(&p_mui_list_view->gap_anim, 200);
+    p_mui_list_view->item_gap = mui_list_view_anim_enabled() ? 0 : LIST_ITEM_HEIGHT;
 
     mui_list_item_array_init(p_mui_list_view->items);
 

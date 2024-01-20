@@ -155,6 +155,13 @@ static void mui_anim_tick_handler() {
                     p_anim->run_cnt = 0;
                 }else {
                     // reached end of animation
+                    if(p_anim->current_value != p_anim->end_value){
+                        p_anim->current_value = p_anim->end_value;
+                        p_anim->exec_cb(p_anim->var, p_anim->end_value);
+                        mui_update_required = true;
+                        NRF_LOG_INFO("ANIM FIX");
+                    }
+
                     mui_anim_ptr_array_remove(m_anim_ptr_array, it);
                 }
             }
