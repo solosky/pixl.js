@@ -241,6 +241,9 @@ static nrf_drv_wdt_channel_id m_channel_id;
 
     __STATIC_INLINE void pwr_mgmt_standby_timeout_check(void)
     {
+        if (m_timeout_counter == 0)
+            return;
+
         if (m_standby_counter < m_timeout_counter)
         {
             m_standby_counter++;
