@@ -44,7 +44,7 @@ int32_t mui_canvas_draw_utf8_clip(mui_canvas_t *p_canvas, int32_t x, int32_t y, 
             w += utf8_w;
         } else {
             uint8_t utf8_x = mui_canvas_get_utf8_width(p_canvas, utf8);
-            xi += utf8_x + 1; //1 pix for margin
+            xi += utf8_x + 1; // 1 pix for margin
             w += utf8_x + 1;
         }
         p += utf8_size;
@@ -89,6 +89,12 @@ void mui_canvas_draw_box(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w
     u8g2_DrawBox(p_canvas->fb, x, y, w, h);
 }
 
+void mui_canvas_draw_rbox(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t radius) {
+    x += p_canvas->offset_x;
+    y += p_canvas->offset_y;
+    u8g2_DrawRBox(p_canvas->fb, x, y, w, h, radius);
+}
+
 void mui_canvas_draw_dot(mui_canvas_t *p_canvas, uint8_t x, uint8_t y) {
     x += p_canvas->offset_x;
     y += p_canvas->offset_y;
@@ -108,7 +114,8 @@ void mui_canvas_draw_xbm(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w
     u8g2_DrawXBM(p_canvas->fb, x, y, width, height, bitmap);
 }
 
-void mui_canvas_draw_bitmap(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height, uint8_t *bitmap){
+void mui_canvas_draw_bitmap(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height,
+                            uint8_t *bitmap) {
     x += p_canvas->offset_x;
     y += p_canvas->offset_y;
     u8g2_DrawBitmap(p_canvas->fb, x, y, width, height, bitmap);

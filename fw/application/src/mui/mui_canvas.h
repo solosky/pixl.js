@@ -36,6 +36,7 @@ void mui_canvas_set_clip_window(mui_canvas_t *p_canvas, mui_rect_t* p_rect);
 uint8_t mui_canvas_get_draw_color(mui_canvas_t *p_canvas);
 void mui_canvas_set_draw_color(mui_canvas_t *p_canvas, uint8_t color);
 void mui_canvas_draw_box(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h);
+void mui_canvas_draw_rbox(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t w, uint8_t h, uint8_t radius);
 void mui_canvas_draw_dot(mui_canvas_t *p_canvas, uint8_t x, uint8_t y);
 void mui_canvas_draw_rframe(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint8_t width, uint8_t height,
                             uint8_t radius);

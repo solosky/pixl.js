@@ -50,9 +50,9 @@ static void app_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
             // icon_x = LV_MAX(icon_x, 0);
             // if( i == focus){
             // uint8_t icon_w = LV_MIN(ICON_WIDTH, canvas_width - icon_x);
-            // mui_canvas_draw_box(p_canvas, icon_x, ICON_TOP_MARGIN, 32, 32);
+            // mui_canvas_draw_box(p_canvas, icon_x, ICON_TOP_MARGIN, ICON_WIDTH, ICON_WIDTH);
             // mui_canvas_set_draw_color(p_canvas, 0);
-            // mui_canvas_draw_xbm(p_canvas, icon_x, ICON_TOP_MARGIN, ICON_WIDTH, ICON_HEIGHT, img);
+            // mui_canvas_draw_xbm(p_canvas, icon_x, ICON_TOP_MARGIN, ICON_WIDTH, ICON_HEIGHT, app->icon_32x32->data);
             // mui_canvas_set_draw_color(p_canvas, 1);
             //}else{
                 if(app->icon_32x32){
@@ -64,7 +64,7 @@ static void app_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     // focus
     mui_canvas_set_draw_color(p_canvas, 2);
-    mui_canvas_draw_box(p_canvas, first_offset, ICON_TOP_MARGIN, 32, 32);
+    mui_canvas_draw_rbox(p_canvas, first_offset, ICON_TOP_MARGIN, 32, 32, 1);
     mui_canvas_set_draw_color(p_canvas, 1);
 
     // left selection
