@@ -55,7 +55,7 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
     mui_canvas_draw_utf8(p_canvas, x, y, buff);
     mui_canvas_draw_utf8(p_canvas, 0, y, "<");
-    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 8, y, ">");
+    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 5, y, ">");
 
     mui_canvas_set_font(p_canvas, MUI_FONT_SMALL);
     sprintf(buff, "%s <%02x/%02x %02x>", tag_name->short_name, coll_res->sak[0], coll_res->atqa[0], coll_res->atqa[1]);
