@@ -45,6 +45,12 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     tag_helper_get_nickname(buff, sizeof(buff));
 
+    size_t i = sizeof(buff);
+    while (mui_canvas_get_width(p_canvas) - 14 < mui_canvas_get_utf8_width(p_canvas, buff))
+    {
+        buff[--i]  = '\0';
+    }
+    
     y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
     x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
     mui_canvas_draw_utf8(p_canvas, x, y, buff);

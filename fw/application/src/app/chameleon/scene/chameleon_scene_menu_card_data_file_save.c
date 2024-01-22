@@ -49,7 +49,7 @@ void chameleon_scene_menu_card_data_file_save_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
     char file_name[32];
 
-    sprintf(file_name, "%02d.bin", tag_emulation_get_slot());
+    tag_helper_get_nickname(file_name, sizeof(file_name));
 
     mui_text_input_set_header(app->p_text_input, _T(APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME));
     mui_text_input_set_input_text(app->p_text_input, file_name);
