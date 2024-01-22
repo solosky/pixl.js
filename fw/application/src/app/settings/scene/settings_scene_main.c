@@ -59,9 +59,11 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     uint32_t selection = (uint32_t)p_item->user_data;
     switch (selection) {
+#ifdef LCD_SCREEN
     case SETTINGS_MAIN_MENU_BACK_LIGHT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LCD_BACKLIGHT);
         break;
+#endif
 
 #ifdef OLED_SCREEN
     case SETTINGS_MAIN_MENU_OLED_CONTRAST:

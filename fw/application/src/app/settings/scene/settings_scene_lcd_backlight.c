@@ -10,6 +10,8 @@
 #include "mui_u8g2.h"
 #include "i18n/language.h"
 
+#ifdef LCD_SCREEN
+
 static void settings_scene_lcd_backlight_event_cb(mui_progress_bar_event_t event, mui_progress_bar_t *p_progress_bar) {
     app_settings_t *app = p_progress_bar->user_data;
     settings_data_t *p_settings = settings_get_data();
@@ -39,3 +41,5 @@ void settings_scene_lcd_backlight_on_exit(void *user_data) {
     app_settings_t *app = user_data;
     mui_progress_bar_reset(app->p_progress_bar);
 }
+
+#endif
