@@ -30,6 +30,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_SET_REBOOT] = "Redémarrage du Système",
     [_L_APP_SET_RESET_DEFAULT] = "Rétablir les Paramètres par Défaut",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Réinitialiser les Paramètres Par Défaut",
+    [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",
     [_L_15S] = "15 sec.",
     [_L_30S] = "30 sec.",
     [_L_45S] = "45 sec.",

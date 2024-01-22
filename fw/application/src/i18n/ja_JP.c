@@ -30,6 +30,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_SET_REBOOT] = "システム再起動",
     [_L_APP_SET_RESET_DEFAULT] = "デフォルト設定に戻す",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "設定を初期化",
+    [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
     [_L_45S] = "45秒",

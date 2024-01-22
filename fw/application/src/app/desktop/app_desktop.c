@@ -46,7 +46,7 @@ void app_desktop_on_run(mini_app_inst_t *p_app_inst) {
     mui_view_dispatcher_switch_to_view(p_app_handle->p_view_dispatcher, DESKTOP_VIEW_ID_MAIN);
 }
 
-void app_desktop_on_kill(mini_apddp_inst_t *p_app_inst) {
+void app_desktop_on_kill(mini_app_inst_t *p_app_inst) {
     app_desktop_t *p_app_handle = p_app_inst->p_handle;
 
     mui_view_dispatcher_switch_to_view(p_app_handle->p_view_dispatcher, VIEW_NONE);
