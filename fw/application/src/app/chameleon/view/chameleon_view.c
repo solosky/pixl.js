@@ -43,17 +43,26 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     mui_canvas_set_draw_color(p_canvas, 1);
 
+    mui_rect_t clip_win_prev;
+    mui_rect_t clip_win_cur;
+    mui_canvas_get_clip_window(p_canvas, &clip_win_prev);
+    x = 8;
+    clip_win_cur.x = x;
+    clip_win_cur.y = 0;
+    clip_win_cur.w = mui_canvas_get_width(p_canvas) - x * 2;
+    clip_win_cur.h = mui_canvas_get_height(p_canvas);
+    mui_canvas_set_clip_window(p_canvas, &clip_win_cur);
+
     tag_helper_get_nickname(buff, sizeof(buff));
 
-    size_t i = sizeof(buff);
-    while (mui_canvas_get_width(p_canvas) - 14 < mui_canvas_get_utf8_width(p_canvas, buff))
-    {
-        buff[--i]  = '\0';
-    }
-    
     y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
-    x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
-    mui_canvas_draw_utf8(p_canvas, x, y, buff);
+    if (clip_win_cur.w > mui_canvas_get_utf8_width(p_canvas, buff)) {
+        x += (clip_win_cur.w - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
+    }
+    mui_canvas_draw_utf8_clip(p_canvas, x, y, buff);
+
+    mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
+
     mui_canvas_draw_utf8(p_canvas, 0, y, "<");
     mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 5, y, ">");
 
