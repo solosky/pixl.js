@@ -50,18 +50,9 @@ static void app_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         mini_app_t *app = *ptr_array_get(p_list_view->items, i);
         int16_t icon_x = i * ICON_GROUP_WIDTH - scroll_offset + first_offset;
         if (icon_x + ICON_GROUP_WIDTH > 0 && icon_x < canvas_width) {
-            // icon_x = LV_MAX(icon_x, 0);
-            // if( i == focus){
-            // uint8_t icon_w = LV_MIN(ICON_WIDTH, canvas_width - icon_x);
-            // mui_canvas_draw_box(p_canvas, icon_x, ICON_TOP_MARGIN, ICON_WIDTH, ICON_WIDTH);
-            // mui_canvas_set_draw_color(p_canvas, 0);
-            // mui_canvas_draw_xbm(p_canvas, icon_x, ICON_TOP_MARGIN, ICON_WIDTH, ICON_HEIGHT, app->icon_32x32->data);
-            // mui_canvas_set_draw_color(p_canvas, 1);
-            //}else{
             if (app->icon_32x32) {
                 mui_canvas_draw_xbm(p_canvas, icon_x, ICON_TOP_MARGIN, ICON_WIDTH, ICON_HEIGHT, app->icon_32x32->data);
             }
-            //}
         }
     }
 
@@ -86,8 +77,8 @@ static void app_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     // dash line
     mui_canvas_set_draw_color(p_canvas, 1);
-    for (uint8_t i = 0; i < canvas_width; i += 2) {
-        mui_canvas_draw_dot(p_canvas, i, canvas_height - font_height);
+    for (uint8_t i = 0; i < canvas_width; i += 6) {
+        mui_canvas_draw_line(p_canvas, i, canvas_height - font_height, i + 3, canvas_height - font_height);
     }
 
     // app name
@@ -95,10 +86,10 @@ static void app_list_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_canvas_draw_utf8(p_canvas, (canvas_width - name_width) / 2, canvas_height - 1 + p_list_view->name_anim_value,
                          getLangString(focus_app->name_i18n_key));
 
-    // icon in front of name
+    // left and right icon
     mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
-    mui_canvas_draw_glyph(p_canvas, (canvas_width - name_width) / 2 - 12,
-                          canvas_height - 1 + p_list_view->name_anim_value, focus_app->icon);
+    mui_canvas_draw_glyph(p_canvas, 0, canvas_height - 2, 0xe10b);
+    mui_canvas_draw_glyph(p_canvas, canvas_width - 12, canvas_height - 2, 0xe10a);
 }
 
 static void app_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
@@ -135,7 +126,7 @@ static void app_list_view_on_input(mui_view_t *p_view, mui_input_event_t *event)
                 int32_t scroll_offset = -1 * size * ICON_GROUP_WIDTH;
                 mui_anim_set_values(&p_app_list_view->icon_anim, scroll_offset, 0);
                 mui_anim_set_time(&p_app_list_view->icon_anim, ICON_ANIM_LONG_TIME);
-                        }
+            }
             if (mui_list_view_anim_enabled()) {
                 mui_anim_set_values(&p_app_list_view->name_anim, FONT_HEIGHT, 0);
                 mui_anim_start(&p_app_list_view->icon_anim);
@@ -164,7 +155,7 @@ static void app_list_view_on_enter(mui_view_t *p_view) {
 }
 
 static void app_list_view_on_exit(mui_view_t *p_view) {
-     app_list_view_t *p_app_list_view = p_view->user_data;
+    app_list_view_t *p_app_list_view = p_view->user_data;
     if (mui_list_view_anim_enabled()) {
         mui_anim_stop(&p_app_list_view->icon_anim);
         mui_anim_stop(&p_app_list_view->name_anim);
