@@ -121,7 +121,7 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         break;
 
     case SETTINGS_MAIN_MENU_RESET_DEFAULT: {
-        mui_msg_box_set_header(app->p_msg_box, _T(CONFIRM));
+        mui_msg_box_set_header(app->p_msg_box, _T(APP_SET_RESET_DEFAULT));
         mui_msg_box_set_message(app->p_msg_box, _T(APP_SET_RESET_DEFAULT_CONFIRM));
         mui_msg_box_set_btn_text(app->p_msg_box, _T(CONFIRM), NULL, _T(CANCEL));
         mui_msg_box_set_btn_focus(app->p_msg_box, 2);
