@@ -7,6 +7,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_BACK] = "Vissza",
     [_L_ERR] = "Hiba",
     [_L_ERR_CODE] = "Hibakód",
+    [_L_ELLIPSIS] = "...",
     [_L_APP_AMIIBO] = "Amiibo Emulátor",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "BLE Fájltovábbítás",

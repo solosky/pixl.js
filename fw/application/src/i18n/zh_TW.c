@@ -7,6 +7,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_BACK] = "返回",
     [_L_ERR] = "錯誤",
     [_L_ERR_CODE] = "錯誤碼",
+    [_L_ELLIPSIS] = "..",
     [_L_APP_AMIIBO] = "Amiibo模擬器",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "藍牙傳送",

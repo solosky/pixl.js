@@ -8,6 +8,7 @@ typedef enum {
     _L_BACK,
     _L_ERR,
     _L_ERR_CODE,
+    _L_ELLIPSIS,
     _L_APP_AMIIBO,
     _L_APP_AMIIBOLINK,
     _L_APP_BLE,

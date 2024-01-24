@@ -7,6 +7,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_BACK] = "Back",
     [_L_ERR] = "Error",
     [_L_ERR_CODE] = "Error Code",
+    [_L_ELLIPSIS] = "...",
     [_L_APP_AMIIBO] = "Amiibo Emulator",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "BLE File Transfer",

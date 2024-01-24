@@ -7,6 +7,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_BACK] = "戻る",
     [_L_ERR] = "エラー",
     [_L_ERR_CODE] = "エラーコード",
+    [_L_ELLIPSIS] = "..",
     [_L_APP_AMIIBO] = "Amiiboエミュレータ",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "BLEファイル転送",

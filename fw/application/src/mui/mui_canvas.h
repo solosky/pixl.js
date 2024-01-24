@@ -2,6 +2,7 @@
 #define MUI_CANVAS_H
 
 #include "mui_common.h"
+#include "i18n/language.h"
 
 typedef struct {
     u8g2_t *fb;
@@ -23,10 +24,11 @@ void mui_canvas_clear(mui_canvas_t *p_canvas);
 
 uint8_t mui_canvas_get_utf8_bytes(const char *p);
 
-    void mui_canvas_set_font(mui_canvas_t *p_canvas, const uint8_t *font);
+void mui_canvas_set_font(mui_canvas_t *p_canvas, const uint8_t *font);
 uint8_t mui_canvas_draw_utf8(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, const char *str);
 int32_t mui_canvas_draw_utf8_clip(mui_canvas_t *p_canvas, int32_t x, int32_t y, const char *text);
 uint8_t mui_canvas_draw_glyph(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint16_t encoding);
+uint16_t mui_canvas_draw_utf8_truncate(mui_canvas_t* p_canvas, uint8_t x, uint8_t y, uint8_t max_width, const char *str);
 uint16_t mui_canvas_get_utf8_width(mui_canvas_t *p_canvas, const char *s);
 
 void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offset_y, uint8_t width, uint8_t height);

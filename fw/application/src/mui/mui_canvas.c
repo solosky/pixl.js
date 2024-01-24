@@ -59,6 +59,33 @@ uint8_t mui_canvas_draw_glyph(mui_canvas_t *p_canvas, uint8_t x, uint8_t y, uint
     u8g2_DrawGlyph(p_canvas->fb, x, y, encoding);
 }
 
+uint16_t mui_canvas_draw_utf8_truncate(mui_canvas_t* p_canvas, uint8_t x, uint8_t y, uint8_t max_width, const char *str) {
+    char *p = str;
+    char utf8[5];
+
+    if (max_width < mui_canvas_get_utf8_width(p_canvas, str)) {
+        while (*p != 0) {
+            uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
+            memcpy(utf8, p, utf8_size);
+            utf8[utf8_size] = '\0';
+            if (x >= 0 && x <= max_width - mui_canvas_get_utf8_width(p_canvas, getLangString(_L_ELLIPSIS))) {
+                uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, x, y, utf8);
+                x += utf8_w;
+            } else {
+                uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, x, y, getLangString(_L_ELLIPSIS));
+                x += utf8_w + 1;
+
+                break;
+            }
+            p += utf8_size;
+        }
+    } else {
+        x = mui_canvas_draw_utf8(p_canvas, x, y, str) + 1;
+    }
+
+    return x;
+}
+
 uint16_t mui_canvas_get_utf8_width(mui_canvas_t *p_canvas, const char *s) { return u8g2_GetUTF8Width(p_canvas->fb, s); }
 
 void mui_canvas_set_frame(mui_canvas_t *p_canvas, uint8_t offset_x, uint8_t offset_y, uint8_t width, uint8_t height) {

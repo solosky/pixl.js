@@ -7,6 +7,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_BACK] = "返回",
     [_L_ERR] = "错误",
     [_L_ERR_CODE] = "错误码",
+    [_L_ELLIPSIS] = "..",
     [_L_APP_AMIIBO] = "Amiibo模拟器",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "蓝牙传输",
