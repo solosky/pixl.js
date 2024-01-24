@@ -64,16 +64,18 @@ uint16_t mui_canvas_draw_utf8_truncate(mui_canvas_t* p_canvas, uint8_t x, uint8_
     char utf8[5];
 
     if (max_width < mui_canvas_get_utf8_width(p_canvas, str)) {
-        max_width -= mui_canvas_get_utf8_width(p_canvas, getLangString(_L_ELLIPSIS));
         while (*p != 0) {
             uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
             memcpy(utf8, p, utf8_size);
             utf8[utf8_size] = '\0';
-            if (x >= 0 && x <= max_width) {
+            if (x >= 0 && x <= max_width - 8) {
                 uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, x, y, utf8);
                 x += utf8_w;
             } else {
-                uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, x, y, getLangString(_L_ELLIPSIS));
+                uint8_t *font = u8g2_GetFont(p_canvas->fb);
+                u8g2_SetFont(p_canvas->fb, u8g2_font_siji_t_6x10);
+                uint8_t utf8_w = mui_canvas_draw_glyph(p_canvas, x, y - 1, 0xe21f);
+                u8g2_SetFont(p_canvas->fb, font);
                 x += utf8_w + 1;
 
                 break;

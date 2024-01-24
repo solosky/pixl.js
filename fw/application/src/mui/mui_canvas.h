@@ -2,7 +2,6 @@
 #define MUI_CANVAS_H
 
 #include "mui_common.h"
-#include "i18n/language.h"
 
 typedef struct {
     u8g2_t *fb;
