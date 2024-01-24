@@ -54,6 +54,13 @@ void chameleon_scene_menu_card_data_file_load_from_file(app_chameleon_t *app, co
         return;
     }
 
+    // set nickname by filename
+    err = tag_helper_set_nickname(file_name);
+    if (err != 0) {
+        mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_SET_NICK_FAILED));
+        return;
+    }
+
     NRF_LOG_INFO("load card data:%d", err);
     mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS));
     mui_scene_dispatcher_back_scene(app->p_scene_dispatcher, 2);
