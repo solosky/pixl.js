@@ -46,7 +46,7 @@ void chameleon_scene_menu_card_type_on_event(mui_list_view_event_t event, mui_li
             mui_msg_box_set_header(app->p_msg_box, _T(MESSAGE));
             mui_msg_box_set_message(app->p_msg_box, _T(APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM));
             mui_msg_box_set_btn_text(app->p_msg_box, _T(CONFIRM), NULL, _T(CANCEL));
-            mui_msg_box_set_btn_focus(app->p_msg_box, 0);
+            mui_msg_box_set_btn_focus(app->p_msg_box, 2);
             mui_msg_box_set_event_cb(app->p_msg_box, chameleon_scene_menu_card_type_factory_cb);
 
             mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, CHAMELEON_VIEW_ID_MSG_BOX);
