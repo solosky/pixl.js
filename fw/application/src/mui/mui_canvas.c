@@ -64,11 +64,12 @@ uint16_t mui_canvas_draw_utf8_truncate(mui_canvas_t* p_canvas, uint8_t x, uint8_
     char utf8[5];
 
     if (max_width < mui_canvas_get_utf8_width(p_canvas, str)) {
+        max_width -= mui_canvas_get_utf8_width(p_canvas, getLangString(_L_ELLIPSIS));
         while (*p != 0) {
             uint8_t utf8_size = mui_canvas_get_utf8_bytes(p);
             memcpy(utf8, p, utf8_size);
             utf8[utf8_size] = '\0';
-            if (x >= 0 && x <= max_width - mui_canvas_get_utf8_width(p_canvas, getLangString(_L_ELLIPSIS))) {
+            if (x >= 0 && x <= max_width) {
                 uint8_t utf8_w = mui_canvas_draw_utf8(p_canvas, x, y, utf8);
                 x += utf8_w;
             } else {
