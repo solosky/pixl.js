@@ -29,7 +29,7 @@
 #include "settings.h"
 
 #define ADC_CHANNEL 0
-
+#define ADC_AIN(INPUT) NRFX_CONCAT_2(NRF_SAADC_INPUT_AIN, INPUT)
 APP_TIMER_DEF(m_chrg_timer);
 
 const float cr2032_voltage_map[] = {2.9, 2.8, 2.7, 2.6, 2.5, 2.4, 2.3, 2.1, 2.0f};
@@ -75,7 +75,7 @@ void saadc_init(void) {
     ret_code_t err_code;
 
     nrf_saadc_channel_config_t channel_config = NRF_DRV_SAADC_DEFAULT_CHANNEL_CONFIG_SE(
-        settings_get_data()->bat_mode ? NRF_SAADC_INPUT_AIN2 : NRF_SAADC_INPUT_VDD);
+        settings_get_data()->bat_mode ? ADC_AIN(ADC_INPUT) : NRF_SAADC_INPUT_VDD);
 
     err_code = nrf_drv_saadc_init(NULL, saadc_callback);
     APP_ERROR_CHECK(err_code);

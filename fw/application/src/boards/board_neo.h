@@ -81,8 +81,10 @@
 #define FLASH_CS_PIN -1
 
 // Power
-#define CHRG_PIN -1
+#define CHRG_PIN 40
 #define ADC_PIN 5
+#define ADC_INPUT 3
+
 
 //READER
 
