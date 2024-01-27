@@ -18,7 +18,7 @@ const db_game_t game_list[] = {
 {16, 0, "Fire Emblem Engage", "火焰纹章：结合", 80, 13}, 
 {17, 0, "Conga Master Party", "康茄大师派对", 1, 14}, 
 {18, 0, "Diablo3/Diablo III", "暗黑破坏神 3", 85, 1}, 
-{19, 0, "Xenoblade Chronicles 3", "异度神剑3", 45, 3}, 
+{19, 0, "Xenoblade Chronicles 3", "异度神剑3", 45, 5}, 
 {20, 0, "Cyber Shadow", "赛博暗影", 1, 5}, 
 {21, 0, "Just Shapes Beats", "形状节奏", 1, 5}, 
 {22, 0, "Kirby and the Forgotten Land", "星之卡比：探索发现", 1, 5}, 

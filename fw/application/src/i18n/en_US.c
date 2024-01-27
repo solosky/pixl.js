@@ -30,6 +30,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_SET_REBOOT] = "System Reboot",
     [_L_APP_SET_RESET_DEFAULT] = "Reset Default Setting",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Reset Success!",
+    [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "Confirm Reset Settings?",
     [_L_15S] = "15 Seconds",
     [_L_30S] = "30 Seconds",
     [_L_45S] = "45 Seconds",

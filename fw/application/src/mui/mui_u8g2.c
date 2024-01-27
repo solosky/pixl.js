@@ -84,6 +84,8 @@
 u8g2_t u8g2;
 static spi_device_t m_dev;
 uint8_t m_u8g2_initialized = 0;
+
+#ifdef LCD_SCREEN
 APP_PWM_INSTANCE(pwm1, 1); // Create the instance "PWM1" using TIMER1.
 
 static ret_code_t pwm_init(void) {
@@ -111,6 +113,8 @@ static ret_code_t pwm_init(void) {
 
     return NRF_SUCCESS;
 }
+
+#endif
 
 uint8_t u8x8_HW_com_spi_nrf52832(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
 uint8_t u8g2_nrf_gpio_and_delay_spi_cb(u8x8_t *u8x8, uint8_t msg, uint8_t arg_int, void *arg_ptr);
@@ -186,36 +190,41 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 
     nrf_gpio_cfg_output(LCD_RESET_PIN);
     nrf_gpio_cfg_output(LCD_DC_PIN);
+
+#ifdef LCD_SCREEN
     nrf_gpio_cfg_output(LCD_BL_PIN);
     nrf_gpio_pin_clear(LCD_BL_PIN);
 
-#ifdef OLED_TYPE_SH1106
-    NRF_LOG_INFO("init oled display..");
-    u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
-#else
     u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
-#endif
-
     u8g2_InitDisplay(p_u8g2);
-
-#ifdef OLED_SCREEN
-    settings_data_t *p_settings = settings_get_data();
-    mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
-#endif
-
     u8g2_SetPowerSave(p_u8g2, 0);
 
     pwm_init();
+#endif
+
+#ifdef OLED_SCREEN
+    u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
+    u8g2_InitDisplay(p_u8g2);
+
+    settings_data_t *p_settings = settings_get_data();
+    mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
+
+    u8g2_SetPowerSave(p_u8g2, 0);
+
+#endif
 }
 
 void mui_u8g2_deinit(u8g2_t *p_u8g2) {
     u8g2_SetPowerSave(p_u8g2, 1);
 
+#ifdef LCD_SCREEN
     mui_u8g2_set_backlight_level(0);
     nrf_gpio_pin_clear(LCD_BL_PIN);
     nrf_gpio_cfg_default(LCD_BL_PIN);
+#endif
 }
 
+#ifdef LCD_SCREEN
 void mui_u8g2_set_backlight(uint8_t bl) { nrf_gpio_pin_write(LCD_BL_PIN, bl); }
 
 uint8_t mui_u8g2_get_backlight() { return nrf_gpio_pin_out_read(LCD_BL_PIN); }
@@ -233,9 +242,11 @@ void mui_u8g2_set_backlight_level(uint8_t value) {
 }
 int8_t mui_u8g2_get_backlight_level(void) { return (int8_t)app_pwm_channel_duty_get(&pwm1, 0); }
 
+#endif
+
+#ifdef OLED_SCREEN
 void mui_u8g2_set_oled_contrast_level(uint8_t value) {
     mui_t *p_mui = mui();
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
 }
-
 #endif

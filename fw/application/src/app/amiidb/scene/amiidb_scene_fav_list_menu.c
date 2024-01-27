@@ -70,7 +70,7 @@ static void amiidb_scene_fav_list_menu_msg_box(app_amiidb_t *app, const char *he
     mui_msg_box_set_message(app->p_msg_box, msg);
     mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_APP_AMIIDB_CONFIRM), NULL,
                              getLangString(_L_APP_AMIIDB_CANCEL));
-    mui_msg_box_set_btn_focus(app->p_msg_box, 0);
+    mui_msg_box_set_btn_focus(app->p_msg_box, 2);
     mui_msg_box_set_event_cb(app->p_msg_box, cb);
 
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_MSG_BOX);

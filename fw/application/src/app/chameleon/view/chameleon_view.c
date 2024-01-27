@@ -17,7 +17,7 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 
-    uint8_t x = 0, y = 0;
+    uint8_t x = 0, y = 0, w = 0;
     mui_canvas_draw_box(p_canvas, 0, y, mui_canvas_get_width(p_canvas), 12);
     mui_canvas_set_draw_color(p_canvas, 0);
 
@@ -43,13 +43,19 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     mui_canvas_set_draw_color(p_canvas, 1);
 
+    x = 8;
+    y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
+    w = mui_canvas_get_width(p_canvas) - x * 2;
+
     tag_helper_get_nickname(buff, sizeof(buff));
 
-    y = 13 + (mui_canvas_get_height(p_canvas) - 16) / 2;
-    x = (mui_canvas_get_width(p_canvas) - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
-    mui_canvas_draw_utf8(p_canvas, x, y, buff);
+    if (w > mui_canvas_get_utf8_width(p_canvas, buff)) {
+        x += (w - mui_canvas_get_utf8_width(p_canvas, buff)) / 2;
+    }
+
+    mui_canvas_draw_utf8_truncate(p_canvas, x, y, w, buff);
     mui_canvas_draw_utf8(p_canvas, 0, y, "<");
-    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 8, y, ">");
+    mui_canvas_draw_utf8(p_canvas, mui_canvas_get_width(p_canvas) - 5, y, ">");
 
     mui_canvas_set_font(p_canvas, MUI_FONT_SMALL);
     sprintf(buff, "%s <%02x/%02x %02x>", tag_name->short_name, coll_res->sak[0], coll_res->atqa[0], coll_res->atqa[1]);

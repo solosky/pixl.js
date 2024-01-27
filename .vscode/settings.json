@@ -31,7 +31,10 @@
         "tuple": "c",
         "type_traits": "c",
         "utility": "c",
-        "app_error.h": "c",
-        "reader_scene.h": "c"
+        "mui_list_view.h": "c",
+        "nrf_log.h": "c",
+        "string.h": "c",
+        "math.h": "c",
+        "mlib_common.h": "c"
     }
 }

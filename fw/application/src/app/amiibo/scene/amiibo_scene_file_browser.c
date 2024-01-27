@@ -66,6 +66,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
     }
 
     mui_list_view_sort(app->p_list_view, amiibo_scene_file_browser_list_item_cmp);
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
 }
 
 static void amiibo_scene_file_browser_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
@@ -119,7 +120,6 @@ void amiibo_scene_file_browser_on_enter(void *user_data) {
     mui_list_view_set_focus(app->p_list_view, app->current_focus_index);
 
     NRF_LOG_INFO("%X", app);
-    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_LIST);
 }
 
 void amiibo_scene_file_browser_on_exit(void *user_data) {

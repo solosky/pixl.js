@@ -63,7 +63,7 @@ static inline void mui_anim_set_auto_restart(mui_anim_t* p_anim, bool auto_resta
     p_anim->auto_restart = auto_restart;
 }
 
-static inline void mui_anim_set_values(mui_anim_t* p_anim, int16_t start, int16_t end){
+static inline void mui_anim_set_values(mui_anim_t* p_anim, int32_t start, int32_t end){
     p_anim->start_value = start;
     p_anim->end_value = end;
     p_anim->current_value = start;

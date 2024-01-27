@@ -225,6 +225,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/mui_anim.c \
   $(PROJ_DIR)/mui/mui_math.c \
+  $(PROJ_DIR)/mui/mui_resource.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
@@ -297,6 +298,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/reader/scene/reader_scene_card_found.c \
   $(PROJ_DIR)/app/reader/nfc/nfc_reader.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
+  $(PROJ_DIR)/app/desktop/view/app_list_view.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
@@ -576,6 +578,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/ble/scene \
   $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
+  $(PROJ_DIR)/app/desktop/view \
   $(PROJ_DIR)/app/settings \
   $(PROJ_DIR)/app/settings/scene \
   $(PROJ_DIR)/app/amiibo \
@@ -760,6 +763,11 @@ ota:
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
+
+gen:
+	python3 ../scripts/amiibo_db_gen.py
+	python3 ../scripts/i18n_gen.py
+	python3 ../scripts/resource_gen.py
 
 flash_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
