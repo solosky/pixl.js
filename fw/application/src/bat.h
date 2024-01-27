@@ -19,7 +19,9 @@ typedef struct {
 
 typedef void (*chrg_data_cb_t)(void);
 typedef struct chrg {
-	uint32_t stats;
+	uint8_t stats;
+    uint8_t level;
+    float  voltage;
 	chrg_data_cb_t callback;
 } chrg_data_t;
 
