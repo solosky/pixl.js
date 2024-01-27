@@ -40,11 +40,15 @@ void saadc_callback(nrf_drv_saadc_evt_t const *p_event) { NRF_LOG_INFO("ADC even
 
 chrg_data_t chrg = {0};
 
-void chrg_read(void* p_context) {
-    uint32_t new_stats = nrf_gpio_pin_read(CHRG_PIN);
-    if (new_stats == chrg.stats) return;
-    chrg.stats = new_stats;
-    if (chrg.callback != NULL) chrg.callback();
+static void bat_measure(chrg_data_t *p_chrg);
+
+void chrg_read(void *p_context) {
+    uint8_t old_stats = chrg.stats;
+    uint8_t old_level = chrg.level;
+    bat_measure(&chrg);
+    if ((old_level != chrg.level || old_stats != chrg.stats) && chrg.callback != NULL) {
+        chrg.callback();
+    }
 }
 
 void chrg_set_callback(void *cb) { chrg.callback = cb; }
@@ -61,13 +65,16 @@ void chrg_init(void) {
 
     if (settings_get_data()->bat_mode) {
         nrf_gpio_cfg_input(CHRG_PIN, NRF_GPIO_PIN_PULLUP);
-
-        err_code = app_timer_create(&m_chrg_timer, APP_TIMER_MODE_REPEATED, chrg_read);
-        APP_ERROR_CHECK(err_code);
-
-        err_code = app_timer_start(m_chrg_timer, APP_TIMER_TICKS(200), NULL);
-        APP_ERROR_CHECK(err_code);
     }
+
+    // measure once
+    bat_measure(&chrg);
+
+    err_code = app_timer_create(&m_chrg_timer, APP_TIMER_MODE_REPEATED, chrg_read);
+    APP_ERROR_CHECK(err_code);
+
+    err_code = app_timer_start(m_chrg_timer, APP_TIMER_TICKS(1000), NULL);
+    APP_ERROR_CHECK(err_code);
 }
 
 void saadc_init(void) {
@@ -88,7 +95,9 @@ void saadc_uninit(void) {
     nrf_drv_saadc_uninit();
 }
 
-uint8_t bat_get_level(void) {
+uint8_t bat_get_level(void) { return chrg.level; }
+
+void bat_measure(chrg_data_t *p_chrg) {
 
     nrf_saadc_value_t adc_value;
     ret_code_t err_code;
@@ -121,5 +130,7 @@ uint8_t bat_get_level(void) {
     // sprintf(txt, "BAT: %d, %.02fV, %d", adc_value, voltage, level);
     // NRF_LOG_INFO("%s", nrf_log_push(txt));
 
-    return level;
+    p_chrg->level = level;
+    p_chrg->voltage = voltage;
+    p_chrg->stats = nrf_gpio_pin_read(CHRG_PIN);
 }
