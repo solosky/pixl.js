@@ -16,14 +16,15 @@
 #define NOINIT_RAM_INDEX 1
 
 
-extern int32_t __start_noinit;
-extern int32_t __stop_noinit;
+extern uint32_t __start_noinit;
+extern uint32_t __stop_noinit;
 
 static __attribute__((section(".noinit"))) cache_data_t m_cache_data;
 static __attribute__((section(".noinit"))) int32_t m_cache_crc32;
 
 bool cache_valid(){
-    NRF_LOG_INFO("noinit area: [0x%X, 0x%X], %d bytes",  &__start_noinit, &__stop_noinit, (&__stop_noinit - &__start_noinit));
+    size_t noinit_size = &(__stop_noinit) - &(__start_noinit);
+    NRF_LOG_INFO("noinit area: [0x%X, 0x%X], %d bytes",  &__start_noinit, &__stop_noinit, noinit_size);
     NRF_LOG_INFO("m_cache_data address: 0x%X", &m_cache_data);
     return m_cache_crc32 == crc32_compute((const int8_t *)&m_cache_data, sizeof(cache_data_t), NULL);
 }

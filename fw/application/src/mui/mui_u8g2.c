@@ -250,3 +250,5 @@ void mui_u8g2_set_oled_contrast_level(uint8_t value) {
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
 }
 #endif
+
+#endif
