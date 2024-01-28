@@ -2,6 +2,7 @@
 #define MINI_APP_DEFINES_H
 
 #include <stdint.h>
+#include "mui_resource.h"
 
 #include "cache.h"
 
@@ -45,6 +46,7 @@ struct mini_app_s {
     const uint8_t deamon;
     const uint8_t sys;
     const uint8_t hibernate_enabled;
+    const xbm_t* icon_32x32;
     const mini_app_run_cb_t run_cb;
     const mini_app_kill_cb_t kill_cb;
     const mini_app_post_event_cb_t on_event_cb;

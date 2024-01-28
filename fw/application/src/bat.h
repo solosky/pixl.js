@@ -10,17 +10,12 @@
 #include <stdint.h>
 #include <stdbool.h>
 
-typedef enum {
-	EMPTY,
-	LEVEL_1,
-	LEVEL_2,
-	LEVEL_3,
-	FULL
-} bat_level_t;
 
 typedef void (*chrg_data_cb_t)(void);
 typedef struct chrg {
-	uint32_t stats;
+	uint8_t stats;
+    uint8_t level;
+    float  voltage;
 	chrg_data_cb_t callback;
 } chrg_data_t;
 

@@ -8,8 +8,8 @@ _L_ERR,Error,错误,錯誤,Error,Hiba,Fehler,Erreur,Fout,Erro,エラー
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード
 _L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Amiibo Emulátor,Amiibo-Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ
 _L_APP_AMIIBOLINK,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink
-_L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE-Dateiübertragung,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送
-_L_APP_BLE_TITLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE-Dateiübertragung,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送
+_L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE-Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送
+_L_APP_BLE_TITLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE-Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送
 _L_APP_PLAYER,Video Player,动画播放器,動畫播放器,Reproductor vídeo,Video Lejátszó,Videospieler,Lecteur Vidéo,Videospeler,Reprodutor de Vídeo,ビデオプレーヤー
 _L_APP_SET,Settings,系统设置,系統設定,Configuraciones,Beállítások,Einstellungen,Paramètres,Instellingen,Configurações,設定
 _L_APP_SET_VERSION,Version,版本,版本,Versión,Verzió,Version,Version,Versie,Versão,バージョン
@@ -29,11 +29,12 @@ _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Fir
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Újraindítása,System-Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動
 _L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す
 _L_APP_SET_RESET_DEFAULT_SUCCESS,Reset Success!,重置成功,重置成功,¡Configuración Restablecida!,Alapért. Beállítások Visszaállítása,Einstellungen zurückgesetzt!,Réinitialiser les Paramètres Par Défaut,Standaardinstellingen Herstellen,Redefinir a Configuração Padrão,設定を初期化
-_L_15S,15 Seconds,15秒,15秒,15 segundos,15 sec.,15 Sek,15 sec.,15 sec.,15 seg.,15秒
-_L_30S,30 Seconds,30秒,30秒,30 segundos,30 sec.,30 Sek,30 sec.,30 sec.,30 seg.,30秒
-_L_45S,45 Seconds,45秒,45秒,45 segundos,45 sec.,45 Sek,45 sec.,45 sec.,45 seg.,45秒
-_L_1MIN,1 Minute,1分钟,1分鐘,1 minuto,1 min.,1 Min,1 min.,1 min.,1 min.,1分
-_L_2MIN,2 Minutes,2分钟,2分鐘,2 minutos,2 min.,2 Min,2 min.,2 min.,2 min.,2分
+_L_APP_SET_RESET_DEFAULT_CONFIRM,Confirm Reset Settings?,确认重置默认设置？,确认重置默认设置？,,,Auf Standardeinstellungen zurücksetzen?,,,,
+_L_15S,15 Seconds,15秒,15秒,15 segundos,15 sec.,15 Sekunden,15 sec.,15 sec.,15 seg.,15秒
+_L_30S,30 Seconds,30秒,30秒,30 segundos,30 sec.,30 Sekunden,30 sec.,30 sec.,30 seg.,30秒
+_L_45S,45 Seconds,45秒,45秒,45 segundos,45 sec.,45 Sekunden,45 sec.,45 sec.,45 seg.,45秒
+_L_1MIN,1 Minute,1分钟,1分鐘,1 minuto,1 min.,1 Minute,1 min.,1 min.,1 min.,1分
+_L_2MIN,2 Minutes,2分钟,2分鐘,2 minutos,2 min.,2 Minuten,2 min.,2 min.,2 min.,2分
 _L_3MIN,3 Minutes,3分钟,3分鐘,3 minutos,3 min.,3 Min,3 min.,3 min.,3 min.,3分
 _L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin llave amiibo,Amiibo kulcs nincs betöltve,Schlüssel nicht gefunden,Clé Amiibo Non Chargée,Amiibo-Sleutel Niet Geladen,A chave Amiibo não foi carregada,Amiiboキーが読み込まれない
 _L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.,Töltse fel a key_retail.bin fájlt a gyökérkönyvtárába.,Laden Sie die Datei key_retail.bin in das Stammverzeichnis des Speichers.,Téléchargez le fichier key_retail.bin dans le répertoire racine du stockage.,Upload het bestand key_retail.bin naar de hoofdmap van de opslag.,Carregue o arquivo key_retail.bin no diretório raiz do armazenamento.,key_retail.binファイルをストレージのルートディレクトリにアップロードする。
@@ -46,7 +47,7 @@ _L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿
 _L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],Vissza a Címke Részletkhez,Zurück zu Tag-Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る
 _L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,[Lista Archivos],Vissza a Fájl Listához,[Zurück zur Liste],Retour à La Liste Des Fichiers,Terug naar Bestandslijst,Voltar Para a Lista de Arquivos,ファイル一覧に戻る
 _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,[Menú Principal],Vissza a Főmenübe,[Hauptmenü],Retour au Menu Principal,Terug naar Hoofdmenu,Voltar ao Menu Principal,メインメニューに戻る
-_L_FORMAT,Format,格式化,格式化,Formatear..,Formátum ,Formatieren,Format,Formatteren,Formatar,フォーマット
+_L_FORMAT,Format,格式化,格式化,Formatear..,"Formátum ",Formatieren,Format,Formatteren,Formatar,フォーマット
 _L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear mem. Flash,Formátum Tárolás,Speicher formatieren,Format de Stockage,Opslag Formatteren,Formatar Armazenamento,保存領域フォーマット
 _L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。\n确认格式化?,將刪除所有資料。\n確認格式化?,Se borrará todos los\ndatos.,Minden adatot töröl. Formázás megerősítése?,Alle Daten löschen?,Cette opération efface toutes les données. Confirmer le formatage?,Hierdoor worden alle gegevens gewist. Formatteren bevestigen?,Isso excluirá todos os dados. Confirmar a formatação?,これですべてのデータが削除されます。よろしいですか？
 _L_DELETING_MESSAGE,Formatting ..,格式化中..,格式化中..,Formateando..,Formázás ..,Formatierung..,Formatage ..,Formatteren ..,Formatando ..,書式設定 ..
@@ -74,7 +75,7 @@ _L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能�
 _L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,Creando,Címke létrehozása,Tag erstellen,Création d'une balise,Tag aanmaken,Criando tag,タグの作成
 _L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,¡Error al crear %s!,Címke létrehozása %s sikertelen!,Erstellen von Tag %s fehlgeschlagen!,La création de la balise %s a échoué!,Aanmaken tag %s mislukt!,Falha ao criar a tag %s!,タグ %s の作成に失敗しました！
 _L_RENAME,Rename,重命名,重新命名,Renombrar,Átnevezés,Umbenennen,Renommer,Hernoem,Renomear,名前の変更
-_L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta,Mappa megnyitása sikertelen ,Ordner konnte nicht geöffnet werden,Échec de l'ouverture du dossier,Kan map niet openen,Falha ao abrir a pasta,フォルダを開けませんでした
+_L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta,"Mappa megnyitása sikertelen ",Ordner konnte nicht geöffnet werden,Échec de l'ouverture du dossier,Kan map niet openen,Falha ao abrir a pasta,フォルダを開けませんでした
 _L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗,Fallo al renombrar\nCódigo de error,Átnevezés Sikertelen\nHibakód,Umbenennen fehlgeschlagen\nFehlercode,Échec du renommage.\nCode d'Erreur,Hernoemen mislukt.\nFoutcode,Falha ao renomear\nCódigo de erro,名前の変更に失敗しました。\nエラーコード
 _L_MAIN_RETURN,[RETURN],[返回],[返回],[Volver],[VISSZA],[Zurück],[RETOUR],[TERUG],[RETORNO],[リターン］
 _L_RANDOM_MODE_MANUAL,Randomize (Manual),随机模式(手动),隨機模式(手動),Aleatorio (Manual),Randomizálás (Kézi),Zufällig (Manuell),Randomiser (Manuel),Willekeurig (Handmatig),Randomizar (Manual),ランダム化 (手動)
@@ -124,7 +125,7 @@ _L_APP_AMIIDB_FAV_NEW_HEAD,New Fav. Folder:,新建收藏夹:,新建收藏夾:,Nu
 _L_APP_AMIIDB_FAV_EMPTY_MSG,Empty Fav. Folder?,确认清空收藏夹?,確認清空收藏夾?,¿Vaciar Carp. Favoritos?,Üres Kedvenc Mappa?,Favoritenordner leeren?,Vider le Dossier Favori?,Favoriete Map Leegmaken?,Esvaziar Pasta de Favoritos?,お気に入りフォルダを空にしますか？
 _L_APP_AMIIDB_FAV_DELETE_MSG,Confirm Delete?,确认删除?,確認刪除?,¿Confirma borrado?,Törlés Megerősítése?,Favoritenordner löschen?,Confirmer la Suppression?,Verwijderen Bevestigen?,Confirmar Exclusão?,削除してよろしいですか？
 _L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收藏夾..,Selec. carp. favoritos..,Kedvenc Mappa Kiválasztása..,Fav.-Ordner auswählen..,Sélectionner le Dossier Favori..,Selecteer Favoriete Map..,Selecionar Pasta Favorita..,お気に入りフォルダを選択..
-_L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito correcto!,Kedvenc Sikeres,Favorit erstellt ,Succès du Favori,Favoriet Geslaagd,Favorito Bem-Sucedido,お気に入りに追加されました
+_L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito correcto!,Kedvenc Sikeres,"Favorit erstellt ",Succès du Favori,Favoriet Geslaagd,Favorito Bem-Sucedido,お気に入りに追加されました
 _L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito fallido!,Kedvenc Sikertelen!,Favorit fehlgeschlagen!,Échec du Favori!,Favoriet Mislukt!,Favorito Falhou!,お気に入りに追加できませんでした!
 _L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación correcta,Sikeresen Mentve,Speichern erfolgreich,Sauvegarder Succès,Opslaan Succes,Salvar Com Êxito,保存されました
 _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación fallida!,Mentés Sikertelen!,Speichern fehlgeschlagen!,Sauvegarde Échouée!,Opslaan Mislukt!,Falha ao Salvar!,保存に失敗しました!

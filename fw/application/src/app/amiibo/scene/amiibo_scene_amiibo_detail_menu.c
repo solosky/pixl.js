@@ -142,7 +142,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         sprintf(msg, _T(DELETE_TAG_CONFIRM), string_get_cstr(app->current_file));
         mui_msg_box_set_message(app->p_msg_box, msg);
         mui_msg_box_set_btn_text(app->p_msg_box, _T(CONFIRM), NULL, _T(CANCEL));
-        mui_msg_box_set_btn_focus(app->p_msg_box, 0);
+        mui_msg_box_set_btn_focus(app->p_msg_box, 2);
         mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_amiibo_detail_delete_tag_confirmed);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_MSG_BOX);

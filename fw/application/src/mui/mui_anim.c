@@ -235,6 +235,12 @@ void mui_anim_start(mui_anim_t *p_anim) {
     int32_t err_code;
     mui_anim_remove_ptr(p_anim);
     mui_anim_ptr_array_push_back(m_anim_ptr_array, p_anim);
+
+    //fire cb first to set value 
+    if(p_anim->exec_cb != NULL){
+        p_anim->exec_cb(p_anim->var, p_anim->start_value);
+    }
+
     p_anim->run_cnt = 0;
     p_anim->act_time = 0;
     NRF_LOG_INFO("anim start");

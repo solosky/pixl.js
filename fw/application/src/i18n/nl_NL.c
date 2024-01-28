@@ -30,6 +30,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_SET_REBOOT] = "Systeem Herstarten",
     [_L_APP_SET_RESET_DEFAULT] = "Terugzetten Naar Standaardwaarden",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Standaardinstellingen Herstellen",
+    [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",
     [_L_15S] = "15 sec.",
     [_L_30S] = "30 sec.",
     [_L_45S] = "45 sec.",

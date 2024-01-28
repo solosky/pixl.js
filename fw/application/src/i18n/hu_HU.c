@@ -30,6 +30,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_SET_REBOOT] = "Rendszer Újraindítása",
     [_L_APP_SET_RESET_DEFAULT] = "Alapért. Beállítás Visszaállítása",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Alapért. Beállítások Visszaállítása",
+    [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",
     [_L_15S] = "15 sec.",
     [_L_30S] = "30 sec.",
     [_L_45S] = "45 sec.",

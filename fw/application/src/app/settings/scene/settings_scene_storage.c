@@ -41,7 +41,7 @@ static void settings_scene_storage_on_selected(mui_list_view_event_t event, mui_
         mui_msg_box_set_header(app->p_msg_box, getLangString(_L_FORMAT_STORAGE));
         mui_msg_box_set_message(app->p_msg_box, getLangString(_L_DELETE_ALL_DATA));
         mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_CONFIRM), NULL, getLangString(_L_CANCEL));
-        mui_msg_box_set_btn_focus(app->p_msg_box, 0);
+        mui_msg_box_set_btn_focus(app->p_msg_box, 2);
         mui_msg_box_set_event_cb(app->p_msg_box, settings_scene_storage_msg_box_format_cb);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SETTINGS_VIEW_ID_MSG_BOX);

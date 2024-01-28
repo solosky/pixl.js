@@ -15,5 +15,6 @@
 #include "mui_event.h"
 #include "mui_math.h"
 #include "mui_element.h"
+#include "mui_resource.h"
 
 #endif
