@@ -194,7 +194,8 @@ NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
  *@brief :检测唤醒源
  */
 static void check_wakeup_src(void) {
-    uint32_t rr = nrf_power_resetreas_get();
+    uint32_t rr;
+    sd_power_reset_reason_get(&rr);
     NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
 
     if (cache_valid()) {
@@ -212,7 +213,7 @@ static void check_wakeup_src(void) {
     } else {
         NRF_LOG_INFO("First power system");
     }
-    nrf_power_resetreas_clear(nrf_power_resetreas_get());
+    sd_power_reset_reason_clr(rr);
 }
 
 /**
@@ -252,8 +253,8 @@ int main(void) {
     hal_spi_bus_init();
 
     // enable sd to enable pwr mgmt
-//    err_code = nrf_sdh_enable_request();
-//    APP_ERROR_CHECK(err_code);
+   err_code = nrf_sdh_enable_request();
+   APP_ERROR_CHECK(err_code);
 
     extern const ntag_t default_ntag215;
     err_code = ntag_emu_init(&default_ntag215);

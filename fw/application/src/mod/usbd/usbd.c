@@ -41,23 +41,23 @@
  * OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
  *
  */
-#include <stdint.h>
 #include <stdbool.h>
 #include <stddef.h>
+#include <stdint.h>
 #include <stdio.h>
 
 #include "nrf.h"
-#include "nrf_drv_usbd.h"
-#include "nrf_drv_clock.h"
-#include "nrf_gpio.h"
 #include "nrf_delay.h"
+#include "nrf_drv_clock.h"
 #include "nrf_drv_power.h"
+#include "nrf_drv_usbd.h"
+#include "nrf_gpio.h"
 
 #include "app_error.h"
-#include "app_util.h"
-#include "app_usbd_core.h"
 #include "app_usbd.h"
+#include "app_usbd_core.h"
 #include "app_usbd_serial_num.h"
+#include "app_util.h"
 
 #include "boards.h"
 #include "bsp.h"
@@ -68,68 +68,52 @@
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
 
+#include "mtp_core.h"
 #include "usbd_cdc.h"
 #include "usbd_mtp.h"
-#include "mtp_core.h"
-
-
-
-
-/**
- * @brief Enable power USB detection
- *
- * Configure if example supports USB port connection
- */
-#ifndef USBD_POWER_DETECTION
-#define USBD_POWER_DETECTION true
-#endif
-
 
 
 static void usbd_user_ev_handler(app_usbd_event_type_t event) {
     switch (event) {
-        case APP_USBD_EVT_DRV_SUSPEND:
-            //bsp_board_led_off(LED_USB_RESUME);
-            break;
-        case APP_USBD_EVT_DRV_RESUME:
-            //bsp_board_led_on(LED_USB_RESUME);
-            break;
-        case APP_USBD_EVT_STARTED:
-            //timely_statusbar_usb_on();
-            break;
-        case APP_USBD_EVT_STOPPED:
-            //timely_statusbar_usb_off();
-            app_usbd_disable();
-            break;
-        case APP_USBD_EVT_POWER_DETECTED:
-            NRF_LOG_INFO("USB power detected");
+    case APP_USBD_EVT_DRV_SUSPEND:
+        // bsp_board_led_off(LED_USB_RESUME);
+        break;
+    case APP_USBD_EVT_DRV_RESUME:
+        // bsp_board_led_on(LED_USB_RESUME);
+        break;
+    case APP_USBD_EVT_STARTED:
+        // timely_statusbar_usb_on();
+        break;
+    case APP_USBD_EVT_STOPPED:
+        // timely_statusbar_usb_off();
+        app_usbd_disable();
+        break;
+    case APP_USBD_EVT_POWER_DETECTED:
+        NRF_LOG_INFO("USB power detected");
 
-            //power_usb_present();
+        // power_usb_present();
 
-            if (!nrf_drv_usbd_is_enabled()) {
-                app_usbd_enable();
-            }
-            break;
-        case APP_USBD_EVT_POWER_REMOVED:
-            NRF_LOG_INFO("USB power removed");
-            //power_usb_removed();
-            app_usbd_stop();
-            break;
-        case APP_USBD_EVT_POWER_READY:
-            NRF_LOG_INFO("USB ready");
-            app_usbd_start();
-            break;
-        default:
-            break;
+        if (!nrf_drv_usbd_is_enabled()) {
+            app_usbd_enable();
+        }
+        break;
+    case APP_USBD_EVT_POWER_REMOVED:
+        NRF_LOG_INFO("USB power removed");
+        // power_usb_removed();
+        app_usbd_stop();
+        break;
+    case APP_USBD_EVT_POWER_READY:
+        NRF_LOG_INFO("USB ready");
+        app_usbd_start();
+        break;
+    default:
+        break;
     }
 }
 
-
 int usb_init(void) {
     ret_code_t ret;
-    static const app_usbd_config_t usbd_config = {
-            .ev_state_proc = usbd_user_ev_handler
-    };
+    static const app_usbd_config_t usbd_config = {.ev_state_proc = usbd_user_ev_handler};
 
     app_usbd_serial_num_generate();
 
@@ -137,26 +121,23 @@ int usb_init(void) {
     APP_ERROR_CHECK(ret);
     NRF_LOG_INFO("USBD CDC ACM example started.");
 
-    //app_usbd_class_inst_t const *class_cdc_acm = usbd_cdc_class_inst_get();
-    //ret = app_usbd_class_append(class_cdc_acm);
-   // APP_ERROR_CHECK(ret);
+    // app_usbd_class_inst_t const *class_cdc_acm = usbd_cdc_class_inst_get();
+    // ret = app_usbd_class_append(class_cdc_acm);
+    // APP_ERROR_CHECK(ret);
 
     usbd_mtp_init();
     app_usbd_class_inst_t const *class_mtp = usbd_mtp_class_inst_get();
     ret = app_usbd_class_append(class_mtp);
     APP_ERROR_CHECK(ret);
 
-    if (USBD_POWER_DETECTION) {
-        ret = app_usbd_power_events_enable();
-        APP_ERROR_CHECK(ret);
-    } else {
-        NRF_LOG_INFO("No USB power detection enabled\r\nStarting USB now");
-
-        app_usbd_enable();
-        app_usbd_start();
-    }
-
-
+#if APP_USBD_CONFIG_POWER_EVENTS_PROCESS == 1
+    ret = app_usbd_power_events_enable();
+    APP_ERROR_CHECK(ret);
+#else
+    NRF_LOG_INFO("No USB power detection enabled\r\nStarting USB now");
+    app_usbd_enable();
+    app_usbd_start();
+#endif
 }
 
 int usb_tick(void) {
@@ -166,6 +147,5 @@ int usb_tick(void) {
     }
 #endif
 }
-
 
 /** @} */

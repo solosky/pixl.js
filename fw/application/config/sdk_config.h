@@ -7032,7 +7032,7 @@
 // <i> Enable processing power events in USB event handler.
 
 #ifndef APP_USBD_CONFIG_POWER_EVENTS_PROCESS
-#define APP_USBD_CONFIG_POWER_EVENTS_PROCESS 1
+#define APP_USBD_CONFIG_POWER_EVENTS_PROCESS 0
 #endif
 
 // <e> APP_USBD_CONFIG_EVENT_QUEUE_ENABLE - Enable event queue.

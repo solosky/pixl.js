@@ -7,6 +7,8 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 #include "mui_icons.h"
+#include "nrf_log.h"
+
 
 void reader_scene_card_found_menu_on_event(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                            mui_list_item_t *p_item) {
@@ -24,11 +26,15 @@ void reader_scene_card_found_on_enter(void *user_data) {
     app_reader_t *app = user_data;
     uint8_t buff[64];
 
+   
+
     mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "发现卡片", buff, NULL_USER_DATA);
 
     strcpy(buff, "[");
     tag_helper_format_uid(buff + 1, app->tag_info.uid, app->tag_info.uid_len);
     strcat(buff, "]");
+
+     NRF_LOG_INFO("found card: %s", nrf_log_push(buff));
     mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, "UID", buff, NULL_USER_DATA);
 
     sprintf(buff, "[%02X]", app->tag_info.sak);
