@@ -239,15 +239,17 @@ static void nus_data_handler(ble_nus_evt_t *p_evt) {
     nrf_pwr_mgmt_feed();
     if (p_evt->type == BLE_NUS_EVT_RX_DATA) {
         if (m_nus_rx_data_handler) {
-            // app_sched_event_put(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length,
-            //                    nus_event_async_call_rx_data);
-            nus_event_async_call_rx_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
+            ret_code_t err = app_sched_event_put(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length,
+                                nus_event_async_call_rx_data);
+            APP_ERROR_CHECK(err);
+            //nus_event_async_call_rx_data(p_evt->params.rx_data.p_data, p_evt->params.rx_data.length);
         }
 
     } else if (p_evt->type == BLE_NUS_EVT_TX_RDY) {
         if (m_nus_tx_ready_handler) {
-            // app_sched_event_put(NULL, 0, nus_event_async_call_tx_ready);
-            nus_event_async_call_tx_ready(NULL, 0);
+            ret_code_t err = app_sched_event_put(NULL, 0, nus_event_async_call_tx_ready);
+            APP_ERROR_CHECK(err);
+            //nus_event_async_call_tx_ready(NULL, 0);
         }
     }
 }

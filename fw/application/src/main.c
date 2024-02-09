@@ -98,7 +98,7 @@
 
 //#include "usbd.h"
 
-#define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
+#define APP_SCHED_MAX_EVENT_SIZE 255 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
 
 #define BTN_ID_SLEEP 1 /**< ID of button used to put the application into sleep mode. */
