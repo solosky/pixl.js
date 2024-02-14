@@ -4016,8 +4016,10 @@
 #endif
 
 // <q> NRFX_SPIM3_ENABLED  - Enable SPIM3 instance
+#ifdef NRF52840_XXAA
 #ifndef NRFX_SPIM3_ENABLED
 #define NRFX_SPIM3_ENABLED 1
+#endif
 #endif
 
 // <o> NRFX_SPIM_MISO_PULL_CFG  - MISO pin pull configuration.

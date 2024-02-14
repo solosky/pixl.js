@@ -12,12 +12,41 @@ APP_VERSION ?= 1
 RELEASE ?= 0
 BOARD ?= NEO
 
+
+# boards defines
+ifeq ($(BOARD),NEO)
+SD_VERSION=S140
+SD_VERSION_INC=s140
+NRF_SOC=NRF52840_XXAA
+RC522=1
+LD_SCRIPT=ble_app_blinky_gcc_nrf52840.ld
+else
+SD_VERSION=S112
+SD_VERSION_INC=s112
+NRF_SOC=NRF52832_XXAA
+RC522=0
+LD_SCRIPT=application.ld
+endif
+
+
 $(OUTPUT_DIRECTORY)/pixljs.out: \
-  LINKER_SCRIPT  := ../ld/ble_app_blinky_gcc_nrf52840.ld
+  LINKER_SCRIPT  := ../ld/$(LD_SCRIPT)
+
+
+# starup files
+ifeq ($(NRF_SOC), NRF52840_XXAA)
+SRC_FILES += \
+  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c 
+else
+SRC_FILES += \
+  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52.S \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52.c 
+endif
+
 
 # Source files common to all targets
 SRC_FILES += \
-  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
@@ -46,13 +75,6 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/pwm/app_pwm.c \
   $(SDK_ROOT)/components/libraries/sortlist/nrf_sortlist.c \
   $(SDK_ROOT)/components/libraries/strerror/nrf_strerror.c \
-  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd.c \
-	$(SDK_ROOT)/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd_core.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd_serial_num.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd_string_desc.c \
-	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
 	$(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_power.c \
 	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_power.c \
   $(SDK_ROOT)/components/boards/boards.c \
@@ -68,7 +90,6 @@ SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_spim.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_wdt.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_ppi.c \
-  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_qspi.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_ppi.c \
   $(SDK_ROOT)/integration/nrfx/legacy/nrf_drv_spi.c \
   $(SDK_ROOT)/components/libraries/button/app_button.c \
@@ -204,9 +225,6 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/df/df_proto_info.c \
   $(PROJ_DIR)/mod/df/df_proto_vfs.c \
   $(PROJ_DIR)/mod/df/df_core.c \
-  $(PROJ_DIR)/mod/usbd/usbd.c \
-  $(PROJ_DIR)/mod/usbd/usbd_cdc.c \
-  $(PROJ_DIR)/mod/usbd/usbd_mtp.c \
   $(PROJ_DIR)/mui/mui_view.c \
   $(PROJ_DIR)/mui/mui_view_port.c \
   $(PROJ_DIR)/mui/mui_view_dispatcher.c \
@@ -290,13 +308,6 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene.c \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/chameleon/port/tag_helper.c \
-  $(PROJ_DIR)/app/reader/app_reader.c \
-  $(PROJ_DIR)/app/reader/view/nfc_scan_view.c \
-  $(PROJ_DIR)/app/reader/scene/reader_scene.c \
-  $(PROJ_DIR)/app/reader/scene/reader_scene_scan.c \
-  $(PROJ_DIR)/app/reader/scene/reader_scene_scan_menu.c \
-  $(PROJ_DIR)/app/reader/scene/reader_scene_card_found.c \
-  $(PROJ_DIR)/app/reader/nfc/nfc_reader.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
   $(PROJ_DIR)/app/desktop/view/app_list_view.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
@@ -338,7 +349,6 @@ SRC_FILES += \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
   $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
-  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c \
   $(SDK_ROOT)/components/nfc/platform/nfc_platform.c \
   $(COMP_DIR)/amiitool/src/amiibo.c \
   $(COMP_DIR)/amiitool/src/drbg.c \
@@ -361,18 +371,10 @@ SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/rfid/parity.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_emulation.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/tag_persistence.c \
-  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/rc522.c \
-  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/mf1_toolbox.c \
   $(CHAMELEON_ROOT)/application/src/bsp/bsp_time.c \
   $(CHAMELEON_ROOT)/application/src/bsp/bsp_delay.c \
   $(COMP_DIR)/littlefs/lfs.c \
   $(COMP_DIR)/littlefs/lfs_util.c \
-  $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_core.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_codec.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_proto.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
-  $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
   $(COMP_DIR)/cwalk/src/cwalk.c \
   $(COMP_DIR)/qrcode/c/qrcodegen.c \
   $(U8G2_ROOT)/u8g2_bitmap.c \
@@ -414,6 +416,42 @@ SRC_FILES += \
   $(U8G2_ROOT)/u8x8_u8toa.c \
   $(U8G2_ROOT)/u8x8_d_ssd1306_128x64_noname.c
 
+
+# USB Feature
+ifeq ($(NRF_SOC), NRF52840_XXAA)
+SRC_FILES += \
+	$(SDK_ROOT)/components/libraries/usbd/app_usbd.c \
+	$(SDK_ROOT)/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c \
+	$(SDK_ROOT)/components/libraries/usbd/app_usbd_core.c \
+	$(SDK_ROOT)/components/libraries/usbd/app_usbd_serial_num.c \
+	$(SDK_ROOT)/components/libraries/usbd/app_usbd_string_desc.c \
+	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
+  $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_core.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_codec.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_proto.c \
+  $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
+  $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
+  $(PROJ_DIR)/mod/usbd/usbd.c \
+  $(PROJ_DIR)/mod/usbd/usbd_cdc.c \
+  $(PROJ_DIR)/mod/usbd/usbd_mtp.c \
+  $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_qspi.c 
+endif
+
+#RC522 feature
+ifeq ($(RC522), 1)
+SRC_FILES += \
+  $(PROJ_DIR)/app/reader/app_reader.c \
+  $(PROJ_DIR)/app/reader/view/nfc_scan_view.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene_scan.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene_scan_menu.c \
+  $(PROJ_DIR)/app/reader/scene/reader_scene_card_found.c \
+  $(PROJ_DIR)/app/reader/nfc/nfc_reader.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/rc522.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/mf1_toolbox.c
+endif
+
 # Include folders common to all targets
 INC_FOLDERS += \
   $(SDK_ROOT)/components/nfc/ndef/generic/message \
@@ -422,7 +460,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_ancs_c \
   $(SDK_ROOT)/components/ble/ble_services/ble_ias_c \
   $(SDK_ROOT)/components/libraries/pwm \
-  $(SDK_ROOT)/components/softdevice/s140/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/headers/nrf52 \
   $(SDK_ROOT)/components/libraries/usbd/class/cdc/acm \
   $(SDK_ROOT)/components/libraries/usbd/class/hid/generic \
   $(SDK_ROOT)/components/libraries/usbd/class/msc \
@@ -460,7 +498,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/ble/ble_services/ble_bas \
   $(SDK_ROOT)/components/libraries/mpu \
   $(SDK_ROOT)/components/libraries/experimental_section_vars \
-  $(SDK_ROOT)/components/softdevice/s140/headers \
+  $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/headers \
   $(SDK_ROOT)/components/ble/ble_services/ble_ans_c \
   $(SDK_ROOT)/components/libraries/slip \
   $(SDK_ROOT)/components/libraries/delay \
@@ -643,10 +681,10 @@ CFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 #CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52840_XXAA
+CFLAGS += -D$(NRF_SOC)
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
-CFLAGS += -DS140
+CFLAGS += -D$(SD_VERSION)
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DLV_LVGL_H_INCLUDE_SIMPLE 
 CFLAGS += -DBOARD_$(BOARD)
@@ -681,10 +719,10 @@ ASMFLAGS += -DAPP_TIMER_V2_RTC1_ENABLED
 ASMFLAGS += -DCUSTOM_BOARD_INC=am_board
 # ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
-ASMFLAGS += -DNRF52840_XXAA
+ASMFLAGS += -D$(NRF_SOC)
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
-ASMFLAGS += -DS140
+ASMFLAGS += -D$(SD_VERSION)
 ASMFLAGS += -DSOFTDEVICE_PRESENT
 ASMFLAGS += -DM_USE_THREAD_BACKEND=0
 
@@ -740,8 +778,8 @@ flash: default
 
 # Flash softdevice
 flash_softdevice:
-	@echo Flashing: s140_nrf52_7.2.0_softdevice.hex
-	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex --sectorerase --log
+	@echo Flashing: $(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex
+	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/hex/$(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex --sectorerase --log
 	nrfjprog -f nrf52 --reset --log
 
 erase:
@@ -753,7 +791,7 @@ sdk_config:
 	java -jar $(CMSIS_CONFIG_TOOL) $(SDK_CONFIG_FILE)
 
 version:
-	@cd ../ && python3 scripts/version_gen.py
+	@cd ../ && python scripts/version_gen.py
 
 settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
@@ -762,7 +800,7 @@ ota:
 	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --hw-version 52 --sd-req 0x0103 --key-file ../bootloader/priv.pem $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
 
 full: settingsgen
-	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
+	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/hex/$(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
 
 gen:
 	python3 ../scripts/amiibo_db_gen.py
@@ -773,7 +811,7 @@ flash_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
 flash_all_ocd: default
-	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/s140/hex/s140_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
+	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/hex/$(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
 
 reset_ocd:
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -c "init" -c "reset" -c "exit"

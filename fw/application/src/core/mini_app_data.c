@@ -20,7 +20,9 @@ const mini_app_t* mini_app_registry[] = {
     &app_amiidb_info,
     &app_amiibolink_info,
     &app_chameleon_info,
+#ifdef RC522
     &app_reader_info,
+#endif
 #ifdef APP_PLAYER_ENABLE
     &app_player_info,
 #endif

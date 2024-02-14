@@ -53,17 +53,21 @@
 //#define VFS_LFS_ENABLE
 #define VFS_SPIFFS_ENABLE
 
-#define SPI_BUS_INSTANCE 0
+#define SPI_BUS_INSTANCE 1
 #define NRFX_SPIM_SCK_PIN 26  // yellow wire (CLK)
 #define NRFX_SPIM_MOSI_PIN 25 // blue wire (DIN)
 #define NRFX_SPIM_MISO_PIN 19 // blue wire (DIN)
 
 // flash
 #define FLASH_CS_PIN 18
+// flash 
+//#define QSPI_FLASH 1
+#define SPI_FLASH 1
 
 // Power
 #define CHRG_PIN 3
 #define ADC_PIN 2
+#define ADC_INPUT 1
 
 // APP
 #define APP_LEGLAMIIBO_ENABLE

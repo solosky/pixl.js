@@ -96,6 +96,8 @@
 #include "i18n/language.h"
 #include "settings.h"
 
+#include "nfc_reader.h"
+
 //#include "usbd.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 255 /**< Maximum size of scheduler events. */
@@ -268,13 +270,10 @@ int main(void) {
     NRF_LOG_INFO("settings init: %d", err_code);
     // APP_ERROR_CHECK(err_code);
 
-
-
-    nrf_gpio_cfg_output(HF_ANT_SEL);
-    nrf_gpio_pin_clear(HF_ANT_SEL);
-
-    nrf_gpio_cfg_output(RD_PWR);
-    nrf_gpio_pin_clear(RD_PWR);
+#ifdef RC522
+    //nfc initialized as emulator mode
+    nfc_reader_exit();
+#endif
 
     chrg_init();
 
@@ -282,7 +281,10 @@ int main(void) {
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
 
     amiibo_helper_try_load_amiibo_keys_from_vfs();
+
+#ifdef NRF52840_QIAA
     usb_init();
+#endif
 
     NRF_LOG_DEBUG("init done");
 
@@ -300,7 +302,10 @@ int main(void) {
 
         app_sched_execute();
         mui_tick(p_mui);
+
+#ifdef NRF52840_QIAA
         usb_tick();
+#endif
         NRF_LOG_FLUSH();
         if (NRF_LOG_PROCESS() == false) {
             nrf_pwr_mgmt_run();
