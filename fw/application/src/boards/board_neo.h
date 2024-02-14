@@ -104,6 +104,14 @@
 #undef APP_LEGLAMIIBO_ENABLE
 #endif
 
+// Make compiler happy 
+#define BSP_QSPI_SCK_PIN QSPI_SCK_PIN
+#define BSP_QSPI_CSN_PIN QSPI_CS_PIN
+#define BSP_QSPI_IO0_PIN QSPI_IO0_PIN
+#define BSP_QSPI_IO1_PIN QSPI_IO1_PIN
+#define BSP_QSPI_IO2_PIN QSPI_IO2_PIN
+#define BSP_QSPI_IO3_PIN QSPI_IO3_PIN
+
 
 #endif
 
