@@ -2,7 +2,7 @@ name: pixl.js-fw
 
 on:
   push:
-    branches: [ "develop"]
+    branches: [ "develop", "neo_v2"]
     tags:  ["*"]
   workflow_dispatch:
 
@@ -10,7 +10,7 @@ jobs:
   build:
     strategy:
       matrix:
-        board: ["LCD", "OLED"]
+        board: ["LCD", "OLED", "NEO"]
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
