@@ -6,13 +6,40 @@ SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
 BOARD ?= LCD
 
+# boards defines
+ifeq ($(BOARD),NEO)
+SD_VERSION=S140
+SD_VERSION_INC=s140
+SD_ID=0x0100
+NRF_SOC=NRF52840_XXAA
+RC522=1
+LD_SCRIPT=bootloader_nrf52840.ld
+else
+SD_VERSION=S112
+SD_VERSION_INC=s112
+SD_ID=0x0103
+NRF_SOC=NRF52832_XXAA
+RC522=0
+LD_SCRIPT=bootloader.ld
+endif
+
 $(OUTPUT_DIRECTORY)/bootloader.out: \
-  LINKER_SCRIPT  := ../ld/bootloader.ld
+  LINKER_SCRIPT  := ../ld/$(LD_SCRIPT)
+
+
+# starup files
+ifeq ($(NRF_SOC), NRF52840_XXAA)
+SRC_FILES += \
+  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52840.S \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52840.c 
+else
+SRC_FILES += \
+  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52.S \
+  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52.c 
+endif
 
 # Source files common to all targets
 SRC_FILES += \
-  $(SDK_ROOT)/modules/nrfx/mdk/gcc_startup_nrf52.S \
-  $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_str_formatter.c \
   $(SDK_ROOT)/components/libraries/util/app_error_weak.c \
@@ -108,7 +135,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/atomic \
   $(SDK_ROOT)/integration/nrfx \
   $(SDK_ROOT)/components/libraries/crypto/backend/cc310_bl \
-  $(SDK_ROOT)/components/softdevice/s112/headers/nrf52 \
+  $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/headers/nrf52 \
   $(SDK_ROOT)/components/libraries/log/src \
   $(SDK_ROOT)/components/libraries/bootloader/dfu \
   $(SDK_ROOT)/components/ble/common \
@@ -164,12 +191,12 @@ CFLAGS += -DBLE_STACK_SUPPORT_REQD
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
 CFLAGS += -DNRF52
-CFLAGS += -DNRF52832_XXAA
+CFLAGS += -D$(NRF_SOC)
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_DFU_SETTINGS_VERSION=2
 CFLAGS += -DNRF_DFU_SVCI_ENABLED
 CFLAGS += -DNRF_SD_BLE_API_VERSION=7
-CFLAGS += -DS112
+CFLAGS += -D$(SD_VERSION)
 CFLAGS += -DSOFTDEVICE_PRESENT
 CFLAGS += -DSVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
 CFLAGS += -DuECC_ENABLE_VLI_API=0
@@ -186,6 +213,10 @@ CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
 CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 CFLAGS += -DBOARD_$(BOARD)
+# oled
+ifeq ($(OLED_TYPE), sh1106)
+  CFLAGS += -DOLED_TYPE_SH1106
+endif
 
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
@@ -198,12 +229,12 @@ ASMFLAGS += -DBLE_STACK_SUPPORT_REQD
 ASMFLAGS += -DCONFIG_GPIO_AS_PINRESET
 ASMFLAGS += -DFLOAT_ABI_HARD
 ASMFLAGS += -DNRF52
-ASMFLAGS += -DNRF52832_XXAA
+ASMFLAGS += -D$(NRF_SOC)
 ASMFLAGS += -DNRF52_PAN_74
 ASMFLAGS += -DNRF_DFU_SETTINGS_VERSION=2
 ASMFLAGS += -DNRF_DFU_SVCI_ENABLED
 ASMFLAGS += -DNRF_SD_BLE_API_VERSION=7
-ASMFLAGS += -DS112
+ASMFLAGS += -D$(SD_VERSION)
 ASMFLAGS += -DSOFTDEVICE_PRESENT
 ASMFLAGS += -DSVC_INTERFACE_CALL_AS_NORMAL_FUNCTION
 ASMFLAGS += -DuECC_ENABLE_VLI_API=0
@@ -230,11 +261,6 @@ bootloader: ASMFLAGS += -D__HEAP_SIZE=0
 # Add standard libraries at the very end of the linker input, after all objects
 # that may need symbols provided by these libraries.
 LIB_FILES += -lc -lnosys -lm
-
-# oled
-ifeq ($(OLED_TYPE), sh1106)
-  CFLAGS += -DOLED_TYPE_SH1106
-endif
 
 .PHONY: default help
 
