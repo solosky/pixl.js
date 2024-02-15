@@ -120,7 +120,7 @@ SRC_FILES += \
 # Include folders common to all targets
 INC_FOLDERS += \
   $(SDK_ROOT)/components/libraries/crypto/backend/micro_ecc \
-  $(SDK_ROOT)/components/softdevice/s112/headers \
+  $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/headers \
   $(SDK_ROOT)/components/libraries/memobj \
   $(SDK_ROOT)/components/libraries/sha256 \
   $(SDK_ROOT)/components/libraries/crc32 \
