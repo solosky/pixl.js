@@ -4,6 +4,7 @@
 #include "nrf_drv_spi.h"
 #include "nrf_gpio.h"
 
+
 #define DATAINTERFACE_WAIT_TICKS        	0x5000
 
 #define BUFF_MAX      										260
@@ -29,9 +30,9 @@ static uint32_t lcd_spi_init(void)
 
     uint32_t err_code = NRF_SUCCESS;
     nrf_drv_spi_config_t spi_1_cfg = {  .ss_pin       = NRF_DRV_SPI_PIN_NOT_USED,             		\
-                                        .sck_pin      = LCD_SPI_SCL_PIN,            		\
-                                        .miso_pin     = FLASH_SPI_MISO_PIN,          									\
-                                        .mosi_pin     = LCD_SPI_MOSI_PIN,           		\
+                                        .sck_pin      = NRFX_SPIM_SCK_PIN,            		\
+                                        .miso_pin     = NRFX_SPIM_MISO_PIN,          									\
+                                        .mosi_pin     = NRFX_SPIM_MOSI_PIN,           		\
                                         .irq_priority = APP_IRQ_PRIORITY_LOW_MID,  			\
                                         .orc          = 0xFF,                           \
                                         .mode         = NRF_DRV_SPI_MODE_0,             \
@@ -56,10 +57,10 @@ static void lcd_spi_uninit(void)
     if (m_lcd_spi.enable == false)
         return;
     nrf_drv_spi_uninit(&m_lcd_spi.instance);
-    nrf_gpio_cfg_default(LCD_SPI_CS_PIN);
-    nrf_gpio_cfg_default(LCD_SPI_SCL_PIN);
+    nrf_gpio_cfg_default(LCD_CS_PIN);
+    nrf_gpio_cfg_default(NRFX_SPIM_SCK_PIN);
     //nrf_gpio_cfg_default(LCD_SPI_MISO_PIN);
-    nrf_gpio_cfg_default(LCD_SPI_MOSI_PIN);
+    nrf_gpio_cfg_default(NRFX_SPIM_MOSI_PIN);
     nrf_gpio_cfg_default(LCD_BL_PIN);
     memset(&m_lcd_spi, 0x00, sizeof(lcd_spi_t));
 }
@@ -122,27 +123,25 @@ static uint32_t lcd_spi_read(const uint8_t * data, const uint8_t len)
 void lcd_comm_init(void)
 {
 		lcd_spi_init();
-        nrf_gpio_cfg_output(LCD_RST_PIN);
-		nrf_gpio_cfg_output(LCD_DC_RS_PIN);
+        nrf_gpio_cfg_output(LCD_RESET_PIN);
+		nrf_gpio_cfg_output(LCD_DC_PIN);
         nrf_gpio_cfg_output(LCD_BL_PIN);
         nrf_gpio_cfg_output(LED_1);
 
-        nrf_gpio_cfg_output(FALSH_SPI_CS_PIN);
-          nrf_gpio_cfg_output(LCD_SPI_CS_PIN);
+        nrf_gpio_cfg_output(LCD_CS_PIN);
 
-		nrf_gpio_pin_set(LCD_RST_PIN);
-		nrf_gpio_pin_clear(LCD_DC_RS_PIN);
+		nrf_gpio_pin_set(LCD_RESET_PIN);
+		nrf_gpio_pin_clear(LCD_DC_PIN);
         nrf_gpio_pin_clear(LCD_BL_PIN);
         nrf_gpio_pin_set(LED_1);
-        nrf_gpio_pin_set(FALSH_SPI_CS_PIN);
-        nrf_gpio_pin_set(LCD_SPI_CS_PIN);
+        nrf_gpio_pin_set(LCD_CS_PIN);
 }
 
 void lcd_comm_uninit(void)
 {
 		lcd_spi_uninit();
-		nrf_gpio_cfg_default(LCD_RST_PIN);
-		nrf_gpio_cfg_default(LCD_DC_RS_PIN);
+		nrf_gpio_cfg_default(LCD_RESET_PIN);
+		nrf_gpio_cfg_default(LCD_DC_PIN);
         nrf_gpio_cfg_default(LCD_BL_PIN);
         nrf_gpio_cfg_default(LED_1);
 }
@@ -159,41 +158,17 @@ void lcd_reset(void)
 
 void lcd_write_command(uint8_t data)
 {  
-        nrf_gpio_pin_write(LCD_SPI_CS_PIN, 0);
+        nrf_gpio_pin_write(LCD_CS_PIN, 0);
 		LCD_DC_RS_SET(LCD_RS);
 		lcd_spi_write(&data, 1);
-        nrf_gpio_pin_write(LCD_SPI_CS_PIN, 1);
+        nrf_gpio_pin_write(LCD_CS_PIN, 1);
 }
 
 void lcd_write_data(uint8_t *data, uint8_t len)
 {
-      nrf_gpio_pin_write(LCD_SPI_CS_PIN, 0);
+      nrf_gpio_pin_write(LCD_CS_PIN, 0);
 		LCD_DC_RS_SET(LCD_DC);
 		lcd_spi_write(data, len);
-        nrf_gpio_pin_write(LCD_SPI_CS_PIN, 1);
+        nrf_gpio_pin_write(LCD_CS_PIN, 1);
 }
-
-
-
-/////flash test
-
-void flash_write_read(uint8_t* tx_data, uint8_t tx_len, uint8_t* rx_data, uint32_t rx_len){
-    nrf_gpio_pin_write(FALSH_SPI_CS_PIN, 0);
-    APP_ERROR_CHECK(lcd_spi_write(tx_data, tx_len));
-    if(rx_len > 0){
-    APP_ERROR_CHECK(lcd_spi_read(rx_data, rx_len));
-    }
-    nrf_gpio_pin_write(FALSH_SPI_CS_PIN, 1);
-}
-
-void flash_write_write(uint8_t* tx_data, uint8_t tx_len, uint8_t* rx_data, uint32_t rx_len){
-    nrf_gpio_pin_write(FALSH_SPI_CS_PIN, 0);
-    APP_ERROR_CHECK(lcd_spi_write(tx_data, tx_len));
-    if(rx_len > 0){
-    APP_ERROR_CHECK(lcd_spi_write(rx_data, rx_len));
-    }
-    nrf_gpio_pin_write(FALSH_SPI_CS_PIN, 1);
-}
-
-
 

@@ -2,27 +2,20 @@
 #define LCD_COMM_H
 
 #include <stdint.h>
+#include "boards_defines.h"
 
-#define	LCD_RST_PIN											29
-#define	LCD_DC_RS_PIN										28
-#define LCD_SPI_CS_PIN									27
-#define	LCD_SPI_SCL_PIN									26
-#define	LCD_SPI_MOSI_PIN								25
-#define LCD_BL_PIN 30
 #define LED_1 31
 
-#define FLASH_SPI_MISO_PIN 19
-#define FALSH_SPI_CS_PIN 18 
 
 enum{
 	 OFF,
 		ON,
 };
 
-#define		LCD_POWER_SET(ONOFF)					nrf_gpio_pin_write(LCD_POWER_PIN, ONOFF)	
-#define		LCD_RST_SET(ONOFF)						nrf_gpio_pin_write(LCD_RST_PIN, ONOFF)
+#define		LCD_POWER_SET(ONOFF)					nrf_gpio_pin_write(LCD_BL_PIN, ONOFF)	
+#define		LCD_RST_SET(ONOFF)						nrf_gpio_pin_write(LCD_RESET_PIN, ONOFF)
 
-#define 	LCD_DC_RS_SET(RS_DC)					nrf_gpio_pin_write(LCD_DC_RS_PIN, RS_DC)
+#define 	LCD_DC_RS_SET(RS_DC)					nrf_gpio_pin_write(LCD_DC_PIN, RS_DC)
 
 enum{
 		LCD_RS = 0,
