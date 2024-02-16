@@ -154,14 +154,3 @@ SECTIONS
 
 
 INCLUDE "nrf_common.ld"
-
-SECTIONS
-{
-  .noinit (NOLOAD):
-  {
-    PROVIDE(__start_noinit = .);
-    /* place all symbols in input sections that start with .noinit */
-    KEEP(*(*.noinit*))
-    PROVIDE(__stop_noinit = .);
-  } > NOINIT
-}

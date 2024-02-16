@@ -4,7 +4,7 @@ OUTPUT_DIRECTORY := ../_build
 
 SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
-BOARD ?= LCD
+BOARD ?= NEO
 
 # boards defines
 ifeq ($(BOARD),NEO)
@@ -190,7 +190,7 @@ CFLAGS += $(OPT)
 CFLAGS += -DBLE_STACK_SUPPORT_REQD
 CFLAGS += -DCONFIG_GPIO_AS_PINRESET
 CFLAGS += -DFLOAT_ABI_HARD
-CFLAGS += -DNRF52
+#CFLAGS += -DNRF52
 CFLAGS += -D$(NRF_SOC)
 CFLAGS += -DNRF52_PAN_74
 CFLAGS += -DNRF_DFU_SETTINGS_VERSION=2
@@ -213,10 +213,6 @@ CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
 CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 CFLAGS += -DBOARD_$(BOARD)
-# oled
-ifeq ($(OLED_TYPE), sh1106)
-  CFLAGS += -DOLED_TYPE_SH1106
-endif
 
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
@@ -287,6 +283,15 @@ flash: default
 	@echo Flashing: $(OUTPUT_DIRECTORY)/bootloader.hex
 	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/bootloader.hex --sectorerase
 	nrfjprog -f nrf52 --reset
+
+# Flash softdevice
+flash_softdevice:
+	@echo Flashing: $(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex
+	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/hex/$(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex --sectorerase --log
+	nrfjprog -f nrf52 --reset --log
+
+erase:
+	nrfjprog -f nrf52 --eraseall
 
 privgen:
 	nrfutil keys generate priv.pem

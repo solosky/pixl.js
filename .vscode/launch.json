@@ -46,6 +46,20 @@
       "configFiles": [
         "${workspaceRoot}/fw/application/openocd/debug.cfg"
       ]
-    }
+    },
+
+    {
+      "name": "Pixl.js BL JLink Debug",
+      "cwd": "${workspaceRoot}",
+      "executable": "fw/_build/bootloader.out",
+      "armToolchainPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "jlink",
+      "device": "nrf52",
+      "interface": "swd",
+      "ipAddress": null,
+      "serialNumber": null,
+    },
   ]
 }
