@@ -5,6 +5,7 @@ OUTPUT_DIRECTORY := ../_build
 SDK_ROOT := $(NRF52_SDK_ROOT)
 PROJ_DIR := ./src
 BOARD ?= NEO
+RELEASE ?= 1
 
 # boards defines
 ifeq ($(BOARD),NEO)
@@ -180,10 +181,14 @@ LIB_FILES += \
   $(SDK_ROOT)/external/nrf_oberon/lib/cortex-m4/hard-float/liboberon_3.0.8.a \
   $(SDK_ROOT)/external/micro-ecc/nrf52hf_armgcc/armgcc/micro_ecc_lib_nrf52.a \
 
-# Optimization flags
-OPT = -Os -g3
+
+ifneq ($(RELEASE), 1)
+OPT = -O2 -g3
+else
+OPT = -Os -g3 -ffunction-sections -fdata-sections
 # Uncomment the line below to enable link time optimization
 #OPT += -flto
+endif
 
 # C flags common to all targets
 CFLAGS += $(OPT)
@@ -213,6 +218,12 @@ CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
 CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 CFLAGS += -DBOARD_$(BOARD)
+ifneq ($(RELEASE), 1)
+CFLAGS += -DDEBUG
+CFLAGS += -DEBUG_NRF
+else
+CFLAGS += -DNDEBUG
+endif
 
 # C++ flags common to all targets
 CXXFLAGS += $(OPT)
