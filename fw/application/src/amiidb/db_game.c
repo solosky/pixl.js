@@ -46,7 +46,7 @@ const db_game_t game_list[] = {
 {44, 0, "Super Kirby Clash", "超级卡比猎人队", 1, 8}, 
 {45, 0, "Super Mario 3D World + Bowser's Fury", "超级马力欧 3D世界+狂怒世界", 1, 19}, 
 {46, 0, "Super Mario Odyssey", "超级马力欧：奥德赛", 70, 20}, 
-{47, 0, "Super Smash Bros Ultimate", "任天堂明星大乱斗", 35, 95}, 
+{47, 0, "Super Smash Bros Ultimate", "任天堂明星大乱斗", 35, 96}, 
 {48, 0, "Yoshi's Crafted World", "耀西的手工世界", 50, 11}, 
 {49, 0, "Yu-Gi-Oh! Rush Duel Saikyo Battle Royale ", "游戏王：激斗大逃杀", 1, 7}, 
 {50, 0, "Dark Souls Remastered", "黑暗之魂：重制版", 1, 1}, 
