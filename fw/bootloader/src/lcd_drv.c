@@ -211,6 +211,7 @@ void lcd_show_font(uint8_t x, uint8_t y, uint8_t t_x, uint8_t t_y, uint8_t *font
 }
 
 
+
 void lcd_draw_str_0608(uint8_t x, uint8_t y, char *str) { show_str_0608(x, y, (uint8_t *)str, strlen(str)); }
 
 void lcd_draw_str_1608(uint8_t x, uint8_t y, char *str) { show_str_1608(x, y, (uint8_t *)str, strlen(str)); }

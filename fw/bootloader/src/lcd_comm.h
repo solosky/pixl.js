@@ -4,9 +4,6 @@
 #include <stdint.h>
 #include "boards_defines.h"
 
-#define LED_1 31
-
-
 enum{
 	 OFF,
 		ON,

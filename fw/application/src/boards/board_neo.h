@@ -88,12 +88,15 @@
 
 //READER
 
+#define RC522
+
 #define HF_ANT_SEL 36
 #define RD_PWR  34
 #define RC522_SPI_SELECT 42
 #define RC522_SPI_MOSI 47
 #define RC522_SPI_SCK  45
 #define RC522_SPI_MISO 2
+
 
 // APP 
 //#define APP_PLAYER_ENABLED 

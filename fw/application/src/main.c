@@ -272,7 +272,7 @@ int main(void) {
 
 #ifdef RC522
     //nfc initialized as emulator mode
-    nfc_reader_exit();
+    //nfc_reader_exit();
 #endif
 
     chrg_init();

@@ -50,10 +50,12 @@
 #include "app_error_weak.h"
 #include "boards.h"
 #include "lcd_drv.h"
+#include "bitmap.h"
 #include "nrf_bootloader.h"
 #include "nrf_bootloader_app_start.h"
 #include "nrf_bootloader_dfu_timers.h"
 #include "nrf_bootloader_info.h"
+#include "nrf_dfu_settings.h"
 #include "nrf_delay.h"
 #include "nrf_dfu.h"
 #include "nrf_log.h"
@@ -106,6 +108,7 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type) {
         lcd_clear();
         lcd_draw_str_1608(25, 18, "DFU Update");
         lcd_draw_str_1608(25, 35, "Waiting...");
+        lcd_show_pic(0,0, 32,32, dfu_logo);
         break;
     case NRF_DFU_EVT_TRANSPORT_ACTIVATED:
         break;
@@ -114,7 +117,15 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type) {
         lcd_draw_str_1608(25, 18, "DFU Update");
         lcd_draw_str_1608(25, 35, "Receiving...");
         break;
-    case NRF_DFU_EVT_OBJECT_RECEIVED:
+    case NRF_DFU_EVT_OBJECT_RECEIVED:{
+        char buff[32];
+        s_dfu_settings.write_offset;
+        sprintf(buff, "0x%08X", s_dfu_settings.write_offset);
+        lcd_clear();
+        lcd_draw_str_1608(25, 18, "DFU Update");
+        lcd_draw_str_1608(10, 35, buff);
+    }
+    break;
     case NRF_DFU_EVT_TRANSPORT_DEACTIVATED:
     default:
         break;

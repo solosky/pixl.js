@@ -43,6 +43,12 @@ endif
 SRC_FILES += \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_str_formatter.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
   $(SDK_ROOT)/components/libraries/util/app_error_weak.c \
   $(SDK_ROOT)/components/libraries/scheduler/app_scheduler.c \
   $(SDK_ROOT)/components/libraries/util/app_util_platform.c \
@@ -80,6 +86,7 @@ SRC_FILES += \
   $(PROJ_DIR)/main.c \
   $(PROJ_DIR)/lcd_comm.c \
   $(PROJ_DIR)/lcd_drv.c \
+  $(PROJ_DIR)/bitmap.c \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
@@ -175,6 +182,7 @@ INC_FOLDERS += \
   $(SDK_ROOT)/modules/nrfx/hal \
   $(SDK_ROOT)/integration/nrfx \
   $(SDK_ROOT)/modules/nrfx/drivers/include \
+  $(SDK_ROOT)/external/segger_rtt \
 
 # Libraries common to all targets
 LIB_FILES += \
@@ -220,7 +228,8 @@ CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
 CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
-CFLAGS += -DEBUG_NRF
+CFLAGS += -DDEBUG_NRF
+CFLAGS += -DNRF_DFU_DEBUG_VERSION
 else
 CFLAGS += -DNDEBUG
 endif
