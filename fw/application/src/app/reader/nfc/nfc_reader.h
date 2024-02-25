@@ -5,6 +5,7 @@
 #include "app_status.h"
 
 
+void nfc_reader_init();
 void nfc_reader_enter();
 void nfc_reader_exit();
 

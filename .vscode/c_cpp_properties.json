@@ -24,7 +24,7 @@
                 "DEBUG_NRF",
                 "M_USE_THREAD_BACKEND=0"
             ],
-            "compilerPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc.exe",
+            "compilerPath": "arm-none-eabi-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-arm"
