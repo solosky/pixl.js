@@ -2,7 +2,7 @@
 
 固件可以使用以下方法之一刷写或更新：
 
-## 方法 1: Wired
+## 方法 1: 线刷
 此方法需要一个兼容CMASS-DAP的JLink或DAPLink刷写器。我们推荐使用PWLINK2 Lite，您可以在 [淘宝](https://item.taobao.com/item.htm?spm=a1z09.2.0.0.4b942e8deXyaQO&id=675067753017&_u=d2p75qfn774a "Taobao")购买一个约9.9元。
 
 下载最新版本的固件压缩包。它应该包含以下文件：
