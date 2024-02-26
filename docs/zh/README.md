@@ -10,7 +10,6 @@
 - [演示](01-Hardware.md#Demo)
 - [外壳](01-Hardware.md#Shell)
 - [OLED版本](01-Hardware.md#OLED-version) 
-- [其他版本](01-Hardware.md#alternative-boards)
 
 
 # 固件

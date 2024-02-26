@@ -1,5 +1,4 @@
 # PCB
-Pixl.js硬件是在存储库上开发和维护的，您可以在上访问最新版本的硬件 [Hardware section of the GitHub repo.](https://github.com/solosky/pixl.js/tree/main/hw "Hardware section of the GitHub repo.")
 
 hw/RevC 路径为最新的PCB版本，建议使用。您可以使用 [Kicad 6](https://www.kicad.org/download/) 打开和编辑PCB和原理图文件。
 
@@ -26,14 +25,11 @@ hw/RevC 路径为最新的PCB版本，建议使用。您可以使用 [Kicad 6](h
 你可以从 [这里](https://www.thingiverse.com/thing:5877482) 下载由@白橙 为此项目制作的外壳
 ![shell](https://github.com/solosky/pixl.js/blob/main/assets/pixjs-case1.png)
 
-# OLED v版本ersion
+# OLED version
 
 OLED版本由网友@xiaohail贡献。您可以点击 [这里](https://gitlab.com/xiaohai/pixl.js) 下载 PCB.
 
 ![OLED](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
 
 
-# [第三方替代版本](01+2-Boards-Thirdparty)
-
-可以选择第三方替代版本，你可以在 [Boards-Thirdparty](01+2-Boards-Thirdparty) 查看.
 

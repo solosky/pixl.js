@@ -32,9 +32,3 @@ A shell for this project, made by Mr. Baicheng can be downloaded [here](https://
 The OLED version was contributed by netizen @xiaohail. You can click [here](https://gitlab.com/xiaohai/pixl.js) to download the PCB.
 
 ![OLED](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
-
-
-# [Alternative Boards](01+2-Boards-Thirdparty)
-
-There are alternative versions of the board, you can checkout on the [Boards-Thirdparty](01+2-Boards-Thirdparty) page.
-
