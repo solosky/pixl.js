@@ -49,6 +49,19 @@ static s32_t vfs_spiffs_map_error_code(s32_t err) {
     return VFS_ERR_FAIL;
 }
 
+static int32_t vfs_check_file_path(const char* file_path){
+    if(strlen(file_path) >= VFS_MAX_PATH_LEN){
+        return VFS_ERR_MAXNM;
+    }
+    const char* basename;
+    size_t length;
+    cwk_path_get_basename(file_path, &basename, &length);
+    if(length <= 0 || length >= VFS_MAX_NAME_LEN){
+        return VFS_ERR_MAXNM;
+    }
+    return VFS_OK;
+}
+
 static s32_t spiffs_block_read(u32_t addr, u32_t size, u8_t *dst) { return hal_spi_flash_read(addr, dst, size); }
 
 static s32_t spiffs_block_write(u32_t addr, u32_t size, u8_t *src) { return hal_spi_flash_prog(addr, src, size); }
@@ -277,8 +290,12 @@ int32_t vfs_spiffs_create_dir(const char *dir) {
     char path[VFS_MAX_PATH_LEN];
 
     NRF_LOG_INFO("create dir %s\n", nrf_log_push(dir));
+    int res = vfs_check_file_path(dir);
+    if(res != VFS_OK){
+        return res;
+    }
     snprintf(path, sizeof(path), "%s/%s", dir, VFS_SPIFFS_FOLDER_NAME);
-    int res = SPIFFS_creat(&fs, path, 0);
+    res = SPIFFS_creat(&fs, path, 0);
     return vfs_spiffs_map_error_code(res);
 }
 
@@ -317,6 +334,16 @@ int32_t vfs_spiffs_rename_dir_internal(const char *dir_name, const char *new_dir
     vfs_spiffs_dir_t dir;
     vfs_spiffs_dir_t *p_dir = &dir;
     int32_t err_code = VFS_OK;
+
+    int ret = vfs_check_file_path(dir_name);
+    if( ret != VFS_OK){
+        return ret;
+    }
+
+    int ret2 = vfs_check_file_path(new_dir_name);
+    if( ret2 != VFS_OK){
+        return ret;
+    }
 
     p_dir->pe = &p_dir->e;
     cwalk_dir_prefix_match(p_dir->dir, dir_name);
@@ -368,6 +395,10 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 
 /**file operations*/
 int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) {
+    int ret = vfs_check_file_path(file);
+    if( ret != VFS_OK){
+        return ret;
+    }
     fd->handle = SPIFFS_open(&fs, file, flags, 0);
     if (fd->handle < 0) {
         return vfs_spiffs_map_error_code(fd->handle);
@@ -431,6 +462,12 @@ int32_t vfs_spiffs_update_file_meta(const char *file, void *meta, size_t meta_si
 int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_size) {
 
     NRF_LOG_INFO("write file data %s\n", nrf_log_push(file));
+
+    int ret = vfs_check_file_path(file);
+    if( ret != VFS_OK){
+        return ret;
+    }
+
     spiffs_file fd = SPIFFS_open(&fs, file, SPIFFS_WRONLY | SPIFFS_CREAT | SPIFFS_TRUNC, 0);
     if (fd < 0) {
         return vfs_spiffs_map_error_code(fd);
