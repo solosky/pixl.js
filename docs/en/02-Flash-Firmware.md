@@ -56,30 +56,25 @@ Then press the `SELECT DEVICE` button on the page you should see a device called
 
 
 # Repair wrong firmware version.
+
 If by mistake you program the wrong version (LCD/OLED) on your device, the device will work but will no show information on screen, the backlight of the LCD version could turn on.
 
-You can use the [Wired Method](Flash-Firmware#Method 1: Wired "Wired Method") to flash the correct firmware version.
+You can use following methods to recover or flash the correct firmware version.
 
-Also you can blindly navigate trought menu and put your device on BLE or DUF mode then use the correspondant metho to upgrade the firmware.
+## Option 1: Flash the firmware via wired connection
 
-**To Enter on the DFU mode** and then use the [nRF Connect APP method](Flash-Firmware#nRF Connect APP)  or the [Directly to the Firmware Update Page method](Flash-Firmware#Directly to the Firmware Update Page).
+If you have any CMASS-DAP compatible JLink or DAPLink programer on hand, you can use the [Wired Method](Flash-Firmware#Method 1: Wired "Wired Method") to flash the correct firmware version manually.
 
-*You can remove and put back the batter to be sure you are on the "**Main Menu**".*
 
-*If needed press any button to wake up the device*
+## Option 2: Follow special key sequences to enter the DFU mode again to flash correct firmware version.
 
-From the **Main Menu** you can put the device in DFU mode pressing:
+First make sure your device is in off state, then press key sequences bellow to enter into the `DFU Mode`
+
+- Any key to wake up the device
 - LEFT
 - MIDDLE
-- LEFT X 3
+- LEFT X 4
 - MIDDLE
 
 Now you device is on DFU mode, use any of the [nRF Connect APP](#nRF-Connect-APP)  or [Directly to the Firmware Update Page](#directly-to-the-firmware-update-page) methods to upgrade the fimware.
 
-------------
-
-From the "**Main Menu**" you also can **Enter the BLE File Transfer** Mode by pressing:
-- LEFT x 2
-- MIDDLE
-
-As you are BLE File Transfer mode you can use the [File Transfer Web Page.](#file-transfer-web-page) method to upgrade the firmware.
