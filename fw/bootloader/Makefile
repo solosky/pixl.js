@@ -41,14 +41,6 @@ endif
 
 # Source files common to all targets
 SRC_FILES += \
-  $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
-  $(SDK_ROOT)/components/libraries/log/src/nrf_log_str_formatter.c \
-  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
-  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
-  $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
-  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
-  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
-  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c \
   $(SDK_ROOT)/components/libraries/util/app_error_weak.c \
   $(SDK_ROOT)/components/libraries/scheduler/app_scheduler.c \
   $(SDK_ROOT)/components/libraries/util/app_util_platform.c \
@@ -87,6 +79,7 @@ SRC_FILES += \
   $(PROJ_DIR)/lcd_comm.c \
   $(PROJ_DIR)/lcd_drv.c \
   $(PROJ_DIR)/bitmap.c \
+  $(PROJ_DIR)/libc_nano_stubs.c \
   $(SDK_ROOT)/components/ble/common/ble_srv_common.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader.c \
   $(SDK_ROOT)/components/libraries/bootloader/nrf_bootloader_app_start.c \
@@ -123,7 +116,21 @@ SRC_FILES += \
   $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_ecdsa.c \
   $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_eddsa.c \
   $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hash.c \
-  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hmac.c \
+  $(SDK_ROOT)/components/libraries/crypto/backend/oberon/oberon_backend_hmac.c 
+
+ifneq ($(RELEASE), 1)
+SRC_FILES += \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_frontend.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_str_formatter.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_serial.c \
+  $(SDK_ROOT)/components/libraries/log/src/nrf_log_default_backends.c \
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT.c \
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_Syscalls_GCC.c \
+  $(SDK_ROOT)/external/segger_rtt/SEGGER_RTT_printf.c
+endif
+
+
 
 # Include folders common to all targets
 INC_FOLDERS += \
