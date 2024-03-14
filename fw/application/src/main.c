@@ -282,7 +282,7 @@ int main(void) {
 
     amiibo_helper_try_load_amiibo_keys_from_vfs();
 
-#ifdef NRF52840_QIAA
+#ifdef NRF52840_XXAA
     usb_init();
 #endif
 
@@ -303,7 +303,7 @@ int main(void) {
         app_sched_execute();
         mui_tick(p_mui);
 
-#ifdef NRF52840_QIAA
+#ifdef NRF52840_XXAA
         usb_tick();
 #endif
         NRF_LOG_FLUSH();
