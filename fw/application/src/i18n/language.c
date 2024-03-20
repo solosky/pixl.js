@@ -11,7 +11,7 @@ const LanguageData const languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_HU_HU] = {.strings = lang_hu_HU},     [LANGUAGE_DE_DE] = {.strings = lang_de_DE},
     [LANGUAGE_FR_FR] = {.strings = lang_fr_FR},     [LANGUAGE_NL_NL] = {.strings = lang_nl_NL},
     [LANGUAGE_PT_BR] = {.strings = lang_pt_BR},     [LANGUAGE_JA_JP] = {.strings = lang_ja_JP},
-    [LANGUAGE_PT_PT] = {.strings = lang_pt_PT},
+    [LANGUAGE_PT_PT] = {.strings = lang_pt_PT},     [LANGUAGE_RU_RU] = {.strings = lang_ru_RU},
 };
 
 // 当前语言设置 (Current language setting)
@@ -53,6 +53,8 @@ const char *getLangDesc(Language lang) {
         return "日本語";
     } else if (lang == LANGUAGE_PT_PT) {
         return "Português(Portugal)";
+    } else if (lang == LANGUAGE_RU_RU) {
+        return "Русский"
     } else {
         return "@@LANG@@";
     }
