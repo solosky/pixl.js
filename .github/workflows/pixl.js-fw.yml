@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "develop"]
     tags:  ["*"]
+  pull_request:
+    types: ["opened"]
+    branches: ["develop"]
   workflow_dispatch:
 
 jobs:
