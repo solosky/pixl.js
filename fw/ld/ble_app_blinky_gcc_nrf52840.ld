@@ -6,7 +6,7 @@ GROUP(-lgcc -lc -lnosys)
 MEMORY
 {
   /* Internal flash */
-  FLASH (rx) : ORIGIN = 0x27000, LENGTH = 0xcd000
+  FLASH (rx) : ORIGIN = 0x28000, LENGTH = 0xcc000
 
   /*QSPI flash XIP*/
   /*FLASH (rx) : ORIGIN = 0x12000000, LENGTH = 0x800000*/
