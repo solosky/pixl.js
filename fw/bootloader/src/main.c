@@ -48,16 +48,16 @@
 
 #include "app_error.h"
 #include "app_error_weak.h"
+#include "bitmap.h"
 #include "boards.h"
 #include "lcd_drv.h"
-#include "bitmap.h"
 #include "nrf_bootloader.h"
 #include "nrf_bootloader_app_start.h"
 #include "nrf_bootloader_dfu_timers.h"
 #include "nrf_bootloader_info.h"
-#include "nrf_dfu_settings.h"
 #include "nrf_delay.h"
 #include "nrf_dfu.h"
+#include "nrf_dfu_settings.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
@@ -106,26 +106,18 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type) {
     case NRF_DFU_EVT_DFU_INITIALIZED:
         lcd_init();
         lcd_clear();
-        lcd_draw_str_1608(25, 18, "DFU Update");
-        lcd_draw_str_1608(25, 35, "Waiting...");
-        lcd_show_pic(0,0, 32,32, dfu_logo);
+        lcd_show_pic(32, 0, 64, 64, dfu_logo);
+        //lcd_draw_str_1608(5, 50, "Firmware Update Mode");
         break;
     case NRF_DFU_EVT_TRANSPORT_ACTIVATED:
         break;
     case NRF_DFU_EVT_DFU_STARTED:
-        lcd_clear();
-        lcd_draw_str_1608(25, 18, "DFU Update");
-        lcd_draw_str_1608(25, 35, "Receiving...");
+        //lcd_clear();
+        //lcd_show_pic(40, 2, 48, 48, dfu_logo);
+        //lcd_draw_str_1608(10, 50, "Updating Device..");
         break;
-    case NRF_DFU_EVT_OBJECT_RECEIVED:{
-        // char buff[32];
-        // s_dfu_settings.write_offset;
-        // sprintf(buff, "0x%08X", s_dfu_settings.write_offset);
-        lcd_clear();
-        lcd_draw_str_1608(25, 18, "DFU Update");
-        // lcd_draw_str_1608(10, 35, buff);
-    }
-    break;
+    case NRF_DFU_EVT_OBJECT_RECEIVED: {
+    } break;
     case NRF_DFU_EVT_TRANSPORT_DEACTIVATED:
     default:
         break;
