@@ -18,6 +18,7 @@ ifeq ($(BOARD),NEO)
 SD_VERSION=S140
 SD_VERSION_INC=s140
 SD_ID=0x0100
+NRF_FAMILY=NRF52840
 NRF_SOC=NRF52840_XXAA
 RC522=1
 LD_SCRIPT=ble_app_blinky_gcc_nrf52840.ld
@@ -25,6 +26,7 @@ else
 SD_VERSION=S112
 SD_VERSION_INC=s112
 SD_ID=0x0103
+NRF_FAMILY=NRF52
 NRF_SOC=NRF52832_XXAA
 RC522=0
 LD_SCRIPT=application.ld
@@ -784,6 +786,11 @@ flash_softdevice:
 	nrfjprog -f nrf52 --program $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/hex/$(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex --sectorerase --log
 	nrfjprog -f nrf52 --reset --log
 
+flash_all:
+	@echo Flashing: $(OUTPUT_DIRECTORY)/pixljs_all.hex
+	nrfjprog -f nrf52 --program $(OUTPUT_DIRECTORY)/pixljs_all.hex --sectorerase --log
+	nrfjprog -f nrf52 --reset --log
+
 erase:
 	nrfjprog -f nrf52 --eraseall
 
@@ -796,7 +803,7 @@ version:
 	@cd ../ && python3 scripts/version_gen.py
 
 settingsgen:
-	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
+	nrfutil settings generate --family $(NRF_FAMILY) --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
 
 ota: 
 	nrfutil pkg generate --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --hw-version 52 --sd-req $(SD_ID) --key-file ../bootloader/priv.pem $(OUTPUT_DIRECTORY)/pixjs_ota_v$(APP_VERSION).zip
