@@ -106,15 +106,15 @@ static void dfu_observer(nrf_dfu_evt_type_t evt_type) {
     case NRF_DFU_EVT_DFU_INITIALIZED:
         lcd_init();
         lcd_clear();
-        lcd_show_pic(32, 0, 64, 64, dfu_logo);
-        //lcd_draw_str_1608(5, 50, "Firmware Update Mode");
+        lcd_show_pic(40, 4, 48, 48, dfu_logo);
+        lcd_draw_str_1608(20, 50, "Firmware Update");
         break;
     case NRF_DFU_EVT_TRANSPORT_ACTIVATED:
         break;
     case NRF_DFU_EVT_DFU_STARTED:
-        //lcd_clear();
-        //lcd_show_pic(40, 2, 48, 48, dfu_logo);
-        //lcd_draw_str_1608(10, 50, "Updating Device..");
+        lcd_clear();
+        lcd_show_pic(40, 4, 48, 48, dfu_logo);
+        lcd_draw_str_1608(10, 50, "Updating Firmware..");
         break;
     case NRF_DFU_EVT_OBJECT_RECEIVED: {
     } break;

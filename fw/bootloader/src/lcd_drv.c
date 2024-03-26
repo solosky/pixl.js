@@ -200,7 +200,7 @@ void show_str_0608(uint8_t x, uint8_t y, uint8_t *data, uint8_t len) {
 
 void show_str_1608(uint8_t x, uint8_t y, uint8_t *data, uint8_t len) {
     for (uint8_t i = 0; i < len; i++) {
-        lcd_show_char(x + i * 8, y, *(data + i));
+        lcd_show_char(x + i * 6, y, *(data + i));
     }
 }
 
