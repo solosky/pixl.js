@@ -9,7 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
-RELEASE ?= 0
+RELEASE ?= 1
 BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
@@ -300,7 +300,6 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/hu_HU.c \
   $(PROJ_DIR)/i18n/de_DE.c \
   $(PROJ_DIR)/i18n/fr_FR.c \
-  $(PROJ_DIR)/i18n/hu_HU.c \
   $(PROJ_DIR)/i18n/ja_JP.c \
   $(PROJ_DIR)/i18n/nl_NL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \
@@ -714,6 +713,7 @@ sdk_config:
 
 version:
 	@cd ../ && python3 scripts/version_gen.py
+	@echo build: BOARD=$(BOARD) RELEASE=$(RELEASE) APP_VERSION=$(APP_VERSION)
 
 settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
