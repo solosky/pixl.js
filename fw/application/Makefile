@@ -297,9 +297,10 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
   $(PROJ_DIR)/i18n/es_ES.c \
-  $(PROJ_DIR)/i18n/hu_HU.c \
+  $(PROJ_DIR)/i18n/it_IT.c \
   $(PROJ_DIR)/i18n/de_DE.c \
   $(PROJ_DIR)/i18n/fr_FR.c \
+  $(PROJ_DIR)/i18n/hu_HU.c \
   $(PROJ_DIR)/i18n/ja_JP.c \
   $(PROJ_DIR)/i18n/nl_NL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \

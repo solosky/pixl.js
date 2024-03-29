@@ -15,6 +15,7 @@ typedef enum {
     LANGUAGE_EN_US,
     LANGUAGE_ZH_TW,
     LANGUAGE_ES_ES,
+    LANGUAGE_IT_IT,
     LANGUAGE_HU_HU,
     LANGUAGE_DE_DE,
     LANGUAGE_FR_FR,
@@ -29,6 +30,7 @@ extern const char* lang_en_US[_L_COUNT];
 extern const char* lang_zh_Hans[_L_COUNT];
 extern const char* lang_zh_TW[_L_COUNT];
 extern const char* lang_es_ES[_L_COUNT];
+extern const char* lang_it_IT[_L_COUNT];
 extern const char* lang_hu_HU[_L_COUNT];
 extern const char* lang_de_DE[_L_COUNT];
 extern const char* lang_fr_FR[_L_COUNT];
