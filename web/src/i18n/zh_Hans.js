@@ -5,6 +5,7 @@ export default {
     zhtw: '繁體中文(臺灣)',
     en: 'English',
     es: 'Español',
+    ru: 'Русский',
     changeok: '语言切换成功！'
   },
   btn: {
