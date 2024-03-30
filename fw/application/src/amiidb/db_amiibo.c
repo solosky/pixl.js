@@ -2,7 +2,7 @@
 const db_amiibo_t amiibo_list[] = {
 {0x01000000, 0x00040002, "Link", "林克"}, 
 {0x01000000, 0x034b0902, "Link - Ocarina of Time", "林克 - 时之笛"}, 
-{0x01000000, 0x034c0902, "Link - Majora's Mask", "林克 - 假面"}, 
+{0x01000000, 0x034c0902, "Link - Maschera di Majora", "林克 - 假面"}, 
 {0x01000000, 0x034d0902, "Link - Twilight Princess", "林克 - 黄昏公主"}, 
 {0x01000000, 0x034e0902, "Link - Skyward Sword", "林克 - 天空之剑"}, 
 {0x01000000, 0x034f0902, "8-Bit Link", "像素林克"}, 
