@@ -8,7 +8,7 @@ You can use [Kicad 6](https://www.kicad.org/download/) to open and edit the PCB 
 
 # BOM
 * The BoM is summaried on the doc: [RevC Bill of Materials Buying Guide](01+1-RevC-bom.md)
-* The Bill of Materials in interactive format are also available, you can download it from: [RevC InteractiveHtmlBom]([docs/RevC-ibom.html](https://github.com/JohnVeness/pixl.js/blob/main/docs/RevC-ibom.html))
+* The Bill of Materials in interactive format are also available, you can download it from: [RevC InteractiveHtmlBom](https://github.com/solosky/pixl.js/blob/main/docs/RevC-ibom.html)
 
 
 # Pictures
