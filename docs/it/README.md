@@ -32,22 +32,16 @@ Immagini
 * 特别感谢 @白橙 制作的外壳。 
 * 特别感谢 @impeeza 提供的文档翻译 。
 
-## 讨论群
-
-国内用户可以加入QQ群 109761876 进行交流。
 
 ## Office Channel
 
 Where do you find the community?
 * [Pixl.js community discord server](https://discord.gg/4mqeQwcAB2)
 
-## 声明
 
-本项目为开源项目，仅为学习研究用途，请勿用于商业用途。 <br />
-Amiibo是任天堂的注册商标，NTAG21X为NXP的注册商标。
-
-## Attenzione 
+## Desclaimer
 Questo progetto è un progetto open source ed è destinato esclusivamente a scopi di apprendimento e ricerca. Si prega di non utilizzarlo per scopi commerciali. <br />
+Amiibo è un marchio registrato di Nintendo e NTAG21X è un marchio registrato di NXP.
 
 Le fonti del database Amiibo integrato sono le seguenti:
 
