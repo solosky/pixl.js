@@ -7,6 +7,7 @@ Il progetto mira principalmente ad utilizzare il dispositivo Pixl.js come emulat
 Questo fork italiano mira a fornire aiuto e una localizzazione più accurata. Le varie build tradotte vengono condivise con il fork originale ma potrebbero necessitare di maggior tempo prima di avere la release con la lingua italiana.
 
 Immagini
+
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-3.jpg)
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-4.jpg)
 
