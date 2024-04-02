@@ -8,7 +8,7 @@ Puoi usare [Kicad 6](https://www.kicad.org/download/) per aprire e modificare i 
 
 # BOM
 * Il BOM è riassunto nel documento: [Guida all'acquisto dei materiali di RevC](01+1-RevC-bom)
-* I materiali di Bill in formato interattivo sono disponibili, puoi scaricarli da: [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
+* La lista dei materiali  in formato interattivo sono disponibili, puoi scaricarli da: [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
 
 # Immagini
 Alcune immagini dei dispositivi attuali sono:
