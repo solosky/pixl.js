@@ -1,5 +1,3 @@
-Ecco la traduzione mantenendo il formato del testo:
-
 # Database Amiibo
 Questa applicazione permette l'emulazione di amiibo dalla lista di quelli ben noti, utilizzando informazioni legalmente disponibili come le informazioni sul modello, poi quando ne selezioni uno, viene creato un nuovo amiibo virtuale in memoria utilizzando un UUID casuale.  Per utilizzare questa applicazione devi fornire il tuo file «key_retail.bin».
 
