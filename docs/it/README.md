@@ -3,7 +3,6 @@
 Fork progetto originale [Pixl.js](http://www.espruino.com/Pixl.js)
 
 Il progetto mira principalmente ad utilizzare il dispositivo Pixl.js come emulatore tag nfc per gli Amiibo.
-Questo fork italiano mira a fornire aiuto e una localizzazione più accurata. Le varie build tradotte vengono condivise con il fork originale ma potrebbero necessitare di maggior tempo prima di avere la release con la lingua italiana.
 
 Immagini
 
