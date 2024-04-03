@@ -1,21 +1,28 @@
 #!/bin/bash
 
-# Check the operating system
+# Check for bdfconv in PATH
+BDFCONV=$(command -v bdfconv)
+
+# Check if bdfconv is not found in PATH and exit with an error message
+if [ -z "$BDFCONV" ]; then
+    if [[ "$OSTYPE" == "darwin"* || "$OSTYPE" == "linux-gnu"* ]]; then
+        echo "Error: bdfconv not found in PATH. Please ensure it is installed or specify the correct path." >&2
+        exit 1
+    else
+        # Windows
+        BDFCONV="scripts/bdfconv"  # Assuming bdfconv is in scripts folder
+    fi
+fi
+
+# Set variables for grep and sed based on the operating system
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # MacOS
+    # MacOS requires the use of GNU grep and sed
     GREP="ggrep"
     SED="gsed"
-    BDFCONV="bdfconv"  # Assuming bdfconv is in PATH
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux
-    GREP="grep"
-    SED="sed"
-    BDFCONV=$(command -v bdfconv)  # Check if bdfconv is in PATH
 else
-    # Windows
+    # Linux or Windows
     GREP="grep"
     SED="sed"
-    BDFCONV="scripts/bdfconv"  # Assuming bdfconv is in scripts folder
 fi
 
 # Change directory to script's directory
