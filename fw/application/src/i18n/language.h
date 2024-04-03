@@ -18,6 +18,7 @@ typedef enum {
     LANGUAGE_HU_HU,
     LANGUAGE_DE_DE,
     LANGUAGE_FR_FR,
+    LANGUAGE_IT_IT,
     LANGUAGE_NL_NL,
     LANGUAGE_PT_BR,
     LANGUAGE_JA_JP,
