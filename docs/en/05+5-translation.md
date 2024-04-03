@@ -54,7 +54,7 @@ If you have [Homebrew](https://brew.sh) installed, you can install those via:
 
 
 ## How to add new language translation
-The process is similar to updating an existing translation, and has the same requirements dependin on your Operating System.
+The process is similar to updating an existing translation, and has the same requirements depending on your Operating System.
 
 1. Add new column in `fw/data/i18n.csv`, for example "ja_JP"
 2. Run `fw/scripts/i18n_gen.py` to generate new language files.
@@ -68,3 +68,45 @@ The process is similar to updating an existing translation, and has the same req
 For release builds (RELEASE=1), the firmware uses wenquanyi_9pt_u8g2.bdf to display unicode characters. <br />
 Please check if the new language charater codepoint is included in wenquanyi_9pt_u8g2.bdf or not.<br />
 If not, it's not recommended to support the new language due to the MCU internal flash restrction. 
+
+
+## Web App
+
+### How to update existing translation
+
+The language file can be found under `web/src/i18n'
+
+## How to add new language translation
+
+In this example, we will add a Japanese (jp_JP) translation:
+
+1. Copy the `en_US.js` file and name it `jp_JP.js`
+2. Translate the string within `jp_JP.js` including the `changeok` message.
+
+Don't translate the other language names.
+
+Add your language at the bottom of the `lang {` section:
+     `jp: '日本語',`
+
+3. Edit `index.js` while keeping it's current structure:
+
+Adding
+```
+import elementJpLocale from 'element-ui/lib/locale/lang/jp' // element-ui lang`
+
+import jpLocale from “./jp_JP”;
+  jp_JP: {
+    ... jpLocale,
+    ... elementJpLocale
+  } 
+ ```
+4. Add your language to the other `.js` files (within the   `lang: {` section):
+
+     `jp: '日本語',`
+5. Add your langaguge to the `web/src/App.vue` file:
+
+```
+<el-dropdown-item Enabled="language==='jp'" command="jp" divided>
+	{{ $t('lang.jp') }}
+ </el-dropdown-item>
+ ```
