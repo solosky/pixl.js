@@ -23,7 +23,7 @@ _L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animar menú,Menü Anim
 _L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO,LiPO Akkumulátor,LiPO Batterie,Batterie LiPO,LiPO-Batterij,Bateria LiPO,LiPOバッテリー,Batteria LiPO
 _L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Mem. usada,Használt Memória,Speicheranzeige,Mémoire Utilisée,Gebruikt Geheugen,Memória Usada,使用メモリ,Memoria usata
 _L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Hibernar,Gyors Ébresztés,Schnelles Aufwachen,Réveil Rapide,Snel Ontwaken,Despertar Rápido,高速起動,Risveglio rapido
-_L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Alvási Időkorlát,Energiesparmodus,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト,Timeout di sospensione
+_L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Alvási Időkorlát,Standby nach,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト,Timeout di sospensione
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma,Nyelv,Sprache,Langue,Taal,Idioma,言語,Lingua
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Firmware Frissítés,Firmw. Aktualisierung,Mise à Jour du Micrologiciel,Firmware Bijwerken,Atualização de Firmware,ファームウェア更新,Aggiornamento firmware
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Újraindítása,System Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動,Riavvio del sistema
@@ -36,15 +36,15 @@ _L_45S,45 Seconds,45秒,45秒,45 segundos,45 sec.,45 Sekunden,45 sec.,45 sec.,45
 _L_1MIN,1 Minute,1分钟,1分鐘,1 minuto,1 min.,1 Minute,1 min.,1 min.,1 min.,1分,1 minuto
 _L_2MIN,2 Minutes,2分钟,2分鐘,2 minutos,2 min.,2 Minuten,2 min.,2 min.,2 min.,2分,2 minuti
 _L_3MIN,3 Minutes,3分钟,3分鐘,3 minutos,3 min.,3 Minuten,3 min.,3 min.,3 min.,3分,3 minuti
-_L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin llave amiibo,Amiibo kulcs nincs betöltve,Amiibo Schlüssel nicht geladen,Clé Amiibo Non Chargée,Amiibo-Sleutel Niet Geladen,A chave Amiibo não foi carregada,Amiiboキーが読み込まれない,Chiave Amiibo non caricata
-_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.,Töltse fel a key_retail.bin fájlt a gyökérkönyvtárába.,Platzieren Sie die Datei key_retail.bin im Stammverzeichnis des Speichers.,Téléchargez le fichier key_retail.bin dans le répertoire racine du stockage.,Upload het bestand key_retail.bin naar de hoofdmap van de opslag.,Carregue o arquivo key_retail.bin no diretório raiz do armazenamento.,key_retail.binファイルをストレージのルートディレクトリにアップロードする。,Carica il file key_retail.bin nella directory root della memoria.
+_L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin llave amiibo,Amiibo kulcs nincs betöltve,Amiibo Schlüssel fehlt,Clé Amiibo Non Chargée,Amiibo-Sleutel Niet Geladen,A chave Amiibo não foi carregada,Amiiboキーが読み込まれない,Chiave Amiibo non caricata
+_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.,Töltse fel a key_retail.bin fájlt a gyökérkönyvtárába.,Platzieren Sie die Datei key_retail.bin im Hauptverzeichnis des Speichers.,Téléchargez le fichier key_retail.bin dans le répertoire racine du stockage.,Upload het bestand key_retail.bin naar de hoofdmap van de opslag.,Carregue o arquivo key_retail.bin no diretório raiz do armazenamento.,key_retail.binファイルをストレージのルートディレクトリにアップロードする。,Carica il file key_retail.bin nella directory root della memoria.
 _L_KNOW,Got it,知道了,知道了,Entendido,Megvan,Verstanden,Compris  (NOTE please feel free to simply change any entry as needed),Begrepen,Entendi,了解,Ho Capito
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Nuevo serial aleat.,Véletlengenerátor,Zufälliger Tag,Randomiser la Balise,Willekeurige Tag,Randomizar Etiqueta,タグのランダム化,Tag casuale
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Serial alea. aut,Automat. Véletlengenerátor,Automatische Zufallsauswahl,Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化,Casuale automatico
 _L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR,QR-kód Megjelenítése,QR Code,Afficher le Code QR,QR-Code Weergeven,Exibir QR Code,QRコード表示,Mostra codice QR
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar amiibo..,Címke Törlése,Tag löschen,Supprimer la Balise,Tag Verwijderen,Excluir Etiqueta,タグの削除,Elimina tag
 _L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿\nBorrar %s\n?,Törlés Megerősítése?,Löschen von %s bestätigen?,Confirmer la Suppression de %s ?,Bevestig Verwijderen %s ?,Confirmar Exclusão de %s ?,%s を削除しますか？,Conferma eliminazione %s\n?
-_L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],Vissza a Címke Részletkhez,Zurück zu Tag-Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る,[Torna ai dettagli del tag]
+_L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],Vissza a Címke Részletkhez,Zurück zu Tag Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る,[Torna ai dettagli del tag]
 _L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,[Lista Archivos],Vissza a Fájl Listához,Zurück zur Liste,Retour à La Liste Des Fichiers,Terug naar Bestandslijst,Voltar Para a Lista de Arquivos,ファイル一覧に戻る,[Torna alla lista dei file]
 _L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,[Menú Principal],Vissza a Főmenübe,Hauptmenü,Retour au Menu Principal,Terug naar Hoofdmenu,Voltar ao Menu Principal,メインメニューに戻る,[Torna al menu principale]
 _L_FORMAT,Format,格式化,格式化,Formatear..,Formátum ,Formatieren,Format,Formatteren,Formatar,フォーマット,Formatta..
@@ -106,7 +106,7 @@ _L_APP_AMIIDB_BACK,[Back],[返回],[返回],[Volver],[Vissza],[Zurück],[Retour]
 _L_APP_AMIIDB_SETTINGS_AMIIBO_KEY,Keys,密钥文件,密鑰文件,Llaves,Kulcsok,Schlüssel,Touches,Toetsen,Teclas,キー,Chiavi
 _L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_LOADED,Loaded,已加载,已加載,Cargadas,Betöltve,geladen,Chargée,Geladen,Carregado,ロードされました,Caricate
 _L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_NOT_LOADED,NOT Loaded,未加载,未加載,NO cargadas,NINCS betöltve,NICHT geladen,NON Chargée,NIET Geladen,NÃO Carregadas,ロードされていません,NON caricate
-_L_APP_AMIIDB_SETTINGS_SLOT_NUM,Slot Num.,数据槽位,數據槽位,Cant. ranuras,Slot Száma,Steckplatznummer,Numéro d'Emplacement,Slotnummer,Número do Slot,スロット番号,Num. slot
+_L_APP_AMIIDB_SETTINGS_SLOT_NUM,Slot Num.,数据槽位,數據槽位,Cant. ranuras,Slot Száma,Steckplatzanzahl,Numéro d'Emplacement,Slotnummer,Número do Slot,スロット番号,Num. slot
 _L_APP_AMIIDB_DETAIL_FAVORITE,Favorite..,收藏..,收藏..,Favorito..,Kedvenc..,Favorit..,Favorite..,Favoriet..,Favorito..,お気に入り..,Preferito..
 _L_APP_AMIIDB_DETAIL_SAVE_AS,Save As..,保存为..,保存爲..,Asignar en..,Mentés Másként..,Speichern unter..,Enregistrer Sous..,Opslaan Als..,Salvar como..,名前を付けて保存..,Assegna a..
 _L_APP_AMIIDB_DETAIL_BACK_DETAIL,[Back to Detail],[返回详情],[返回詳情],[Volver a Detalles],[Vissza a Részletekhez],[Zurück zu Details],[Retour au Détail],[Terug naar Detail],[Voltar Para Detalhes],[詳細に戻る］,[Torna ai dettagli]
