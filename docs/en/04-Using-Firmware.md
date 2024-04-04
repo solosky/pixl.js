@@ -238,8 +238,6 @@ The device use a "special" amiibo slot where only an amiibo can be used, the ami
 
 Changing the mode preserve the current selected amiibo, with exception of «Read-write mode».
 
-## Auto Random. []
-When this option is turn ON a new random UUID for the current amiibo is generated after each time a game read it.  Allowing to use the same amiibo multiple times on games with restrictions. You cannot change the active amiibo on this mode.  Cannot be turned OFF for «Randomize (Auto)» mode, cannot be turned ON for «Randomize (Manual)»mode; 
 ## Compati. Mode []
 Shows the emulation firmware mode, the supported values are V1, V2 and AmiLoop, there are several APPs each one designed for a AmiiboLink firmware version or to the AmiLoop protocol.  Using this setting you can match the emulation with the protocol needed by the APP you use on your phone.
 ## Tag Details

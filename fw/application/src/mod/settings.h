@@ -12,7 +12,7 @@ typedef struct {
     uint8_t sleep_timeout_sec;
     bool dirty;
     bool auto_gen_amiibo;
-    bool auto_gen_amiibolink;
+    bool auto_gen_amiibolink; //deprecated, keep for capability issue
     bool skip_driver_select;
     bool bat_mode;
     ble_amiibolink_ver_t amiibo_link_ver;

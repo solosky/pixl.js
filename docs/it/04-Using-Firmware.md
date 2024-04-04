@@ -237,10 +237,6 @@ Il dispositivo utilizza uno slot amiibo "speciale" dove può essere utilizzato s
 
 Cambiando la modalità si conserva l'amiibo selezionato corrente, con l'eccezione della modalità «Lettura-scrittura».
 
-## Auto Rand. []
-Quando questa opzione è attiva, viene generato un nuovo UUID casuale per l'amiibo corrente ogni volta che un gioco lo legge, 
-consentendo di utilizzare lo stesso amiibo più volte su giochi con restrizioni. Non puoi cambiare l'amiibo attivo in questa modalità.
-
 
 ### Modalità Compati. []
 Mostra la modalità di emulazione del firmware, i valori supportati sono V1, V2 e AmiLoop, ci sono diverse APP, ognuna progettata per una versione del firmware AmiiboLink o per il protocollo AmiLoop.  Utilizzando questa impostazione puoi far corrispondere l'emulazione con il protocollo necessario per l'APP che usi sul tuo telefono.
