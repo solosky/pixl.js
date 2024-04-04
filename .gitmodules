@@ -16,3 +16,6 @@
 [submodule "fw/components/chameleon-ultra"]
 	path = fw/components/chameleon-ultra
 	url = https://github.com/solosky/ChameleonUltra.git
+[submodule "fw/components/tinyusb"]
+	path = fw/components/tinyusb
+	url = https://github.com/hathach/tinyusb.git
