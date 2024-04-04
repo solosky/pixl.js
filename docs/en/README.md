@@ -14,7 +14,6 @@ This fork is divided in two main sections, Hardware and Firmware
 - [Demo](01-Hardware.md#Demo)
 - [Shell](01-Hardware.md#Shell)
 - [OLED version](01-Hardware.md#OLED-version) 
-- [Alternative Boards](01-Hardware.md#alternative-boards)
 
 
 # Firmware 

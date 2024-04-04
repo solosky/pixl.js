@@ -357,11 +357,12 @@ void ble_amiloop_received_data(const uint8_t *m_data, size_t length) {
         // 0x01 顺序模式
         // 0x02 读写模式
         uint8_t mode = buff_get_u8(&buffer);
+        NRF_LOG_INFO("amiloop mode: %d", mode);
         ble_amiibolink_mode_t link_mode;
         switch (mode)
         {
         case 0x00:
-            link_mode = BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN;
+            link_mode = BLE_AMIIBOLINK_MODE_RANDOM;
             NRF_LOG_INFO("amiloop mode: random");
             break;
         
@@ -371,8 +372,8 @@ void ble_amiloop_received_data(const uint8_t *m_data, size_t length) {
             break;
 
         case 0x02:
-            link_mode = BLE_AMIIBOLINK_MODE_NTAG;
-            NRF_LOG_INFO("amiloop mode: ntag");
+            link_mode = BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN;
+            NRF_LOG_INFO("amiloop mode: random auto gen");
             break;
 
         default:

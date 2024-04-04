@@ -4,6 +4,9 @@ on:
   push:
     branches: [ "develop", "neo_v2"]
     tags:  ["*"]
+  pull_request:
+    types: ["opened"]
+    branches: ["develop"]
   workflow_dispatch:
 
 jobs:
@@ -20,15 +23,8 @@ jobs:
 
     - name: Change Owner of Container Working Directory
       run: chown root:root .
-
-    - name: build bootloader
-      run: cd fw && make bl RELEASE=1 BOARD=${{matrix.board}}
     - name: build firmware
-      run: cd fw && make app RELEASE=1 BOARD=${{matrix.board}}
-    - name: build ota
-      run: cd fw/application && make ota RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
-    - name: build all
-      run: cd fw/application && make full RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
+      run: cd fw && make all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
     - name: upload bootloader
       uses: actions/upload-artifact@v3
       with:

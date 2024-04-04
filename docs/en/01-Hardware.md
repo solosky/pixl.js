@@ -7,8 +7,8 @@ You can use [Kicad 6](https://www.kicad.org/download/) to open and edit the PCB 
 ![pixl.js PCB](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-pcb-revc.png)
 
 # BOM
-* The BoM is summaried on the doc: [RevC Bill of Materials Buying Guide](01+1-RevC-bom)
-* The Bill of Materials in interactive format are also available, you can download it from: [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
+* The BoM is summaried on the doc: [RevC Bill of Materials Buying Guide](01+1-RevC-bom.md)
+* The Bill of Materials in interactive format are also available, you can download it from: [RevC InteractiveHtmlBom](https://github.com/solosky/pixl.js/blob/main/docs/RevC-ibom.html)
 
 
 # Pictures
@@ -32,9 +32,3 @@ A shell for this project, made by Mr. Baicheng can be downloaded [here](https://
 The OLED version was contributed by netizen @xiaohail. You can click [here](https://gitlab.com/xiaohai/pixl.js) to download the PCB.
 
 ![OLED](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
-
-
-# [Alternative Boards](01+2-Boards-Thirdparty)
-
-There are alternative versions of the board, you can checkout on the [Boards-Thirdparty](01+2-Boards-Thirdparty) page.
-

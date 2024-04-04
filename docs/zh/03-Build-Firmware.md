@@ -1,31 +1,30 @@
-# Build
+# 构建
 
-## Build with Github Actions
+## 使用Github Actions进行构建
 
-You could download the latest develop build from Github Actions
+您可以从Github Actions下载最新的构建开发版本。
 
 https://github.com/solosky/pixl.js/actions
 
 
-## Build with customized Docker image
+## 使用定制的Docker镜像进行构建
 
-You could build the firmware using customized Docker image. 
+您可以使用定制的Docker镜像构建固件。
 
 ```
-# create containers
+# 创建容器
 docker run -it --rm solosky/nrf52-sdk:latest
 
-# init repository
+# 下载代码
 root@b10d54636088:/builds# git clone https://github.com/solosky/pixl.js
 root@b10d54636088:/builds# cd pixl.js
 root@b10d54636088:/builds/pixl.js# git submodule update --init --recursive
 
-# build LCD version
+# 构建LCD固件
 root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=LCD RELEASE=1
 
-# build OLED version
+# 构建OLED固件
 root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED RELEASE=1
-
 ```
 
-The firmware is fw/_build/pixjs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip
+构建好的固件在 fw/_build/pixjs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip

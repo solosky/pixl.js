@@ -334,7 +334,7 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
   $(PROJ_DIR)/i18n/es_ES.c \
-  $(PROJ_DIR)/i18n/hu_HU.c \
+  $(PROJ_DIR)/i18n/it_IT.c \
   $(PROJ_DIR)/i18n/de_DE.c \
   $(PROJ_DIR)/i18n/fr_FR.c \
   $(PROJ_DIR)/i18n/hu_HU.c \
@@ -801,6 +801,7 @@ sdk_config:
 
 version:
 	@cd ../ && python3 scripts/version_gen.py
+	@echo build: BOARD=$(BOARD) RELEASE=$(RELEASE) APP_VERSION=$(APP_VERSION)
 
 settingsgen:
 	nrfutil settings generate --family $(NRF_FAMILY) --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
