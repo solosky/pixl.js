@@ -42,7 +42,7 @@ The process is similar to updating an existing translation, and has the same req
 
 For release builds (RELEASE=1), the firmware uses wenquanyi_9pt_u8g2.bdf to display unicode characters.  
 Please check if the new language character codepoint is included in wenquanyi_9pt_u8g2.bdf or not.  
-If not, it's not recommended to support the new language due to the MCU internal flash restrictions.
+If not, it's not recommended supporting the new language due to the MCU internal flash restrictions.
 
 ## Web App
 
@@ -52,41 +52,41 @@ The language file can be found under `web/src/i18n'
 
 ## How to add new language translation
 
-In this example, we will add a Japanese (jp_JP) translation:
+In this example, we will add a Japanese (ja_JP) translation:
 
-1. Copy the `en_US.js` file and name it `jp_JP.js`
-2. Translate the string within `jp_JP.js` including the `changeok` message.
+1. Copy the `en_US.js` file and name it `ja_JP.js`
+2. Translate the string within `ja_JP.js` including the `changeok` message.
 
    Don't translate the other language names.
 
    Add your language at the bottom of the `lang {` section:
 
-   `jp: '日本語',`
+   `ja: '日本語',`
 
-3. Edit `index.js` while keeping it's current structure, adding:
+3. Edit `index.js` while keeping its current structure, adding:
 
    ```js
-   import elementJpLocale from 'element-ui/lib/locale/lang/jp' // element-ui
-   lang import jpLocale from './jp_JP' elementJpLocale
+   import elementJaLocale from 'element-ui/lib/locale/lang/ja' // element-ui
+   lang import jaLocale from './ja_JP' elementJpLocale
    ```
 
      And extending `messages`:
 
      ```js
-       jp_JP: {
-    ...jpLocale,
-    ...elementJpLocale,
+       ja_JP: {
+    ...jaLocale,
+    ...elementJaLocale,
      },
      ```
 
 4. Add your language to the other `.js` files (within the `lang: {` section):
 
-   `vuejp: '日本語',`
+   `vueja: '日本語',`
 
 5. Add your language to the `web/src/App.vue` file:
 
 ```js
-<el-dropdown-item Enabled="language==='jp'" command="jp" divided>
- {{ $t('lang.jp') }}
+<el-dropdown-item Enabled="language==='ja'" command="ja" divided>
+ {{ $t('lang.ja') }}
  </el-dropdown-item>
 ```
