@@ -14,7 +14,8 @@ source_dirs = [
 ]
 
 # Absolute path to the directory where the output file will be saved
-output_dir = os.path.join(current_dir, "../data")
+data_dir = os.path.join(current_dir, "../data")
+mui_dir = os.path.join(data_dir, "../application/src/mui")
 
 # Name of the output file
 output_file = "pixjs.txt"
@@ -35,7 +36,7 @@ def extract_non_printable_chars():
                         content = f.read()
                         non_printable_chars.update(re.findall(r'[^\x20-\x7E]', content))
 
-    write_to_file(os.path.join(output_dir, output_file), '\n'.join(sorted(non_printable_chars)))
+    write_to_file(os.path.join(data_dir, output_file), '\n'.join(sorted(non_printable_chars)))
 
 
 def convert_and_sort(unicode_strings):
@@ -71,20 +72,20 @@ def main():
 
     combined_content = ''
     for file_name in ['chinese3.txt', 'pixjs.txt']:
-        with open(os.path.join(output_dir, file_name), 'r', encoding='utf-8') as file:
+        with open(os.path.join(data_dir, file_name), 'r', encoding='utf-8') as file:
             combined_content += file.read()
 
     sorted_converted = convert_and_sort(combined_content.splitlines())
-    write_to_file(os.path.join(output_dir, 'gb2312a.map'), '32-128,\n' + '\n'.join(sorted_converted))
+    write_to_file(os.path.join(data_dir, 'gb2312a.map'), '32-128,\n' + '\n'.join(sorted_converted))
 
     run_bdfconv(
-        map_path=os.path.join(output_dir, 'gb2312a.map'),
-        output_path=os.path.join(output_dir, 'u8g2_font_wqy12_t_gb2312a_t.c'),
-        bdf_path=os.path.join(output_dir, 'wenquanyi_9pt_u8g2.bdf')
+        map_path=os.path.join(data_dir, 'gb2312a.map'),
+        output_path=os.path.join(mui_dir, 'u8g2_font_wqy12_t_gb2312a_t.c'),
+        bdf_path=os.path.join(data_dir, 'wenquanyi_9pt_u8g2.bdf')
     )
 
     # Write to u8g2_font_wqy12_t_gb2312a.c
-    with open(os.path.join(output_dir, 'u8g2_font_wqy12_t_gb2312a.c'), 'w+', encoding='utf-8') as final_file:
+    with open(os.path.join(mui_dir, 'u8g2_font_wqy12_t_gb2312a.c'), 'w+', encoding='utf-8') as final_file:
         final_file.write('''
 #include "mui_u8g2.h"
 
@@ -93,14 +94,14 @@ def main():
 ''')
 
         # Read the content of the temporary file and append it to the final file
-        temp_file_path = os.path.join(output_dir, 'u8g2_font_wqy12_t_gb2312a_t.c')
+        temp_file_path = os.path.join(mui_dir, 'u8g2_font_wqy12_t_gb2312a_t.c')
         with open(temp_file_path, 'r', encoding='utf-8') as temp_file:
             final_file.write(temp_file.read())
 
     # Remove the temporary files
     os.remove(temp_file_path)
-    os.remove(os.path.join(output_dir, output_file))
-    os.remove(os.path.join(output_dir, 'gb2312a.map'))
+    os.remove(os.path.join(data_dir, output_file))
+    os.remove(os.path.join(data_dir, 'gb2312a.map'))
 
 
 if __name__ == "__main__":
