@@ -3,9 +3,8 @@
 import os
 import re
 import subprocess
+import platform
 
-# Determine the platform
-is_windows = os.name == 'nt'
 
 # Absolute path to the directories containing the .c files
 current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -44,15 +43,22 @@ def convert_and_sort(unicode_strings):
 
 
 def run_bdfconv(map_path, output_path, bdf_path):
+    # Construct the path to the bdfconv executable relative to the script directory
+    system = platform.system()
+    if system == 'Windows':
+        bdfconv_path = os.path.join(current_dir, 'bdfconv.exe')
+    elif system == 'Darwin':
+        bdfconv_path = os.path.join(current_dir, 'bdfconv_macos_universal')
+    elif system == 'Linux':
+        bdfconv_path = os.path.join(current_dir, 'bdfconv_linux')
+    else:
+        raise OSError("Unsupported operating system")
+
     # Convert paths to absolute paths
     abs_map_path = os.path.abspath(map_path)
     abs_output_path = os.path.abspath(output_path)
     abs_bdf_path = os.path.abspath(bdf_path)
 
-    if is_windows:
-        bdfconv_path = 'scripts/bdfconv.exe'
-    else:
-        bdfconv_path = 'bdfconv'
     cmd = [
         bdfconv_path, '-b', '0', '-f', '1', '-M', abs_map_path, 
         '-n', 'u8g2_font_wqy12_t_gb2312a', '-o', abs_output_path, abs_bdf_path
