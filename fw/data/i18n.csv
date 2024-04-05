@@ -60,7 +60,7 @@ _L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[
 _L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===,===Szerelt[FFS]===,===Speicher [FFS]===,===Monté[FFS]===,===Gekoppeld[FFS]===,===Montado[FFS]===,===ストレージマウント[FFS]===,===Montato[FFS]===
 _L_TOTAL_SPACE,Total,总空间,總空間,Capacidad,Össz.,Gesamt,Total,Totaal,Total,トータル容量,Totale
 _L_AVAILABLE_SPACE,Free,可用空间,可用空間,Libre,Ingyenes,Frei,Libre,Vrij,Livre,空き容量,Libero
-_L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\namiibo válido,Ez nem Amiibo Fájl,Dies ist keine Amiibo Datei,Ce n'est pas un fichier Amiibo,Dit is geen Amiibo-bestand,Este Não é um Arquivo Amiibo,これはAmiiboファイルではありません,Questo non è un file\nAmiibo valido
+_L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\namiibo válido,Ez nem Amiibo Fájl,Keine Amiibo Datei,Ce n'est pas un fichier Amiibo,Dit is geen Amiibo-bestand,Este Não é um Arquivo Amiibo,これはAmiiboファイルではありません,Questo non è un file\nAmiibo valido
 _L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo,Fájl beolvasása sikerten,Lesen fehlgeschlagen,Échec de la lecture du fichier,Lezen van het bestand is mislukt,Falha na Leitura do Arquivo,ファイルの読み込みに失敗しました,Errore nella lettura del file
 _L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre carpeta:,Bemeneti Mappa Neve:,Ordnername eingeben:,Nom du Dossier D'entrée:,Naam Invoermap:,Nome da Pasta de Entrada:,入力フォルダ名:,Nome cartella:
 _L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre amiibo:,Amiibo Neve:,Amiibo Namen eingeben:,Nom de l'Amiibo D'entrée:,Naam Amiibo Invoeren:,Nome do Amiibo de Entrada:,入力Amiibo名:,Nome Amiibo:

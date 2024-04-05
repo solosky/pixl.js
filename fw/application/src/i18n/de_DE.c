@@ -61,7 +61,7 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_MOUNTED_FFS] = "===Speicher [FFS]===",
     [_L_TOTAL_SPACE] = "Gesamt",
     [_L_AVAILABLE_SPACE] = "Frei",
-    [_L_NOT_AMIIBO_FILE] = "Dies ist keine Amiibo Datei",
+    [_L_NOT_AMIIBO_FILE] = "Keine Amiibo Datei",
     [_L_READ_FILE_FAILED] = "Lesen fehlgeschlagen",
     [_L_INPUT_FOLDER_NAME] = "Ordnername eingeben:",
     [_L_INPUT_AMIIBO_NAME] = "Amiibo Namen eingeben:",
