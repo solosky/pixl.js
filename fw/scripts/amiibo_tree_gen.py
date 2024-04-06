@@ -24,6 +24,7 @@ class Link:
         self.amiibo_id = None
         self.note_en = None
         self.note_cn = None
+        self.name_it = None
 
 def get_prorject_directory():
     return os.path.abspath(os.path.dirname(__file__)+"/../")
@@ -83,6 +84,7 @@ def read_link_from_csv():
             link.amiibo_id = r[1]
             link.note_en = r[2]
             link.note_cn = r[3]
+            link.note_it = r[4]
             links.append(link)
     return links
 
@@ -97,6 +99,7 @@ def write_link_to_csv(links):
             r.append(link.amiibo_id)
             r.append(link.note_en)
             r.append(link.note_cn)
+            r.append(link.note_it)
             w.writerow(r)
 
 
@@ -132,6 +135,7 @@ def add_ac_link(amiibo_id, game_name):
             link.amiibo_id = amiibo_id
             link.note_cn = ""
             link.note_en = ""
+            link.note_it = ""
             links.append(link)
 
 

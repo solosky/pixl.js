@@ -1,6 +1,7 @@
 #!/bin/bash
 
 cd $(dirname "$0") && cd ..
+echo "Current dir: $(pwd)"
 cat application/src/i18n/*.c application/src/amiidb/*.c  |grep -Po '".*?"' | tr -d '[:print:]' |sort|uniq > data/pixjs.txt
 echo '32-128,' > data/gb2312a.map
 cat data/chinese3.txt data/pixjs.txt  | iconv -f utf-8 -t c99 | sed 's/\\u\([0-9a-f]\{4\}\)/\$\1,\n/g' | sort | uniq | sed '/^$/d' | tr '/a-f/' '/A-F/' >> data/gb2312a.map

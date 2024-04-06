@@ -1,167 +1,167 @@
-CODE,en_US,zh_Hans,zh_TW,es_ES,it_IT,hu_HU,de_DE,fr_FR,nl_NL,pt_BR,ja_JP
-_L_ON,ON,开,開,SI,SI,BE,AN,ACTIVÉ,AAN,LIGADO,オン
-_L_OFF,OFF,关,關,NO,NO,KI,AUS,DÉSACTIVÉ,UIT,DESLIGADO,オフ
-_L_ON_F,[ON],[开],[開],[SI],[SI],[BE],[AN],[ACTIVÉ],[AAN],[LIGADO],[オン]
-_L_OFF_F,[OFF],[关],[關],[NO],[NO],[KI],[AUS],[DÉSACTIVÉ],[UIT],[DESLIGADO],[オフ]
-_L_BACK,Back,返回,返回,[Atrás],Indietro,Vissza,[Zurück],Retour,Terug,Voltar,戻る
-_L_ERR,Error,错误,錯誤,Error,Errore,Hiba,Fehler,Erreur,Fout,Erro,エラー
-_L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Codice errore,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード
-_L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Emulatore Amiibo,Amiibo Emulátor,Amiibo-Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ
+CODE,en_US,zh_Hans,zh_TW,es_ES,hu_HU,de_DE,fr_FR,nl_NL,pt_BR,ja_JP,it_IT
+_L_ON,ON,开,開,SI,BE,AN,ACTIVÉ,AAN,LIGADO,オン,SI
+_L_OFF,OFF,关,關,NO,KI,AUS,DÉSACTIVÉ,UIT,DESLIGADO,オフ,NO
+_L_ON_F,[ON],[开],[開],[SI],[BE],[AN],[ACTIVÉ],[AAN],[LIGADO],[オン],[SI]
+_L_OFF_F,[OFF],[关],[關],[NO],[KI],[AUS],[DÉSACTIVÉ],[UIT],[DESLIGADO],[オフ],[NO]
+_L_BACK,Back,返回,返回,[Atrás],Vissza,Zurück,Retour,Terug,Voltar,戻る,Indietro
+_L_ERR,Error,错误,錯誤,Error,Hiba,Fehler,Erreur,Fout,Erro,エラー,Errore
+_L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード,Codice errore
+_L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Amiibo Emulátor,Amiibo Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ,Emulatore Amiibo
 _L_APP_AMIIBOLINK,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink
-_L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,Trasferimento file BLE,BLE Fájltovábbítás,BLE-Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送
-_L_APP_BLE_TITLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,Trasferimento file BLE,BLE Fájltovábbítás,BLE-Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送
-_L_APP_PLAYER,Video Player,动画播放器,動畫播放器,Reproductor vídeo,Lettore video,Video Lejátszó,Videospieler,Lecteur Vidéo,Videospeler,Reprodutor de Vídeo,ビデオプレーヤー
-_L_APP_SET,Settings,系统设置,系統設定,Configuraciones,Impostazioni,Beállítások,Einstellungen,Paramètres,Instellingen,Configurações,設定
-_L_APP_SET_VERSION,Version,版本,版本,Versión,Versione,Verzió,Version,Version,Versie,Versão,バージョン
-_L_APP_SET_STORAGE_USED,Used,已用,已用,Usado,Usato,Használt,Belegt,Utilisé,Gebruikt,Usado,使用ストレージ
-_L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,M. Flash,Memoria esterna,Külső Tároló,Speicher,Stockage Externe,Externe Opslag,Armazenamento Externo,外部ストレージ
-_L_APP_SET_OLED_CONTRAST,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED,Contrasto OLED,OLED Kontraszt,OLED-Kontrast,Contraste OLED,OLED-Contrast,Contraste do OLED,OLEDコントラスト
-_L_APP_SET_OLED_CONTRAST_TITLE,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED,Contrasto OLED,OLED Kontraszt,OLED-Kontrast,Contraste OLED,OLED-Contrast,Contraste do OLED,OLEDコントラスト
-_L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo,Luminosità,Háttérvilágítás,Beleuchtung,Rétroéclairage,Achtergrondverlichting,Luz de Fundo,バックライト
-_L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Brillo de fondo,Luminosità schermo,Háttérvilágítás Fényerő,Helligkeit,Luminosité du Rétroéclairage,Helderheid Achtergrondverlichting,Brilho da Luz de Fundo,バックライトの明るさ
-_L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animar menú,Animazione menu,Menü Animáció,Menü-Animation,Animation du Menu,Menu-Animatie,Animação do Menu,メニュー アニメーション
-_L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO,Batteria LiPO,LiPO Akkumulátor,LiPO-Batterie,Batterie LiPO,LiPO-Batterij,Bateria LiPO,LiPOバッテリー
-_L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Mem. usada,Memoria usata,Használt Memória,Speicheranzeige,Mémoire Utilisée,Gebruikt Geheugen,Memória Usada,使用メモリ
-_L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Hibernar,Risveglio rapido,Gyors Ébresztés,Schnell-Wecken,Réveil Rapide,Snel Ontwaken,Despertar Rápido,高速起動
-_L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Timeout di sospensione,Alvási Időkorlát,Schlaf-Timeout,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト
-_L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma,Lingua,Nyelv,Sprache,Langue,Taal,Idioma,言語
-_L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Aggiornamento firmware,Firmware Frissítés,Firmw.-Aktualisierung,Mise à Jour du Micrologiciel,Firmware Bijwerken,Atualização de Firmware,ファームウェア更新
-_L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Riavvio del sistema,Rendszer Újraindítása,System-Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動
-_L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Ripristina impostazioni predefinite,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す
-_L_APP_SET_RESET_DEFAULT_SUCCESS,Reset Success!,重置成功,重置成功,¡Configuración Restablecida!,Ripristino riuscito!,Alapért. Beállítások Visszaállítása,Einstellungen zurückgesetzt!,Réinitialiser les Paramètres Par Défaut,Standaardinstellingen Herstellen,Redefinir a Configuração Padrão,設定を初期化
-_L_APP_SET_RESET_DEFAULT_CONFIRM,Confirm Reset Settings?,确认重置默认设置？,确认重置默认设置？,,Conferma il ripristino delle impostazioni?,,Auf Standardeinstellungen zurücksetzen?,,,,
-_L_15S,15 Seconds,15秒,15秒,15 segundos,15 secondi,15 sec.,15 Sekunden,15 sec.,15 sec.,15 seg.,15秒
-_L_30S,30 Seconds,30秒,30秒,30 segundos,30 secondi,30 sec.,30 Sekunden,30 sec.,30 sec.,30 seg.,30秒
-_L_45S,45 Seconds,45秒,45秒,45 segundos,45 secondi,45 sec.,45 Sekunden,45 sec.,45 sec.,45 seg.,45秒
-_L_1MIN,1 Minute,1分钟,1分鐘,1 minuto,1 minuto,1 min.,1 Minute,1 min.,1 min.,1 min.,1分
-_L_2MIN,2 Minutes,2分钟,2分鐘,2 minutos,2 minuti,2 min.,2 Minuten,2 min.,2 min.,2 min.,2分
-_L_3MIN,3 Minutes,3分钟,3分鐘,3 minutos,3 minuti,3 min.,3 Min,3 min.,3 min.,3 min.,3分
-_L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin llave amiibo,Chiave Amiibo non caricata,Amiibo kulcs nincs betöltve,Schlüssel nicht gefunden,Clé Amiibo Non Chargée,Amiibo-Sleutel Niet Geladen,A chave Amiibo não foi carregada,Amiiboキーが読み込まれない
-_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.,Carica il file key_retail.bin nella directory root della memoria.,Töltse fel a key_retail.bin fájlt a gyökérkönyvtárába.,Laden Sie die Datei key_retail.bin in das Stammverzeichnis des Speichers.,Téléchargez le fichier key_retail.bin dans le répertoire racine du stockage.,Upload het bestand key_retail.bin naar de hoofdmap van de opslag.,Carregue o arquivo key_retail.bin no diretório raiz do armazenamento.,key_retail.binファイルをストレージのルートディレクトリにアップロードする。
-_L_KNOW,Got it,知道了,知道了,Entendido,Ho Capito,Megvan,Verstanden,Compris  (NOTE please feel free to simply change any entry as needed),Begrepen,Entendi,了解
-_L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Nuevo serial aleat.,Tag casuale,Véletlengenerátor,Zufällige Tag-Nummer,Randomiser la Balise,Willekeurige Tag,Randomizar Etiqueta,タグのランダム化
-_L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Serial alea. aut,Casuale automatico,Automat. Véletlengenerátor,Autom. random.,Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化
-_L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR,Mostra codice QR,QR-kód Megjelenítése,QR-Code,Afficher le Code QR,QR-Code Weergeven,Exibir QR Code,QRコード表示
-_L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar amiibo..,Elimina tag,Címke Törlése,Tag löschen,Supprimer la Balise,Tag Verwijderen,Excluir Etiqueta,タグの削除
-_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿\nBorrar %s\n?,Conferma eliminazione %s\n?,Törlés Megerősítése?,Bestätigen Sie das\nLöschen %s?,Confirmer la Suppression de %s ?,Bevestig Verwijderen %s ?,Confirmar Exclusão de %s ?,%s を削除しますか？
-_L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],[Torna ai dettagli del tag],Vissza a Címke Részletkhez,Zurück zu Tag-Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る
-_L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,[Lista Archivos],[Torna alla lista dei file],Vissza a Fájl Listához,[Zurück zur Liste],Retour à La Liste Des Fichiers,Terug naar Bestandslijst,Voltar Para a Lista de Arquivos,ファイル一覧に戻る
-_L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,[Menú Principal],[Torna al menu principale],Vissza a Főmenübe,[Hauptmenü],Retour au Menu Principal,Terug naar Hoofdmenu,Voltar ao Menu Principal,メインメニューに戻る
-_L_FORMAT,Format,格式化,格式化,Formatear..,Formatta..,"Formátum ",Formatieren,Format,Formatteren,Formatar,フォーマット
-_L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear mem. Flash,Formatta memoria,Formátum Tárolás,Speicher formatieren,Format de Stockage,Opslag Formatteren,Formatar Armazenamento,保存領域フォーマット
-_L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。\n确认格式化?,將刪除所有資料。\n確認格式化?,Se borrará todos los\ndatos.,Questo cancellerà tutti i dati.\nConferma la formattazione?,Minden adatot töröl. Formázás megerősítése?,Alle Daten löschen?,Cette opération efface toutes les données. Confirmer le formatage?,Hierdoor worden alle gegevens gewist. Formatteren bevestigen?,Isso excluirá todos os dados. Confirmar a formatação?,これですべてのデータが削除されます。よろしいですか？
-_L_DELETING_MESSAGE,Formatting ..,格式化中..,格式化中..,Formateando..,Formattazione in corso ..,Formázás ..,Formatierung..,Formatage ..,Formatteren ..,Formatando ..,書式設定 ..
-_L_MESSAGE,Message,提示,提示,Inicializar,Messaggio,Üzenet,Nachricht,Message,Bericht,Mensagem,メッセージ
-_L_CONFIRM,Confirm,确定,確定,Confirmar,Conferma,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認
-_L_CANCEL,Cancel,取消,取消,Cancelar,Annulla,Megszüntet,Abbrechen,Annuler,Annuleren,Cancelar,キャンセル
-_L_BACK_TO_LIST,Back List,返回列表,返回清單,[Voler a lista],[Torna alla lista],Vissza a Listához,[Zurück zur Liste],Retour à La Liste,Terug naar Lijst,Voltar à Lista,バックリスト
-_L_NOT_MOUNTED,Not Mounted,未挂载,未掛載,No montado,Non montato,Nincs Felszerelve,Speicher nicht ausgerüstet,Stockage non Monté,Niet Gekoppeld,Não Montado,ストレージがマウントされていません
-_L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[LFS]Montado===,===Montato[LFS]===,===Szerelt[LFS]===,===Speicher [LFS]===,===Monté[LFS]===,===Gekoppeld[LFS]===,===Montado[LFS]===,===ストレージマウント[LFS]===
-_L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===,===Montato[FFS]===,===Szerelt[FFS]===,===Speicher [FFS]===,===Monté[FFS]===,===Gekoppeld[FFS]===,===Montado[FFS]===,===ストレージマウント[FFS]===
-_L_TOTAL_SPACE,Total,总空间,總空間,Capacidad,Totale,Össz.,Gesamt,Total,Totaal,Total,トータル容量
-_L_AVAILABLE_SPACE,Free,可用空间,可用空間,Libre,Libero,Ingyenes,Frei,Libre,Vrij,Livre,空き容量
-_L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\namiibo válido,Questo non è un file\nAmiibo valido,Ez nem Amiibo Fájl,Dies ist keine Amiibo-Datei,Ce n'est pas un fichier Amiibo,Dit is geen Amiibo-bestand,Este Não é um Arquivo Amiibo,これはAmiiboファイルではありません
-_L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo,Errore nella lettura del file,Fájl beolvasása sikerten,Lesen fehlgeschlagen,Échec de la lecture du fichier,Lezen van het bestand is mislukt,Falha na Leitura do Arquivo,ファイルの読み込みに失敗しました
-_L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre carpeta:,Nome cartella:,Bemeneti Mappa Neve:,Ordnername eingeben:,Nom du Dossier D'entrée:,Naam Invoermap:,Nome da Pasta de Entrada:,入力フォルダ名:
-_L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre amiibo:,Nome Amiibo:,Amiibo Neve:,Amiibo-Name eingeben:,Nom de l'Amiibo D'entrée:,Naam Amiibo Invoeren:,Nome do Amiibo de Entrada:,入力Amiibo名:
-_L_DELETE,Delete,删除,刪除,Borrar,Elimina,Töröl,Löschen,Supprimer,Verwijder,Excluir,削除
-_L_INPUT_NEW_NAME,Input New Name:,输入新名:,輸入新名稱:,Nuevo nombre:,Nuovo nome:,Új Név Bevitele:,Neuen Namen eingeben:,Nouveau nom D'entrée:,Nieuwe Naam Invoeren:,Novo Nome de Entrada:,新しい名前を入力してください：
-_L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,Entrada inválida,Input non valido,Érvénytelen Bemenet,Ungültige Eingabe,Entrée Invalide,Ongeldige Invoer,Entrada Inválida,無効な入力
-_L_CREATE_NEW_FOLDER,Create New Folder..,新建文件夹..,新建資料夾..,Crear carpeta..,Crea cartella..,Új Mappa Létrehozása..,Neuer Ordner..,Créer un Nouveau Dossier..,Nieuwe Map Maken..,Criar Nova Pasta..,新しいフォルダを作成..
-_L_CREATE_NEW_TAG,Create New Tag..,新建标签..,新建標籤..,Crear amiibo..,Crea Amiibo..,Új Címke Létrehozása..,Neuer Tag..,Créer une Nouvelle Étiquette..,Nieuwe Tag Aanmaken..,Criar Nova Tag..,新規タグ作成..
-_L_CREATE_NEW_TAG_BATCH,Batch Create New Tag..,批量创建标签..,批量創建標簽..,Crear amiibo en lote..,Crea Amiibo in serie..,Kötegelt Új Címke Létrehozása..,Mehrere Tags..,Créer de Nouvelles Étiquettes Par Lot..,Nieuwe Tags in een Batch Aanmaken..,Criar Novas Tags em Lote..,新規タグの一括作成..
-_L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,¿Cuántos?,Numero di tag：,Beviteli Címke Száma:,Tag-Anzahl eingeben:,Saisir le Numéro de l'Étiquette:,Labelnummer Invoeren:,Número da Tag de Entrada:,タグ番号を入力:
-_L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,Sólo se puede crear %d en lote,Numero max di %d tag in serie.,Max. létrehozható címke egy kötegben %d,Nur maximal %d Tags in einem Stapel erstellt.,Seulement %d balises maximum créées dans un lot.,Maximum %d tags aangemaakt in een batch.,Somente no máximo %d tags criadas em um lote.,１つのバッチで作成されるタグの数はは最大 %d までです。
-_L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,Creando,Creazione tag,Címke létrehozása,Tag erstellen,Création d'une balise,Tag aanmaken,Criando tag,タグの作成
-_L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,¡Error al crear %s!,Creazione tag %s fallita!,Címke létrehozása %s sikertelen!,Erstellen von Tag %s fehlgeschlagen!,La création de la balise %s a échoué!,Aanmaken tag %s mislukt!,Falha ao criar a tag %s!,タグ %s の作成に失敗しました！
-_L_RENAME,Rename,重命名,重新命名,Renombrar,Rinomina,Átnevezés,Umbenennen,Renommer,Hernoem,Renomear,名前の変更
-_L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta,Errore nell'apertura della cartella,"Mappa megnyitása sikertelen ",Ordner konnte nicht geöffnet werden,Échec de l'ouverture du dossier,Kan map niet openen,Falha ao abrir a pasta,フォルダを開けませんでした
-_L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗,Fallo al renombrar\nCódigo de error,Errore nella rinomina\nCodice errore,Átnevezés Sikertelen\nHibakód,Umbenennen fehlgeschlagen\nFehlercode,Échec du renommage.\nCode d'Erreur,Hernoemen mislukt.\nFoutcode,Falha ao renomear\nCódigo de erro,名前の変更に失敗しました。\nエラーコード
-_L_MAIN_RETURN,[RETURN],[返回],[返回],[Volver],[Torna indietro],[VISSZA],[Zurück],[RETOUR],[TERUG],[RETORNO],[リターン］
-_L_RANDOM_MODE_MANUAL,Randomize (Manual),随机模式(手动),隨機模式(手動),Aleatorio (Manual),Casuale (Manuale),Randomizálás (Kézi),Zufällig (Manuell),Randomiser (Manuel),Willekeurig (Handmatig),Randomizar (Manual),ランダム化 (手動)
-_L_RANDOM_MODE_AUTO,Randomize (Auto),随机模式(自动),隨機模式(自動),Aleatorio (Auto.),Casuale (Automatico),Randomizálás (Automat.),Zufällig (Automatisch),Randomiser (Automatique),Willekeurig (Automatisch),Randomizar (Automático),ランダム化(自動)
-_L_SEQUENCE_MODE,Sequential mode,按序模式,按序模式,Modo Secuencial,Modo sequenziale,Szekvenciális Mód,Sequentieller Modus,Mode Séquentiel,Sequentiële Modus,Modo Sequencial,シーケンシャルモード
-_L_READ_WRITE_MODE,Read-write mode,读写模式,讀寫模式,Modo Lectura/Escrit.,Modo lettura/scrittura,Olvasás-írás Mód,Lese-Schreib-Modus,Mode Lecture-Écriture,Lees-Schrijfmodus,Modo de Leitura e Gravação,読み書きモード
+_L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送,Trasferimento file BLE
+_L_APP_BLE_TITLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送,Trasferimento file BLE
+_L_APP_PLAYER,Video Player,动画播放器,動畫播放器,Reproductor vídeo,Video Lejátszó,Videoplayer,Lecteur Vidéo,Videospeler,Reprodutor de Vídeo,ビデオプレーヤー,Lettore video
+_L_APP_SET,Settings,系统设置,系統設定,Configuraciones,Beállítások,Einstellungen,Paramètres,Instellingen,Configurações,設定,Impostazioni
+_L_APP_SET_VERSION,Version,版本,版本,Versión,Verzió,Version,Version,Versie,Versão,バージョン,Versione
+_L_APP_SET_STORAGE_USED,Used,已用,已用,Usado,Használt,Belegt,Utilisé,Gebruikt,Usado,使用ストレージ,Usato
+_L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,M. Flash,Külső Tároló,Externer Speicher,Stockage Externe,Externe Opslag,Armazenamento Externo,外部ストレージ,Memoria esterna
+_L_APP_SET_OLED_CONTRAST,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED,OLED Kontraszt,OLED Kontrast,Contraste OLED,OLED-Contrast,Contraste do OLED,OLEDコントラスト,Contrasto OLED
+_L_APP_SET_OLED_CONTRAST_TITLE,OLED Contrast,OLED对比度,OLED對比度,Contraste OLED,OLED Kontraszt,OLED Kontrast,Contraste OLED,OLED-Contrast,Contraste do OLED,OLEDコントラスト,Contrasto OLED
+_L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo,Háttérvilágítás,Beleuchtung,Rétroéclairage,Achtergrondverlichting,Luz de Fundo,バックライト,Luminosità
+_L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Brillo de fondo,Háttérvilágítás Fényerő,Helligkeit,Luminosité du Rétroéclairage,Helderheid Achtergrondverlichting,Brilho da Luz de Fundo,バックライトの明るさ,Luminosità schermo
+_L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animar menú,Menü Animáció,Menü Animation,Animation du Menu,Menu-Animatie,Animação do Menu,メニュー アニメーション,Animazione menu
+_L_APP_SET_LIPO_BAT,LiPO Battery,LiPO电池,LiPO電池,Batería LiPO,LiPO Akkumulátor,LiPO Batterie,Batterie LiPO,LiPO-Batterij,Bateria LiPO,LiPOバッテリー,Batteria LiPO
+_L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Mem. usada,Használt Memória,Speicheranzeige,Mémoire Utilisée,Gebruikt Geheugen,Memória Usada,使用メモリ,Memoria usata
+_L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Hibernar,Gyors Ébresztés,Schnelles Aufwachen,Réveil Rapide,Snel Ontwaken,Despertar Rápido,高速起動,Risveglio rapido
+_L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Alvási Időkorlát,Standby nach,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト,Timeout di sospensione
+_L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma,Nyelv,Sprache,Langue,Taal,Idioma,言語,Lingua
+_L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Firmware Frissítés,Firmw. Aktualisierung,Mise à Jour du Micrologiciel,Firmware Bijwerken,Atualização de Firmware,ファームウェア更新,Aggiornamento firmware
+_L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Újraindítása,System Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動,Riavvio del sistema
+_L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す,Ripristina impostazioni predefinite
+_L_APP_SET_RESET_DEFAULT_SUCCESS,Reset Success!,重置成功,重置成功,¡Configuración Restablecida!,Alapért. Beállítások Visszaállítása,Einstellungen zurückgesetzt!,Réinitialiser les Paramètres Par Défaut,Standaardinstellingen Herstellen,Redefinir a Configuração Padrão,設定を初期化,Ripristino riuscito!
+_L_APP_SET_RESET_DEFAULT_CONFIRM,Confirm Reset Settings?,确认重置默认设置？,确认重置默认设置？,,,Auf Standardeinstellungen zurücksetzen?,,,,,Conferma il ripristino delle impostazioni?
+_L_15S,15 Seconds,15秒,15秒,15 segundos,15 sec.,15 Sekunden,15 sec.,15 sec.,15 seg.,15秒,15 secondi
+_L_30S,30 Seconds,30秒,30秒,30 segundos,30 sec.,30 Sekunden,30 sec.,30 sec.,30 seg.,30秒,30 secondi
+_L_45S,45 Seconds,45秒,45秒,45 segundos,45 sec.,45 Sekunden,45 sec.,45 sec.,45 seg.,45秒,45 secondi
+_L_1MIN,1 Minute,1分钟,1分鐘,1 minuto,1 min.,1 Minute,1 min.,1 min.,1 min.,1分,1 minuto
+_L_2MIN,2 Minutes,2分钟,2分鐘,2 minutos,2 min.,2 Minuten,2 min.,2 min.,2 min.,2分,2 minuti
+_L_3MIN,3 Minutes,3分钟,3分鐘,3 minutos,3 min.,3 Minuten,3 min.,3 min.,3 min.,3分,3 minuti
+_L_AMIIBO_KEY_UNLOADED,Amiibo Key not loaded,Amiibo Key未加载,Amiibo Key未載入,Sin llave amiibo,Amiibo kulcs nincs betöltve,Amiibo Schlüssel fehlt,Clé Amiibo Non Chargée,Amiibo-Sleutel Niet Geladen,A chave Amiibo não foi carregada,Amiiboキーが読み込まれない,Chiave Amiibo non caricata
+_L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of the storage.,上传文件 key_retail.bin\n到存储根目录下。,上傳檔案 key_retail.bin\n到儲存根目錄下。,Suba el archivo\nkey_retail.bin\nal directorio raíz.,Töltse fel a key_retail.bin fájlt a gyökérkönyvtárába.,Platzieren Sie die Datei key_retail.bin im Hauptverzeichnis des Speichers.,Téléchargez le fichier key_retail.bin dans le répertoire racine du stockage.,Upload het bestand key_retail.bin naar de hoofdmap van de opslag.,Carregue o arquivo key_retail.bin no diretório raiz do armazenamento.,key_retail.binファイルをストレージのルートディレクトリにアップロードする。,Carica il file key_retail.bin nella directory root della memoria.
+_L_KNOW,Got it,知道了,知道了,Entendido,Megvan,Verstanden,Compris  (NOTE please feel free to simply change any entry as needed),Begrepen,Entendi,了解,Ho Capito
+_L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Nuevo serial aleat.,Véletlengenerátor,Zufällige UUID,Randomiser la Balise,Willekeurige Tag,Randomizar Etiqueta,タグのランダム化,Tag casuale
+_L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Serial alea. aut,Automat. Véletlengenerátor,Zufällige UUID (Automatisch),Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化,Casuale automatico
+_L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR,QR-kód Megjelenítése,QR Code,Afficher le Code QR,QR-Code Weergeven,Exibir QR Code,QRコード表示,Mostra codice QR
+_L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar amiibo..,Címke Törlése,Tag löschen,Supprimer la Balise,Tag Verwijderen,Excluir Etiqueta,タグの削除,Elimina tag
+_L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿\nBorrar %s\n?,Törlés Megerősítése?,Löschen von %s bestätigen?,Confirmer la Suppression de %s ?,Bevestig Verwijderen %s ?,Confirmar Exclusão de %s ?,%s を削除しますか？,Conferma eliminazione %s\n?
+_L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],Vissza a Címke Részletkhez,Zurück zu Tag Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る,[Torna ai dettagli del tag]
+_L_BACK_TO_FILE_LIST,Back to File List,返回文件列表,返回檔案清單,[Lista Archivos],Vissza a Fájl Listához,Zurück zur Liste,Retour à La Liste Des Fichiers,Terug naar Bestandslijst,Voltar Para a Lista de Arquivos,ファイル一覧に戻る,[Torna alla lista dei file]
+_L_BACK_TO_MAIN_MENU,Back to Main Menu,返回主菜单,返回主選單,[Menú Principal],Vissza a Főmenübe,Hauptmenü,Retour au Menu Principal,Terug naar Hoofdmenu,Voltar ao Menu Principal,メインメニューに戻る,[Torna al menu principale]
+_L_FORMAT,Format,格式化,格式化,Formatear..,Formátum ,Formatieren,Format,Formatteren,Formatar,フォーマット,Formatta..
+_L_FORMAT_STORAGE,Format Storage,格式化存储,格式化儲存,Formatear mem. Flash,Formátum Tárolás,Speicher formatieren,Format de Stockage,Opslag Formatteren,Formatar Armazenamento,保存領域フォーマット,Formatta memoria
+_L_DELETE_ALL_DATA,This will delete all data. Confirm format?,将删除所有数据。\n确认格式化?,將刪除所有資料。\n確認格式化?,Se borrará todos los\ndatos.,Minden adatot töröl. Formázás megerősítése?,Alle Daten löschen?,Cette opération efface toutes les données. Confirmer le formatage?,Hierdoor worden alle gegevens gewist. Formatteren bevestigen?,Isso excluirá todos os dados. Confirmar a formatação?,これですべてのデータが削除されます。よろしいですか？,Questo cancellerà tutti i dati.\nConferma la formattazione?
+_L_DELETING_MESSAGE,Formatting ..,格式化中..,格式化中..,Formateando..,Formázás ..,Formatiere..,Formatage ..,Formatteren ..,Formatando ..,書式設定 ..,Formattazione in corso ..
+_L_MESSAGE,Message,提示,提示,Inicializar,Üzenet,Meldung,Message,Bericht,Mensagem,メッセージ,Messaggio
+_L_CONFIRM,Confirm,确定,確定,Confirmar,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認,Conferma
+_L_CANCEL,Cancel,取消,取消,Cancelar,Megszüntet,Abbrechen,Annuler,Annuleren,Cancelar,キャンセル,Annulla
+_L_BACK_TO_LIST,Back List,返回列表,返回清單,[Voler a lista],Vissza a Listához,Zurück zur Liste,Retour à La Liste,Terug naar Lijst,Voltar à Lista,バックリスト,[Torna alla lista]
+_L_NOT_MOUNTED,Not Mounted,未挂载,未掛載,No montado,Nincs Felszerelve,Speicher nicht eingebunden,Stockage non Monté,Niet Gekoppeld,Não Montado,ストレージがマウントされていません,Non montato
+_L_MOUNTED_LFS,===Mounted[LFS]===,===已挂载[LFS]===,===已掛載[LFS]===,===[LFS]Montado===,===Szerelt[LFS]===,===Speicher [LFS]===,===Monté[LFS]===,===Gekoppeld[LFS]===,===Montado[LFS]===,===ストレージマウント[LFS]===,===Montato[LFS]===
+_L_MOUNTED_FFS,===Mounted[FFS]===,===已挂载[FFS]===,===已掛載[FFS]===,===[FFS]Montado===,===Szerelt[FFS]===,===Speicher [FFS]===,===Monté[FFS]===,===Gekoppeld[FFS]===,===Montado[FFS]===,===ストレージマウント[FFS]===,===Montato[FFS]===
+_L_TOTAL_SPACE,Total,总空间,總空間,Capacidad,Össz.,Gesamt,Total,Totaal,Total,トータル容量,Totale
+_L_AVAILABLE_SPACE,Free,可用空间,可用空間,Libre,Ingyenes,Frei,Libre,Vrij,Livre,空き容量,Libero
+_L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo檔案,Este no es un archivo\namiibo válido,Ez nem Amiibo Fájl,Keine Amiibo Datei,Ce n'est pas un fichier Amiibo,Dit is geen Amiibo-bestand,Este Não é um Arquivo Amiibo,これはAmiiboファイルではありません,Questo non è un file\nAmiibo valido
+_L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo,Fájl beolvasása sikerten,Lesen fehlgeschlagen,Échec de la lecture du fichier,Lezen van het bestand is mislukt,Falha na Leitura do Arquivo,ファイルの読み込みに失敗しました,Errore nella lettura del file
+_L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre carpeta:,Bemeneti Mappa Neve:,Ordnername eingeben:,Nom du Dossier D'entrée:,Naam Invoermap:,Nome da Pasta de Entrada:,入力フォルダ名:,Nome cartella:
+_L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre amiibo:,Amiibo Neve:,Amiibo Namen eingeben:,Nom de l'Amiibo D'entrée:,Naam Amiibo Invoeren:,Nome do Amiibo de Entrada:,入力Amiibo名:,Nome Amiibo:
+_L_DELETE,Delete,删除,刪除,Borrar,Töröl,Löschen,Supprimer,Verwijder,Excluir,削除,Elimina
+_L_INPUT_NEW_NAME,Input New Name:,输入新名:,輸入新名稱:,Nuevo nombre:,Új Név Bevitele:,Neuen Namen eingeben:,Nouveau nom D'entrée:,Nieuwe Naam Invoeren:,Novo Nome de Entrada:,新しい名前を入力してください：,Nuovo nome:
+_L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,Entrada inválida,Érvénytelen Bemenet,Ungültige Eingabe,Entrée Invalide,Ongeldige Invoer,Entrada Inválida,無効な入力,Input non valido
+_L_CREATE_NEW_FOLDER,Create New Folder..,新建文件夹..,新建資料夾..,Crear carpeta..,Új Mappa Létrehozása..,Neuer Ordner..,Créer un Nouveau Dossier..,Nieuwe Map Maken..,Criar Nova Pasta..,新しいフォルダを作成..,Crea cartella..
+_L_CREATE_NEW_TAG,Create New Tag..,新建标签..,新建標籤..,Crear amiibo..,Új Címke Létrehozása..,Neuer Tag..,Créer une Nouvelle Étiquette..,Nieuwe Tag Aanmaken..,Criar Nova Tag..,新規タグ作成..,Crea Amiibo..
+_L_CREATE_NEW_TAG_BATCH,Batch Create New Tag..,批量创建标签..,批量創建標簽..,Crear amiibo en lote..,Kötegelt Új Címke Létrehozása..,Mehrere Tags erstellen..,Créer de Nouvelles Étiquettes Par Lot..,Nieuwe Tags in een Batch Aanmaken..,Criar Novas Tags em Lote..,新規タグの一括作成..,Crea Amiibo in serie..
+_L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,¿Cuántos?,Beviteli Címke Száma:,Tag Anzahl eingeben:,Saisir le Numéro de l'Étiquette:,Labelnummer Invoeren:,Número da Tag de Entrada:,タグ番号を入力:,Numero di tag：
+_L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,Sólo se puede crear %d en lote,Max. létrehozható címke egy kötegben %d,Sie können nur maximal %d Tags auf einmal erstellen.,Seulement %d balises maximum créées dans un lot.,Maximum %d tags aangemaakt in een batch.,Somente no máximo %d tags criadas em um lote.,１つのバッチで作成されるタグの数はは最大 %d までです。,Numero max di %d tag in serie.
+_L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,Creando,Címke létrehozása,Tag erstellen,Création d'une balise,Tag aanmaken,Criando tag,タグの作成,Creazione tag
+_L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,¡Error al crear %s!,Címke létrehozása %s sikertelen!,Erstellen von Tag %s fehlgeschlagen!,La création de la balise %s a échoué!,Aanmaken tag %s mislukt!,Falha ao criar a tag %s!,タグ %s の作成に失敗しました！,Creazione tag %s fallita!
+_L_RENAME,Rename,重命名,重新命名,Renombrar,Átnevezés,Umbenennen,Renommer,Hernoem,Renomear,名前の変更,Rinomina
+_L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta,Mappa megnyitása sikertelen ,Ordner konnte nicht geöffnet werden,Échec de l'ouverture du dossier,Kan map niet openen,Falha ao abrir a pasta,フォルダを開けませんでした,Errore nell'apertura della cartella
+_L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗,Fallo al renombrar\nCódigo de error,Átnevezés Sikertelen\nHibakód,Umbenennen fehlgeschlagen\nFehlercode,Échec du renommage.\nCode d'Erreur,Hernoemen mislukt.\nFoutcode,Falha ao renomear\nCódigo de erro,名前の変更に失敗しました。\nエラーコード,Errore nella rinomina\nCodice errore
+_L_MAIN_RETURN,[RETURN],[返回],[返回],[Volver],[VISSZA],[Zurück],[RETOUR],[TERUG],[RETORNO],[リターン］,[Torna indietro]
+_L_RANDOM_MODE_MANUAL,Randomize (Manual),随机模式(手动),隨機模式(手動),Aleatorio (Manual),Randomizálás (Kézi),Zufällige UUID (Manuell),Randomiser (Manuel),Willekeurig (Handmatig),Randomizar (Manual),ランダム化 (手動),Casuale (Manuale)
+_L_RANDOM_MODE_AUTO,Randomize (Auto),随机模式(自动),隨機模式(自動),Aleatorio (Auto.),Randomizálás (Automat.),Zufällige UUID (Automatisch),Randomiser (Automatique),Willekeurig (Automatisch),Randomizar (Automático),ランダム化(自動),Casuale (Automatico)
+_L_SEQUENCE_MODE,Sequential mode,按序模式,按序模式,Modo Secuencial,Szekvenciális Mód,Sequentieller Modus,Mode Séquentiel,Sequentiële Modus,Modo Sequencial,シーケンシャルモード,Modo sequenziale
+_L_READ_WRITE_MODE,Read-write mode,读写模式,讀寫模式,Modo Lectura/Escrit.,Olvasás-írás Mód,Lese-Schreibmodus,Mode Lecture-Écriture,Lees-Schrijfmodus,Modo de Leitura e Gravação,読み書きモード,Modo lettura/scrittura
 _L_AMIIBOLINK_V1,V1,V1(历史版本),V1(歷史版本),V1,V1,V1,V1,V1,V1,V1,V1
 _L_AMIIBOLINK_V2,V2,V2(最新版本),V2(最新版本),V2,V2,V2,V2,V2,V2,V2,V2
 _L_AMILOOP,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop,AmiLoop
-_L_MODE,Mode,模式,模式,Modo,Modalità,Mód,Modus,Mode,Modus,Modo,モード
-_L_AUTO_RANDOM,Auto Random.,自动随机,自動隨機,Aleat. autom.,Auto. casuale,Automat. Randomizálás,Autom. randomisieren,Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化
-_L_COMPATIBLE_MODE,Compati. Mode,兼容模式,相容模式,Compatibil.,Mod. Compatibilità,Kompatibilis Mód,Kompat. Modus,Mode Compatible,Compatibiliteitsmodus,Modo Compatível,互換モード
-_L_TAG_DETAILS,[Tag Details],[标签详情],[標籤詳情],[Volver a Detalles],[Torna ai dettagli],[Tag Részletek],[Zurück zu Details],[Détails de l'Étiquette],[Tag Details],[Detalhes da Tag],[タグ詳細］
-_L_MAIN_MENU,[Main Menu],[主菜单],[主選單],[Menú Principal],[Menu principale],[Főmenü],[Hauptmenü],[Menu Principal],[Hoofdmenu],[Menu Principal],[メインメニュー］
-_L_MODE_RANDOM,Rand. (Manual),随机(手动),隨機(手動),Aleat. man.,Casuale man.,Random (Kézi),Manuell,Aléatoire (Manuel),Willekeurig (Handmatig),Randomização (Manual),ランダム化（手動）
-_L_MODE_CYCLE,Sequential,按序,按序,Secuencial,Sequenziale,Szekvenciális,Sequentiell,Séquentiel,Sequentieel,Sequencial,シーケンシャル
-_L_MODE_NTAG,Read/Write,读写,讀寫,Lect./Escr.,Lett./Scritt.,Olvasás/Írás,Lese/Schreib,Lecture/Écriture,Lezen/Schrijven,Leitura/gravação,リード/ライト
-_L_MODE_RANDOM_AUTO_GEN,Rand. (Auto),随机(自动),隨機(自動),Aleat. auto.,Auto. casuale,Random (Automat.),Automatisch,Aléatoire (Automatique),Willekeurig (Automatisch),Randomização (Automática),ランダム化（自動）
-_L_BLANK_TAG,Blank NFC tag,空标签,空標籤,Amiibo no asignado,Amiibo non assegnato,Üres NFC Címke,Leerer NFC-Tag,Étiquette NFC vierge,Lege NFC-tag,Tag NFC em Branco,ブランクNFCタグ
-_L_APP_AMIIDB,Amiibo Database,Amiibo数据库,Amiibo數據庫,Base datos amiibo,Database Amiibo,Amiibo Adatbázis,Amiibo-Datenbank,Base de Données Amiibo,Amiibo-Database,Banco de Dados Amiibo,Amiiboデータベース
-_L_APP_AMMIDB_BROWSER,Browser..,查看..,查看..,Explorar..,Esplora..,Böngésző..,Browser..,Naviguer..,Browser..,Navegador..,ブラウザ..
-_L_APP_AMIIDB_SEARCH,Search..,搜索..,搜索..,Buscar..,Cerca..,Keresés..,Suche..,Recherche..,Zoeken..,Pesquisar..,検索..
-_L_APP_AMIIDB_MY_FAVORITES,My Favorites..,我的收藏..,我的收藏..,Mis Favoritos..,I miei preferiti..,Kedvencek..,Meine Favoriten..,Mes Favoris..,Mijn Favorieten..,Meus Favoritos..,お気に入り..
-_L_APP_AMIIDB_MY_TAGS,My Amiibo..,我的数据..,我的數據..,Mis amiibo..,I miei Amiibo..,Amiiboim..,Meine Amiibo..,Mes Amiibo..,Mijn Amiibo..,Meu Amiibo..,マイAmiibo..
-_L_APP_AMIIDB_SETTINGS,Settings..,设置..,設置..,Configuraciones..,Impostazioni..,Beállítások..,Einstellungen..,Paramètres..,Instellingen..,Configurações..,設定..
-_L_APP_AMIIDB_EXIT,[Exit],[退出],[退出],[Menú Principal],[Menu principale],[Kilépés],[Beenden],[Quitter],[Afsluiten],[Sair],[終了]
-_L_APP_AMIIDB_BACK,[Back],[返回],[返回],[Volver],[Torna indietro],[Vissza],[Zurück],[Retour],[Terug],[Retornar],[戻る]
-_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY,Keys,密钥文件,密鑰文件,Llaves,Chiavi,Kulcsok,Schlüssel,Touches,Toetsen,Teclas,キー
-_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_LOADED,Loaded,已加载,已加載,Cargadas,Caricate,Betöltve,geladen,Chargée,Geladen,Carregado,ロードされました
-_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_NOT_LOADED,NOT Loaded,未加载,未加載,NO cargadas,NON caricate,NINCS betöltve,fehlend,NON Chargée,NIET Geladen,NÃO Carregadas,ロードされていません
-_L_APP_AMIIDB_SETTINGS_SLOT_NUM,Slot Num.,数据槽位,數據槽位,Cant. ranuras,Num. slot,Slot Száma,Steckplatznummer,Numéro d'Emplacement,Slotnummer,Número do Slot,スロット番号
-_L_APP_AMIIDB_DETAIL_FAVORITE,Favorite..,收藏..,收藏..,Favorito..,Preferito..,Kedvenc..,Favorit..,Favorite..,Favoriet..,Favorito..,お気に入り..
-_L_APP_AMIIDB_DETAIL_SAVE_AS,Save As..,保存为..,保存爲..,Asignar en..,Assegna a..,Mentés Másként..,Speichern unter..,Enregistrer Sous..,Opslaan Als..,Salvar como..,名前を付けて保存..
-_L_APP_AMIIDB_DETAIL_BACK_DETAIL,[Back to Detail],[返回详情],[返回詳情],[Volver a Detalles],[Torna ai dettagli],[Vissza a Részletekhez],[Zurück zu Details],[Retour au Détail],[Terug naar Detail],[Voltar Para Detalhes],[詳細に戻る］
-_L_APP_AMIIDB_DETAIL_BACK_LIST,[Back to List],[返回列表],[返回列表],[Volver a Lista],[Torna alla lista],[Vissza a Listához],[Zurück zur Liste],[Retour à la Liste],[Terug naar Lijst].,[Voltar Para a Lista],[リストに戻る］
-_L_APP_AMIIDB_SEARCH_HEAD,Search:,搜索:,搜索:,Buscar:,Cerca:,Keresés:,Suche:,Recherche:,Zoeken:,Pesquisar:,検索する:
-_L_APP_AMIIDB_MORE,[More..],[更多],[更多],[Más..],[Più..],[Bővebben..],[Mehr..],[Plus..],[Meer..],[Mais..],[もっと見る..］
-_L_APP_AMIIDB_EMPTY_TAG,<Blank Amiibo>,<空标签>,<空標簽>,<No Asignado>,<Non assegnato>,<Üres Amiibo>,<Leerer Amiibo>,<Amiibo Vierge>,<Blanke Amiibo>,<Amiibo em Branco>,<Amiiboが見つかりません>
-_L_APP_AMIIDB_SLOT_DELETE,Reset..,重置..,重置..,Borrar..,Elimina..,Újraindítás..,Zurücksetzen..,Réinitialiser..,Reset..,Reiniciar..,リセット..
-_L_APP_AMIIDB_CONFIRM,Confirm,确认,確認,Confirmar,Conferma,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認する
-_L_APP_AMIIDB_CANCEL,Cancel,取消,取消,Cancelar,Annulla,Törlés,Abbrechen,Annuler,Annuleren,Cancelar,キャンセルする
-_L_APP_AMIIDB_TIPS,Confirm,提示,提示,Confirmar,Conferma,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認する
-_L_APP_AMIIDB_NEW,New..,新建..,新建..,Nueva..,Nuovo..,Új..,Neu..,Nouveau..,Nieuw..,Novo..,新規..
-_L_APP_AMIIDB_EMPTY,Empty..,清空..,清空..,Vaciar..,Svuota..,Üres..,Leeren..,Vider..,Leeg..,Vazio..,空..
-_L_APP_AMIIDB_DELETE,Delete..,删除..,删除..,Borrar..,Cancella..,Törlés..,Löschen..,Supprimer..,Verwijderen..,Excluir..,削除..
-_L_APP_AMIIDB_FAV_NEW_HEAD,New Fav. Folder:,新建收藏夹:,新建收藏夾:,Nueva Carp. Favoritos:,Nuova cart. preferiti:,Új Kedvenc Mappa:,Neuer Favoriten-Ordner:,Nouveau Dossier Favori:,Nieuwe Favoriete Map:,Nova Pasta de Favoritos:,新しいお気に入りフォルダ:
-_L_APP_AMIIDB_FAV_EMPTY_MSG,Empty Fav. Folder?,确认清空收藏夹?,確認清空收藏夾?,¿Vaciar Carp. Favoritos?,Svuotare cart. preferiti?,Üres Kedvenc Mappa?,Favoritenordner leeren?,Vider le Dossier Favori?,Favoriete Map Leegmaken?,Esvaziar Pasta de Favoritos?,お気に入りフォルダを空にしますか？
-_L_APP_AMIIDB_FAV_DELETE_MSG,Confirm Delete?,确认删除?,確認刪除?,¿Confirma borrado?,Conferma cancellazione?,Törlés Megerősítése?,Favoritenordner löschen?,Confirmer la Suppression?,Verwijderen Bevestigen?,Confirmar Exclusão?,削除してよろしいですか？
-_L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收藏夾..,Selec. carp. favoritos..,Selez. cart. preferiti..,Kedvenc Mappa Kiválasztása..,Fav.-Ordner auswählen..,Sélectionner le Dossier Favori..,Selecteer Favoriete Map..,Selecionar Pasta Favorita..,お気に入りフォルダを選択..
-_L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito correcto!,Preferito aggiunto!,Kedvenc Sikeres,"Favorit erstellt ",Succès du Favori,Favoriet Geslaagd,Favorito Bem-Sucedido,お気に入りに追加されました
-_L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito fallido!,Preferito non aggiunto!,Kedvenc Sikertelen!,Favorit fehlgeschlagen!,Échec du Favori!,Favoriet Mislukt!,Favorito Falhou!,お気に入りに追加できませんでした!
-_L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación correcta,Assegnazione corretta,Sikeresen Mentve,Speichern erfolgreich,Sauvegarder Succès,Opslaan Succes,Salvar Com Êxito,保存されました
-_L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación fallida!,Assegnazione fallita!,Mentés Sikertelen!,Speichern fehlgeschlagen!,Sauvegarde Échouée!,Opslaan Mislukt!,Falha ao Salvar!,保存に失敗しました!
-_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模擬器,Emular Etiqueta RFID,Emula tag RFID,Kártya Emulátor,Karten-Emulator,Emulateur de Carte,Kaart Emulator,Emulador de Cartão,カードエミュレータ
-_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,Normal,Normale,Normál,Normal,Normal,Normaal,Normal,通常
-_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒絕,Negar,Nega,Tagadni,Verweigern,Refuser,Weigeren,Negar,拒否
-_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,Ignorar,Ignora,Figyelmen Kívül Hagyni,Ignorieren,Ignorer,Negeren,Ignorar,無視
-_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,緩存,Caché,Cache,Elrejt,Cache,Zwischenspeicher,Cache,Cache,キャッシュ
-_L_APP_CHAMELEON_INITIALIZING,Initializing data ..,"初始化, 请稍后..","初始化, 請稍後..",Inicializando ambiente.\nPor favor espere..,Inizializzazione ambiente.\nPer favore attendi..,Az adatok inicializálása ..,Daten initialisieren..,Initialisation des données ..,Gegevens Initialiseren ..,Inicialização de Dados ..,データの初期化 ..
-_L_APP_CHAMELEON_CARD_SLOT,Slot,卡槽,卡槽,Ranura,Slot,Cella,Steckplatz,Fente,Slot,Slot,スロット
-_L_APP_CHAMELEON_CARD_NICK,Nick,卡名,卡名,Apodo,Nickname,Becenév,Spitzname,Pseudo,Bijnaam,Apelido,ニックネーム
+_L_MODE,Mode,模式,模式,Modo,Mód,Modus,Mode,Modus,Modo,モード,Modalità
+_L_AUTO_RANDOM,Auto Random.,自动随机,自動隨機,Aleat. autom.,Automat. Randomizálás,Zufällige UUID (Automatisch),Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化,Auto. casuale
+_L_COMPATIBLE_MODE,Compati. Mode,兼容模式,相容模式,Compatibil.,Kompatibilis Mód,Kompabilitäts Modus,Mode Compatible,Compatibiliteitsmodus,Modo Compatível,互換モード,Mod. Compatibilità
+_L_TAG_DETAILS,[Tag Details],[标签详情],[標籤詳情],[Volver a Detalles],[Tag Részletek],[Zurück zu Details],[Détails de l'Étiquette],[Tag Details],[Detalhes da Tag],[タグ詳細］,[Torna ai dettagli]
+_L_MAIN_MENU,[Main Menu],[主菜单],[主選單],[Menú Principal],[Főmenü],[Hauptmenü],[Menu Principal],[Hoofdmenu],[Menu Principal],[メインメニュー］,[Menu principale]
+_L_MODE_RANDOM,Rand. (Manual),随机(手动),隨機(手動),Aleat. man.,Random (Kézi),Zufällige UUID (Manuell),Aléatoire (Manuel),Willekeurig (Handmatig),Randomização (Manual),ランダム化（手動）,Casuale man.
+_L_MODE_CYCLE,Sequential,按序,按序,Secuencial,Szekvenciális,Sequentiell,Séquentiel,Sequentieel,Sequencial,シーケンシャル,Sequenziale
+_L_MODE_NTAG,Read/Write,读写,讀寫,Lect./Escr.,Olvasás/Írás,Lesen/Schreiben,Lecture/Écriture,Lezen/Schrijven,Leitura/gravação,リード/ライト,Lett./Scritt.
+_L_MODE_RANDOM_AUTO_GEN,Rand. (Auto),随机(自动),隨機(自動),Aleat. auto.,Random (Automat.),Zufällig (Auto.),Aléatoire (Automatique),Willekeurig (Automatisch),Randomização (Automática),ランダム化（自動）,Auto. casuale
+_L_BLANK_TAG,Blank NFC tag,空标签,空標籤,Amiibo no asignado,Üres NFC Címke,Leerer NFC Tag,Étiquette NFC vierge,Lege NFC-tag,Tag NFC em Branco,ブランクNFCタグ,Amiibo non assegnato
+_L_APP_AMIIDB,Amiibo Database,Amiibo数据库,Amiibo數據庫,Base datos amiibo,Amiibo Adatbázis,Amiibo Datenbank,Base de Données Amiibo,Amiibo-Database,Banco de Dados Amiibo,Amiiboデータベース,Database Amiibo
+_L_APP_AMMIDB_BROWSER,Browser..,查看..,查看..,Explorar..,Böngésző..,Navigieren..,Naviguer..,Browser..,Navegador..,ブラウザ..,Esplora..
+_L_APP_AMIIDB_SEARCH,Search..,搜索..,搜索..,Buscar..,Keresés..,Suche..,Recherche..,Zoeken..,Pesquisar..,検索..,Cerca..
+_L_APP_AMIIDB_MY_FAVORITES,My Favorites..,我的收藏..,我的收藏..,Mis Favoritos..,Kedvencek..,Meine Favoriten..,Mes Favoris..,Mijn Favorieten..,Meus Favoritos..,お気に入り..,I miei preferiti..
+_L_APP_AMIIDB_MY_TAGS,My Amiibo..,我的数据..,我的數據..,Mis amiibo..,Amiiboim..,Meine Amiibo..,Mes Amiibo..,Mijn Amiibo..,Meu Amiibo..,マイAmiibo..,I miei Amiibo..
+_L_APP_AMIIDB_SETTINGS,Settings..,设置..,設置..,Configuraciones..,Beállítások..,Einstellungen..,Paramètres..,Instellingen..,Configurações..,設定..,Impostazioni..
+_L_APP_AMIIDB_EXIT,[Exit],[退出],[退出],[Menú Principal],[Kilépés],[Beenden],[Quitter],[Afsluiten],[Sair],[終了],[Menu principale]
+_L_APP_AMIIDB_BACK,[Back],[返回],[返回],[Volver],[Vissza],[Zurück],[Retour],[Terug],[Retornar],[戻る],[Torna indietro]
+_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY,Keys,密钥文件,密鑰文件,Llaves,Kulcsok,Schlüssel,Touches,Toetsen,Teclas,キー,Chiavi
+_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_LOADED,Loaded,已加载,已加載,Cargadas,Betöltve,geladen,Chargée,Geladen,Carregado,ロードされました,Caricate
+_L_APP_AMIIDB_SETTINGS_AMIIBO_KEY_NOT_LOADED,NOT Loaded,未加载,未加載,NO cargadas,NINCS betöltve,NICHT geladen,NON Chargée,NIET Geladen,NÃO Carregadas,ロードされていません,NON caricate
+_L_APP_AMIIDB_SETTINGS_SLOT_NUM,Slot Num.,数据槽位,數據槽位,Cant. ranuras,Slot Száma,Steckplatzanzahl,Numéro d'Emplacement,Slotnummer,Número do Slot,スロット番号,Num. slot
+_L_APP_AMIIDB_DETAIL_FAVORITE,Favorite..,收藏..,收藏..,Favorito..,Kedvenc..,Favorit..,Favorite..,Favoriet..,Favorito..,お気に入り..,Preferito..
+_L_APP_AMIIDB_DETAIL_SAVE_AS,Save As..,保存为..,保存爲..,Asignar en..,Mentés Másként..,Speichern unter..,Enregistrer Sous..,Opslaan Als..,Salvar como..,名前を付けて保存..,Assegna a..
+_L_APP_AMIIDB_DETAIL_BACK_DETAIL,[Back to Detail],[返回详情],[返回詳情],[Volver a Detalles],[Vissza a Részletekhez],[Zurück zu Details],[Retour au Détail],[Terug naar Detail],[Voltar Para Detalhes],[詳細に戻る］,[Torna ai dettagli]
+_L_APP_AMIIDB_DETAIL_BACK_LIST,[Back to List],[返回列表],[返回列表],[Volver a Lista],[Vissza a Listához],[Zurück zur Liste],[Retour à la Liste],[Terug naar Lijst].,[Voltar Para a Lista],[リストに戻る］,[Torna alla lista]
+_L_APP_AMIIDB_SEARCH_HEAD,Search:,搜索:,搜索:,Buscar:,Keresés:,Suche:,Recherche:,Zoeken:,Pesquisar:,検索する:,Cerca:
+_L_APP_AMIIDB_MORE,[More..],[更多],[更多],[Más..],[Bővebben..],[Mehr..],[Plus..],[Meer..],[Mais..],[もっと見る..］,[Più..]
+_L_APP_AMIIDB_EMPTY_TAG,<Blank Amiibo>,<空标签>,<空標簽>,<No Asignado>,<Üres Amiibo>,<Leerer Amiibo>,<Amiibo Vierge>,<Blanke Amiibo>,<Amiibo em Branco>,<Amiiboが見つかりません>,<Non assegnato>
+_L_APP_AMIIDB_SLOT_DELETE,Reset..,重置..,重置..,Borrar..,Újraindítás..,Zurücksetzen..,Réinitialiser..,Reset..,Reiniciar..,リセット..,Elimina..
+_L_APP_AMIIDB_CONFIRM,Confirm,确认,確認,Confirmar,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認する,Conferma
+_L_APP_AMIIDB_CANCEL,Cancel,取消,取消,Cancelar,Törlés,Abbrechen,Annuler,Annuleren,Cancelar,キャンセルする,Annulla
+_L_APP_AMIIDB_TIPS,Confirm,提示,提示,Confirmar,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認する,Conferma
+_L_APP_AMIIDB_NEW,New..,新建..,新建..,Nueva..,Új..,Neu..,Nouveau..,Nieuw..,Novo..,新規..,Nuovo..
+_L_APP_AMIIDB_EMPTY,Empty..,清空..,清空..,Vaciar..,Üres..,Leeren..,Vider..,Leeg..,Vazio..,空..,Svuota..
+_L_APP_AMIIDB_DELETE,Delete..,删除..,删除..,Borrar..,Törlés..,Löschen..,Supprimer..,Verwijderen..,Excluir..,削除..,Cancella..
+_L_APP_AMIIDB_FAV_NEW_HEAD,New Fav. Folder:,新建收藏夹:,新建收藏夾:,Nueva Carp. Favoritos:,Új Kedvenc Mappa:,Neuer Fav.-Ordner:,Nouveau Dossier Favori:,Nieuwe Favoriete Map:,Nova Pasta de Favoritos:,新しいお気に入りフォルダ:,Nuova cart. preferiti:
+_L_APP_AMIIDB_FAV_EMPTY_MSG,Empty Fav. Folder?,确认清空收藏夹?,確認清空收藏夾?,¿Vaciar Carp. Favoritos?,Üres Kedvenc Mappa?,Fav.-Ordner leeren?,Vider le Dossier Favori?,Favoriete Map Leegmaken?,Esvaziar Pasta de Favoritos?,お気に入りフォルダを空にしますか？,Svuotare cart. preferiti?
+_L_APP_AMIIDB_FAV_DELETE_MSG,Confirm Delete?,确认删除?,確認刪除?,¿Confirma borrado?,Törlés Megerősítése?,Löschen Bestätigen?,Confirmer la Suppression?,Verwijderen Bevestigen?,Confirmar Exclusão?,削除してよろしいですか？,Conferma cancellazione?
+_L_APP_AMIIDB_FAV_SELECT_FOLDER,Select Fav. Folder..,选择收藏夹..,選擇收藏夾..,Selec. carp. favoritos..,Kedvenc Mappa Kiválasztása..,Fav.-Ordner auswählen..,Sélectionner le Dossier Favori..,Selecteer Favoriete Map..,Selecionar Pasta Favorita..,お気に入りフォルダを選択..,Selez. cart. preferiti..
+_L_APP_AMIIDB_FAV_SUCCESS,Favorite Success,收藏成功,收藏成功,¡Favorito correcto!,Kedvenc Sikeres,Favorit erstellt ,Succès du Favori,Favoriet Geslaagd,Favorito Bem-Sucedido,お気に入りに追加されました,Preferito aggiunto!
+_L_APP_AMIIDB_FAV_FAILED,Favorite Failed!,收藏失败,收藏失敗,¡Favorito fallido!,Kedvenc Sikertelen!,Favorisieren fehlgeschlagen!,Échec du Favori!,Favoriet Mislukt!,Favorito Falhou!,お気に入りに追加できませんでした!,Preferito non aggiunto!
+_L_APP_AMIIDB_SLOT_SAVE_SUCCESS,Save Success,保存成功,保存成功,Asignación correcta,Sikeresen Mentve,Speichern erfolgreich,Sauvegarder Succès,Opslaan Succes,Salvar Com Êxito,保存されました,Assegnazione corretta
+_L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignación fallida!,Mentés Sikertelen!,Speichern fehlgeschlagen!,Sauvegarde Échouée!,Opslaan Mislukt!,Falha ao Salvar!,保存に失敗しました!,Assegnazione fallita!
+_L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模擬器,Emular Etiqueta RFID,Kártya Emulátor,Karten Emulator,Emulateur de Carte,Kaart Emulator,Emulador de Cartão,カードエミュレータ,Emula tag RFID
+_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,Normal,Normál,Normal,Normal,Normaal,Normal,通常,Normale
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒絕,Negar,Tagadni,Verweigern,Refuser,Weigeren,Negar,拒否,Nega
+_L_APP_CHAMELEON_TAG_MF1_WRITE_DECEIVE,Ignore,忽略,忽略,Ignorar,Figyelmen Kívül Hagyni,Ignorieren,Ignorer,Negeren,Ignorar,無視,Ignora
+_L_APP_CHAMELEON_TAG_MF1_WRITE_SHADOW,Cache,缓存,緩存,Caché,Elrejt,Cache,Cache,Cache,Cache,キャッシュ,Cache
+_L_APP_CHAMELEON_INITIALIZING,Initializing data ..,"初始化, 请稍后..","初始化, 請稍後..",Inicializando ambiente.\nPor favor espere..,Az adatok inicializálása ..,Daten initialisieren..,Initialisation des données ..,Gegevens Initialiseren ..,Inicialização de Dados ..,データの初期化 ..,Inizializzazione ambiente.\nPer favore attendi..
+_L_APP_CHAMELEON_CARD_SLOT,Slot,卡槽,卡槽,Ranura,Cella,Steckplatz,Fente,Slot,Slot,スロット,Slot
+_L_APP_CHAMELEON_CARD_NICK,Nick,卡名,卡名,Apodo,Becenév,Spitzname,Pseudo,Bijnaam,Apelido,ニックネーム,Nickname
 _L_APP_CHAMELEON_CARD_ID,ID,ID,ID,ID,ID,ID,ID,ID,ID,ID,ID
-_L_APP_CHAMELEON_CARD_TYPE,Type,卡类型,卡類型,Tipo,Tipo,Típus,Typ,Type de Données,Type,Tipo de Dados,タイプ
-_L_APP_CHAMELEON_CARD_DATA,Data..,卡数据..,卡數據..,Datos..,Dati..,Adatok..,Daten..,Données..,Gegevens..,Dados..,データ..
-_L_APP_CHAMELEON_CARD_ADVANCED,Advanced..,卡高级设置..,卡高級設置..,Avanzado..,Avanzato..,Fejlett..,Erweitert..,Avancé..,Geavanceerd..,Avançado..,詳細設定..
-_L_APP_CHAMELEON_CARD_SLOT_SETTINGS,Slots Settings..,卡槽管理..,卡槽管理..,Configuración..,Impostazioni..,Cella Beállításai..,Steckplätze..,Paramètres des Emplacements..,Slot Instellingen..,Configurações de Slots..,スロット設定..
-_L_APP_CHAMELEON_CARD_SLOT_NUM,Slot Num..,卡槽数量..,卡槽數量..,Cant. ranuras..,Num. slot..,Cella Száma..,Steckplätze,Numéro d'Emplacement..,Slotnummer..,Número do Slot..,スロット番号..
-_L_APP_CHAMELEON_CARD_SET_NICK_SUCCESS,Set Nick Success,设置卡名成功,設置卡名成功,Apodo cambiado.,Cambio nickname riuscito.,Becenév Beállítása Sikeres,Spitzname erfolgreich,Définir le Pseudo Succès,Bijnaam Instellen Succes,Apelido Definido com Sucesso,ニックネームが設定されました
-_L_APP_CHAMELEON_CARD_SET_NICK_FAILED,Set Nick Failed!,设置卡名失败,設置卡名失敗,¡Falló cambio apodo!,Cambio nickname fallito!,Becenév Beállítása Sikertelen!,Spitzname fehlgeschlagen!,Définir le Pseudo a Échoué!,Bijnaam Instellen Mislukt!,Falha ao Definir Apelido!,ニックネームが設定できませんでした!
-_L_APP_CHAMELEON_CARD_INPUT_NICK,Input Nick:,输入卡名:,輸入卡名:,Apodo:,Nickname:,Becenév Bevitele:,Spitzname eingeben:,Entrer le Pseudo:,Voer Bijnaam In:,Insira o Apelido:,ニックネームを入力してください：
-_L_APP_CHAMELEON_CARD_DATA_LOAD,Load..,加载..,加載..,Cargar..,Carica..,Betöltés..,Laden..,Charger..,Laden..,Carregar..,ロード..
-_L_APP_CHAMELEON_CARD_DATA_SAVE,Save..,导出..,導出..,Guardar..,Salva..,Mentés..,Speichern..,Sauvegarder..,Opslaan..,Salvar..,保存..
-_L_APP_CHAMELEON_CARD_DATA_FACTORY,Factory..,重置..,重置..,Inicializar..,Inizializza..,Visszaállítás..,Zurücksetzen..,Rétablir Les Valeurs Par Défaut..,Terugzetten Naar Standaard..,Restaurar Padrões..,初期化..
-_L_APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS,Data Factory Success,卡片初始化成功,卡片初始化成功,¡Datos inicializados!,Dati inizializzati!,Adatok Visszaállítása Sikeres,Daten zurückgesetzt,Réinitialisation des Données Succès,Fabriekgegeven terugzetten Succesvol,Restauração de Dados Bem-Sucedida,初期化成功
-_L_APP_CHAMELEON_CARD_DATA_LOAD_NOT_FOUND,File Not Found,文件不存在,文件不存在,Archivo no encontrado,File non trovato,Fájl Nem Található,Datei nicht gefunden,Fichier Non Trouvé,Bestand Niet Gevonden,Arquivo Não Encontrado,ファイルが見つかりません
-_L_APP_CHAMELEON_CARD_DATA_LOAD_SIZE_NOT_MATCH,File Size Not Match,文件大小不匹配,文件大小不匹配,Tamaño archivo incorrecto,Dimensione file non corretta,Fájl Mérete Nem Egyezik,Dateigröße inkorrekt,La Taille du Fichier ne Correspond Pas,Bestandsgrootte Komt Niet Overeen,Tamanho do Arquivo Não Corresponde,ファイルサイズが一致しません
-_L_APP_CHAMELEON_CARD_DATA_LOAD_FAILED,Load File Failed,读取文件失败,讀取文件失敗,Falla carga archivo,Caricamento file fallito,Fájl betöltése Sikertelen,Laden fehlgeschlagen,Échec du Chargement du Fichier,Bestand Laden Mislukt,Falha no Carregamento do Arquivo,ファイルの読み込み失敗
-_L_APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS,Load File Success,加载卡片数据成功,加載卡片數據成功,Carga archivo correcta,Caricamento file riuscito,Fájl Betöltése Sikeres,Laden erfolgreich,Chargement du Fichier Réussi,Laad Bestand Succesvol,Sucesso no Carregamento do Arquivo,ファイルの読み込みに成功
-_L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名,輸入文件名,Nombre archivo:,Nome file:,Bemeneti Fájl Neve:,Dateinamen eingeben:,Saisir le Nom du Fichier:,Bestandsnaam Invoeren:,Nome do Arquivo de Entrada:,入力ファイル名:
-_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,寫入文件失敗,¡Error al guardar!,Errore nel salvataggio!,Fájl Mentése Sikertelen!,Speichern fehlgeschlagen!,Échec de l'Enregistrement du Fichier!,Bestand Opslaan Mislukt!,Falha ao Salvar o Arquivo!,ファイルの保存に失敗しました！
-_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,導出卡片數據成功,Guardado correcto,Salvataggio riuscito,Fájl Mentése Sikeres,Speichern erfolgreich,Sauvegarde du Fichier Réussie,Bestand Opslaan Gelukt,Arquivo Salvo com êxito,ファイルが保存されました
-_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定義模式,Modo personali.,Modalità personalizzata,Egyéni Mód,Benutzermodus,Mode Personnalisé,Aangepaste Modus,Modo Personalizado,カスタムモード
-_L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A habilitada,Gen1A abilitata,Gen1A Engedélyezve,Gen1A aktiv,Gen1A Activé,Gen1A Ingeschakeld,Gen1A Ativada,Gen1A 有効
-_L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,Generar nuevo UID,Genera nuovo UID,Véletlen UID,Randomisierte UID,Randomiser l'UID,Willekeurige UID,UID Aleatório,UIDのランダム化
-_L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,UID generado,UID generato,Generált UID,UID generiert,UID Généré,UID Gegenereerd,UID Gerado,UID 生成
-_L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 habilitada,Gen2 abilitata,Gen2 Engedélyezve,Gen2 aktiv,Gen2 Activé,Gen2 Ingeschakeld,Gen2 Ativado,Gen2 有効
-_L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,寫入模式,Modo escrit.,Modalità scrittura,Írási Mód,Schreibmodus,Mode d'Écriture,Schrijfmodus,Modo de Gravação,書き込みモード
-_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,無效的輸入!,¡Entrada inválida!,Input non valido!,Érvénytelen bemenet!,Ungültige Eingabe!,Entrée Invalide!,Ongeldige Invoer!,Entrada Inválida!,無効な入力
-_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡類型已修改\n重置卡數據?,Tipo tarjeta modificado\n¿Inicializar tarjeta?,Tipo di carta modificato\nInizializzare carta?,A kártya típusa megváltozott.\nGyári kártyaadatok?,Kartentyp geändert. \nKartendaten zurücksetzen?,Le Type de Carte a Été Modifié. \nRéinitialiser les Données de la Carte?,Kaarttype gewijzigd. \nGegevens terugzetten naar standaard?,O tipo de cartão foi alterado. \nRedefinir dados do cartão?,カードの種類が変更されました。\nカードデータを初期化しますか？
+_L_APP_CHAMELEON_CARD_TYPE,Type,卡类型,卡類型,Tipo,Típus,Typ,Type de Données,Type,Tipo de Dados,タイプ,Tipo
+_L_APP_CHAMELEON_CARD_DATA,Data..,卡数据..,卡數據..,Datos..,Adatok..,Daten..,Données..,Gegevens..,Dados..,データ..,Dati..
+_L_APP_CHAMELEON_CARD_ADVANCED,Advanced..,卡高级设置..,卡高級設置..,Avanzado..,Fejlett..,Erweitert..,Avancé..,Geavanceerd..,Avançado..,詳細設定..,Avanzato..
+_L_APP_CHAMELEON_CARD_SLOT_SETTINGS,Slots Settings..,卡槽管理..,卡槽管理..,Configuración..,Cella Beállításai..,Steckplatz Einstellungen..,Paramètres des Emplacements..,Slot Instellingen..,Configurações de Slots..,スロット設定..,Impostazioni..
+_L_APP_CHAMELEON_CARD_SLOT_NUM,Slot Num..,卡槽数量..,卡槽數量..,Cant. ranuras..,Cella Száma..,Steckplatz Nummer,Numéro d'Emplacement..,Slotnummer..,Número do Slot..,スロット番号..,Num. slot..
+_L_APP_CHAMELEON_CARD_SET_NICK_SUCCESS,Set Nick Success,设置卡名成功,設置卡名成功,Apodo cambiado.,Becenév Beállítása Sikeres,Spitzname erfolgreich gesetzt,Définir le Pseudo Succès,Bijnaam Instellen Succes,Apelido Definido com Sucesso,ニックネームが設定されました,Cambio nickname riuscito.
+_L_APP_CHAMELEON_CARD_SET_NICK_FAILED,Set Nick Failed!,设置卡名失败,設置卡名失敗,¡Falló cambio apodo!,Becenév Beállítása Sikertelen!,Spitzname setzen fehlgeschlagen!,Définir le Pseudo a Échoué!,Bijnaam Instellen Mislukt!,Falha ao Definir Apelido!,ニックネームが設定できませんでした!,Cambio nickname fallito!
+_L_APP_CHAMELEON_CARD_INPUT_NICK,Input Nick:,输入卡名:,輸入卡名:,Apodo:,Becenév Bevitele:,Spitznamen eingeben:,Entrer le Pseudo:,Voer Bijnaam In:,Insira o Apelido:,ニックネームを入力してください：,Nickname:
+_L_APP_CHAMELEON_CARD_DATA_LOAD,Load..,加载..,加載..,Cargar..,Betöltés..,Laden..,Charger..,Laden..,Carregar..,ロード..,Carica..
+_L_APP_CHAMELEON_CARD_DATA_SAVE,Save..,导出..,導出..,Guardar..,Mentés..,Speichern..,Sauvegarder..,Opslaan..,Salvar..,保存..,Salva..
+_L_APP_CHAMELEON_CARD_DATA_FACTORY,Factory..,重置..,重置..,Inicializar..,Visszaállítás..,Zurücksetzen..,Rétablir Les Valeurs Par Défaut..,Terugzetten Naar Standaard..,Restaurar Padrões..,初期化..,Inizializza..
+_L_APP_CHAMELEON_CARD_DATA_FACTORY_SUCCESS,Data Factory Success,卡片初始化成功,卡片初始化成功,¡Datos inicializados!,Adatok Visszaállítása Sikeres,Daten zurückgesetzt,Réinitialisation des Données Succès,Fabriekgegeven terugzetten Succesvol,Restauração de Dados Bem-Sucedida,初期化成功,Dati inizializzati!
+_L_APP_CHAMELEON_CARD_DATA_LOAD_NOT_FOUND,File Not Found,文件不存在,文件不存在,Archivo no encontrado,Fájl Nem Található,Datei nicht gefunden,Fichier Non Trouvé,Bestand Niet Gevonden,Arquivo Não Encontrado,ファイルが見つかりません,File non trovato
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SIZE_NOT_MATCH,File Size Not Match,文件大小不匹配,文件大小不匹配,Tamaño archivo incorrecto,Fájl Mérete Nem Egyezik,Dateigröße stimmt nicht überein,La Taille du Fichier ne Correspond Pas,Bestandsgrootte Komt Niet Overeen,Tamanho do Arquivo Não Corresponde,ファイルサイズが一致しません,Dimensione file non corretta
+_L_APP_CHAMELEON_CARD_DATA_LOAD_FAILED,Load File Failed,读取文件失败,讀取文件失敗,Falla carga archivo,Fájl betöltése Sikertelen,Laden der Datei fehlgeschlagen,Échec du Chargement du Fichier,Bestand Laden Mislukt,Falha no Carregamento do Arquivo,ファイルの読み込み失敗,Caricamento file fallito
+_L_APP_CHAMELEON_CARD_DATA_LOAD_SUCCESS,Load File Success,加载卡片数据成功,加載卡片數據成功,Carga archivo correcta,Fájl Betöltése Sikeres,Datei erfolgreich geladen,Chargement du Fichier Réussi,Laad Bestand Succesvol,Sucesso no Carregamento do Arquivo,ファイルの読み込みに成功,Caricamento file riuscito
+_L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名,輸入文件名,Nombre archivo:,Bemeneti Fájl Neve:,Datei Namen eingeben:,Saisir le Nom du Fichier:,Bestandsnaam Invoeren:,Nome do Arquivo de Entrada:,入力ファイル名:,Nome file:
+_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,寫入文件失敗,¡Error al guardar!,Fájl Mentése Sikertelen!,Datei speichern fehlgeschlagen!,Échec de l'Enregistrement du Fichier!,Bestand Opslaan Mislukt!,Falha ao Salvar o Arquivo!,ファイルの保存に失敗しました！,Errore nel salvataggio!
+_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,導出卡片數據成功,Guardado correcto,Fájl Mentése Sikeres,Datei erfolgreich gespeichert,Sauvegarde du Fichier Réussie,Bestand Opslaan Gelukt,Arquivo Salvo com êxito,ファイルが保存されました,Salvataggio riuscito
+_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定義模式,Modo personali.,Egyéni Mód,Benutzerdefinierter Modus,Mode Personnalisé,Aangepaste Modus,Modo Personalizado,カスタムモード,Modalità personalizzata
+_L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A habilitada,Gen1A Engedélyezve,Gen1A aktiv,Gen1A Activé,Gen1A Ingeschakeld,Gen1A Ativada,Gen1A 有効,Gen1A abilitata
+_L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,Generar nuevo UID,Véletlen UID,Zufällige UID,Randomiser l'UID,Willekeurige UID,UID Aleatório,UIDのランダム化,Genera nuovo UID
+_L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,UID generado,Generált UID,UID generiert,UID Généré,UID Gegenereerd,UID Gerado,UID 生成,UID generato
+_L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 habilitada,Gen2 Engedélyezve,Gen2 aktiv,Gen2 Activé,Gen2 Ingeschakeld,Gen2 Ativado,Gen2 有効,Gen2 abilitata
+_L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,寫入模式,Modo escrit.,Írási Mód,Schreibmodus,Mode d'Écriture,Schrijfmodus,Modo de Gravação,書き込みモード,Modalità scrittura
+_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,無效的輸入!,¡Entrada inválida!,Érvénytelen bemenet!,Ungültige Eingabe!,Entrée Invalide!,Ongeldige Invoer!,Entrada Inválida!,無効な入力,Input non valido!
+_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡類型已修改\n重置卡數據?,Tipo tarjeta modificado\n¿Inicializar tarjeta?,A kártya típusa megváltozott.\nGyári kártyaadatok?,Kartentyp geändert. \nKartendaten zurücksetzen?,Le Type de Carte a Été Modifié. \nRéinitialiser les Données de la Carte?,Kaarttype gewijzigd. \nGegevens terugzetten naar standaard?,O tipo de cartão foi alterado. \nRedefinir dados do cartão?,カードの種類が変更されました。\nカードデータを初期化しますか？,Tipo di carta modificato\nInizializzare carta?
