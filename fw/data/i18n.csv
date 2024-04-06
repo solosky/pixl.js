@@ -64,7 +64,7 @@ _L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo
 _L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo,Fájl beolvasása sikerten,Lesen fehlgeschlagen,Échec de la lecture du fichier,Lezen van het bestand is mislukt,Falha na Leitura do Arquivo,ファイルの読み込みに失敗しました,Errore nella lettura del file
 _L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre carpeta:,Bemeneti Mappa Neve:,Ordnername eingeben:,Nom du Dossier D'entrée:,Naam Invoermap:,Nome da Pasta de Entrada:,入力フォルダ名:,Nome cartella:
 _L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre amiibo:,Amiibo Neve:,Amiibo Namen eingeben:,Nom de l'Amiibo D'entrée:,Naam Amiibo Invoeren:,Nome do Amiibo de Entrada:,入力Amiibo名:,Nome Amiibo:
-_L_DELETE,Delete,删除,刪除,Borrar,Töröl,Löschen,Supprimer,Verwijder,Excluir,削除,Elimina
+_L_DELETE,Delete...,删除...,刪除...,Borrar...,Töröl...,Löschen...,Supprimer...,Verwijder...,Excluir...,削除...,Elimina...
 _L_INPUT_NEW_NAME,Input New Name:,输入新名:,輸入新名稱:,Nuevo nombre:,Új Név Bevitele:,Neuen Namen eingeben:,Nouveau nom D'entrée:,Nieuwe Naam Invoeren:,Novo Nome de Entrada:,新しい名前を入力してください：,Nuovo nome:
 _L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,Entrada inválida,Érvénytelen Bemenet,Ungültige Eingabe,Entrée Invalide,Ongeldige Invoer,Entrada Inválida,無効な入力,Input non valido
 _L_CREATE_NEW_FOLDER,Create New Folder...,新建文件夹...,新建資料夾...,Crear carpeta...,Új Mappa Létrehozása...,Neuer Ordner...,Créer un Nouveau Dossier...,Nieuwe Map Maken...,Criar Nova Pasta...,新しいフォルダを作成...,Crea cartella...
@@ -74,7 +74,7 @@ _L_INPUT_TAG_NUM,Input Tag Number：,输入标签数量:,輸入標簽數量:,¿C
 _L_CREATE_TOO_MANY_NUM,Only max %d tags created in a batch.,一次最多只能创建%d个标签,一次最多只能創建%d個標簽,Sólo se puede crear %d en lote,Max. létrehozható címke egy kötegben %d,Sie können nur maximal %d Tags auf einmal erstellen.,Seulement %d balises maximum créées dans un lot.,Maximum %d tags aangemaakt in een batch.,Somente no máximo %d tags criadas em um lote.,１つのバッチで作成されるタグの数はは最大 %d までです。,Numero max di %d tag in serie.
 _L_CREATING_TAG_BATCH,Creating tag,创建标签,創建標簽,Creando,Címke létrehozása,Tag erstellen,Création d'une balise,Tag aanmaken,Criando tag,タグの作成,Creazione tag
 _L_CREATING_TAG_FAILED,Create tag %s failed!,写入 %s 标签失败,寫入 %s 標簽失敗,¡Error al crear %s!,Címke létrehozása %s sikertelen!,Erstellen von Tag %s fehlgeschlagen!,La création de la balise %s a échoué!,Aanmaken tag %s mislukt!,Falha ao criar a tag %s!,タグ %s の作成に失敗しました！,Creazione tag %s fallita!
-_L_RENAME,Rename,重命名,重新命名,Renombrar,Átnevezés,Umbenennen,Renommer,Hernoem,Renomear,名前の変更,Rinomina
+_L_RENAME,Rename...,重命名...,重新命名...,Renombrar...,Átnevezés...,Umbenennen...,Renommer...,Hernoem...,Renomear...,名前の変更...,Rinomina...
 _L_OPEN_FOLDER_FAILED,Failed to open folder,打开文件夹失败,開啟資料夾失敗,Fallo al abrir carpeta,Mappa megnyitása sikertelen ,Ordner konnte nicht geöffnet werden,Échec de l'ouverture du dossier,Kan map niet openen,Falha ao abrir a pasta,フォルダを開けませんでした,Errore nell'apertura della cartella
 _L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗,Fallo al renombrar\nCódigo de error,Átnevezés Sikertelen\nHibakód,Umbenennen fehlgeschlagen\nFehlercode,Échec du renommage.\nCode d'Erreur,Hernoemen mislukt.\nFoutcode,Falha ao renomear\nCódigo de erro,名前の変更に失敗しました。\nエラーコード,Errore nella rinomina\nCodice errore
 _L_MAIN_RETURN,[RETURN],[返回],[返回],[Volver],[VISSZA],[Zurück],[RETOUR],[TERUG],[RETORNO],[リターン］,[Torna indietro]
