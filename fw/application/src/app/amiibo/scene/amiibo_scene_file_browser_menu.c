@@ -298,9 +298,9 @@ void amiibo_scene_file_browser_menu_on_enter(void *user_data) {
                            (void *)FILE_BROWSER_MENU_CREATE_AMIIBO_BATCH);
     if (string_cmp_str(app->current_file, "..") != 0) {
         char txt[32];
-        snprintf(txt, sizeof(txt), "%s..", getLangString(_L_RENAME));
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_RENAME));
         mui_list_view_add_item(app->p_list_view, ICON_EMPTY, txt, (void *)FILE_BROWSER_MENU_RENAME_FOLDER);
-        snprintf(txt, sizeof(txt), "%s..", getLangString(_L_DELETE));
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_DELETE));
         mui_list_view_add_item(app->p_list_view, ICON_DELETE, txt, (void *)FILE_BROWSER_MENU_REMOVE_FOLDER);
     }
     mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_BACK_TO_FILE_LIST),
