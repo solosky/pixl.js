@@ -66,6 +66,7 @@ typedef enum {
     _L_READ_FILE_FAILED,
     _L_INPUT_FOLDER_NAME,
     _L_INPUT_AMIIBO_NAME,
+    _L_DELETE_FILE,
     _L_DELETE,
     _L_INPUT_NEW_NAME,
     _L_INVALID_INPUT,
