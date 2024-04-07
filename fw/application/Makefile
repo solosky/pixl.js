@@ -48,7 +48,6 @@ SRC_FILES += \
   $(SDK_ROOT)/modules/nrfx/mdk/system_nrf52.c 
 endif
 
-
 # Source files common to all targets
 SRC_FILES += \
   $(SDK_ROOT)/components/libraries/log/src/nrf_log_backend_rtt.c \
@@ -423,22 +422,53 @@ SRC_FILES += \
 
 # USB Feature
 ifeq ($(NRF_SOC), NRF52840_XXAA)
+# SRC_FILES += \
+# 	$(SDK_ROOT)/components/libraries/usbd/app_usbd.c \
+# 	$(SDK_ROOT)/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c \
+# 	$(SDK_ROOT)/components/libraries/usbd/app_usbd_core.c \
+# 	$(SDK_ROOT)/components/libraries/usbd/app_usbd_serial_num.c \
+# 	$(SDK_ROOT)/components/libraries/usbd/app_usbd_string_desc.c \
+# 	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
+#   $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
+#   $(COMP_DIR)/usb_mtp/class/mtp_core.c \
+#   $(COMP_DIR)/usb_mtp/class/mtp_codec.c \
+#   $(COMP_DIR)/usb_mtp/class/mtp_proto.c \
+#   $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
+#   $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
+#   $(PROJ_DIR)/mod/usbd/usbd.c \
+#   $(PROJ_DIR)/mod/usbd/usbd_cdc.c \
+#   $(PROJ_DIR)/mod/usbd/usbd_mtp.c \
+#   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_qspi.c 
+# Tinyusb
 SRC_FILES += \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd.c \
-	$(SDK_ROOT)/components/libraries/usbd/class/cdc/acm/app_usbd_cdc_acm.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd_core.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd_serial_num.c \
-	$(SDK_ROOT)/components/libraries/usbd/app_usbd_string_desc.c \
-	$(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_usbd.c \
-  $(COMP_DIR)/usb_mtp/class/app_usbd_mtp.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_core.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_codec.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_proto.c \
-  $(COMP_DIR)/usb_mtp/class/mtp_obj.c \
-  $(COMP_DIR)/usb_mtp/driver/mtp_fs_lfs.c \
-  $(PROJ_DIR)/mod/usbd/usbd.c \
-  $(PROJ_DIR)/mod/usbd/usbd_cdc.c \
-  $(PROJ_DIR)/mod/usbd/usbd_mtp.c \
+	$(COMP_DIR)/tinyusb/src/tusb.c \
+	$(COMP_DIR)/tinyusb/src/common/tusb_fifo.c \
+	$(COMP_DIR)/tinyusb/src/device/usbd.c \
+	$(COMP_DIR)/tinyusb/src/device/usbd_control.c \
+	$(COMP_DIR)/tinyusb/src/typec/usbc.c \
+	$(COMP_DIR)/tinyusb/src/class/audio/audio_device.c \
+	$(COMP_DIR)/tinyusb/src/class/cdc/cdc_device.c \
+	$(COMP_DIR)/tinyusb/src/class/dfu/dfu_device.c \
+	$(COMP_DIR)/tinyusb/src/class/dfu/dfu_rt_device.c \
+	$(COMP_DIR)/tinyusb/src/class/hid/hid_device.c \
+	$(COMP_DIR)/tinyusb/src/class/midi/midi_device.c \
+	$(COMP_DIR)/tinyusb/src/class/msc/msc_device.c \
+	$(COMP_DIR)/tinyusb/src/class/net/ecm_rndis_device.c \
+	$(COMP_DIR)/tinyusb/src/class/net/ncm_device.c \
+	$(COMP_DIR)/tinyusb/src/class/usbtmc/usbtmc_device.c \
+	$(COMP_DIR)/tinyusb/src/class/video/video_device.c \
+	$(COMP_DIR)/tinyusb/src/class/vendor/vendor_device.c \
+  $(COMP_DIR)/tinyusb/src/host/usbh.c \
+  $(COMP_DIR)/tinyusb/src/host/hub.c \
+  $(COMP_DIR)/tinyusb/src/class/cdc/cdc_host.c \
+  $(COMP_DIR)/tinyusb/src/class/hid/hid_host.c \
+  $(COMP_DIR)/tinyusb/src/class/msc/msc_host.c \
+  $(COMP_DIR)/tinyusb/src/class/vendor/vendor_host.c \
+  $(COMP_DIR)/tinyusb/src/typec/usbc.c \
+  $(PROJ_DIR)/mod/tusb/dcd_nrf5x.c \
+  $(PROJ_DIR)/mod/tusb/msc_disk.c \
+  $(PROJ_DIR)/mod/tusb/usb_descriptors.c \
+  $(PROJ_DIR)/mod/tusb/family.c \
   $(SDK_ROOT)/modules/nrfx/drivers/src/nrfx_qspi.c 
 endif
 
@@ -613,6 +643,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/mod/ble \
   $(PROJ_DIR)/mod/df \
   $(PROJ_DIR)/mod/usbd \
+  $(PROJ_DIR)/mod/tusb \
   $(PROJ_DIR)/amiidb \
   $(PROJ_DIR)/app/status_bar \
   $(PROJ_DIR)/app/status_bar/view \
@@ -655,6 +686,9 @@ INC_FOLDERS += \
   $(COMP_DIR)/qrcode/c \
   $(COMP_DIR)/usb_mtp/class \
   $(COMP_DIR)/usb_mtp/driver \
+  $(COMP_DIR)/tinyusb/src \
+  $(COMP_DIR)/tinyusb/hw \
+  $(COMP_DIR)/usb_mtp/driver \
   $(SDK_ROOT)/components/libraries/bsp \
   $(CHAMELEON_ROOT)/application/src/rfid \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag \
@@ -663,7 +697,11 @@ INC_FOLDERS += \
   $(CHAMELEON_ROOT)/application/src/utils \
   $(CHAMELEON_ROOT)/application/src \
   $(CHAMELEON_ROOT)/application/src/bsp \
-  $(COMP_DIR)/chameleon-ultra/firmware/common
+  $(COMP_DIR)/chameleon-ultra/firmware/common \
+  $(SDK_ROOT)/modules/nrfx/mdk \
+  $(SDK_ROOT)/modules/nrfx/hal \
+  $(SDK_ROOT)/modules/nrfx/drivers/include \
+  $(SDK_ROOT)/modules/nrfx/drivers/src
 
 # Libraries common to all targets
 LIB_FILES += \

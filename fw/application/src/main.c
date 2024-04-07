@@ -97,6 +97,7 @@
 #include "settings.h"
 
 #include "nfc_reader.h"
+#include "tusb.h"
 
 //#include "usbd.h"
 
@@ -283,7 +284,9 @@ int main(void) {
     amiibo_helper_try_load_amiibo_keys_from_vfs();
 
 #ifdef NRF52840_XXAA
-    usb_init();
+    //usb_init();
+    board_init();
+    tusb_init();
 #endif
 
     NRF_LOG_DEBUG("init done");
@@ -304,7 +307,9 @@ int main(void) {
         mui_tick(p_mui);
 
 #ifdef NRF52840_XXAA
-        usb_tick();
+        //usb_tick();
+     
+        tud_task(); // device task
 #endif
         NRF_LOG_FLUSH();
         if (NRF_LOG_PROCESS() == false) {
