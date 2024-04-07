@@ -23,6 +23,7 @@ typedef enum {
     LANGUAGE_JA_JP,
     LANGUAGE_PT_PT, 
     LANGUAGE_IT_IT,
+    LANGUAGE_RU_RU,
     LANGUAGE_COUNT
 } Language;
 
@@ -38,6 +39,7 @@ extern const char* lang_pt_BR[_L_COUNT];
 extern const char* lang_ja_JP[_L_COUNT];
 extern const char* lang_pt_PT[_L_COUNT];
 extern const char* lang_it_IT[_L_COUNT];
+extern const char* lang_ru_RU[_L_COUNT];
 
 // 获取字符串的函数 (Get language string function)
 const char* getLangString(L_StringID stringID);
