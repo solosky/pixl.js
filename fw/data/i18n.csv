@@ -64,6 +64,7 @@ _L_NOT_AMIIBO_FILE,This is not Amiibo file,这不是Amiibo文件,這不是Amiibo
 _L_READ_FILE_FAILED,Failed read the file,读取文件失败,讀取檔案失敗,Error al leer archivo,Fájl beolvasása sikerten,Lesen fehlgeschlagen,Échec de la lecture du fichier,Lezen van het bestand is mislukt,Falha na Leitura do Arquivo,ファイルの読み込みに失敗しました,Errore nella lettura del file
 _L_INPUT_FOLDER_NAME,Input Folder Name:,输入文件夹名:,輸入資料夾名稱:,Nombre carpeta:,Bemeneti Mappa Neve:,Ordnername eingeben:,Nom du Dossier D'entrée:,Naam Invoermap:,Nome da Pasta de Entrada:,入力フォルダ名:,Nome cartella:
 _L_INPUT_AMIIBO_NAME,Input Amiibo Name:,输入amiibo名:,輸入amiibo名稱:,Nombre amiibo:,Amiibo Neve:,Amiibo Namen eingeben:,Nom de l'Amiibo D'entrée:,Naam Amiibo Invoeren:,Nome do Amiibo de Entrada:,入力Amiibo名:,Nome Amiibo:
+_L_DELETE_FILE,Delete %s ?,删除 %s ?,刪除 %s ?,¿Borrar el %s ?,Törli a %s fájlt?,%s löschen ?,Supprimer le %s ?,%s verwijderen ?,Excluir %s ?,%s を削除しますか ？,Eliminare %s ?
 _L_DELETE,Delete...,删除...,刪除...,Borrar...,Töröl...,Löschen...,Supprimer...,Verwijder...,Excluir...,削除...,Elimina...
 _L_INPUT_NEW_NAME,Input New Name:,输入新名:,輸入新名稱:,Nuevo nombre:,Új Név Bevitele:,Neuen Namen eingeben:,Nouveau nom D'entrée:,Nieuwe Naam Invoeren:,Novo Nome de Entrada:,新しい名前を入力してください：,Nuovo nome:
 _L_INVALID_INPUT,Invalid Input,无效的输入,無效的輸入,Entrada inválida,Érvénytelen Bemenet,Ungültige Eingabe,Entrée Invalide,Ongeldige Invoer,Entrada Inválida,無効な入力,Input non valido
