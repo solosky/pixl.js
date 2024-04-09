@@ -114,6 +114,7 @@ _L_APP_AMIIDB_DETAIL_BACK_DETAIL,[Back to Detail],[返回详情],[返回詳情],
 _L_APP_AMIIDB_DETAIL_BACK_LIST,[Back to List],[返回列表],[返回列表],[Volver a Lista],[Vissza a Listához],[Zurück zur Liste],[Retour à la Liste],[Terug naar Lijst].,[Voltar Para a Lista],[リストに戻る］,[Torna alla lista],[Назад к списку]
 _L_APP_AMIIDB_SEARCH_HEAD,Search:,搜索:,搜索:,Buscar:,Keresés:,Suche:,Recherche:,Zoeken:,Pesquisar:,検索する:,Cerca:,Поиск:
 _L_APP_AMIIDB_MORE,[More...],[更多],[更多],[Más...],[Bővebben...],[Mehr...],[Plus...],[Meer...],[Mais...],[もっと見る...］,[Più...],[Дальше...]
+_L_APP_AMIIDB_MORE_MESSAGE,Too many results. Try a more specific search.,,,,,Zu viele Ergebnisse. Versuche eine spezifischere Suche,,,,,,,
 _L_APP_AMIIDB_EMPTY_TAG,<Blank Amiibo>,<空标签>,<空標簽>,<No Asignado>,<Üres Amiibo>,<Leerer Amiibo>,<Amiibo Vierge>,<Blanke Amiibo>,<Amiibo em Branco>,<Amiiboが見つかりません>,<Non assegnato>,<пустой тег>
 _L_APP_AMIIDB_SLOT_DELETE,Reset...,重置...,重置...,Borrar...,Újraindítás...,Zurücksetzen...,Réinitialiser...,Reset...,Reiniciar...,リセット...,Elimina...,Сброс...
 _L_APP_AMIIDB_CONFIRM,Confirm,确认,確認,Confirmar,Megerősítés,Bestätigen,Confirmer,Bevestigen,Confirmar,確認する,Conferma,Да
