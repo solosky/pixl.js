@@ -115,6 +115,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[Terug naar Lijst].",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "Zoeken:",
     [_L_APP_AMIIDB_MORE] = "[Meer...]",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<Blanke Amiibo>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "Reset...",
     [_L_APP_AMIIDB_CONFIRM] = "Bevestigen",

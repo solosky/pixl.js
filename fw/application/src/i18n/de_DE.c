@@ -115,6 +115,7 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[Zurück zur Liste]",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "Suche:",
     [_L_APP_AMIIDB_MORE] = "[Mehr...]",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "Zu viele Ergebnisse. Versuche eine spezifischere Suche",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<Leerer Amiibo>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "Zurücksetzen...",
     [_L_APP_AMIIDB_CONFIRM] = "Bestätigen",

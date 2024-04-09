@@ -115,6 +115,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[Retour à la Liste]",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "Recherche:",
     [_L_APP_AMIIDB_MORE] = "[Plus...]",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<Amiibo Vierge>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "Réinitialiser...",
     [_L_APP_AMIIDB_CONFIRM] = "Confirmer",

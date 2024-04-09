@@ -115,6 +115,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[リストに戻る］",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "検索する:",
     [_L_APP_AMIIDB_MORE] = "[もっと見る...］",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<Amiiboが見つかりません>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "リセット...",
     [_L_APP_AMIIDB_CONFIRM] = "確認する",
