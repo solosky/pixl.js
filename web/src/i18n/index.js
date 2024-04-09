@@ -10,8 +10,8 @@ import enLocale from './en_US'
 import zhTWLocale from './zh_TW'
 import zhCNLocale from './zh_Hans'
 import esLocale from './es_ES'
-import ruLocale from "./ru_RU";
-import deLocale from "./de_DE";
+import ruLocale from './ru_RU';
+import deLocale from './de_DE';
 
 
 Vue.use(VueI18n)
