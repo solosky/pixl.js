@@ -25,13 +25,13 @@ static void amiidb_scene_amiibo_search_text_input_event_cb(mui_text_input_event_
 
 static void amiidb_msg_box_error_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
     app_amiidb_t *app = p_msg_box->user_data;
-    mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_SEARCH);
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIDB_VIEW_ID_LIST);
 }
 
 static void amiidb_show_message(app_amiidb_t *app, const char *msg) {
     mui_msg_box_set_header(app->p_msg_box, getLangString(_L_ERR));
     mui_msg_box_set_message(app->p_msg_box, msg);
-    mui_msg_box_set_btn_text(app->p_msg_box, NULL, getLangString(_L_CONFIRM), NULL);
+    mui_msg_box_set_btn_text(app->p_msg_box, NULL, getLangString(_L_KNOW), NULL);
     mui_msg_box_set_btn_focus(app->p_msg_box, 1);
     mui_msg_box_set_event_cb(app->p_msg_box, amiidb_msg_box_error_cb);
 
