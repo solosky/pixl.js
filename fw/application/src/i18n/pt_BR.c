@@ -115,6 +115,7 @@ const char * const lang_pt_BR[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[Voltar Para a Lista]",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "Pesquisar:",
     [_L_APP_AMIIDB_MORE] = "[Mais...]",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<Amiibo em Branco>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "Reiniciar...",
     [_L_APP_AMIIDB_CONFIRM] = "Confirmar",

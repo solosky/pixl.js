@@ -115,6 +115,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[Vissza a Listához]",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "Keresés:",
     [_L_APP_AMIIDB_MORE] = "[Bővebben...]",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<Üres Amiibo>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "Újraindítás...",
     [_L_APP_AMIIDB_CONFIRM] = "Megerősítés",

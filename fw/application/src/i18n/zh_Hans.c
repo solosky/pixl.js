@@ -115,6 +115,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_AMIIDB_DETAIL_BACK_LIST] = "[返回列表]",
     [_L_APP_AMIIDB_SEARCH_HEAD] = "搜索:",
     [_L_APP_AMIIDB_MORE] = "[更多]",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "搜索结果过多，尝试增加搜索词。",
     [_L_APP_AMIIDB_EMPTY_TAG] = "<空标签>",
     [_L_APP_AMIIDB_SLOT_DELETE] = "重置...",
     [_L_APP_AMIIDB_CONFIRM] = "确认",
