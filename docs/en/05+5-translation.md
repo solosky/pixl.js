@@ -63,7 +63,7 @@ In this example, we will add a Japanese (ja_JP) translation:
 
    `ja: '日本語',`
 
-3. Edit `index.js` while keeping its current structure, adding:
+3. Edit `web/src/i18n/index.js` while keeping its current structure, adding:
 
    ```js
    import elementJaLocale from 'element-ui/lib/locale/lang/ja' // element-ui
