@@ -1,13 +1,17 @@
 import Vue from 'vue'
 import VueI18n from 'vue-i18n'
 import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
-import elementZhCnLocale from 'element-ui/lib/locale/lang/zh-CN'// element-ui lang
-import elementEsLocale from 'element-ui/lib/locale/lang/es'// element-ui lang
-import elementZhTwLocale from 'element-ui/lib/locale/lang/zh-TW'// element-ui lang
+import elementZhCnLocale from 'element-ui/lib/locale/lang/zh-CN' // element-ui lang
+import elementEsLocale from 'element-ui/lib/locale/lang/es' // element-ui lang
+import elementZhTwLocale from 'element-ui/lib/locale/lang/zh-TW' // element-ui lang
+import elementRuLocale from 'element-ui/lib/locale/lang/ru-RU' // element-ui lang
+import elementDeLocale from 'element-ui/lib/locale/lang/de' // element-ui lang
 import enLocale from './en_US'
 import zhTWLocale from './zh_TW'
 import zhCNLocale from './zh_Hans'
 import esLocale from './es_ES'
+import ruLocale from './ru_RU'
+import deLocale from './de_DE'
 
 
 Vue.use(VueI18n)
@@ -28,6 +32,14 @@ const messages = {
   zh_CN: {
     ...zhCNLocale,
     ...elementZhCnLocale
+  },
+  ru_RU: {
+    ... ruLocale,
+    ... elementRuLocale
+  },
+  de_DE: {
+    ... deLocale,
+    ... elementDeLocale
   }
 }
 export function getLanguage() {

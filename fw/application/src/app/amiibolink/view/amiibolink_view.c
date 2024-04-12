@@ -9,6 +9,7 @@
 #include "db_header.h"
 
 #define ICON_RANDOM 0xe20d
+#define ICON_AUTO 0xe1b2
 #define ICON_NTAG 0xe1cf
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa
@@ -28,10 +29,12 @@ static void amiibolink_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
     mui_canvas_set_draw_color(p_canvas, 0);
 
     // draw mode icon
-    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM ||
-        p_amiibolink_view->amiibolink_mode ==BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
+    if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM){
         mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
         mui_canvas_draw_glyph(p_canvas, 10, y + 10, ICON_RANDOM);
+    }else if(p_amiibolink_view->amiibolink_mode ==BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
+        mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+        mui_canvas_draw_glyph(p_canvas, 10, y + 10, ICON_AUTO);
     } else if (p_amiibolink_view->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
 
         if (p_amiibolink_view->index > 0) {

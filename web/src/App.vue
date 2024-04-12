@@ -19,6 +19,12 @@
           <el-dropdown-item Enabled="language==='es'" command="es" divided>
             {{ $t('lang.es') }}
           </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='ru_RU'" command="ru_RU" divided>
+            {{ $t('lang.ru') }}
+          </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='de'" command="de" divided>
+            {{ $t('lang.de') }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>

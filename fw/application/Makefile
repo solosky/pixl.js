@@ -297,13 +297,15 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
   $(PROJ_DIR)/i18n/es_ES.c \
-  $(PROJ_DIR)/i18n/hu_HU.c \
+  $(PROJ_DIR)/i18n/it_IT.c \
   $(PROJ_DIR)/i18n/de_DE.c \
   $(PROJ_DIR)/i18n/fr_FR.c \
+  $(PROJ_DIR)/i18n/hu_HU.c \
   $(PROJ_DIR)/i18n/ja_JP.c \
   $(PROJ_DIR)/i18n/nl_NL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \
   $(PROJ_DIR)/i18n/pt_PT.c \
+  $(PROJ_DIR)/i18n/ru_RU.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \

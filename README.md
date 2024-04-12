@@ -13,6 +13,7 @@
 
 * [中文文档](docs/zh/README.md)
 * [English Documentation](docs/en/README.md)
+* [Italian Documentation](docs/it/README.md)
 
 ## Credits
 

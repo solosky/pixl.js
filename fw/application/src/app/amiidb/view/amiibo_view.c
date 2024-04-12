@@ -69,7 +69,14 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         if (strlen(ntag->notes) > 0) {
             p_amiibo_view->desc_total = mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, ntag->notes);
         } else if (link != NULL) {
-            const char *notes = getLanguage() == LANGUAGE_ZH_HANS ? link->note_cn : link->note_en;
+            const char *notes;
+            if  (getLanguage() == LANGUAGE_ZH_HANS) {
+                notes = link->note_cn;
+            } else if(getLanguage() == LANGUAGE_IT_IT) {
+                notes = link->note_it;
+            } else {
+                notes = link->note_en;
+            }
             p_amiibo_view->desc_total = mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, notes);
         }
         mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
