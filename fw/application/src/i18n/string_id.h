@@ -68,6 +68,7 @@ typedef enum {
     _L_INPUT_AMIIBO_NAME,
     _L_DELETE_FILE,
     _L_DELETE,
+    _L_TIPS,
     _L_INPUT_NEW_NAME,
     _L_INVALID_INPUT,
     _L_CREATE_NEW_FOLDER,

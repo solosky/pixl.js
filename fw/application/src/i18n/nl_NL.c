@@ -67,6 +67,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "Naam Amiibo Invoeren:",
     [_L_DELETE_FILE] = "%s verwijderen ?",
     [_L_DELETE] = "Verwijder...",
+    [_L_TIPS] = "Bevestigen",
     [_L_INPUT_NEW_NAME] = "Nieuwe Naam Invoeren:",
     [_L_INVALID_INPUT] = "Ongeldige Invoer",
     [_L_CREATE_NEW_FOLDER] = "Nieuwe Map Maken...",

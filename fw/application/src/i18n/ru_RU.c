@@ -67,6 +67,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "Задайте имя Amiibo:",
     [_L_DELETE_FILE] = "Удалить %s?",
     [_L_DELETE] = "Удалить...",
+    [_L_TIPS] = "Внимание",
     [_L_INPUT_NEW_NAME] = "Задайте новое имя:",
     [_L_INVALID_INPUT] = "Недопустимый ввод",
     [_L_CREATE_NEW_FOLDER] = "Создать новую папку...",

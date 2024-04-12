@@ -67,6 +67,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "Amiibo Neve:",
     [_L_DELETE_FILE] = "Törli a %s fájlt?",
     [_L_DELETE] = "Töröl...",
+    [_L_TIPS] = "Megerősítés",
     [_L_INPUT_NEW_NAME] = "Új Név Bevitele:",
     [_L_INVALID_INPUT] = "Érvénytelen Bemenet",
     [_L_CREATE_NEW_FOLDER] = "Új Mappa Létrehozása...",
