@@ -169,7 +169,7 @@ static void settings_scene_main_reload(void *user_data) {
                                (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
 #else
     if (p_settings->lcd_backlight == 0) {
-        snprintf(txt, sizeof(txt), "[%s]", getLangString(_L_OFF));
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_OFF_F));
     } else {
         snprintf(txt, sizeof(txt), "[%d%%]", p_settings->lcd_backlight);
     }

@@ -1,6 +1,6 @@
 CODE,en_US,zh_Hans,zh_TW,es_ES,hu_HU,de_DE,fr_FR,nl_NL,pt_BR,ja_JP,it_IT,ru_RU
-_L_ON,ON,开,開,SI,BE,AN,ACTIVÉ,AAN,LIGADO,オン,SI,Вкл
-_L_OFF,OFF,关,關,NO,KI,AUS,DÉSACTIVÉ,UIT,DESLIGADO,オフ,NO,Выкл
+_L_ON,ON,开,開,SI,BE,AN,ACTIVÉ,AAN,LIGADO,オン,SI,Включено
+_L_OFF,OFF,关,關,NO,KI,AUS,DÉSACTIVÉ,UIT,DESLIGADO,オフ,NO,Выключено
 _L_ON_F,[ON],[开],[開],[SI],[BE],[AN],[ACTIVÉ],[AAN],[LIGADO],[オン],[SI],[Вкл]
 _L_OFF_F,[OFF],[关],[關],[NO],[KI],[AUS],[DÉSACTIVÉ],[UIT],[DESLIGADO],[オフ],[NO],[Выкл]
 _L_BACK,Back,返回,返回,[Atrás],Vissza,Zurück,Retour,Terug,Voltar,戻る,Indietro,[Назад]
