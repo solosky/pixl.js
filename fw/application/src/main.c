@@ -286,7 +286,7 @@ int main(void) {
 #ifdef NRF52840_XXAA
     //usb_init();
     board_init();
-    tusb_init();
+    tud_init(BOARD_TUD_RHPORT);
 #endif
 
     NRF_LOG_DEBUG("init done");
