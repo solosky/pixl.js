@@ -155,6 +155,7 @@ const mini_app_t app_amiidb_info = {.id = MINI_APP_ID_AMIIDB,
                                     .sys = false,
                                     .deamon = false,
                                     .hibernate_enabled = false,
+                                    .icon_32x32 = &app_amiibo_database_32x32,
                                     .run_cb = app_amiidb_on_run,
                                     .kill_cb = app_amiidb_on_kill,
                                     .on_event_cb = app_amiidb_on_event};

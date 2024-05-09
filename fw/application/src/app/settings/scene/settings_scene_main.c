@@ -25,6 +25,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_EXIT
 };
 
+static void settings_scene_main_reload(void *user_data);
 static void settings_reset_default(void *user_data) {
     app_settings_t *app = user_data;
     settings_data_t *p_settings = settings_get_data();
@@ -38,7 +39,16 @@ static void settings_reset_default(void *user_data) {
 
     mui_toast_view_show(app->p_toast_view, _T(APP_SET_RESET_DEFAULT_SUCCESS));
 }
-static void settings_scene_main_reload(void *user_data);
+
+static void settings_scene_main_msg_box_reset_settings_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+    app_settings_t *app = p_msg_box->user_data;
+    if (event == MUI_MSG_BOX_EVENT_SELECT_LEFT) {
+        settings_reset();
+        settings_reset_default(app);
+        settings_scene_main_reload(app);
+    }
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SETTINGS_VIEW_ID_MAIN);
+}
 
 static void settings_scene_main_list_view_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                       mui_list_item_t *p_item) {
@@ -49,9 +59,11 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
 
     uint32_t selection = (uint32_t)p_item->user_data;
     switch (selection) {
+#ifdef LCD_SCREEN
     case SETTINGS_MAIN_MENU_BACK_LIGHT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_LCD_BACKLIGHT);
         break;
+#endif
 
 #ifdef OLED_SCREEN
     case SETTINGS_MAIN_MENU_OLED_CONTRAST:
@@ -108,11 +120,17 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         system_reboot();
         break;
 
-    case SETTINGS_MAIN_MENU_RESET_DEFAULT:
-        settings_reset();
-        settings_reset_default(app);
-        settings_scene_main_reload(app);
-        break;
+    case SETTINGS_MAIN_MENU_RESET_DEFAULT: {
+        mui_msg_box_set_header(app->p_msg_box, _T(APP_SET_RESET_DEFAULT));
+        mui_msg_box_set_message(app->p_msg_box, _T(APP_SET_RESET_DEFAULT_CONFIRM));
+        mui_msg_box_set_btn_text(app->p_msg_box, _T(CONFIRM), NULL, _T(CANCEL));
+        mui_msg_box_set_btn_focus(app->p_msg_box, 2);
+        mui_msg_box_set_event_cb(app->p_msg_box, settings_scene_main_msg_box_reset_settings_cb);
+
+        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SETTINGS_VIEW_ID_MSG_BOX);
+    }
+
+    break;
     }
 }
 
@@ -174,7 +192,13 @@ static void settings_scene_main_reload(void *user_data) {
                                p_settings->hibernate_enabled ? _T(ON_F) : _T(OFF_F),
                                (void *)SETTINGS_MAIN_MENU_ENABLE_HIBERNATE);
 
-    snprintf(txt, sizeof(txt), "[%ds]", nrf_pwr_mgmt_get_timeout());
+    if (nrf_pwr_mgmt_get_timeout() == 0) {
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_OFF_F));
+    } else if (nrf_pwr_mgmt_get_timeout() > 0 && nrf_pwr_mgmt_get_timeout() < 60) {
+        snprintf(txt, sizeof(txt), "[%ds]", nrf_pwr_mgmt_get_timeout());
+    } else {
+        snprintf(txt, sizeof(txt), "[%dm]", nrf_pwr_mgmt_get_timeout() / 60);
+    }
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, _T(APP_SET_SLEEP_TIMEOUT), txt,
                                (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
 

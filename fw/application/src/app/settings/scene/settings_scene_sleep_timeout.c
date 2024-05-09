@@ -14,6 +14,7 @@ enum settings_sleep_timeout_menu_t {
     SETTINGS_SLEEP_TIMEOUT_MENU_1MIN,
     SETTINGS_SLEEP_TIMEOUT_MENU_2MIN,
     SETTINGS_SLEEP_TIMEOUT_MENU_3MIN,
+    SETTINGS_SLEEP_TIMEOUT_MENU_OFF,
     SETTINGS_SLEEP_TIMEOUT_MENU_EXIT
 };
 
@@ -52,6 +53,11 @@ static void settings_scene_sleep_timeout_list_view_on_selected(mui_list_view_eve
         p_settings->sleep_timeout_sec = 180;
         nrf_pwr_mgmt_set_timeout(180);
         break;
+
+    case SETTINGS_SLEEP_TIMEOUT_MENU_OFF:
+        p_settings->sleep_timeout_sec = 0;
+        nrf_pwr_mgmt_set_timeout(0);
+        break;
     }
     mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
 }
@@ -59,6 +65,7 @@ static void settings_scene_sleep_timeout_list_view_on_selected(mui_list_view_eve
 void settings_scene_sleep_timeout_on_enter(void *user_data) {
 
     app_settings_t *app = user_data;
+    mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_OFF), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_OFF);
     mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_15S), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_15S);
     mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_30S), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_30S);
     mui_list_view_add_item(app->p_list_view, 0xe105, getLangString(_L_45S), (void *)SETTINGS_SLEEP_TIMEOUT_MENU_45S);

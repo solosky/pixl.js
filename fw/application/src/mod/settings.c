@@ -6,13 +6,20 @@
 
 #define SETTINGS_FILE_NAME "/settings.bin"
 
+#ifdef OLED_SCREEN
+// Though OLED doesn't necessarily imply rechargeable battery, it's usually the case.
+#define DEFAULT_BAT_MODE 1
+#else  // !OLED_SCREEN
+#define DEFAULT_BAT_MODE 0
+#endif  // OLED_SCREEN
+
 const settings_data_t def_settings_data = {.backlight = 0,
                                            .oled_contrast = 40,
                                            .auto_gen_amiibo = 0,
                                            .auto_gen_amiibolink = 0,
                                            .sleep_timeout_sec = 30,
                                            .skip_driver_select = 0,
-                                           .bat_mode = 0,
+                                           .bat_mode = DEFAULT_BAT_MODE,
                                            .amiibo_link_ver = BLE_AMIIBOLINK_VER_V1,
                                            .language = LANGUAGE_EN_US,
                                            .hibernate_enabled = false,
@@ -33,7 +40,7 @@ settings_data_t m_settings_data = {0};
     }
 
 static void validate_settings() {
-    if (m_settings_data.sleep_timeout_sec == 0 || m_settings_data.sleep_timeout_sec > 180) {
+    if (m_settings_data.sleep_timeout_sec > 180) {
         m_settings_data.sleep_timeout_sec = 30;
     }
 

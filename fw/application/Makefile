@@ -9,7 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
-RELEASE ?= 0
+RELEASE ?= 1
 BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
@@ -202,6 +202,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/u8g2_font_likeminecraft_te.c \
   $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
+  $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a_lite.c \
   $(PROJ_DIR)/mui/mui_core.c \
   $(PROJ_DIR)/mui/mui_canvas.c \
   $(PROJ_DIR)/mui/mui_event.c \
@@ -210,6 +211,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_mem.c \
   $(PROJ_DIR)/mui/mui_anim.c \
   $(PROJ_DIR)/mui/mui_math.c \
+  $(PROJ_DIR)/mui/mui_resource.c \
   $(PROJ_DIR)/mui/view/mui_list_view.c \
   $(PROJ_DIR)/mui/view/mui_text_input.c \
   $(PROJ_DIR)/mui/view/mui_msg_box.c \
@@ -274,6 +276,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/port/fds_utils.c \
   $(PROJ_DIR)/app/chameleon/port/tag_helper.c \
   $(PROJ_DIR)/app/desktop/app_desktop.c \
+  $(PROJ_DIR)/app/desktop/view/app_list_view.c \
   $(PROJ_DIR)/app/amiibo/app_amiibo.c \
   $(PROJ_DIR)/app/amiibo/view/amiibo_detail_view.c \
   $(PROJ_DIR)/app/amiibo/scene/amiibo_scene.c \
@@ -294,7 +297,15 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
   $(PROJ_DIR)/i18n/es_ES.c \
+  $(PROJ_DIR)/i18n/it_IT.c \
+  $(PROJ_DIR)/i18n/de_DE.c \
+  $(PROJ_DIR)/i18n/fr_FR.c \
   $(PROJ_DIR)/i18n/hu_HU.c \
+  $(PROJ_DIR)/i18n/ja_JP.c \
+  $(PROJ_DIR)/i18n/nl_NL.c \
+  $(PROJ_DIR)/i18n/pt_BR.c \
+  $(PROJ_DIR)/i18n/pt_PT.c \
+  $(PROJ_DIR)/i18n/ru_RU.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
@@ -533,6 +544,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/ble/scene \
   $(PROJ_DIR)/app/ble/view \
   $(PROJ_DIR)/app/desktop \
+  $(PROJ_DIR)/app/desktop/view \
   $(PROJ_DIR)/app/settings \
   $(PROJ_DIR)/app/settings/scene \
   $(PROJ_DIR)/app/amiibo \
@@ -601,6 +613,7 @@ CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
+# CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
 else
 CFLAGS += -DNDEBUG
 CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
@@ -702,6 +715,7 @@ sdk_config:
 
 version:
 	@cd ../ && python3 scripts/version_gen.py
+	@echo build: BOARD=$(BOARD) RELEASE=$(RELEASE) APP_VERSION=$(APP_VERSION)
 
 settingsgen:
 	nrfutil settings generate --family NRF52 --application $(OUTPUT_DIRECTORY)/pixljs.hex --application-version $(APP_VERSION) --bootloader-version 1 --bl-settings-version 1 $(OUTPUT_DIRECTORY)/settings.hex
@@ -711,6 +725,11 @@ ota:
 
 full: settingsgen
 	mergehex --merge $(OUTPUT_DIRECTORY)/settings.hex $(OUTPUT_DIRECTORY)/bootloader.hex $(SDK_ROOT)/components/softdevice/s112/hex/s112_nrf52_7.2.0_softdevice.hex $(OUTPUT_DIRECTORY)/pixljs.hex --output $(OUTPUT_DIRECTORY)/pixljs_all.hex
+
+gen:
+	python3 ../scripts/amiibo_db_gen.py
+	python3 ../scripts/i18n_gen.py
+	python3 ../scripts/resource_gen.py
 
 flash_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit

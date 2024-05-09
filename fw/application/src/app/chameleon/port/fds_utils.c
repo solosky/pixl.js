@@ -22,17 +22,18 @@ static void fds_map_file_name(uint16_t id, uint16_t key, char *path) {
     }
 }
 
-bool fds_read_sync(uint16_t id, uint16_t key, uint16_t max_length, uint8_t *buffer) {
+bool fds_read_sync(uint16_t id, uint16_t key, uint16_t* max_length, uint8_t *buffer) {
     char path[VFS_MAX_PATH_LEN];
     fds_map_file_name(id, key, path);
-    int32_t bytes_read = vfs_get_default_driver()->read_file_data(path, buffer, max_length);
+    int32_t bytes_read = vfs_get_default_driver()->read_file_data(path, buffer, *max_length);
+    *max_length = bytes_read;
     NRF_LOG_INFO("fds_read_sync: id=%X, key=%d, bytes_read=%d", id, key, bytes_read);
     return bytes_read > 0;
 }
 bool fds_write_sync(uint16_t id, uint16_t key, uint16_t data_length_words, void *buffer) {
     char path[VFS_MAX_PATH_LEN];
     fds_map_file_name(id, key, path);
-    int32_t bytes_written = vfs_get_default_driver()->write_file_data(path, buffer, data_length_words * 4);
+    int32_t bytes_written = vfs_get_default_driver()->write_file_data(path, buffer, data_length_words);
     NRF_LOG_INFO("fds_write_sync: id=%X, key=%d, bytes_written=%d", id, key, bytes_written);
     return bytes_written > 0;
 }

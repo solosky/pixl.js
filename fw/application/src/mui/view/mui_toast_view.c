@@ -19,6 +19,7 @@ static void mui_toast_timer_handler(void *p_context) {
 static void mui_toast_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     mui_toast_view_t *p_toast_view = (mui_toast_view_t *)p_view->user_data;
     const char *msg = string_get_cstr(p_toast_view->message);
+    mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
     if (p_toast_view->is_visible && string_size(p_toast_view->message) > 0) {
         uint8_t mw = mui_canvas_get_width(p_canvas) - 16;
         uint8_t th = mui_element_text_height(p_canvas, mw, msg);

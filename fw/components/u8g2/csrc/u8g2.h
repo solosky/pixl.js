@@ -1670,6 +1670,7 @@ u8g2_uint_t u8g2_DrawExtUTF8(u8g2_t *u8g2, u8g2_uint_t x, u8g2_uint_t y, uint8_t
 #define u8g2_GetDescent(u8g2) ((u8g2)->font_ref_descent)
 #define u8g2_GetFontAscent(u8g2) ((u8g2)->font_ref_ascent)
 #define u8g2_GetFontDescent(u8g2) ((u8g2)->font_ref_descent)
+#define u8g2_GetFont(u8g2) ((u8g2)->font)
 
 uint8_t u8g2_IsAllValidUTF8(u8g2_t *u8g2, const char *str);	// checks whether all codes are valid
 

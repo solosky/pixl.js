@@ -87,6 +87,7 @@ mini_app_t app_amiibolink_info = {.id = MINI_APP_ID_AMIIBOLINK,
                                         .deamon = false,
                                         .sys = false,
                                         .hibernate_enabled = true,
+                                        .icon_32x32 = &app_amiibo_link_32x32,
                                         .run_cb = app_amiibolink_on_run,
                                         .kill_cb = app_amiibolink_on_kill,
                                         .on_event_cb = app_amiibolink_on_event};
