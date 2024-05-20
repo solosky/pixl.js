@@ -1,7 +1,7 @@
 #include "string_id.h"
 const char * const lang_ru_RU[_L_COUNT] = {
-    [_L_ON] = "Вкл",
-    [_L_OFF] = "Выкл",
+    [_L_ON] = "Включено",
+    [_L_OFF] = "Выключено",
     [_L_ON_F] = "[Вкл]",
     [_L_OFF_F] = "[Выкл]",
     [_L_BACK] = "[Назад]",
