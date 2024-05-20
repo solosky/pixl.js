@@ -38,7 +38,7 @@
 #define MTC_W25Q32_BV (0x4016)       /* W25Q32BV */
 #define MTC_W25Q32_DW (0x6016)       /* W25Q32DW */
 #define MTC_W25Q64_BV_CV (0x4017)    /* W25Q64BV W25Q64CV */
-#define MTC_W25Q64_DW (0x4017)       /* W25Q64DW */
+#define MTC_W25Q64_DW (0x6017)       /* W25Q64DW */
 #define MTC_W25Q128_BV (0x4018)      /* W25Q128BV */
 #define MTC_W25Q256_FV (TBD)         /* W25Q256FV */
 #define MTC_MX25L25645_GM2I (0x2019)      /* MX25L25645GM2I-10G */
