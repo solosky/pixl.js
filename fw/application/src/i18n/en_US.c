@@ -67,6 +67,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "Input Amiibo Name:",
     [_L_DELETE_FILE] = "Delete %s ?",
     [_L_DELETE] = "Delete...",
+    [_L_TIPS] = "Confirm",
     [_L_INPUT_NEW_NAME] = "Input New Name:",
     [_L_INVALID_INPUT] = "Invalid Input",
     [_L_CREATE_NEW_FOLDER] = "Create New Folder...",

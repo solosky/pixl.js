@@ -67,6 +67,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "入力Amiibo名:",
     [_L_DELETE_FILE] = "%s を削除しますか ？",
     [_L_DELETE] = "削除...",
+    [_L_TIPS] = "確認する",
     [_L_INPUT_NEW_NAME] = "新しい名前を入力してください：",
     [_L_INVALID_INPUT] = "無効な入力",
     [_L_CREATE_NEW_FOLDER] = "新しいフォルダを作成...",

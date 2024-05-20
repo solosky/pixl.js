@@ -67,6 +67,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "輸入amiibo名稱:",
     [_L_DELETE_FILE] = "刪除 %s ?",
     [_L_DELETE] = "刪除...",
+    [_L_TIPS] = "提示",
     [_L_INPUT_NEW_NAME] = "輸入新名稱:",
     [_L_INVALID_INPUT] = "無效的輸入",
     [_L_CREATE_NEW_FOLDER] = "新建資料夾...",
