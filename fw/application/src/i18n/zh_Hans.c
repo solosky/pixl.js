@@ -67,6 +67,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_INPUT_AMIIBO_NAME] = "输入amiibo名:",
     [_L_DELETE_FILE] = "删除 %s ?",
     [_L_DELETE] = "删除...",
+    [_L_TIPS] = "提示",
     [_L_INPUT_NEW_NAME] = "输入新名:",
     [_L_INVALID_INPUT] = "无效的输入",
     [_L_CREATE_NEW_FOLDER] = "新建文件夹...",

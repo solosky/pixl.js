@@ -32,34 +32,35 @@ const char *getLangString(L_StringID stringID) {
 void setLanguage(Language lang) { currentLanguage = lang; }
 
 const char *getLangDesc(Language lang) {
-    if (lang == LANGUAGE_ZH_HANS) {
-        return "简体中文";
-    } else if (lang == LANGUAGE_EN_US) {
-        return "English";
-    } else if (lang == LANGUAGE_ZH_TW) {
-        return "繁體中文(臺灣)";
-    } else if (lang == LANGUAGE_ES_ES) {
-        return "Español";
-    } else if (lang == LANGUAGE_IT_IT) {
-        return "Italiano";
-    } else if (lang == LANGUAGE_HU_HU) {
-        return "Magyar";
-    } else if (lang == LANGUAGE_DE_DE) {
-        return "Deutsch";
-    } else if (lang == LANGUAGE_FR_FR) {
-        return "Français";
-    } else if (lang == LANGUAGE_NL_NL) {
-        return "Dutch (Nederlands)";
-    } else if (lang == LANGUAGE_PT_BR) {
-        return "Português(Brazil)";
-    } else if (lang == LANGUAGE_JA_JP) {
-        return "日本語";
-    } else if (lang == LANGUAGE_PT_PT) {
-        return "Português(Portugal)";
-    } else if (lang == LANGUAGE_RU_RU) {
-        return "Русский";
-    } else {
-        return "@@LANG@@";
+    switch (lang) {
+        case LANGUAGE_ZH_HANS:
+            return "简体中文";
+        case LANGUAGE_EN_US:
+            return "English";
+        case LANGUAGE_ZH_TW:
+            return "繁體中文(臺灣)";
+        case LANGUAGE_ES_ES:
+            return "Español";
+        case LANGUAGE_IT_IT:
+            return "Italiano";
+        case LANGUAGE_HU_HU:
+            return "Magyar";
+        case LANGUAGE_DE_DE:
+            return "Deutsch";
+        case LANGUAGE_FR_FR:
+            return "Français";
+        case LANGUAGE_NL_NL:
+            return "Dutch (Nederlands)";
+        case LANGUAGE_PT_BR:
+            return "Português(Brazil)";
+        case LANGUAGE_JA_JP:
+            return "日本語";
+        case LANGUAGE_PT_PT:
+            return "Português(Portugal)";
+        case LANGUAGE_RU_RU:
+            return "Русский";
+        default:
+            return "@@LANG@@";
     }
 }
 
