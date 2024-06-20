@@ -69,7 +69,7 @@ def gen_bmp():
     files.sort()
 
     for file in files:
-        
+        print("process %s .." % file)        
         file_name_abs = project_dir + "/resources/bmp/" + file
         if os.path.isdir(file_name_abs):
             continue

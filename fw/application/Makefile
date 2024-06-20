@@ -341,6 +341,7 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/nl_NL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \
   $(PROJ_DIR)/i18n/pt_PT.c \
+  $(PROJ_DIR)/i18n/ru_RU.c \
   $(PROJ_DIR)/i18n/language.c \
   $(PROJ_DIR)/hal/hal_nfc_t2t.c \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
@@ -733,10 +734,10 @@ CFLAGS += -DBOARD_$(BOARD)
 ifneq ($(RELEASE), 1)
 CFLAGS += -DDEBUG
 CFLAGS += -DEBUG_NRF
-# CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
+#CFLAGS += -DU8G2_USE_LARGE_FONTS
 else
 CFLAGS += -DNDEBUG
-CFLAGS += -DU8G2_USE_LARGE_GB2312_FONT
+CFLAGS += -DU8G2_USE_LARGE_FONTS
 endif
 CFLAGS += -DCFG_TUSB_MCU=OPT_MCU_NRF5X
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"

@@ -255,10 +255,10 @@ static void amiibo_scene_file_browser_menu_on_selected(mui_list_view_event_t eve
 
     case FILE_BROWSER_MENU_REMOVE_FOLDER: {
         char msg[64];
-        snprintf(msg, sizeof(msg), "%s %s ?", getLangString(_L_DELETE), string_get_cstr(app->current_file));
-        mui_msg_box_set_header(app->p_msg_box, getLangString(_L_DELETE));
+        snprintf(msg, sizeof(msg), _T(DELETE_FILE), string_get_cstr(app->current_file));
+        mui_msg_box_set_header(app->p_msg_box, getLangString(_L_TIPS));
         mui_msg_box_set_message(app->p_msg_box, msg);
-        mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_DELETE), NULL, getLangString(_L_CANCEL));
+        mui_msg_box_set_btn_text(app->p_msg_box, getLangString(_L_CONFIRM), NULL, getLangString(_L_CANCEL));
         mui_msg_box_set_btn_focus(app->p_msg_box, 2);
         mui_msg_box_set_event_cb(app->p_msg_box, amiibo_scene_file_browser_menu_msg_box_remove_folder_event_cb);
 
@@ -298,9 +298,9 @@ void amiibo_scene_file_browser_menu_on_enter(void *user_data) {
                            (void *)FILE_BROWSER_MENU_CREATE_AMIIBO_BATCH);
     if (string_cmp_str(app->current_file, "..") != 0) {
         char txt[32];
-        snprintf(txt, sizeof(txt), "%s..", getLangString(_L_RENAME));
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_RENAME));
         mui_list_view_add_item(app->p_list_view, ICON_EMPTY, txt, (void *)FILE_BROWSER_MENU_RENAME_FOLDER);
-        snprintf(txt, sizeof(txt), "%s..", getLangString(_L_DELETE));
+        snprintf(txt, sizeof(txt), "%s", getLangString(_L_DELETE));
         mui_list_view_add_item(app->p_list_view, ICON_DELETE, txt, (void *)FILE_BROWSER_MENU_REMOVE_FOLDER);
     }
     mui_list_view_add_item(app->p_list_view, ICON_BACK, getLangString(_L_BACK_TO_FILE_LIST),

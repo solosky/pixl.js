@@ -49,16 +49,28 @@ static s32_t vfs_spiffs_map_error_code(s32_t err) {
     return VFS_ERR_FAIL;
 }
 
-static int32_t vfs_check_file_path(const char* file_path){
-    if(strlen(file_path) >= VFS_MAX_PATH_LEN){
+static int32_t vfs_check_file_path(const char *file_path) {
+    if (strlen(file_path) >= VFS_MAX_PATH_LEN) {
         return VFS_ERR_MAXNM;
     }
-    const char* basename;
+    const char *basename;
     size_t length;
     cwk_path_get_basename(file_path, &basename, &length);
-    if(length <= 0 || length >= VFS_MAX_NAME_LEN){
+    if (length <= 0 || length >= VFS_MAX_NAME_LEN) {
         return VFS_ERR_MAXNM;
     }
+    return VFS_OK;
+}
+
+static int32_t vfs_check_folder_path(const char *file_path) {
+    int32_t ret = vfs_check_file_path(file_path);
+    if (ret != VFS_OK) {
+        return ret;
+    }
+    if (strlen(file_path) + strlen(VFS_SPIFFS_FOLDER_NAME) + 1 >= VFS_MAX_PATH_LEN) {
+        return VFS_ERR_MAXNM;
+    }
+
     return VFS_OK;
 }
 
@@ -159,6 +171,11 @@ int32_t vfs_spiffs_stat_file(const char *file, vfs_obj_t *obj) {
     size_t length;
     char path[SPIFFS_OBJ_NAME_LEN];
     memset(obj, 0, sizeof(vfs_obj_t));
+
+    int res = vfs_check_file_path(file);
+    if (res != VFS_OK) {
+        return res;
+    }
 
     if (SPIFFS_stat(&fs, file, &s) == SPIFFS_OK) {
         cwk_path_get_basename(s.name, &basename, &length);
@@ -289,12 +306,15 @@ int32_t vfs_spiffs_close_dir(vfs_dir_t *fd) {
 int32_t vfs_spiffs_create_dir(const char *dir) {
     char path[VFS_MAX_PATH_LEN];
 
-    NRF_LOG_INFO("create dir %s\n", nrf_log_push(dir));
-    int res = vfs_check_file_path(dir);
-    if(res != VFS_OK){
+    NRF_LOG_INFO("create dir %s, %d\n", nrf_log_push(dir), strlen(dir));
+    int res = vfs_check_folder_path(dir);
+    if (res != VFS_OK) {
+        NRF_LOG_INFO("folder path check failed: %d", res);
         return res;
     }
+
     snprintf(path, sizeof(path), "%s/%s", dir, VFS_SPIFFS_FOLDER_NAME);
+
     res = SPIFFS_creat(&fs, path, 0);
     return vfs_spiffs_map_error_code(res);
 }
@@ -335,13 +355,13 @@ int32_t vfs_spiffs_rename_dir_internal(const char *dir_name, const char *new_dir
     vfs_spiffs_dir_t *p_dir = &dir;
     int32_t err_code = VFS_OK;
 
-    int ret = vfs_check_file_path(dir_name);
-    if( ret != VFS_OK){
+    int ret = vfs_check_folder_path(dir_name);
+    if (ret != VFS_OK) {
         return ret;
     }
 
-    int ret2 = vfs_check_file_path(new_dir_name);
-    if( ret2 != VFS_OK){
+    int ret2 = vfs_check_folder_path(new_dir_name);
+    if (ret2 != VFS_OK) {
         return ret;
     }
 
@@ -396,7 +416,7 @@ int32_t vfs_spiffs_rename_dir(const char *dir_name, const char *new_dir_name) {
 /**file operations*/
 int32_t vfs_spiffs_open_file(const char *file, vfs_file_t *fd, uint32_t flags) {
     int ret = vfs_check_file_path(file);
-    if( ret != VFS_OK){
+    if (ret != VFS_OK) {
         return ret;
     }
     fd->handle = SPIFFS_open(&fs, file, flags, 0);
@@ -464,7 +484,7 @@ int32_t vfs_spiffs_write_file_data(const char *file, void *buff, size_t buff_siz
     NRF_LOG_INFO("write file data %s\n", nrf_log_push(file));
 
     int ret = vfs_check_file_path(file);
-    if( ret != VFS_OK){
+    if (ret != VFS_OK) {
         return ret;
     }
 
@@ -499,10 +519,16 @@ int32_t vfs_spiffs_read_file_data(const char *file, void *buff, size_t buff_size
 }
 
 int32_t vfs_spiffs_rename_file(const char *file, const char *new_file) {
-    if (strlen(new_file) >= SPIFFS_OBJ_NAME_LEN) {
-        NRF_LOG_INFO("rename file error, file %s new file %s is too long");
-        return VFS_ERR_MAXNM;
+    int32_t ret = vfs_check_file_path(file);
+    if (ret != VFS_OK) {
+        return ret;
     }
+
+    ret = vfs_check_file_path(new_file);
+    if (ret != VFS_OK) {
+        return ret;
+    }
+
     NRF_LOG_INFO("rename file %s => %s\n", nrf_log_push(file), nrf_log_push(new_file));
     int res = SPIFFS_rename(&fs, file, new_file);
     return vfs_spiffs_map_error_code(res);

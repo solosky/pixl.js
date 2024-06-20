@@ -6,6 +6,7 @@ export default {
     en: 'English',
     es: 'Español',
     ru: 'Русский',
+    de: 'Deutsch',
     changeok: 'Cambio Idioma Satisfactorio'
   },
   btn: {

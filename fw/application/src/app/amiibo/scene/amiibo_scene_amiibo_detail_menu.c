@@ -125,16 +125,11 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
             amiibo_scene_amiibo_detail_no_key_msg(app);
             return;
         }
-        char txt[32];
         settings_data_t *p_settings = settings_get_data();
         p_settings->auto_gen_amiibo = !p_settings->auto_gen_amiibo;
-        snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION),
-                 p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
         settings_save();
 
-        string_set_str(p_item->text, txt);
-
-        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+        mui_list_view_item_set_sub_text(p_item, (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)));
     } break;
 
     case AMIIBO_DETAIL_MENU_REMOVE_AMIIBO: {
@@ -160,13 +155,11 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
 
     mui_list_view_add_item(app->p_list_view, 0xe1c5, getLangString(_L_RANDOM_GENERATION),
                            (void *)AMIIBO_DETAIL_MENU_RAND_UID);
-
-    char txt[32];
     settings_data_t *p_settings = settings_get_data();
 
-    snprintf(txt, sizeof(txt), "%s [%s]", getLangString(_L_AUTO_RANDOM_GENERATION),
-             p_settings->auto_gen_amiibo ? getLangString(_L_ON) : getLangString(_L_OFF));
-    mui_list_view_add_item(app->p_list_view, 0xe1c6, txt, (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c6, getLangString(_L_AUTO_RANDOM_GENERATION), 
+     (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)), 
+     (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
     mui_list_view_add_item(app->p_list_view, 0xe1c7, getLangString(_L_DELETE_TAG),
                            (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
     mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_BACK_TO_DETAILS),
