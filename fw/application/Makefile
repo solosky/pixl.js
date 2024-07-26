@@ -332,7 +332,7 @@ SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/crypto1_helper.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_14a.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_mf1.c \
-  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_ntag.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_mf0_ntag.c \
   $(CHAMELEON_ROOT)/application/src/rfid/crc_utils.c \
   $(CHAMELEON_ROOT)/application/src/rfid/hex_utils.c \
   $(CHAMELEON_ROOT)/application/src/rfid/mf1_crapto1.c \

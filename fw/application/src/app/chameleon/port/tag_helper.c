@@ -5,6 +5,7 @@
 #include "nrf_log.h"
 #include "utils2.h"
 #include <string.h>
+#define NFC_TAG_NTAG_DATA_SIZE 4
 
 const static tag_specific_type_name_t tag_type_names[] = {
     {TAG_TYPE_UNDEFINED, "-", "-", 0},
@@ -75,9 +76,9 @@ const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
         // nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         // return &m_tag_information->res_coll;
     } else {
-        // nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        // nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
         // return &m_tag_information->res_coll;
-        return get_ntag_coll_res();
+        return nfc_tag_mf0_ntag_get_coll_res();
     }
 }
 
@@ -150,7 +151,7 @@ uint8_t *tag_helper_get_active_tag_memory_data() {
         nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         return &m_tag_information->memory;
     } else {
-        nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
         return &m_tag_information->memory;
     }
 }
@@ -160,12 +161,12 @@ void tag_helper_generate_uid() {
     tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
     tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
     if (tag_group_type == TAG_GROUP_NTAG) {
-        nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
         uint8_t uuid[7];
         ret_code_t err_code = utils_rand_bytes(uuid, sizeof(uuid));
         if (err_code == NRF_SUCCESS) {
             uuid[0] = 04; // fixed
-            m_tag_information->memory[0][0] = uuid[0]; 
+            m_tag_information->memory[0][0] = uuid[0];
             m_tag_information->memory[0][1] = uuid[1];
             m_tag_information->memory[0][2] = uuid[2];
             // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
