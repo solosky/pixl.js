@@ -22,6 +22,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_REBOOT,
     SETTINGS_MAIN_MENU_RESET_DEFAULT,
+    SETTINGS_MAIN_MENU_ABOUT,
     SETTINGS_MAIN_MENU_EXIT
 };
 
@@ -128,9 +129,11 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         mui_msg_box_set_event_cb(app->p_msg_box, settings_scene_main_msg_box_reset_settings_cb);
 
         mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SETTINGS_VIEW_ID_MSG_BOX);
-    }
+    } break;
 
-    break;
+    case SETTINGS_MAIN_MENU_ABOUT: {
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_ABOUT);
+    } break;
     }
 }
 
@@ -206,6 +209,8 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1cb, _T(APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
     mui_list_view_add_item(app->p_list_view, 0xe1ce, _T(APP_SET_RESET_DEFAULT),
                            (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
+
+    mui_list_view_add_item(app->p_list_view, 0xe1cf, _T(APP_SET_ABOUT), (void *)SETTINGS_MAIN_MENU_ABOUT);
 
     mui_list_view_add_item(app->p_list_view, 0xe069, _T(BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
