@@ -488,6 +488,12 @@ SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/rfid/reader/hf/mf1_toolbox.c
 endif
 
+# cmd
+ifeq ($(BOARD),NEO)
+SRC_FILES += \
+  $(CHAMELEON_ROOT)/application/src/app_cmd.c 
+endif 
+
 # Include folders common to all targets
 INC_FOLDERS += \
   $(SDK_ROOT)/components/nfc/ndef/generic/message \
@@ -740,6 +746,11 @@ else
 CFLAGS += -DNDEBUG
 CFLAGS += -DU8G2_USE_LARGE_FONTS
 endif
+
+ifeq ($(BOARD),NEO)
+CFLAGS += -DPROJECT_CHAMELEON_ULTRA
+endif
+
 CFLAGS += -DCFG_TUSB_MCU=OPT_MCU_NRF5X
 CFLAGS += -DMBEDTLS_CONFIG_FILE=\"nrf_crypto_mbedtls_config.h\"
 CFLAGS += -DM_USE_THREAD_BACKEND=0
@@ -861,6 +872,9 @@ gen:
 
 flash_ocd: default
 	openocd -f openocd/program.cfg
+
+gdb_ocd: default
+	openocd -f openocd/debug.cfg
 
 flash_all_ocd: default
 	openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg -d2 -c init -c "reset init" -c halt -c "nrf51 mass_erase" -c "program $(SDK_ROOT)/components/softdevice/$(SD_VERSION_INC)/hex/$(SD_VERSION_INC)_nrf52_7.2.0_softdevice.hex verify" -c "program $(OUTPUT_DIRECTORY)/pixljs.hex verify" -c "reset" -c exit
