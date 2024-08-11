@@ -27,6 +27,7 @@ const static tag_specific_type_name_t tag_type_names[] = {
     {TAG_TYPE_MF0UL21,"UL21", "MF0UL21", MF0UL21_PAGES * NFC_TAG_NTAG_DATA_SIZE},
 
 };
+
 // typedef enum {
 //     NFC_TAG_MF1_WRITE_NORMAL    = 0u,
 //     NFC_TAG_MF1_WRITE_DENIED    = 1u,
@@ -50,9 +51,16 @@ const tag_specific_type_t hf_tag_specific_types[] = {
     TAG_TYPE_MIFARE_2048,
     TAG_TYPE_MIFARE_4096,
     // NTAG series
+    TAG_TYPE_NTAG_210,
+    TAG_TYPE_NTAG_212,
     TAG_TYPE_NTAG_213,
     TAG_TYPE_NTAG_215,
     TAG_TYPE_NTAG_216,
+
+    TAG_TYPE_MF0ICU1,
+    TAG_TYPE_MF0ICU2,
+    TAG_TYPE_MF0UL11,
+    TAG_TYPE_MF0UL21
 };
 
 tag_group_type_t tag_helper_get_tag_group_type(tag_specific_type_t tag_type) {
