@@ -30,9 +30,9 @@ _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Új
 _L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す,Ripristina impostazioni predefinite,Сброс настроек
 _L_APP_SET_RESET_DEFAULT_SUCCESS,Reset Success!,重置成功,重置成功,¡Configuración Restablecida!,Alapért. Beállítások Visszaállítása,Einstellungen zurückgesetzt!,Réinitialiser les Paramètres Par Défaut,Standaardinstellingen Herstellen,Redefinir a Configuração Padrão,設定を初期化,Ripristino riuscito!,Сброс выполнен
 _L_APP_SET_RESET_DEFAULT_CONFIRM,Confirm Reset Settings?,确认重置默认设置？,确认重置默认设置？,¿Confirma Restablecer\nConfig.?,,Auf Standardeinstellungen zurücksetzen?,,,,,Conferma il ripristino delle impostazioni?,Выполнить?
-_L_APP_SET_ABOUT,About Device,关于设备,關於設俻,Acerca del dispositivo,,,,,,,,
-_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT,Open Source Project,开源项目,開源項目,Poyecto de código abierto,,,,,,,,
-_L_APP_SET_ABOUT_LGPL_LICENSE,LGPL2.0 License,LGPL 2.0 授权,LGPL 2.0 授權,Licencia GPL 2.0,,,,,,,,
+_L_APP_SET_ABOUT,About Device,关于设备,關於設俻,Acerca del dispositivo,,,,,,,,Об устройстве
+_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT,Open Source Project,开源项目,開源項目,Poyecto de código abierto,,,,,,,,Проект с открытым кодом
+_L_APP_SET_ABOUT_LGPL_LICENSE,LGPL2.0 License,LGPL 2.0 授权,LGPL 2.0 授權,Licencia GPL 2.0,,,,,,,,Лицензия LGPL 2.0
 _L_15S,15 Seconds,15秒,15秒,15 segundos,15 sec.,15 Sekunden,15 sec.,15 sec.,15 seg.,15秒,15 secondi,15 секунд
 _L_30S,30 Seconds,30秒,30秒,30 segundos,30 sec.,30 Sekunden,30 sec.,30 sec.,30 seg.,30秒,30 secondi,30 секунд
 _L_45S,45 Seconds,45秒,45秒,45 segundos,45 sec.,45 Sekunden,45 sec.,45 sec.,45 seg.,45秒,45 secondi,45 секунд
