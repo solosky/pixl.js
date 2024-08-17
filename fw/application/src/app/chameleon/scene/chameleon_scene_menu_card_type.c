@@ -66,7 +66,7 @@ void chameleon_scene_menu_card_type_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
 
     // 0 is unkown...
-    for (uint32_t i = 1; i < TAG_TYPE_HF_MAX; i++) {
+    for (uint32_t i = 1; i < TAG_TYPE_HF_MAX + 1; i++) {
         const tag_specific_type_name_t *tag_name = tag_helper_get_tag_type_name(hf_tag_specific_types[i]);
         mui_list_view_add_item(app->p_list_view, ICON_FILE, tag_name->long_name, (void *)CHAMELEON_MENU_CARD_TYPE);
     }

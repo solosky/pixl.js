@@ -9,3 +9,4 @@ ADD_SCENE(settings, lcd_backlight, LCD_BACKLIGHT)
 #endif
 ADD_SCENE(settings, language, LANGUAGE)
 ADD_SCENE(settings, storage, STORAGE)
+ADD_SCENE(settings, about, ABOUT)

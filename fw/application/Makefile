@@ -293,6 +293,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_language.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_storage.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_about.c \
   $(PROJ_DIR)/i18n/en_US.c \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
@@ -729,6 +730,7 @@ full: settingsgen
 gen:
 	python3 ../scripts/amiibo_db_gen.py
 	python3 ../scripts/i18n_gen.py
+	python3 ../scripts/font_data_gen.py
 	python3 ../scripts/resource_gen.py
 
 flash_ocd: default

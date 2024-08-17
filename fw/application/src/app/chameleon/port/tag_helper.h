@@ -6,8 +6,7 @@
 #include "nfc_mf1.h"
 #include "tag_base_type.h"
 
-#define TAG_TYPE_MAX 9
-#define TAG_TYPE_HF_MAX 8
+#define TAG_TYPE_HF_MAX 13
 #define SLOT_MAX 8
 
 typedef struct {
