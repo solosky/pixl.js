@@ -11,6 +11,7 @@
 typedef enum {
     VFS_OBJ_FLAG_HIDDEN = 1 << 0,
     VFS_OBJ_FLAG_SYSTEM = 1 << 1,
+    VFS_OBJ_FLAG_READONLY = 1 << 2,
 } vfs_obj_flags_t;
 
 typedef enum {
