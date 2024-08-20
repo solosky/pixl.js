@@ -46,6 +46,7 @@ const char * const lang_it_IT[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Tag casuale",
     [_L_AUTO_RANDOM_GENERATION] = "Casuale automatico",
     [_L_SHOW_QRCODE] = "Mostra codice QR",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Elimina tag",
     [_L_DELETE_TAG_CONFIRM] = "Conferma eliminazione %s\n?",
     [_L_BACK_TO_DETAILS] = "[Torna ai dettagli del tag]",

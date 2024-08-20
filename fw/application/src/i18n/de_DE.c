@@ -46,6 +46,7 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Zufällige UUID",
     [_L_AUTO_RANDOM_GENERATION] = "Zufällige UUID (Automatisch)",
     [_L_SHOW_QRCODE] = "QR Code",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Tag löschen",
     [_L_DELETE_TAG_CONFIRM] = "Löschen von %s bestätigen?",
     [_L_BACK_TO_DETAILS] = "Zurück zu Tag Details",

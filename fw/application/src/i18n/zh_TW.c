@@ -46,6 +46,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "隨機產生",
     [_L_AUTO_RANDOM_GENERATION] = "自動隨機產生",
     [_L_SHOW_QRCODE] = "顯示二維碼",
+    [_L_READ_ONLY] = "禁止寫入",
     [_L_DELETE_TAG] = "刪除標籤",
     [_L_DELETE_TAG_CONFIRM] = "確認刪除 %s ?",
     [_L_BACK_TO_DETAILS] = "返回詳情",

@@ -1,17 +1,17 @@
+#include "amiibo_helper.h"
 #include "amiibo_scene.h"
 #include "app_amiibo.h"
 #include "app_timer.h"
 #include "cwalk2.h"
+#include "db_header.h"
+#include "i18n/language.h"
 #include "mui_list_view.h"
 #include "nrf_log.h"
 #include "ntag_emu.h"
-#include "vfs.h"
-#include "vfs_meta.h"
-#include "amiibo_helper.h"
 #include "ntag_store.h"
 #include "settings.h"
-#include "i18n/language.h"
-#include "db_header.h"
+#include "vfs.h"
+#include "vfs_meta.h"
 
 #define NRF_ERR_NOT_AMIIBO -1000
 #define NRF_ERR_READ_ERROR -1001
@@ -70,8 +70,12 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
     vfs_meta_t meta;
     memset(&meta, 0, sizeof(vfs_meta_t));
     vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-    if(meta.has_notes){
+    if (meta.has_notes) {
         memcpy(ntag->notes, meta.notes, strlen(meta.notes));
+    }
+
+    if (meta.has_flags && (meta.flags & VFS_OBJ_FLAG_READONLY)) {
+        ntag->read_only = true;
     }
 
     res = p_vfs_driver->read_file_data(path, ntag->data, 540);
@@ -83,7 +87,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
 
 static void ntag_gen(void *p_context) {
     ret_code_t err_code;
-    app_amiibo_t * app = p_context;
+    app_amiibo_t *app = p_context;
     ntag_t *ntag_current = &app->ntag;
 
     err_code = amiibo_helper_rand_amiibo_uuid(ntag_current);
@@ -136,7 +140,7 @@ static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag
     if (type == NTAG_EVENT_TYPE_WRITTEN) {
         ntag_update(app, p_ntag);
     } else if (type == NTAG_EVENT_TYPE_READ) {
-        settings_data_t* p_settings = settings_get_data();
+        settings_data_t *p_settings = settings_get_data();
         if (p_settings->auto_gen_amiibo) {
             app_timer_stop(m_amiibo_gen_delay_timer);
             app_timer_start(m_amiibo_gen_delay_timer, APP_TIMER_TICKS(1000), app);
@@ -187,7 +191,9 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (obj.type == VFS_TYPE_REG && (obj.size == NTAG_DATA_SIZE || obj.size == NTAG_TAGMO_DATA_SIZE || obj.size == NTAG_THENAYA_DATA_SIZE) &&
+            if (obj.type == VFS_TYPE_REG &&
+                (obj.size == NTAG_DATA_SIZE || obj.size == NTAG_TAGMO_DATA_SIZE ||
+                 obj.size == NTAG_THENAYA_DATA_SIZE) &&
                 (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
                 string_set_str(file_name, obj.name);
                 string_array_push_back(app->amiibo_files, file_name);

@@ -46,6 +46,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "タグのランダム化",
     [_L_AUTO_RANDOM_GENERATION] = "自動ランダム化",
     [_L_SHOW_QRCODE] = "QRコード表示",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "タグの削除",
     [_L_DELETE_TAG_CONFIRM] = "%s を削除しますか？",
     [_L_BACK_TO_DETAILS] = "タグの詳細に戻る",

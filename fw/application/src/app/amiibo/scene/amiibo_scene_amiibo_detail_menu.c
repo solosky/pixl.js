@@ -7,6 +7,7 @@
 #include "nrf_log.h"
 #include "settings.h"
 #include "vfs.h"
+#include "vfs_meta.h"
 
 #include "ntag_emu.h"
 #include "ntag_store.h"
@@ -19,11 +20,42 @@
 enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
     AMIIBO_DETAIL_MENU_AUTO_RAND_UID,
+    AMIIBO_DETAIL_MENU_READ_ONLY,
     AMIIBO_DETAIL_MENU_REMOVE_AMIIBO,
     AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL,
     AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER,
     AMIIBO_DETAIL_MENU_BACK_MAIN_MENU,
 };
+
+static ret_code_t amiibo_scene_amiibo_detail_set_readonly(app_amiibo_t *app, bool readonly) {
+    char path[VFS_MAX_PATH_LEN];
+    vfs_meta_t meta;
+    vfs_obj_t obj;
+
+    cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
+
+    vfs_driver_t *p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
+    int32_t res = p_vfs_driver->stat_file(path, &obj);
+    if (res < 0) {
+        return -1;
+    }
+
+    memset(&meta, 0, sizeof(vfs_meta_t));
+    vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
+
+    meta.has_flags = true;
+    if (readonly) {
+        meta.flags |= VFS_OBJ_FLAG_READONLY;
+    } else {
+        meta.flags &= ~VFS_OBJ_FLAG_READONLY;
+    }
+
+    if (p_vfs_driver->update_file_meta(path, obj.meta, sizeof(obj.meta)) == VFS_OK) {
+        return NRF_SUCCESS;
+    } else {
+        return -1;
+    }
+}
 
 static void amiibo_scene_amiibo_detail_menu_msg_box_no_key_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
     app_amiibo_t *app = p_msg_box->user_data;
@@ -129,7 +161,17 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         p_settings->auto_gen_amiibo = !p_settings->auto_gen_amiibo;
         settings_save();
 
-        mui_list_view_item_set_sub_text(p_item, (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)));
+        mui_list_view_item_set_sub_text(
+            p_item, (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)));
+    } break;
+
+    case AMIIBO_DETAIL_MENU_READ_ONLY: {
+        ret_code_t err_code = amiibo_scene_amiibo_detail_set_readonly(app, !app->ntag.read_only);
+        if (err_code == NRF_SUCCESS) {
+            app->ntag.read_only = !app->ntag.read_only;
+            mui_list_view_item_set_sub_text(p_item,
+                                            app->ntag.read_only ? getLangString(_L_ON_F) : getLangString(_L_OFF_F));
+        }
     } break;
 
     case AMIIBO_DETAIL_MENU_REMOVE_AMIIBO: {
@@ -157,9 +199,14 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
                            (void *)AMIIBO_DETAIL_MENU_RAND_UID);
     settings_data_t *p_settings = settings_get_data();
 
-    mui_list_view_add_item_ext(app->p_list_view, 0xe1c6, getLangString(_L_AUTO_RANDOM_GENERATION), 
-     (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)), 
-     (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
+    mui_list_view_add_item_ext(app->p_list_view, 0xe1c6, getLangString(_L_AUTO_RANDOM_GENERATION),
+                               (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)),
+                               (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
+
+    mui_list_view_add_item_ext(app->p_list_view, 0xe007, getLangString(_L_READ_ONLY),
+                               app->ntag.read_only ? getLangString(_L_ON_F) : getLangString(_L_OFF_F),
+                               (void *)AMIIBO_DETAIL_MENU_READ_ONLY);
+
     mui_list_view_add_item(app->p_list_view, 0xe1c7, getLangString(_L_DELETE_TAG),
                            (void *)AMIIBO_DETAIL_MENU_REMOVE_AMIIBO);
     mui_list_view_add_item(app->p_list_view, 0xe068, getLangString(_L_BACK_TO_DETAILS),

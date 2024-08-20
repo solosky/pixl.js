@@ -46,6 +46,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Сгенерировать UUID",
     [_L_AUTO_RANDOM_GENERATION] = "Автогенерация",
     [_L_SHOW_QRCODE] = "QR-код",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Удалить тег",
     [_L_DELETE_TAG_CONFIRM] = "Удалить %s?",
     [_L_BACK_TO_DETAILS] = "[Назад к деталям]",

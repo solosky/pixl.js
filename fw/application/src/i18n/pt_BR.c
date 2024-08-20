@@ -46,6 +46,7 @@ const char * const lang_pt_BR[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Randomizar Etiqueta",
     [_L_AUTO_RANDOM_GENERATION] = "Randomização Automática",
     [_L_SHOW_QRCODE] = "Exibir QR Code",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Excluir Etiqueta",
     [_L_DELETE_TAG_CONFIRM] = "Confirmar Exclusão de %s ?",
     [_L_BACK_TO_DETAILS] = "Voltar Aos Detalhes da Tag",

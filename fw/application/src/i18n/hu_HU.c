@@ -46,6 +46,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Véletlengenerátor",
     [_L_AUTO_RANDOM_GENERATION] = "Automat. Véletlengenerátor",
     [_L_SHOW_QRCODE] = "QR-kód Megjelenítése",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Címke Törlése",
     [_L_DELETE_TAG_CONFIRM] = "Törlés Megerősítése?",
     [_L_BACK_TO_DETAILS] = "Vissza a Címke Részletkhez",

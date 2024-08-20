@@ -30,8 +30,8 @@ int32_t amiidb_api_slot_read(uint8_t slot, ntag_t *p_ntag) {
         strcpy(p_ntag->notes, meta.notes);
     }
 
-    if (meta.has_flags && meta.flags & VFS_OBJ_FLAG_READONLY) {
-        p_ntag->readonly = true;
+    if (meta.has_flags && (meta.flags & VFS_OBJ_FLAG_READONLY)) {
+        p_ntag->read_only = true;
     }
 
     return 0;
@@ -172,5 +172,9 @@ int32_t amiidb_api_slot_set_readonly(uint8_t slot, bool readonly) {
         meta.flags &= ~VFS_OBJ_FLAG_READONLY;
     }
 
-    return p_vfs_driver->update_file_meta(path, obj.meta, sizeof(obj.meta));
+    if (p_vfs_driver->update_file_meta(path, obj.meta, sizeof(obj.meta)) == VFS_OK) {
+        return 0;
+    } else {
+        return -1;
+    }
 }

@@ -46,6 +46,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Randomiser la Balise",
     [_L_AUTO_RANDOM_GENERATION] = "Randomisation Automatique",
     [_L_SHOW_QRCODE] = "Afficher le Code QR",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Supprimer la Balise",
     [_L_DELETE_TAG_CONFIRM] = "Confirmer la Suppression de %s ?",
     [_L_BACK_TO_DETAILS] = "Retour Aux Détails de L'étiquette",

@@ -45,6 +45,7 @@ _L_KNOW,Got it,知道了,知道了,Entendido,Megvan,Verstanden,Compris,Begrepen,
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Nuevo serial aleat.,Véletlengenerátor,Zufällige UUID,Randomiser la Balise,Willekeurige Tag,Randomizar Etiqueta,タグのランダム化,Tag casuale,Сгенерировать UUID
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Serial alea. aut,Automat. Véletlengenerátor,Zufällige UUID (Automatisch),Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化,Casuale automatico,Автогенерация
 _L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR,QR-kód Megjelenítése,QR Code,Afficher le Code QR,QR-Code Weergeven,Exibir QR Code,QRコード表示,Mostra codice QR,QR-код
+_L_READ_ONLY,Read-only,禁止写入,禁止寫入,,,,,,,,,
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar amiibo...,Címke Törlése,Tag löschen,Supprimer la Balise,Tag Verwijderen,Excluir Etiqueta,タグの削除,Elimina tag,Удалить тег
 _L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿Borrar %s?,Törlés Megerősítése?,Löschen von %s bestätigen?,Confirmer la Suppression de %s ?,Bevestig Verwijderen %s ?,Confirmar Exclusão de %s ?,%s を削除しますか？,Conferma eliminazione %s\n?,Удалить %s?
 _L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],Vissza a Címke Részletkhez,Zurück zu Tag Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る,[Torna ai dettagli del tag],[Назад к деталям]

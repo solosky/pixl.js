@@ -46,6 +46,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Willekeurige Tag",
     [_L_AUTO_RANDOM_GENERATION] = "Automatische Randomisatie",
     [_L_SHOW_QRCODE] = "QR-Code Weergeven",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Tag Verwijderen",
     [_L_DELETE_TAG_CONFIRM] = "Bevestig Verwijderen %s ?",
     [_L_BACK_TO_DETAILS] = "Terug naar Tag Details",
