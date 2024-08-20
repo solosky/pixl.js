@@ -74,6 +74,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         memcpy(ntag->notes, meta.notes, strlen(meta.notes));
     }
 
+    NRF_LOG_INFO("has_flag:%d flag:%d", meta.has_flags, meta.flags);
     if (meta.has_flags && (meta.flags & VFS_OBJ_FLAG_READONLY)) {
         ntag->read_only = true;
     }

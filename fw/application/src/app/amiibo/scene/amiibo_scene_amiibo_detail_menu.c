@@ -31,6 +31,8 @@ static ret_code_t amiibo_scene_amiibo_detail_set_readonly(app_amiibo_t *app, boo
     char path[VFS_MAX_PATH_LEN];
     vfs_meta_t meta;
     vfs_obj_t obj;
+    uint8_t meta_buf[VFS_MAX_META_LEN];
+
 
     cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
 
@@ -50,7 +52,8 @@ static ret_code_t amiibo_scene_amiibo_detail_set_readonly(app_amiibo_t *app, boo
         meta.flags &= ~VFS_OBJ_FLAG_READONLY;
     }
 
-    if (p_vfs_driver->update_file_meta(path, obj.meta, sizeof(obj.meta)) == VFS_OK) {
+    vfs_meta_encode(meta_buf, sizeof(meta_buf), &meta);
+    if (p_vfs_driver->update_file_meta(path, meta_buf, sizeof(meta_buf)) == VFS_OK) {
         return NRF_SUCCESS;
     } else {
         return -1;
@@ -169,6 +172,7 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         ret_code_t err_code = amiibo_scene_amiibo_detail_set_readonly(app, !app->ntag.read_only);
         if (err_code == NRF_SUCCESS) {
             app->ntag.read_only = !app->ntag.read_only;
+            ntag_emu_set_tag(&app->ntag);
             mui_list_view_item_set_sub_text(p_item,
                                             app->ntag.read_only ? getLangString(_L_ON_F) : getLangString(_L_OFF_F));
         }

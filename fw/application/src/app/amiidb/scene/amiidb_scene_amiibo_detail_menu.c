@@ -159,9 +159,11 @@ void amiidb_scene_amiibo_detail_menu_on_enter(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe006, getLangString(_L_SHOW_QRCODE), txt,
                                (void *)AMIIDB_DETAIL_MENU_SHOW_QRCODE);
 
-    mui_list_view_add_item_ext(app->p_list_view, 0xe007, getLangString(_L_READ_ONLY),
+    if (app->prev_scene_id == AMIIDB_SCENE_DATA_LIST){
+        mui_list_view_add_item_ext(app->p_list_view, 0xe007, getLangString(_L_READ_ONLY),
                                app->ntag.read_only ? getLangString(_L_ON_F) : getLangString(_L_OFF_F),
                                (void *)AMIIDB_DETAIL_MENU_READ_ONLY);
+    }
 
     mui_list_view_add_item(app->p_list_view, ICON_FAVORITE, getLangString(_L_APP_AMIIDB_DETAIL_FAVORITE),
                            (void *)AMIIDB_DETAIL_MENU_FAVORITE);

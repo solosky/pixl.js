@@ -56,6 +56,12 @@ int32_t amiidb_api_slot_write(uint8_t slot, ntag_t *p_ntag) {
     meta.amiibo_tail = to_little_endian_int32(&p_ntag->data[88]);
 
     // TODO write only flag???
+    meta.has_flags = true;
+    if (p_ntag->read_only) {
+        meta.flags |= VFS_OBJ_FLAG_READONLY;
+    } else {
+        meta.flags &= ~VFS_OBJ_FLAG_READONLY;
+    }
 
     vfs_meta_encode(meta_encoded, sizeof(meta_encoded), &meta);
     res = p_vfs_driver->update_file_meta(path, meta_encoded, sizeof(meta_encoded));
@@ -135,7 +141,7 @@ int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb, void *ctx) {
                     slots[index].amiibo_head = meta.amiibo_head;
                     slots[index].amiibo_tail = meta.amiibo_tail;
                 }
-                if (meta.has_flags && meta.flags & VFS_OBJ_FLAG_READONLY) {
+                if (meta.has_flags && (meta.flags & VFS_OBJ_FLAG_READONLY)) {
                     slots[index].is_readonly = true;
                 }
             }
@@ -154,6 +160,7 @@ int32_t amiidb_api_slot_set_readonly(uint8_t slot, bool readonly) {
     char path[VFS_MAX_PATH_LEN];
     vfs_meta_t meta;
     vfs_obj_t obj;
+    uint8_t meta_buf[VFS_MAX_META_LEN];
 
     sprintf(path, "/amiibo/data/%02d.bin", slot);
     vfs_driver_t *p_vfs_driver = vfs_get_driver(VFS_DRIVE_EXT);
@@ -172,8 +179,9 @@ int32_t amiidb_api_slot_set_readonly(uint8_t slot, bool readonly) {
         meta.flags &= ~VFS_OBJ_FLAG_READONLY;
     }
 
-    if (p_vfs_driver->update_file_meta(path, obj.meta, sizeof(obj.meta)) == VFS_OK) {
-        return 0;
+    vfs_meta_encode(meta_buf, sizeof(meta_buf), &meta);
+    if (p_vfs_driver->update_file_meta(path, meta_buf, sizeof(meta_buf)) == VFS_OK) {
+        return NRF_SUCCESS;
     } else {
         return -1;
     }
