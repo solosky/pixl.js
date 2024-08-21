@@ -54,6 +54,7 @@ export default {
     entermsg: 'Por favor ingrese una anotación',
     attrib: 'Atributos',
     hide: 'Oculto',
+    readonly: 'Solo lectura',
     errupdate: '¡Error al actualizar propiedades!',
     remarktoolong: '¡Las anotaciones deben ser menores a 90 bytes!, lo cual es, 90 carácteres o 30 carácteres chinos (Longitud actual: ',
     remarktoolongend: ' Bytes）'
@@ -83,7 +84,7 @@ export default {
     messageend: ' ?',
     error: '¡Error al borrar!: ',
     deleteok: '¡Archivo borrado satisfactoriamente!'
-    },
+  },
   dfumode: {
     title: 'Modo DFU',
     startconfirm: '¿Iniciar el modo DFU?',
@@ -109,5 +110,5 @@ export default {
   drive: {
     message: '(Disco no disponible [Código de Error: ',
     messageend: '])'
-    }
+  }
 }
