@@ -3,8 +3,10 @@
 #include "fds_utils.h"
 #include "i18n/language.h"
 #include "nrf_log.h"
+#include "settings.h"
 #include "utils2.h"
 #include <string.h>
+
 #define NFC_TAG_NTAG_DATA_SIZE 4
 
 const static tag_specific_type_name_t tag_type_names[] = {
@@ -190,4 +192,15 @@ void tag_helper_generate_uid() {
             memcpy(m_tag_information->res_coll.uid, uuid, sizeof(uuid));
         }
     }
+}
+
+bool tag_helper_is_defult_slot() {
+    settings_data_t *settings = settings_get_data();
+    return settings->chameleon_default_slot_index == tag_emulation_get_slot();
+}
+
+bool tag_helper_valid_default_slot(){
+     settings_data_t *settings = settings_get_data();
+     return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX 
+        && tag_emulation_slot_is_enabled(settings->chameleon_default_slot_index, TAG_SENSE_HF);
 }

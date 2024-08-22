@@ -26,7 +26,7 @@ typedef struct {
     bool qrcode_enabled;
     Language language;
     uint8_t amiidb_data_slot_num;
-    uint8_t chameleon_freq_slot_index;
+    uint8_t chameleon_default_slot_index;
 } settings_data_t;
 
 int32_t settings_init();

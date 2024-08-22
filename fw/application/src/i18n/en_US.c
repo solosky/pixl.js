@@ -173,4 +173,5 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "Write Mode",
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Invalid Input!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Card type changed. \nFactory card data?",
+    [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "Default Card",
 };

@@ -14,12 +14,15 @@
 
 #include "tag_helper.h"
 
+#include "settings.h"
+
 typedef enum {
     CHAMELEON_MENU_HOME,
     CHAMELEON_MENU_BACK,
     CHAMELEON_MENU_SLOT,
     CHAMELEON_MENU_CARD_NAME,
     CHAMELEON_MENU_SLOT_SELECT,
+    CHAMELEON_MENU_DEFAULT_CARD,
     CHAMELEON_MENU_CARD_DATA,
     CHAMELEON_MENU_CARD_TYPE,
     CHAMELEON_MENU_CARD_ADVANCED,
@@ -40,6 +43,18 @@ void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t 
     case CHAMELEON_MENU_SLOT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_SLOT);
         break;
+
+    case CHAMELEON_MENU_DEFAULT_CARD: {
+        settings_data_t *settings = settings_get_data();
+        uint8_t slot = tag_emulation_get_slot();
+        if (settings->chameleon_default_slot_index == slot) {
+            settings->chameleon_default_slot_index = INVALID_SLOT_INDEX;
+        } else {
+            settings->chameleon_default_slot_index = slot;
+        }
+
+        mui_list_view_item_set_sub_text(p_item, slot == settings->chameleon_default_slot_index ? _T(ON_F) : _T(OFF_F));
+    } break;
 
     case CHAMELEON_MENU_SLOT_SELECT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_SLOT_SELECT);
@@ -65,7 +80,6 @@ void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t 
 
 void chameleon_scene_menu_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
-
     char buff[64];
     uint8_t slot = tag_emulation_get_slot();
     tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
@@ -73,11 +87,13 @@ void chameleon_scene_menu_on_enter(void *user_data) {
     const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
 
     sprintf(buff, "[%02d]", slot + 1);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_SLOT), buff, (void *)CHAMELEON_MENU_SLOT_SELECT);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_SLOT), buff,
+                               (void *)CHAMELEON_MENU_SLOT_SELECT);
     strcpy(buff, "[");
     tag_helper_get_nickname(buff + 1, sizeof(buff) - 3);
     strcat(buff, "]");
-    mui_list_view_add_item_ext(app->p_list_view, ICON_KEY, _T(APP_CHAMELEON_CARD_NICK), buff, (void *)CHAMELEON_MENU_CARD_NAME);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_KEY, _T(APP_CHAMELEON_CARD_NICK), buff,
+                               (void *)CHAMELEON_MENU_CARD_NAME);
 
     strcpy(buff, "[");
     tag_helper_format_uid(buff + 1, coll_res->uid, *(coll_res->size));
@@ -85,12 +101,19 @@ void chameleon_scene_menu_on_enter(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_ID), buff, (void *)-1);
 
     sprintf(buff, "[%s]", tag_name->long_name);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_FAVORITE, _T(APP_CHAMELEON_CARD_TYPE), buff, (void *)CHAMELEON_MENU_CARD_TYPE);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_FAVORITE, _T(APP_CHAMELEON_CARD_TYPE), buff,
+                               (void *)CHAMELEON_MENU_CARD_TYPE);
+
+    settings_data_t *settings = settings_get_data();
+    mui_list_view_add_item_ext(app->p_list_view, ICON_SLOT, _T(APP_CHAMELEON_CARD_DEFAULT_CARD),
+                               settings->chameleon_default_slot_index == slot ? _T(ON_F) : _T(OFF_F),
+                               (void *)CHAMELEON_MENU_DEFAULT_CARD);
 
     mui_list_view_add_item(app->p_list_view, ICON_FILE, _T(APP_CHAMELEON_CARD_DATA), (void *)CHAMELEON_MENU_CARD_DATA);
-    mui_list_view_add_item(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_ADVANCED), (void *)CHAMELEON_MENU_CARD_ADVANCED);
-    mui_list_view_add_item(app->p_list_view, ICON_SLOT, _T(APP_CHAMELEON_CARD_SLOT_SETTINGS), (void *)CHAMELEON_MENU_SLOT);
-    // mui_list_view_add_item(app->p_list_view, ICON_SETTINGS, "全局设置..", (void *)-1);
+    mui_list_view_add_item(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_ADVANCED),
+                           (void *)CHAMELEON_MENU_CARD_ADVANCED);
+    mui_list_view_add_item(app->p_list_view, ICON_SLOT, _T(APP_CHAMELEON_CARD_SLOT_SETTINGS),
+                           (void *)CHAMELEON_MENU_SLOT);
 
     mui_list_view_add_item(app->p_list_view, ICON_BACK, _T(TAG_DETAILS), (void *)CHAMELEON_MENU_BACK);
     mui_list_view_add_item(app->p_list_view, ICON_HOME, _T(MAIN_MENU), (void *)CHAMELEON_MENU_HOME);

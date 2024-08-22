@@ -191,7 +191,7 @@ NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 /**
  *@brief :检测唤醒源
  */
-static void check_wakeup_src(void) {
+static uint32_t check_wakeup_src(void) {
     uint32_t rr = nrf_power_resetreas_get();
     NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
 
@@ -211,6 +211,8 @@ static void check_wakeup_src(void) {
         NRF_LOG_INFO("First power system");
     }
     nrf_power_resetreas_clear(nrf_power_resetreas_get());
+
+    return rr;
 }
 
 /**
@@ -258,12 +260,14 @@ int main(void) {
     APP_ERROR_CHECK(err_code);
 
     // cache_clean(); //FOR TESTING
-    check_wakeup_src();
+    
 
     err_code = settings_init();
     // we ignore error here, cause flash may not be presented or settings.bin did not exist
     NRF_LOG_INFO("settings init: %d", err_code);
     // APP_ERROR_CHECK(err_code);
+
+    uint32_t wakeup_reason = check_wakeup_src();
 
     chrg_init();
 
@@ -280,7 +284,7 @@ int main(void) {
     mui_init(p_mui);
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();
-    mini_app_launcher_init(p_launcher);
+    mini_app_launcher_init(p_launcher, wakeup_reason);
 
     NRF_LOG_FLUSH();
 
