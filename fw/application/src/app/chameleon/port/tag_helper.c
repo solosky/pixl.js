@@ -201,6 +201,5 @@ bool tag_helper_is_defult_slot() {
 
 bool tag_helper_valid_default_slot(){
      settings_data_t *settings = settings_get_data();
-     return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX 
-        && tag_emulation_slot_is_enabled(settings->chameleon_default_slot_index, TAG_SENSE_HF);
+     return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX;
 }

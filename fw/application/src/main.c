@@ -92,6 +92,8 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
+#include "tag_helper.h"
+
 #include "cache.h"
 #include "i18n/language.h"
 #include "settings.h"
@@ -195,11 +197,23 @@ static uint32_t check_wakeup_src(void) {
     uint32_t rr = nrf_power_resetreas_get();
     NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
 
-    if (cache_valid()) {
-        cache_data_t *p_cache = cache_get_data();
-        ntag_emu_set_tag(&(p_cache->ntag));
+    // 如果卡模拟器设置了默认卡，这里就不开启模拟NTAG
+    if (tag_helper_valid_default_slot() && (rr & NRF_POWER_RESETREAS_NFC_MASK)) {
+        tag_emulation_init();
+        hal_nfc_set_nrfx_irq_enable(true);
+        tag_emulation_sense_run();
     } else {
-        cache_clean();
+
+        extern const ntag_t default_ntag215;
+        ret_code_t err_code = ntag_emu_init(&default_ntag215);
+        APP_ERROR_CHECK(err_code);
+
+        if (cache_valid()) {
+            cache_data_t *p_cache = cache_get_data();
+            ntag_emu_set_tag(&(p_cache->ntag));
+        } else {
+            cache_clean();
+        }
     }
 
     if (rr == 0) {
@@ -255,12 +269,7 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
-    APP_ERROR_CHECK(err_code);
-
     // cache_clean(); //FOR TESTING
-    
 
     err_code = settings_init();
     // we ignore error here, cause flash may not be presented or settings.bin did not exist

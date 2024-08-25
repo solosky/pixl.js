@@ -79,8 +79,11 @@ void app_chameleon_on_kill(mini_app_inst_t *p_app_inst) {
     p_retain->cycle_mode_index = chameleon_view_get_index(p_app_handle->p_chameleon_view);
 
     settings_data_t *settings = settings_get_data();
-    if (tag_helper_valid_default_slot()) {
+    if (tag_helper_valid_default_slot() &&
+        tag_emulation_slot_is_enabled(settings->chameleon_default_slot_index, TAG_SENSE_HF)) {
         tag_emulation_change_slot(settings->chameleon_default_slot_index, false);
+    } else {
+        settings->chameleon_default_slot_index = INVALID_SLOT_INDEX;
     }
 
     tag_emulation_save();
