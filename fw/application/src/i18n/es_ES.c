@@ -46,6 +46,7 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Nuevo serial aleat.",
     [_L_AUTO_RANDOM_GENERATION] = "Serial alea. aut",
     [_L_SHOW_QRCODE] = "Mostrar QR",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Borrar amiibo...",
     [_L_DELETE_TAG_CONFIRM] = "¿Borrar %s?",
     [_L_BACK_TO_DETAILS] = "[Detalles amiibo]",
@@ -172,4 +173,5 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "Modo escrit.",
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "¡Entrada inválida!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Tipo tarjeta modificado\n¿Inicializar tarjeta?",
+    [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
 };

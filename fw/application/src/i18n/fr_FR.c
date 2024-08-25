@@ -46,6 +46,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Randomiser la Balise",
     [_L_AUTO_RANDOM_GENERATION] = "Randomisation Automatique",
     [_L_SHOW_QRCODE] = "Afficher le Code QR",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Supprimer la Balise",
     [_L_DELETE_TAG_CONFIRM] = "Confirmer la Suppression de %s ?",
     [_L_BACK_TO_DETAILS] = "Retour Aux Détails de L'étiquette",
@@ -172,4 +173,5 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "Mode d'Écriture",
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Entrée Invalide!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Le Type de Carte a Été Modifié. \nRéinitialiser les Données de la Carte?",
+    [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
 };

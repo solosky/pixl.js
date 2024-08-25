@@ -73,8 +73,11 @@ First make sure your device is in off state, then press key sequences bellow to 
 - Any key to wake up the device
 - LEFT
 - MIDDLE
-- LEFT X 4
+- LEFT X N 
 - MIDDLE
+
+If the firmware version before 2.11.x, press LEFT x 4
+If the firmware version after 2.11.x, press LEFT x 5
 
 Now you device is on DFU mode, use any of the [nRF Connect APP](#nRF-Connect-APP)  or [Directly to the Firmware Update Page](#directly-to-the-firmware-update-page) methods to upgrade the fimware.
 

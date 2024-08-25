@@ -38,4 +38,8 @@ uint8_t *tag_helper_get_active_tag_memory_data();
 
 void tag_helper_generate_uid();
 
+bool tag_helper_is_defult_slot();
+
+bool tag_helper_valid_default_slot();
+
 #endif

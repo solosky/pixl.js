@@ -14,6 +14,7 @@
 typedef struct {
     uint8_t slot;
     uint8_t is_empty;
+    uint8_t is_readonly;
     uint32_t amiibo_head;
     uint32_t amiibo_tail;
 } amiidb_slot_info_t;
@@ -27,5 +28,7 @@ int32_t amiidb_api_slot_remove(uint8_t slot);
 
 int32_t amiidb_api_slot_info(uint8_t slot, amiidb_slot_info_t * p_info);
 int32_t amiidb_api_slot_list(amiibo_slot_info_cb_t cb, void* ctx);
+
+int32_t amiidb_api_slot_set_readonly(uint8_t slot, bool readonly);
 
 #endif // FW_AMIIDB_API_SLOT_H

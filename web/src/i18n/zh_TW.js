@@ -1,3 +1,5 @@
+import { readonly } from "vue";
+
 export default {
   lang: {
     choose: '语言/Language',
@@ -54,6 +56,7 @@ export default {
     entermsg: '請輸入備註',
     attrib: '屬性',
     hide: '隱藏',
+    readonly: '只读',
     errupdate: '更新備註失敗',
     remarktoolong: '備註最大只能是90字節，即90個字符或30個漢字！（當前: ',
     remarktoolongend: ' 字節）'
@@ -83,7 +86,7 @@ export default {
     messageend: ' ?',
     error: '刪除失敗 ',
     deleteok: '刪除文件成功'
-    },
+  },
   dfumode: {
     title: 'DFU 模式',
     startconfirm: '是否進入DFU模式?',
@@ -109,5 +112,5 @@ export default {
   drive: {
     message: '(磁盤不可用[錯誤碼: ',
     messageend: '])'
-    }
+  }
 }

@@ -46,6 +46,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "Véletlengenerátor",
     [_L_AUTO_RANDOM_GENERATION] = "Automat. Véletlengenerátor",
     [_L_SHOW_QRCODE] = "QR-kód Megjelenítése",
+    [_L_READ_ONLY] = "",
     [_L_DELETE_TAG] = "Címke Törlése",
     [_L_DELETE_TAG_CONFIRM] = "Törlés Megerősítése?",
     [_L_BACK_TO_DETAILS] = "Vissza a Címke Részletkhez",
@@ -172,4 +173,5 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "Írási Mód",
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Érvénytelen bemenet!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "A kártya típusa megváltozott.\nGyári kártyaadatok?",
+    [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
 };

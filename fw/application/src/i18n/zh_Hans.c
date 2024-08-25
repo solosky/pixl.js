@@ -46,6 +46,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_RANDOM_GENERATION] = "随机生成",
     [_L_AUTO_RANDOM_GENERATION] = "自动随机生成",
     [_L_SHOW_QRCODE] = "显示二维码",
+    [_L_READ_ONLY] = "禁止写入",
     [_L_DELETE_TAG] = "删除标签",
     [_L_DELETE_TAG_CONFIRM] = "确认删除 %s ?",
     [_L_BACK_TO_DETAILS] = "返回详情",
@@ -172,4 +173,5 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "写入模式",
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "无效的输入!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "卡类型已修改\n重置卡数据?",
+    [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "默认卡片",
 };

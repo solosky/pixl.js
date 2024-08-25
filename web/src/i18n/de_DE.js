@@ -1,3 +1,5 @@
+import { readonly } from "vue";
+
 export default {
   lang: {
     choose: '语言/Language',
@@ -54,6 +56,7 @@ export default {
     entermsg: 'Bitte Notiz eingeben',
     attrib: 'Attribute',
     hide: 'Ausblenden',
+    readonly: 'Nur lesen',
     errupdate: 'Eigenschaften aktualisieren fehlgeschlagen!',
     remarktoolong: 'Notizen können maximal ist 90 Bytes lang sein! Das entspricht 90 Buchstaben or 30 chinesischen Buchstaben (Aktuell: ',
     remarktoolongend: ' Bytes）'
@@ -83,7 +86,7 @@ export default {
     messageend: ' löschen?',
     error: 'Löschen der Datei fehlgeschlagen!: ',
     deleteok: 'Datei erfolgreich gelöscht!'
-    },
+  },
   dfumode: {
     title: 'DFU Modus',
     startconfirm: 'DFU Modus aktivieren?',
@@ -109,5 +112,5 @@ export default {
   drive: {
     message: '(Speicher nicht verügbar [Fehler: ',
     messageend: '])'
-    }
+  }
 }

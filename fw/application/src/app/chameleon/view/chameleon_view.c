@@ -80,6 +80,12 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
                               icon_glyph);
     }
 
+    if(tag_helper_is_defult_slot()){
+        mui_canvas_set_font(p_canvas, MUI_FONT_ICON);
+        mui_canvas_draw_glyph(p_canvas, mui_canvas_get_width(p_canvas) - 20, mui_canvas_get_height(p_canvas),
+                              ICON_FAVORITE);
+    }
+
     mui_canvas_set_font(p_canvas, MUI_FONT_NORMAL);
 }
 
