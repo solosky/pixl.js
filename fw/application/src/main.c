@@ -92,6 +92,8 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
+#include "tag_helper.h"
+
 #include "cache.h"
 #include "i18n/language.h"
 #include "settings.h"
@@ -191,15 +193,27 @@ NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 /**
  *@brief :检测唤醒源
  */
-static void check_wakeup_src(void) {
+static uint32_t check_wakeup_src(void) {
     uint32_t rr = nrf_power_resetreas_get();
     NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
 
-    if (cache_valid()) {
-        cache_data_t *p_cache = cache_get_data();
-        ntag_emu_set_tag(&(p_cache->ntag));
+    // 如果卡模拟器设置了默认卡，这里就不开启模拟NTAG
+    if (tag_helper_valid_default_slot() && (rr & NRF_POWER_RESETREAS_NFC_MASK)) {
+        tag_emulation_init();
+        hal_nfc_set_nrfx_irq_enable(true);
+        tag_emulation_sense_run();
     } else {
-        cache_clean();
+
+        extern const ntag_t default_ntag215;
+        ret_code_t err_code = ntag_emu_init(&default_ntag215);
+        APP_ERROR_CHECK(err_code);
+
+        if (cache_valid()) {
+            cache_data_t *p_cache = cache_get_data();
+            ntag_emu_set_tag(&(p_cache->ntag));
+        } else {
+            cache_clean();
+        }
     }
 
     if (rr == 0) {
@@ -211,6 +225,8 @@ static void check_wakeup_src(void) {
         NRF_LOG_INFO("First power system");
     }
     nrf_power_resetreas_clear(nrf_power_resetreas_get());
+
+    return rr;
 }
 
 /**
@@ -253,17 +269,14 @@ int main(void) {
     err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
-    APP_ERROR_CHECK(err_code);
-
     // cache_clean(); //FOR TESTING
-    check_wakeup_src();
 
     err_code = settings_init();
     // we ignore error here, cause flash may not be presented or settings.bin did not exist
     NRF_LOG_INFO("settings init: %d", err_code);
     // APP_ERROR_CHECK(err_code);
+
+    uint32_t wakeup_reason = check_wakeup_src();
 
     chrg_init();
 
@@ -280,7 +293,7 @@ int main(void) {
     mui_init(p_mui);
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();
-    mini_app_launcher_init(p_launcher);
+    mini_app_launcher_init(p_launcher, wakeup_reason);
 
     NRF_LOG_FLUSH();
 

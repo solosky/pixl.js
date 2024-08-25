@@ -121,6 +121,7 @@
         </el-form-item>
         <el-form-item :label="$t('properties.attrib')">
           <el-checkbox :label="$t('properties.hide')" v-model="meta_form.flags.hide"></el-checkbox>
+          <el-checkbox :label="$t('properties.readonly')" v-model="meta_form.flags.readonly"></el-checkbox>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">

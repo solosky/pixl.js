@@ -108,6 +108,11 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length, uint
         p_data = p_data + 1;
     case NFC_CMD_WRITE:
         NRF_LOG_INFO("NFC Write Block %d", block_num);
+        if (ntag_emu.ntag.read_only) {
+            NRF_LOG_INFO("NFC Read Only");
+            hal_send_ack_nack(0x0);
+            return;
+        }
         if (data_length == 6) {
             ntag_emu.dirty = true;
             if (block_num == 133 || block_num == 134) {

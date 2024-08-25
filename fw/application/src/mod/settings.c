@@ -4,14 +4,16 @@
 #include "vfs.h"
 #include "vfs_meta.h"
 
+#include "tag_helper.h"
+
 #define SETTINGS_FILE_NAME "/settings.bin"
 
 #ifdef OLED_SCREEN
 // Though OLED doesn't necessarily imply rechargeable battery, it's usually the case.
 #define DEFAULT_BAT_MODE 1
-#else  // !OLED_SCREEN
+#else // !OLED_SCREEN
 #define DEFAULT_BAT_MODE 0
-#endif  // OLED_SCREEN
+#endif // OLED_SCREEN
 
 const settings_data_t def_settings_data = {.backlight = 0,
                                            .oled_contrast = 40,
@@ -26,7 +28,8 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                            .show_mem_usage = false,
                                            .anim_enabled = false,
                                            .amiidb_data_slot_num = 20,
-                                           .qrcode_enabled = true};
+                                           .qrcode_enabled = true,
+                                           .chameleon_default_slot_index = INVALID_SLOT_INDEX};
 
 settings_data_t m_settings_data = {0};
 
@@ -63,6 +66,7 @@ static void validate_settings() {
     BOOL_VALIDATE(m_settings_data.qrcode_enabled, 0);
     INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, LANGUAGE_EN_US);
     INT8_VALIDATE(m_settings_data.amiidb_data_slot_num, 1, 100, 20);
+    INT8_VALIDATE(m_settings_data.chameleon_default_slot_index, 0, TAG_MAX_SLOT_NUM, INVALID_SLOT_INDEX);
 }
 
 int32_t settings_init() {

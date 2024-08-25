@@ -4,6 +4,8 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "settings.h"
+#include "nrf_power.h"
+#include "tag_helper.h"
 
 mini_app_launcher_t *mini_app_launcher() {
     static mini_app_launcher_t launcher;
@@ -71,7 +73,7 @@ void mini_app_launcher_exit(mini_app_launcher_t* p_launcher){
     mini_app_launcher_kill(p_launcher, p_launcher->p_main_app_inst->p_app->id);
 }
 
-void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
+void mini_app_launcher_init(mini_app_launcher_t *p_launcher, uint32_t wakeup_reason) {
 
     mui_app_inst_dict_init(p_launcher->app_inst_dict);
     p_launcher->p_main_app_inst = NULL;
@@ -80,7 +82,12 @@ void mini_app_launcher_init(mini_app_launcher_t *p_launcher) {
 
     cache_data_t *p_cache = cache_get_data();
     settings_data_t *p_settings = settings_get_data();
-    if (p_cache->enabled == 1 && p_settings->hibernate_enabled == 1) {
+    
+    NRF_LOG_INFO("wakeup reason: %d", wakeup_reason);
+
+    if( (wakeup_reason & NRF_POWER_RESETREAS_NFC_MASK) && tag_helper_valid_default_slot()){
+        mini_app_launcher_run_with_retain_data(p_launcher, MINI_APP_ID_CHAMELEON, NULL);
+    }else if (p_cache->enabled == 1 && p_settings->hibernate_enabled == 1) {
         mini_app_launcher_run_with_retain_data(p_launcher, p_cache->id, p_cache->retain_data);
     } else {
         mini_app_launcher_run_with_retain_data(p_launcher, MINI_APP_ID_DESKTOP, NULL);

@@ -414,7 +414,8 @@ function read_meta(bb) {
     var meta = {
         notes: "",
         flags: {
-            hide: false
+            hide: false,
+            readonly: false
         },
         amiibo: {
             head: 0,
@@ -440,7 +441,10 @@ function read_meta(bb) {
             if (flags & 1) {
                 meta.flags.hide = true;
             }
-        }else if(type == 3){
+            if (flags & 4) {
+                meta.flags.readonly = true;
+            }
+        } else if (type == 3) {
             meta.amiibo.head = mb.readUint32();
             meta.amiibo.tail = mb.readUint32();
         }
@@ -454,7 +458,7 @@ function write_meta(bb, meta) {
     var bytes = encode_utf8(notes);
 
     if (bytes.length > 90) {
-        throw new Error(i18n.t('properties.remarktoolong') + bytes.length + i18n.t('properties.remarktoolongend') )
+        throw new Error(i18n.t('properties.remarktoolong') + bytes.length + i18n.t('properties.remarktoolongend'))
     }
 
     var tb = new ByteBuffer();
@@ -473,9 +477,12 @@ function write_meta(bb, meta) {
     if (meta.flags.hide) {
         flags |= 1;
     }
+    if (meta.flags.readonly) {
+        flags |= 4;
+    }
     tb.writeUint8(flags);
 
-    if(meta.amiibo.head > 0 || meta.amiibo.tail > 0){
+    if (meta.amiibo.head > 0 || meta.amiibo.tail > 0) {
         tb.writeUint8(3);
         tb.writeUint32(meta.amiibo.head);
         tb.writeUint32(meta.amiibo.tail);

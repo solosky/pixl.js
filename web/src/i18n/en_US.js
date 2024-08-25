@@ -54,6 +54,7 @@ export default {
     entermsg: 'Please enter remarks',
     attrib: 'Attributes',
     hide: 'Hide',
+    readonly: "Read only",
     errupdate: 'Failed to update properties!',
     remarktoolong: 'Remarks can only be up to 90 bytes!, that is, 90 characters or 30 Chinese characters (current: ',
     remarktoolongend: ' Bytes）'
@@ -83,7 +84,7 @@ export default {
     messageend: ' ?',
     error: 'Failed to delete file!: ',
     deleteok: 'File deleted successfully!'
-    },
+  },
   dfumode: {
     title: 'DFU Mode',
     startconfirm: 'Enter DFU mode?',
@@ -109,5 +110,5 @@ export default {
   drive: {
     message: '(Disk not available [error code: ',
     messageend: '])'
-    }
+  }
 }

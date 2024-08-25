@@ -5,7 +5,6 @@ from urllib.request import urlopen
 import json
 import os
 import csv
-import certifi
 
 class Amiibo:
     def __init__(self):
@@ -36,7 +35,6 @@ def get_prorject_directory():
 
 
 def fetch_amiibo_from_api():
-    os.environ['SSL_CERT_FILE'] = certifi.where()
     conn = urlopen("https://www.amiiboapi.com/api/amiibo/")
     body = json.loads(conn.read())
     amiibos = list()
