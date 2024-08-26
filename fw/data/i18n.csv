@@ -172,5 +172,6 @@ _L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 habilita
 _L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,寫入模式,Modo escrit.,Írási Mód,Schreibmodus,Mode d'Écriture,Schrijfmodus,Modo de Gravação,書き込みモード,Modalità scrittura,Запись
 _L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,無效的輸入!,¡Entrada inválida!,Érvénytelen bemenet!,Ungültige Eingabe!,Entrée Invalide!,Ongeldige Invoer!,Entrada Inválida!,無効な入力,Input non valido!,Недопустимый ввод
 _L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡類型已修改\n重置卡數據?,Tipo tarjeta modificado\n¿Inicializar tarjeta?,A kártya típusa megváltozott.\nGyári kártyaadatok?,Kartentyp geändert. \nKartendaten zurücksetzen?,Le Type de Carte a Été Modifié. \nRéinitialiser les Données de la Carte?,Kaarttype gewijzigd. \nGegevens terugzetten naar standaard?,O tipo de cartão foi alterado. \nRedefinir dados do cartão?,カードの種類が変更されました。\nカードデータを初期化しますか？,Tipo di carta modificato\nInizializzare carta?,Тип карты изменен.\nСбросить данные карты?
-_L_APP_READER,NFC Reader,读卡器,读卡器,,,,,,,,
-_L_APP_READER_SCANNING,Dicovering Tag...,请靠近卡片...,,,,,,,,,_L_APP_CHAMELEON_CARD_DEFAULT_CARD,Default Card,默认卡片,默认卡片,,,,,,,,,По умолчанию
+_L_APP_CHAMELEON_CARD_DEFAULT_CARD,Default Card,默认卡片,默认卡片,,,,,,,,,По умолчанию
+_L_APP_READER,NFC Reader,读卡器,读卡器,,,,,,,,,
+_L_APP_READER_SCANNING,Dicovering Tag...,请靠近卡片...,,,,,,,,,,

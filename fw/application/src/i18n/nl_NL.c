@@ -173,6 +173,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_WRITE_MODE] = "Schrijfmodus",
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Ongeldige Invoer!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Kaarttype gewijzigd. \nGegevens terugzetten naar standaard?",
+    [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
     [_L_APP_READER] = "",
     [_L_APP_READER_SCANNING] = "",
 };
