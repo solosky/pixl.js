@@ -6,6 +6,8 @@
 #include "chameleon_scene.h"
 #include "fds_utils.h"
 #include "i18n/language.h"
+#include "settings.h"
+#include "tag_helper.h"
 
 static void app_chameleon_on_run(mini_app_inst_t *p_app_inst);
 static void app_chameleon_on_kill(mini_app_inst_t *p_app_inst);
@@ -76,7 +78,16 @@ void app_chameleon_on_kill(mini_app_inst_t *p_app_inst) {
 
     p_retain->cycle_mode_index = chameleon_view_get_index(p_app_handle->p_chameleon_view);
 
+    settings_data_t *settings = settings_get_data();
+    if (tag_helper_valid_default_slot() &&
+        tag_emulation_slot_is_enabled(settings->chameleon_default_slot_index, TAG_SENSE_HF)) {
+        tag_emulation_change_slot(settings->chameleon_default_slot_index, false);
+    } else {
+        settings->chameleon_default_slot_index = INVALID_SLOT_INDEX;
+    }
+
     tag_emulation_save();
+    settings_save();
 
     mui_scene_dispatcher_exit(p_app_handle->p_scene_dispatcher);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);

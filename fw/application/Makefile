@@ -329,6 +329,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/settings/scene/settings_scene_oled_contrast.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_language.c \
   $(PROJ_DIR)/app/settings/scene/settings_scene_storage.c \
+  $(PROJ_DIR)/app/settings/scene/settings_scene_about.c \
   $(PROJ_DIR)/i18n/en_US.c \
   $(PROJ_DIR)/i18n/zh_Hans.c \
   $(PROJ_DIR)/i18n/zh_TW.c \
@@ -367,7 +368,7 @@ SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/crypto1_helper.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_14a.c \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_mf1.c \
-  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_ntag.c \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf/nfc_mf0_ntag.c \
   $(CHAMELEON_ROOT)/application/src/rfid/crc_utils.c \
   $(CHAMELEON_ROOT)/application/src/rfid/hex_utils.c \
   $(CHAMELEON_ROOT)/application/src/rfid/mf1_crapto1.c \
@@ -855,6 +856,7 @@ full: settingsgen
 gen:
 	python3 ../scripts/amiibo_db_gen.py
 	python3 ../scripts/i18n_gen.py
+	python3 ../scripts/font_data_gen.py
 	python3 ../scripts/resource_gen.py
 
 flash_ocd: default

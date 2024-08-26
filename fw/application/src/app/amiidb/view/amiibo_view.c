@@ -7,6 +7,7 @@
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa
+#define ICON_INFO 0xe0ae
 
 static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     char buff[64];
@@ -42,9 +43,17 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
     if (amd != NULL) {
-        const char *name =(getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) ? amd->name_cn : amd->name_en;
-        mui_canvas_draw_utf8(p_canvas, 0, y += 13, name);
+        const char *name =
+            (getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) ? amd->name_cn : amd->name_en;
 
+        if (ntag->read_only) {
+            mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
+            mui_canvas_draw_glyph(p_canvas, 0, y += 12, ICON_INFO);
+            mui_canvas_set_font(p_canvas, u8g2_font_wqy12_t_gb2312a);
+            mui_canvas_draw_utf8(p_canvas, 12, y, name);
+        } else {
+            mui_canvas_draw_utf8(p_canvas, 0, y += 12, name);
+        }
         mui_rect_t clip_win_prev;
         mui_rect_t clip_win_cur;
         mui_canvas_get_clip_window(p_canvas, &clip_win_prev);
@@ -67,17 +76,21 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         p_amiibo_view->desc_page_size = clip_win_cur.h;
         const db_link_t *link = get_link_by_id(p_amiibo_view->game_id, head, tail);
         if (strlen(ntag->notes) > 0) {
-            p_amiibo_view->desc_total = mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, ntag->notes);
+            p_amiibo_view->desc_total =
+                mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h,
+                                              p_amiibo_view->desc_offset, square_r, ntag->notes);
         } else if (link != NULL) {
             const char *notes;
-            if  (getLanguage() == LANGUAGE_ZH_HANS) {
+            if (getLanguage() == LANGUAGE_ZH_HANS) {
                 notes = link->note_cn;
-            } else if(getLanguage() == LANGUAGE_IT_IT) {
+            } else if (getLanguage() == LANGUAGE_IT_IT) {
                 notes = link->note_it;
             } else {
                 notes = link->note_en;
             }
-            p_amiibo_view->desc_total = mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h, p_amiibo_view->desc_offset, square_r, notes);
+            p_amiibo_view->desc_total =
+                mui_element_autowrap_text_box(p_canvas, clip_win_cur.x, clip_win_cur.y, clip_win_cur.w, clip_win_cur.h,
+                                              p_amiibo_view->desc_offset, square_r, notes);
         }
         mui_canvas_set_clip_window(p_canvas, &clip_win_prev);
     } else if (head > 0 && tail > 0) {
@@ -107,7 +120,11 @@ static void amiibo_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
             }
             break;
         case INPUT_KEY_RIGHT:
-            if (p_amiibo_view->desc_total > 0 && p_amiibo_view->desc_offset < p_amiibo_view->desc_page_size * ((p_amiibo_view->desc_total + p_amiibo_view->desc_page_size - 1) / p_amiibo_view->desc_page_size - 1)) {
+            if (p_amiibo_view->desc_total > 0 &&
+                p_amiibo_view->desc_offset <
+                    p_amiibo_view->desc_page_size * ((p_amiibo_view->desc_total + p_amiibo_view->desc_page_size - 1) /
+                                                         p_amiibo_view->desc_page_size -
+                                                     1)) {
                 p_amiibo_view->desc_offset += p_amiibo_view->desc_step;
             }
 

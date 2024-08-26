@@ -1,13 +1,12 @@
 #ifndef TAG_HELPER_H
 #define TAG_HELPER_H
 
-#include "tag_base_type.h"
 #include "nfc_14a.h"
+#include "nfc_mf0_ntag.h"
 #include "nfc_mf1.h"
-#include "nfc_ntag.h"
+#include "tag_base_type.h"
 
-#define TAG_TYPE_MAX 9
-#define TAG_TYPE_HF_MAX 8
+#define TAG_TYPE_HF_MAX 13
 #define SLOT_MAX 8
 
 typedef struct {
@@ -25,7 +24,7 @@ typedef enum {
 
 extern const tag_specific_type_t hf_tag_specific_types[];
 
-const tag_specific_type_name_t* tag_helper_get_tag_type_name(tag_specific_type_t tag_type);
+const tag_specific_type_name_t *tag_helper_get_tag_type_name(tag_specific_type_t tag_type);
 const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref();
 tag_specific_type_t tag_helper_get_active_tag_type();
 void tag_helper_format_uid(char *buff, uint8_t *uid, uint8_t uid_len);
@@ -39,5 +38,8 @@ uint8_t *tag_helper_get_active_tag_memory_data();
 
 void tag_helper_generate_uid();
 
+bool tag_helper_is_defult_slot();
+
+bool tag_helper_valid_default_slot();
 
 #endif

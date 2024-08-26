@@ -35,6 +35,9 @@
         "nrf_log.h": "c",
         "string.h": "c",
         "math.h": "c",
-        "mlib_common.h": "c"
+        "mlib_common.h": "c",
+        "ios": "c",
+        "limits": "c",
+        "algorithm": "c"
     }
 }

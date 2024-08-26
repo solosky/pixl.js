@@ -54,7 +54,7 @@ static void amiibo_scene_file_browser_reload_folders(app_amiibo_t *app) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (meta.has_flags && (meta.flags && VFS_OBJ_FLAG_HIDDEN)) {
+            if (meta.has_flags && (meta.flags & VFS_OBJ_FLAG_HIDDEN)) {
                 continue;
             }
             uint16_t icon = obj.type == VFS_TYPE_DIR ? ICON_FOLDER : ICON_FILE;

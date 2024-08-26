@@ -182,6 +182,7 @@ static void ntag_generate_timer_handler(void *p_context) {
 static void amiidb_scene_amiibo_view_on_event(amiibo_view_event_t event, amiibo_view_t *p_view) {
     app_amiidb_t *app = p_view->user_data;
     if (event == AMIIBO_VIEW_EVENT_MENU) {
+        app->cur_slot_index = amiibo_view_get_focus(app->p_amiibo_view);
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL_MENU);
     } else if (event == AMIIBO_VIEW_EVENT_UPDATE) {
         if (app->prev_scene_id == AMIIDB_SCENE_GAME_LIST) {

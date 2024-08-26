@@ -47,7 +47,11 @@ You can browse folders and files using the thumbwheel slide dial switch, pushing
 Once you select a .BIN file his data is used like the current amiibo, the screen shows current amiibo details like amiibo current UUID, filename and amiibo name.
 
 ## Amiibo details screen
-You can use side buttons to change the current amiibo with the next or previous one on the current folder.  Pressing the middle button you can change the behavior of the current amiibo, on the sub menu:
+You can use side buttons to change the current amiibo with the next or previous one on the current folder.  
+If the amiibo file is marked as read-only, an info icon will be displayed in front of the amiiboe file name line.
+
+## Amiibo detail menu
+Pressing the middle button you can change the behavior of the current amiibo, on the sub menu:
 
 |   |
 | ------------ |
@@ -58,6 +62,8 @@ You can use side buttons to change the current amiibo with the next or previous 
 Changes the current UUID presented to game to current amiibo. The new UUID stays in place until you change the current amiibo or select this option again.
 ### Auto Rand. (Automatic Random)
 Turning ON this feature, will generate a new random UUID for the current amiibo each time a game read it.  Allowing to use the same amiibo multiple times on games with restrictions.
+### Read-only
+Turning on this feature, any write operation to this tag will be denied. 
 ### Delete Tag
 Delete the file associated to current amiibo.
 ### Back to Tag Details
@@ -85,32 +91,6 @@ Creates a blank amiibo .BIN file on the current folder.  That .BIN file is now a
 Dialog to rename highlighted .BIN file or folder
 ### Delete…
 Remove highlighted object, asking for confirmation.  If is a folder, all subfolders and files are deleted too.
-### Back to File List
-Returns to the file list of current folder.
-### Back to Main Menu
-Exit the amiibo emulator application.
-
-If you have **highlighted a storage** the properties sub menu is different:
-
-|   |
-| ------------ |
-| Storage Status<BR>Total Space<BR>Free Space<BR>Format…<BR>Back List<BR>Back to Main Menu |
-|   |
-
-### Storage Status
-Shows the current status and type of the storage, by example:
-```
-=====Not Mounted=====
-===Mounted[LFS]===
-===Mounted[FFS]===
-```
-
-### Total Space
-Shows total space of the mounted storage on KB.
-### Free Space
-Shows the actual free space of the mounted storage on KB.
-### Format…
-Ask confirmation for formatting the current storage, WARNING ALL DATA WILL BE LOST!
 ### Back to File List
 Returns to the file list of current folder.
 ### Back to Main Menu
@@ -192,6 +172,8 @@ Once you select a folder a list of the associated amiibo to that favorite folder
 List the configured slots, you can browse the slots using side buttons, select one with middle button and the amiibo associated to that slot becomes the current one.
 
 If you press and hold middle button a sub menu with the option of reset the slot is shown allowing to empty the slot.
+
+If you turn on the Read-only feature, the current amiibo slot will denied write operation to this slot. An info icon will be displayed in front of the amiibo name if read-only feature is enabled.
 
 ## Settings…
 The settings menu show you the Keys status and number of slot set up.
@@ -276,9 +258,15 @@ Mifare cards are commonly used for access control cards, and the device can full
 
 NTAG series cards are commonly used for device identification. Supported NTAG card types include:
 
+* NTAG 210
+* NTAG 212
 * NTAG 213
 * NTAG 215
 * NTAG 216
+* Mifire Ultralight C
+* Mifire Ultralight C
+* Mifire Ultralight EV1(640 bits)
+* Mifire Ultralight EV1(1312 bits)
 
 Currently, a total of 8 cards are supported, with the option for customizing the number of cards in the future.
 
@@ -317,9 +305,17 @@ Abbreviations for card types:
 | MF 1k | Mifare 1K | 1024 |
 | MF 2k | Mifare 2K | 2048 |
 | MF 4k | Mifare 4K | 4096 |
+| N210 | NTAG 210 | 80 |
+| N212 | NTAG 212 | 164 |
 | N213 | NTAG 213 | 180 |
 | N215 | NTAG 215 | 540 |
 | N216 | NTAG 216 | 924 |
+| MFUL | Mifare Ultralight | 64 |
+| MFULC | Mifare Ultralight C | 144 |
+| MFEV11 | Mifare Ultralight EV1(640 bits) | 80 |
+| MFEV21 | Mifare Ultralight EV1(1312 bits) | 164 |
+
+* It will display a fav icon if the card is default card. The default card is the card that is automatically activated when the device is wakeup by NFC field presents.
 
 # Main Menu
 
@@ -342,6 +338,7 @@ Pressing the middle button allows you to enter the main menu. As follows:
 * Nick: The current name of the card. Pressing the middle button can enter the card name setting interface.
 * ID: Displays the current card ID.
 * Type: Displays the current card type.
+* Default Card: if enabled, the card will be automatically activated when the device is wakeup by NFC field presents. 
 * Data: Pressing the middle button can manage card data.
 * Advanced: Pressing the middle button can enter advanced card settings.
 * Slot Settings: Pressing the middle button enters the slot management interface, where you can enable or disable card slots.
@@ -350,6 +347,7 @@ Pressing the middle button allows you to enter the main menu. As follows:
 
 > **Special Note:**：<br/>
 > Some modifications need to be saved to storage when exiting to the tag details. If you have modified some configurations, be sure to enter the tag details page to save them.
+> The default card feature is conflict with Fast Resume. If the default card feature is enabled, the device will active the card emulator of the default card instead of the amiibo Fast Resume feature.
 
 ## Nick Update
 
@@ -510,3 +508,9 @@ This option put the device in the DFU mode, allowing OTA firmware update, you ca
 You can go to the URL [https://thegecko.github.io/web-bluetooth-dfu/](https://thegecko.github.io/web-bluetooth-dfu/) to upload the firmware, this page also can be open through the official site [https://pixl.amiibo.xyz/](https://pixl.amiibo.xyz/)
 ## System Reboot
 Allows you to reboot the device and get back to the state after you remove and put the battery.
+
+## Reset Default Settings
+Reset all settings to default values.
+
+## About Device
+Show Pixl.js project information, include source code repository, license.

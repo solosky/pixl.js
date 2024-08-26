@@ -3,8 +3,11 @@
 #include "fds_utils.h"
 #include "i18n/language.h"
 #include "nrf_log.h"
+#include "settings.h"
 #include "utils2.h"
 #include <string.h>
+
+#define NFC_TAG_NTAG_DATA_SIZE 4
 
 const static tag_specific_type_name_t tag_type_names[] = {
     {TAG_TYPE_UNDEFINED, "-", "-", 0},
@@ -14,10 +17,19 @@ const static tag_specific_type_name_t tag_type_names[] = {
     {TAG_TYPE_MIFARE_2048, "MF 2K", "MiFare 2K", 128 * NFC_TAG_MF1_DATA_SIZE},
     {TAG_TYPE_MIFARE_4096, "MF 4K", "MiFare 4K", 256 * NFC_TAG_MF1_DATA_SIZE},
     // NTAG series
-    {TAG_TYPE_NTAG_213, "N213", "NTAG 213", 45 * NFC_TAG_NTAG_DATA_SIZE},
-    {TAG_TYPE_NTAG_215, "N215", "NTAG 215", 135 * NFC_TAG_NTAG_DATA_SIZE},
-    {TAG_TYPE_NTAG_216, "N216", "NTAG 216", 231 * NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_210, "N210", "NTAG 210", NTAG210_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_212, "N212", "NTAG 212", NTAG212_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_213, "N213", "NTAG 213", NTAG213_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_215, "N215", "NTAG 215", NTAG215_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_NTAG_216, "N216", "NTAG 216", NTAG216_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+
+    {TAG_TYPE_MF0ICU1, "MFUL", "Mifare Ultralight", MF0ICU1_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_MF0ICU2, "MFULC", "Mifare Ultralight C", MF0ICU2_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_MF0UL11, "MFEV11", "Mifare Ultralight EV1 (640 bit)", MF0UL11_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+    {TAG_TYPE_MF0UL21, "MFEV21", "Mifare Ultralight EV1 (1312 bit)", MF0UL21_PAGES *NFC_TAG_NTAG_DATA_SIZE},
+
 };
+
 // typedef enum {
 //     NFC_TAG_MF1_WRITE_NORMAL    = 0u,
 //     NFC_TAG_MF1_WRITE_DENIED    = 1u,
@@ -36,15 +48,11 @@ const tag_specific_type_t hf_tag_specific_types[] = {
     // Specific and necessary signs do not exist
     TAG_TYPE_UNDEFINED,
     // MiFare series
-    TAG_TYPE_MIFARE_Mini,
-    TAG_TYPE_MIFARE_1024,
-    TAG_TYPE_MIFARE_2048,
-    TAG_TYPE_MIFARE_4096,
+    TAG_TYPE_MIFARE_Mini, TAG_TYPE_MIFARE_1024, TAG_TYPE_MIFARE_2048, TAG_TYPE_MIFARE_4096,
     // NTAG series
-    TAG_TYPE_NTAG_213,
-    TAG_TYPE_NTAG_215,
-    TAG_TYPE_NTAG_216,
-};
+    TAG_TYPE_NTAG_210, TAG_TYPE_NTAG_212, TAG_TYPE_NTAG_213, TAG_TYPE_NTAG_215, TAG_TYPE_NTAG_216,
+
+    TAG_TYPE_MF0ICU1, TAG_TYPE_MF0ICU2, TAG_TYPE_MF0UL11, TAG_TYPE_MF0UL21};
 
 tag_group_type_t tag_helper_get_tag_group_type(tag_specific_type_t tag_type) {
     if (tag_type == TAG_TYPE_MIFARE_Mini || tag_type == TAG_TYPE_MIFARE_1024 || tag_type == TAG_TYPE_MIFARE_2048 ||
@@ -75,9 +83,9 @@ const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
         // nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         // return &m_tag_information->res_coll;
     } else {
-        // nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        // nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
         // return &m_tag_information->res_coll;
-        return get_ntag_coll_res();
+        return nfc_tag_mf0_ntag_get_coll_res();
     }
 }
 
@@ -150,7 +158,7 @@ uint8_t *tag_helper_get_active_tag_memory_data() {
         nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         return &m_tag_information->memory;
     } else {
-        nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
         return &m_tag_information->memory;
     }
 }
@@ -160,12 +168,12 @@ void tag_helper_generate_uid() {
     tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
     tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
     if (tag_group_type == TAG_GROUP_NTAG) {
-        nfc_tag_ntag_information_t *m_tag_information = (nfc_tag_ntag_information_t *)tag_buffer->buffer;
+        nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
         uint8_t uuid[7];
         ret_code_t err_code = utils_rand_bytes(uuid, sizeof(uuid));
         if (err_code == NRF_SUCCESS) {
             uuid[0] = 04; // fixed
-            m_tag_information->memory[0][0] = uuid[0]; 
+            m_tag_information->memory[0][0] = uuid[0];
             m_tag_information->memory[0][1] = uuid[1];
             m_tag_information->memory[0][2] = uuid[2];
             // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
@@ -184,4 +192,14 @@ void tag_helper_generate_uid() {
             memcpy(m_tag_information->res_coll.uid, uuid, sizeof(uuid));
         }
     }
+}
+
+bool tag_helper_is_defult_slot() {
+    settings_data_t *settings = settings_get_data();
+    return settings->chameleon_default_slot_index == tag_emulation_get_slot();
+}
+
+bool tag_helper_valid_default_slot(){
+     settings_data_t *settings = settings_get_data();
+     return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX;
 }

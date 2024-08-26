@@ -92,6 +92,8 @@
 #include "hal_spi_bus.h"
 #include "hal_spi_flash.h"
 
+#include "tag_helper.h"
+
 #include "cache.h"
 #include "i18n/language.h"
 #include "settings.h"
@@ -99,10 +101,10 @@
 #include "nfc_reader.h"
 #include "tusb.h"
 
-//#include "usbd.h"
+// #include "usbd.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 255 /**< Maximum size of scheduler events. */
-#define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
+#define APP_SCHED_QUEUE_SIZE 16      /**< Maximum number of events in the scheduler queue. */
 
 #define BTN_ID_SLEEP 1 /**< ID of button used to put the application into sleep mode. */
 #define BTN_ACTION_KEY1_LONGPUSH BSP_EVENT_KEY_LAST + 9
@@ -196,16 +198,28 @@ NRF_PWR_MGMT_HANDLER_REGISTER(shutdown_handler, APP_SHUTDOWN_HANDLER_PRIORITY);
 /**
  *@brief :检测唤醒源
  */
-static void check_wakeup_src(void) {
+static uint32_t check_wakeup_src(void) {
     uint32_t rr;
     sd_power_reset_reason_get(&rr);
     NRF_LOG_INFO("nrf_power_resetreas_get: 0x%04x", rr);
 
-    if (cache_valid()) {
-        cache_data_t *p_cache = cache_get_data();
-        ntag_emu_set_tag(&(p_cache->ntag));
+    // 如果卡模拟器设置了默认卡，这里就不开启模拟NTAG
+    if (tag_helper_valid_default_slot() && (rr & NRF_POWER_RESETREAS_NFC_MASK)) {
+        tag_emulation_init();
+        hal_nfc_set_nrfx_irq_enable(true);
+        tag_emulation_sense_run();
     } else {
-        cache_clean();
+
+        extern const ntag_t default_ntag215;
+        ret_code_t err_code = ntag_emu_init(&default_ntag215);
+        APP_ERROR_CHECK(err_code);
+
+        if (cache_valid()) {
+            cache_data_t *p_cache = cache_get_data();
+            ntag_emu_set_tag(&(p_cache->ntag));
+        } else {
+            cache_clean();
+        }
     }
 
     if (rr == 0) {
@@ -217,6 +231,7 @@ static void check_wakeup_src(void) {
         NRF_LOG_INFO("First power system");
     }
     sd_power_reset_reason_clr(rr);
+    return rr;
 }
 
 /**
@@ -256,23 +271,20 @@ int main(void) {
     hal_spi_bus_init();
 
     // enable sd to enable pwr mgmt
-   err_code = nrf_sdh_enable_request();
-   APP_ERROR_CHECK(err_code);
-
-    extern const ntag_t default_ntag215;
-    err_code = ntag_emu_init(&default_ntag215);
+    err_code = nrf_sdh_enable_request();
     APP_ERROR_CHECK(err_code);
 
     // cache_clean(); //FOR TESTING
-    check_wakeup_src();
 
     err_code = settings_init();
     // we ignore error here, cause flash may not be presented or settings.bin did not exist
     NRF_LOG_INFO("settings init: %d", err_code);
     // APP_ERROR_CHECK(err_code);
 
+    uint32_t wakeup_reason = check_wakeup_src();
+
 #ifdef RC522
-    //nfc initialized as emulator mode
+    // nfc initialized as emulator mode
     nfc_reader_init();
 #endif
 
@@ -284,7 +296,7 @@ int main(void) {
     amiibo_helper_try_load_amiibo_keys_from_vfs();
 
 #ifdef NRF52840_XXAA
-    //usb_init();
+    // usb_init();
     board_init();
     tud_init(BOARD_TUD_RHPORT);
 #endif
@@ -297,7 +309,7 @@ int main(void) {
     mui_init(p_mui);
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();
-    mini_app_launcher_init(p_launcher);
+    mini_app_launcher_init(p_launcher, wakeup_reason);
 
     NRF_LOG_FLUSH();
 
@@ -307,8 +319,8 @@ int main(void) {
         mui_tick(p_mui);
 
 #ifdef NRF52840_XXAA
-        //usb_tick();
-     
+        // usb_tick();
+
         tud_task(); // device task
 #endif
         NRF_LOG_FLUSH();
