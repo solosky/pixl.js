@@ -491,7 +491,10 @@ endif
 # cmd
 ifeq ($(BOARD),NEO)
 SRC_FILES += \
-  $(CHAMELEON_ROOT)/application/src/app_cmd.c 
+  $(CHAMELEON_ROOT)/application/src/app_cmd.c \
+  $(CHAMELEON_ROOT)/application/src/rfid_main.c \
+  $(CHAMELEON_ROOT)/application/src/utils/dataframe.c \
+  $(CHAMELEON_ROOT)/application/src/bsp/bsp_wdt.c
 endif 
 
 # Include folders common to all targets
@@ -701,7 +704,9 @@ INC_FOLDERS += \
   $(CHAMELEON_ROOT)/application/src/rfid \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag \
   $(CHAMELEON_ROOT)/application/src/rfid/nfctag/hf \
+  $(CHAMELEON_ROOT)/application/src/rfid/nfctag/lf \
   $(CHAMELEON_ROOT)/application/src/rfid/reader/hf \
+  $(CHAMELEON_ROOT)/application/src/rfid/reader/lf \
   $(CHAMELEON_ROOT)/application/src/utils \
   $(CHAMELEON_ROOT)/application/src \
   $(CHAMELEON_ROOT)/application/src/bsp \

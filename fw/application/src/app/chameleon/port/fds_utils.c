@@ -22,7 +22,7 @@ static void fds_map_file_name(uint16_t id, uint16_t key, char *path) {
     }
 }
 
-bool fds_read_sync(uint16_t id, uint16_t key, uint16_t* max_length, uint8_t *buffer) {
+bool fds_read_sync(uint16_t id, uint16_t key, uint16_t *max_length, uint8_t *buffer) {
     char path[VFS_MAX_PATH_LEN];
     fds_map_file_name(id, key, path);
     int32_t bytes_read = vfs_get_default_driver()->read_file_data(path, buffer, *max_length);
@@ -70,4 +70,14 @@ int32_t fds_write_meta(uint16_t id, uint16_t key, vfs_meta_t *meta) {
 
     vfs_meta_encode(meta_buf, sizeof(meta_buf), meta);
     return vfs_get_default_driver()->update_file_meta(path, meta_buf, sizeof(meta_buf));
+}
+
+int fds_delete_sync(uint16_t id, uint16_t key) {
+    // FIXME
+    return 0;
+}
+
+bool fds_wipe(void) {
+    // FIXME
+    return true;
 }

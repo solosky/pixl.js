@@ -37,6 +37,11 @@
 #include "nrfx.h"
 #include "nrfx_power.h"
 
+#include "tusb.h"
+
+#include "app_cmd.h"
+#include "dataframe.h"
+
 //--------------------------------------------------------------------+
 // Forward USB interrupt events to TinyUSB IRQ Handler
 //--------------------------------------------------------------------+
@@ -58,6 +63,11 @@ enum { USB_EVT_DETECTED = 0, USB_EVT_REMOVED = 1, USB_EVT_READY = 2 };
 //--------------------------------------------------------------------+
 
 void board_init(void) {
+
+    // init dataframe
+    //  cmd callback register
+    on_data_frame_complete(on_data_frame_received);
+
     // Priorities 0, 1, 4 (nRF52) are reserved for SoftDevice
     // 2 is highest for application
     NVIC_SetPriority(USBD_IRQn, 2);
@@ -114,4 +124,19 @@ void nrf_error_cb(uint32_t id, uint32_t pc, uint32_t info) {
     (void)id;
     (void)pc;
     (void)info;
+}
+
+void tud_cdc_rx_cb(uint8_t itf) {
+    // Take out the first byte first, WHY ???
+    NRF_LOG_INFO("cdc rx: %d", tud_cdc_available());
+    static uint8_t cdc_data_buffer[1];
+    uint32_t ret = 0;
+    tud_cdc_read(cdc_data_buffer, 1);
+    do {
+        ret = tud_cdc_read(cdc_data_buffer, 1);
+        if (ret > 0) {
+            // The byte after success
+            data_frame_receive(cdc_data_buffer, 1);
+        }
+    } while (ret > 0);
 }

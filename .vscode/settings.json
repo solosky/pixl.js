@@ -38,6 +38,9 @@
         "mlib_common.h": "c",
         "ios": "c",
         "limits": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "app_status.h": "c",
+        "app_cmd.h": "c",
+        "rfid_main.h": "c"
     }
 }

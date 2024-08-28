@@ -101,6 +101,8 @@
 #include "nfc_reader.h"
 #include "tusb.h"
 
+#include "dataframe.h"
+
 // #include "usbd.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 255 /**< Maximum size of scheduler events. */
@@ -322,6 +324,9 @@ int main(void) {
         // usb_tick();
 
         tud_task(); // device task
+
+        // Data pack process
+        data_frame_process();
 #endif
         NRF_LOG_FLUSH();
         if (NRF_LOG_PROCESS() == false) {
