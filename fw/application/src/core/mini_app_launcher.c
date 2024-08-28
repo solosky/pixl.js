@@ -3,7 +3,7 @@
 #include "mini_app_registry.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "settings.h"
+#include "settings2.h"
 #include "nrf_power.h"
 #include "tag_helper.h"
 

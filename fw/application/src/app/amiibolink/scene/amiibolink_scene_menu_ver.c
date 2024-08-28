@@ -4,7 +4,7 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 
-#include "settings.h"
+#include "settings2.h"
 #include "i18n/language.h"
 
 #define ICON_MODE 0xe1ed

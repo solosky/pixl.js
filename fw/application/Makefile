@@ -214,9 +214,9 @@ SRC_FILES += \
   $(PROJ_DIR)/hal/hal_qspi_flash.c \
   $(PROJ_DIR)/hal/hal_internal_flash.c \
   $(PROJ_DIR)/mod/bsp_btn.c \
-  $(PROJ_DIR)/mod/settings.c \
+  $(PROJ_DIR)/mod/settings2.c \
   $(PROJ_DIR)/mod/cache.c \
-  $(PROJ_DIR)/mod/ble/ble_main.c \
+  $(PROJ_DIR)/mod/ble/ble_main2.c \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/ble/ble_amiibolink.c \
   $(PROJ_DIR)/mod/cwalk2.c \
@@ -493,8 +493,12 @@ ifeq ($(BOARD),NEO)
 SRC_FILES += \
   $(CHAMELEON_ROOT)/application/src/app_cmd.c \
   $(CHAMELEON_ROOT)/application/src/rfid_main.c \
+  $(CHAMELEON_ROOT)/application/src/settings.c \
   $(CHAMELEON_ROOT)/application/src/utils/dataframe.c \
-  $(CHAMELEON_ROOT)/application/src/bsp/bsp_wdt.c
+  $(CHAMELEON_ROOT)/application/src/utils/delayed_reset.c \
+  $(CHAMELEON_ROOT)/application/src/utils/syssleep.c \
+  $(CHAMELEON_ROOT)/application/src/bsp/bsp_wdt.c \
+  $(CHAMELEON_ROOT)/common/hw_connect.c
 endif 
 
 # Include folders common to all targets
@@ -754,6 +758,7 @@ endif
 
 ifeq ($(BOARD),NEO)
 CFLAGS += -DPROJECT_CHAMELEON_ULTRA
+CFLAGS += -DPIXLJS_NEO
 endif
 
 CFLAGS += -DCFG_TUSB_MCU=OPT_MCU_NRF5X

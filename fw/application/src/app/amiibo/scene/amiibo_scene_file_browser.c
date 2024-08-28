@@ -9,7 +9,7 @@
 #include "vfs_meta.h"
 
 #include "i18n/language.h"
-#include "settings.h"
+#include "settings2.h"
 
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed

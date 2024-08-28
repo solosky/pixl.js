@@ -75,7 +75,7 @@
 #include "ntag_store.h"
 
 #include "bat.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 
 #include "nrf_sdh.h"
 
@@ -96,7 +96,7 @@
 
 #include "cache.h"
 #include "i18n/language.h"
-#include "settings.h"
+#include "settings2.h"
 
 #include "nfc_reader.h"
 #include "tusb.h"
@@ -327,6 +327,8 @@ int main(void) {
 
         // Data pack process
         data_frame_process();
+
+         tud_task(); 
 #endif
         NRF_LOG_FLUSH();
         if (NRF_LOG_PROCESS() == false) {

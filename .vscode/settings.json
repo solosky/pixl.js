@@ -41,6 +41,8 @@
         "algorithm": "c",
         "app_status.h": "c",
         "app_cmd.h": "c",
-        "rfid_main.h": "c"
+        "rfid_main.h": "c",
+        "cstdlib": "c",
+        "cstdint": "cpp"
     }
 }

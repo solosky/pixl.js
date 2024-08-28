@@ -1,5 +1,5 @@
 #include "ble_amiibolink.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 #include "df_buffer.h"
 #include "nrf_log.h"
 #include "ntag_def.h"

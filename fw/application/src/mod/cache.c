@@ -10,7 +10,7 @@
 #include "vfs_meta.h"
 
 #include "nrf_pwr_mgmt.h"
-#include "settings.h"
+#include "settings2.h"
 #include "crc32.h"
 
 #define NOINIT_RAM_INDEX 1

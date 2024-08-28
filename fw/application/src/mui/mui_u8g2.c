@@ -72,7 +72,7 @@
 #include "nrf_delay.h"
 #include "nrf_gpio.h"
 #include "nrf_log.h"
-#include "settings.h"
+#include "settings2.h"
 
 #include "u8g2.h"
 #include "u8x8.h"

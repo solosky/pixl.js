@@ -6,7 +6,7 @@
 
 #include "db_header.h"
 #include "mui_icons.h"
-#include "settings.h"
+#include "settings2.h"
 #include <math.h>
 
 static void amiidb_scene_game_list_reload(app_amiidb_t *app);

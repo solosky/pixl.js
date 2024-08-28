@@ -9,7 +9,7 @@
 #include "nrf_log.h"
 #include "ntag_emu.h"
 #include "ntag_store.h"
-#include "settings.h"
+#include "settings2.h"
 #include "vfs.h"
 #include "vfs_meta.h"
 

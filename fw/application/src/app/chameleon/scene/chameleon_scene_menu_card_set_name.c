@@ -9,7 +9,7 @@
 #include "nrf_log_ctrl.h"
 
 #include "i18n/language.h"
-#include "settings.h"
+#include "settings2.h"
 
 #include "mui_icons.h"
 #include "tag_helper.h"

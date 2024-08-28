@@ -38,6 +38,8 @@ hw/RevD
 hw/SP.RevA
 hw/PRO.RevA
 hw/LIPO.RevA
+hw/Ultra.*
+hw/NEO.*
 3d
 
 dist

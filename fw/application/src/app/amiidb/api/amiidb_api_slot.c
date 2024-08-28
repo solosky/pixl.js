@@ -3,7 +3,7 @@
 //
 #include "amiidb_api_slot.h"
 #include "amiibo_helper.h"
-#include "settings.h"
+#include "settings2.h"
 #include "vfs.h"
 #include "vfs_meta.h"
 #include <stdio.h>

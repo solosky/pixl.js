@@ -7,7 +7,7 @@
 #include "amiidb_api_slot.h"
 #include "db_header.h"
 #include "mui_icons.h"
-#include "settings.h"
+#include "settings2.h"
 #include "vfs.h"
 #include "vfs_meta.h"
 #include "i18n/language.h"

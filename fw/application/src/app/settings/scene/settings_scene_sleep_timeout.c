@@ -1,7 +1,7 @@
 #include "app_settings.h"
 #include "mini_app_launcher.h"
 #include "nrf_pwr_mgmt.h"
-#include "settings.h"
+#include "settings2.h"
 #include "settings_scene.h"
 #include "utils2.h"
 #include "version2.h"

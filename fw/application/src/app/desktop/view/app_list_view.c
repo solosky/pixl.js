@@ -1,7 +1,7 @@
 #include "app_list_view.h"
 #include "i18n/language.h"
 #include "nrf_log.h"
-#include "settings.h"
+#include "settings2.h"
 
 #define ICON_WIDTH 32
 #define ICON_HEIGHT 32

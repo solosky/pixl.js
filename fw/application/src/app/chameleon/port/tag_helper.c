@@ -3,7 +3,7 @@
 #include "fds_utils.h"
 #include "i18n/language.h"
 #include "nrf_log.h"
-#include "settings.h"
+#include "settings2.h"
 #include "utils2.h"
 #include <string.h>
 

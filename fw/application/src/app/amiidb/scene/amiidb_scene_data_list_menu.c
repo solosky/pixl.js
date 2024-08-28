@@ -5,7 +5,7 @@
 #include "cwalk2.h"
 #include "mui_list_view.h"
 #include "nrf_log.h"
-#include "settings.h"
+#include "settings2.h"
 #include "vfs.h"
 
 #include "amiidb_api_slot.h"

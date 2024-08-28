@@ -9,7 +9,7 @@
 
 #include "cache.h"
 #include "m-string.h"
-#include "settings.h"
+#include "settings2.h"
 
 #include "amiibo_helper.h"
 #include "ntag_emu.h"

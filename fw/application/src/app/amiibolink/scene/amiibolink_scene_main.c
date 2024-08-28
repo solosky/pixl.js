@@ -2,7 +2,7 @@
 #include "amiibolink_view.h"
 #include "app_amiibolink.h"
 #include "ble_amiibolink.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 #include "vfs.h"
 
 #include "amiibo_helper.h"
@@ -13,7 +13,7 @@
 
 #include "nrf_log.h"
 
-#include "settings.h"
+#include "settings2.h"
 
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed

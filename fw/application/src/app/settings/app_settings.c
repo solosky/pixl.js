@@ -1,6 +1,6 @@
 #include "app_settings.h"
 #include "settings_scene.h"
-#include "settings.h"
+#include "settings2.h"
 #include "i18n/language.h"
 
 static void app_settings_on_run(mini_app_inst_t *p_app_inst);

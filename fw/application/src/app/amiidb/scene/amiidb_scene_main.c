@@ -8,7 +8,7 @@
 #include "mini_app_launcher.h"
 #include "mini_app_registry.h"
 
-#include "settings.h"
+#include "settings2.h"
 
 #include "mui_icons.h"
 

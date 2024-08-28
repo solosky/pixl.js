@@ -3,9 +3,9 @@
 #include "utils2.h"
 
 #include "nrf_log.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 #include "version2.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 
 void df_proto_handler_info_get_version(df_event_t *evt) {
     if (evt->type == DF_EVENT_DATA_RECEVIED) {

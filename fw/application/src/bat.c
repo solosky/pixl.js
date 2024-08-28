@@ -26,7 +26,7 @@
 #include "nrf_log_default_backends.h"
 
 
-#include "settings.h"
+#include "settings2.h"
 
 #define ADC_CHANNEL 0
 #define ADC_AIN(INPUT) NRFX_CONCAT_2(NRF_SAADC_INPUT_AIN, INPUT)

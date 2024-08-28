@@ -7,7 +7,7 @@
 
 #include "db_header.h"
 #include "mui_icons.h"
-#include "settings.h"
+#include "settings2.h"
 #include "vfs.h"
 #include <math.h>
 

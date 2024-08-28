@@ -8,7 +8,7 @@
 #include "mui_icons.h"
 #include "nrf_log.h"
 #include "ntag_emu.h"
-#include "settings.h"
+#include "settings2.h"
 #include "i18n/language.h"
 
 static void amiidb_scene_settings_slot_num_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,

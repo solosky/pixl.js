@@ -129,14 +129,41 @@ void nrf_error_cb(uint32_t id, uint32_t pc, uint32_t info) {
 void tud_cdc_rx_cb(uint8_t itf) {
     // Take out the first byte first, WHY ???
     NRF_LOG_INFO("cdc rx: %d", tud_cdc_available());
-    static uint8_t cdc_data_buffer[1];
+    static uint8_t cdc_data_buffer[256];
     uint32_t ret = 0;
-    tud_cdc_read(cdc_data_buffer, 1);
     do {
-        ret = tud_cdc_read(cdc_data_buffer, 1);
+        ret = tud_cdc_read(cdc_data_buffer, sizeof(cdc_data_buffer));
         if (ret > 0) {
             // The byte after success
-            data_frame_receive(cdc_data_buffer, 1);
+            NRF_LOG_HEXDUMP_DEBUG(cdc_data_buffer, ret);
+            data_frame_receive(cdc_data_buffer, ret);
         }
     } while (ret > 0);
+}
+
+const uint8_t *buffer;
+size_t size;
+size_t avaliable;
+void tud_cdc_write_begin(const uint8_t *buff, size_t data_size) {
+    buffer = buff;
+    size = data_size;
+    avaliable = data_size;
+    NRF_LOG_INFO("cdc write begin: size: %d", data_size);
+    NRF_LOG_HEXDUMP_DEBUG(buff, data_size);
+    tud_cdc_tx_complete_cb(0);
+}
+
+void tud_cdc_tx_complete_cb(uint8_t itf) {
+    if (buffer && avaliable > 0) {
+        size_t written_bytes = tud_cdc_write(buffer, avaliable);
+        tud_cdc_write_flush();
+        avaliable -= written_bytes;
+        buffer += written_bytes;
+        NRF_LOG_INFO("cdc write: written: %d, avaliable: %d", written_bytes, avaliable);
+    } else {
+        buffer = NULL;
+        size = 0;
+        avaliable = 0;
+        NRF_LOG_INFO("cdc write complete");
+    }
 }

@@ -8,7 +8,7 @@
 
 #include "ntag_emu.h"
 #include "ntag_store.h"
-#include "settings.h"
+#include "settings2.h"
 
 #include "mui_icons.h"
 

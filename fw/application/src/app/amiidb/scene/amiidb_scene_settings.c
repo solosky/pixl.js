@@ -3,7 +3,7 @@
 #include "app_amiidb.h"
 #include "cwalk2.h"
 #include "mui_icons.h"
-#include "settings.h"
+#include "settings2.h"
 
 #include "i18n/language.h"
 

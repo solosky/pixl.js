@@ -3,7 +3,7 @@
 #include "i18n/language.h"
 #include "mui_element.h"
 #include "mui_qrcode_helper.h"
-#include "settings.h"
+#include "settings2.h"
 
 #define ICON_LEFT 0xe1ac
 #define ICON_RIGHT 0xe1aa

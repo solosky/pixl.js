@@ -5,7 +5,7 @@
 
 #include "nrf_log.h"
 
-#include "settings.h"
+#include "settings2.h"
 #include "hal_nfc_t2t.h"
 #include "nfc_mf1.h"
 #include "tag_emulation.h"

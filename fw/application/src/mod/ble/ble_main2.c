@@ -81,7 +81,7 @@
 
 #include "ble_amiibolink.h"
 #include "ble_df_driver.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 #include "df_core.h"
 #include "nrf_pwr_mgmt.h"
 

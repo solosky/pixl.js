@@ -1,6 +1,6 @@
 #include "ble_scene.h"
 #include "app_ble.h"
-#include "ble_main.h"
+#include "ble_main2.h"
 #include "ble_status_view.h"
 #include "ble_df_driver.h"
 

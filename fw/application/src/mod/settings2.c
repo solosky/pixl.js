@@ -1,4 +1,4 @@
-#include "settings.h"
+#include "settings2.h"
 #include "nrf_error.h"
 #include "nrf_log.h"
 #include "vfs.h"

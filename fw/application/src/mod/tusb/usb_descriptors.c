@@ -36,8 +36,8 @@
 #define USB_PID           (0x4000 | _PID_MAP(CDC, 0) | _PID_MAP(MSC, 1) | _PID_MAP(HID, 2) | \
                            _PID_MAP(MIDI, 3) | _PID_MAP(VENDOR, 4) )
 
-#define USB_VID   0xCafe
-#define USB_BCD   0x0200
+#define USB_VID   0x6868
+#define USB_BCD   0x8686
 
 //--------------------------------------------------------------------+
 // Device Descriptors
@@ -239,8 +239,8 @@ enum {
 // array of pointer to string descriptors
 char const *string_desc_arr[] = {
     (const char[]) { 0x09, 0x04 }, // 0: is supported language is English (0x0409)
-    "TinyUSB",                     // 1: Manufacturer
-    "TinyUSB Device",              // 2: Product
+    "Proxgrind",                     // 1: Manufacturer
+    "ChameleonUltra: hw_v1, fw_v512",   // 2: Product
     NULL,                          // 3: Serials will use unique ID if possible
     "TinyUSB CDC",                 // 4: CDC Interface
     "TinyUSB MSC",                 // 5: MSC Interface
