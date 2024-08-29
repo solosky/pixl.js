@@ -25,33 +25,14 @@ jobs:
       run: chown root:root .
     - name: build firmware
       run: cd fw && make all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
-    - name: upload bootloader
+    - name: upload artifact
       uses: actions/upload-artifact@v4
       with:
         name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/bootloader.hex
-    - name: upload firmware
-      uses: actions/upload-artifact@v4
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/pixljs.hex
-    - name: upload all
-      uses: actions/upload-artifact@v4
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/pixljs_all.hex
-    - name: upload ota 
-      uses: actions/upload-artifact@v4
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
-    - name: upload fw update script 
-      uses: actions/upload-artifact@v4
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/scripts/fw_update.bat
-    - name: upload fw readme file 
-      uses: actions/upload-artifact@v4
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/docs/fw_readme.txt
+        path: |
+          fw/_build/bootloader.hex
+          fw/_build/pixljs.hex
+          fw/_build/pixljs_all.hex
+          fw/_build/pixjs_ota_v${{github.run_number}}.zip
+          fw/docs/fw_readme.txt
+          fw/scripts/fw_update.bat
