@@ -203,3 +203,10 @@ bool tag_helper_valid_default_slot(){
      settings_data_t *settings = settings_get_data();
      return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX;
 }
+
+
+#if defined(BOARD_LCD) || defined(BOARD_OLED)
+void set_slot_light_color(int color) {}
+void sleep_timer_stop(){}
+void sleep_timer_start(){}
+#endif
