@@ -43,3 +43,4 @@ hw/Ultra.*
 dist
 # venv stuff
 .venv
+fw/scripts/.venv
