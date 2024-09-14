@@ -201,6 +201,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mui/mui_u8g2.c \
   $(PROJ_DIR)/mui/u8g2_font_likeminecraft_te.c \
   $(PROJ_DIR)/mui/u8g2_font_siji_t_6x10.c \
+  $(PROJ_DIR)/mui/u8g2_font_skylanders_t_12x12.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a.c \
   $(PROJ_DIR)/mui/u8g2_font_wqy12_t_gb2312a_lite.c \
   $(PROJ_DIR)/mui/mui_core.c \

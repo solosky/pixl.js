@@ -10,5 +10,6 @@
 #define MUI_FONT_SMALL u8g2_font_likeminecraft_te
 #define MUI_FONT_NORMAL u8g2_font_wqy12_t_gb2312a
 #define MUI_FONT_ICON u8g2_font_siji_t_6x10
+#define MUI_FONT_SKYL u8g2_font_skylanders_t_12x12
 
 #endif 

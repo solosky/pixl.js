@@ -13,9 +13,11 @@ static void status_bar_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) 
         mui_canvas_draw_glyph(p_canvas, 100, 8, 0xe09e);
     }
 
-    mui_canvas_draw_glyph(p_canvas, 0, 10, 0xe002);
+    mui_canvas_set_font(p_canvas, u8g2_font_skylanders_t_12x12);
+    mui_canvas_draw_glyph(p_canvas, 0, 12, 0x00);
 
     uint8_t bt = bat_get_level();
+    mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);
     mui_canvas_draw_glyph(p_canvas, 110, 8, 0xe24c + bt);
 }
 

@@ -16,5 +16,6 @@
 #include "mui_math.h"
 #include "mui_element.h"
 #include "mui_resource.h"
+#include "mui_fonts.h"
 
 #endif
