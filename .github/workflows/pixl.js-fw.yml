@@ -2,11 +2,11 @@ name: pixl.js-fw
 
 on:
   push:
-    branches: [ "develop"]
+    branches: [ "main"]
     tags:  ["*"]
   pull_request:
     types: ["opened"]
-    branches: ["develop"]
+    branches: ["main"]
   workflow_dispatch:
 
 jobs:
