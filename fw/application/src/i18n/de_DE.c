@@ -26,6 +26,7 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Schnelles Aufwachen",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Standby nach",
     [_L_APP_SET_LANGUAGE] = "Sprache",
+    [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Firmw. Aktualisierung",
     [_L_APP_SET_REBOOT] = "System Neustart",
     [_L_APP_SET_RESET_DEFAULT] = "Standardeinstellungen",

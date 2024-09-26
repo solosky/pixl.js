@@ -26,6 +26,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "高速起動",
     [_L_APP_SET_SLEEP_TIMEOUT] = "スリープタイムアウト",
     [_L_APP_SET_LANGUAGE] = "言語",
+    [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "ファームウェア更新",
     [_L_APP_SET_REBOOT] = "システム再起動",
     [_L_APP_SET_RESET_DEFAULT] = "デフォルト設定に戻す",

@@ -26,6 +26,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Gyors Ébresztés",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Alvási Időkorlát",
     [_L_APP_SET_LANGUAGE] = "Nyelv",
+    [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Firmware Frissítés",
     [_L_APP_SET_REBOOT] = "Rendszer Újraindítása",
     [_L_APP_SET_RESET_DEFAULT] = "Alapért. Beállítás Visszaállítása",

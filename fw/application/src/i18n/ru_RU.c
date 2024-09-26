@@ -26,6 +26,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Гибернация",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Таймаут сна",
     [_L_APP_SET_LANGUAGE] = "Язык",
+    [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Обновление ПО",
     [_L_APP_SET_REBOOT] = "Перезагрузка",
     [_L_APP_SET_RESET_DEFAULT] = "Сброс настроек",

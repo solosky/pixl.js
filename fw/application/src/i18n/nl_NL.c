@@ -26,6 +26,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "Snel Ontwaken",
     [_L_APP_SET_SLEEP_TIMEOUT] = "Time-out Slaapstand",
     [_L_APP_SET_LANGUAGE] = "Taal",
+    [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Firmware Bijwerken",
     [_L_APP_SET_REBOOT] = "Systeem Herstarten",
     [_L_APP_SET_RESET_DEFAULT] = "Terugzetten Naar Standaardwaarden",

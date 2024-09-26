@@ -26,6 +26,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_SET_HIBERNATE] = "快速唤醒",
     [_L_APP_SET_SLEEP_TIMEOUT] = "休眠时间",
     [_L_APP_SET_LANGUAGE] = "系统语言",
+    [_L_APP_SET_GO_SLEEP] = "进入休眠",
     [_L_APP_SET_DFU] = "固件更新",
     [_L_APP_SET_REBOOT] = "重启设备",
     [_L_APP_SET_RESET_DEFAULT] = "重置默认配置",
