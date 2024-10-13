@@ -3,12 +3,12 @@
         {
             "name": "Pixl.js Debug",
             "includePath": [
-                "${workspaceFolder}/src/**",
-                "${workspaceFolder}/../components/**",
-                "D:/dev/SDKs/nRF5_SDK_17.1.0_ddde560/**"
+                "${workspaceFolder}/fw/application/src/**",
+                "${workspaceFolder}/fw/components/**",
+                "${NRF52_SDK_ROOT}/**"
             ],
             "forcedInclude": [
-                "${workspaceFolder}/config/sdk_config.h"
+                "${workspaceFolder}/fw/application/config/sdk_config.h"
             ],
             "defines": [
                 "BOARD_PCA10056",
@@ -24,7 +24,7 @@
                 "DEBUG_NRF",
                 "M_USE_THREAD_BACKEND=0"
             ],
-            "compilerPath": "D:/dev/SDKs/gcc-arm-none-eabi-10-2020-q4-major/bin/arm-none-eabi-gcc.exe",
+            "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
             "cStandard": "c11",
             "cppStandard": "c++17",
             "intelliSenseMode": "windows-gcc-arm"
