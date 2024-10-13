@@ -2,6 +2,9 @@ fw/.settings
 fw/_build
 fw/.idea
 
+fw/application/.idea
+fw/bootloader/.idea
+
 fw/src/amiibo_private.c
 fw/src/version.inc.h
 fw/src/version.json

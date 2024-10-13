@@ -21,6 +21,7 @@ enum amiibo_detail_menu_t {
     AMIIBO_DETAIL_MENU_RAND_UID,
     AMIIBO_DETAIL_MENU_AUTO_RAND_UID,
     AMIIBO_DETAIL_MENU_READ_ONLY,
+    AMIIBO_DETAIL_MENU_SET_CUSTOM_UID,
     AMIIBO_DETAIL_MENU_REMOVE_AMIIBO,
     AMIIBO_DETAIL_MENU_BACK_AMIIBO_DETAIL,
     AMIIBO_DETAIL_MENU_BACK_FILE_BROWSER,
@@ -32,7 +33,6 @@ static ret_code_t amiibo_scene_amiibo_detail_set_readonly(app_amiibo_t *app, boo
     vfs_meta_t meta;
     vfs_obj_t obj;
     uint8_t meta_buf[VFS_MAX_META_LEN];
-
 
     cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
 
@@ -112,6 +112,60 @@ static void amiibo_scene_amiibo_detail_delete_tag_confirmed(mui_msg_box_event_t 
     }
 }
 
+static void amiibo_scene_amiibo_detail_menu_text_input_set_id_event_cb(mui_text_input_event_t event,
+                                                                       mui_text_input_t *p_text_input) {
+    app_amiibo_t *app = p_text_input->user_data;
+    const char *input_text = mui_text_input_get_input_text(p_text_input);
+    if (event == MUI_TEXT_INPUT_EVENT_CONFIRMED && strlen(input_text) > 0) {
+
+        int8_t uid[7];
+        ret_code_t err_code;
+        char path[VFS_MAX_PATH_LEN];
+
+        ntag_t *ntag = &app->ntag;
+
+        // read uid from input
+        if (sscanf(input_text, "%02x.%02x.%02x.%02x.%02x.%02x.%02x", uid, uid + 1, uid + 2, uid + 3, uid + 4, uid + 5,
+                   uid + 6) != 7) {
+            mui_toast_view_show(app->p_toast_view, _T(INAVLID_ID));
+            return;
+        }
+
+        // same uid as current tag
+        uint8_t cur_uid[7];
+        ntag_store_get_uuid(ntag, cur_uid);
+        if (memcmp(cur_uid, uid, 7) == 0) {
+            mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+            return;
+        }
+
+        // set current ntag uid
+        err_code = amiibo_helper_set_amiibo_uuid(ntag, uid);
+        if (err_code != NRF_SUCCESS) {
+            mui_toast_view_show(app->p_toast_view, _T(FAILED));
+            return;
+        }
+
+        // set ntag emu to emulate new tag
+        ntag_emu_set_tag(&app->ntag);
+
+        // save to file
+        vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
+
+        cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
+        int32_t res = p_driver->write_file_data(path, ntag->data, sizeof(ntag->data));
+
+        if (res < 0) {
+            mui_toast_view_show(app->p_toast_view, _T(FAILED));
+            return;
+        }
+
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+    } else {
+        mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
+    }
+}
+
 static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                         mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
@@ -168,6 +222,27 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
             p_item, (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)));
     } break;
 
+    case AMIIBO_DETAIL_MENU_SET_CUSTOM_UID: {
+        char id_text[32];
+        uint8_t id[7];
+        ntag_t *ntag = &app->ntag;
+
+        if (!amiibo_helper_is_key_loaded()) {
+            amiibo_scene_amiibo_detail_no_key_msg(app);
+            return;
+        }
+
+        ntag_store_get_uuid(ntag, id);
+
+        sprintf(id_text, "%02x.%02x.%02x.%02x.%02x.%02x.%02x", id[0], id[1], id[2], id[3], id[4], id[5], id[6]);
+
+        mui_text_input_set_header(app->p_text_input, getLangString(_L_INPUT_ID));
+        mui_text_input_set_input_text(app->p_text_input, id_text);
+        mui_text_input_set_event_cb(app->p_text_input, amiibo_scene_amiibo_detail_menu_text_input_set_id_event_cb);
+
+        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, AMIIBO_VIEW_ID_INPUT);
+    } break;
+
     case AMIIBO_DETAIL_MENU_READ_ONLY: {
         ret_code_t err_code = amiibo_scene_amiibo_detail_set_readonly(app, !app->ntag.read_only);
         if (err_code == NRF_SUCCESS) {
@@ -206,6 +281,9 @@ void amiibo_scene_amiibo_detail_menu_on_enter(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c6, getLangString(_L_AUTO_RANDOM_GENERATION),
                                (p_settings->auto_gen_amiibo ? getLangString(_L_ON_F) : getLangString(_L_OFF_F)),
                                (void *)AMIIBO_DETAIL_MENU_AUTO_RAND_UID);
+
+    mui_list_view_add_item(app->p_list_view, 0xe1c8, getLangString(_L_SET_CUSTOM_ID),
+                           (void *)AMIIBO_DETAIL_MENU_SET_CUSTOM_UID);
 
     mui_list_view_add_item_ext(app->p_list_view, 0xe007, getLangString(_L_READ_ONLY),
                                app->ntag.read_only ? getLangString(_L_ON_F) : getLangString(_L_OFF_F),
