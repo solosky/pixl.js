@@ -46,6 +46,9 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_msg_box = mui_msg_box_create();
     mui_msg_box_set_user_data(p_app_handle->p_msg_box, p_app_handle);
 
+    p_app_handle->p_toast_view = mui_toast_view_create();
+    mui_toast_view_set_user_data(p_app_handle->p_toast_view, p_app_handle);
+
     p_app_handle->p_scene_dispatcher = mui_scene_dispatcher_create();
 
     string_init(p_app_handle->current_file);
@@ -66,6 +69,12 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
+
+    p_app_handle->p_view_dispatcher_toast = mui_view_dispatcher_create();
+    mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher_toast, AMIIBO_VIEW_ID_TOAST,
+                                 mui_toast_view_get_view(p_app_handle->p_toast_view));
+    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher_toast, MUI_LAYER_TOAST);
+    mui_view_dispatcher_switch_to_view(p_app_handle->p_view_dispatcher_toast, AMIIBO_VIEW_ID_TOAST);
 
     extern const ntag_t default_ntag215;
     APP_ERROR_CHECK(ntag_emu_init(&default_ntag215));
@@ -132,6 +141,10 @@ void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
     mui_msg_box_free(p_app_handle->p_msg_box);
     mui_scene_dispatcher_free(p_app_handle->p_scene_dispatcher);
     amiibo_detail_view_free(p_app_handle->p_amiibo_detail_view);
+
+    mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher_toast, MUI_LAYER_TOAST);
+    mui_view_dispatcher_free(p_app_handle->p_view_dispatcher_toast);
+    mui_toast_view_free(p_app_handle->p_toast_view);
 
     string_clear(p_app_handle->current_file);
     string_clear(p_app_handle->current_folder);

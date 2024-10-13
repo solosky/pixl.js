@@ -149,6 +149,31 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     return err_code;
 }
 
+ret_code_t amiibo_helper_set_amiibo_uuid(ntag_t *ntag, uint8_t *uuid) {
+    ret_code_t err_code;
+    ntag_t ntag_new;
+    ntag_t *ntag_current = ntag;
+
+    memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
+
+    if (!is_valid_amiibo_ntag(ntag_current)) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+
+    if (!amiibo_helper_is_key_loaded()) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+
+    ntag_store_set_uuid(&ntag_new, uuid);
+
+    // sign new
+    err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
+    if (err_code == NRF_SUCCESS) {
+        memcpy(ntag, &ntag_new, sizeof(ntag_t));
+    }
+    return err_code;
+}
+
 ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t *ntag) {
     if (!amiibo_helper_is_key_loaded()) {
         return NRF_ERROR_INVALID_DATA;
@@ -192,19 +217,17 @@ void amiibo_helper_try_load_amiibo_keys_from_vfs() {
     }
 }
 
-uint32_t to_little_endian_int32(const uint8_t* data){
+uint32_t to_little_endian_int32(const uint8_t *data) {
     uint32_t val = 0;
     val += data[0];
     val <<= 8;
     val += data[1];
     val <<= 8;
     val += data[2];
-    val <<=8;
+    val <<= 8;
     val += data[3];
     return val;
 }
-
-
 
 bool is_valid_amiibo_ntag(const ntag_t *ntag) {
     uint32_t head = to_little_endian_int32(&ntag->data[84]);
@@ -224,4 +247,3 @@ bool is_valid_amiibo_ntag(const ntag_t *ntag) {
 
     return false;
 }
-
