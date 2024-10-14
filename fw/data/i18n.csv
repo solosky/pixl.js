@@ -6,7 +6,7 @@ _L_OFF_F,[OFF],[关],[關],[NO],[KI],[AUS],[DÉSACTIVÉ],[UIT],[DESLIGADO],[オ�
 _L_BACK,Back,返回,返回,[Atrás],Vissza,Zurück,Retour,Terug,Voltar,戻る,Indietro,[Назад]
 _L_ERR,Error,错误,錯誤,Error,Hiba,Fehler,Erreur,Fout,Erro,エラー,Errore,Ошибка
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード,Codice errore,Код ошибки
-_L_FAILED,Failed,失败,失敗,,,,,,,,,
+_L_FAILED,Failed,失败,失敗,,,,,,,,,Ошибка
 _L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Amiibo Emulátor,Amiibo Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ,Emulatore Amiibo,Эмулятор Amiibo
 _L_APP_AMIIBOLINK,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink
 _L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送,Trasferimento file BLE,Передача файлов
@@ -26,7 +26,7 @@ _L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Estad. 
 _L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Hibernar,Gyors Ébresztés,Schnelles Aufwachen,Réveil Rapide,Snel Ontwaken,Despertar Rápido,高速起動,Risveglio rapido,Гибернация
 _L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Alvási Időkorlát,Standby nach,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト,Timeout di sospensione,Таймаут сна
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma,Nyelv,Sprache,Langue,Taal,Idioma,言語,Lingua,Язык
-_L_APP_SET_GO_SLEEP,Go Sleep,进入休眠,進入休眠,,,,,,,,,
+_L_APP_SET_GO_SLEEP,Go Sleep,进入休眠,進入休眠,,,,,,,,,В режим сна
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Firmware Frissítés,Firmw. Aktualisierung,Mise à Jour du Micrologiciel,Firmware Bijwerken,Atualização de Firmware,ファームウェア更新,Aggiornamento firmware,Обновление ПО
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Újraindítása,System Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動,Riavvio del sistema,Перезагрузка
 _L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す,Ripristina impostazioni predefinite,Сброс настроек
@@ -46,9 +46,9 @@ _L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of
 _L_KNOW,Got it,知道了,知道了,Entendido,Megvan,Verstanden,Compris,Begrepen,Entendi,了解,Ho Capito,[Понятно]
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Nuevo serial aleat.,Véletlengenerátor,Zufällige UUID,Randomiser la Balise,Willekeurige Tag,Randomizar Etiqueta,タグのランダム化,Tag casuale,Сгенерировать UUID
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Serial alea. aut,Automat. Véletlengenerátor,Zufällige UUID (Automatisch),Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化,Casuale automatico,Автогенерация
-_L_SET_CUSTOM_ID,Set Custom ID,自定义 ID,自定義 ID,,,,,,,,,
-_L_INPUT_ID,Input ID,输入 ID,输入 ID,,,,,,,,,
-_L_INAVLID_ID,Invalid ID,无效的 ID,無效的 ID,,,,,,,,,
+_L_SET_CUSTOM_ID,Set Custom ID,自定义 ID,自定義 ID,,,,,,,,,Заказной ID
+_L_INPUT_ID,Input ID,输入 ID,输入 ID,,,,,,,,,Задайте ID
+_L_INAVLID_ID,Invalid ID,无效的 ID,無效的 ID,,,,,,,,,Недопустимый ID
 _L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR,QR-kód Megjelenítése,QR Code,Afficher le Code QR,QR-Code Weergeven,Exibir QR Code,QRコード表示,Mostra codice QR,QR-код
 _L_READ_ONLY,Read-only,禁止写入,禁止寫入,,,,,,,,,Только чтение
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar amiibo...,Címke Törlése,Tag löschen,Supprimer la Balise,Tag Verwijderen,Excluir Etiqueta,タグの削除,Elimina tag,Удалить тег
