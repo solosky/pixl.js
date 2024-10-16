@@ -175,6 +175,7 @@ SRC_FILES += \
   $(PROJ_DIR)/amiibo_helper.c \
   $(PROJ_DIR)/mui_qrcode_helper.c \
   $(PROJ_DIR)/app_error_handler.c \
+  $(PROJ_DIR)/interrupt_handler.c \
   $(PROJ_DIR)/libc_nano_stubs.c \
   $(PROJ_DIR)/hal/hal_spi_bus.c \
   $(PROJ_DIR)/hal/hal_spi_flash.c \
