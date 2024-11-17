@@ -2,7 +2,7 @@
 
 #include "app_error.h"
 #include "app_util_platform.h"
-#include "boards_defines.h"
+#include "boards.h"
 #include <stdio.h>
 
 #include <nrfx_spim.h>
@@ -12,11 +12,9 @@
 #include "nrf_gpio.h"
 #include "nrf_log.h"
 
-
 #define SPI_INSTANCE 0
 
 static const nrfx_spim_t m_spi = NRFX_SPIM_INSTANCE(SPI_INSTANCE);
-
 
 void hal_spi_bus_init() {
     ret_code_t err_code;
@@ -47,22 +45,19 @@ uint32_t hal_spi_bus_xfer(spi_transaction_t *p_trans) {
     uint32_t err_code = NRF_SUCCESS;
     nrfx_spim_xfer_desc_t spim_xfer_desc;
 
-    uint32_t max_xfer_bytes =
-        p_trans->tx_length > p_trans->rx_length ? p_trans->tx_length : p_trans->rx_length;
+    uint32_t max_xfer_bytes = p_trans->tx_length > p_trans->rx_length ? p_trans->tx_length : p_trans->rx_length;
     for (uint32_t i = 0; i < max_xfer_bytes; i += 128) {
 
         if (i < p_trans->tx_length) {
             spim_xfer_desc.p_tx_buffer = p_trans->p_tx_buffer + i;
-            spim_xfer_desc.tx_length =
-                p_trans->tx_length - i < 128 ? p_trans->tx_length - i : 128;
+            spim_xfer_desc.tx_length = p_trans->tx_length - i < 128 ? p_trans->tx_length - i : 128;
         } else {
             spim_xfer_desc.p_tx_buffer = NULL;
             spim_xfer_desc.tx_length = 0;
         }
         if (i < p_trans->rx_length) {
             spim_xfer_desc.p_rx_buffer = p_trans->p_rx_buffer + i;
-            spim_xfer_desc.rx_length =
-                p_trans->rx_length - i < 128 ? p_trans->rx_length - i : 128;
+            spim_xfer_desc.rx_length = p_trans->rx_length - i < 128 ? p_trans->rx_length - i : 128;
         } else {
             spim_xfer_desc.p_rx_buffer = NULL;
             spim_xfer_desc.rx_length = 0;

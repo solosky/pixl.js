@@ -1,4 +1,4 @@
-#include "boards_defines.h"
+#include "boards.h"
 
 #ifdef VFS_SPIFFS_ENABLE
 

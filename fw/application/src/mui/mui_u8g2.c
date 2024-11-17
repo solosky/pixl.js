@@ -78,7 +78,7 @@
 
 #include "app_pwm.h"
 
-#include "boards_defines.h"
+#include "boards.h"
 
 u8g2_t u8g2;
 static spi_device_t m_dev;
