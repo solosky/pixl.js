@@ -232,6 +232,11 @@ SRC_FILES += \
   $(PROJ_DIR)/app/player/scene/player_scene.c \
   $(PROJ_DIR)/app/player/scene/player_scene_file_browser.c \
   $(PROJ_DIR)/app/player/scene/player_scene_play.c \
+  $(PROJ_DIR)/app/game/app_game.c \
+  $(PROJ_DIR)/app/game/view/game_view.c \
+  $(PROJ_DIR)/app/game/scene/game_scene.c \
+  $(PROJ_DIR)/app/game/scene/game_scene_file_browser.c \
+  $(PROJ_DIR)/app/game/scene/game_scene_play.c \
   $(PROJ_DIR)/app/amiibolink/app_amiibolink.c \
   $(PROJ_DIR)/app/amiibolink/view/amiibolink_view.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene.c \
@@ -555,6 +560,9 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/player \
   $(PROJ_DIR)/app/player/view \
   $(PROJ_DIR)/app/player/scene \
+  $(PROJ_DIR)/app/game \
+  $(PROJ_DIR)/app/game/view \
+  $(PROJ_DIR)/app/game/scene \
   $(PROJ_DIR)/app/amiibolink \
   $(PROJ_DIR)/app/amiibolink/view \
   $(PROJ_DIR)/app/amiibolink/scene \
