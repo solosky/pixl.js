@@ -63,6 +63,7 @@ mini_app_t app_game_info = {.id = MINI_APP_ID_GAME,
                                  .deamon = false,
                                  .sys = false,
                                  .hibernate_enabled = false,
+                                 .icon_32x32 = &app_card_emulator_32x32,
                                  .run_cb = app_game_on_run,
                                  .kill_cb = app_game_on_kill,
                                  .on_event_cb = app_game_on_event};

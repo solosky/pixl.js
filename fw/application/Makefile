@@ -9,7 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
-RELEASE ?= 1
+RELEASE ?= 0
 BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
@@ -237,6 +237,8 @@ SRC_FILES += \
   $(PROJ_DIR)/app/game/scene/game_scene.c \
   $(PROJ_DIR)/app/game/scene/game_scene_file_browser.c \
   $(PROJ_DIR)/app/game/scene/game_scene_play.c \
+  $(PROJ_DIR)/app/game/port/common/driver.c \
+  $(PROJ_DIR)/app/game/port/tiny_lander/tiny_lander.c \
   $(PROJ_DIR)/app/amiibolink/app_amiibolink.c \
   $(PROJ_DIR)/app/amiibolink/view/amiibolink_view.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene.c \
@@ -563,6 +565,7 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/game \
   $(PROJ_DIR)/app/game/view \
   $(PROJ_DIR)/app/game/scene \
+  $(PROJ_DIR)/app/game/port/tiny_lander \
   $(PROJ_DIR)/app/amiibolink \
   $(PROJ_DIR)/app/amiibolink/view \
   $(PROJ_DIR)/app/amiibolink/scene \
