@@ -54,7 +54,7 @@ static void game_scene_game_list_reload_folders(app_game_t *app) {
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Lander", tiny_lander_run);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Invaders", tiny_invaders_run);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Arkanoid", tiny_arkanoid_run);
-    mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Tris", tiny_tris_run);
+    //mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Tris", tiny_tris_run);
 }
 
 void game_scene_game_list_on_enter(void *user_data) {
