@@ -179,4 +179,5 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "无效的输入!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "卡类型已修改\n重置卡数据?",
     [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "默认卡片",
+    [_L_APP_GAME] = "游戏",
 };

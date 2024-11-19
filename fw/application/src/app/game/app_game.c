@@ -58,8 +58,8 @@ void app_game_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {
 
 mini_app_t app_game_info = {.id = MINI_APP_ID_GAME,
                                  .name = "动画播放器",
-                                 .name_i18n_key = _L_APP_PLAYER,
-                                 .icon = 0xe020,
+                                 .name_i18n_key = _L_APP_GAME,
+                                 .icon = 0xe021,
                                  .deamon = false,
                                  .sys = false,
                                  .hibernate_enabled = false,

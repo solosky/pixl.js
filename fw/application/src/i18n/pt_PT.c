@@ -179,4 +179,5 @@ const char * const lang_pt_PT[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Texto invalida",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Tipo de cartão alterado. \nFormatar cartão?",
     [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
+    [_L_APP_GAME] = "",
 };
