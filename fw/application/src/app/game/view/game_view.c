@@ -8,9 +8,6 @@
 uint8_t key_state[3] = {0};
 uint8_t running = 0;
 
-void game_view_handle_event(){
-    mui_tick(mui());
-}
 uint8_t game_view_key_pressed(input_key_t key) { return key_state[key]; }
 
 static void game_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {

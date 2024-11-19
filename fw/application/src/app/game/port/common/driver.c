@@ -1,11 +1,13 @@
 #include "driver.h"
 #include "app_error.h"
 #include "game_view.h"
+#include "mui_core.h"
 #include "mui_u8g2.h"
 
 #include "boards_defines.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
+#include "app_scheduler.h"
 
 void JOY_OLED_end() { hal_spi_bus_release(mui_u8g2_get_spi_device()); }
 
@@ -37,7 +39,8 @@ void JOY_OLED_data_start(uint8_t y) {
 }
 
 void JOY_idle() {
-    game_view_handle_event();
+    app_sched_execute();
+    mui_tick(mui());
     NRF_LOG_FLUSH();
 }
 

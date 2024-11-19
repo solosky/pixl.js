@@ -19,6 +19,7 @@ extern "C" {
 
 
 
+
 // Pin assignments
 #define PIN_ACT     PA2   // pin connected to fire button
 #define PIN_BEEP    PA1   // pin connected to buzzer
