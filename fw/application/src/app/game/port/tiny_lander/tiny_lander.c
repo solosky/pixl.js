@@ -31,7 +31,7 @@
 
 #include "../common/driver.h"
 #include "spritebank.h"
-#include "nrf_delay.h"
+
 
 // ===================================================================================
 // Function Prototypes
@@ -51,7 +51,7 @@ uint8_t FuelDisplay(uint8_t x, uint8_t y, GAME * game);
 uint8_t GameDisplay(uint8_t x, uint8_t y, GAME * game);
 uint8_t StarsDisplay(uint8_t x, uint8_t y, GAME * game);
 uint8_t LivesDisplay(uint8_t x, uint8_t y, GAME * game);
-void Tiny_Flip(uint8_t mode, GAME * game, DIGITAL * score, DIGITAL * velX, DIGITAL * velY);
+static void Tiny_Flip(uint8_t mode, GAME * game, DIGITAL * score, DIGITAL * velX, DIGITAL * velY);
 
 void INTROJOY_sound(void);
 void VICTORYJOY_sound(void);
@@ -193,8 +193,8 @@ void showAllScoresAndBonuses(GAME *game, DIGITAL *score, DIGITAL *velX, DIGITAL 
 
 void changeSpeed(GAME * game)
 {
-  game->ThrustLEFT = JOY_left_pressed();
-  game->ThrustRIGHT = JOY_right_pressed();
+  game->ThrustLEFT = JOY_right_pressed();
+  game->ThrustRIGHT = JOY_left_pressed();
   game->ThrustUP = JOY_act_pressed();
   game->Toggle = !game->Toggle;
 
@@ -468,7 +468,7 @@ uint8_t LivesDisplay(uint8_t x, uint8_t y, GAME * game)
   if (y == 7 && x >= offset && x < (4 * 5) + offset)
   {
     if (game->Lives > (x - offset) / 5)
-      return (LIVE[(x - offset) % 5]);
+      return (LIVE2[(x - offset) % 5]);
   }
   return 0x00;
 }

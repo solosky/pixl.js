@@ -37,7 +37,7 @@ void app_game_on_run(mini_app_inst_t *p_app_inst) {
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, game_scene_defines, GAME_SCENE_MAX);
 
-    mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, GAME_SCENE_FILE_BROWSER);
+    mui_scene_dispatcher_next_scene(p_app_handle->p_scene_dispatcher, GAME_SCENE_GAME_LIST);
 }
 
 void app_game_on_kill(mini_app_inst_t *p_app_inst) {

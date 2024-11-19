@@ -15,6 +15,7 @@ extern "C" {
 #include <stdint.h>
 
 #include "game_view.h"
+#include "nrf_delay.h"
 
 
 
@@ -40,7 +41,7 @@ extern "C" {
 #define JOY_SOUND   0     // 0: no sound, 1: with sound
 
 // Game slow-down delay
-#define JOY_SLOWDOWN()    //DLY_ms(10)
+#define JOY_SLOWDOWN()    DLY_ms(10)
 #define JOY_init() //
 
 // // Init driver
@@ -64,8 +65,8 @@ extern "C" {
 #define JOY_pad_released()        true
 #define JOY_all_released()        (JOY_act_released() && JOY_pad_released())
 
-#define JOY_left_pressed()        game_view_key_pressed(INPUT_KEY_RIGHT)
-#define JOY_right_pressed()       game_view_key_pressed(INPUT_KEY_LEFT)
+#define JOY_left_pressed()        game_view_key_pressed(INPUT_KEY_LEFT)
+#define JOY_right_pressed()       game_view_key_pressed(INPUT_KEY_RIGHT)
 
 #define JOY_up_pressed()          false
 #define JOY_down_pressed()        false

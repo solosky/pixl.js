@@ -235,10 +235,13 @@ SRC_FILES += \
   $(PROJ_DIR)/app/game/app_game.c \
   $(PROJ_DIR)/app/game/view/game_view.c \
   $(PROJ_DIR)/app/game/scene/game_scene.c \
-  $(PROJ_DIR)/app/game/scene/game_scene_file_browser.c \
+  $(PROJ_DIR)/app/game/scene/game_scene_game_list.c \
   $(PROJ_DIR)/app/game/scene/game_scene_play.c \
   $(PROJ_DIR)/app/game/port/common/driver.c \
   $(PROJ_DIR)/app/game/port/tiny_lander/tiny_lander.c \
+  $(PROJ_DIR)/app/game/port/tiny_invaders/tiny_invaders.c \
+  $(PROJ_DIR)/app/game/port/tiny_arkanoid/tiny_arkanoid.c \
+  $(PROJ_DIR)/app/game/port/tiny_tris/tiny_tris.c \
   $(PROJ_DIR)/app/amiibolink/app_amiibolink.c \
   $(PROJ_DIR)/app/amiibolink/view/amiibolink_view.c \
   $(PROJ_DIR)/app/amiibolink/scene/amiibolink_scene.c \
@@ -566,6 +569,9 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/game/view \
   $(PROJ_DIR)/app/game/scene \
   $(PROJ_DIR)/app/game/port/tiny_lander \
+  $(PROJ_DIR)/app/game/port/tiny_invaders \
+  $(PROJ_DIR)/app/game/port/tiny_arkanoid \
+  $(PROJ_DIR)/app/game/port/tiny_tris \
   $(PROJ_DIR)/app/amiibolink \
   $(PROJ_DIR)/app/amiibolink/view \
   $(PROJ_DIR)/app/amiibolink/scene \

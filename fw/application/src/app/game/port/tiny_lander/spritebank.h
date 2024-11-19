@@ -188,7 +188,7 @@ const uint8_t STAROUTLINE[] = {
 };
 
 // 'Live', 5x8px
-const uint8_t LIVE[] = {
+const uint8_t LIVE2[] = {
   0x60, 0x18, 0x18, 0x60, 0x00
 };
 

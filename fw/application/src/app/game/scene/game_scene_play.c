@@ -14,7 +14,6 @@
 
 static void game_scene_play_event_cb(game_view_event_t event, game_view_t *p_view) {
     app_game_t *app = p_view->user_data;
-    game_view_stop(app->p_game_view);
     mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
 }
 
