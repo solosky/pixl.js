@@ -10,8 +10,7 @@ struct game_view_s;
 typedef struct game_view_s game_view_t;
 
 typedef enum {
-    game_VIEW_EVENT_KEY_PRESSED,
-    game_VIEW_EVENT_PLAY_STOPPED
+    GAME_VIEW_EVENT_PLAY_STOPPED
 } game_view_event_t;
 
 typedef void (*game_view_event_cb)(game_view_event_t event, game_view_t *p_view);
@@ -25,6 +24,7 @@ typedef int(*game_run_t)(void);
     mui_view_t* p_view;
     game_view_event_cb event_cb;
     game_run_t game_run;
+    uint8_t running;
     void* user_data;
 } ;
 
@@ -33,6 +33,7 @@ void game_view_free(game_view_t* p_view);
 mui_view_t* game_view_get_view(game_view_t* p_view);
 
 uint8_t game_view_key_pressed(input_key_t key);
+uint8_t game_view_center_key_repeat_cnt();
 
 static inline void game_view_set_event_cb(game_view_t* p_view, game_view_event_cb event_cb){
     p_view->event_cb = event_cb;

@@ -34,7 +34,7 @@ static void game_scene_game_list_on_selected(mui_list_view_event_t event, mui_li
             game_view_set_game_run(app->p_game_view, p_item->user_data);
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, GAME_SCENE_PLAY);
         }else{
-            mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_PLAYER);
+            mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_GAME);
         }
     } else {
     }

@@ -21,7 +21,6 @@ void game_scene_play_on_enter(void *user_data) {
     app_game_t *app = user_data;
     game_view_set_event_cb(app->p_game_view, game_scene_play_event_cb);
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, GAME_VIEW_ID_GAME);
-    //game_view_play(app->p_game_view, VFS_DRIVE_EXT, string_get_cstr(app->selected_file));
 }
 
 void game_scene_play_on_exit(void *user_data) { app_game_t *app = user_data; }

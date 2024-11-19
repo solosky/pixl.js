@@ -88,6 +88,7 @@ void JOY_OLED_end() ;
 void JOY_sound(uint8_t freq, uint8_t dur); 
 uint16_t JOY_random(void);
 void JOY_idle();
+uint8_t JOY_exit();
 long map(long x, long in_min, long in_max, long out_min, long out_max) ;
 
 #ifdef __cplusplus

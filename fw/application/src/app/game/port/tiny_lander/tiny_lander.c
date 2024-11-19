@@ -99,6 +99,9 @@ int tiny_lander_run(void) {
         goto START;
       }
       JOY_idle();
+      if(JOY_exit()){
+        goto EXIT;
+      }
     }
 
   START:
@@ -135,8 +138,14 @@ int tiny_lander_run(void) {
       JOY_SLOWDOWN();
 
       JOY_idle();
+      if(JOY_exit()){
+        goto EXIT;
+      }
     }
   }
+
+  EXIT:
+    return 0;
 }
 
 // ===================================================================================

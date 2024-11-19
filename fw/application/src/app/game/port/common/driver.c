@@ -44,6 +44,10 @@ void JOY_idle() {
     NRF_LOG_FLUSH();
 }
 
+uint8_t JOY_exit(){
+    return game_view_center_key_repeat_cnt() > 10; //about 3 sec
+}
+
 long map(long x, long in_min, long in_max, long out_min, long out_max) {
     return (x - in_min) * (out_max - out_min) / (in_max - in_min) + out_min;
 }
