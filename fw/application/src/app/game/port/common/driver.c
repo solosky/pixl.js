@@ -4,10 +4,10 @@
 #include "mui_core.h"
 #include "mui_u8g2.h"
 
-#include "boards_defines.h"
+#include "app_scheduler.h"
+#include "boards.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
-#include "app_scheduler.h"
 
 void JOY_OLED_end() { hal_spi_bus_release(mui_u8g2_get_spi_device()); }
 
@@ -44,8 +44,8 @@ void JOY_idle() {
     NRF_LOG_FLUSH();
 }
 
-uint8_t JOY_exit(){
-    return game_view_center_key_repeat_cnt() > 10; //about 3 sec
+uint8_t JOY_exit() {
+    return game_view_center_key_repeat_cnt() > 10; // about 3 sec
 }
 
 long map(long x, long in_min, long in_max, long out_min, long out_max) {
