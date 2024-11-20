@@ -176,8 +176,14 @@ int tiny_tris_run(void) {
             }
 
             JOY_idle();
+            if (JOY_exit()) {
+                goto EXIT;
+            }
         }
     }
+
+EXIT:
+    return 0;
 }
 
 // ===================================================================================
@@ -249,6 +255,9 @@ void INTRO_MANIFEST_TTRIS(void) {
         TIMER_1 = (TIMER_1 < 7) ? TIMER_1 + 1 : 0;
         Flip_intro_TTRIS(&TIMER_1);
         JOY_idle();
+        if (JOY_exit()) {
+            return;
+        }
     }
     SND_TTRIS(4);
 }
