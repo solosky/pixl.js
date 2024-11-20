@@ -10,11 +10,14 @@
 #include "nrf_log_ctrl.h"
 
 void JOY_OLED_clear() {
-    JOY_OLED_data_start(0);
-    for (uint16_t i = 0; i < 1024; i++) {
-        JOY_OLED_send(0);
+    for (uint8_t y = 0; y < 8; y++) {
+        JOY_OLED_data_start(y);
+        for (uint8_t x = 0; x < 128; x++) {
+            JOY_OLED_send(0);
+        }
+
+        JOY_OLED_end();
     }
-    JOY_OLED_end();
 }
 
 void JOY_OLED_end() { hal_spi_bus_release(mui_u8g2_get_spi_device()); }

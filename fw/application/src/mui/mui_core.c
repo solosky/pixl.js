@@ -58,6 +58,10 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
     uint8_t sw = p_mui->screen_width;
     uint8_t sh = p_mui->screen_height;
 
+    if(!p_mui->auto_update){
+        return;
+    }
+
     mui_canvas_clear(&p_mui->canvas);
 
     if (mui_draw_layer(p_mui, MUI_LAYER_FULLSCREEN, 0, 0, sw, sh)) {

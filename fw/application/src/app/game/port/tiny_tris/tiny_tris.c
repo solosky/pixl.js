@@ -168,7 +168,7 @@ int tiny_tris_run(void) {
             }
 
             Move_Piece_TTRIS();
-            if (SKIP_FRAME == 6) {
+            if (SKIP_FRAME == 1) {
                 Tiny_Flip_TTRIS(82);
                 SKIP_FRAME = 0;
             } else {

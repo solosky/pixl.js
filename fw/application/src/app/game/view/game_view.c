@@ -22,6 +22,7 @@ static void game_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         p_game_view->game_run();
         p_game_view->running = 0;
         key_repeat_cnt = 0;
+        mui_set_auto_update(mui(), 1);
         
          if (p_game_view->event_cb) {
             p_game_view->event_cb(GAME_VIEW_EVENT_PLAY_STOPPED, p_game_view);
