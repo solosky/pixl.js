@@ -10,13 +10,10 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
-
-#include "tiny_invaders.h"
 #include "tiny_arkanoid.h"
-#include "tiny_tris.h"
+#include "tiny_invaders.h"
 #include "tiny_lander.h"
-
-
+#include "tiny_tris.h"
 
 #define ICON_FOLDER 0xe1d6
 #define ICON_FILE 0xe1ed
@@ -25,15 +22,15 @@
 #define ICON_HOME 0xe1f0
 
 static void game_scene_game_list_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
-                                                mui_list_item_t *p_item) {
+                                             mui_list_item_t *p_item) {
     app_game_t *app = p_list_view->user_data;
     uint32_t idx = (uint32_t)p_item->user_data;
 
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
-        if(p_item->icon == ICON_FILE){
+        if (p_item->icon == ICON_FILE) {
             game_view_set_game_run(app->p_game_view, p_item->user_data);
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, GAME_SCENE_PLAY);
-        }else{
+        } else {
             mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_GAME);
         }
     } else {
@@ -54,7 +51,7 @@ static void game_scene_game_list_reload_folders(app_game_t *app) {
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Lander", tiny_lander_run);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Invaders", tiny_invaders_run);
     mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Arkanoid", tiny_arkanoid_run);
-    //mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Tris", tiny_tris_run);
+    mui_list_view_add_item(app->p_list_view, ICON_FILE, "Tiny Tris", tiny_tris_run);
 }
 
 void game_scene_game_list_on_enter(void *user_data) {

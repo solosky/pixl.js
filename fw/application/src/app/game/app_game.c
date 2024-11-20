@@ -25,11 +25,10 @@ void app_game_on_run(mini_app_inst_t *p_app_inst) {
     mui_list_view_set_user_data(p_app_handle->p_list_view, p_app_handle);
     game_view_set_user_data(p_app_handle->p_game_view, p_app_handle);
 
-
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, GAME_VIEW_ID_GAME,
                                  game_view_get_view(p_app_handle->p_game_view));
 
-                                     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, GAME_VIEW_ID_LIST,
+    mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, GAME_VIEW_ID_LIST,
                                  mui_list_view_get_view(p_app_handle->p_list_view));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
@@ -57,13 +56,13 @@ void app_game_on_kill(mini_app_inst_t *p_app_inst) {
 void app_game_on_event(mini_app_inst_t *p_app_inst, mini_app_event_t *p_event) {}
 
 mini_app_t app_game_info = {.id = MINI_APP_ID_GAME,
-                                 .name = "动画播放器",
-                                 .name_i18n_key = _L_APP_GAME,
-                                 .icon = 0xe021,
-                                 .deamon = false,
-                                 .sys = false,
-                                 .hibernate_enabled = false,
-                                 .icon_32x32 = &app_card_emulator_32x32,
-                                 .run_cb = app_game_on_run,
-                                 .kill_cb = app_game_on_kill,
-                                 .on_event_cb = app_game_on_event};
+                            .name = "动画播放器",
+                            .name_i18n_key = _L_APP_GAME,
+                            .icon = 0xe021,
+                            .deamon = false,
+                            .sys = false,
+                            .hibernate_enabled = false,
+                            .icon_32x32 = &app_game_32x32,
+                            .run_cb = app_game_on_run,
+                            .kill_cb = app_game_on_kill,
+                            .on_event_cb = app_game_on_event};
