@@ -9,6 +9,14 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
+void JOY_OLED_clear() {
+    JOY_OLED_data_start(0);
+    for (uint16_t i = 0; i < 1024; i++) {
+        JOY_OLED_send(0);
+    }
+    JOY_OLED_end();
+}
+
 void JOY_OLED_end() { hal_spi_bus_release(mui_u8g2_get_spi_device()); }
 
 void JOY_OLED_write_data(uint8_t is_data, uint8_t data) {
@@ -37,6 +45,7 @@ void JOY_OLED_data_start(uint8_t y) {
     hal_spi_bus_aquire(mui_u8g2_get_spi_device());
     JOY_OLED_set_pos(0, y);
 }
+void JOY_init() { JOY_OLED_clear(); }
 
 void JOY_idle() {
     app_sched_execute();

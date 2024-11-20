@@ -43,7 +43,7 @@ extern "C" {
 
 // Game slow-down delay
 #define JOY_SLOWDOWN()    DLY_ms(10)
-#define JOY_init() //
+//#define JOY_init() //
 
 // // Init driver
 // static inline void JOY_init(void) {
@@ -87,6 +87,7 @@ void JOY_OLED_end() ;
 
 void JOY_sound(uint8_t freq, uint8_t dur); 
 uint16_t JOY_random(void);
+void JOY_init(void);
 void JOY_idle();
 uint8_t JOY_exit();
 long map(long x, long in_min, long in_max, long out_min, long out_max) ;
