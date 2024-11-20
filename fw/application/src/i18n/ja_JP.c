@@ -180,4 +180,8 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "カードの種類が変更されました。\nカードデータを初期化しますか？",
     [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
     [_L_APP_GAME] = "",
+    [_L_APP_GAME_TINY_ARKANOID] = "",
+    [_L_APP_GAME_TINY_INVADERS] = "",
+    [_L_APP_GAME_TINY_LANDER] = "",
+    [_L_APP_GAME_TINY_TRIS] = "",
 };

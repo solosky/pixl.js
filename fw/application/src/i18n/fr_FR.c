@@ -180,4 +180,8 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Le Type de Carte a Été Modifié. \nRéinitialiser les Données de la Carte?",
     [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
     [_L_APP_GAME] = "",
+    [_L_APP_GAME_TINY_ARKANOID] = "",
+    [_L_APP_GAME_TINY_INVADERS] = "",
+    [_L_APP_GAME_TINY_LANDER] = "",
+    [_L_APP_GAME_TINY_TRIS] = "",
 };
