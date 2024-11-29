@@ -26,32 +26,37 @@ jobs:
     - name: build firmware
       run: cd fw && make all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
     - name: upload bootloader
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: ${{matrix.board}}__bootloader.hex
         path: fw/_build/bootloader.hex
     - name: upload firmware
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: ${{matrix.board}}__pixljs.hex
         path: fw/_build/pixljs.hex
     - name: upload all
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: ${{matrix.board}}__pixljs_all.hex
         path: fw/_build/pixljs_all.hex
     - name: upload ota 
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: ${{matrix.board}}__pixjs_ota_v${{github.run_number}}.zip
         path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
     - name: upload fw update script 
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: ${{matrix.board}}__fw_update.bat
         path: fw/scripts/fw_update.bat
     - name: upload fw readme file 
-      uses: actions/upload-artifact@v3
+      uses: actions/upload-artifact@v4
       with:
-        name: pixljs_fw_${{matrix.board}}
+        name: ${{matrix.board}}__fw_readme.txt
         path: fw/docs/fw_readme.txt
+    - name: Merge Artifacts
+      uses: actions/upload-artifact/merge@v4
+      with:
+        name: ${{matrix.board}}__pixljs_fw_${{github.run_number}}
+        pattern: ${{matrix.board}}__*
