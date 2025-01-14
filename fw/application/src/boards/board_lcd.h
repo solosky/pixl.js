@@ -47,6 +47,7 @@
 #define LCD_RESET_PIN 29
 #define LCD_BL_PIN 30
 #define LCD_DC_PIN 28 // green wire (DC)
+#define LCD_DEFAULT_CONTRAST 128
 
 
 // VFS driver
