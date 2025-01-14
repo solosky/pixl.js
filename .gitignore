@@ -40,3 +40,4 @@ hw/LIPO.RevA
 dist
 # venv stuff
 .venv
+*.un~
