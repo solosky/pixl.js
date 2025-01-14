@@ -78,7 +78,7 @@
 
 #include "app_pwm.h"
 
-#include "boards_defines.h"
+#include "boards.h"
 
 u8g2_t u8g2;
 static spi_device_t m_dev;
@@ -253,3 +253,7 @@ void mui_u8g2_set_oled_contrast_level(uint8_t value) {
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
 }
 #endif
+
+const spi_device_t* mui_u8g2_get_spi_device(){
+    return &m_dev;
+}

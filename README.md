@@ -23,6 +23,7 @@
 * [cwalk](https://github.com/likle/cwalk)
 * [SPIFFS](https://github.com/pellepl/spiffs)
 * [ChameleonUltra](https://github.com/RfidResearchGroup/ChameleonUltra)
+* [CH32V003-GameConsole](https://github.com/wagiminator/CH32V003-GameConsole)
 
 ## Contribution 
 

@@ -344,7 +344,19 @@ NTAG系列的模拟功能还是测试中，功能还不太完善，未完全模�
 * 卡槽数量: 显示当前卡槽数量，默认为8，暂不支持修改数量，后续固件开放。
 * 卡槽 xx: 显示卡槽开启关闭状态，按中键可以切换开启和关闭状态。
 
+# 游戏
 
+目前基于 [wagiminator/CH32V003-GameConsole](https://github.com/wagiminator/CH32V003-GameConsole) 移植了4个游戏。
+这四个游戏如下：
+
+* 复仇者
+* 星球着陆
+* 打砖块
+* 俄罗斯方块
+
+长按中键可以退出游戏。
+
+更多信息请参考原仓库 [https://github.com/wagiminator/CH32V003-GameConsole](https://github.com/wagiminator/CH32V003-GameConsole "https://github.com/wagiminator/CH32V003-GameConsole.").
 
 
 # 设置

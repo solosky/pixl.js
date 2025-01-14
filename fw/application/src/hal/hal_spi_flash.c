@@ -8,7 +8,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 
-#include "boards_defines.h"
+#include "boards.h"
 
 #define PAGE_SIZE 256
 #define CMD_ADDR_SIZE 4
@@ -41,12 +41,11 @@
 #define MTC_W25Q64_DW (0x6017)       /* W25Q64DW */
 #define MTC_W25Q128_BV (0x4018)      /* W25Q128BV */
 #define MTC_W25Q256_FV (TBD)         /* W25Q256FV */
-#define MTC_MX25L25645_GM2I (0x2019)      /* MX25L25645GM2I-10G */
+#define MTC_MX25L25645_GM2I (0x2019) /* MX25L25645GM2I-10G */
 
 static spi_device_t m_dev;
 
-static inline void hal_spi_flash_write_read(uint8_t *tx_data, uint8_t tx_len,
-                                            uint8_t *rx_data, uint32_t rx_len) {
+static inline void hal_spi_flash_write_read(uint8_t *tx_data, uint8_t tx_len, uint8_t *rx_data, uint32_t rx_len) {
     hal_spi_bus_aquire(&m_dev);
 
     spi_transaction_t trans_tx = {
@@ -74,8 +73,7 @@ static inline void hal_spi_flash_write_read(uint8_t *tx_data, uint8_t tx_len,
     hal_spi_bus_release(&m_dev);
 }
 
-static inline void hal_spi_flash_write_write(uint8_t *tx_data, uint8_t tx_len,
-                                             uint8_t *tx_data2, uint32_t tx_len2) {
+static inline void hal_spi_flash_write_write(uint8_t *tx_data, uint8_t tx_len, uint8_t *tx_data2, uint32_t tx_len2) {
     hal_spi_bus_aquire(&m_dev);
 
     spi_transaction_t trans_tx = {
@@ -150,46 +148,45 @@ ret_code_t hal_spi_flash_info(flash_info_t *info) {
     memory_type_capacity = (memory_type_capacity << 8) | rx[2];
 
     switch (memory_type_capacity) {
-        case MTC_MX25L25645_GM2I:
-            NRF_LOG_INFO("MX25L25645GM2I-10G detection");
-            info->block_count = 8192;
-            break;
-        case MTC_W25Q128_BV:
-            NRF_LOG_INFO("W25Q128BV detection");
-            info->block_count = 4096;
-            break;
-        case MTC_W25Q64_BV_CV:
-            NRF_LOG_INFO("W25Q64BV or W25Q64CV detection");
-            info->block_count = 2048;
-            break;
-        case MTC_W25Q64_DW:
-            NRF_LOG_INFO("W25Q64DW detection");
-            info->block_count = 2048;
-            break;
-        case MTC_W25Q32_BV:
-            NRF_LOG_INFO("W25Q32BV detection");
-            info->block_count = 1024;
-            break;
-        case MTC_W25Q32_DW:
-            NRF_LOG_INFO("W25Q32DW detection");
-            info->block_count = 1024;
-            break;
-        case MTC_W25Q16_BV_CL_CV:
-            NRF_LOG_INFO("W25Q16BV or W25Q16CL or W25Q16CV detection");
-            info->block_count = 512;
-            break;
-        case MTC_W25Q16_DW:
-            NRF_LOG_INFO("W25Q16DW detection");
-            info->block_count = 512;
-            break;
-        default:
-            NRF_LOG_INFO("Memory Capacity error! %d", memory_type_capacity);
-            info->block_count = 0;
-            return NRF_ERROR_INVALID_PARAM;
+    case MTC_MX25L25645_GM2I:
+        NRF_LOG_INFO("MX25L25645GM2I-10G detection");
+        info->block_count = 8192;
+        break;
+    case MTC_W25Q128_BV:
+        NRF_LOG_INFO("W25Q128BV detection");
+        info->block_count = 4096;
+        break;
+    case MTC_W25Q64_BV_CV:
+        NRF_LOG_INFO("W25Q64BV or W25Q64CV detection");
+        info->block_count = 2048;
+        break;
+    case MTC_W25Q64_DW:
+        NRF_LOG_INFO("W25Q64DW detection");
+        info->block_count = 2048;
+        break;
+    case MTC_W25Q32_BV:
+        NRF_LOG_INFO("W25Q32BV detection");
+        info->block_count = 1024;
+        break;
+    case MTC_W25Q32_DW:
+        NRF_LOG_INFO("W25Q32DW detection");
+        info->block_count = 1024;
+        break;
+    case MTC_W25Q16_BV_CL_CV:
+        NRF_LOG_INFO("W25Q16BV or W25Q16CL or W25Q16CV detection");
+        info->block_count = 512;
+        break;
+    case MTC_W25Q16_DW:
+        NRF_LOG_INFO("W25Q16DW detection");
+        info->block_count = 512;
+        break;
+    default:
+        NRF_LOG_INFO("Memory Capacity error! %d", memory_type_capacity);
+        info->block_count = 0;
+        return NRF_ERROR_INVALID_PARAM;
     }
     return NRF_SUCCESS;
 }
-
 
 ret_code_t hal_spi_flash_read(uint32_t address, void *buffer, size_t size) {
 
@@ -241,7 +238,4 @@ ret_code_t hal_spi_flash_erase(uint32_t address) {
     return NRF_SUCCESS;
 }
 
-
-void hal_spi_flash_sleep(){
-    hal_spi_flash_write_cmd(CMD_DP);
-}
+void hal_spi_flash_sleep() { hal_spi_flash_write_cmd(CMD_DP); }

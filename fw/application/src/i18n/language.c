@@ -8,10 +8,10 @@ typedef struct {
 const LanguageData const languageData[LANGUAGE_COUNT] = {
     [LANGUAGE_ZH_HANS] = {.strings = lang_zh_Hans}, [LANGUAGE_EN_US] = {.strings = lang_en_US},
     [LANGUAGE_ZH_TW] = {.strings = lang_zh_TW},     [LANGUAGE_ES_ES] = {.strings = lang_es_ES},
-    [LANGUAGE_IT_IT] = {.strings = lang_it_IT},     [LANGUAGE_HU_HU] = {.strings = lang_hu_HU},
-    [LANGUAGE_DE_DE] = {.strings = lang_de_DE},     [LANGUAGE_FR_FR] = {.strings = lang_fr_FR},
-    [LANGUAGE_NL_NL] = {.strings = lang_nl_NL},     [LANGUAGE_PT_BR] = {.strings = lang_pt_BR},
-    [LANGUAGE_JA_JP] = {.strings = lang_ja_JP},     [LANGUAGE_PT_PT] = {.strings = lang_pt_PT},
+    [LANGUAGE_HU_HU] = {.strings = lang_hu_HU},     [LANGUAGE_DE_DE] = {.strings = lang_de_DE},
+    [LANGUAGE_FR_FR] = {.strings = lang_fr_FR},     [LANGUAGE_NL_NL] = {.strings = lang_nl_NL},
+    [LANGUAGE_PT_BR] = {.strings = lang_pt_BR},     [LANGUAGE_JA_JP] = {.strings = lang_ja_JP},
+    [LANGUAGE_PT_PT] = {.strings = lang_pt_PT},     [LANGUAGE_IT_IT] = {.strings = lang_it_IT},
     [LANGUAGE_RU_RU] = {.strings = lang_ru_RU},
 };
 
@@ -41,8 +41,6 @@ const char *getLangDesc(Language lang) {
             return "繁體中文(臺灣)";
         case LANGUAGE_ES_ES:
             return "Español";
-        case LANGUAGE_IT_IT:
-            return "Italiano";
         case LANGUAGE_HU_HU:
             return "Magyar";
         case LANGUAGE_DE_DE:
@@ -52,11 +50,13 @@ const char *getLangDesc(Language lang) {
         case LANGUAGE_NL_NL:
             return "Dutch (Nederlands)";
         case LANGUAGE_PT_BR:
-            return "Português(Brazil)";
+            return "Português (Brazil)";
         case LANGUAGE_JA_JP:
             return "日本語";
         case LANGUAGE_PT_PT:
-            return "Português(Portugal)";
+            return "Português (Portugal)";
+        case LANGUAGE_IT_IT:
+            return "Italiano";
         case LANGUAGE_RU_RU:
             return "Русский";
         default:

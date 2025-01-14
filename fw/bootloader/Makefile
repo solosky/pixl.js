@@ -184,7 +184,7 @@ CFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 # keep every function in a separate section, this allows linker to discard unused ones
 CFLAGS += -ffunction-sections -fdata-sections -fno-strict-aliasing
 CFLAGS += -fno-builtin -fshort-enums
-CFLAGS += -DCUSTOM_BOARD_INC=boards_defines
+CFLAGS += -DBOARD_CUSTOM
 CFLAGS += -DBOARD_$(BOARD)
 
 # C++ flags common to all targets
@@ -211,7 +211,7 @@ ASMFLAGS += -DuECC_OPTIMIZATION_LEVEL=3
 ASMFLAGS += -DuECC_SQUARE_FUNC=0
 ASMFLAGS += -DuECC_SUPPORT_COMPRESSED_POINT=0
 ASMFLAGS += -DuECC_VLI_NATIVE_LITTLE_ENDIAN=1
-ASMFLAGS += -DCUSTOM_BOARD_INC=boards_defines
+ASMFLAGS += -DBOARD_CUSTOM
 ASMFLAGS += -DBOARD_$(BOARD)
 
 # Linker flags

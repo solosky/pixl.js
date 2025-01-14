@@ -179,4 +179,9 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT] = "Ongeldige Invoer!",
     [_L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM] = "Kaarttype gewijzigd. \nGegevens terugzetten naar standaard?",
     [_L_APP_CHAMELEON_CARD_DEFAULT_CARD] = "",
+    [_L_APP_GAME] = "",
+    [_L_APP_GAME_TINY_ARKANOID] = "",
+    [_L_APP_GAME_TINY_INVADERS] = "",
+    [_L_APP_GAME_TINY_LANDER] = "",
+    [_L_APP_GAME_TINY_TRIS] = "",
 };

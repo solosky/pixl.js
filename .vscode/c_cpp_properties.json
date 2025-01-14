@@ -11,7 +11,7 @@
                 "${workspaceFolder}/fw/application/config/sdk_config.h"
             ],
             "defines": [
-                "BOARD_PCA10056",
+                "BOARD_CUSTOM",
                 "FLOAT_ABI_HARD",
                 "NRF52",
                 "NRF52832_XXAA",

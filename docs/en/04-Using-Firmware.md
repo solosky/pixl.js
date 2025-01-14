@@ -458,6 +458,20 @@ This interface displays the enable/disable status of all card slots and allows y
 * Slot xx: Displays the open/close status of the card slot. Pressing the middle button can toggle between open and close status.
 
 ----
+# Game
+The device has 4 games that ported from https://github.com/wagiminator/CH32V003-GameConsole.
+The 4 games are:
+
+* Tiny Invaders
+* Tiny Lander
+* Tiny Tris
+* Tiny Arkanoid
+
+Long press center key to exit the game.
+
+For more information about the games, please visit the [https://github.com/wagiminator/CH32V003-GameConsole](https://github.com/wagiminator/CH32V003-GameConsole "https://github.com/wagiminator/CH32V003-GameConsole.").
+
+----
 # BLE File Transfer
 This application allows you to connect the iNFC or the pixl.js web page, to manage files on the device storage or update the firmware.
 
