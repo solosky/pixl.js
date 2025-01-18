@@ -58,6 +58,10 @@ static void mui_process_redraw(mui_t *p_mui, mui_event_t *p_event) {
     uint8_t sw = p_mui->screen_width;
     uint8_t sh = p_mui->screen_height;
 
+    if(!p_mui->auto_update){
+        return;
+    }
+
     mui_canvas_clear(&p_mui->canvas);
 
     if (mui_draw_layer(p_mui, MUI_LAYER_FULLSCREEN, 0, 0, sw, sh)) {
@@ -98,7 +102,9 @@ static void mui_process_input(mui_t *p_mui, mui_event_t *p_event) {
 
         p_view_port->input_cb(p_view_port, &input_event);
 
-        mui_update(mui());
+        if(p_mui->auto_update){
+            mui_update(mui());
+        }
     }
 }
 
@@ -139,6 +145,8 @@ void mui_init(mui_t *p_mui) {
     p_mui->canvas.width = p_mui->screen_width;
     p_mui->canvas.offset_x = 0;
     p_mui->canvas.offset_y = 0;
+
+    p_mui->auto_update = 1;
 
     for (size_t i = 0; i < MUI_LAYER_MAX; i++) {
         mui_view_port_array_init(p_mui->layers[i]);
@@ -191,6 +199,10 @@ void mui_panic(mui_t *p_mui, char *err) {
 
         u8g2_SendBuffer(&p_mui->u8g2);
     }
+}
+
+void mui_set_auto_update(mui_t* p_mui, bool enabled){
+    p_mui->auto_update = enabled;
 }
 
 void mui_add_view_port(mui_t *p_mui, mui_view_port_t *p_vp, mui_layer_t layer) {

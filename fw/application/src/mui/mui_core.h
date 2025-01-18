@@ -30,6 +30,7 @@ typedef struct {
     mui_canvas_t canvas;
     mui_event_queue_t event_queue;
     mui_view_port_array_t layers[MUI_LAYER_MAX];
+    uint8_t auto_update;
 } mui_t;
 
 mui_t* mui();
@@ -39,6 +40,7 @@ void mui_post(mui_t* p_mui, mui_event_t*p_event);
 void mui_tick(mui_t* p_mui);
 void mui_deinit(mui_t *p_mui);
 void mui_panic(mui_t *p_mui, char* err);
+void mui_set_auto_update(mui_t* p_mui, bool enabled);
 
 
 void mui_add_view_port(mui_t* p_mui, mui_view_port_t* p_vp, mui_layer_t layer);

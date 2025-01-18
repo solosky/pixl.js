@@ -78,7 +78,7 @@
 
 #include "app_pwm.h"
 
-#include "boards_defines.h"
+#include "boards.h"
 
 u8g2_t u8g2;
 static spi_device_t m_dev;
@@ -195,6 +195,7 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     u8g2_Setup_st7567_enh_dg128064_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
     u8g2_InitDisplay(p_u8g2);
     u8g2_SetPowerSave(p_u8g2, 0);
+    mui_u8g2_set_lcd_default_contrast_level();
 
     pwm_init();
 #endif
@@ -239,6 +240,11 @@ void mui_u8g2_set_backlight_level(uint8_t value) {
 }
 int8_t mui_u8g2_get_backlight_level(void) { return (int8_t)app_pwm_channel_duty_get(&pwm1, 0); }
 
+void mui_u8g2_set_lcd_default_contrast_level(void) {
+    mui_t *p_mui = mui();
+    u8g2_SetContrast(&p_mui->u8g2, LCD_DEFAULT_CONTRAST);
+}
+
 #endif
 
 #ifdef OLED_SCREEN
@@ -247,3 +253,7 @@ void mui_u8g2_set_oled_contrast_level(uint8_t value) {
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
 }
 #endif
+
+const spi_device_t* mui_u8g2_get_spi_device(){
+    return &m_dev;
+}

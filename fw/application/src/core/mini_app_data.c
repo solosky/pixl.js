@@ -8,6 +8,7 @@
 #include "app_amiibolink.h"
 #include "app_amiidb.h"
 #include "app_chameleon.h"
+#include "app_game.h"
 #include <stddef.h>
 
 const mini_app_t* mini_app_registry[] = {
@@ -21,6 +22,9 @@ const mini_app_t* mini_app_registry[] = {
     &app_chameleon_info,
 #ifdef APP_PLAYER_ENABLE
     &app_player_info,
+#endif
+#ifdef APP_GAME_ENABLE
+    &app_game_info,
 #endif
 #ifdef APP_LEGLAMIIBO_ENABLE
     &app_ble_info, 

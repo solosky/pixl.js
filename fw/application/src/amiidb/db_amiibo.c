@@ -854,5 +854,7 @@ const db_amiibo_t amiibo_list[] = {
 {0x22430000, 0x043d1b02, "Noah", "诺亚"}, 
 {0x22440000, 0x043e1b02, "Mio", "弥央"}, 
 {0x3f000000, 0x042e0002, "Sora", "索拉"}, 
+{0x00090003, 0x0432ff02, "Diddy Kong - Power Up Band", ""}, 
+{0x00080003, 0x0431ff02, "Donkey Kong - Power Up Band", ""}, 
 {0, 0, 0, 0}
 };

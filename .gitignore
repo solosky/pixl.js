@@ -40,3 +40,7 @@ hw/LIPO.RevA
 dist
 # venv stuff
 .venv
+
+fw/scripts/.venv
+
+
