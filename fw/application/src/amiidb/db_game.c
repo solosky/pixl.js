@@ -71,6 +71,7 @@ const db_game_t game_list[] = {
 {68, 0, "The Legend of Zelda: Twilight Princess HD", "塞尔达传说：黄昏公主HD", 15, 10}, 
 {69, 0, "Luigi's Mansion", "路易吉洋楼1", 5, 4}, 
 {70, 0, "Mario Sports Superstars", "马里奥运动：超级明星", 5, 90}, 
+{71, 0, "Super Nintendo World series", "超级任天堂世界", 5, 9}, 
 {255, 0, "Others", "未分类", 0, 4}, 
 {0, 0, 0, 0, 0}
 };
