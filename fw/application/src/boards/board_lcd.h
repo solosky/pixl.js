@@ -73,4 +73,6 @@
 #undef APP_LEGLAMIIBO_ENABLE
 #endif
 
+// Game
+#define APP_GAME_ENABLE
 #endif

@@ -23,7 +23,9 @@ const mini_app_t* mini_app_registry[] = {
 #ifdef APP_PLAYER_ENABLE
     &app_player_info,
 #endif
+#ifdef APP_GAME_ENABLE
     &app_game_info,
+#endif
 #ifdef APP_LEGLAMIIBO_ENABLE
     &app_ble_info, 
 #endif
