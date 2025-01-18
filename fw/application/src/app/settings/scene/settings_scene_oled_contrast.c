@@ -10,17 +10,16 @@
 #include "mui_u8g2.h"
 #include "i18n/language.h"
 
-#ifdef OLED_SCREEN
 
 static void settings_scene_oled_contrast_event_cb(mui_progress_bar_event_t event, mui_progress_bar_t *p_progress_bar) {
     app_settings_t *app = p_progress_bar->user_data;
     settings_data_t *p_settings = settings_get_data();
     if (event == MUI_PROGRESS_BAR_EVENT_DECREMENT || event == MUI_PROGRESS_BAR_EVENT_INCREMENT) {
         uint8_t value = mui_progress_bar_get_current_value(p_progress_bar);
-        mui_u8g2_set_oled_contrast_level(value);
+        mui_u8g2_set_contrast_level(value);
     } else {
         uint8_t value = mui_progress_bar_get_current_value(p_progress_bar);
-        mui_u8g2_set_oled_contrast_level(value);
+        mui_u8g2_set_contrast_level(value);
         p_settings->oled_contrast = value;
         mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
     }
@@ -41,5 +40,3 @@ void settings_scene_oled_contrast_on_exit(void *user_data) {
     app_settings_t *app = user_data;
     mui_progress_bar_reset(app->p_progress_bar);
 }
-
-#endif
