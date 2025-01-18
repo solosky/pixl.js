@@ -16,8 +16,8 @@ _L_APP_SET,Settings,系统设置,系統設定,Configuraciones,Beállítások,Ein
 _L_APP_SET_VERSION,Version,版本,版本,Versión,Verzió,Version,Version,Versie,Versão,バージョン,Versão,Versione,Версия
 _L_APP_SET_STORAGE_USED,Used,已用,已用,Usado,Használt,Belegt,Utilisé,Gebruikt,Usado,使用ストレージ,Usada,Usato,Занято
 _L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,M. Flash,Külső Tároló,Externer Speicher,Stockage Externe,Externe Opslag,Armazenamento Externo,外部ストレージ,Memoria Externa,Memoria esterna,Накопитель
-_L_APP_SET_OLED_CONTRAST,Contrast,对比度,對比度,Contraste OLED,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контрастность
-_L_APP_SET_OLED_CONTRAST_TITLE,Contrast,对比度,對比度,Contraste OLED,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контраст OLED
+_L_APP_SET_OLED_CONTRAST,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контрастность
+_L_APP_SET_OLED_CONTRAST_TITLE,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контраст
 _L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo,Háttérvilágítás,Beleuchtung,Rétroéclairage,Achtergrondverlichting,Luz de Fundo,バックライト,Brilho,Luminosità,Подсветка
 _L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Brillo de fondo,Háttérvilágítás Fényerő,Helligkeit,Luminosité du Rétroéclairage,Helderheid Achtergrondverlichting,Brilho da Luz de Fundo,バックライトの明るさ,Brilho do Ecrã,Luminosità schermo,Яркость подсветки
 _L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animar menú,Menü Animáció,Menü Animation,Animation du Menu,Menu-Animatie,Animação do Menu,メニュー アニメーション,Animação do Menu,Animazione menu,Анимация меню
