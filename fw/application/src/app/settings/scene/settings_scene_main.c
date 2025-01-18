@@ -31,9 +31,8 @@ static void settings_scene_main_reload(void *user_data);
 static void settings_reset_default(void *user_data) {
     app_settings_t *app = user_data;
     settings_data_t *p_settings = settings_get_data();
-#ifdef OLED_SCREEN
-    mui_u8g2_set_oled_contrast_level(p_settings->oled_contrast);
-#else
+    mui_u8g2_set_contrast_level(p_settings->oled_contrast);
+#ifdef LCD_SCREEN
     mui_u8g2_set_backlight_level(p_settings->lcd_backlight);
 #endif
     nrf_pwr_mgmt_set_timeout(p_settings->sleep_timeout_sec);
@@ -67,11 +66,9 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         break;
 #endif
 
-#ifdef OLED_SCREEN
     case SETTINGS_MAIN_MENU_OLED_CONTRAST:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_OLED_CONTRAST);
         break;
-#endif
 
     case SETTINGS_MAIN_MENU_VERSION:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_VERSION);
@@ -171,11 +168,11 @@ static void settings_scene_main_reload(void *user_data) {
     }
     mui_list_view_add_item_ext(app->p_list_view, 0xe146, _T(APP_SET_STORAGE), txt, (void *)SETTINGS_MAIN_MENU_STORAGE);
 
-#ifdef OLED_SCREEN
     snprintf(txt, sizeof(txt), "[%d%%]", p_settings->oled_contrast);
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c8, _T(APP_SET_OLED_CONTRAST), txt,
                                (void *)SETTINGS_MAIN_MENU_OLED_CONTRAST);
-#else
+
+#ifdef LCD_SCREEN
     if (p_settings->lcd_backlight == 0) {
         snprintf(txt, sizeof(txt), "%s", getLangString(_L_OFF_F));
     } else {

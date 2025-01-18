@@ -15,7 +15,7 @@ void mui_u8g2_set_backlight_level(uint8_t bl);
 int8_t mui_u8g2_get_backlight_level(void);
 void mui_u8g2_set_lcd_default_contrast_level(void);
 
-void mui_u8g2_set_oled_contrast_level(uint8_t value);
+void mui_u8g2_set_contrast_level(uint8_t value);
 
 const spi_device_t* mui_u8g2_get_spi_device();
 
