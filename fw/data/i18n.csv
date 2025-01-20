@@ -6,7 +6,7 @@ _L_OFF_F,[OFF],[关],[關],[NO],[KI],[AUS],[DÉSACTIVÉ],[UIT],[DESLIGADO],[オ�
 _L_BACK,Back,返回,返回,[Atrás],Vissza,Zurück,Retour,Terug,Voltar,戻る,Voltar,Indietro,[Назад]
 _L_ERR,Error,错误,錯誤,Error,Hiba,Fehler,Erreur,Fout,Erro,エラー,Erro,Errore,Ошибка
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード,Código de Erro,Codice errore,Код ошибки
-_L_FAILED,Failed,失败,失敗,,,,,,,,,,Ошибка
+_L_FAILED,Failed,失败,失敗,Fallido,,,,,,,,,Ошибка
 _L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Amiibo Emulátor,Amiibo Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ,Emulador de Amiibo,Emulatore Amiibo,Эмулятор Amiibo
 _L_APP_AMIIBOLINK,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink
 _L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送,Transferência BLE,Trasferimento file BLE,Передача файлов
@@ -16,8 +16,8 @@ _L_APP_SET,Settings,系统设置,系統設定,Configuraciones,Beállítások,Ein
 _L_APP_SET_VERSION,Version,版本,版本,Versión,Verzió,Version,Version,Versie,Versão,バージョン,Versão,Versione,Версия
 _L_APP_SET_STORAGE_USED,Used,已用,已用,Usado,Használt,Belegt,Utilisé,Gebruikt,Usado,使用ストレージ,Usada,Usato,Занято
 _L_APP_SET_STORAGE,External Storage,外置存储,外置存儲,M. Flash,Külső Tároló,Externer Speicher,Stockage Externe,Externe Opslag,Armazenamento Externo,外部ストレージ,Memoria Externa,Memoria esterna,Накопитель
-_L_APP_SET_OLED_CONTRAST,Contrast,对比度,對比度,Contraste OLED,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контрастность
-_L_APP_SET_OLED_CONTRAST_TITLE,Contrast,对比度,對比度,Contraste OLED,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контраст OLED
+_L_APP_SET_OLED_CONTRAST,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контрастность
+_L_APP_SET_OLED_CONTRAST_TITLE,Contrast,对比度,對比度,Contraste,Kontraszt,Kontrast,Contraste,Contrast,Contraste do,コントラスト,Contraste,Contrasto,Контраст
 _L_APP_SET_LCD_BACKLIGHT,Backlight,背光亮度,背光亮度,Brillo,Háttérvilágítás,Beleuchtung,Rétroéclairage,Achtergrondverlichting,Luz de Fundo,バックライト,Brilho,Luminosità,Подсветка
 _L_APP_SET_LCD_BACKLIGHT_TITLE,Backlight Brightness,背光亮度,背光亮度,Brillo de fondo,Háttérvilágítás Fényerő,Helligkeit,Luminosité du Rétroéclairage,Helderheid Achtergrondverlichting,Brilho da Luz de Fundo,バックライトの明るさ,Brilho do Ecrã,Luminosità schermo,Яркость подсветки
 _L_APP_SET_ANIM,Menu Animation,动画效果,動畫效果,Animar menú,Menü Animáció,Menü Animation,Animation du Menu,Menu-Animatie,Animação do Menu,メニュー アニメーション,Animação do Menu,Animazione menu,Анимация меню
@@ -26,7 +26,7 @@ _L_APP_SET_SHOW_MEM_USAGE,Memory Used,内存使用率,記憶體使用率,Estad. 
 _L_APP_SET_HIBERNATE,Fast Wakeup,快速唤醒,快速喚醒,Hibernar,Gyors Ébresztés,Schnelles Aufwachen,Réveil Rapide,Snel Ontwaken,Despertar Rápido,高速起動,Suspender,Risveglio rapido,Гибернация
 _L_APP_SET_SLEEP_TIMEOUT,Sleep Timeout,休眠时间,休眠時間,Dormir en:,Alvási Időkorlát,Standby nach,Délai de mise en veille,Time-out Slaapstand,Tempo Limite de Suspensão,スリープタイムアウト,Suspender em:,Timeout di sospensione,Таймаут сна
 _L_APP_SET_LANGUAGE,Language,系统语言,系統語言,Idioma,Nyelv,Sprache,Langue,Taal,Idioma,言語,Idioma,Lingua,Язык
-_L_APP_SET_GO_SLEEP,Go Sleep,进入休眠,進入休眠,,,,,,,,,,В режим сна
+_L_APP_SET_GO_SLEEP,Go Sleep,进入休眠,進入休眠,Dormir,,,,,,,,,В режим сна
 _L_APP_SET_DFU,Firmware Update,固件更新,軟體升級,Actualizar firmware,Firmware Frissítés,Firmw. Aktualisierung,Mise à Jour du Micrologiciel,Firmware Bijwerken,Atualização de Firmware,ファームウェア更新,Atualizações,Aggiornamento firmware,Обновление ПО
 _L_APP_SET_REBOOT,System Reboot,重启设备,重啟設備,Reiniciar,Rendszer Újraindítása,System Neustart,Redémarrage du Système,Systeem Herstarten,Reinicialização do Sistema,システム再起動,Reiniciar,Riavvio del sistema,Перезагрузка
 _L_APP_SET_RESET_DEFAULT,Reset Default Setting,重置默认配置,重置默認配置,Restablecer config.,Alapért. Beállítás Visszaállítása,Standardeinstellungen,Rétablir les Paramètres par Défaut,Terugzetten Naar Standaardwaarden,Restaurar Configurações Padrão,デフォルト設定に戻す,Repor Definições,Ripristina impostazioni predefinite,Сброс настроек
@@ -46,11 +46,11 @@ _L_UPLOAD_KEY_RETAIL_BIN,Upload the file key_retail.bin to the root directory of
 _L_KNOW,Got it,知道了,知道了,Entendido,Megvan,Verstanden,Compris,Begrepen,Entendi,了解,Confirmado,Ho Capito,[Понятно]
 _L_RANDOM_GENERATION,Rand. Tag,随机生成,隨機產生,Nuevo serial aleat.,Véletlengenerátor,Zufällige UUID,Randomiser la Balise,Willekeurige Tag,Randomizar Etiqueta,タグのランダム化,Tag Aleatória,Tag casuale,Сгенерировать UUID
 _L_AUTO_RANDOM_GENERATION,Auto Rand.,自动随机生成,自動隨機產生,Serial alea. aut,Automat. Véletlengenerátor,Zufällige UUID (Automatisch),Randomisation Automatique,Automatische Randomisatie,Randomização Automática,自動ランダム化,Tag Aleatória Auto.,Casuale automatico,Автогенерация
-_L_SET_CUSTOM_ID,Set Custom ID,自定义 ID,自定義 ID,,,,,,,,,,Заказной ID
-_L_INPUT_ID,Input ID,输入 ID,输入 ID,,,,,,,,,,Задайте ID
-_L_INAVLID_ID,Invalid ID,无效的 ID,無效的 ID,,,,,,,,,,Недопустимый ID
+_L_SET_CUSTOM_ID,Set Custom ID,自定义 ID,自定義 ID,Asignar ID personalizado,,,,,,,,,Заказной ID
+_L_INPUT_ID,Input ID,输入 ID,输入 ID,Ingrese ID,,,,,,,,,Задайте ID
+_L_INAVLID_ID,Invalid ID,无效的 ID,無效的 ID,ID inválido,,,,,,,,,Недопустимый ID
 _L_SHOW_QRCODE,Display QR Code,显示二维码,顯示二維碼,Mostrar QR,QR-kód Megjelenítése,QR Code,Afficher le Code QR,QR-Code Weergeven,Exibir QR Code,QRコード表示,Mostrar código QR,Mostra codice QR,QR-код
-_L_READ_ONLY,Read-only,禁止写入,禁止寫入,,,,,,,,,,Только чтение
+_L_READ_ONLY,Read-only,禁止写入,禁止寫入,Solo Lectura,,,,,,,,,Только чтение
 _L_DELETE_TAG,Delete Tag,删除标签,刪除標籤,Borrar amiibo...,Címke Törlése,Tag löschen,Supprimer la Balise,Tag Verwijderen,Excluir Etiqueta,タグの削除,Apagar Tag,Elimina tag,Удалить тег
 _L_DELETE_TAG_CONFIRM,Confirm Delete %s ?,确认删除 %s ?,確認刪除 %s ?,¿Borrar %s?,Törlés Megerősítése?,Löschen von %s bestätigen?,Confirmer la Suppression de %s ?,Bevestig Verwijderen %s ?,Confirmar Exclusão de %s ?,%s を削除しますか？,Apagar %s definitivamente?,Conferma eliminazione %s\n?,Удалить %s?
 _L_BACK_TO_DETAILS,Back to Tag Details,返回详情,返回詳情,[Detalles amiibo],Vissza a Címke Részletkhez,Zurück zu Tag Details,Retour Aux Détails de L'étiquette,Terug naar Tag Details,Voltar Aos Detalhes da Tag,タグの詳細に戻る,Voltar para detalhes,[Torna ai dettagli del tag],[Назад к деталям]
@@ -177,9 +177,9 @@ _L_APP_CHAMELEON_CARD_GEN2_MODE,Gen2 Enabled,Gen2模式,Gen2模式,Gen2 habilita
 _L_APP_CHAMELEON_CARD_WRITE_MODE,Write Mode,写入模式,寫入模式,Modo escrit.,Írási Mód,Schreibmodus,Mode d'Écriture,Schrijfmodus,Modo de Gravação,書き込みモード,Modo escrita,Modalità scrittura,Запись
 _L_APP_CHAMELEON_CARD_ADV_ID_EDIT_INVALID_INPUT,Invalid Input!,无效的输入!,無效的輸入!,¡Entrada inválida!,Érvénytelen bemenet!,Ungültige Eingabe!,Entrée Invalide!,Ongeldige Invoer!,Entrada Inválida!,無効な入力,Texto invalida,Input non valido!,Недопустимый ввод
 _L_APP_CHAMELEON_CARD_TYPE_FACTORY_DATA_CONFRIM,Card type changed. \nFactory card data?,卡类型已修改\n重置卡数据?,卡類型已修改\n重置卡數據?,Tipo tarjeta modificado\n¿Inicializar tarjeta?,A kártya típusa megváltozott.\nGyári kártyaadatok?,Kartentyp geändert. \nKartendaten zurücksetzen?,Le Type de Carte a Été Modifié. \nRéinitialiser les Données de la Carte?,Kaarttype gewijzigd. \nGegevens terugzetten naar standaard?,O tipo de cartão foi alterado. \nRedefinir dados do cartão?,カードの種類が変更されました。\nカードデータを初期化しますか？,Tipo de cartão alterado. \nFormatar cartão?,Tipo di carta modificato\nInizializzare carta?,Тип карты изменен.\nСбросить данные карты?
-_L_APP_CHAMELEON_CARD_DEFAULT_CARD,Default Card,默认卡片,默认卡片,,,,,,,,,,По умолчанию
-_L_APP_GAME,Game,游戏,游戏,,,,,,,,,,Игры
-_L_APP_GAME_TINY_ARKANOID,Arkanoid,打砖块,打磚塊,,,,,,,,,,Арканоид
-_L_APP_GAME_TINY_INVADERS,Invaders,入侵者,入侵者,,,,,,,,,,Космические захватчики
-_L_APP_GAME_TINY_LANDER,Lander,星球着陆,星球著陸,,,,,,,,,,Посадка на Луну
-_L_APP_GAME_TINY_TRIS,Tris,俄罗斯方块,俄羅斯方塊,,,,,,,,,,Тетрис
+_L_APP_CHAMELEON_CARD_DEFAULT_CARD,Default Card,默认卡片,默认卡片,Tarjeta Predeterminada,,,,,,,,,По умолчанию
+_L_APP_GAME,Game,游戏,游戏,Juegos,,,,,,,,,Игры
+_L_APP_GAME_TINY_ARKANOID,Arkanoid,打砖块,打磚塊,Arkanoid,,,,,,,,,Арканоид
+_L_APP_GAME_TINY_INVADERS,Invaders,入侵者,入侵者,Invasores,,,,,,,,,Космические захватчики
+_L_APP_GAME_TINY_LANDER,Lander,星球着陆,星球著陸,Lander,,,,,,,,,Посадка на Луну
+_L_APP_GAME_TINY_TRIS,Tris,俄罗斯方块,俄羅斯方塊,Tris,,,,,,,,,Тетрис
