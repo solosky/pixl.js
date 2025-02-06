@@ -97,6 +97,26 @@ export function enter_dfu() {
         b => { });
 }
 
+export function get_scrren_buffer() {
+    console.log("get_scrren_buffer");
+    return op_queue_push(0x03,
+        b => { },
+        b => {
+          return b;
+        });
+}
+
+
+export function send_key_event(key, type) {
+    console.log("send_key_event");
+    return op_queue_push(0x03,
+        b => {
+            b.writeUint8(key);
+            b.writeUint8(type);
+        },
+        b => { });
+}
+
 export function vfs_get_drive_list() {
     console.log("vfs_get_drive_list");
     return op_queue_push(0x10,

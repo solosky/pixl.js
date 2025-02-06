@@ -7,7 +7,7 @@
 
 #include "cache.h"
 
-static void mui_input_post_event(mui_input_event_t *p_input_event) {
+void mui_input_post_event(mui_input_event_t *p_input_event) {
     uint32_t arg = p_input_event->type;
     arg <<= 8;
     arg += p_input_event->key;

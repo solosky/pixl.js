@@ -2,13 +2,14 @@
 #define MUI_INPUT_H
 
 #include "mui_common.h"
-#include "bsp.h"
+
 
 
 typedef enum {
     INPUT_KEY_LEFT,
     INPUT_KEY_CENTER,
-    INPUT_KEY_RIGHT
+    INPUT_KEY_RIGHT,
+    INPUT_KEY_MAX
 } input_key_t;
 
 typedef enum {
@@ -16,7 +17,8 @@ typedef enum {
     INPUT_TYPE_RELEASE,
     INPUT_TYPE_SHORT,
     INPUT_TYPE_LONG,
-    INPUT_TYPE_REPEAT
+    INPUT_TYPE_REPEAT,
+    INPUT_TYPE_MAX
 
 } input_type_t;
 
@@ -29,6 +31,6 @@ typedef struct {
 
 void mui_input_init();
 
-void mui_input_on_bsp_event(bsp_event_t evt);
+void mui_input_post_event(mui_input_event_t *p_input_event);
 
 #endif

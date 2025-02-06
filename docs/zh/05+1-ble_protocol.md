@@ -191,6 +191,55 @@ TODO 详细补充错误码。。
 | status | uint8 | 1 | 状态码，参见状态码说明 |
 | chunk | uint16 | 2 | 0 | 
 
+## 0x03: 获取屏幕截图
+
+1. 客户端发送请求
+
+| 字段名 | 类型 | 长度(字节) | 说明 |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x03  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 |  0 | 
+
+
+2. 服务端响应请求
+
+| 字段名 | 类型 | 长度(字节) | 说明 |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  | 0x03 |
+| status | uint8 | 1 | 状态码，参见状态码说明 |
+| chunk | uint16 | 2 | 启用chunk传输 |
+| buffer | byte | N | 屏幕数据 | 
+
+
+## 0x04: 发送按键事件
+
+1. 客户端发送请求
+
+| 字段名 | 类型 | 长度(字节) | 说明 |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  |  0x04  |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 |  0 | 
+| key | uint8 | 1 | key code: left:0, center:1, right:2 |
+| event | uint8 | 1 | key event, press: 0, release: 1, short: 2, long: 3, repeat: 4|
+
+press: 按键按下发送press事件
+release: 按键释放发送release事件
+short: 按键按下超过200 ms, 发送short事件
+long: 按键按下超过 2000 ms, 发送long事件
+repeat: 按键按下超过2000 ms, 每200ms发送一次repeat事件
+
+
+2. 服务端响应请求
+
+| 字段名 | 类型 | 长度(字节) | 说明 |
+| ---- | ----- |---- | ---- |
+| cmd  | uint8 | 1  | 0x04 |
+| status | uint8 | 1 | 状态码，参见状态码说明 |
+| chunk | uint16 | 0 | 0|
+
+
 
 ## 0x10：获取磁盘列表
 

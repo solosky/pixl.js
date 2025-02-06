@@ -183,10 +183,60 @@ TODO Supplement the error code in detail. .
 
 | Field name | Type | Length (bytes) | Description |
 | ---- | ----- |---- | ---- |
-| cmd | uint8 | 1 | 0x102 |
+| cmd | uint8 | 1 | 0x02 |
 | status | uint8 | 1 | Status code, see status code description |
 | chunk | uint16 | 2 | 0 |
 
+## 0x03: Get screen buffer
+
+This command is used to get the u8g2 screen buffer. The buffer layout is the same as the u8g2 library.
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd | uint8 | 1 | 0x03 |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | 0 |
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd | uint8 | 1 | 0x03 |
+| status | uint8 | 1 | Status code, see status code description |
+| chunk | uint16 | 2 | enable chunk tranfer |
+| buffer | uint8 | N | screen buffer |
+
+## 0x04: send key event
+
+Send key event to device.
+
+1. The client sends a request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd | uint8 | 1 | 0x04 |
+| status | uint8 | 1 | 0 |
+| chunk | uint16 | 2 | 0 |
+| key | uint8 | 1 | key code: left:0, center:1, right:2 |
+| event | uint8 | 1 | key event, press: 0, release: 1, short: 2, long: 3, repeat: 4|
+
+press: if key is pressed send press event
+release: if key is released send release event
+short: if the key is pressed less than 200 ms, send short event 
+long: if the key is pressed more than 2000 ms, send long event
+repeat: if the key is pressed more than 2000 ms and not release, send repeat event every 200 ms
+
+
+2. The server responds to the request
+
+| Field name | Type | Length (bytes) | Description |
+| ---- | ----- |---- | ---- |
+| cmd | uint8 | 1 | 0x04 |
+| status | uint8 | 1 | Status code, see status code description |
+| chunk | uint16 | 2 | 0 |
 
 ## 0x10: Get disk list
 
