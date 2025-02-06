@@ -2,7 +2,7 @@ name: pixl.js-fw
 
 on:
   push:
-    branches: [ "develop"]
+    branches: [ "develop", "neo_v2"]
     tags:  ["*"]
   pull_request:
     types: ["opened"]
@@ -17,7 +17,7 @@ jobs:
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v4
       with:
         submodules: 'true'
 
@@ -25,33 +25,16 @@ jobs:
       run: chown root:root .
     - name: build firmware
       run: cd fw && make all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
-    - name: upload bootloader
-      uses: actions/upload-artifact@v3
+    - name: copy artifact
+      run: mv fw/_build/bootloader.hex . && mv fw/_build/pixljs.hex . && mv fw/_build/pixljs_all.hex . && mv fw/_build/pixjs_ota_v${{github.run_number}}.zip . && mv fw/docs/fw_readme.txt . && mv  fw/scripts/fw_update.bat .
+    - name: upload artifact
+      uses: actions/upload-artifact@v4
       with:
         name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/bootloader.hex
-    - name: upload firmware
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/pixljs.hex
-    - name: upload all
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/pixljs_all.hex
-    - name: upload ota 
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/_build/pixjs_ota_v${{github.run_number}}.zip
-    - name: upload fw update script 
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/scripts/fw_update.bat
-    - name: upload fw readme file 
-      uses: actions/upload-artifact@v3
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: fw/docs/fw_readme.txt
+        path: |
+          bootloader.hex
+          pixljs.hex
+          pixljs_all.hex
+          pixjs_ota_v${{github.run_number}}.zip
+          fw_readme.txt
+          fw_update.bat
