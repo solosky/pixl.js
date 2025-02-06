@@ -2,9 +2,12 @@
 
   <div id="app">
     <div class="action-right">
+      <el-button size="mini" type="default" icon="el-icon-data-analysis" @click="on_control_diag_open">{{
+        $t('control.btn') }}</el-button>
       <el-dropdown trigger="click" class="international" @command="handle_set_language">
         <div>
-          <el-button size="mini" type="primary" icon="el-icon-setting" @click="dialogVisible = true" >{{ $t('lang.choose') }}</el-button>
+          <el-button size="mini" type="primary" icon="el-icon-setting" @click="dialogVisible = true">{{
+            $t('lang.choose') }}</el-button>
         </div>
         <el-dropdown-menu slot="dropdown">
           <el-dropdown-item Enabled="language==='zh_CN'" command="zh_CN" divided>
@@ -34,17 +37,19 @@
         <div class="action-left">
           <el-button-group>
             <el-button size="mini" type="primary" icon="el-icon-upload" @click="on_btn_upload"
-              :disabled="btn_disabled()">{{ $t('menu.upload')  }}</el-button>
+              :disabled="btn_disabled()">{{ $t('menu.upload') }}</el-button>
           </el-button-group>
           <el-button-group>
-            <el-button size="mini" icon="el-icon-plus" @click="on_btn_new_folder"
-              :disabled="btn_disabled()">{{ $t('menu.newfolder')  }}</el-button>
+            <el-button size="mini" icon="el-icon-plus" @click="on_btn_new_folder" :disabled="btn_disabled()">{{
+              $t('menu.newfolder') }}</el-button>
             <el-button size="mini" type="danger" icon="el-icon-delete" @click="on_btn_remove"
-              :disabled="btn_disabled()">{{ $t('menu.del')  }}</el-button>
+              :disabled="btn_disabled()">{{ $t('menu.del') }}</el-button>
           </el-button-group>
           <el-button-group>
-            <el-button size="mini" icon="el-icon-top" @click="on_btn_up" :disabled="btn_disabled()">{{ $t('menu.up')  }}</el-button>
-            <el-button size="mini" icon="el-icon-refresh" @click="on_btn_refresh" :disabled="!connected">{{ $t('menu.refresh') }}</el-button>
+            <el-button size="mini" icon="el-icon-top" @click="on_btn_up" :disabled="btn_disabled()">{{ $t('menu.up')
+              }}</el-button>
+            <el-button size="mini" icon="el-icon-refresh" @click="on_btn_refresh" :disabled="!connected">{{
+              $t('menu.refresh') }}</el-button>
           </el-button-group>
         </div>
       </el-col>
@@ -52,8 +57,8 @@
         <div class="action-right">
           <el-button type="success" size="mini" v-if="version" icon="el-icon-warning">{{ version }}</el-button>
           <el-button-group>
-            <el-button type="info" size="mini" icon="el-icon-cpu" @click="on_btn_enter_dfu"
-              :disabled="!connected">{{ $t('menu.dfu')  }}</el-button>
+            <el-button type="info" size="mini" icon="el-icon-cpu" @click="on_btn_enter_dfu" :disabled="!connected">{{
+              $t('menu.dfu') }}</el-button>
             <el-button :type="connBtnType" size="mini" icon="el-icon-connection" @click="on_btn_ble_connect">{{
               connBtnText
             }}</el-button>
@@ -71,9 +76,9 @@
       </el-col>
     </el-row>
     <div>
-      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%" v-loading="table_loading"
-        :element-loading-text="$t('status.loading')" element-loading-spinner="el-icon-loading" cell-class-name="file-cell"
-        @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
+      <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark" style="width: 100%"
+        v-loading="table_loading" :element-loading-text="$t('status.loading')" element-loading-spinner="el-icon-loading"
+        cell-class-name="file-cell" @selection-change="on_table_selection_change" @sort-change="on_table_sort_change"
         :default-sort="{ prop: 'name', order: 'ascending' }">
         <el-table-column type="selection" width="42">
         </el-table-column>
@@ -130,7 +135,8 @@
       </span>
     </el-dialog>
 
-    <el-dialog :title="$t('upload.title')" :visible.sync="upload_diag_visible" width="30%" :before-close="on_upload_diag_close">
+    <el-dialog :title="$t('upload.title')" :visible.sync="upload_diag_visible" width="30%"
+      :before-close="on_upload_diag_close">
       <div>
         <el-upload ref="upload" class="upload-demo" drag action="https://jsonplaceholder.typicode.com/posts/" multiple
           :http-request="on_upload_request" :on-error="on_upload_error">
@@ -148,6 +154,34 @@
       </span>
     </el-dialog>
 
+    <el-dialog title="控制" :visible.sync="control_diag_visible" width="30%" :before-close="on_control_diag_close">
+      <div>
+        <el-row>
+          <div class="action-left">
+            <el-button size="mini" type="primary" icon="el-icon-caret-left" @click="on_btn_left" circle
+              :disabled="ble_disconnected()"></el-button>
+
+            <el-button size="mini" icon="el-icon-caret-top" @click="on_btn_center" circle
+              :disabled="ble_disconnected()"></el-button>
+            <el-button size="mini" type="danger" icon="el-icon-caret-right" @click="on_btn_right" circle
+              :disabled="ble_disconnected()"></el-button>
+          </div>
+          <div class="action-right">
+            <el-button-group>
+              <el-button size="mini" icon="el-icon-refresh" @click="on_control_refresh"
+                :disabled="ble_disconnected()">{{
+                  $t('menu.refresh') }}</el-button>
+            </el-button-group>
+          </div>
+        </el-row>
+        <div>
+          <canvas ref="screen_canvas" width="256" height="128"></canvas>
+        </div>
+      </div>
+      <span slot="footer" class="dialog-footer">
+      </span>
+    </el-dialog>
+
   </div>
 </template>
 
@@ -157,7 +191,7 @@
 import * as pixl from "./lib/pixl.ble"
 import { sharedEventDispatcher } from "./lib/event"
 import * as proto from "./lib/pixl.proto"
-
+import { ref, onMounted } from 'vue'
 
 
 export default {
@@ -174,6 +208,7 @@ export default {
       table_selection: [],
       language: "zh_CN",
       meta_diag_visible: false,
+      control_diag_visible: false,
       meta_form: {
         notes: "",
         flags: {
@@ -224,7 +259,7 @@ export default {
 
         var v = res.data;
 
-        LA.track("pixl_device_connect", {"version": v.ver, "mac": v.ble_addr});
+        LA.track("pixl_device_connect", { "version": v.ver, "mac": v.ble_addr });
 
         this.reload_drive();
       });
@@ -264,7 +299,7 @@ export default {
     on_btn_enter_dfu() {
       this.$confirm(`${this.$t("dfumode.startconfirm")}`, `${this.$t("dfumode.title")}`, {
         confirmButtonText: `${this.$t("btn.ok")}`,
-        cancelButtonText: `${this.$t("btn.cancel")}` ,
+        cancelButtonText: `${this.$t("btn.cancel")}`,
         type: 'warning'
       }).then(() => {
         proto.enter_dfu().then(data => {
@@ -378,17 +413,18 @@ export default {
 
 
     on_upload_diag_close(done) {
-      this.$confirm(`${this.$t("upload.closemessage")}`, `${this.$t("upload.closetitle")}`,{
+      this.$confirm(`${this.$t("upload.closemessage")}`, `${this.$t("upload.closetitle")}`, {
         confirmButtonText: `${this.$t("btn.ok")}`,
         cancelButtonText: `${this.$t("btn.cancel")}`,
       })
-      .then(_ => {
-        this.$refs.upload.clearFiles();
-        this.reload_folder();
-        done();
-      })
-      .catch(_ => { });
+        .then(_ => {
+          this.$refs.upload.clearFiles();
+          this.reload_folder();
+          done();
+        })
+        .catch(_ => { });
     },
+
 
     on_upload_request(options) {
       console.log(options);
@@ -410,7 +446,7 @@ export default {
 
     on_row_btn_format(index, row) {
       var thiz = this;
-      this.$confirm(`${this.$t("format.messrow1a")}` + row.name + `${this.$t("format.messrow1b")}` + "\n" + `${this.$t("format.messrow2")}` + '\n' +`${this.$t("format.messrow3")}`, `${this.$t("format.title")}`, {
+      this.$confirm(`${this.$t("format.messrow1a")}` + row.name + `${this.$t("format.messrow1b")}` + "\n" + `${this.$t("format.messrow2")}` + '\n' + `${this.$t("format.messrow3")}`, `${this.$t("format.title")}`, {
         confirmButtonText: `${this.$t("btn.ok")}`,
         cancelButtonText: `${this.$t("btn.cancel")}`,
         type: 'warning'
@@ -562,7 +598,7 @@ export default {
           meta_form.row.notes = meta_form.notes;
           meta_form.row.flags = meta_form.flags;
           meta_form.row.amiibo = meta_form.amiibo;
-       } else {
+        } else {
           this.$message({
             type: 'error',
             message: `${this.$t("properties.errupdate")}`
@@ -575,6 +611,90 @@ export default {
         });
       });
     },
+
+    on_control_diag_close() {
+      console.log("close");
+      this.control_diag_visible = false;
+    },
+
+    on_control_diag_open() {
+      this.control_diag_visible = true;
+      const canvas = this.$refs.screen_canvas;
+      console.log("open");
+    },
+
+
+    on_control_refresh() {
+      proto.get_scrren_buffer().then(d => {
+        console.log(d);
+
+        const buffer = new Int8Array(d.data.toArrayBuffer());
+
+        const canvas = this.$refs.screen_canvas;
+        const ctx = canvas.getContext('2d');
+
+        // 创建ImageData对象
+        const imageData = ctx.createImageData(128 * 2, 64 * 2);
+
+        const height = 64;
+        const width = 128;
+
+        const draw_pixel = function (img, x, y, bit) {
+          // 计算像素在 ImageData 中的位置
+          const pixelIndex = (y * width*2 + x) * 4;
+          // 设置像素颜色（1 为白色，0 为黑色）
+          img.data[pixelIndex] = bit ? 255 : 0;     // R
+          img.data[pixelIndex + 1] = bit ? 255 : 0; // G
+          img.data[pixelIndex + 2] = bit ? 255 : 0; // B
+          img.data[pixelIndex + 3] = 255;           // A
+        }
+
+        // 将 u8g2 的缓存数据转换为 ImageData
+        for (let x = 0; x < width; x++) {
+          for (let y = 0; y < height; y++) {
+            // 计算当前列在 buffer 中的索引
+            const columnIndex = x;
+            // 计算当前像素在当前列中的位索引（LSB 对应顶部像素）
+            const bitIndex = y % 8;
+            // 获取当前列的字节数据
+            const byte = buffer[columnIndex + Math.floor(y / 8) * width];
+            // 检查当前像素是否点亮（LSB 对应顶部像素）
+            const bit = (byte >> bitIndex) & 1;
+
+            // 计算像素在 ImageData 中的位置
+            const pixelIndex = (y * width + x) * 4;
+
+            // 设置像素颜色（1 为白色，0 为黑色）
+            // imageData.data[pixelIndex] = bit ? 255 : 0;     // R
+            // imageData.data[pixelIndex + 1] = bit ? 255 : 0; // G
+            // imageData.data[pixelIndex + 2] = bit ? 255 : 0; // B
+            // imageData.data[pixelIndex + 3] = 255;           // A
+
+            draw_pixel(imageData, x * 2, y * 2, bit);
+            draw_pixel(imageData, x * 2 + 1, y * 2, bit);
+            draw_pixel(imageData, x * 2, y * 2 + 1, bit);
+            draw_pixel(imageData, x * 2 + 1, y * 2 + 1, bit);
+          }
+        }
+
+
+        // 将ImageData绘制到Canvas上
+        ctx.putImageData(imageData, 0, 0);
+      });
+    },
+
+    on_btn_right() {
+      proto.send_key_event(0, 2)
+    },
+
+    on_btn_center() {
+      proto.send_key_event(1, 2)
+    },
+
+    on_btn_left() {
+      proto.send_key_event(2, 2)
+    },
+
 
     on_table_selection_change(selected) {
       this.table_selection = selected;
@@ -688,6 +808,10 @@ export default {
       return !this.connected || this.current_dir == '';
     },
 
+    ble_disconnected() {
+      return !this.connected;
+    },
+
     append_segment(dir, seg) {
       var drive = dir.substring(0, 2); //E:
       var path = dir.substring(2);
@@ -742,6 +866,7 @@ export default {
     this.language = lang
     this.$i18n.locale = lang
     this.connBtnText = `${this.$t("conn.connect")}`;
+
   },
 }
 </script>

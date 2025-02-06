@@ -11,6 +11,14 @@ export default {
     de: 'Deutsch',
     changeok: '语言切换成功！'
   },
+
+  control:{
+    btn: "控制",
+    left: "左键",
+    center: "中键",
+    right: "右键"
+  },
+
   btn: {
     ok: '确 定',
     cancel: '取消',

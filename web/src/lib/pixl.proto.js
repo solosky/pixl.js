@@ -109,7 +109,7 @@ export function get_scrren_buffer() {
 
 export function send_key_event(key, type) {
     console.log("send_key_event");
-    return op_queue_push(0x03,
+    return op_queue_push(0x04,
         b => {
             b.writeUint8(key);
             b.writeUint8(type);
