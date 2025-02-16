@@ -50,7 +50,7 @@ const char *getLangDesc(Language lang) {
             return "Français";
         case LANGUAGE_NL_NL:
             return "Dutch (Nederlands)";
-        case LANGUAGE_Pl_PL:
+        case LANGUAGE_PL_PL:
             return "Polski";
         case LANGUAGE_PT_BR:
             return "Português (Brazil)";
