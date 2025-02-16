@@ -315,6 +315,7 @@ SRC_FILES += \
   $(PROJ_DIR)/i18n/hu_HU.c \
   $(PROJ_DIR)/i18n/ja_JP.c \
   $(PROJ_DIR)/i18n/nl_NL.c \
+  $(PROJ_DIR)/i18n/pl_PL.c \
   $(PROJ_DIR)/i18n/pt_BR.c \
   $(PROJ_DIR)/i18n/pt_PT.c \
   $(PROJ_DIR)/i18n/ru_RU.c \
