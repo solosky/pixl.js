@@ -19,12 +19,12 @@ typedef enum {
     LANGUAGE_DE_DE,
     LANGUAGE_FR_FR,
     LANGUAGE_NL_NL,
-    LANGUAGE_PL_PL,
     LANGUAGE_PT_BR,
     LANGUAGE_JA_JP,
-    LANGUAGE_PT_PT, 
+    LANGUAGE_PT_PT,
     LANGUAGE_IT_IT,
     LANGUAGE_RU_RU,
+    LANGUAGE_PL_PL,
     LANGUAGE_COUNT
 } Language;
 
@@ -36,12 +36,12 @@ extern const char* lang_hu_HU[_L_COUNT];
 extern const char* lang_de_DE[_L_COUNT];
 extern const char* lang_fr_FR[_L_COUNT];
 extern const char* lang_nl_NL[_L_COUNT];
-extern const char* lang_pl_PL[_L_COUNT];
 extern const char* lang_pt_BR[_L_COUNT];
 extern const char* lang_ja_JP[_L_COUNT];
 extern const char* lang_pt_PT[_L_COUNT];
 extern const char* lang_it_IT[_L_COUNT];
 extern const char* lang_ru_RU[_L_COUNT];
+extern const char* lang_pl_PL[_L_COUNT];
 
 // 获取字符串的函数 (Get language string function)
 const char* getLangString(L_StringID stringID);
