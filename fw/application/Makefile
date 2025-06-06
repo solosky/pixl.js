@@ -766,3 +766,13 @@ erase_ocd:
 
 rtt_ocd:
 	openocd -f openocd/rtt.cfg
+
+flash_bmp:
+	arm-none-eabi-gdb -nx --batch \
+		-ex 'target extended-remote /dev/cu.usbmodem20240517021' \
+		-ex 'monitor swdp_scan' \
+		-ex 'attach 1' \
+		-ex 'load' \
+		-ex 'compare-sections' \
+		-ex 'kill' \
+		$(OUTPUT_DIRECTORY)/pixljs.out
