@@ -74,7 +74,7 @@ const tag_specific_type_name_t *tag_helper_get_tag_type_name(tag_specific_type_t
     return NULL;
 }
 
-const nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
+nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
     tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
     tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
     tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);

@@ -274,6 +274,7 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_main.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced_id_size.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced_id_edit.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data.c \

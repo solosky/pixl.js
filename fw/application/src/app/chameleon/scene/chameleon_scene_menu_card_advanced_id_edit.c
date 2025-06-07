@@ -41,7 +41,18 @@ static void format_id_edit_text(app_chameleon_id_edit_type_t id_edit_type, char 
     const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
     switch (id_edit_type) {
     case APP_CHAMELEON_ID_EDIT_TYPE_UID:
-        sprintf(text, "%02x.%02x.%02x.%02x", coll_res->uid[0], coll_res->uid[1], coll_res->uid[2], coll_res->uid[3]);
+        nfc_tag_14a_uid_size uid_size = *(coll_res->size);
+        if (uid_size == NFC_TAG_14A_UID_SINGLE_SIZE) {
+            sprintf(text, "%02x.%02x.%02x.%02x", coll_res->uid[0], coll_res->uid[1], coll_res->uid[2],
+                    coll_res->uid[3]);
+        } else if (uid_size == NFC_TAG_14A_UID_DOUBLE_SIZE) {
+            sprintf(text, "%02x.%02x.%02x.%02x.%02x.%02x.%02x", coll_res->uid[0], coll_res->uid[1], coll_res->uid[2],
+                    coll_res->uid[3], coll_res->uid[4], coll_res->uid[5], coll_res->uid[6]);
+        } else if (uid_size == NFC_TAG_14A_UID_TRIPLE_SIZE) {
+            sprintf(text, "%02x.%02x.%02x.%02x.%02x.%02x.%02x.%02x.%02x.%02x", coll_res->uid[0], coll_res->uid[1],
+                    coll_res->uid[2], coll_res->uid[3], coll_res->uid[4], coll_res->uid[5], coll_res->uid[6],
+                    coll_res->uid[7], coll_res->uid[8], coll_res->uid[9]);
+        }
         return;
 
     case APP_CHAMELEON_ID_EDIT_TYPE_SAK:
@@ -60,12 +71,42 @@ static bool handle_id_edit_cb(app_chameleon_t *app, const char *text) {
     int8_t buff[4];
     switch (id_edit_type) {
     case APP_CHAMELEON_ID_EDIT_TYPE_UID:
-        if (sscanf(text, "%02x.%02x.%02x.%02x", buff, buff + 1, buff + 2, buff + 3) == 4) {
-            coll_res->uid[0] = buff[0];
-            coll_res->uid[1] = buff[1];
-            coll_res->uid[2] = buff[2];
-            coll_res->uid[3] = buff[3];
-            return true;
+        nfc_tag_14a_uid_size uid_size = *(coll_res->size);
+        if (uid_size == NFC_TAG_14A_UID_SINGLE_SIZE) {
+            if (sscanf(text, "%02x.%02x.%02x.%02x", buff, buff + 1, buff + 2, buff + 3) == 4) {
+                coll_res->uid[0] = buff[0];
+                coll_res->uid[1] = buff[1];
+                coll_res->uid[2] = buff[2];
+                coll_res->uid[3] = buff[3];
+                return true;
+            }
+        } else if (uid_size == NFC_TAG_14A_UID_DOUBLE_SIZE) {
+            if (sscanf(text, "%02x.%02x.%02x.%02x.%02x.%02x.%02x", buff, buff + 1, buff + 2, buff + 3, buff + 4,
+                       buff + 5, buff + 6) == 7) {
+                coll_res->uid[0] = buff[0];
+                coll_res->uid[1] = buff[1];
+                coll_res->uid[2] = buff[2];
+                coll_res->uid[3] = buff[3];
+                coll_res->uid[4] = buff[4];
+                coll_res->uid[5] = buff[5];
+                coll_res->uid[6] = buff[6];
+                return true;
+            }
+        } else if (uid_size == NFC_TAG_14A_UID_TRIPLE_SIZE) {
+            if (sscanf(text, "%02x.%02x.%02x.%02x.%02x.%02x.%02x.%02x.%02x.%02x", buff, buff + 1, buff + 2, buff + 3,
+                       buff + 4, buff + 5, buff + 6, buff + 7, buff + 8, buff + 9) == 10) {
+                coll_res->uid[0] = buff[0];
+                coll_res->uid[1] = buff[1];
+                coll_res->uid[2] = buff[2];
+                coll_res->uid[3] = buff[3];
+                coll_res->uid[4] = buff[4];
+                coll_res->uid[5] = buff[5];
+                coll_res->uid[6] = buff[6];
+                coll_res->uid[7] = buff[7];
+                coll_res->uid[8] = buff[8];
+                coll_res->uid[9] = buff[9];
+                return true;
+            }
         }
         break;
 

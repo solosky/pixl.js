@@ -7,6 +7,7 @@ _L_BACK,Back,返回,返回,[Atrás],Vissza,Zurück,Retour,Terug,Voltar,戻る,Vo
 _L_ERR,Error,错误,錯誤,Error,Hiba,Fehler,Erreur,Fout,Erro,エラー,Erro,Errore,Ошибка,Błąd
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード,Código de Erro,Codice errore,Код ошибки,Kod Błędu
 _L_FAILED,Failed,失败,失敗,Fallido,,,,,,,,,Ошибка,Niepowodzenie
+_L_BYTES,Bytes,字节,字節,,,,,,,,,,,
 _L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Amiibo Emulátor,Amiibo Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ,Emulador de Amiibo,Emulatore Amiibo,Эмулятор Amiibo,Emulator Amiibo
 _L_APP_AMIIBOLINK,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink
 _L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送,Transferência BLE,Trasferimento file BLE,Передача файлов,Transfer Plików BLE
@@ -170,6 +171,7 @@ _L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名
 _L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,寫入文件失敗,¡Error al guardar!,Fájl Mentése Sikertelen!,Datei speichern fehlgeschlagen!,Échec de l'Enregistrement du Fichier!,Bestand Opslaan Mislukt!,Falha ao Salvar o Arquivo!,ファイルの保存に失敗しました！,Erro ao guardar!,Errore nel salvataggio!,Ошибка сохранения файла,Błąd zapisywania pliku!
 _L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,導出卡片數據成功,Guardado correcto,Fájl Mentése Sikeres,Datei erfolgreich gespeichert,Sauvegarde du Fichier Réussie,Bestand Opslaan Gelukt,Arquivo Salvo com êxito,ファイルが保存されました,Guardado com sucesso,Salvataggio riuscito,Данные сохранены,Plik został zapisany
 _L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定義模式,Modo personali.,Egyéni Mód,Benutzerdefinierter Modus,Mode Personnalisé,Aangepaste Modus,Modo Personalizado,カスタムモード,Modo personalizado,Modalità personalizzata,Заказной режим,Tryb Niestandardowy
+_L_APP_CHAMELEON_CARD_ID_SIZE,ID Size,ID类型,ID類型,,,,,,,,,,,
 _L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A habilitada,Gen1A Engedélyezve,Gen1A aktiv,Gen1A Activé,Gen1A Ingeschakeld,Gen1A Ativada,Gen1A 有効,Gen1A ativado,Gen1A abilitata,Gen1A,Gen1A Aktywny
 _L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,Generar UID aleat.,Véletlen UID,Zufällige UID,Randomiser l'UID,Willekeurige UID,UID Aleatório,UIDのランダム化,Gerar novo UID,Genera nuovo UID,Сгенерировать UID,Generuj UID
 _L_APP_CHAMELEON_CARD_GENERATE_UID_SUCCESS,UID Generated,UID已生成,UID已生成,UID generado,Generált UID,UID generiert,UID Généré,UID Gegenereerd,UID Gerado,UID 生成,UID gerado,UID generato,UID сгенерирован,UID Został Wygenerowany
