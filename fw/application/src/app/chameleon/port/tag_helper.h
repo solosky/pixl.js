@@ -18,7 +18,7 @@ typedef struct {
 
 typedef enum {
     TAG_GROUP_UNKNOWN = 0,
-    TAG_GROUP_MIFLARE,
+    TAG_GROUP_MIFARE,
     TAG_GROUP_NTAG,
 } tag_group_type_t;
 

@@ -40,7 +40,9 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
     }
 
     case CHAMELEON_MENU_UID_SIZE:{
-        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+        tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
+        tag_group_type_t tag_group = tag_helper_get_tag_group_type(tag_type);
+        if (tag_group == TAG_GROUP_MIFARE) {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_SIZE);
         }
     }break;
@@ -107,7 +109,7 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
     const tag_specific_type_name_t *tag_name = tag_helper_get_tag_type_name(tag_type);
     const nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
 
-    if (tag_group == TAG_GROUP_MIFLARE) {
+    if (tag_group == TAG_GROUP_MIFARE) {
         mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_ADV_CUSTOM_MODE),
                                    (nfc_tag_mf1_is_use_mf1_coll_res() ? _T(OFF_F) : _T(ON_F)), CHAMELEON_MENU_CUSTOM);
     }
@@ -126,7 +128,7 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
     sprintf(buff, "[%02X %02X]", coll_res->atqa[1], coll_res->atqa[0]);
     mui_list_view_add_item_ext(app->p_list_view, ICON_FILE, "ATQA", buff, CHAMELEON_MENU_ATQA);
 
-    if (tag_group == TAG_GROUP_MIFLARE) {
+    if (tag_group == TAG_GROUP_MIFARE) {
         mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_GEN1A_MODE),
                                    (nfc_tag_mf1_is_gen1a_magic_mode() ? _T(ON_F) : _T(OFF_F)), CHAMELEON_MENU_GEN1A);
         mui_list_view_add_item_ext(app->p_list_view, ICON_PAGE, _T(APP_CHAMELEON_CARD_GEN2_MODE),

@@ -57,7 +57,7 @@ const tag_specific_type_t hf_tag_specific_types[] = {
 tag_group_type_t tag_helper_get_tag_group_type(tag_specific_type_t tag_type) {
     if (tag_type == TAG_TYPE_MIFARE_Mini || tag_type == TAG_TYPE_MIFARE_1024 || tag_type == TAG_TYPE_MIFARE_2048 ||
         tag_type == TAG_TYPE_MIFARE_4096) {
-        return TAG_GROUP_MIFLARE;
+        return TAG_GROUP_MIFARE;
     } else if (tag_type == TAG_TYPE_NTAG_213 || tag_type == TAG_TYPE_NTAG_215 || tag_type == TAG_TYPE_NTAG_216) {
         return TAG_GROUP_NTAG;
     } else {
@@ -78,7 +78,7 @@ nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref() {
     tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
     tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
     tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
-    if (tag_group_type == TAG_GROUP_MIFLARE) {
+    if (tag_group_type == TAG_GROUP_MIFARE) {
         return get_mifare_coll_res();
         // nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         // return &m_tag_information->res_coll;
@@ -154,7 +154,7 @@ uint8_t *tag_helper_get_active_tag_memory_data() {
     tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
     tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
     tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
-    if (tag_group_type == TAG_GROUP_MIFLARE) {
+    if (tag_group_type == TAG_GROUP_MIFARE) {
         nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         return &m_tag_information->memory;
     } else {
