@@ -16,6 +16,7 @@
 
 typedef enum {
     CHAMELEON_MENU_CUSTOM,
+    CHAMELEON_MENU_LOAD_BLOCK0,
     CHAMELEON_MENU_UID_SIZE,
     CHAMELEON_MENU_UID,
     CHAMELEON_MENU_SAK,
@@ -39,13 +40,22 @@ void chameleon_scene_menu_card_advanced_on_event(mui_list_view_event_t event, mu
         break;
     }
 
-    case CHAMELEON_MENU_UID_SIZE:{
+    case CHAMELEON_MENU_LOAD_BLOCK0: {
+        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+            tag_helper_load_coll_res_from_block0();
+            mui_toast_view_show(app->p_toast_view, _T(APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0_SUCCESS));
+        }
+        chameleon_scene_menu_card_advanced_reload(app);
+        break;
+    }
+
+    case CHAMELEON_MENU_UID_SIZE: {
         tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
         tag_group_type_t tag_group = tag_helper_get_tag_group_type(tag_type);
         if (tag_group == TAG_GROUP_MIFARE) {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_CARD_ADVANCED_ID_SIZE);
         }
-    }break;
+    } break;
 
     case CHAMELEON_MENU_UID: {
         if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
@@ -112,10 +122,15 @@ void chameleon_scene_menu_card_advanced_reload(app_chameleon_t *app) {
     if (tag_group == TAG_GROUP_MIFARE) {
         mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_ADV_CUSTOM_MODE),
                                    (nfc_tag_mf1_is_use_mf1_coll_res() ? _T(OFF_F) : _T(ON_F)), CHAMELEON_MENU_CUSTOM);
+        if (!nfc_tag_mf1_is_use_mf1_coll_res()) {
+            mui_list_view_add_item(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0),
+                                   CHAMELEON_MENU_LOAD_BLOCK0);
+        }
     }
 
     sprintf(buff, "[%d %s]", *(coll_res->size), _T(BYTES));
-    mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_ID_SIZE), buff, CHAMELEON_MENU_UID_SIZE);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, _T(APP_CHAMELEON_CARD_ID_SIZE), buff,
+                               CHAMELEON_MENU_UID_SIZE);
 
     strcpy(buff, "[");
     tag_helper_format_uid(buff + 1, coll_res->uid, *(coll_res->size));

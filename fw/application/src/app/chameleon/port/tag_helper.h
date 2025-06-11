@@ -29,6 +29,7 @@ nfc_tag_14a_coll_res_reference_t *tag_helper_get_active_coll_res_ref();
 tag_specific_type_t tag_helper_get_active_tag_type();
 void tag_helper_format_uid(char *buff, uint8_t *uid, uint8_t uid_len);
 const char *tag_helper_get_mf_write_mode_name(nfc_tag_mf1_write_mode_t write_mode);
+void tag_helper_load_coll_res_from_block0();
 
 void tag_helper_get_nickname(char *buff, size_t buff_len);
 int32_t tag_helper_set_nickname(const char *nickname);
