@@ -107,6 +107,20 @@ void tag_helper_load_coll_res_from_block0() {
             nfc_tag_mf1_factory_info_t *block0_factory_info = (nfc_tag_mf1_factory_info_t *)m_tag_information->memory[0];
             memcpy(coll_res->atqa, block0_factory_info->manufacturer, 2);
             memcpy(coll_res->uid, block0_factory_info->uid, uid_size);
+
+            //sak is not stored in block0, hardcoded sak according to tag type
+            //reference: https://www.nxp.com/docs/en/application-note/AN10833.pdf
+            if (tag_type == TAG_TYPE_MIFARE_Mini) {
+                coll_res->sak[0] = 0x09;
+            } else if (tag_type == TAG_TYPE_MIFARE_1024) {
+                coll_res->sak[0] = 0x08;
+            } else if (tag_type == TAG_TYPE_MIFARE_2048) {
+                coll_res->sak[0] = 0x19;
+            } else if (tag_type == TAG_TYPE_MIFARE_4096) {
+                coll_res->sak[0] = 0x18;
+            } else {
+                coll_res->sak[0] = 0x08;
+            }
         }
     }
 }
