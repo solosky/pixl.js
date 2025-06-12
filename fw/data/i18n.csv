@@ -171,8 +171,8 @@ _L_APP_CHAMELEON_CARD_DATA_SAVE_INPUT_FILE_NAME,Input File Name:,输入文件名
 _L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED,Save File Failed!,写入文件失败,寫入文件失敗,¡Error al guardar!,Fájl Mentése Sikertelen!,Datei speichern fehlgeschlagen!,Échec de l'Enregistrement du Fichier!,Bestand Opslaan Mislukt!,Falha ao Salvar o Arquivo!,ファイルの保存に失敗しました！,Erro ao guardar!,Errore nel salvataggio!,Ошибка сохранения файла,Błąd zapisywania pliku!
 _L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS,Save File Success,导出卡片数据成功,導出卡片數據成功,Guardado correcto,Fájl Mentése Sikeres,Datei erfolgreich gespeichert,Sauvegarde du Fichier Réussie,Bestand Opslaan Gelukt,Arquivo Salvo com êxito,ファイルが保存されました,Guardado com sucesso,Salvataggio riuscito,Данные сохранены,Plik został zapisany
 _L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE,Custom Mode,自定义模式,自定義模式,Modo personali.,Egyéni Mód,Benutzerdefinierter Modus,Mode Personnalisé,Aangepaste Modus,Modo Personalizado,カスタムモード,Modo personalizado,Modalità personalizzata,Заказной режим,Tryb Niestandardowy
-_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0,Load From Block0...,加载0扇区数据...,加載0扇區數據..,,,,,,,,,,,
-_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0_SUCCESS,Load Block0 Success,加载0扇区数据成功,加載0扇區數據成功,,,,,,,,,,,
+_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0,Load From Block0...,加载0扇区数据...,加載0扇區數據..,,,,,,,,,,Загрузить блок 0...,
+_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0_SUCCESS,Load Block0 Success,加载0扇区数据成功,加載0扇區數據成功,,,,,,,,,,Блок 0 загружен,
 _L_APP_CHAMELEON_CARD_ID_SIZE,ID Size,ID类型,ID類型,,,,,,,,,,Размер ID,
 _L_APP_CHAMELEON_CARD_GEN1A_MODE,Gen1A Enabled,Gen1A模式,Gen1A模式,Gen1A habilitada,Gen1A Engedélyezve,Gen1A aktiv,Gen1A Activé,Gen1A Ingeschakeld,Gen1A Ativada,Gen1A 有効,Gen1A ativado,Gen1A abilitata,Gen1A,Gen1A Aktywny
 _L_APP_CHAMELEON_CARD_GENERATE_UID,Rand. UID,生成UID,生成UID,Generar UID aleat.,Véletlen UID,Zufällige UID,Randomiser l'UID,Willekeurige UID,UID Aleatório,UIDのランダム化,Gerar novo UID,Genera nuovo UID,Сгенерировать UID,Generuj UID
