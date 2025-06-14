@@ -9,6 +9,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_ERR_CODE] = "Foutcode",
     [_L_FAILED] = "",
     [_L_BYTES] = "",
+    [_L_OPEN_DIR_FAILED] = "",
     [_L_APP_AMIIBO] = "Amiibo-Emulator",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "BLE Bestandsoverdracht",

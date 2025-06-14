@@ -9,6 +9,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_ERR_CODE] = "错误码",
     [_L_FAILED] = "失败",
     [_L_BYTES] = "字节",
+    [_L_OPEN_DIR_FAILED] = "读取文件夹失败!",
     [_L_APP_AMIIBO] = "Amiibo模拟器",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "蓝牙传输",

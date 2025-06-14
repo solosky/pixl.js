@@ -9,6 +9,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_ERR_CODE] = "錯誤碼",
     [_L_FAILED] = "失敗",
     [_L_BYTES] = "字節",
+    [_L_OPEN_DIR_FAILED] = "讀取文件夾失敗!",
     [_L_APP_AMIIBO] = "Amiibo模擬器",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "藍牙傳送",
