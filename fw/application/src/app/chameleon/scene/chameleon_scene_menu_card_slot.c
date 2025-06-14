@@ -28,7 +28,7 @@ void chameleon_scene_menu_card_slot_on_event(mui_list_view_event_t event, mui_li
     case ICON_DATA: {
         int32_t slot = mui_list_view_get_focus(p_list_view) - 1;
         tag_emulation_slot_set_enable(slot, TAG_SENSE_HF, !tag_emulation_slot_is_enabled(slot, TAG_SENSE_HF));
-        sprintf(buff, "[%s]", tag_emulation_slot_is_enabled(slot, TAG_SENSE_HF) ? _T(ON) : _T(OFF));
+        sprintf(buff, "%s", tag_emulation_slot_is_enabled(slot, TAG_SENSE_HF) ? _T(ON_F) : _T(OFF_F));
         mui_list_view_item_set_sub_text(p_item, buff);
     } break;
 
