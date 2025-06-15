@@ -92,7 +92,7 @@ _L_RENAME_FAILED,Failed to rename\nError code,重命名失败,重新命名失敗
 _L_MAIN_RETURN,[RETURN],[返回],[返回],[Volver],[VISSZA],[Zurück],[RETOUR],[TERUG],[RETORNO],[リターン］,[VOLTAR],[Torna indietro],[Назад],[POWRÓT]
 _L_RANDOM_MODE_MANUAL,Randomize (Manual),随机模式(手动),隨機模式(手動),Aleatorio (Manual),Randomizálás (Kézi),Zufällige UUID (Manuell),Randomiser (Manuel),Willekeurig (Handmatig),Randomizar (Manual),ランダム化 (手動),Aleatório (Manual),Casuale (Manuale),Ручная генерация UUID,Losuj (Ręcznie)
 _L_RANDOM_MODE_AUTO,Randomize (Auto),随机模式(自动),隨機模式(自動),Aleatorio (Auto.),Randomizálás (Automat.),Zufällige UUID (Automatisch),Randomiser (Automatique),Willekeurig (Automatisch),Randomizar (Automático),ランダム化(自動),Aleatório (Auto),Casuale (Automatico),Автогенерация UUID,Losuj (Autom.)
-_L_SEQUENCE_MODE,Sequential mode,按序模式,按序模式,Modo Secuencial,Szekvenciális Mód,Sequentieller Modus,Mode Séquentiel,Sequentiële Modus,Modo Sequencial,シーケンシャルモード,Modo Sequencial,Modo sequenziale,Последовательный,Tryb Sekwencyjny
+_L_SEQUENCE_MODE,Sequential mode,按序模式,按序模式,Modo Secuencial,Szekvenciális Mód,Sequentieller Modus,Mode Séquentiel,Sequentiële Modus,Modo Sequencial,シーケンシャルモード,Modo Sequencial,Modo sequenziale,Поочерёдно,Tryb Sekwencyjny
 _L_READ_WRITE_MODE,Read-write mode,读写模式,讀寫模式,Modo Lectura/Escrit.,Olvasás-írás Mód,Lese-Schreibmodus,Mode Lecture-Écriture,Lees-Schrijfmodus,Modo de Leitura e Gravação,読み書きモード,Modo Leitura-Escrita,Modo lettura/scrittura,Чтение-запись,Tryb odczyt-zapis
 _L_AMIIBOLINK_V1,V1,V1(历史版本),V1(歷史版本),AmiiboLink V1,V1,V1,V1,V1,V1,V1,V1,V1,V1,V1
 _L_AMIIBOLINK_V2,V2,V2(最新版本),V2(最新版本),AmiiboLink V2,V2,V2,V2,V2,V2,V2,V2,V2,V2,V2
@@ -103,7 +103,7 @@ _L_COMPATIBLE_MODE,Compati. Mode,兼容模式,相容模式,Compatibil.,Kompatibi
 _L_TAG_DETAILS,[Tag Details],[标签详情],[標籤詳情],[Volver a Detalles],[Tag Részletek],[Zurück zu Details],[Détails de l'Étiquette],[Tag Details],[Detalhes da Tag],[タグ詳細］,[Voltar a detalhes],[Torna ai dettagli],[Назад к деталям],[Szczegóły Tagu]
 _L_MAIN_MENU,[Main Menu],[主菜单],[主選單],[Menú Principal],[Főmenü],[Hauptmenü],[Menu Principal],[Hoofdmenu],[Menu Principal],[メインメニュー］,[Menu Principal],[Menu principale],[В главное меню],[Główne Menu]
 _L_MODE_RANDOM,Rand. (Manual),随机(手动),隨機(手動),Aleat. man.,Random (Kézi),Zufällige UUID (Manuell),Aléatoire (Manuel),Willekeurig (Handmatig),Randomização (Manual),ランダム化（手動）,Aleatório (Manual),Casuale man.,Ручная генерация,Losowanie (Ręcznie)
-_L_MODE_CYCLE,Sequential,按序,按序,Secuencial,Szekvenciális,Sequentiell,Séquentiel,Sequentieel,Sequencial,シーケンシャル,Sequencia,Sequenziale,Последовательный,Ciągły
+_L_MODE_CYCLE,Sequential,按序,按序,Secuencial,Szekvenciális,Sequentiell,Séquentiel,Sequentieel,Sequencial,シーケンシャル,Sequencia,Sequenziale,Поочерёдно,Ciągły
 _L_MODE_NTAG,Read/Write,读写,讀寫,Lect./Escr.,Olvasás/Írás,Lesen/Schreiben,Lecture/Écriture,Lezen/Schrijven,Leitura/gravação,リード/ライト,Leitura/Escrita,Lett./Scritt.,Чтение-запись,Odczyt/Zapis
 _L_MODE_RANDOM_AUTO_GEN,Rand. (Auto),随机(自动),隨機(自動),Aleat. auto.,Random (Automat.),Zufällig (Auto.),Aléatoire (Automatique),Willekeurig (Automatisch),Randomização (Automática),ランダム化（自動）,Randomização Automática ,Auto. casuale,Автогенерация,Losowanie (Autom.)
 _L_BLANK_TAG,Blank NFC tag,空标签,空標籤,Amiibo no asignado,Üres NFC Címke,Leerer NFC Tag,Étiquette NFC vierge,Lege NFC-tag,Tag NFC em Branco,ブランクNFCタグ,Tag NFC vazia,Amiibo non assegnato,Пустой тег,Pusty Tag NFC
