@@ -9,7 +9,6 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_ERR_CODE] = "Код ошибки",
     [_L_FAILED] = "Ошибка",
     [_L_BYTES] = "байт",
-    [_L_OPEN_DIR_FAILED] = "Ошибка открытия папки",
     [_L_APP_AMIIBO] = "Эмулятор Amiibo",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "Передача файлов",

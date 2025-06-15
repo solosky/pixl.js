@@ -8,7 +8,6 @@ _L_ERR,Error,错误,錯誤,Error,Hiba,Fehler,Erreur,Fout,Erro,エラー,Erro,Err
 _L_ERR_CODE,Error Code,错误码,錯誤碼,Código error,Hibakód,Fehlercode,Code d'Erreur,Foutcode,Código de Erro,エラーコード,Código de Erro,Codice errore,Код ошибки,Kod Błędu
 _L_FAILED,Failed,失败,失敗,Fallido,,,,,,,,,Ошибка,Niepowodzenie
 _L_BYTES,Bytes,字节,字節,,,,,,,,,,байт,
-_L_OPEN_DIR_FAILED,Open Directory Failed!,读取文件夹失败!,讀取文件夾失敗!,,,,,,,,,,Ошибка открытия папки,
 _L_APP_AMIIBO,Amiibo Emulator,Amiibo模拟器,Amiibo模擬器,Emulador de amiibo,Amiibo Emulátor,Amiibo Emulator,Emulateur Amiibo,Amiibo-Emulator,Emulador de Amiibo,Amiiboエミュレータ,Emulador de Amiibo,Emulatore Amiibo,Эмулятор Amiibo,Emulator Amiibo
 _L_APP_AMIIBOLINK,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink,AmiiboLink
 _L_APP_BLE,BLE File Transfer,蓝牙传输,藍牙傳送,Transferencia BLE,BLE Fájltovábbítás,BLE Dateitransfer,Transfert de Fichiers BLE,BLE Bestandsoverdracht,Transferência de Arquivos BLE,BLEファイル転送,Transferência BLE,Trasferimento file BLE,Передача файлов,Transfer Plików BLE

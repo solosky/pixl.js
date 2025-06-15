@@ -112,7 +112,7 @@ static void chameleon_scene_menu_card_data_file_load_reload(app_chameleon_t *app
     if (res < 0) {
         // If failed to open directory, it might not exist, return to root directory
         strcpy(current_dir, "");
-        mui_toast_view_show(app->p_toast_view, _T(OPEN_DIR_FAILED));
+        mui_toast_view_show(app->p_toast_view, _T(OPEN_FOLDER_FAILED));
         return;
     }
 

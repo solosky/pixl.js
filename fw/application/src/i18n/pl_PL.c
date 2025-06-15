@@ -9,7 +9,6 @@ const char * const lang_pl_PL[_L_COUNT] = {
     [_L_ERR_CODE] = "Kod Błędu",
     [_L_FAILED] = "Niepowodzenie",
     [_L_BYTES] = "",
-    [_L_OPEN_DIR_FAILED] = "",
     [_L_APP_AMIIBO] = "Emulator Amiibo",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "Transfer Plików BLE",
