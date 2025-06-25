@@ -46,6 +46,20 @@
       "configFiles": [
         "${workspaceRoot}/fw/application/openocd/debug.cfg"
       ]
+    },
+    {
+      "name": "Pixl.js BMP Debug",
+      "cwd": "${workspaceRoot}",
+      "executable": "fw/_build/pixljs.out",
+      "armToolchainPath": "",
+      "request": "launch",
+      "type": "cortex-debug",
+      "servertype": "bmp",
+      "device": "nrf52",
+      "interface": "swd",
+      "ipAddress": null,
+      "serialNumber": null,
+      "BMPGDBSerialPort": "/dev/cu.usbmodem20240517021", 
     }
   ]
 }

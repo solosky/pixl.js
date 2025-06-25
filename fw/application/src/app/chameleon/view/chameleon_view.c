@@ -59,7 +59,7 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 
     mui_canvas_set_font(p_canvas, MUI_FONT_SMALL);
     sprintf(buff, "%s <%02x/%02x %02x>", tag_name->short_name, coll_res->sak[0], coll_res->atqa[0], coll_res->atqa[1]);
-    if (tag_group == TAG_GROUP_MIFLARE) {
+    if (tag_group == TAG_GROUP_MIFARE) {
         if (nfc_tag_mf1_is_gen1a_magic_mode()) {
             strcat(buff, " 1A");
         }
@@ -69,7 +69,7 @@ static void chameleon_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     }
     mui_canvas_draw_utf8(p_canvas, 0, mui_canvas_get_height(p_canvas), buff);
 
-    if (tag_group == TAG_GROUP_MIFLARE) {
+    if (tag_group == TAG_GROUP_MIFARE) {
         nfc_tag_mf1_write_mode_t write_mode = nfc_tag_mf1_get_write_mode();
         uint16_t icon_glyph = ICON_SAVE;
         if (write_mode == NFC_TAG_MF1_WRITE_DENIED) {

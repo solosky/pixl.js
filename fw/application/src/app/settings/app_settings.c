@@ -34,7 +34,7 @@ void app_settings_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher, SETTINGS_VIEW_ID_MSG_BOX,
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
 
-    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
     p_app_handle->p_toast_view = mui_toast_view_create();
     mui_toast_view_set_user_data(p_app_handle->p_toast_view, p_app_handle);

@@ -15,7 +15,7 @@
 0101000003560902,Zelda,塞尔达
 0101010000170002,Sheik,希克
 0101030004140902,Zelda & Loftwing,塞尔达&洛夫特飞鸟
-01020100001b0002,Ganondorf,盖侬多夫
+01020100001b0002,Ganondorf,加侬多夫
 01030000024f0902,Midna & Wolf Link,米多娜 & 狼林克
 0105000003580902,Daruk,达尔克尔
 0106000003590902,Urbosa,乌尔波扎
@@ -851,5 +851,34 @@
 22430000043d1b02,Noah,诺亚
 22440000043e1b02,Mio,弥央
 3f000000042e0002,Sora,索拉
-000900030432ff02,Diddy Kong - Power Up Band,
-000800030431ff02,Donkey Kong - Power Up Band,
+000900030432ff02,Diddy Kong - Power Up Band,迪迪刚 - 能量手环
+000800030431ff02,Donkey Kong - Power Up Band,咚奇刚 - 能量手环
+0109000004a30902,Riju,露珠
+010a000004a40902,Sidon,希多
+010b000004a50902,Tulin,丘栗
+010c000004a60902,Yunobo,阿沅
+34c2000104ab1d02,[Card] Luke,[卡片] 卢克
+34c3000104ad1d02,[Card] Jamie,[卡片] 杰米
+34cc000104b71d02,[Card] Manon,[卡片] 曼侬
+34c4000104af1d02,[Card] Kimberly,[卡片] 金伯莉
+34cd000104b81d02,[Card] Marisa,[卡片] 玛丽莎
+34d0000104bb1d02,[Card] Lily,[卡片] 莉莉
+34ce000104b91d02,[Card] JP,[卡片] JP
+34c7000104b21d02,[Card] Juri,[卡片] 朱莉
+34cb000104b61d02,[Card] Dee Jay,[卡片] 迪·杰伊
+34d1000104bc1d02,[Card] Cammy,[卡片] 嘉米
+34c0000104a81d02,[Card] Ryu,[卡片] 隆
+34ca000104b51d02,[Card] E.Honda,[卡片] 埃德蒙·本田
+34c8000104b31d02,[Card] Blanka,[卡片] 布兰卡
+34c6000104b11d02,[Card] Guile,[卡片] 古烈
+34c1000104a91d02,[Card] Ken,[卡片] 肯
+34c5000104b01d02,[Card] Chun-Li,[卡片] 春丽
+34cf000104ba1d02,[Card] Zangief,[卡片] 桑吉尔夫
+34c9000104b41d02,[Card] Dhalsim,[卡片] 达尔锡
+34d2000104bd1d02,[Card] Rashid,[卡片] 拉希德
+34d3000104be1d02,[Card] A.K.I.,[卡片] A.K.I.
+34d4000104bf1d02,[Card] ED,[卡片] 艾德
+34d5000104c01d02,[Card] Akuma,[卡片] 豪鬼
+34c2000004aa1d02,Luke,卢克
+34c3000004ac1d02,Jamie,杰米
+34c4000004ae1d02,Kimberly,金伯莉
