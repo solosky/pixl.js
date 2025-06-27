@@ -25,6 +25,9 @@
           <el-dropdown-item Enabled="language==='de'" command="de" divided>
             {{ $t('lang.de') }}
           </el-dropdown-item>
+          <el-dropdown-item Enabled="language==='sv_SE'" command="sv_SE" divided>
+            {{ $t('lang.sv') }}
+          </el-dropdown-item>
         </el-dropdown-menu>
       </el-dropdown>
     </div>
