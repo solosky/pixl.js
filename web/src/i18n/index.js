@@ -44,7 +44,7 @@ const messages = {
     ... elementDeLocale
   },
   sv_SE: {
-    ... svLocale
+    ... svLocale,
     ... elementSvLocale
   }
 }
