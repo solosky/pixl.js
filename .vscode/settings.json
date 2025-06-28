@@ -37,6 +37,10 @@
         "mlib_common.h": "c",
         "ios": "c",
         "limits": "c",
-        "algorithm": "c"
+        "algorithm": "c",
+        "format": "c",
+        "span": "c",
+        "language.h": "c",
+        "mini_app_launcher.h": "c"
     }
 }
