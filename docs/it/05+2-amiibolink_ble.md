@@ -16,24 +16,22 @@ NUS_SERVICE_UUID: 6e400001-b5a3-f393-e0a9-e50e24dcca9e
 
 Sono fornite due caratteristiche:
 
-* NUS_CHAR_TX_UUID: 6e400002-b5a3-f393-e0a9-e50e24dcca9e => Fornisce la trasmissione dei dati, supporta la scrittura e la scrittura senza ritorno.
-* NUS_CHAR_RX_UUID: 6e400003-b5a3-f393-e0a9-e50e24dcca9e => Fornisce la lettura dei dati e supporta solo le notifiche.
+- NUS_CHAR_TX_UUID: 6e400002-b5a3-f393-e0a9-e50e24dcca9e => Fornisce la trasmissione dei dati, supporta la scrittura e la scrittura senza ritorno.
+- NUS_CHAR_RX_UUID: 6e400003-b5a3-f393-e0a9-e50e24dcca9e => Fornisce la lettura dei dati e supporta solo le notifiche.
 
 ## Protocollo di trasferimento amiibo
 
 ## Descrizione del protocollo
 
-
-| Funzione | Invio | Risposta | Descrizione |
-|---------|--------------|------|--------------------------|
-| Imposta modalità dispositivo | a1 b1 01 | b1 a1 | 01: Modalità casuale 02: Modalità sequenziale 03: Modalità di lettura e scrittura |
-| Preparazione scrittura carta | a0 b0 | b0 a0 | Invia prima di inviare dati |
-| ?? | ac ac 00 04 00 00 02 1c | ca ca | Invia 540 byte di dati |
-| ?? | ab ab 02 1c | ba ba | Non so perché è stato inviato un pacchetto con lo stesso significato |
-| Invia dati | dd aa 00 96 ... 00 01 | aa dd | 0x96 lunghezza dati, seguita da dati, gli ultimi due byte sono il numero di sequenza del pacchetto |
-| ?? | bc bc | cb cb | fine trasferimento |
-| ?? | cc dd | dd cc | Non so perché sto inviando questo pacchetto |
-
+| Funzione                     | Invio                   | Risposta | Descrizione                                                                                        |
+| ---------------------------- | ----------------------- | -------- | -------------------------------------------------------------------------------------------------- |
+| Imposta modalità dispositivo | a1 b1 01                | b1 a1    | 01: Modalità casuale 02: Modalità sequenziale 03: Modalità di lettura e scrittura                  |
+| Preparazione scrittura carta | a0 b0                   | b0 a0    | Invia prima di inviare dati                                                                        |
+| ??                           | ac ac 00 04 00 00 02 1c | ca ca    | Invia 540 byte di dati                                                                             |
+| ??                           | ab ab 02 1c             | ba ba    | Non so perché è stato inviato un pacchetto con lo stesso significato                               |
+| Invia dati                   | dd aa 00 96 ... 00 01   | aa dd    | 0x96 lunghezza dati, seguita da dati, gli ultimi due byte sono il numero di sequenza del pacchetto |
+| ??                           | bc bc                   | cb cb    | fine trasferimento                                                                                 |
+| ??                           | cc dd                   | dd cc    | Non so perché sto inviando questo pacchetto                                                        |
 
 ## Processo di interazione
 
@@ -72,7 +70,9 @@ c->s: ddcc
 ```
 
 ### Processo di interazione iNFC
+
 Il processo è sostanzialmente lo stesso di sopra, ma c'è un comando in più
+
 ```
 c->s: a1 b1 01
 s->c: b1 a1

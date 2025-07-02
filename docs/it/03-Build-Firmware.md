@@ -1,4 +1,3 @@
-
 # Compilazione del firmware
 
 ## Compilazione con Github Actions
@@ -27,4 +26,4 @@ root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=LCD RELEASE=1
 root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED RELEASE=1
 ```
 
-Il firmware si trova in fw/_build/pixjs_all.hex, il pacchetto ota si trova in fw/_build/pixjs_ota_vXXXX.zip
+Il firmware si trova in fw/\_build/pixjs_all.hex, il pacchetto ota si trova in fw/\_build/pixjs_ota_vXXXX.zip
