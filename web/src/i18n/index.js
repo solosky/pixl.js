@@ -1,65 +1,66 @@
-import Vue from 'vue'
-import VueI18n from 'vue-i18n'
-import elementEnLocale from 'element-ui/lib/locale/lang/en' // element-ui lang
-import elementZhCnLocale from 'element-ui/lib/locale/lang/zh-CN' // element-ui lang
-import elementEsLocale from 'element-ui/lib/locale/lang/es' // element-ui lang
-import elementZhTwLocale from 'element-ui/lib/locale/lang/zh-TW' // element-ui lang
-import elementRuLocale from 'element-ui/lib/locale/lang/ru-RU' // element-ui lang
-import elementDeLocale from 'element-ui/lib/locale/lang/de' // element-ui lang
-import enLocale from './en_US'
-import zhTWLocale from './zh_TW'
-import zhCNLocale from './zh_Hans'
-import esLocale from './es_ES'
-import ruLocale from './ru_RU'
-import deLocale from './de_DE'
+import Vue from "vue";
+import VueI18n from "vue-i18n";
+import elementEnLocale from "element-ui/lib/locale/lang/en"; // element-ui lang
+import elementZhCnLocale from "element-ui/lib/locale/lang/zh-CN"; // element-ui lang
+import elementEsLocale from "element-ui/lib/locale/lang/es"; // element-ui lang
+import elementZhTwLocale from "element-ui/lib/locale/lang/zh-TW"; // element-ui lang
+import elementRuLocale from "element-ui/lib/locale/lang/ru-RU"; // element-ui lang
+import elementDeLocale from "element-ui/lib/locale/lang/de"; // element-ui lang
+import enLocale from "./en_US";
+import zhTWLocale from "./zh_TW";
+import zhCNLocale from "./zh_Hans";
+import esLocale from "./es_ES";
+import ruLocale from "./ru_RU";
+import deLocale from "./de_DE";
 
-
-Vue.use(VueI18n)
+Vue.use(VueI18n);
 
 const messages = {
   en: {
     ...enLocale,
-    ...elementEnLocale
+    ...elementEnLocale,
   },
   zh_TW: {
     ...zhTWLocale,
-    ...elementZhTwLocale
+    ...elementZhTwLocale,
   },
   es: {
     ...esLocale,
-    ...elementEsLocale
+    ...elementEsLocale,
   },
   zh_CN: {
     ...zhCNLocale,
-    ...elementZhCnLocale
+    ...elementZhCnLocale,
   },
   ru_RU: {
-    ... ruLocale,
-    ... elementRuLocale
+    ...ruLocale,
+    ...elementRuLocale,
   },
   de_DE: {
-    ... deLocale,
-    ... elementDeLocale
-  }
-}
+    ...deLocale,
+    ...elementDeLocale,
+  },
+};
 export function getLanguage() {
   // if has not choose language
-  const language = (navigator.language || navigator.browserLanguage).toLowerCase()
-  const locales = Object.keys(messages)
+  const language = (
+    navigator.language || navigator.browserLanguage
+  ).toLowerCase();
+  const locales = Object.keys(messages);
   for (const locale of locales) {
     if (language.indexOf(locale) > -1) {
       //return 'en'
-      return locale
+      return locale;
     }
   }
-  return 'zh_TW'
+  return "zh_TW";
 }
 const i18n = new VueI18n({
   // set locale
   // options: en | zh | es
   locale: getLanguage(),
   // set locale messages
-  messages
-})
+  messages,
+});
 
-export default i18n
+export default i18n;

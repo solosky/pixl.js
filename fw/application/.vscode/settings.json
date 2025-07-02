@@ -4,9 +4,7 @@
   },
   "C_Cpp.clang_format_style": "file",
   "C_Cpp.clang_format_fallbackStyle": "none",
-  "editor.rulers": [
-    90
-  ],
+  "editor.rulers": [90],
   "files.associations": {
     "mui_view_port.h": "c",
     "mui_event.h": "c",
@@ -105,5 +103,5 @@
     "app_chameleon.h": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
-  "cortex-debug.openocdPath.windows": "openocd",
+  "cortex-debug.openocdPath.windows": "openocd"
 }

@@ -70,14 +70,14 @@ In this example, we will add a Japanese (ja_JP) translation:
    lang import jaLocale from './ja_JP' elementJpLocale
    ```
 
-     And extending `messages`:
+   And extending `messages`:
 
-     ```js
-       ja_JP: {
-    ...jaLocale,
-    ...elementJaLocale,
-     },
-     ```
+   ```js
+     ja_JP: {
+   ...jaLocale,
+   ...elementJaLocale,
+   },
+   ```
 
 4. Add your language to the other `.js` files (within the `lang: {` section):
 

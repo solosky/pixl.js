@@ -1,4 +1,3 @@
-
 # Traduzione
 
 ## Come aggiornare una traduzione esistente

@@ -1,6 +1,4 @@
-
 # **Pixl.js文档**
-
 
 # [硬件](01-Hardware.md)
 
@@ -9,15 +7,13 @@
 - [图片](01-Hardware.md#Pictures)
 - [演示](01-Hardware.md#Demo)
 - [外壳](01-Hardware.md#Shell)
-- [OLED版本](01-Hardware.md#OLED-version) 
-
+- [OLED版本](01-Hardware.md#OLED-version)
 
 # 固件
 
 - [固件](02-Flash-Firmware.md "Flash the Firmware")
 - [国际化](05+5-translation.md)
 - [构建固件](03-Build-Firmware.md)
-
 
 # [使用手册](04-Using-Firmware.md)
 
@@ -44,6 +40,6 @@ TODO
 为了使用固件的一些功能，您必须提供`key_retail.bin`文件，应在设备存储的根目录中上传，然后才能使用。 <br/>
 您需要提供一个合法获得的文件，您可以使用工具从您的控制台（3DS 或 Switch）中提取它
 
->**key_retail.bin checksums:** <br/>
->MD5:	45fd53569f5765eef9c337bd5172f937 <br/>
->SHA1:	bbdbb49a917d14f7a997d327ba40d40c39e606ce 
+> **key_retail.bin checksums:** <br/>
+> MD5: 45fd53569f5765eef9c337bd5172f937 <br/>
+> SHA1: bbdbb49a917d14f7a997d327ba40d40c39e606ce

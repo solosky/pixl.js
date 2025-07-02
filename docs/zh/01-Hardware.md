@@ -5,11 +5,12 @@ hw/RevC 路径为最新的PCB版本，建议使用。您可以使用 [Kicad 6](h
 ![pixl.js PCB](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-pcb-revc.png)
 
 # BOM
-* 这里是已完成的BOM表: [RevC Bill of Materials Buying Guide](01+1-RevC-bom)
-* 这里提供了交互格式的物料清单，您可以从此处下载： [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
 
+- 这里是已完成的BOM表: [RevC Bill of Materials Buying Guide](01+1-RevC-bom)
+- 这里提供了交互格式的物料清单，您可以从此处下载： [RevC InteractiveHtmlBom](docs/RevC-ibom.html)
 
 # 图片
+
 以下为设备目前的一些图片:
 
 ![pixl.js 1](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-3.jpg)
@@ -30,6 +31,3 @@ hw/RevC 路径为最新的PCB版本，建议使用。您可以使用 [Kicad 6](h
 OLED版本由网友@xiaohail贡献。您可以点击 [这里](https://gitlab.com/xiaohai/pixl.js) 下载 PCB.
 
 ![OLED](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
-
-
-

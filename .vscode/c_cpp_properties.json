@@ -1,34 +1,34 @@
 {
-    "configurations": [
-        {
-            "name": "Pixl.js Debug",
-            "includePath": [
-                "${workspaceFolder}/fw/application/src/**",
-                "${workspaceFolder}/fw/components/**",
-                "${NRF52_SDK_ROOT}/**"
-            ],
-            "forcedInclude": [
-                "${workspaceFolder}/fw/application/config/sdk_config.h"
-            ],
-            "defines": [
-                "BOARD_CUSTOM",
-                "FLOAT_ABI_HARD",
-                "NRF52",
-                "NRF52832_XXAA",
-                "NRF52_PAN_74",
-                "NRF_SD_BLE_API_VERSION=6",
-                "S132",
-                "SOFTDEVICE_PRESENT",
-                "SWI_DISABLE0",
-                "DEBUG",
-                "DEBUG_NRF",
-                "M_USE_THREAD_BACKEND=0"
-            ],
-            "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
-            "cStandard": "c11",
-            "cppStandard": "c++17",
-            "intelliSenseMode": "windows-gcc-arm"
-        }
-    ],
-    "version": 4
+  "configurations": [
+    {
+      "name": "Pixl.js Debug",
+      "includePath": [
+        "${workspaceFolder}/fw/application/src/**",
+        "${workspaceFolder}/fw/components/**",
+        "${NRF52_SDK_ROOT}/**"
+      ],
+      "forcedInclude": [
+        "${workspaceFolder}/fw/application/config/sdk_config.h"
+      ],
+      "defines": [
+        "BOARD_CUSTOM",
+        "FLOAT_ABI_HARD",
+        "NRF52",
+        "NRF52832_XXAA",
+        "NRF52_PAN_74",
+        "NRF_SD_BLE_API_VERSION=6",
+        "S132",
+        "SOFTDEVICE_PRESENT",
+        "SWI_DISABLE0",
+        "DEBUG",
+        "DEBUG_NRF",
+        "M_USE_THREAD_BACKEND=0"
+      ],
+      "compilerPath": "/usr/local/bin/arm-none-eabi-gcc",
+      "cStandard": "c11",
+      "cppStandard": "c++17",
+      "intelliSenseMode": "windows-gcc-arm"
+    }
+  ],
+  "version": 4
 }

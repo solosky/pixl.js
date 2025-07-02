@@ -1,4 +1,4 @@
-# 翻译 
+# 翻译
 
 ## 如何更新现有的翻译
 
@@ -8,7 +8,7 @@
 运行 `make full` 重新构建固件。
 
 注意: <br />
- `font_data_gen.sh` 脚本只能在Windows的Git Bash中运行。
+`font_data_gen.sh` 脚本只能在Windows的Git Bash中运行。
 
 ## 如何添加新的语言翻译
 
