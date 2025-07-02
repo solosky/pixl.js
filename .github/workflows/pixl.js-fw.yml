@@ -2,8 +2,8 @@ name: pixl.js-fw
 
 on:
   push:
-    branches: [ "develop", "neo_v2"]
-    tags:  ["*"]
+    branches: ["develop", "neo_v2"]
+    tags: ["*"]
   pull_request:
     types: ["opened"]
     branches: ["develop"]
@@ -17,24 +17,24 @@ jobs:
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
-    - uses: actions/checkout@v4
-      with:
-        submodules: 'true'
+      - uses: actions/checkout@v4
+        with:
+          submodules: "true"
 
-    - name: Change Owner of Container Working Directory
-      run: chown root:root .
-    - name: build firmware
-      run: cd fw && make all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
-    - name: copy artifact
-      run: mv fw/_build/bootloader.hex . && mv fw/_build/pixljs.hex . && mv fw/_build/pixljs_all.hex . && mv fw/_build/pixjs_ota_v${{github.run_number}}.zip . && mv fw/docs/fw_readme.txt . && mv  fw/scripts/fw_update.bat .
-    - name: upload artifact
-      uses: actions/upload-artifact@v4
-      with:
-        name: pixljs_fw_${{matrix.board}}
-        path: |
-          bootloader.hex
-          pixljs.hex
-          pixljs_all.hex
-          pixjs_ota_v${{github.run_number}}.zip
-          fw_readme.txt
-          fw_update.bat
+      - name: Change Owner of Container Working Directory
+        run: chown root:root .
+      - name: build firmware
+        run: cd fw && make all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
+      - name: copy artifact
+        run: mv fw/_build/bootloader.hex . && mv fw/_build/pixljs.hex . && mv fw/_build/pixljs_all.hex . && mv fw/_build/pixjs_ota_v${{github.run_number}}.zip . && mv fw/docs/fw_readme.txt . && mv  fw/scripts/fw_update.bat .
+      - name: upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: pixljs_fw_${{matrix.board}}
+          path: |
+            bootloader.hex
+            pixljs.hex
+            pixljs_all.hex
+            pixjs_ota_v${{github.run_number}}.zip
+            fw_readme.txt
+            fw_update.bat

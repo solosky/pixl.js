@@ -1,5 +1,5 @@
 #include "string_id.h"
-const char * const lang_es_ES[_L_COUNT] = {
+const char *const lang_es_ES[_L_COUNT] = {
     [_L_ON] = "SI",
     [_L_OFF] = "NO",
     [_L_ON_F] = "[SI]",
@@ -8,7 +8,7 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_ERR] = "Error",
     [_L_ERR_CODE] = "Código error",
     [_L_FAILED] = "Fallido",
-    [_L_BYTES] = "",
+    [_L_BYTES] = "Bytes",
     [_L_APP_AMIIBO] = "Emulador de amiibo",
     [_L_APP_AMIIBOLINK] = "AmiiboLink",
     [_L_APP_BLE] = "Transferencia BLE",
@@ -172,8 +172,9 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_CHAMELEON_CARD_DATA_SAVE_FAILED] = "¡Error al guardar!",
     [_L_APP_CHAMELEON_CARD_DATA_SAVE_SUCCESS] = "Guardado correcto",
     [_L_APP_CHAMELEON_CARD_ADV_CUSTOM_MODE] = "Modo personali.",
-    [_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0] = "",
-    [_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0_SUCCESS] = "",
+    [_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0] = "Cargar desde Block0...",
+    [_L_APP_CHAMELEON_CARD_ADV_LOAD_BLOCK0_SUCCESS] = "Block0 cargado",
+    [_L_APP_AMIIDB_MORE_MESSAGE] = "Demasiados resultados. Intente una búsqueda más específica.",
     [_L_APP_CHAMELEON_CARD_ID_SIZE] = "",
     [_L_APP_CHAMELEON_CARD_GEN1A_MODE] = "Gen1A habilitada",
     [_L_APP_CHAMELEON_CARD_GENERATE_UID] = "Generar UID aleat.",

@@ -6,10 +6,9 @@ You could download the latest develop build from Github Actions
 
 https://github.com/solosky/pixl.js/actions
 
-
 ## Build with customized Docker image
 
-You could build the firmware using customized Docker image. 
+You could build the firmware using customized Docker image.
 
 ```
 # create containers
@@ -28,4 +27,4 @@ root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED RELEASE=1
 
 ```
 
-The firmware is fw/_build/pixjs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip
+The firmware is fw/\_build/pixjs_all.hex，ota package is fw/\_build/pixjs_ota_vXXXX.zip
