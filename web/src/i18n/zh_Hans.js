@@ -9,6 +9,7 @@ export default {
     es: 'Español',
     ru: 'Русский',
     de: 'Deutsch',
+    sv: 'Svenska',
     changeok: '语言切换成功！'
   },
   btn: {
