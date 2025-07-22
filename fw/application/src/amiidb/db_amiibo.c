@@ -885,5 +885,6 @@ const db_amiibo_t amiibo_list[] = {
 {0x34c20000, 0x04aa1d02, "Luke", "卢克"}, 
 {0x34c30000, 0x04ac1d02, "Jamie", "杰米"}, 
 {0x34c40000, 0x04ae1d02, "Kimberly", "金伯莉"}, 
+{0x00080100, 0x042f1a02, "Donkey Kong and Pauline", "咚奇刚与宝莉"}, 
 {0, 0, 0, 0}
 };
