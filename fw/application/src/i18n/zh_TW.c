@@ -37,6 +37,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_APP_SET_ABOUT] = "關於設備",
     [_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT] = "開源項目",
     [_L_APP_SET_ABOUT_LGPL_LICENSE] = "GPL 2.0 授權",
+    [_L_APP_SET_APP_MGMT] = "應用管理",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
     [_L_45S] = "45秒",

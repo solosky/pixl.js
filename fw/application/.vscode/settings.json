@@ -102,7 +102,8 @@
     "tag_helper.h": "c",
     "fds_utils.h": "c",
     "boards_defines.h": "c",
-    "app_chameleon.h": "c"
+    "app_chameleon.h": "c",
+    "limits": "c"
   },
   "cortex-debug.variableUseNaturalFormat": true,
   "cortex-debug.openocdPath.windows": "openocd",

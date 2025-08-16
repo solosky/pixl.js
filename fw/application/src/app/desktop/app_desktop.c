@@ -7,6 +7,8 @@
 #include "i18n/language.h"
 #include "mini_app_launcher.h"
 
+#include "settings.h"
+
 typedef enum { DESKTOP_VIEW_ID_MAIN } desktop_view_id_t;
 
 static void app_desktop_on_run(mini_app_inst_t *p_app_inst);
@@ -31,10 +33,14 @@ void app_desktop_on_run(mini_app_inst_t *p_app_inst) {
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
     p_app_handle->p_app_list_view = app_list_view_create();
 
+    settings_data_t *p_settings = settings_get_data();
     for (uint32_t i = 0; i < mini_app_registry_get_app_num(); i++) {
         const mini_app_t *p_app = mini_app_registry_find_by_index(i);
         if (!p_app->sys) {
-            app_list_view_add_app(p_app_handle->p_app_list_view, p_app);
+            bool is_enabled = (p_settings->app_enable_bits & (1 << p_app->id)) != 0;
+            if (is_enabled) {
+                app_list_view_add_app(p_app_handle->p_app_list_view, p_app);
+            }
         }
     }
 

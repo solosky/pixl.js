@@ -37,6 +37,7 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_SET_ABOUT] = "Acerca del dispositivo",
     [_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT] = "Poyecto de código abierto",
     [_L_APP_SET_ABOUT_LGPL_LICENSE] = "Licencia GPL 2.0",
+    [_L_APP_SET_APP_MGMT] = "",
     [_L_15S] = "15 segundos",
     [_L_30S] = "30 segundos",
     [_L_45S] = "45 segundos",

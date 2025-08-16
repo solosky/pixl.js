@@ -37,6 +37,7 @@ const char * const lang_sv_SE[_L_COUNT] = {
     [_L_APP_SET_ABOUT] = "Om enheten",
     [_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT] = "Projekt med öppen källkod",
     [_L_APP_SET_ABOUT_LGPL_LICENSE] = "GPL 2.0-licens",
+    [_L_APP_SET_APP_MGMT] = "",
     [_L_15S] = "15 sekunder",
     [_L_30S] = "30 sekunder",
     [_L_45S] = "45 sekunder",

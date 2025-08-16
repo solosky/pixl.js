@@ -37,6 +37,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_SET_ABOUT] = "关于设备",
     [_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT] = "开源项目",
     [_L_APP_SET_ABOUT_LGPL_LICENSE] = "GPL 2.0 授权",
+    [_L_APP_SET_APP_MGMT] = "应用管理",
     [_L_15S] = "15秒",
     [_L_30S] = "30秒",
     [_L_45S] = "45秒",

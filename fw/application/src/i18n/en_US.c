@@ -37,6 +37,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_SET_ABOUT] = "About Device",
     [_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT] = "Open Source Project",
     [_L_APP_SET_ABOUT_LGPL_LICENSE] = "GPL 2.0 License",
+    [_L_APP_SET_APP_MGMT] = "App Management",
     [_L_15S] = "15 Seconds",
     [_L_30S] = "30 Seconds",
     [_L_45S] = "45 Seconds",

@@ -37,6 +37,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_SET_ABOUT] = "",
     [_L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT] = "",
     [_L_APP_SET_ABOUT_LGPL_LICENSE] = "",
+    [_L_APP_SET_APP_MGMT] = "",
     [_L_15S] = "15 sec.",
     [_L_30S] = "30 sec.",
     [_L_45S] = "45 sec.",
