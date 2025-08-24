@@ -36,7 +36,7 @@ _L_APP_SET_RESET_DEFAULT_CONFIRM,Confirm Reset Settings?,确认重置默认设�
 _L_APP_SET_ABOUT,About Device,关于设备,關於設備,Acerca del dispositivo,,,,,,,,,Об устройстве,O Urządzeniu,Om enheten
 _L_APP_SET_ABOUT_OPEN_SOURCE_PROJECT,Open Source Project,开源项目,開源項目,Poyecto de código abierto,,,,,,,,,Проект с открытым кодом,Projekt Open Source,Projekt med öppen källkod
 _L_APP_SET_ABOUT_LGPL_LICENSE,GPL 2.0 License,GPL 2.0 授权,GPL 2.0 授權,Licencia GPL 2.0,,,,,,,,,Лицензия GPL 2.0,Licencja GPL 2.0,GPL 2.0-licens
-_L_APP_SET_APP_MGMT,App Management,应用管理,應用管理,,,,,,,,,,,,
+_L_APP_SET_APP_MGMT,App Management,应用管理,應用管理,,,,,,,,,,Ярлыки главного меню,,
 _L_15S,15 Seconds,15秒,15秒,15 segundos,15 sec.,15 Sekunden,15 sec.,15 sec.,15 seg.,15秒,15 segundos,15 secondi,15 секунд,15 Sekund,15 sekunder
 _L_30S,30 Seconds,30秒,30秒,30 segundos,30 sec.,30 Sekunden,30 sec.,30 sec.,30 seg.,30秒,30 segundos,30 secondi,30 секунд,30 Sekund,30 sekunder
 _L_45S,45 Seconds,45秒,45秒,45 segundos,45 sec.,45 Sekunden,45 sec.,45 sec.,45 seg.,45秒,45 segundos,45 secondi,45 секунд,45 Sekund,45 sekunder
@@ -108,7 +108,7 @@ _L_MODE_CYCLE,Sequential,按序,按序,Secuencial,Szekvenciális,Sequentiell,Sé
 _L_MODE_NTAG,Read/Write,读写,讀寫,Lect./Escr.,Olvasás/Írás,Lesen/Schreiben,Lecture/Écriture,Lezen/Schrijven,Leitura/gravação,リード/ライト,Leitura/Escrita,Lett./Scritt.,Чтение-запись,Odczyt/Zapis,Läs/Skriv
 _L_MODE_RANDOM_AUTO_GEN,Rand. (Auto),随机(自动),隨機(自動),Aleat. auto.,Random (Automat.),Zufällig (Auto.),Aléatoire (Automatique),Willekeurig (Automatisch),Randomização (Automática),ランダム化（自動）,Randomização Automática ,Auto. casuale,Автогенерация,Losowanie (Autom.),Slump (auto)
 _L_BLANK_TAG,Blank NFC tag,空标签,空標籤,Amiibo no asignado,Üres NFC Címke,Leerer NFC Tag,Étiquette NFC vierge,Lege NFC-tag,Tag NFC em Branco,ブランクNFCタグ,Tag NFC vazia,Amiibo non assegnato,Пустой тег,Pusty Tag NFC,Blank NFC-tagg
-_L_APP_AMIIDB,Amiibo Database,Amiibo数据库,Amiibo數據庫,Base datos amiibo,Amiibo Adatbázis,Amiibo Datenbank,Base de Données Amiibo,Amiibo-Database,Banco de Dados Amiibo,Amiiboデータベース,Base de dados Amiibo,Database Amiibo,База данных Amiibo,Baza Danych Amiibo,Amiibo-databas
+_L_APP_AMIIDB,Amiibo Database,Amiibo数据库,Amiibo數據庫,Base datos amiibo,Amiibo Adatbázis,Amiibo Datenbank,Base de Données Amiibo,Amiibo-Database,Banco de Dados Amiibo,Amiiboデータベース,Base de dados Amiibo,Database Amiibo,База Amiibo,Baza Danych Amiibo,Amiibo-databas
 _L_APP_AMMIDB_BROWSER,Browser...,查看...,查看...,Explorar...,Böngésző...,Navigieren...,Naviguer...,Browser...,Navegador...,ブラウザ...,Navegar...,Esplora...,Обозреватель...,Przeglądaj...,Browser...
 _L_APP_AMIIDB_SEARCH,Search...,搜索...,搜索...,Buscar...,Keresés...,Suche...,Recherche...,Zoeken...,Pesquisar...,検索...,Pesquisar...,Cerca...,Поиск...,Szukaj...,Sök...
 _L_APP_AMIIDB_MY_FAVORITES,My Favorites...,我的收藏...,我的收藏...,Mis Favoritos...,Kedvencek...,Meine Favoriten...,Mes Favoris...,Mijn Favorieten...,Meus Favoritos...,お気に入り...,Favoritos...,I miei preferiti...,Моё избранное...,Ulubione...,Mina favoriter...
