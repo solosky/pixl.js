@@ -32,7 +32,8 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                            .amiidb_data_slot_num = 20,
                                            .qrcode_enabled = true,
                                            .chameleon_default_slot_index = INVALID_SLOT_INDEX,
-                                            .app_enable_bits = 0xFFFF};
+                                            .app_enable_bits = 0xFFFF,
+                                            .amiidb_sort_column = 0};
 
 settings_data_t m_settings_data = {0};
 

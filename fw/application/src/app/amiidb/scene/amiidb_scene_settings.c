@@ -19,6 +19,14 @@ static void amiidb_scene_settings_on_selected(mui_list_view_event_t event, mui_l
     case ICON_SLOT: {
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_SETTINGS_SLOT_NUM);
     } break;
+
+    case ICON_SETTINGS: {
+        settings_data_t *p_settings = settings_get_data();
+        p_settings->amiidb_sort_column = (p_settings->amiidb_sort_column + 1) % 2;
+        char txt[32];
+        sprintf(txt, "[%s]",(p_settings->amiidb_sort_column == AMIIDB_SORT_COLUMN_DEFAULT ? getLangString(_L_APP_AMIIDB_SORT_DEFAULT) : getLangString(_L_APP_AMIIDB_SORT_NAME)));
+        mui_list_view_item_set_sub_text(p_item, txt);
+    } break;
     }
 }
 
@@ -35,6 +43,8 @@ void amiidb_scene_settings_on_enter(void *user_data) {
     mui_list_view_add_item(app->p_list_view, ICON_KEY, txt, (void *)0);
     sprintf(txt, "%s [%d]", getLangString(_L_APP_AMIIDB_SETTINGS_SLOT_NUM), p_settings->amiidb_data_slot_num);
     mui_list_view_add_item(app->p_list_view, ICON_SLOT, txt, (void *)0);
+    sprintf(txt, "[%s]",(p_settings->amiidb_sort_column == AMIIDB_SORT_COLUMN_DEFAULT ? getLangString(_L_APP_AMIIDB_SORT_DEFAULT) : getLangString(_L_APP_AMIIDB_SORT_NAME)));
+    mui_list_view_add_item_ext(app->p_list_view, ICON_SETTINGS, getLangString(_L_APP_AMIIDB_SORT_FIELD), txt, (void *)0);
     mui_list_view_add_item(app->p_list_view, ICON_EXIT, getLangString(_L_APP_AMIIDB_BACK), (void *)0);
 
     mui_list_view_set_selected_cb(app->p_list_view, amiidb_scene_settings_on_selected);
