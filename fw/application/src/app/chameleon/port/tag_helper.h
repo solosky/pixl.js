@@ -7,7 +7,7 @@
 #include "tag_base_type.h"
 
 #define TAG_TYPE_HF_MAX 13
-#define SLOT_MAX 8
+#define SLOT_MAX TAG_MAX_SLOT_NUM
 
 typedef struct {
     tag_specific_type_t tag_type;

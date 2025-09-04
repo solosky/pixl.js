@@ -12,6 +12,8 @@
 #include "fds_ids.h"
 #include "tag_helper.h"
 
+#include "settings.h"
+
 static void fds_map_file_name(uint16_t id, uint16_t key, char *path) {
     if (id == FDS_EMULATION_CONFIG_FILE_ID) {
         strcpy(path, "/chameleon/slots/config.bin");
@@ -33,6 +35,14 @@ bool fds_read_sync(uint16_t id, uint16_t key, uint16_t* max_length, uint8_t *buf
 bool fds_write_sync(uint16_t id, uint16_t key, uint16_t data_length_words, void *buffer) {
     char path[VFS_MAX_PATH_LEN];
     fds_map_file_name(id, key, path);
+
+    //优化下 配置文件大小，基于设置里面的slot数量决定保存的文件大小，以减少读取的时间
+    if (id == FDS_EMULATION_CONFIG_FILE_ID) {
+        settings_data_t *  settings_data = settings_get_data();
+        data_length_words = TAG_SLOT_CONFIG_SIZE(settings_data->chameleon_slot_num);
+        NRF_LOG_INFO("optimize config file size: data_length_words=%d", data_length_words);
+    }
+
     int32_t bytes_written = vfs_get_default_driver()->write_file_data(path, buffer, data_length_words);
     NRF_LOG_INFO("fds_write_sync: id=%X, key=%d, bytes_written=%d", id, key, bytes_written);
     return bytes_written > 0;

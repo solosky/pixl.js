@@ -33,7 +33,9 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                            .qrcode_enabled = true,
                                            .chameleon_default_slot_index = INVALID_SLOT_INDEX,
                                             .app_enable_bits = 0xFFFF,
-                                            .amiidb_sort_column = 0};
+                                            .amiidb_sort_column = 0,
+                                            .chameleon_slot_num = 8,
+                                        };
 
 settings_data_t m_settings_data = {0};
 
@@ -70,7 +72,8 @@ static void validate_settings() {
     BOOL_VALIDATE(m_settings_data.qrcode_enabled, 0);
     INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, LANGUAGE_EN_US);
     INT8_VALIDATE(m_settings_data.amiidb_data_slot_num, 1, 100, 20);
-    INT8_VALIDATE(m_settings_data.chameleon_default_slot_index, 0, TAG_MAX_SLOT_NUM, INVALID_SLOT_INDEX);
+    INT8_VALIDATE(m_settings_data.chameleon_slot_num, 8, 50, 8);
+    INT8_VALIDATE(m_settings_data.chameleon_default_slot_index, 0, m_settings_data.chameleon_slot_num, INVALID_SLOT_INDEX);
 }
 
 int32_t settings_init() {

@@ -9,7 +9,7 @@ U8G2_ROOT := ../components/u8g2/csrc
 CHAMELEON_ROOT :=$(COMP_DIR)/chameleon-ultra/firmware
 
 APP_VERSION ?= 1
-RELEASE ?= 1
+RELEASE ?= 0
 BOARD ?= OLED
 
 $(OUTPUT_DIRECTORY)/pixljs.out: \
@@ -277,9 +277,10 @@ SRC_FILES += \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced_id_size.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_advanced_id_edit.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot_select.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_type.c \
-  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot_select.c \
+  $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_slot_num_select.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_write_mode_select.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_load.c \
   $(PROJ_DIR)/app/chameleon/scene/chameleon_scene_menu_card_data_file_save.c \

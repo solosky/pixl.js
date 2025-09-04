@@ -17,8 +17,8 @@ const mini_app_t* mini_app_registry[] = {
 #ifdef APP_LEGLAMIIBO_ENABLE
     &app_amiibo_info,
 #endif
-    &app_amiidb_info,
-    &app_amiibolink_info,
+    // &app_amiidb_info,
+    // &app_amiibolink_info,
     &app_chameleon_info,
 #ifdef APP_PLAYER_ENABLE
     &app_player_info,
