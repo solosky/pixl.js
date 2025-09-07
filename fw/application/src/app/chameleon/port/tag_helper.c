@@ -252,3 +252,16 @@ void tag_helper_load_coll_res_from_block0() {
         settings_data_t *settings = settings_get_data();
         return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX;
     }
+
+    void tag_helper_set_slot_num(uint8_t slot_num){
+        //set slot number in settings
+        settings_data_t *settings = settings_get_data();
+        settings->chameleon_slot_num = slot_num;
+        settings_save();
+
+        //disable slots larger than slot_num
+        for (uint8_t i = slot_num; i < TAG_MAX_SLOT_NUM; i++) {
+            tag_emulation_slot_set_enable(i, TAG_SENSE_HF,false);
+        }
+        tag_emulation_save();
+    }

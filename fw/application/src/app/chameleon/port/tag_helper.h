@@ -43,4 +43,6 @@ bool tag_helper_is_defult_slot();
 
 bool tag_helper_valid_default_slot();
 
+void tag_helper_set_slot_num(uint8_t slot_num);
+
 #endif
