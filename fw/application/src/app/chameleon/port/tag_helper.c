@@ -93,8 +93,8 @@ void tag_helper_load_coll_res_from_block0() {
     tag_specific_type_t tag_type = tag_helper_get_active_tag_type();
     tag_data_buffer_t *tag_buffer = get_buffer_by_tag_type(tag_type);
     tag_group_type_t tag_group_type = tag_helper_get_tag_group_type(tag_type);
-    nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
     if (tag_group_type == TAG_GROUP_MIFARE && !nfc_tag_mf1_is_use_mf1_coll_res()) {
+        nfc_tag_mf1_information_t *m_tag_information = (nfc_tag_mf1_information_t *)tag_buffer->buffer;
         nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
         nfc_tag_14a_uid_size uid_size = *(coll_res->size);
         if (uid_size == NFC_TAG_14A_UID_SINGLE_SIZE) {
@@ -121,6 +121,19 @@ void tag_helper_load_coll_res_from_block0() {
             } else {
                 coll_res->sak[0] = 0x08;
             }
+        }
+    }else if(tag_group_type == TAG_GROUP_NTAG){
+        nfc_tag_mf0_ntag_information_t *m_tag_information = (nfc_tag_mf0_ntag_information_t *)tag_buffer->buffer;
+        nfc_tag_14a_coll_res_reference_t *coll_res = tag_helper_get_active_coll_res_ref();
+        nfc_tag_14a_uid_size uid_size = *(coll_res->size);
+        if(uid_size == NFC_TAG_14A_UID_DOUBLE_SIZE){
+            coll_res->uid[0] = m_tag_information->memory[0][0];
+            coll_res->uid[1] = m_tag_information->memory[0][1];
+            coll_res->uid[2] = m_tag_information->memory[0][2];
+            coll_res->uid[3] = m_tag_information->memory[1][0];
+            coll_res->uid[4] = m_tag_information->memory[1][1];
+            coll_res->uid[5] = m_tag_information->memory[1][2];
+            coll_res->uid[6] = m_tag_information->memory[1][3];
         }
     }
 }
@@ -238,4 +251,24 @@ void tag_helper_load_coll_res_from_block0() {
     bool tag_helper_valid_default_slot() {
         settings_data_t *settings = settings_get_data();
         return settings->chameleon_default_slot_index != INVALID_SLOT_INDEX;
+    }
+
+    void tag_helper_set_slot_num(uint8_t slot_num){
+        //set slot number in settings
+        settings_data_t *settings = settings_get_data();
+        settings->chameleon_slot_num = slot_num;
+
+        //check default card settings
+        if(settings->chameleon_default_slot_index >= slot_num){
+            settings->chameleon_default_slot_index = INVALID_SLOT_INDEX;
+        }
+
+        settings_save();
+
+        //disable slots larger than slot_num
+        for (uint8_t i = slot_num; i < TAG_MAX_SLOT_NUM; i++) {
+            tag_emulation_slot_set_enable(i, TAG_SENSE_HF,false);
+        }
+        //save config and data buffer...
+        tag_emulation_save();
     }

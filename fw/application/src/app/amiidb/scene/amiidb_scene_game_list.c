@@ -45,7 +45,12 @@ static int amiidb_scene_game_list_list_view_sort_cb(const mui_list_item_t *p_ite
     if (p_item_a->icon == ICON_FOLDER && p_item_b->icon == ICON_FOLDER) {
         db_game_t *p_game_a = (db_game_t *)p_item_a->user_data;
         db_game_t *p_game_b = (db_game_t *)p_item_b->user_data;
-        return p_game_b->order - p_game_a->order;
+        settings_data_t *p_settings_data = settings_get_data();
+        if (p_settings_data->amiidb_sort_column == AMIIDB_SORT_COLUMN_NAME) {
+            return strcmp(p_game_a->name_en, p_game_b->name_en);
+        } else {
+            return p_game_b->order - p_game_a->order;
+        }
     } else if (p_item_a->icon == ICON_FOLDER && p_item_b->icon == ICON_FILE) {
         return -1;
     } else {
@@ -115,7 +120,7 @@ void amiidb_scene_game_list_on_enter(void *user_data) {
     app_amiidb_t *app = (app_amiidb_t *)user_data;
     amiidb_scene_game_list_reload(app);
 
-    //restore states
+    // restore states
     mui_list_view_set_focus(app->p_list_view, app->cur_focus_index);
     mui_list_view_set_scroll_offset(app->p_list_view, app->cur_scroll_offset);
 }

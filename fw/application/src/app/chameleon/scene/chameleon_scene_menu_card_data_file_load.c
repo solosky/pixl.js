@@ -79,6 +79,9 @@ static void chameleon_scene_menu_card_data_file_load_from_file(app_chameleon_t *
         return;
     }
 
+    // update tag coll res
+    tag_helper_load_coll_res_from_block0();
+
     // set nickname by filename
     err = tag_helper_set_nickname(file_name);
     if (err != 0) {

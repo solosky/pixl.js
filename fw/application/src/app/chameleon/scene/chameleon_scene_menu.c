@@ -53,6 +53,7 @@ void chameleon_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t 
             settings->chameleon_default_slot_index = slot;
         }
 
+        settings_save();
         mui_list_view_item_set_sub_text(p_item, slot == settings->chameleon_default_slot_index ? _T(ON_F) : _T(OFF_F));
     } break;
 

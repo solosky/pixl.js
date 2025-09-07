@@ -7,7 +7,7 @@
 #include "tag_base_type.h"
 
 #define TAG_TYPE_HF_MAX 13
-#define SLOT_MAX 8
+#define SLOT_MAX TAG_MAX_SLOT_NUM
 
 typedef struct {
     tag_specific_type_t tag_type;
@@ -42,5 +42,7 @@ void tag_helper_generate_uid();
 bool tag_helper_is_defult_slot();
 
 bool tag_helper_valid_default_slot();
+
+void tag_helper_set_slot_num(uint8_t slot_num);
 
 #endif
