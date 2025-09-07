@@ -67,11 +67,7 @@ static void validate_settings() {
     BOOL_VALIDATE(m_settings_data.auto_gen_amiibolink, 0);
     BOOL_VALIDATE(m_settings_data.backlight, 0);
     INT8_VALIDATE(m_settings_data.lcd_backlight, 0, 100, 0);
-    #ifdef LCD_SCREEN
-    INT8_VALIDATE(m_settings_data.oled_contrast, 60, 100, 80);
-    #else
     INT8_VALIDATE(m_settings_data.oled_contrast, 0, 100, 80);
-    #endif
     BOOL_VALIDATE(m_settings_data.anim_enabled, 0);
     BOOL_VALIDATE(m_settings_data.qrcode_enabled, 0);
     INT8_VALIDATE(m_settings_data.language, 0, LANGUAGE_COUNT - 1, LANGUAGE_EN_US);

@@ -29,11 +29,7 @@ void settings_scene_oled_contrast_on_enter(void *user_data) {
     app_settings_t *app = user_data;
     settings_data_t *p_settings = settings_get_data();
     mui_progress_bar_set_header(app->p_progress_bar, getLangString(_L_APP_SET_OLED_CONTRAST_TITLE));
-    #ifdef LCD_SCREEN
-    mui_progress_bar_set_min_value(app->p_progress_bar, 60);
-    #else
     mui_progress_bar_set_min_value(app->p_progress_bar, 0);
-    #endif
     mui_progress_bar_set_max_value(app->p_progress_bar, 100);
     mui_progress_bar_set_current_value(app->p_progress_bar, p_settings->oled_contrast);
     mui_progress_bar_set_event_cb(app->p_progress_bar, settings_scene_oled_contrast_event_cb);
