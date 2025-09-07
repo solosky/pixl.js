@@ -209,7 +209,7 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     u8g2_InitDisplay(p_u8g2);
 
     settings_data_t *p_settings = settings_get_data();
-    mui_u8g2_set_contrast_level(p_settings->oled_contrast); 
+    mui_u8g2_set_contrast_level(p_settings->oled_contrast);
 
     u8g2_SetPowerSave(p_u8g2, 0);
 
@@ -248,6 +248,13 @@ int8_t mui_u8g2_get_backlight_level(void) { return (int8_t)app_pwm_channel_duty_
 
 void mui_u8g2_set_contrast_level(uint8_t value) {
     mui_t *p_mui = mui();
+
+// This is a guard to prevent the contrast too low to make the display invisible.
+#ifdef LCD_SCREEN
+    if (value < 60) {
+        value = 60;
+    }
+#endif
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
 }
 
