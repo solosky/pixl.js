@@ -7,6 +7,7 @@
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "i18n/language.h"
+#include "settings.h"
 
 #define ICON_MODE 0xe1ed
 #define ICON_BACK 0xe069
@@ -17,6 +18,11 @@ void amiibolink_scene_menu_mode_on_event(mui_list_view_event_t event, mui_list_v
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
         if (p_item->icon == ICON_MODE) {
             app->amiibolink_mode = (ble_amiibolink_mode_t) p_item->user_data;
+            // Save the user's preferred mode to settings
+            settings_data_t *p_settings = settings_get_data();
+            p_settings->amiibolink_mode = app->amiibolink_mode;
+            settings_save();
+            NRF_LOG_INFO("Saved amiibolink_mode: %d", app->amiibolink_mode);
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         } else if (p_item->icon == ICON_BACK) {
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);

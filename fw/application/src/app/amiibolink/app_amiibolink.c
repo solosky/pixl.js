@@ -5,6 +5,7 @@
 
 #include "amiibolink_scene.h"
 #include "i18n/language.h"
+#include "settings.h"
 
 static void app_amiibolink_on_run(mini_app_inst_t *p_app_inst);
 static void app_amiibolink_on_kill(mini_app_inst_t *p_app_inst);
@@ -20,7 +21,14 @@ void app_amiibolink_on_run(mini_app_inst_t *p_app_inst) {
     app_amiibolink_t *p_app_handle = mui_mem_malloc(sizeof(app_amiibolink_t));
     p_app_inst->p_handle = p_app_handle;
 
-    p_app_handle->amiibolink_mode = BLE_AMIIBOLINK_MODE_RANDOM;
+    // Load saved mode from settings, or use default (manual/random)
+    settings_data_t *p_settings = settings_get_data();
+    if (p_settings->amiibolink_mode != 0) {
+        p_app_handle->amiibolink_mode = p_settings->amiibolink_mode;
+        NRF_LOG_INFO("Loaded saved amiibolink_mode: %d", p_app_handle->amiibolink_mode);
+    } else {
+        p_app_handle->amiibolink_mode = BLE_AMIIBOLINK_MODE_RANDOM;
+    }
 
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
     p_app_handle->p_amiibolink_view = amiibolink_view_create();
