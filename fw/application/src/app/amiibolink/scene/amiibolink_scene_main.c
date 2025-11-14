@@ -169,6 +169,15 @@ static void amiibolink_scene_ble_event_handler(void *ctx, ble_amiibolink_event_t
         mui_update(mui());
     } else if (event_type == BLE_AMIIBOLINK_EVENT_SET_MODE) {
         ble_amiibolink_mode_t mode = *((ble_amiibolink_mode_t *)data);
+        settings_data_t *p_settings = settings_get_data();
+        
+        // If BLE tries to set mode to manual, but user previously selected auto mode, restore it
+        if (mode == BLE_AMIIBOLINK_MODE_RANDOM && 
+            p_settings->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
+            NRF_LOG_INFO("BLE tried to set manual mode, but restoring saved auto mode");
+            mode = p_settings->amiibolink_mode;
+        }
+        
         amiibolink_scene_switch_mode(app, mode, 0);
         mui_update(mui());
     }

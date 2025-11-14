@@ -24,6 +24,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_REBOOT,
     SETTINGS_MAIN_MENU_RESET_DEFAULT,
     SETTINGS_MAIN_MENU_ABOUT,
+    SETTINGS_MAIN_MENU_APP_MANAGEMENT,
     SETTINGS_MAIN_MENU_EXIT
 };
 
@@ -112,6 +113,10 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
     case SETTINGS_MAIN_MENU_ANIM_ENABLED:
         p_settings->anim_enabled = !p_settings->anim_enabled;
         settings_scene_main_reload(app);
+        break;
+
+    case SETTINGS_MAIN_MENU_APP_MANAGEMENT:
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_APP_MANAGEMENT);
         break;
 
     case SETTINGS_MAIN_MENU_EXIT:
@@ -206,7 +211,7 @@ static void settings_scene_main_reload(void *user_data) {
     }
     mui_list_view_add_item_ext(app->p_list_view, 0xe1c9, _T(APP_SET_SLEEP_TIMEOUT), txt,
                                (void *)SETTINGS_MAIN_MENU_SLEEP_TIMEOUT);
-
+    mui_list_view_add_item(app->p_list_view, 0xe1d0, _T(APP_SET_APP_MGMT), (void *)SETTINGS_MAIN_MENU_APP_MANAGEMENT);
     mui_list_view_add_item(app->p_list_view, 0xe1c9, _T(APP_SET_GO_SLEEP), (void *)SETTINGS_MAIN_MENU_GO_SLEEP);
     mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
     mui_list_view_add_item(app->p_list_view, 0xe1cb, _T(APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
@@ -214,7 +219,6 @@ static void settings_scene_main_reload(void *user_data) {
                            (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
 
     mui_list_view_add_item(app->p_list_view, 0xe1cf, _T(APP_SET_ABOUT), (void *)SETTINGS_MAIN_MENU_ABOUT);
-
     mui_list_view_add_item(app->p_list_view, 0xe069, _T(BACK_TO_MAIN_MENU), (void *)SETTINGS_MAIN_MENU_EXIT);
 
     mui_list_view_set_focus(app->p_list_view, foucs_index);

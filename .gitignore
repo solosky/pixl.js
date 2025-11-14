@@ -10,6 +10,7 @@ fw/src/version.inc.h
 fw/src/version.json
 
 fw/application/log.log
+fw/bootloader/log.log
 
 
 fw/log.log
@@ -29,6 +30,11 @@ hw/RevA/pixl.js/bom
 hw/RevA/pixl.js/*.zip
 hw/RevA/pixl.js/*.pdf
 hw/RevA/pixl.js/*.kicad_prl
+
+
+hw/Ultra.RevB
+hw/Ultra.RevC
+hw/NEO.RevB
 
 hw/RevC
 hw/RevD

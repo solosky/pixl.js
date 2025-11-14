@@ -7,6 +7,7 @@ export default {
     es: 'Español',
     ru: 'Русский',
     de: 'Deutsch',
+    sv: 'Svenska',
     changeok: 'Switch Language Success'
   },
   btn: {

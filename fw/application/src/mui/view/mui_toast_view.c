@@ -47,7 +47,7 @@ static void mui_toast_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
         mui_canvas_set_draw_color(p_canvas, 1);
         mui_canvas_draw_rframe(p_canvas, x, y, w, h, 3);
 
-        mui_element_autowrap_text(p_canvas, x + 3, y + (ft + th) / 2, w, h,
+        mui_element_autowrap_text(p_canvas, x + 3, y + ft, w, h,
                                   string_get_cstr(p_toast_view->message));
     }
 }

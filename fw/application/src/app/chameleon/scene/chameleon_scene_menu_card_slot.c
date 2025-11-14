@@ -14,6 +14,8 @@
 #include "mui_icons.h"
 #include "tag_helper.h"
 
+#include "settings.h"
+
 #define CHAMELEON_MENU_BACK_EXIT 0
 #define CHAMELEON_MENU_BACK_MAIN 1
 #define CHAMELEON_MENU_MODE 2
@@ -25,10 +27,15 @@ void chameleon_scene_menu_card_slot_on_event(mui_list_view_event_t event, mui_li
     app_chameleon_t *app = p_list_view->user_data;
     char buff[16];
     switch (p_item->icon) {
+    case ICON_VIEW: {
+        // Slot Num menu item clicked
+        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, CHAMELEON_SCENE_MENU_SLOT_NUM_SELECT);
+    } break;
+        
     case ICON_DATA: {
         int32_t slot = mui_list_view_get_focus(p_list_view) - 1;
         tag_emulation_slot_set_enable(slot, TAG_SENSE_HF, !tag_emulation_slot_is_enabled(slot, TAG_SENSE_HF));
-        sprintf(buff, "[%s]", tag_emulation_slot_is_enabled(slot, TAG_SENSE_HF) ? _T(ON) : _T(OFF));
+        sprintf(buff, "%s", tag_emulation_slot_is_enabled(slot, TAG_SENSE_HF) ? _T(ON_F) : _T(OFF_F));
         mui_list_view_item_set_sub_text(p_item, buff);
     } break;
 
@@ -40,13 +47,13 @@ void chameleon_scene_menu_card_slot_on_event(mui_list_view_event_t event, mui_li
 
 void chameleon_scene_menu_card_slot_on_enter(void *user_data) {
     app_chameleon_t *app = user_data;
+    settings_data_t *settings = settings_get_data();
 
     char buff[32];
-    sprintf(buff, "[%0d]", TAG_MAX_SLOT_NUM);
+    sprintf(buff, "[%0d]", settings->chameleon_slot_num);
     mui_list_view_add_item_ext(app->p_list_view, ICON_VIEW, _T(APP_CHAMELEON_CARD_SLOT_NUM), buff,
                                (void *)CHAMELEON_MENU_BACK_EXIT);
-
-    for (uint32_t i = 0; i < TAG_MAX_SLOT_NUM; i++) {
+    for (uint32_t i = 0; i < settings->chameleon_slot_num; i++) {
         sprintf(buff, "%s %02d", _T(APP_CHAMELEON_CARD_SLOT), i + 1);
         mui_list_view_add_item_ext(app->p_list_view, ICON_DATA, buff, tag_emulation_slot_is_enabled(i, TAG_SENSE_HF) ? _T(ON_F) : _T(OFF_F), (void *)CHAMELEON_MENU_BACK_EXIT);
     }
