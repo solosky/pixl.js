@@ -16,7 +16,6 @@
 #endif // OLED_SCREEN
 
 const settings_data_t def_settings_data = {.backlight = 0,
-                                           .oled_contrast = 40,
                                            .auto_gen_amiibo = 0,
                                            .auto_gen_amiibolink = 0,
                                            .sleep_timeout_sec = 30,
