@@ -5,6 +5,9 @@
 
 #include "amiibolink_scene.h"
 #include "i18n/language.h"
+#include "settings.h"
+
+#include "nrf_log.h"
 
 static void app_amiibolink_on_run(mini_app_inst_t *p_app_inst);
 static void app_amiibolink_on_kill(mini_app_inst_t *p_app_inst);
@@ -20,7 +23,14 @@ void app_amiibolink_on_run(mini_app_inst_t *p_app_inst) {
     app_amiibolink_t *p_app_handle = mui_mem_malloc(sizeof(app_amiibolink_t));
     p_app_inst->p_handle = p_app_handle;
 
-    p_app_handle->amiibolink_mode = BLE_AMIIBOLINK_MODE_RANDOM;
+    // Load saved mode from settings (user's explicit preference), or use default (manual/random)
+    settings_data_t *p_settings = settings_get_data();
+    if (p_settings->amiibolink_mode != 0) {
+        p_app_handle->amiibolink_mode = p_settings->amiibolink_mode;
+        NRF_LOG_INFO("Loaded saved amiibolink_mode: %d", p_app_handle->amiibolink_mode);
+    } else {
+        p_app_handle->amiibolink_mode = BLE_AMIIBOLINK_MODE_RANDOM;
+    }
 
     p_app_handle->p_view_dispatcher = mui_view_dispatcher_create();
     p_app_handle->p_amiibolink_view = amiibolink_view_create();
@@ -48,9 +58,13 @@ void app_amiibolink_on_run(mini_app_inst_t *p_app_inst) {
     extern const ntag_t default_ntag215;
     APP_ERROR_CHECK(ntag_emu_init(&default_ntag215));
 
+    // Use retain data for cycle mode index, but keep the mode from settings (user preference)
     if (p_app_inst->p_retain_data) {
         app_amiibolink_retain_data_t *p_retain = (app_amiibolink_retain_data_t *)p_app_inst->p_retain_data;
-        p_app_handle->amiibolink_mode = p_retain->amiibolink_mode;
+        // Only use retain mode if settings doesn't have a saved preference
+        if (p_settings->amiibolink_mode == 0) {
+            p_app_handle->amiibolink_mode = p_retain->amiibolink_mode;
+        }
         if (p_app_handle->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
             amiibolink_view_set_index(p_app_handle->p_amiibolink_view, p_retain->cycle_mode_index);
         }

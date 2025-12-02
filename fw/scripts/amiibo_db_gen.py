@@ -11,6 +11,7 @@ class Amiibo:
         self.id = None
         self.name_en = None
         self.name_cn = None
+        self.game_series = None
 
 class Game:
     def __init__(self):
@@ -42,6 +43,7 @@ def fetch_amiibo_from_api():
         amiibo = Amiibo()
         amiibo.id = ami["head"] + ami["tail"]
         amiibo.name_en = ami["name"]
+        amiibo.game_series = ami["gameSeries"]
         amiibos.append(amiibo)
     return amiibos
 
@@ -82,7 +84,7 @@ def merge_amiibo(amiibos_csv, amiibos_api):
     for amiibo in amiibos_api:
         if amiibos_merged.get(amiibo.id) == None:
             amiibos_merged[amiibo.id] = amiibo
-            print("Found new amiibo: [%s] %s " % (amiibo.id, amiibo.name_en))
+            print("Found new amiibo: [%s] %s (%s)" % (amiibo.id, amiibo.name_en, amiibo.game_series))
     amiibos = list()
     for k in amiibos_merged:
         amiibos.append(amiibos_merged[k])
