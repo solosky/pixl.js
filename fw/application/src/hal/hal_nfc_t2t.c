@@ -122,7 +122,7 @@ NRF_LOG_MODULE_REGISTER();
 #define NFCID1_DEFAULT_LENGHT NFCID1_DOUBLE_SIZE /**< Length of NFCID1 if user does not provide one */
 #define NFCID1_MAX_LENGHT NFCID1_TRIPLE_SIZE     /**< Maximum length of NFCID1 */
 
-#define NFC_RX_BUFFER_SIZE 16u /**< NFC Rx data buffer size */
+#define NFC_RX_BUFFER_SIZE 72u /**< NFC Rx data buffer size */
 #define NFC_SLP_REQ_CMD 0x50u  /**< NFC SLP_REQ command identifier */
 #define NFC_CRC_SIZE 2u        /**< CRC size in bytes */
 
@@ -947,6 +947,21 @@ static inline void hal_nfc_re_setup(void) {
 
 void hal_nfc_set_nrfx_irq_enable(uint8_t nrfx_irq_enabled){
     m_nrfx_irq_enabled = nrfx_irq_enabled;
+}
+
+ret_code_t hal_nfc_passive_ack(void) {
+    // basically just "reset state to read another frame without responding"
+    nrf_nfct_event_clear(&NRF_NFCT->EVENTS_TXFRAMEEND);
+
+    /* Disable TX END event to ignore frame transmission other than READ response */
+    NRF_NFCT->INTENCLR = (NFCT_INTENCLR_TXFRAMEEND_Clear << NFCT_INTENCLR_TXFRAMEEND_Pos);
+
+    /* Set up for reception */
+    NRF_NFCT->PACKETPTR = (uint32_t)m_nfc_rx_buffer;
+    NRF_NFCT->MAXLEN = NFC_RX_BUFFER_SIZE;
+    NRF_NFCT->TASKS_ENABLERXDATA = 1;
+    
+    return NRF_SUCCESS;
 }
 
 #endif // HAL_NFC_ENGINEERING_BC_FTPAN_WORKAROUND

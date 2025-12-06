@@ -40,7 +40,7 @@ static void ntag_update_cb(ntag_event_type_t type, void *context, ntag_t *p_ntag
 
 static void amiidb_scene_amiibo_game_list_generate(app_amiidb_t *app) {
     const db_amiibo_t *p_amiibo = app->cur_amiibo;
-    amiibo_helper_generate_amiibo(p_amiibo->head, p_amiibo->tail, &app->ntag);
+    amiibo_helper_generate_amiibo_ntag215(p_amiibo->head, p_amiibo->tail, &app->ntag);
     ntag_emu_set_tag(&app->ntag);
 }
 

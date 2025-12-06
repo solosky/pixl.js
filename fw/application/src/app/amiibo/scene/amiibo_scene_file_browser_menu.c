@@ -73,7 +73,7 @@ static void amiibo_scene_file_browser_text_input_create_amiibo_event_cb(mui_text
 
             ntag_t ntag;
             ntag_store_new_rand(&ntag);
-            int32_t res = p_driver->write_file_data(path, ntag.data, sizeof(ntag.data));
+            int32_t res = p_driver->write_file_data(path, ntag.data, _ntag_data_size(&ntag));
             if (res > 0) {
                 mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBO_SCENE_FILE_BROWSER);
             }
@@ -126,7 +126,7 @@ static void amiibo_scene_file_browser_text_input_create_amiibo_batch_event_cb(mu
 
             cwalk_append_segment(path, string_get_cstr(app->current_folder), file_name);
             ntag_store_new_rand(&ntag);
-            int32_t res = p_driver->write_file_data(path, ntag.data, sizeof(ntag.data));
+            int32_t res = p_driver->write_file_data(path, ntag.data, _ntag_data_size(ntag.data));
             if (res < 0) {
                 sprintf(msg, _T(CREATING_TAG_FAILED), file_name);
                 amiibo_scene_file_browser_show_messege(app, msg);
