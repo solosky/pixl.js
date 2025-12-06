@@ -500,9 +500,9 @@ This submenu shows the version details of the firmware.
 - Dirty
 ## Language
 You can change the language displayed on the device
-## Auto Storage
-Turning ON this setting the local storage(s) of the device are hidden on the root of the Amiibo Emulator application, if this setting is OFF the «External Flash» object is shown at the root of the Amiibo Emulator application.
-## Backlight / OLED Contrast
+## External Storage
+You could view the external storage status and usage here, enter this menu could view the external storage usage details and perform format operation.
+## Backlight / Contrast
 With this setting you can control the brightness of the LCD screen or the contrast of the OLED screen.
 ## Menu Animation
 Enable / disable the animation of items larger than screen allowing to read them completely, enabling this option increase the battery consumption.
@@ -512,10 +512,14 @@ Enable the use of a LiPO battery.  It requires an hardware mod. If you build a L
 If you enable LiPO option, the device will use LiPO voltage level to display the battery level, and also can display a charge label when the battery is in charge mode.
 ## Memory Used
 Shows the % used storage memory at the bottom of the screen
-## Fast Resume
+## Fast Wakeup
 Enables hibernation of device, allowing a quicker response of the reading of the current amiibo by a game, and resume to the application open at the moment of sleep, when disabled the resume after sleep takes 1 second more and the device restore to the Main Menu.
-## Sleep Timer
+## Sleep Timeout
 Set the time when the device go to sleep after the last user input or amiibo read.
+## App Management
+Disable or enable app that shows on the Main Menu.
+## Go Sleep
+Manually put the device to sleep mode.
 ## Firmware Update
 This option put the device in the DFU mode, allowing OTA firmware update, you can update the firmware using the iNFC or the web page.
 
