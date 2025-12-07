@@ -17,6 +17,9 @@
 #define UUID_SIZE 7
 #define AMIIID_SIZE 8
 
+// to avoid stack-allocating the new larger ntag_t struct
+static ntag_t ntag_new;
+
 static nfc3d_amiibo_keys amiibo_keys;
 static bool amiibo_keys_loaded;
 
@@ -31,23 +34,17 @@ static const uint8_t LOCK[20] = {0x01, 0x00, 0x0f, 0xbd, 0x00, 0x00, 0x00, 0x04,
                                  0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 void amiibo_helper_get_uuid(ntag_t *ntag, uint8_t *uid1) {
-    uid1[0] = ntag->data[0];
-    uid1[1] = ntag->data[1];
-    uid1[2] = ntag->data[2];
-    uid1[3] = ntag->data[4];
-    uid1[4] = ntag->data[5];
-    uid1[5] = ntag->data[6];
-    uid1[6] = ntag->data[7];
+    ntag_store_get_uuid(ntag, uid1);
 }
 
 // operates on internal data layout, but check bytes differ
 void amiibo_helper_replace_uuid(uint8_t *buffer, const uint8_t uuid[], bool tag_v3) {
     if (tag_v3) {
+        // writes to ntag215-data-1 section
         for (int i = 0; i < 7; i++) {
             buffer[UUID_OFFSET + i] = uuid[i];
         }
-        buffer[UUID_OFFSET+7] = 0x00;
-        buffer[UUID_OFFSET+8] = 0x44;
+        buffer[UUID_OFFSET+7] = 0x00; // rfu
     } else {
         uint8_t bcc[2];
         bcc[0] = 0x88 ^ uuid[0] ^ uuid[1] ^ uuid[2];
@@ -63,6 +60,9 @@ void amiibo_helper_replace_uuid(uint8_t *buffer, const uint8_t uuid[], bool tag_
         for (; i < 8; i++) {
             buffer[UUID_OFFSET + i] = uuid[i - 1];
         }
+
+        // first byte of ntag215-data-2 section = byte 9 of uid (bcc1)
+        buffer[0] = bcc[1];
     }
 }
 
@@ -88,6 +88,7 @@ void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[], bool tag_
     ret_code_t err_code = utils_rand_bytes(buffer + 0x1E8, 32);
     APP_ERROR_CHECK(err_code);
 
+    // ntag data 2
     memcpy(buffer, Internal_StaticLock, 8);
     // set BCC
     buffer[0] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
@@ -96,6 +97,8 @@ void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[], bool tag_
     amiibo_helper_replace_password(buffer, uuid);
 
     memcpy(buffer + 0x28, A5Static, 4);
+
+    // note: these sections are never written back when re-packing
     memcpy(buffer + 0x208, DynLock, 4);
     memcpy(buffer + 0x20C, Cfg0, 4);
     memcpy(buffer + 0x210, Cfg1, 4);
@@ -138,7 +141,6 @@ ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {
 
 ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     ret_code_t err_code;
-    ntag_t ntag_new;
     ntag_t *ntag_current = ntag;
 
     memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
@@ -155,7 +157,7 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     if (err_code != NRF_SUCCESS) {
         return err_code;
     }
-
+    
     // sign new
     err_code = amiibo_helper_sign_new_ntag(ntag_current, &ntag_new);
     if (err_code == NRF_SUCCESS) {
@@ -166,7 +168,6 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
 
 ret_code_t amiibo_helper_set_amiibo_uuid(ntag_t *ntag, uint8_t *uuid) {
     ret_code_t err_code;
-    ntag_t ntag_new;
     ntag_t *ntag_current = ntag;
 
     memcpy(&ntag_new, ntag_current, sizeof(ntag_t));

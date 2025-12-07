@@ -153,7 +153,7 @@ static void amiibo_scene_amiibo_detail_menu_text_input_set_id_event_cb(mui_text_
         vfs_driver_t *p_driver = vfs_get_driver(app->current_drive);
 
         cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
-        int32_t res = p_driver->write_file_data(path, ntag->data, sizeof(ntag->data));
+        int32_t res = p_driver->write_file_data(path, ntag->data, _ntag_data_size(ntag));
 
         if (res < 0) {
             mui_toast_view_show(app->p_toast_view, _T(FAILED));
