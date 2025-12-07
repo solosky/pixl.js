@@ -60,6 +60,7 @@ ret_code_t ntag_store_generate(uint8_t idx, ntag_t *ntag) {
     return NRF_SUCCESS;
 }
 
+// operates on packed tag format
 void ntag_store_set_uuid(ntag_t *ntag, uint8_t *uuid) {
     if (ntag->type == NTAG_215) {
         ntag->data[0] = uuid[0]; // fixed
