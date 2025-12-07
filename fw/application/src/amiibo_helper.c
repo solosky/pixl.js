@@ -40,24 +40,33 @@ void amiibo_helper_get_uuid(ntag_t *ntag, uint8_t *uid1) {
     uid1[6] = ntag->data[7];
 }
 
-void amiibo_helper_replace_uuid(uint8_t *buffer, const uint8_t uuid[]) {
-    uint8_t bcc[2];
+// operates on internal data layout, but check bytes differ
+void amiibo_helper_replace_uuid(uint8_t *buffer, const uint8_t uuid[], bool tag_v3) {
+    if (tag_v3) {
+        for (int i = 0; i < 7; i++) {
+            buffer[UUID_OFFSET + i] = uuid[i];
+        }
+        buffer[UUID_OFFSET+7] = 0x00;
+        buffer[UUID_OFFSET+8] = 0x44;
+    } else {
+        uint8_t bcc[2];
+        bcc[0] = 0x88 ^ uuid[0] ^ uuid[1] ^ uuid[2];
+        bcc[1] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
 
-    bcc[0] = 0x88 ^ uuid[0] ^ uuid[1] ^ uuid[2];
-    bcc[1] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
+        int i;
+        for (i = 0; i < 3; i++) {
+            buffer[UUID_OFFSET + i] = uuid[i];
+        }
 
-    int i;
-    for (i = 0; i < 3; i++) {
-        buffer[UUID_OFFSET + i] = uuid[i];
-    }
+        buffer[UUID_OFFSET + i++] = bcc[0];
 
-    buffer[UUID_OFFSET + i++] = bcc[0];
-
-    for (; i < 8; i++) {
-        buffer[UUID_OFFSET + i] = uuid[i - 1];
+        for (; i < 8; i++) {
+            buffer[UUID_OFFSET + i] = uuid[i - 1];
+        }
     }
 }
 
+// operates on internal data layout
 void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
     uint8_t password[PASSWORD_SIZE] = {0, 0, 0, 0};
 
@@ -73,7 +82,8 @@ void amiibo_helper_replace_password(uint8_t *buffer, const uint8_t uuid[]) {
 }
 
 // 使用uuid生成amiibo数据
-void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
+// operates on internal data layout
+void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[], bool tag_v3) {
     // set keygen salt
     ret_code_t err_code = utils_rand_bytes(buffer + 0x1E8, 32);
     APP_ERROR_CHECK(err_code);
@@ -82,7 +92,7 @@ void amiibo_helper_set_defaults(uint8_t *buffer, const uint8_t uuid[]) {
     // set BCC
     buffer[0] = uuid[3] ^ uuid[4] ^ uuid[5] ^ uuid[6];
 
-    amiibo_helper_replace_uuid(buffer, uuid);
+    amiibo_helper_replace_uuid(buffer, uuid, tag_v3);
     amiibo_helper_replace_password(buffer, uuid);
 
     memcpy(buffer + 0x28, A5Static, 4);
@@ -105,18 +115,23 @@ ret_code_t amiibo_helper_load_keys(const uint8_t *data) {
 bool amiibo_helper_is_key_loaded() { return amiibo_keys_loaded; }
 
 ret_code_t amiibo_helper_sign_new_ntag(ntag_t *old_ntag, ntag_t *new_ntag) {
+    if (new_ntag->type != old_ntag->type) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+
     // decrypt old amiibo
     uint8_t modified[NTAG215_SIZE];
     uint8_t new_uuid[UUID_SIZE];
-    if (!nfc3d_amiibo_unpack(&amiibo_keys, old_ntag->data, modified)) {
+    bool tag_v3 = old_ntag->type == NTAG_I2C_PLUS_2K;
+    if (!nfc3d_amiibo_unpack(&amiibo_keys, old_ntag->data, modified, tag_v3)) {
         return NRF_ERROR_INVALID_DATA;
     }
 
     // encrypt
     amiibo_helper_get_uuid(new_ntag, new_uuid);
-    amiibo_helper_replace_uuid(modified, new_uuid);
-    amiibo_helper_set_defaults(modified, new_uuid);
-    nfc3d_amiibo_pack(&amiibo_keys, modified, new_ntag->data);
+    amiibo_helper_replace_uuid(modified, new_uuid, tag_v3);
+    amiibo_helper_set_defaults(modified, new_uuid, tag_v3);
+    nfc3d_amiibo_pack(&amiibo_keys, modified, new_ntag->data, tag_v3);
 
     return NRF_SUCCESS;
 }
@@ -174,10 +189,13 @@ ret_code_t amiibo_helper_set_amiibo_uuid(ntag_t *ntag, uint8_t *uuid) {
     return err_code;
 }
 
-ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t *ntag) {
+ret_code_t amiibo_helper_generate_amiibo_ntag215(uint32_t head, uint32_t tail, ntag_t *ntag) {
     if (!amiibo_helper_is_key_loaded()) {
         return NRF_ERROR_INVALID_DATA;
     }
+
+    ntag->type = NTAG_215;
+    
     // 随机uuid
     uint8_t uuid[UUID_SIZE];
     ntag_store_new_rand(ntag);
@@ -191,10 +209,10 @@ ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t *n
     int32_to_bytes_le(head, modified + AMII_ID_OFFSET2);
     int32_to_bytes_le(tail, modified + AMII_ID_OFFSET2 + 4);
     // 填充特定数据
-    amiibo_helper_set_defaults(modified, uuid);
+    amiibo_helper_set_defaults(modified, uuid, false);
 
     // encrypt
-    nfc3d_amiibo_pack(&amiibo_keys, modified, ntag->data);
+    nfc3d_amiibo_pack(&amiibo_keys, modified, ntag->data, false);
 
     // 最后20位字节，非常关键
     memcpy(ntag->data + 520, LOCK, sizeof(LOCK));
