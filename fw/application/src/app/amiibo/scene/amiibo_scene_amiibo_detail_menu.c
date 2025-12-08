@@ -166,6 +166,14 @@ static void amiibo_scene_amiibo_detail_menu_text_input_set_id_event_cb(mui_text_
     }
 }
 
+void amiibo_ntag_write_to_file(app_amiibo_t *app, ntag_t *p_ntag) {
+    char path[VFS_MAX_PATH_LEN] = {0};
+    vfs_driver_t *p_vfs_driver = vfs_get_driver(app->current_drive);
+    cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
+    int32_t err_code = p_vfs_driver->write_file_data(path, p_ntag->data, _ntag_data_size(p_ntag));
+    NRF_LOG_INFO("amiibo_ntag_write_to_file, path=%s, err_code=%d", path, err_code);
+}
+
 static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t event, mui_list_view_t *p_list_view,
                                                         mui_list_item_t *p_item) {
     app_amiibo_t *app = p_list_view->user_data;
@@ -198,6 +206,8 @@ static void amiibo_scene_amiibo_detail_menu_on_selected(mui_list_view_event_t ev
         APP_ERROR_CHECK(err_code);
         if (err_code == NRF_SUCCESS) {
             ntag_emu_set_tag(&app->ntag);
+            // Persist the newly generated amiibo to the file.
+            amiibo_ntag_write_to_file(app, ntag_current);
             mui_scene_dispatcher_previous_scene(app->p_scene_dispatcher);
         }
 
