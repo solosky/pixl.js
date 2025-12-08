@@ -1,62 +1,3 @@
-0000000000000002,Mario,马力欧
-0000000000340102,Mario,马力欧
-00000000003c0102,Mario - Gold Edition,金马力欧
-00000000003d0102,Mario - Silver Edition,银马力欧
-0000000002380602,8-Bit Mario Classic Color,像素马力欧 - 经典配色
-0000000002390602,8-Bit Mario Modern Color,像素马力欧 - 现代配色
-0000000003710102,Mario - Wedding,礼服马力欧
-00000003039bff02,Mario - Power Up Band,马力欧 - 能量手环
-000000030430ff02,Golden - Power Up Band,金色 - 能量手环
-00000004043f1c02,Mario - My Mario Wooden Blocks,
-0000010000190002,Dr. Mario,马力欧医生
-0000030003a60102,Mario - Cat,猫猫马力欧
-00010000000c0002,Luigi,路易吉
-0001000000350102,Luigi,路易吉
-00010003039cff02,Luigi - Power Up Band,路易吉 - 能量手环
-0001000404401c02,Luigi - My Mario Wooden Blocks,
-0002000000010002,Peach,碧姬公主
-0002000000360102,Peach,碧姬公主
-0002000003720102,Peach - Wedding,婚纱碧姬公主
-00020003039dff02,Peach - Power Up Band,碧姬公主 - 能量手环
-0002000404411c02,Peach - My Mario Wooden Blocks,
-0002010003a70102,Peach - Cat,猫猫碧姬公主
-0003000000020002,Yoshi,耀西
-0003000000370102,Yoshi,耀西
-00030003039fff02,Yoshi - Power Up Band,耀西 - 能量手环
-0003000404421c02,Yoshi - My Mario Wooden Blocks,
-0003010200410302,Green Yarn Yoshi,绿色毛线耀西
-0003010200420302,Pink Yarn Yoshi,粉色毛线耀西
-0003010200430302,Light Blue Yarn Yoshi,淡蓝毛线耀西
-00030102023e0302,Mega Yarn Yoshi,毛线耀西
-0004000002620102,Rosalina,罗莎塔
-0004010000130002,Rosalina & Luma,罗莎塔&琪琪
-0005000000140002,Bowser,酷霸王
-0005000000390102,Bowser,酷霸王
-0005000003730102,Bowser - Wedding,礼服酷霸王
-0005ff00023a0702,Hammer Slam Bowser,Hammer Slam Bowser
-0006000000150002,Bowser Jr.,酷霸王Jr.
-00070000001a0002,Wario,瓦力欧
-0007000002630102,Wario,瓦力欧
-0008000000030002,Donkey Kong,咚奇刚
-0008000002640102,Donkey Kong,咚奇刚
-000800030431ff02,Donkey Kong - Power Up Band,咚奇刚 - 能量手环
-00080100042f1a02,Donkey Kong and Pauline,咚奇刚与宝莉
-0008ff00023b0702,Turbo Charge Donkey Kong,Turbo Charge Donkey Kong
-00090000000d0002,Diddy Kong,迪迪刚
-0009000002650102,Diddy Kong,迪迪刚
-000900030432ff02,Diddy Kong - Power Up Band,迪迪刚 - 能量手环
-000a000000380102,Toad,奇诺比奥
-000a000303a0ff02,Toad - Power Up Band,奇诺比奥 - 能量手环
-0013000002660102,Daisy,黛西公主
-00130000037a0002,Daisy,黛西公主
-00130003039eff02,Daisy - Power Up Band,黛西公主 - 能量手环
-0014000002670102,Waluigi,瓦路易吉
-0015000003670102,Goomba,板栗仔
-0017000002680102,Boo,嘘嘘鬼
-0023000003680102,Koopa Troopa,诺库龟
-00240000038d0002,Piranha Plant,吞食花
-00800102035d0302,Poochy,波奇
-00c00000037b0002,King K. Rool,库鲁鲁王
 0100000000040002,Link,林克
 01000000034b0902,Link - Ocarina of Time,林克 - 时之笛
 01000000034c0902,Link - Majora's Mask,林克 - 假面
@@ -67,538 +8,141 @@
 0100000003540902,Link - Rider,林克 - 骑士
 01000000037c0002,Young Link,幼年林克
 0100000003990902,Link - Link's Awakening,林克 - 织梦岛
-0100000004180902,Link - Tears of the Kingdom,林克 - 王国之泪
 0100010000160002,Toon Link,卡通林克
 0100010003500902,Toon Link - The Wind Waker,卡通林克 - 风之杖
 01010000000e0002,Zelda,塞尔达
 0101000003520902,Toon Zelda - The Wind Waker,塞尔达 - 风之杖
 0101000003560902,Zelda,塞尔达
-0101000004190902,Zelda - Tears of the Kingdom,塞尔达 - 王国之泪
 0101010000170002,Sheik,希克
 0101030004140902,Zelda & Loftwing,塞尔达&洛夫特飞鸟
 01020100001b0002,Ganondorf,加侬多夫
-01020100041a0902,Ganondorf - Tears of the Kingdom,加侬多夫 - 王国之泪
 01030000024f0902,Midna & Wolf Link,米多娜 & 狼林克
 0105000003580902,Daruk,达尔克尔
 0106000003590902,Urbosa,乌尔波扎
 01070000035a0902,Mipha,米法
 01080000035b0902,Revali,力巴尔
-0109000004a30902,Riju,露珠
-010a000004a40902,Sidon,希多
-010b000004a50902,Tulin,丘栗
-010c000004a60902,Yunobo,阿沅
 0140000003550902,Guardian,守护者
 01410000035c0902,Bokoblin,波克布林
-0180000000080002,Villager,村民
-01810000024b0502,Summertime Isabelle,Summertime Isabelle
-01810000037d0002,Isabelle,西施惠
-0181000100440502,[AC] 001 - Isabelle,[AC] 001 - Isabelle
-0181000101d40502,[AC] CP1 - Isabelle,[AC] CP1 - Isabelle
-01810100023f0502,Isabelle,西施惠
-0181010100b40502,[AC] 113 - Isabelle,[AC] 113 - Isabelle
-01810201011a0502,[AC] 215 - Isabelle,[AC] 215 - Isabelle
-0181030101700502,[AC] 301 - Isabelle,[AC] 301 - Isabelle
-0181040103aa0502,403 - Isabelle,403 - Isabelle
-0181050103bf0502,424 - Isabelle (Sweater),424 - Isabelle (Sweater)
-0182000002400502,K.K. Slider,K.K.
-0182000100a80502,[AC] 101 - K.K. Slider,[AC] 101 - K.K. Slider
-0182000101d80502,[AC] CP2 - K.K Slider,[AC] CP2 - K.K Slider
-0182000103b20502,411 - K.K. Slider,411 - K.K. Slider
-0182010100460502,[AC] 003 - DJ KK,[AC] 003 - DJ KK
-0183000002420502,Tom Nook,狸克狸克
-0183000100450502,[AC] 002 - Tom Nook,[AC] 002 - Tom Nook
-01830101010e0502,[AC] 203 - Tom Nook,[AC] 203 - Tom Nook
-0183020103a80502,401 - Tom Nook,401 - Tom Nook
-0183030103be0502,423 - Tom Nook (Coat),423 - Tom Nook (Coat)
-01840000024d0502,Timmy & Tommy,Timmy & Tommy
-0184050103a90502,402 - Timmy and Tommy,402 - Timmy and Tommy
-01850001004b0502,[AC] 008 - Timmy,[AC] 008 - Timmy
-0185020101170502,[AC] 212 - Timmy,[AC] 212 - Timmy
-0185040101790502,[AC] 310 - Timmy,[AC] 310 - Timmy
-0186010100af0502,[AC] 108 - Tommy,[AC] 108 - Tommy
-0186030101750502,[AC] 306 - Tommy,[AC] 306 - Tommy
-0187000100470502,[AC] 004 - Sable,[AC] 004 - Sable
-0187000103b00502,409 - Sable,409 - Sable
-0188000002410502,Mabel,绢儿
-0188000101120502,[AC] 207 - Mabel,[AC] 207 - Mabel
-0188000103af0502,408 - Mabel,408 - Mabel
-0189000100ab0502,[AC] 104 - Labelle,[AC] 104 - Labelle
-0189010103b10502,410 - Label,410 - Label
-018a000002450502,Reese,Reese
-018a000100a90502,[AC] 102 - Reese,[AC] 102 - Reese
-018b000002460502,Cyrrus,Cyrrus
-018b000101150502,[AC] 210 - Cyrus,[AC] 210 - Cyrus
-018c000002430502,Digby,Digby
-018c0001004c0502,[AC] 009 - Digby,[AC] 009 - Digby
-018c010101180502,[AC] 213 - Digby,[AC] 213 - Digby
-018d0000024c0502,Rover,Rover
-018d0001010c0502,[AC] 201 - Rover,[AC] 201 - Rover
-018e000002490502,Resetti,里赛特先生
-018e000100490502,[AC] 006 - Resetti,[AC] 006 - Resetti
-018e010101780502,[AC] 309 - Resetti,[AC] 309 - Resetti
-018f000100b30502,[AC] 112 - Don Resetti,[AC] 112 - Don Resetti
-018f010101190502,[AC] 214 - Don Resetti,[AC] 214 - Don Resetti
-0190000101710502,[AC] 302 - Brewster,[AC] 302 - Brewster
-01910001004e0502,[AC] 011 - Harriet,[AC] 011 - Harriet
-0192000002470502,Blathers,Blathers
-01920001010d0502,[AC] 202 - Blathers,[AC] 202 - Blathers
-0192000103ad0502,406 - Blathers,406 - Blathers
-0193000002480502,Celeste,Celeste
-0193000101740502,[AC] 305 - Celeste,[AC] 305 - Celeste
-0193000103ae0502,407 - Celeste,407 - Celeste
-01940000024a0502,Kicks,Kicks
-0194000100aa0502,[AC] 103 - Kicks,[AC] 103 - Kicks
-0194000103b60502,415 - Kicks,415 - Kicks
-0195000100b00502,[AC] 109 - Porter,[AC] 109 - Porter
-01960000024e0502,Kapp_n,Kapp_n
-0196000100480502,[AC] 005 - Kappn,[AC] 005 - Kappn
-0197000101770502,[AC] 308 - Leilani,[AC] 308 - Leilani
-0198000100b10502,[AC] 110 - Leila,[AC] 110 - Leila
-0199000101160502,[AC] 211 - Grams,[AC] 211 - Grams
-019a000100b70502,[AC] 116 - Chip,[AC] 116 - Chip
-019b000100b60502,[AC] 115 - Nat,[AC] 115 - Nat
-019c000101730502,[AC] 304 - Phineas,[AC] 304 - Phineas
-019d000100ac0502,[AC] 105 - Copper,[AC] 105 - Copper
-019e000100ad0502,[AC] 106 - Booker,[AC] 106 - Booker
-019f000101110502,[AC] 206 - Pete,[AC] 206 - Pete
-01a00001010f0502,[AC] 204 - Pelly,[AC] 204 - Pelly
-01a1000101100502,[AC] 205 - Phyllis,[AC] 205 - Phyllis
-01a20001017d0502,[AC] 314 - Gulliver,[AC] 314 - Gulliver
-01a2000103b90502,418 - Gulliver,418 - Gulliver
-01a30001004a0502,[AC] 007 - Joan,[AC] 007 - Joan
-01a40001004d0502,[AC] 010 - Pascal,[AC] 010 - Pascal
-01a5000101720502,[AC] 303 - Katrina,[AC] 303 - Katrina
-01a6000100500502,[AC] 013 - Saharah,[AC] 013 - Saharah
-01a6000103b70502,416 - Saharah,416 - Saharah
-01a7000101140502,[AC] 209 - Wendell,[AC] 209 - Wendell
-01a80001004f0502,[AC] 012 - Redd,[AC] 012 - Redd
-01a80101017e0502,[AC] 315 - Redd,[AC] 315 - Redd
-01a9000101760502,[AC] 307 - Gracie,[AC] 307 - Gracie
-01aa000100530502,[AC] 016 - Lyle,[AC] 016 - Lyle
-01ab0001017c0502,[AC] 313 - Pave,[AC] 313 - Pave
-01ac0001017f0502,[AC] 316 - Zipper,[AC] 316 - Zipper
-01ad000100b80502,[AC] 117 - Jack,[AC] 117 - Jack
-01ae0001011b0502,[AC] 216 - Franklin,[AC] 216 - Franklin
-01af0001011c0502,[AC] 217 - Jingle,[AC] 217 - Jingle
-01b0000100520502,[AC] 015 - Tortimer,[AC] 015 - Tortimer
-01b1000100b20502,[AC] 111 - Shrunk,[AC] 111 - Shrunk
-01b10101017b0502,[AC] 312 - Shrunk,[AC] 312 - Shrunk
-01b3000100b50502,[AC] 114 - Blanca,[AC] 114 - Blanca
-01b4000101130502,[AC] 208 - Leif,[AC] 208 - Leif
-01b5000100510502,[AC] 014 - Luna,[AC] 014 - Luna
-01b6000100ae0502,[AC] 107 - Katie,[AC] 107 - Katie
-01c1000002440502,Lottie,Lottie
-01c1000100540502,[AC] 017 - Lottie,[AC] 017 - Lottie
-01c10101017a0502,[AC] 311 - Lottie,[AC] 311 - Lottie
-01c1020103bb0502,420 - Lottie,420 - Lottie
-0200000100a10502,[AC] 094 - Cyrano,[AC] 094 - Cyrano
-02010001016a0502,[AC] 295 - Antonio,[AC] 295 - Antonio
-0202000101030502,[AC] 192 - Pango,[AC] 192 - Pango
-02030001019a0502,[AC] 343 - Anabelle,[AC] 343 - Anabelle
-0206000103120502,[AC] W44 - Snooty,[AC] W44 - Snooty
-0208000100960502,[AC] 083 - Annalisa,[AC] 083 - Annalisa
-02090001019f0502,[AC] 348 - Olaf,[AC] 348 - Olaf
-0214000100e40502,[AC] 161 - Teddy,[AC] 161 - Teddy
-0215000101820502,[AC] 319 - Pinky,[AC] 319 - Pinky
-0216000100570502,[AC] 020 - Curt,[AC] 020 - Curt
-0217000101b30502,[AC] 368 - Chow,[AC] 368 - Chow
-02190001007e0502,[AC] 059 - Nate,[AC] 059 - Nate
-021a000100da0502,[AC] 151 - Groucho,[AC] 151 - Groucho
-021b000100800502,[AC] 061 - Tutu,[AC] 061 - Tutu
-021c000102f70502,[AC] W17 - Ursala,[AC] W17 - Ursala
-021d000101cd0502,[AC] 394 - Grizzly,[AC] 394 - Grizzly
-021e000101230502,[AC] 224 - Paula,[AC] 224 - Paula
-021f000103170502,[AC] W49 - Ike,[AC] W49 - Ike
-0220000100fd0502,[AC] 186 - Charlise,[AC] 186 - Charlise
-02210001013c0502,[AC] 249 - Beardo,[AC] 249 - Beardo
-0222000101440502,[AC] 257 - Klaus,[AC] 257 - Klaus
-022d000100f20502,[AC] 175 - Jay,[AC] 175 - Jay
-022e000101d30502,[AC] 400 - Robin,[AC] 400 - Robin
-022f0001011e0502,[AC] 219 - Anchovy,[AC] 219 - Anchovy
-0230000101d20502,[AC] 399 - Twiggy,[AC] 399 - Twiggy
-02310001006a0502,[AC] 039 - Jitters,[AC] 039 - Jitters
-0232000102ea0502,[AC] W04 - Piper,[AC] W04 - Piper
-0233000103060502,[AC] W32 - Admiral,[AC] W32 - Admiral
-0235000100840502,[AC] 065 - Midge,[AC] 065 - Midge
-0238000102f80502,[AC] W18 - Jacob,[AC] W18 - Jacob
-023c000100bd0502,[AC] 122 - Lucha,[AC] 122 - Lucha
-023d000101b50502,[AC] 370 - Jacques,[AC] 370 - Jacques
-023e000100d10502,[AC] 142 - Peck,[AC] 142 - Peck
-023f000101660502,[AC] 291 - Sparro,[AC] 291 - Sparro
-024a000101d10502,[AC] 398 - Angus,[AC] 398 - Angus
-024b000101260502,[AC] 227 - Rodeo,[AC] 227 - Rodeo
-024d000102f60502,[AC] W16 - Stu,[AC] W16 - Stu
-024f000100810502,[AC] 062 - T-Bone,[AC] 062 - T-Bone
-0251000100c10502,[AC] 126 - Coach,[AC] 126 - Coach
-0252000100fe0502,[AC] 187 - Vic,[AC] 187 - Vic
-025d000100550502,[AC] 018 - Bob,[AC] 018 - Bob
-025e000101250502,[AC] 226 - Mitzi,[AC] 226 - Mitzi
-025f000101c50502,[AC] 386 - Rosie,[AC] 386 - Rosie
-025f000101d70502,[AC] AF2 - Rosie,[AC] AF2 - Rosie
-0260000100d20502,[AC] 143 - Olivia,[AC] 143 - Olivia
-0261000100650502,[AC] 034 - Kiki,[AC] 034 - Kiki
-0262000101370502,[AC] 244 - Tangy,[AC] 244 - Tangy
-0263000100750502,[AC] 050 - Punchy,[AC] 050 - Punchy
-0264000101ac0502,[AC] 361 - Purrl,[AC] 361 - Purrl
-0265000101540502,[AC] 273 - Moe,[AC] 273 - Moe
-0266000100680502,[AC] 037 - Kabuki,[AC] 037 - Kabuki
-0267000101080502,[AC] 197 - Kid Cat,[AC] 197 - Kid Cat
-02680001007d0502,[AC] 058 - Monique,[AC] 058 - Monique
-02690001011f0502,[AC] 220 - Tabby,[AC] 220 - Tabby
-026a000101460502,[AC] 259 - Stinky,[AC] 259 - Stinky
-026b000100e90502,[AC] 166 - Kitty,[AC] 166 - Kitty
-026c000100c30502,[AC] 128 - Tom,[AC] 128 - Tom
-026d0001013f0502,[AC] 252 - Merry,[AC] 252 - Merry
-026e000100ba0502,[AC] 119 - Felicity,[AC] 119 - Felicity
-026f000101900502,[AC] 333 - Lolly,[AC] 333 - Lolly
-0270000100ff0502,[AC] 188 - Ankha,[AC] 188 - Ankha
-02710001019b0502,[AC] 344 - Rudy,[AC] 344 - Rudy
-0272000101860502,[AC] 323 - Katt,[AC] 323 - Katt
-027d000100630502,[AC] 032 - Bluebear,[AC] 032 - Bluebear
-027e000101690502,[AC] 294 - Maple,[AC] 294 - Maple
-027f000100b90502,[AC] 118 - Poncho,[AC] 118 - Poncho
-0280000100830502,[AC] 064 - Pudge,[AC] 064 - Pudge
-0281000101200502,[AC] 221 - Kody,[AC] 221 - Kody
-0282000101810502,[AC] 318 - Stitches,[AC] 318 - Stitches
-0282000101d60502,[AC] AF1 - Stitches,[AC] AF1 - Stitches
-0283000100c70502,[AC] 132 - Vladimir,[AC] 132 - Vladimir
-0284000102fe0502,[AC] W24 - Murphy,[AC] W24 - Murphy
-0286000103130502,[AC] W45 - Olive,[AC] W45 - Olive
-02870001005a0502,[AC] 023 - Cheri,[AC] 023 - Cheri
-028a000102e90502,[AC] W03 - June,[AC] W03 - June
-028b000100e30502,[AC] 160 - Pekoe,[AC] 160 - Pekoe
-028c0001013e0502,[AC] 251 - Chester,[AC] 251 - Chester
-028d000101bd0502,[AC] 378 - Barold,[AC] 378 - Barold
-028e0001019e0502,[AC] 347 - Tammy,[AC] 347 - Tammy
-028f0101031a0502,[AC] XS2 - Marty,[AC] XS2 - Marty
-0299000100950502,[AC] 082 - Goose,[AC] 082 - Goose
-029a000100ee0502,[AC] 171 - Benedict,[AC] 171 - Benedict
-029b000100cb0502,[AC] 136 - Egbert,[AC] 136 - Egbert
-029e0001013d0502,[AC] 250 - Ava,[AC] 250 - Ava
-02a2000101ba0502,[AC] 375 - Becky,[AC] 375 - Becky
-02a3000102ff0502,[AC] W25 - Plucky,[AC] W25 - Plucky
-02a4000100720502,[AC] 047 - Knox,[AC] 047 - Knox
-02a50001018c0502,[AC] 329 - Broffina,[AC] 329 - Broffina
-02a6000101240502,[AC] 225 - Ken,[AC] 225 - Ken
-02b1000100690502,[AC] 038 - Patty,[AC] 038 - Patty
-02b2000100c40502,[AC] 129 - Tipper,[AC] 129 - Tipper
-02b70001030f0502,[AC] W41 - Norma,[AC] W41 - Norma
-02b80001019c0502,[AC] 345 - Naomi,[AC] 345 - Naomi
-02c3000100dc0502,[AC] 153 - Alfonso,[AC] 153 - Alfonso
-02c4000100670502,[AC] 036 - Alli,[AC] 036 - Alli
-02c5000103080502,[AC] W34 - Boots,[AC] W34 - Boots
-02c7000101220502,[AC] 223 - Del,[AC] 223 - Del
-02c9000100cd0502,[AC] 138 - Sly,[AC] 138 - Sly
-02ca000101ca0502,[AC] 391 - Gayle,[AC] 391 - Gayle
-02cb000101360502,[AC] 243 - Drago,[AC] 243 - Drago
-02d6000100560502,[AC] 019 - Fauna,[AC] 019 - Fauna
-02d7000101300502,[AC] 237 - Bam,[AC] 237 - Bam
-02d8000100e20502,[AC] 159 - Zell,[AC] 159 - Zell
-02d9000101c80502,[AC] 389 - Bruce,[AC] 389 - Bruce
-02da000101330502,[AC] 240 - Deirdre,[AC] 240 - Deirdre
-02db0001005e0502,[AC] 027 - Lopez,[AC] 027 - Lopez
-02dc000100be0502,[AC] 123 - Fuchsia,[AC] 123 - Fuchsia
-02dd000100ea0502,[AC] 167 - Beau,[AC] 167 - Beau
-02de0001009c0502,[AC] 089 - Diana,[AC] 089 - Diana
-02df000101910502,[AC] 334 - Erik,[AC] 334 - Erik
-02e00101031d0502,[AC] XS5 - Chelsea,[AC] XS5 - Chelsea
-02ea000101800502,[AC] 317 - Goldie,[AC] 317 - Goldie
-02ea000101d50502,[AC] AF3 - Goldie,[AC] AF3 - Goldie
-02eb000100de0502,[AC] 155 - Butch,[AC] 155 - Butch
-02ec000101c40502,[AC] 385 - Lucky,[AC] 385 - Lucky
-02ed0001015a0502,[AC] 279 - Biskit,[AC] 279 - Biskit
-02ee000101990502,[AC] 342 - Bones,[AC] 342 - Bones
-02ef000100580502,[AC] 021 - Portia,[AC] 021 - Portia
-02f0000100a70502,[AC] 100 - Walker,[AC] 100 - Walker
-02f1000101450502,[AC] 258 - Daisy,[AC] 258 - Daisy
-02f2000100cc0502,[AC] 137 - Cookie,[AC] 137 - Cookie
-02f3000102f90502,[AC] W19 - Maddie,[AC] W19 - Maddie
-02f4000103050502,[AC] W31 - Bea,[AC] W31 - Bea
-02f8000101380502,[AC] 245 - Mac,[AC] 245 - Mac
-02f9000101020502,[AC] 191 - Marcel,[AC] 191 - Marcel
-02fa000100970502,[AC] 084 - Benjamin,[AC] 084 - Benjamin
-02fb000100900502,[AC] 077 - Cherry,[AC] 077 - Cherry
-02fc0001018f0502,[AC] 332 - Shep,[AC] 332 - Shep
-0307000100640502,[AC] 033 - Bill,[AC] 033 - Bill
-03080001014d0502,[AC] 266 - Joey,[AC] 266 - Joey
-0309000100c60502,[AC] 131 - Pate,[AC] 131 - Pate
-030a000101c70502,[AC] 388 - Maelle,[AC] 388 - Maelle
-030b000100790502,[AC] 054 - Deena,[AC] 054 - Deena
-030c000101b80502,[AC] 373 - Pompom,[AC] 373 - Pompom
-030d000101840502,[AC] 321 - Mallary,[AC] 321 - Mallary
-030e0001012f0502,[AC] 236 - Freckles,[AC] 236 - Freckles
-030f0001016d0502,[AC] 298 - Derwin,[AC] 298 - Derwin
-0310000100f80502,[AC] 181 - Drake,[AC] 181 - Drake
-0311000100d60502,[AC] 147 - Scoot,[AC] 147 - Scoot
-0312000103090502,[AC] W35 - Weber,[AC] W35 - Weber
-0313000101210502,[AC] 222 - Miranda,[AC] 222 - Miranda
-0314000102f40502,[AC] W14 - Ketchup,[AC] W14 - Ketchup
-0316000101c00502,[AC] 381 - Gloria,[AC] 381 - Gloria
-0317000100a60502,[AC] 099 - Molly,[AC] 099 - Molly
-03180001006c0502,[AC] 041 - Quillson,[AC] 041 - Quillson
-0323000100760502,[AC] 051 - Opal,[AC] 051 - Opal
-0324000101890502,[AC] 326 - Dizzy,[AC] 326 - Dizzy
-03250001010a0502,[AC] 199 - Big Top,[AC] 199 - Big Top
-0326000101390502,[AC] 246 - Eloise,[AC] 246 - Eloise
-0327000101c30502,[AC] 384 - Margie,[AC] 384 - Margie
-0328000102eb0502,[AC] W05 - Paolo,[AC] W05 - Paolo
-03290001009d0502,[AC] 090 - Axel,[AC] 090 - Axel
-032a000103070502,[AC] W33 - Ellie,[AC] W33 - Ellie
-032c000101480502,[AC] 261 - Tucker,[AC] 261 - Tucker
-032d000100bc0502,[AC] 121 - Tia,[AC] 121 - Tia
-032e0101031c0502,[AC] XS4 - Chai,[AC] XS4 - Chai
-03380001011d0502,[AC] 218 - Lily,[AC] 218 - Lily
-0339000101b10502,[AC] 366 - Ribbot,[AC] 366 - Ribbot
-033a000101cc0502,[AC] 393 - Frobert,[AC] 393 - Frobert
-033b000100fa0502,[AC] 183 - Camofrog,[AC] 183 - Camofrog
-033c000101000502,[AC] 189 - Drift,[AC] 189 - Drift
-033d0001013a0502,[AC] 247 - Wart Jr.,[AC] 247 - Wart Jr.
-033e000101a20502,[AC] 351 - Puddles,[AC] 351 - Puddles
-033f0001008f0502,[AC] 076 - Jeramiah,[AC] 076 - Jeramiah
-03410001030e0502,[AC] W40 - Tad,[AC] W40 - Tad
-0342000101280502,[AC] 229 - Cousteau,[AC] 229 - Cousteau
-0343000102ef0502,[AC] W09 - Huck,[AC] W09 - Huck
-0344000100c50502,[AC] 130 - Prince,[AC] 130 - Prince
-03450001005f0502,[AC] 028 - Jambette,[AC] 028 - Jambette
-0347000103020502,[AC] W28 - Raddle,[AC] W28 - Raddle
-03480001006b0502,[AC] 040 - Gigi,[AC] 040 - Gigi
-03490001018d0502,[AC] 330 - Croque,[AC] 330 - Croque
-034a000101430502,[AC] 256 - Diva,[AC] 256 - Diva
-034b0001009f0502,[AC] 092 - Henry,[AC] 092 - Henry
-0356000101350502,[AC] 242 - Chevre,[AC] 242 - Chevre
-0357000100eb0502,[AC] 168 - Nan,[AC] 168 - Nan
-0358000102fa0502,[AC] W20 - Billy,[AC] W20 - Billy
-035a000100850502,[AC] 066 - Gruff,[AC] 066 - Gruff
-035c000101290502,[AC] 230 - Velma,[AC] 230 - Velma
-035d000100c90502,[AC] 134 - Kidd,[AC] 134 - Kidd
-035e0001018e0502,[AC] 331 - Pashmina,[AC] 331 - Pashmina
-0369000100d30502,[AC] 144 - Cesar,[AC] 144 - Cesar
-036a0001019d0502,[AC] 346 - Peewee,[AC] 346 - Peewee
-036b0001018b0502,[AC] 328 - Boone,[AC] 328 - Boone
-036d000103040502,[AC] W30 - Louie,[AC] W30 - Louie
-036e000102fb0502,[AC] W21 - Boyd,[AC] W21 - Boyd
-03700001015d0502,[AC] 282 - Violet,[AC] 282 - Violet
-03710001005c0502,[AC] 025 - Al,[AC] 025 - Al
-03720001010b0502,[AC] 200 - Rocket,[AC] 200 - Rocket
-0373000101340502,[AC] 241 - Hans,[AC] 241 - Hans
-0374010103190502,[AC] XS1 - Rilla,[AC] XS1 - Rilla
-037e000101560502,[AC] 275 - Hamlet,[AC] 275 - Hamlet
-037f000101aa0502,[AC] 359 - Apple,[AC] 359 - Apple
-0380000101870502,[AC] 324 - Graham,[AC] 324 - Graham
-0381000100d50502,[AC] 146 - Rodney,[AC] 146 - Rodney
-03820001016b0502,[AC] 296 - Soleil,[AC] 296 - Soleil
-03830001009b0502,[AC] 088 - Clay,[AC] 088 - Clay
-0384000100860502,[AC] 067 - Flurry,[AC] 067 - Flurry
-0385000101060502,[AC] 195 - Hamphrey,[AC] 195 - Hamphrey
-0390000101850502,[AC] 322 - Rocco,[AC] 322 - Rocco
-0392000101270502,[AC] 228 - Bubbles,[AC] 228 - Bubbles
-0393000100a00502,[AC] 093 - Bertha,[AC] 093 - Bertha
-0394000100890502,[AC] 070 - Biff,[AC] 070 - Biff
-0395000102fc0502,[AC] W22 - Bitty,[AC] W22 - Bitty
-0398000100bf0502,[AC] 124 - Harry,[AC] 124 - Harry
-0399000101c20502,[AC] 383 - Hippeux,[AC] 383 - Hippeux
-03a40001014f0502,[AC] 268 - Buck,[AC] 268 - Buck
-03a50001015b0502,[AC] 280 - Victoria,[AC] 280 - Victoria
-03a6000100c80502,[AC] 133 - Savannah,[AC] 133 - Savannah
-03a7000101a10502,[AC] 350 - Elmer,[AC] 350 - Elmer
-03a8000100910502,[AC] 078 - Roscoe,[AC] 078 - Roscoe
-03a9000100710502,[AC] 046 - Winnie,[AC] 046 - Winnie
-03aa000100e60502,[AC] 163 - Ed,[AC] 163 - Ed
-03ab000103160502,[AC] W48 - Cleo,[AC] W48 - Cleo
-03ac000101880502,[AC] 325 - Peaches,[AC] 325 - Peaches
-03ad000101b20502,[AC] 367 - Annalise,[AC] 367 - Annalise
-03ae000100870502,[AC] 068 - Clyde,[AC] 068 - Clyde
-03af0001012c0502,[AC] 233 - Colton,[AC] 233 - Colton
-03b0000101a90502,[AC] 358 - Papi,[AC] 358 - Papi
-03b1000100f00502,[AC] 173 - Julian,[AC] 173 - Julian
-03bc0001008a0502,[AC] 071 - Yuka,[AC] 071 - Yuka
-03bd000100f90502,[AC] 182 - Alice,[AC] 182 - Alice
-03be000101980502,[AC] 341 - Melba,[AC] 341 - Melba
-03bf000101bc0502,[AC] 377 - Sydney,[AC] 377 - Sydney
-03c0000103100502,[AC] W42 - Gonzo,[AC] W42 - Gonzo
-03c1000100bb0502,[AC] 120 - Ozzie,[AC] 120 - Ozzie
-03c40001012b0502,[AC] 232 - Canberra,[AC] 232 - Canberra
-03c50001015c0502,[AC] 281 - Lyman,[AC] 281 - Lyman
-03c6000100930502,[AC] 080 - Eugene,[AC] 080 - Eugene
-03d1000100c20502,[AC] 127 - Kitt,[AC] 127 - Kitt
-03d2000100e50502,[AC] 162 - Mathilda,[AC] 162 - Mathilda
-03d3000102f30502,[AC] W13 - Carrie,[AC] W13 - Carrie
-03d6000101570502,[AC] 276 - Astrid,[AC] 276 - Astrid
-03d7000101b40502,[AC] 369 - Sylvia,[AC] 369 - Sylvia
-03d9000101a50502,[AC] 354 - Walt,[AC] 354 - Walt
-03da000101510502,[AC] 270 - Rooney,[AC] 270 - Rooney
-03db0001006d0502,[AC] 042 - Marcie,[AC] 042 - Marcie
-03e6000100ec0502,[AC] 169 - Bud,[AC] 169 - Bud
-03e70001012a0502,[AC] 231 - Elvis,[AC] 231 - Elvis
-03e8000102f50502,[AC] W15 - Rex,[AC] W15 - Rex
-03ea0001030b0502,[AC] W37 - Leopold,[AC] W37 - Leopold
-03ec000101830502,[AC] 320 - Mott,[AC] 320 - Mott
-03ed000101a30502,[AC] 352 - Rory,[AC] 352 - Rory
-03ee0001008b0502,[AC] 072 - Lionel,[AC] 072 - Lionel
-03fa000100d00502,[AC] 141 - Nana,[AC] 141 - Nana
-03fb000101cf0502,[AC] 396 - Simon,[AC] 396 - Simon
-03fc000101470502,[AC] 260 - Tammi,[AC] 260 - Tammi
-03fd000101580502,[AC] 277 - Monty,[AC] 277 - Monty
-03fe000101a40502,[AC] 353 - Elise,[AC] 353 - Elise
-03ff000100f40502,[AC] 177 - Flip,[AC] 177 - Flip
-04000001006f0502,[AC] 044 - Shari,[AC] 044 - Shari
-0401000100660502,[AC] 035 - Deli,[AC] 035 - Deli
-040c000101590502,[AC] 278 - Dora,[AC] 278 - Dora
-040d000100780502,[AC] 053 - Limberg,[AC] 053 - Limberg
-040e000100880502,[AC] 069 - Bella,[AC] 069 - Bella
-040f000101500502,[AC] 269 - Bree,[AC] 269 - Bree
-04100001007f0502,[AC] 060 - Samson,[AC] 060 - Samson
-0411000101ab0502,[AC] 360 - Rod,[AC] 360 - Rod
-04140001030a0502,[AC] W36 - Candi,[AC] W36 - Candi
-0415000101bb0502,[AC] 376 - Rizzo,[AC] 376 - Rizzo
-0416000100fb0502,[AC] 184 - Anicotti,[AC] 184 - Anicotti
-0418000100d80502,[AC] 149 - Broccolo,[AC] 149 - Broccolo
-041a000100e00502,[AC] 157 - Moose,[AC] 157 - Moose
-041b000100f10502,[AC] 174 - Bettina,[AC] 174 - Bettina
-041c000101410502,[AC] 254 - Greta,[AC] 254 - Greta
-041d0001018a0502,[AC] 327 - Penelope,[AC] 327 - Penelope
-041e0001015f0502,[AC] 284 - Chadder,[AC] 284 - Chadder
-0429000100700502,[AC] 045 - Octavian,[AC] 045 - Octavian
-042a0001012d0502,[AC] 234 - Marina,[AC] 234 - Marina
-042b000101af0502,[AC] 364 - Zucker,[AC] 364 - Zucker
-0436000101940502,[AC] 337 - Queenie,[AC] 337 - Queenie
-0437000101050502,[AC] 194 - Gladys,[AC] 194 - Gladys
-0438000103000502,[AC] W26 - Sandy,[AC] W26 - Sandy
-0439000103110502,[AC] W43 - Sprocket,[AC] W43 - Sprocket
-043b000103030502,[AC] W29 - Julia,[AC] W29 - Julia
-043c000101cb0502,[AC] 392 - Cranston,[AC] 392 - Cranston
-043d0001007c0502,[AC] 057 - Phil,[AC] 057 - Phil
-043e000101490502,[AC] 262 - Blanche,[AC] 262 - Blanche
-043f000101550502,[AC] 274 - Flora,[AC] 274 - Flora
-0440000100ca0502,[AC] 135 - Phoebe,[AC] 135 - Phoebe
-044b0001016c0502,[AC] 297 - Apollo,[AC] 297 - Apollo
-044c0001008e0502,[AC] 075 - Amelia,[AC] 075 - Amelia
-044d000101930502,[AC] 336 - Pierce,[AC] 336 - Pierce
-044e000103150502,[AC] W47 - Buzz,[AC] W47 - Buzz
-0450000100cf0502,[AC] 140 - Avery,[AC] 140 - Avery
-04510001015e0502,[AC] 283 - Frank,[AC] 283 - Frank
-0452000100730502,[AC] 048 - Sterling,[AC] 048 - Sterling
-0453000101040502,[AC] 193 - Keaton,[AC] 193 - Keaton
-0454000101ae0502,[AC] 363 - Celia,[AC] 363 - Celia
-045f000101a80502,[AC] 357 - Aurora,[AC] 357 - Aurora
-0460000100a50502,[AC] 098 - Roald,[AC] 098 - Roald
-0461000101610502,[AC] 286 - Cube,[AC] 286 - Cube
-0462000100f60502,[AC] 179 - Hopper,[AC] 179 - Hopper
-0463000101310502,[AC] 238 - Friga,[AC] 238 - Friga
-0464000100c00502,[AC] 125 - Gwen,[AC] 125 - Gwen
-04650001006e0502,[AC] 043 - Puck,[AC] 043 - Puck
-0468000102f20502,[AC] W12 - Wade,[AC] W12 - Wade
-0469000101640502,[AC] 289 - Boomer,[AC] 289 - Boomer
-046a000101d00502,[AC] 397 - Iggly,[AC] 397 - Iggly
-046b000101970502,[AC] 340 - Tex,[AC] 340 - Tex
-046c0001008c0502,[AC] 073 - Flo,[AC] 073 - Flo
-046d000100f30502,[AC] 176 - Sprinkle,[AC] 176 - Sprinkle
-0478000101630502,[AC] 288 - Curly,[AC] 288 - Curly
-0479000100920502,[AC] 079 - Truffles,[AC] 079 - Truffles
-047a000100600502,[AC] 029 - Rasher,[AC] 029 - Rasher
-047b000100f50502,[AC] 178 - Hugh,[AC] 178 - Hugh
-047c000101a00502,[AC] 349 - Lucy,[AC] 349 - Lucy
-047d0001012e0502,[AC] 235 - Spork-Crackle,[AC] 235 - Spork-Crackle
-04800001008d0502,[AC] 074 - Cobb,[AC] 074 - Cobb
-0481000102f10502,[AC] W11 - Boris,[AC] W11 - Boris
-0482000102fd0502,[AC] W23 - Maggie,[AC] W23 - Maggie
-0483000101b00502,[AC] 365 - Peggy,[AC] 365 - Peggy
-04850001014c0502,[AC] 265 - Gala,[AC] 265 - Gala
-0486000100fc0502,[AC] 185 - Chops,[AC] 185 - Chops
-0487000101bf0502,[AC] 380 - Kevin,[AC] 380 - Kevin
-0488000100980502,[AC] 085 - Pancetti,[AC] 085 - Pancetti
-0489000100ef0502,[AC] 172 - Agnes,[AC] 172 - Agnes
-04940001009a0502,[AC] 087 - Bunnie,[AC] 087 - Bunnie
-0495000101920502,[AC] 335 - Dotty,[AC] 335 - Dotty
-0496000100d90502,[AC] 150 - Coco,[AC] 150 - Coco
-04970001007a0502,[AC] 055 - Snake,[AC] 055 - Snake
-04980001014a0502,[AC] 263 - Gaston,[AC] 263 - Gaston
-0499000100df0502,[AC] 156 - Gabi,[AC] 156 - Gabi
-049a0001014e0502,[AC] 267 - Pippy,[AC] 267 - Pippy
-049b000100610502,[AC] 030 - Tiffany,[AC] 030 - Tiffany
-049c000101400502,[AC] 253 - Genji,[AC] 253 - Genji
-049d000100ed0502,[AC] 170 - Ruby,[AC] 170 - Ruby
-049e000101b70502,[AC] 372 - Doc,[AC] 372 - Doc
-049f000103010502,[AC] W27 - Claude,[AC] W27 - Claude
-04a00001016e0502,[AC] 299 - Francine,[AC] 299 - Francine
-04a10001016f0502,[AC] 300 - Chrissy,[AC] 300 - Chrissy
-04a2000102e80502,[AC] W02 - Hopkins,[AC] W02 - Hopkins
-04a3000101c90502,[AC] 390 - O_Hare,[AC] 390 - O_Hare
-04a4000100d40502,[AC] 145 - Carmen,[AC] 145 - Carmen
-04a5000100740502,[AC] 049 - Bonbon,[AC] 049 - Bonbon
-04a6000100a30502,[AC] 096 - Cole,[AC] 096 - Cole
-04a7000101a60502,[AC] 355 - Mira,[AC] 355 - Mira
-04a80101031e0502,[AC] XS6 - Toby,[AC] XS6 - Toby
-04b2000101b90502,[AC] 374 - Tank,[AC] 374 - Tank
-04b3000100dd0502,[AC] 154 - Rhonda,[AC] 154 - Rhonda
-04b40001030c0502,[AC] W38 - Spike,[AC] W38 - Spike
-04b6000102ec0502,[AC] W06 - Hornsby,[AC] W06 - Hornsby
-04b9000101600502,[AC] 285 - Merengue,[AC] 285 - Merengue
-04ba0001005d0502,[AC] 026 - Renee,[AC] 026 - Renee
-04c5000101010502,[AC] 190 - Vesta,[AC] 190 - Vesta
-04c6000101670502,[AC] 292 - Baabara,[AC] 292 - Baabara
-04c7000100940502,[AC] 081 - Eunice,[AC] 081 - Eunice
-04c8000102ed0502,[AC] W07 - Stella,[AC] W07 - Stella
-04c90001030d0502,[AC] W39 - Cashmere,[AC] W39 - Cashmere
-04cc000100a40502,[AC] 097 - Willow,[AC] 097 - Willow
-04cd000101520502,[AC] 271 - Curlos,[AC] 271 - Curlos
-04ce000100db0502,[AC] 152 - Wendy,[AC] 152 - Wendy
-04cf000100e10502,[AC] 158 - Timbra,[AC] 158 - Timbra
-04d0000101960502,[AC] 339 - Fritta,[AC] 339 - Fritta
-04d10001009e0502,[AC] 091 - Muffy,[AC] 091 - Muffy
-04d2000101a70502,[AC] 356 - Pietro,[AC] 356 - Pietro
-04d30101031b0502,[AC] XS3 - Etoile,[AC] XS3 - Etoile
-04dd000100a20502,[AC] 095 - Peanut,[AC] 095 - Peanut
-04de000100ce0502,[AC] 139 - Blaire,[AC] 139 - Blaire
-04df000100e80502,[AC] 165 - Filbert,[AC] 165 - Filbert
-04e0000100f70502,[AC] 180 - Pecan,[AC] 180 - Pecan
-04e1000101be0502,[AC] 379 - Nibbles,[AC] 379 - Nibbles
-04e2000101090502,[AC] 198 - Agent S,[AC] 198 - Agent S
-04e3000101650502,[AC] 290 - Caroline,[AC] 290 - Caroline
-04e4000101b60502,[AC] 371 - Sally,[AC] 371 - Sally
-04e5000101ad0502,[AC] 362 - Static,[AC] 362 - Static
-04e6000100820502,[AC] 063 - Mint,[AC] 063 - Mint
-04e7000101320502,[AC] 239 - Ricky,[AC] 239 - Ricky
-04e8000101ce0502,[AC] 395 - Cally,[AC] 395 - Cally
-04ea000103180502,[AC] W50 - Tasha,[AC] W50 - Tasha
-04eb000102f00502,[AC] W10 - Sylvana,[AC] W10 - Sylvana
-04ec000100770502,[AC] 052 - Poppy,[AC] 052 - Poppy
-04ed000100620502,[AC] 031 - Sheldon,[AC] 031 - Sheldon
-04ee0001014b0502,[AC] 264 - Marshal,[AC] 264 - Marshal
-04ef0001013b0502,[AC] 248 - Hazel,[AC] 248 - Hazel
-04fa000101680502,[AC] 293 - Rolf,[AC] 293 - Rolf
-04fb000101c60502,[AC] 387 - Rowan,[AC] 387 - Rowan
-04fc000102ee0502,[AC] W08 - Tybalt,[AC] W08 - Tybalt
-04fd0001007b0502,[AC] 056 - Bangle,[AC] 056 - Bangle
-04fe000100590502,[AC] 022 - Leonardo,[AC] 022 - Leonardo
-04ff000101620502,[AC] 287 - Claudia,[AC] 287 - Claudia
-0500000100e70502,[AC] 164 - Bianca,[AC] 164 - Bianca
-050b000100990502,[AC] 086 - Chief,[AC] 086 - Chief
-050c000101c10502,[AC] 382 - Lobo,[AC] 382 - Lobo
-050d000101420502,[AC] 255 - Wolfgang,[AC] 255 - Wolfgang
-050e000100d70502,[AC] 148 - Whitney,[AC] 148 - Whitney
-050f000103140502,[AC] W46 - Dobie,[AC] W46 - Dobie
-0510000101070502,[AC] 196 - Freya,[AC] 196 - Freya
-0511000101950502,[AC] 338 - Fang,[AC] 338 - Fang
-0513000102e70502,[AC] W01 - Vivian,[AC] W01 - Vivian
-0514000101530502,[AC] 272 - Skye,[AC] 272 - Skye
-05150001005b0502,[AC] 024 - Kyle,[AC] 024 - Kyle
+0100000004180902,Link - Tears of the Kingdom,林克 - 王国之泪
+35080000040f1802,Magnamalo,怨虎龙
+3509000004101802,Palico,随从艾露猫
+35090100042b1802,Palico,随从艾露猫
+350a000004111802,Palamute,随从牙猎犬
+350a0100042c1802,Palamute,随从牙猎犬
+350b0000042d1802,Malzeno,爵银龙
+3500010002e10f02,One-Eyed Rathalos and Rider - Male,独眼雄火龙与男骑士
+3500020002e20f02,One-Eyed Rathalos and Rider - Female,独眼雄火龙与女骑士
+3501000002e30f02,Nabiru,纳比露
+3502010002e40f02,Rathian and Cheval,雌火龙与修瓦尔
+3503010002e50f02,Barioth and Ayuria,冰牙龙与亚尤利娅
+3504010002e60f02,Qurupeco and Dan,彩鸟与丹前辈
+35050000040c0f02,Razewing Ratha,毁灭火龙
+35060000040d0f02,Ena,艾娜
+35070000040e0f02,Tsukino,月露
+38c0000003911602,Loot Goblin,藏宝哥布林
+0017000002680102,Boo,嘘嘘鬼
+0006000000150002,Bowser Jr.,酷霸王Jr.
+00130000037a0002,Daisy,黛西公主
+0008000002640102,Donkey Kong,咚奇刚
+00010000000c0002,Luigi,路易吉
+0002000000010002,Peach,碧姬公主
+0004010000130002,Rosalina & Luma,罗莎塔&琪琪
+0014000002670102,Waluigi,瓦路易吉
+0003010200420302,Pink Yarn Yoshi,粉色毛线耀西
+0005000000140002,Bowser,酷霸王
+00090000000d0002,Diddy Kong,迪迪刚
+0015000003670102,Goomba,板栗仔
+0023000003680102,Koopa Troopa,诺库龟
+0000000000340102,Mario,马力欧
+0007000002630102,Wario,瓦力欧
+21000000000b0002,Marth,马尔斯
+2101000000180002,Ike,艾克
+2102000000290002,Lucina,露琪娜
+21030000002a0002,Robin,鲁弗莱
+2104000002520002,Roy,罗伊
+21050000025a0002,Corrin,神威
+2105010003630002,Corrin - Player 2,神威2
+2106000003601202,Alm,阿雷姆
+2107000003611202,Celica,赛莉卡
+21080000036f1202,Chrom,库洛姆
+2108000003880002,Chrom,库洛姆
+2109000003701202,Tiki,琪姬
+210b000003a50002,Byleth,贝雷丝
+0005000003730102,Bowser - Wedding,礼服酷霸王
+0000010000190002,Dr. Mario,马力欧医生
+0000000000000002,Mario,马力欧
+00070000001a0002,Wario,瓦力欧
+0009000002650102,Diddy Kong,迪迪刚
+0001000000350102,Luigi,路易吉
+00000000003c0102,Mario - Gold Edition,金马力欧
+0000000003710102,Mario - Wedding,礼服马力欧
+00000000003d0102,Mario - Silver Edition,银马力欧
+0002000003720102,Peach - Wedding,婚纱碧姬公主
+0005000000390102,Bowser,酷霸王
+3740000103741402,Super Mario Cereal,马力欧联名麦片
+0005ff00023a0702,Hammer Slam Bowser,Hammer Slam Bowser
 0580000000050002,Fox,火狐
-05810000001c0002,Falco,弗克
-05840000037e0002,Wolf,沃鲁夫
-05c0000000060002,Samus,萨姆斯
-05c0000003651302,Samus Aran,萨姆斯 阿兰
-05c0000004121302,Samus - Metroid Dread,萨姆斯 - 生存恐惧
-05c00000043a1302,Samus & Vi-O-La,萨姆斯&薇奥拉
-05c00000043b1302,Samus,萨姆斯
-05c00100001d0002,Zero Suit Samus,零装甲萨姆斯
-05c1000003661302,Metroid,密特罗德
-05c20000037f0002,Ridley,利德雷
-05c3000003800002,Dark Samus,黑暗萨姆斯
-05c4000004131302,E.M.M.I.,E.M.M.I.
+3480000000310002,Mega Man,洛克人
+3200000000300002,Sonic,索尼克
+08000100025f0402,Inkling Girl - Lime Green,鱿鱼族女孩 - 青柠绿
 0600000000120002,Captain Falcon,飞隼队长
+0008000000030002,Donkey Kong,咚奇刚
+1f000000000a0002,Kirby,卡比
+3340000000320002,Pac-Man,吃豆人
+0004000002620102,Rosalina,罗莎塔
+05c0000000060002,Samus,萨姆斯
+000a000000380102,Toad,奇诺比奥
+0003000000020002,Yoshi,耀西
 06400100001e0002,Olimar,欧力玛
 06420000035f1102,Pikmin,皮克敏
+0188000002410502,Mabel,绢儿
+0194000100aa0502,[AC] 103 - Kicks,[AC] 103 - Kicks
+019c000101730502,[AC] 304 - Phineas,[AC] 304 - Phineas
+0180000000080002,Villager,村民
+04a2000102e80502,[AC] W02 - Hopkins,[AC] W02 - Hopkins
+0282000101d60502,[AC] AF1 - Stitches,[AC] AF1 - Stitches
+0181000100440502,[AC] 001 - Isabelle,[AC] 001 - Isabelle
+01920001010d0502,[AC] 202 - Blathers,[AC] 202 - Blathers
+0374010103190502,[AC] XS1 - Rilla,[AC] XS1 - Rilla
+0003010200410302,Green Yarn Yoshi,绿色毛线耀西
+0003010200430302,Light Blue Yarn Yoshi,淡蓝毛线耀西
+0002000000360102,Peach,碧姬公主
+00800102035d0302,Poochy,波奇
+22400000002b0002,Shulk,修尔克
+08000100003e0402,Inkling Girl,鱿鱼族女孩
+0800010003690402,Inkling Girl - Neon Pink,鱿鱼族女孩 - 霓虹粉
+0800010003820002,Inkling,鱿鱼族
+0800010004150402,Inkling - Yellow,鱿鱼族 - 黄色
+08000200003f0402,Inkling Boy,鱿鱼族男孩
+0800020002600402,Inkling Boy - Purple,鱿鱼族男孩 - 紫色
+08000200036a0402,Inkling Boy - Neon Green,鱿鱼族男孩 - 霓虹绿
+0800030000400402,Inkling Squid,鱿鱼族鱿鱼形态
+0800030002610402,Inkling Squid - Orange,鱿鱼族鱿鱼形态 - 橙色
+08000300036b0402,Inkling Squid - Neon Purple,鱿鱼族鱿鱼形态 - 霓虹紫
+08010000025d0402,Callie,小拟
+08020000025e0402,Marie,小萤
+0803000003760402,Pearl,小姬
+0804000003770402,Marina,饭田
+08050100038e0402,Octoling Girl,章鱼族女孩
+08050200038f0402,Octoling Boy,章鱼族男孩
+08050200041b0402,Octoling - Blue,章鱼族 - 蓝色
+0805030003900402,Octoling Octopus,章鱼族章鱼形态
+0807000004330402,Shiver,莎莎
+0808000004340402,Frye,曼曼
+0809000004350402,Big Man,鬼福
+08060100041c0402,Smallfry,小鲑鱼
+0801000004360402,Callie - Alterna,小拟 - 幻界
+0802000004370402,Marie - Alterna,小萤 - 幻界
+0803000004380402,Pearl - Side Order,小姬 - 秩序篇
+0804000004390402,Marina - Side Order,饭田 - 秩序篇
+00240000038d0002,Piranha Plant,吞食花
+00c00000037b0002,King K. Rool,库鲁鲁王
+01810000037d0002,Isabelle,西施惠
+05810000001c0002,Falco,弗克
+05840000037e0002,Wolf,沃鲁夫
+05c00100001d0002,Zero Suit Samus,零装甲萨姆斯
+05c20000037f0002,Ridley,利德雷
+05c3000003800002,Dark Samus,黑暗萨姆斯
 06c00000000f0002,Little Mac,小麦克
 0700000000070002,Wii Fit Trainer,Wii Fit教练
 0740000000100002,Pit,皮特
@@ -612,33 +156,605 @@
 07c0000000210002,Mii Brawler,Mii拳斗士
 07c0010000220002,Mii Swordfighter,Mii剑士
 07c0020000230002,Mii Gunner,Mii枪手
-08000100003e0402,Inkling Girl,鱿鱼族女孩
-08000100025f0402,Inkling Girl - Lime Green,鱿鱼族女孩 - 青柠绿
-0800010003690402,Inkling Girl - Neon Pink,鱿鱼族女孩 - 霓虹粉
-0800010003820002,Inkling,鱿鱼族
-0800010004150402,Inkling - Yellow,鱿鱼族 - 黄色
-08000200003f0402,Inkling Boy,鱿鱼族男孩
-0800020002600402,Inkling Boy - Purple,鱿鱼族男孩 - 紫色
-08000200036a0402,Inkling Boy - Neon Green,鱿鱼族男孩 - 霓虹绿
-0800030000400402,Inkling Squid,鱿鱼族鱿鱼形态
-0800030002610402,Inkling Squid - Orange,鱿鱼族鱿鱼形态 - 橙色
-08000300036b0402,Inkling Squid - Neon Purple,鱿鱼族鱿鱼形态 - 霓虹紫
-08010000025d0402,Callie,小拟
-0801000004360402,Callie - Alterna,小拟 - 幻界
-08020000025e0402,Marie,小萤
-0802000004370402,Marie - Alterna,小萤 - 幻界
-0803000003760402,Pearl,小姬
-0803000004380402,Pearl - Side Order,小姬 - 秩序篇
-0804000003770402,Marina,饭田
-0804000004390402,Marina - Side Order,饭田 - 秩序篇
-08050100038e0402,Octoling Girl,章鱼族女孩
-08050200038f0402,Octoling Boy,章鱼族男孩
-08050200041b0402,Octoling - Blue,章鱼族 - 蓝色
-0805030003900402,Octoling Octopus,章鱼族章鱼形态
-08060100041c0402,Smallfry,小鲑鱼
-0807000004330402,Shiver,莎莎
-0808000004340402,Frye,曼曼
-0809000004350402,Big Man,鬼福
+0a400000041d0002,Min Min,面面
+1902000003830002,Ivysaur,妙娃草
+1906000000240002,Charizard,喷火龙
+1907000003840002,Squirtle,杰尼龟
+1919000000090002,Pikachu,皮卡丘
+1927000000260002,Jigglypuff,胖丁
+19960000023d0002,Mewtwo,超梦
+19ac000003850002,Pichu,皮丘
+1ac0000000110002,Lucario,路卡利欧
+1b92000000250002,Greninja,甲贺忍蛙
+1bd7000003860002,Incineroar,炽焰咆哮虎
+1d40000003870002,Pokemon Trainer,宝可梦训练师
+1f01000000270002,Meta Knight,梅塔骑士
+1f02000000280002,King Dedede,迪迪迪大王
+22800000002c0002,Ness,奈斯
+2281000002510002,Lucas,卢卡斯
+32400000025b0002,Bayonetta,贝优妮塔
+3240010003640002,Bayonetta - Player 2,贝优妮塔2
+33c0000004200002,Kazuya,一八
+3480000002580002,Mega Man - Gold Edition,黄金洛克人
+34c0000002530002,Ryu,隆
+34c1000003890002,Ken,肯
+3600000002590002,Cloud,克劳德
+3600010003620002,Cloud - Player 2,克劳德2
+3601000004210002,Sephiroth,萨菲罗斯
+3640000003a20002,Hero,勇者
+37800000038a0002,Snake,SNAKE
+37c00000038b0002,Simon,西蒙
+37c10000038c0002,Richter,里希特
+3a00000003a10002,Joker,JOKER
+3b40000003a30002,Banjo & Kazooie,阿邦&阿卡
+3c80000003a40002,Terry,特瑞
+3dc0000004220002,Steve,史蒂夫
+3dc1000004230002,Alex,艾利克斯
+3840000104241902,Yuga Ohdo,Yuga Ohdo
+3841000104251902,Tatsuhisa “Luke” Kamijō,Tatsuhisa “Luke” Kamijō
+3842000104261902,Gakuto Sōgetsu,Gakuto Sōgetsu
+3843000104271902,Romin Kirishima,Romin Kirishima
+3844000104281902,Roa Kirishima,Roa Kirishima
+3845000104291902,Nail Saionji,Nail Saionji
+38460001042a1902,Asana Mutsuba,Asana Mutsuba
+0000030003a60102,Mario - Cat,猫猫马力欧
+0002010003a70102,Peach - Cat,猫猫碧姬公主
+0013000002660102,Daisy,黛西公主
+00030102023e0302,Mega Yarn Yoshi,毛线耀西
+1f02000002560c02,King Dedede,迪迪迪大王
+1f01000002550c02,Meta Knight,梅塔骑士
+1f03000002570c02,Waddle Dee,瓦多鲁迪
+1f00000002540c02,Kirby,卡比
+1f400000035e1002,Qbby,丘比
+35c0000002500a02,Shovel Knight,铲子骑士
+35c0000003920a02,Shovel Knight - Gold Edition,黄金铲子骑士
+35c10000036c0a02,Plague Knight,瘟疫骑士
+35c20000036d0a02,Specter Knight,苦痛骑士
+35c30000036e0a02,King Knight,国王骑士
+3380000003781402,Solaire of Astora,太阳骑士
+3800000103931702,Pawapuro,Pawapuro
+3801000103941702,Ikari,Ikari
+3802000103951702,Yabe,Yabe
+3803000103961702,Hayakawa,Hayakawa
+3804000103971702,Ganda,Ganda
+3805000103981702,Daijobu,Daijobu
+1d000001025c0d02,Shadow Mewtwo,Shadow Mewtwo
+1d01000003750d02,Detective Pikachu,名侦探皮卡丘
+000a000303a0ff02,Toad - Power Up Band,奇诺比奥 - 能量手环
+01c1000002440502,Lottie,Lottie
+0513000102e70502,[AC] W01 - Vivian,[AC] W01 - Vivian
+02ea000101d50502,[AC] AF3 - Goldie,[AC] AF3 - Goldie
+019d000100ac0502,[AC] 105 - Copper,[AC] 105 - Copper
+0182010100460502,[AC] 003 - DJ KK,[AC] 003 - DJ KK
+0193000101740502,[AC] 305 - Celeste,[AC] 305 - Celeste
+019f000101110502,[AC] 206 - Pete,[AC] 206 - Pete
+05c0000004121302,Samus - Metroid Dread,萨姆斯 - 生存恐惧
+028f0101031a0502,[AC] XS2 - Marty,[AC] XS2 - Marty
+0000000002380602,8-Bit Mario Classic Color,像素马力欧 - 经典配色
+01810100023f0502,Isabelle,西施惠
+00020003039dff02,Peach - Power Up Band,碧姬公主 - 能量手环
+0183000002420502,Tom Nook,狸克狸克
+0182000002400502,K.K. Slider,K.K.
+018e000002490502,Resetti,里赛特先生
+3480000003791502,Mega Man,洛克人
+0183000100450502,[AC] 002 - Tom Nook,[AC] 002 - Tom Nook
+0187000100470502,[AC] 004 - Sable,[AC] 004 - Sable
+0196000100480502,[AC] 005 - Kappn,[AC] 005 - Kappn
+018e000100490502,[AC] 006 - Resetti,[AC] 006 - Resetti
+01a30001004a0502,[AC] 007 - Joan,[AC] 007 - Joan
+01850001004b0502,[AC] 008 - Timmy,[AC] 008 - Timmy
+018c0001004c0502,[AC] 009 - Digby,[AC] 009 - Digby
+01a40001004d0502,[AC] 010 - Pascal,[AC] 010 - Pascal
+01910001004e0502,[AC] 011 - Harriet,[AC] 011 - Harriet
+01a80001004f0502,[AC] 012 - Redd,[AC] 012 - Redd
+01a6000100500502,[AC] 013 - Saharah,[AC] 013 - Saharah
+01b5000100510502,[AC] 014 - Luna,[AC] 014 - Luna
+01b0000100520502,[AC] 015 - Tortimer,[AC] 015 - Tortimer
+01aa000100530502,[AC] 016 - Lyle,[AC] 016 - Lyle
+01c1000100540502,[AC] 017 - Lottie,[AC] 017 - Lottie
+025d000100550502,[AC] 018 - Bob,[AC] 018 - Bob
+02d6000100560502,[AC] 019 - Fauna,[AC] 019 - Fauna
+0216000100570502,[AC] 020 - Curt,[AC] 020 - Curt
+02ef000100580502,[AC] 021 - Portia,[AC] 021 - Portia
+04fe000100590502,[AC] 022 - Leonardo,[AC] 022 - Leonardo
+02870001005a0502,[AC] 023 - Cheri,[AC] 023 - Cheri
+05150001005b0502,[AC] 024 - Kyle,[AC] 024 - Kyle
+03710001005c0502,[AC] 025 - Al,[AC] 025 - Al
+04ba0001005d0502,[AC] 026 - Renee,[AC] 026 - Renee
+02db0001005e0502,[AC] 027 - Lopez,[AC] 027 - Lopez
+03450001005f0502,[AC] 028 - Jambette,[AC] 028 - Jambette
+047a000100600502,[AC] 029 - Rasher,[AC] 029 - Rasher
+049b000100610502,[AC] 030 - Tiffany,[AC] 030 - Tiffany
+04ed000100620502,[AC] 031 - Sheldon,[AC] 031 - Sheldon
+027d000100630502,[AC] 032 - Bluebear,[AC] 032 - Bluebear
+0307000100640502,[AC] 033 - Bill,[AC] 033 - Bill
+0261000100650502,[AC] 034 - Kiki,[AC] 034 - Kiki
+0401000100660502,[AC] 035 - Deli,[AC] 035 - Deli
+02c4000100670502,[AC] 036 - Alli,[AC] 036 - Alli
+0266000100680502,[AC] 037 - Kabuki,[AC] 037 - Kabuki
+02b1000100690502,[AC] 038 - Patty,[AC] 038 - Patty
+02310001006a0502,[AC] 039 - Jitters,[AC] 039 - Jitters
+03480001006b0502,[AC] 040 - Gigi,[AC] 040 - Gigi
+03180001006c0502,[AC] 041 - Quillson,[AC] 041 - Quillson
+03db0001006d0502,[AC] 042 - Marcie,[AC] 042 - Marcie
+04650001006e0502,[AC] 043 - Puck,[AC] 043 - Puck
+04000001006f0502,[AC] 044 - Shari,[AC] 044 - Shari
+0429000100700502,[AC] 045 - Octavian,[AC] 045 - Octavian
+03a9000100710502,[AC] 046 - Winnie,[AC] 046 - Winnie
+02a4000100720502,[AC] 047 - Knox,[AC] 047 - Knox
+0452000100730502,[AC] 048 - Sterling,[AC] 048 - Sterling
+04a5000100740502,[AC] 049 - Bonbon,[AC] 049 - Bonbon
+0263000100750502,[AC] 050 - Punchy,[AC] 050 - Punchy
+0323000100760502,[AC] 051 - Opal,[AC] 051 - Opal
+04ec000100770502,[AC] 052 - Poppy,[AC] 052 - Poppy
+040d000100780502,[AC] 053 - Limberg,[AC] 053 - Limberg
+030b000100790502,[AC] 054 - Deena,[AC] 054 - Deena
+04970001007a0502,[AC] 055 - Snake,[AC] 055 - Snake
+04fd0001007b0502,[AC] 056 - Bangle,[AC] 056 - Bangle
+043d0001007c0502,[AC] 057 - Phil,[AC] 057 - Phil
+02680001007d0502,[AC] 058 - Monique,[AC] 058 - Monique
+02190001007e0502,[AC] 059 - Nate,[AC] 059 - Nate
+04100001007f0502,[AC] 060 - Samson,[AC] 060 - Samson
+021b000100800502,[AC] 061 - Tutu,[AC] 061 - Tutu
+024f000100810502,[AC] 062 - T-Bone,[AC] 062 - T-Bone
+04e6000100820502,[AC] 063 - Mint,[AC] 063 - Mint
+0280000100830502,[AC] 064 - Pudge,[AC] 064 - Pudge
+0235000100840502,[AC] 065 - Midge,[AC] 065 - Midge
+035a000100850502,[AC] 066 - Gruff,[AC] 066 - Gruff
+0384000100860502,[AC] 067 - Flurry,[AC] 067 - Flurry
+03ae000100870502,[AC] 068 - Clyde,[AC] 068 - Clyde
+040e000100880502,[AC] 069 - Bella,[AC] 069 - Bella
+0394000100890502,[AC] 070 - Biff,[AC] 070 - Biff
+03bc0001008a0502,[AC] 071 - Yuka,[AC] 071 - Yuka
+03ee0001008b0502,[AC] 072 - Lionel,[AC] 072 - Lionel
+046c0001008c0502,[AC] 073 - Flo,[AC] 073 - Flo
+04800001008d0502,[AC] 074 - Cobb,[AC] 074 - Cobb
+044c0001008e0502,[AC] 075 - Amelia,[AC] 075 - Amelia
+033f0001008f0502,[AC] 076 - Jeramiah,[AC] 076 - Jeramiah
+02fb000100900502,[AC] 077 - Cherry,[AC] 077 - Cherry
+03a8000100910502,[AC] 078 - Roscoe,[AC] 078 - Roscoe
+0479000100920502,[AC] 079 - Truffles,[AC] 079 - Truffles
+03c6000100930502,[AC] 080 - Eugene,[AC] 080 - Eugene
+04c7000100940502,[AC] 081 - Eunice,[AC] 081 - Eunice
+0299000100950502,[AC] 082 - Goose,[AC] 082 - Goose
+0208000100960502,[AC] 083 - Annalisa,[AC] 083 - Annalisa
+02fa000100970502,[AC] 084 - Benjamin,[AC] 084 - Benjamin
+0488000100980502,[AC] 085 - Pancetti,[AC] 085 - Pancetti
+050b000100990502,[AC] 086 - Chief,[AC] 086 - Chief
+04940001009a0502,[AC] 087 - Bunnie,[AC] 087 - Bunnie
+03830001009b0502,[AC] 088 - Clay,[AC] 088 - Clay
+02de0001009c0502,[AC] 089 - Diana,[AC] 089 - Diana
+03290001009d0502,[AC] 090 - Axel,[AC] 090 - Axel
+04d10001009e0502,[AC] 091 - Muffy,[AC] 091 - Muffy
+034b0001009f0502,[AC] 092 - Henry,[AC] 092 - Henry
+0393000100a00502,[AC] 093 - Bertha,[AC] 093 - Bertha
+0200000100a10502,[AC] 094 - Cyrano,[AC] 094 - Cyrano
+04dd000100a20502,[AC] 095 - Peanut,[AC] 095 - Peanut
+04a6000100a30502,[AC] 096 - Cole,[AC] 096 - Cole
+04cc000100a40502,[AC] 097 - Willow,[AC] 097 - Willow
+0460000100a50502,[AC] 098 - Roald,[AC] 098 - Roald
+0317000100a60502,[AC] 099 - Molly,[AC] 099 - Molly
+02f0000100a70502,[AC] 100 - Walker,[AC] 100 - Walker
+0182000100a80502,[AC] 101 - K.K. Slider,[AC] 101 - K.K. Slider
+018a000100a90502,[AC] 102 - Reese,[AC] 102 - Reese
+0189000100ab0502,[AC] 104 - Labelle,[AC] 104 - Labelle
+019e000100ad0502,[AC] 106 - Booker,[AC] 106 - Booker
+01b6000100ae0502,[AC] 107 - Katie,[AC] 107 - Katie
+0186010100af0502,[AC] 108 - Tommy,[AC] 108 - Tommy
+0195000100b00502,[AC] 109 - Porter,[AC] 109 - Porter
+0198000100b10502,[AC] 110 - Leila,[AC] 110 - Leila
+01b1000100b20502,[AC] 111 - Shrunk,[AC] 111 - Shrunk
+018f000100b30502,[AC] 112 - Don Resetti,[AC] 112 - Don Resetti
+0181010100b40502,[AC] 113 - Isabelle,[AC] 113 - Isabelle
+01b3000100b50502,[AC] 114 - Blanca,[AC] 114 - Blanca
+019b000100b60502,[AC] 115 - Nat,[AC] 115 - Nat
+019a000100b70502,[AC] 116 - Chip,[AC] 116 - Chip
+01ad000100b80502,[AC] 117 - Jack,[AC] 117 - Jack
+027f000100b90502,[AC] 118 - Poncho,[AC] 118 - Poncho
+026e000100ba0502,[AC] 119 - Felicity,[AC] 119 - Felicity
+03c1000100bb0502,[AC] 120 - Ozzie,[AC] 120 - Ozzie
+032d000100bc0502,[AC] 121 - Tia,[AC] 121 - Tia
+023c000100bd0502,[AC] 122 - Lucha,[AC] 122 - Lucha
+02dc000100be0502,[AC] 123 - Fuchsia,[AC] 123 - Fuchsia
+0398000100bf0502,[AC] 124 - Harry,[AC] 124 - Harry
+0464000100c00502,[AC] 125 - Gwen,[AC] 125 - Gwen
+0251000100c10502,[AC] 126 - Coach,[AC] 126 - Coach
+03d1000100c20502,[AC] 127 - Kitt,[AC] 127 - Kitt
+026c000100c30502,[AC] 128 - Tom,[AC] 128 - Tom
+02b2000100c40502,[AC] 129 - Tipper,[AC] 129 - Tipper
+0344000100c50502,[AC] 130 - Prince,[AC] 130 - Prince
+0309000100c60502,[AC] 131 - Pate,[AC] 131 - Pate
+0283000100c70502,[AC] 132 - Vladimir,[AC] 132 - Vladimir
+03a6000100c80502,[AC] 133 - Savannah,[AC] 133 - Savannah
+035d000100c90502,[AC] 134 - Kidd,[AC] 134 - Kidd
+0440000100ca0502,[AC] 135 - Phoebe,[AC] 135 - Phoebe
+029b000100cb0502,[AC] 136 - Egbert,[AC] 136 - Egbert
+02f2000100cc0502,[AC] 137 - Cookie,[AC] 137 - Cookie
+02c9000100cd0502,[AC] 138 - Sly,[AC] 138 - Sly
+04de000100ce0502,[AC] 139 - Blaire,[AC] 139 - Blaire
+0450000100cf0502,[AC] 140 - Avery,[AC] 140 - Avery
+03fa000100d00502,[AC] 141 - Nana,[AC] 141 - Nana
+023e000100d10502,[AC] 142 - Peck,[AC] 142 - Peck
+0260000100d20502,[AC] 143 - Olivia,[AC] 143 - Olivia
+0369000100d30502,[AC] 144 - Cesar,[AC] 144 - Cesar
+04a4000100d40502,[AC] 145 - Carmen,[AC] 145 - Carmen
+0381000100d50502,[AC] 146 - Rodney,[AC] 146 - Rodney
+0311000100d60502,[AC] 147 - Scoot,[AC] 147 - Scoot
+050e000100d70502,[AC] 148 - Whitney,[AC] 148 - Whitney
+0418000100d80502,[AC] 149 - Broccolo,[AC] 149 - Broccolo
+0496000100d90502,[AC] 150 - Coco,[AC] 150 - Coco
+021a000100da0502,[AC] 151 - Groucho,[AC] 151 - Groucho
+04ce000100db0502,[AC] 152 - Wendy,[AC] 152 - Wendy
+02c3000100dc0502,[AC] 153 - Alfonso,[AC] 153 - Alfonso
+04b3000100dd0502,[AC] 154 - Rhonda,[AC] 154 - Rhonda
+02eb000100de0502,[AC] 155 - Butch,[AC] 155 - Butch
+0499000100df0502,[AC] 156 - Gabi,[AC] 156 - Gabi
+041a000100e00502,[AC] 157 - Moose,[AC] 157 - Moose
+04cf000100e10502,[AC] 158 - Timbra,[AC] 158 - Timbra
+02d8000100e20502,[AC] 159 - Zell,[AC] 159 - Zell
+028b000100e30502,[AC] 160 - Pekoe,[AC] 160 - Pekoe
+0214000100e40502,[AC] 161 - Teddy,[AC] 161 - Teddy
+03d2000100e50502,[AC] 162 - Mathilda,[AC] 162 - Mathilda
+03aa000100e60502,[AC] 163 - Ed,[AC] 163 - Ed
+0500000100e70502,[AC] 164 - Bianca,[AC] 164 - Bianca
+04df000100e80502,[AC] 165 - Filbert,[AC] 165 - Filbert
+026b000100e90502,[AC] 166 - Kitty,[AC] 166 - Kitty
+02dd000100ea0502,[AC] 167 - Beau,[AC] 167 - Beau
+0357000100eb0502,[AC] 168 - Nan,[AC] 168 - Nan
+03e6000100ec0502,[AC] 169 - Bud,[AC] 169 - Bud
+049d000100ed0502,[AC] 170 - Ruby,[AC] 170 - Ruby
+029a000100ee0502,[AC] 171 - Benedict,[AC] 171 - Benedict
+0489000100ef0502,[AC] 172 - Agnes,[AC] 172 - Agnes
+03b1000100f00502,[AC] 173 - Julian,[AC] 173 - Julian
+041b000100f10502,[AC] 174 - Bettina,[AC] 174 - Bettina
+022d000100f20502,[AC] 175 - Jay,[AC] 175 - Jay
+046d000100f30502,[AC] 176 - Sprinkle,[AC] 176 - Sprinkle
+03ff000100f40502,[AC] 177 - Flip,[AC] 177 - Flip
+047b000100f50502,[AC] 178 - Hugh,[AC] 178 - Hugh
+0462000100f60502,[AC] 179 - Hopper,[AC] 179 - Hopper
+04e0000100f70502,[AC] 180 - Pecan,[AC] 180 - Pecan
+0310000100f80502,[AC] 181 - Drake,[AC] 181 - Drake
+03bd000100f90502,[AC] 182 - Alice,[AC] 182 - Alice
+033b000100fa0502,[AC] 183 - Camofrog,[AC] 183 - Camofrog
+0416000100fb0502,[AC] 184 - Anicotti,[AC] 184 - Anicotti
+0486000100fc0502,[AC] 185 - Chops,[AC] 185 - Chops
+0220000100fd0502,[AC] 186 - Charlise,[AC] 186 - Charlise
+0252000100fe0502,[AC] 187 - Vic,[AC] 187 - Vic
+0270000100ff0502,[AC] 188 - Ankha,[AC] 188 - Ankha
+033c000101000502,[AC] 189 - Drift,[AC] 189 - Drift
+04c5000101010502,[AC] 190 - Vesta,[AC] 190 - Vesta
+02f9000101020502,[AC] 191 - Marcel,[AC] 191 - Marcel
+0202000101030502,[AC] 192 - Pango,[AC] 192 - Pango
+0453000101040502,[AC] 193 - Keaton,[AC] 193 - Keaton
+0437000101050502,[AC] 194 - Gladys,[AC] 194 - Gladys
+0385000101060502,[AC] 195 - Hamphrey,[AC] 195 - Hamphrey
+0510000101070502,[AC] 196 - Freya,[AC] 196 - Freya
+0267000101080502,[AC] 197 - Kid Cat,[AC] 197 - Kid Cat
+04e2000101090502,[AC] 198 - Agent S,[AC] 198 - Agent S
+03250001010a0502,[AC] 199 - Big Top,[AC] 199 - Big Top
+03720001010b0502,[AC] 200 - Rocket,[AC] 200 - Rocket
+018d0001010c0502,[AC] 201 - Rover,[AC] 201 - Rover
+01830101010e0502,[AC] 203 - Tom Nook,[AC] 203 - Tom Nook
+01a00001010f0502,[AC] 204 - Pelly,[AC] 204 - Pelly
+01a1000101100502,[AC] 205 - Phyllis,[AC] 205 - Phyllis
+0188000101120502,[AC] 207 - Mabel,[AC] 207 - Mabel
+01b4000101130502,[AC] 208 - Leif,[AC] 208 - Leif
+01a7000101140502,[AC] 209 - Wendell,[AC] 209 - Wendell
+018b000101150502,[AC] 210 - Cyrus,[AC] 210 - Cyrus
+0199000101160502,[AC] 211 - Grams,[AC] 211 - Grams
+0185020101170502,[AC] 212 - Timmy,[AC] 212 - Timmy
+018c010101180502,[AC] 213 - Digby,[AC] 213 - Digby
+018f010101190502,[AC] 214 - Don Resetti,[AC] 214 - Don Resetti
+01810201011a0502,[AC] 215 - Isabelle,[AC] 215 - Isabelle
+01ae0001011b0502,[AC] 216 - Franklin,[AC] 216 - Franklin
+01af0001011c0502,[AC] 217 - Jingle,[AC] 217 - Jingle
+03380001011d0502,[AC] 218 - Lily,[AC] 218 - Lily
+022f0001011e0502,[AC] 219 - Anchovy,[AC] 219 - Anchovy
+02690001011f0502,[AC] 220 - Tabby,[AC] 220 - Tabby
+0281000101200502,[AC] 221 - Kody,[AC] 221 - Kody
+0313000101210502,[AC] 222 - Miranda,[AC] 222 - Miranda
+02c7000101220502,[AC] 223 - Del,[AC] 223 - Del
+021e000101230502,[AC] 224 - Paula,[AC] 224 - Paula
+02a6000101240502,[AC] 225 - Ken,[AC] 225 - Ken
+025e000101250502,[AC] 226 - Mitzi,[AC] 226 - Mitzi
+024b000101260502,[AC] 227 - Rodeo,[AC] 227 - Rodeo
+0392000101270502,[AC] 228 - Bubbles,[AC] 228 - Bubbles
+0342000101280502,[AC] 229 - Cousteau,[AC] 229 - Cousteau
+035c000101290502,[AC] 230 - Velma,[AC] 230 - Velma
+03e70001012a0502,[AC] 231 - Elvis,[AC] 231 - Elvis
+03c40001012b0502,[AC] 232 - Canberra,[AC] 232 - Canberra
+03af0001012c0502,[AC] 233 - Colton,[AC] 233 - Colton
+042a0001012d0502,[AC] 234 - Marina,[AC] 234 - Marina
+047d0001012e0502,[AC] 235 - Spork-Crackle,[AC] 235 - Spork-Crackle
+030e0001012f0502,[AC] 236 - Freckles,[AC] 236 - Freckles
+02d7000101300502,[AC] 237 - Bam,[AC] 237 - Bam
+0463000101310502,[AC] 238 - Friga,[AC] 238 - Friga
+04e7000101320502,[AC] 239 - Ricky,[AC] 239 - Ricky
+02da000101330502,[AC] 240 - Deirdre,[AC] 240 - Deirdre
+0373000101340502,[AC] 241 - Hans,[AC] 241 - Hans
+0356000101350502,[AC] 242 - Chevre,[AC] 242 - Chevre
+02cb000101360502,[AC] 243 - Drago,[AC] 243 - Drago
+0262000101370502,[AC] 244 - Tangy,[AC] 244 - Tangy
+02f8000101380502,[AC] 245 - Mac,[AC] 245 - Mac
+0326000101390502,[AC] 246 - Eloise,[AC] 246 - Eloise
+033d0001013a0502,[AC] 247 - Wart Jr.,[AC] 247 - Wart Jr.
+04ef0001013b0502,[AC] 248 - Hazel,[AC] 248 - Hazel
+02210001013c0502,[AC] 249 - Beardo,[AC] 249 - Beardo
+029e0001013d0502,[AC] 250 - Ava,[AC] 250 - Ava
+028c0001013e0502,[AC] 251 - Chester,[AC] 251 - Chester
+026d0001013f0502,[AC] 252 - Merry,[AC] 252 - Merry
+049c000101400502,[AC] 253 - Genji,[AC] 253 - Genji
+041c000101410502,[AC] 254 - Greta,[AC] 254 - Greta
+050d000101420502,[AC] 255 - Wolfgang,[AC] 255 - Wolfgang
+034a000101430502,[AC] 256 - Diva,[AC] 256 - Diva
+0222000101440502,[AC] 257 - Klaus,[AC] 257 - Klaus
+02f1000101450502,[AC] 258 - Daisy,[AC] 258 - Daisy
+026a000101460502,[AC] 259 - Stinky,[AC] 259 - Stinky
+03fc000101470502,[AC] 260 - Tammi,[AC] 260 - Tammi
+032c000101480502,[AC] 261 - Tucker,[AC] 261 - Tucker
+043e000101490502,[AC] 262 - Blanche,[AC] 262 - Blanche
+04980001014a0502,[AC] 263 - Gaston,[AC] 263 - Gaston
+04ee0001014b0502,[AC] 264 - Marshal,[AC] 264 - Marshal
+04850001014c0502,[AC] 265 - Gala,[AC] 265 - Gala
+03080001014d0502,[AC] 266 - Joey,[AC] 266 - Joey
+049a0001014e0502,[AC] 267 - Pippy,[AC] 267 - Pippy
+03a40001014f0502,[AC] 268 - Buck,[AC] 268 - Buck
+040f000101500502,[AC] 269 - Bree,[AC] 269 - Bree
+03da000101510502,[AC] 270 - Rooney,[AC] 270 - Rooney
+04cd000101520502,[AC] 271 - Curlos,[AC] 271 - Curlos
+0514000101530502,[AC] 272 - Skye,[AC] 272 - Skye
+0265000101540502,[AC] 273 - Moe,[AC] 273 - Moe
+043f000101550502,[AC] 274 - Flora,[AC] 274 - Flora
+037e000101560502,[AC] 275 - Hamlet,[AC] 275 - Hamlet
+03d6000101570502,[AC] 276 - Astrid,[AC] 276 - Astrid
+03fd000101580502,[AC] 277 - Monty,[AC] 277 - Monty
+040c000101590502,[AC] 278 - Dora,[AC] 278 - Dora
+02ed0001015a0502,[AC] 279 - Biskit,[AC] 279 - Biskit
+03a50001015b0502,[AC] 280 - Victoria,[AC] 280 - Victoria
+03c50001015c0502,[AC] 281 - Lyman,[AC] 281 - Lyman
+03700001015d0502,[AC] 282 - Violet,[AC] 282 - Violet
+04510001015e0502,[AC] 283 - Frank,[AC] 283 - Frank
+041e0001015f0502,[AC] 284 - Chadder,[AC] 284 - Chadder
+04b9000101600502,[AC] 285 - Merengue,[AC] 285 - Merengue
+0461000101610502,[AC] 286 - Cube,[AC] 286 - Cube
+04ff000101620502,[AC] 287 - Claudia,[AC] 287 - Claudia
+0478000101630502,[AC] 288 - Curly,[AC] 288 - Curly
+0469000101640502,[AC] 289 - Boomer,[AC] 289 - Boomer
+04e3000101650502,[AC] 290 - Caroline,[AC] 290 - Caroline
+023f000101660502,[AC] 291 - Sparro,[AC] 291 - Sparro
+04c6000101670502,[AC] 292 - Baabara,[AC] 292 - Baabara
+04fa000101680502,[AC] 293 - Rolf,[AC] 293 - Rolf
+027e000101690502,[AC] 294 - Maple,[AC] 294 - Maple
+02010001016a0502,[AC] 295 - Antonio,[AC] 295 - Antonio
+03820001016b0502,[AC] 296 - Soleil,[AC] 296 - Soleil
+044b0001016c0502,[AC] 297 - Apollo,[AC] 297 - Apollo
+030f0001016d0502,[AC] 298 - Derwin,[AC] 298 - Derwin
+04a00001016e0502,[AC] 299 - Francine,[AC] 299 - Francine
+04a10001016f0502,[AC] 300 - Chrissy,[AC] 300 - Chrissy
+0181030101700502,[AC] 301 - Isabelle,[AC] 301 - Isabelle
+0190000101710502,[AC] 302 - Brewster,[AC] 302 - Brewster
+01a5000101720502,[AC] 303 - Katrina,[AC] 303 - Katrina
+0186030101750502,[AC] 306 - Tommy,[AC] 306 - Tommy
+01a9000101760502,[AC] 307 - Gracie,[AC] 307 - Gracie
+0197000101770502,[AC] 308 - Leilani,[AC] 308 - Leilani
+018e010101780502,[AC] 309 - Resetti,[AC] 309 - Resetti
+0185040101790502,[AC] 310 - Timmy,[AC] 310 - Timmy
+01c10101017a0502,[AC] 311 - Lottie,[AC] 311 - Lottie
+01b10101017b0502,[AC] 312 - Shrunk,[AC] 312 - Shrunk
+01ab0001017c0502,[AC] 313 - Pave,[AC] 313 - Pave
+01a20001017d0502,[AC] 314 - Gulliver,[AC] 314 - Gulliver
+01a80101017e0502,[AC] 315 - Redd,[AC] 315 - Redd
+01ac0001017f0502,[AC] 316 - Zipper,[AC] 316 - Zipper
+02ea000101800502,[AC] 317 - Goldie,[AC] 317 - Goldie
+0282000101810502,[AC] 318 - Stitches,[AC] 318 - Stitches
+0215000101820502,[AC] 319 - Pinky,[AC] 319 - Pinky
+03ec000101830502,[AC] 320 - Mott,[AC] 320 - Mott
+030d000101840502,[AC] 321 - Mallary,[AC] 321 - Mallary
+0390000101850502,[AC] 322 - Rocco,[AC] 322 - Rocco
+0272000101860502,[AC] 323 - Katt,[AC] 323 - Katt
+0380000101870502,[AC] 324 - Graham,[AC] 324 - Graham
+03ac000101880502,[AC] 325 - Peaches,[AC] 325 - Peaches
+0324000101890502,[AC] 326 - Dizzy,[AC] 326 - Dizzy
+041d0001018a0502,[AC] 327 - Penelope,[AC] 327 - Penelope
+036b0001018b0502,[AC] 328 - Boone,[AC] 328 - Boone
+02a50001018c0502,[AC] 329 - Broffina,[AC] 329 - Broffina
+03490001018d0502,[AC] 330 - Croque,[AC] 330 - Croque
+035e0001018e0502,[AC] 331 - Pashmina,[AC] 331 - Pashmina
+02fc0001018f0502,[AC] 332 - Shep,[AC] 332 - Shep
+026f000101900502,[AC] 333 - Lolly,[AC] 333 - Lolly
+02df000101910502,[AC] 334 - Erik,[AC] 334 - Erik
+0495000101920502,[AC] 335 - Dotty,[AC] 335 - Dotty
+044d000101930502,[AC] 336 - Pierce,[AC] 336 - Pierce
+0436000101940502,[AC] 337 - Queenie,[AC] 337 - Queenie
+0511000101950502,[AC] 338 - Fang,[AC] 338 - Fang
+04d0000101960502,[AC] 339 - Fritta,[AC] 339 - Fritta
+046b000101970502,[AC] 340 - Tex,[AC] 340 - Tex
+03be000101980502,[AC] 341 - Melba,[AC] 341 - Melba
+02ee000101990502,[AC] 342 - Bones,[AC] 342 - Bones
+02030001019a0502,[AC] 343 - Anabelle,[AC] 343 - Anabelle
+02710001019b0502,[AC] 344 - Rudy,[AC] 344 - Rudy
+02b80001019c0502,[AC] 345 - Naomi,[AC] 345 - Naomi
+036a0001019d0502,[AC] 346 - Peewee,[AC] 346 - Peewee
+028e0001019e0502,[AC] 347 - Tammy,[AC] 347 - Tammy
+02090001019f0502,[AC] 348 - Olaf,[AC] 348 - Olaf
+047c000101a00502,[AC] 349 - Lucy,[AC] 349 - Lucy
+03a7000101a10502,[AC] 350 - Elmer,[AC] 350 - Elmer
+033e000101a20502,[AC] 351 - Puddles,[AC] 351 - Puddles
+03ed000101a30502,[AC] 352 - Rory,[AC] 352 - Rory
+03fe000101a40502,[AC] 353 - Elise,[AC] 353 - Elise
+03d9000101a50502,[AC] 354 - Walt,[AC] 354 - Walt
+04a7000101a60502,[AC] 355 - Mira,[AC] 355 - Mira
+04d2000101a70502,[AC] 356 - Pietro,[AC] 356 - Pietro
+045f000101a80502,[AC] 357 - Aurora,[AC] 357 - Aurora
+03b0000101a90502,[AC] 358 - Papi,[AC] 358 - Papi
+037f000101aa0502,[AC] 359 - Apple,[AC] 359 - Apple
+0411000101ab0502,[AC] 360 - Rod,[AC] 360 - Rod
+0264000101ac0502,[AC] 361 - Purrl,[AC] 361 - Purrl
+04e5000101ad0502,[AC] 362 - Static,[AC] 362 - Static
+0454000101ae0502,[AC] 363 - Celia,[AC] 363 - Celia
+042b000101af0502,[AC] 364 - Zucker,[AC] 364 - Zucker
+0483000101b00502,[AC] 365 - Peggy,[AC] 365 - Peggy
+0339000101b10502,[AC] 366 - Ribbot,[AC] 366 - Ribbot
+03ad000101b20502,[AC] 367 - Annalise,[AC] 367 - Annalise
+0217000101b30502,[AC] 368 - Chow,[AC] 368 - Chow
+03d7000101b40502,[AC] 369 - Sylvia,[AC] 369 - Sylvia
+023d000101b50502,[AC] 370 - Jacques,[AC] 370 - Jacques
+04e4000101b60502,[AC] 371 - Sally,[AC] 371 - Sally
+049e000101b70502,[AC] 372 - Doc,[AC] 372 - Doc
+030c000101b80502,[AC] 373 - Pompom,[AC] 373 - Pompom
+04b2000101b90502,[AC] 374 - Tank,[AC] 374 - Tank
+02a2000101ba0502,[AC] 375 - Becky,[AC] 375 - Becky
+0415000101bb0502,[AC] 376 - Rizzo,[AC] 376 - Rizzo
+03bf000101bc0502,[AC] 377 - Sydney,[AC] 377 - Sydney
+028d000101bd0502,[AC] 378 - Barold,[AC] 378 - Barold
+04e1000101be0502,[AC] 379 - Nibbles,[AC] 379 - Nibbles
+0487000101bf0502,[AC] 380 - Kevin,[AC] 380 - Kevin
+0316000101c00502,[AC] 381 - Gloria,[AC] 381 - Gloria
+050c000101c10502,[AC] 382 - Lobo,[AC] 382 - Lobo
+0399000101c20502,[AC] 383 - Hippeux,[AC] 383 - Hippeux
+0327000101c30502,[AC] 384 - Margie,[AC] 384 - Margie
+02ec000101c40502,[AC] 385 - Lucky,[AC] 385 - Lucky
+025f000101c50502,[AC] 386 - Rosie,[AC] 386 - Rosie
+04fb000101c60502,[AC] 387 - Rowan,[AC] 387 - Rowan
+030a000101c70502,[AC] 388 - Maelle,[AC] 388 - Maelle
+02d9000101c80502,[AC] 389 - Bruce,[AC] 389 - Bruce
+04a3000101c90502,[AC] 390 - O_Hare,[AC] 390 - O_Hare
+02ca000101ca0502,[AC] 391 - Gayle,[AC] 391 - Gayle
+043c000101cb0502,[AC] 392 - Cranston,[AC] 392 - Cranston
+033a000101cc0502,[AC] 393 - Frobert,[AC] 393 - Frobert
+021d000101cd0502,[AC] 394 - Grizzly,[AC] 394 - Grizzly
+04e8000101ce0502,[AC] 395 - Cally,[AC] 395 - Cally
+03fb000101cf0502,[AC] 396 - Simon,[AC] 396 - Simon
+046a000101d00502,[AC] 397 - Iggly,[AC] 397 - Iggly
+024a000101d10502,[AC] 398 - Angus,[AC] 398 - Angus
+0230000101d20502,[AC] 399 - Twiggy,[AC] 399 - Twiggy
+022e000101d30502,[AC] 400 - Robin,[AC] 400 - Robin
+0183020103a80502,401 - Tom Nook,401 - Tom Nook
+0184050103a90502,402 - Timmy and Tommy,402 - Timmy and Tommy
+0181040103aa0502,403 - Isabelle,403 - Isabelle
+0a00000103ab0502,404 - Orville,404 - Orville
+0a01000103ac0502,405 - Wilbur,405 - Wilbur
+0192000103ad0502,406 - Blathers,406 - Blathers
+0193000103ae0502,407 - Celeste,407 - Celeste
+0188000103af0502,408 - Mabel,408 - Mabel
+0187000103b00502,409 - Sable,409 - Sable
+0189010103b10502,410 - Label,410 - Label
+0182000103b20502,411 - K.K. Slider,411 - K.K. Slider
+0a02000103b30502,412 - C.J. ,412 - C.J. 
+0a03000103b40502,413 - Flick,413 - Flick
+0a04000103b50502,414 - Daisy Mae,414 - Daisy Mae
+0194000103b60502,415 - Kicks,415 - Kicks
+01a6000103b70502,416 - Saharah,416 - Saharah
+0a05000103b80502,417 - Harvey,417 - Harvey
+01a2000103b90502,418 - Gulliver,418 - Gulliver
+0a06000103ba0502,419 - Wisp,419 - Wisp
+01c1020103bb0502,420 - Lottie,420 - Lottie
+0a07000103bc0502,421 - Niko,421 - Niko
+0a08000103bd0502,422 - Wardell,422 - Wardell
+0183030103be0502,423 - Tom Nook (Coat),423 - Tom Nook (Coat)
+0181050103bf0502,424 - Isabelle (Sweater),424 - Isabelle (Sweater)
+0a09000103c00502,425 - Sherb,425 - Sherb
+0a0a000103c10502,426 - Megan,426 - Megan
+0a0b000103c20502,427 - Dom,427 - Dom
+0a0c000103c30502,428 - Audie ,428 - Audie 
+0a0d000103c40502,429 - Cyd,429 - Cyd
+0a0e000103c50502,430 - Judy ,430 - Judy 
+0a0f000103c60502,431 - Raymond,431 - Raymond
+0a10000103c70502,432 - Reneigh,432 - Reneigh
+0a11000103c80502,433 - Sasha,433 - Sasha
+0a12000103c90502,434 - Ione,434 - Ione
+0a13000103ca0502,435 - Tiansheng,435 - Tiansheng
+0a14000103cb0502,436 - Shino,436 - Shino
+0a15000103cc0502,437 - Marlo,437 - Marlo
+0a16000103cd0502,438 - Petri,438 - Petri
+0a17000103ce0502,439 - Cephalobot,439 - Cephalobot
+0a18000103cf0502,440 - Quinn,440 - Quinn
+0a19000103d00502,441 - Chabwick,441 - Chabwick
+0a1a000103d10502,442 - Zoe,442 - Zoe
+0a1b000103d20502,443 - Ace,443 - Ace
+0a1c000103d30502,444 - Rio,444 - Rio
+0a1d000103d40502,445 - Frett,445 - Frett
+0a1e000103d50502,446 - Azalea,446 - Azalea
+0a1f000103d60502,447 - Roswell,447 - Roswell
+0a20000103d70502,448 - Faith,448 - Faith
+04d30101031b0502,[AC] XS3 - Etoile,[AC] XS3 - Etoile
+032e0101031c0502,[AC] XS4 - Chai,[AC] XS4 - Chai
+02e00101031d0502,[AC] XS5 - Chelsea,[AC] XS5 - Chelsea
+04a80101031e0502,[AC] XS6 - Toby,[AC] XS6 - Toby
+028a000102e90502,[AC] W03 - June,[AC] W03 - June
+0232000102ea0502,[AC] W04 - Piper,[AC] W04 - Piper
+0328000102eb0502,[AC] W05 - Paolo,[AC] W05 - Paolo
+04b6000102ec0502,[AC] W06 - Hornsby,[AC] W06 - Hornsby
+04c8000102ed0502,[AC] W07 - Stella,[AC] W07 - Stella
+04fc000102ee0502,[AC] W08 - Tybalt,[AC] W08 - Tybalt
+0343000102ef0502,[AC] W09 - Huck,[AC] W09 - Huck
+04eb000102f00502,[AC] W10 - Sylvana,[AC] W10 - Sylvana
+0481000102f10502,[AC] W11 - Boris,[AC] W11 - Boris
+0468000102f20502,[AC] W12 - Wade,[AC] W12 - Wade
+03d3000102f30502,[AC] W13 - Carrie,[AC] W13 - Carrie
+0314000102f40502,[AC] W14 - Ketchup,[AC] W14 - Ketchup
+03e8000102f50502,[AC] W15 - Rex,[AC] W15 - Rex
+024d000102f60502,[AC] W16 - Stu,[AC] W16 - Stu
+021c000102f70502,[AC] W17 - Ursala,[AC] W17 - Ursala
+0238000102f80502,[AC] W18 - Jacob,[AC] W18 - Jacob
+02f3000102f90502,[AC] W19 - Maddie,[AC] W19 - Maddie
+0358000102fa0502,[AC] W20 - Billy,[AC] W20 - Billy
+036e000102fb0502,[AC] W21 - Boyd,[AC] W21 - Boyd
+0395000102fc0502,[AC] W22 - Bitty,[AC] W22 - Bitty
+0482000102fd0502,[AC] W23 - Maggie,[AC] W23 - Maggie
+0284000102fe0502,[AC] W24 - Murphy,[AC] W24 - Murphy
+02a3000102ff0502,[AC] W25 - Plucky,[AC] W25 - Plucky
+0438000103000502,[AC] W26 - Sandy,[AC] W26 - Sandy
+049f000103010502,[AC] W27 - Claude,[AC] W27 - Claude
+0347000103020502,[AC] W28 - Raddle,[AC] W28 - Raddle
+043b000103030502,[AC] W29 - Julia,[AC] W29 - Julia
+036d000103040502,[AC] W30 - Louie,[AC] W30 - Louie
+02f4000103050502,[AC] W31 - Bea,[AC] W31 - Bea
+0233000103060502,[AC] W32 - Admiral,[AC] W32 - Admiral
+032a000103070502,[AC] W33 - Ellie,[AC] W33 - Ellie
+02c5000103080502,[AC] W34 - Boots,[AC] W34 - Boots
+0312000103090502,[AC] W35 - Weber,[AC] W35 - Weber
+04140001030a0502,[AC] W36 - Candi,[AC] W36 - Candi
+03ea0001030b0502,[AC] W37 - Leopold,[AC] W37 - Leopold
+04b40001030c0502,[AC] W38 - Spike,[AC] W38 - Spike
+04c90001030d0502,[AC] W39 - Cashmere,[AC] W39 - Cashmere
+03410001030e0502,[AC] W40 - Tad,[AC] W40 - Tad
+02b70001030f0502,[AC] W41 - Norma,[AC] W41 - Norma
+03c0000103100502,[AC] W42 - Gonzo,[AC] W42 - Gonzo
+0439000103110502,[AC] W43 - Sprocket,[AC] W43 - Sprocket
+0206000103120502,[AC] W44 - Snooty,[AC] W44 - Snooty
+0286000103130502,[AC] W45 - Olive,[AC] W45 - Olive
+050f000103140502,[AC] W46 - Dobie,[AC] W46 - Dobie
+044e000103150502,[AC] W47 - Buzz,[AC] W47 - Buzz
+03ab000103160502,[AC] W48 - Cleo,[AC] W48 - Cleo
+021f000103170502,[AC] W49 - Ike,[AC] W49 - Ike
+04ea000103180502,[AC] W50 - Tasha,[AC] W50 - Tasha
+018b000002460502,Cyrrus,Cyrrus
+01960000024e0502,Kapp_n,Kapp_n
+01940000024a0502,Kicks,Kicks
+0193000002480502,Celeste,Celeste
+0192000002470502,Blathers,Blathers
+018d0000024c0502,Rover,Rover
+018c000002430502,Digby,Digby
+018a000002450502,Reese,Reese
+01840000024d0502,Timmy & Tommy,Timmy & Tommy
+01810000024b0502,Summertime Isabelle,Summertime Isabelle
+01020100041a0902,Ganondorf - Tears of the Kingdom,加侬多夫 - 王国之泪
+0101000004190902,Zelda - Tears of the Kingdom,塞尔达 - 王国之泪
+0000000002390602,8-Bit Mario Modern Color,像素马力欧 - 现代配色
+00000003039bff02,Mario - Power Up Band,马力欧 - 能量手环
+000000030430ff02,Golden - Power Up Band,金色 - 能量手环
+00010003039cff02,Luigi - Power Up Band,路易吉 - 能量手环
+0003000000370102,Yoshi,耀西
+00030003039fff02,Yoshi - Power Up Band,耀西 - 能量手环
+0008ff00023b0702,Turbo Charge Donkey Kong,Turbo Charge Donkey Kong
+00130003039eff02,Daisy - Power Up Band,黛西公主 - 能量手环
+0181000101d40502,[AC] CP1 - Isabelle,[AC] CP1 - Isabelle
+0182000101d80502,[AC] CP2 - K.K Slider,[AC] CP2 - K.K Slider
+025f000101d70502,[AC] AF2 - Rosie,[AC] AF2 - Rosie
+05c0000003651302,Samus Aran,萨姆斯 阿兰
+05c1000003661302,Metroid,密特罗德
+05c4000004131302,E.M.M.I.,E.M.M.I.
 09c0010102690e02,Mario - Soccer,Mario - Soccer
 09c00201026a0e02,Mario - Baseball,Mario - Baseball
 09c00301026b0e02,Mario - Tennis,Mario - Tennis
@@ -729,201 +845,85 @@
 09d1030102c00e02,Pink Gold Peach - Tennis,Pink Gold Peach - Tennis
 09d1040102c10e02,Pink Gold Peach - Golf,Pink Gold Peach - Golf
 09d1050102c20e02,Pink Gold Peach - Horse Racing,Pink Gold Peach - Horse Racing
-0a00000103ab0502,404 - Orville,404 - Orville
-0a01000103ac0502,405 - Wilbur,405 - Wilbur
-0a02000103b30502,412 - C.J. ,412 - C.J. 
-0a03000103b40502,413 - Flick,413 - Flick
-0a04000103b50502,414 - Daisy Mae,414 - Daisy Mae
-0a05000103b80502,417 - Harvey,417 - Harvey
-0a06000103ba0502,419 - Wisp,419 - Wisp
-0a07000103bc0502,421 - Niko,421 - Niko
-0a08000103bd0502,422 - Wardell,422 - Wardell
-0a09000103c00502,425 - Sherb,425 - Sherb
-0a0a000103c10502,426 - Megan,426 - Megan
-0a0b000103c20502,427 - Dom,427 - Dom
-0a0c000103c30502,428 - Audie ,428 - Audie 
-0a0d000103c40502,429 - Cyd,429 - Cyd
-0a0e000103c50502,430 - Judy ,430 - Judy 
-0a0f000103c60502,431 - Raymond,431 - Raymond
-0a10000103c70502,432 - Reneigh,432 - Reneigh
-0a11000103c80502,433 - Sasha,433 - Sasha
-0a12000103c90502,434 - Ione,434 - Ione
-0a13000103ca0502,435 - Tiansheng,435 - Tiansheng
-0a14000103cb0502,436 - Shino,436 - Shino
-0a15000103cc0502,437 - Marlo,437 - Marlo
-0a16000103cd0502,438 - Petri,438 - Petri
-0a17000103ce0502,439 - Cephalobot,439 - Cephalobot
-0a18000103cf0502,440 - Quinn,440 - Quinn
-0a19000103d00502,441 - Chabwick,441 - Chabwick
-0a1a000103d10502,442 - Zoe,442 - Zoe
-0a1b000103d20502,443 - Ace,443 - Ace
-0a1c000103d30502,444 - Rio,444 - Rio
-0a1d000103d40502,445 - Frett,445 - Frett
-0a1e000103d50502,446 - Azalea,446 - Azalea
-0a1f000103d60502,447 - Roswell,447 - Roswell
-0a20000103d70502,448 - Faith,448 - Faith
-0a400000041d0002,Min Min,面面
-1902000003830002,Ivysaur,妙娃草
-1906000000240002,Charizard,喷火龙
-1907000003840002,Squirtle,杰尼龟
-1919000000090002,Pikachu,皮卡丘
-1927000000260002,Jigglypuff,胖丁
-19960000023d0002,Mewtwo,超梦
-19ac000003850002,Pichu,皮丘
-1ac0000000110002,Lucario,路卡利欧
-1b92000000250002,Greninja,甲贺忍蛙
-1bd7000003860002,Incineroar,炽焰咆哮虎
-1d000001025c0d02,Shadow Mewtwo,Shadow Mewtwo
-1d01000003750d02,Detective Pikachu,名侦探皮卡丘
-1d40000003870002,Pokemon Trainer,宝可梦训练师
-1f000000000a0002,Kirby,卡比
-1f00000002540c02,Kirby,卡比
-1f01000000270002,Meta Knight,梅塔骑士
-1f01000002550c02,Meta Knight,梅塔骑士
-1f02000000280002,King Dedede,迪迪迪大王
-1f02000002560c02,King Dedede,迪迪迪大王
-1f03000002570c02,Waddle Dee,瓦多鲁迪
-1f400000035e1002,Qbby,丘比
-21000000000b0002,Marth,马尔斯
-2101000000180002,Ike,艾克
-2102000000290002,Lucina,露琪娜
-21030000002a0002,Robin,鲁弗莱
-2104000002520002,Roy,罗伊
-21050000025a0002,Corrin,神威
-2105010003630002,Corrin - Player 2,神威2
-2106000003601202,Alm,阿雷姆
-2107000003611202,Celica,赛莉卡
-21080000036f1202,Chrom,库洛姆
-2108000003880002,Chrom,库洛姆
-2109000003701202,Tiki,琪姬
-210b000003a50002,Byleth,贝雷丝
-22400000002b0002,Shulk,修尔克
 22410000041e0002,Pyra,焰
 22420000041f0002,Mythra,光
+22c00000003a0202,Chibi Robo,小机器人
 22430000043d1b02,Noah,诺亚
 22440000043e1b02,Mio,弥央
-22800000002c0002,Ness,奈斯
-2281000002510002,Lucas,卢卡斯
-22c00000003a0202,Chibi Robo,小机器人
-3200000000300002,Sonic,索尼克
-32400000025b0002,Bayonetta,贝优妮塔
-3240010003640002,Bayonetta - Player 2,贝优妮塔2
-3340000000320002,Pac-Man,吃豆人
-3380000003781402,Solaire of Astora,太阳骑士
-33c0000004200002,Kazuya,一八
-3480000000310002,Mega Man,洛克人
-3480000002580002,Mega Man - Gold Edition,黄金洛克人
-3480000003791502,Mega Man,洛克人
-34c0000002530002,Ryu,隆
-34c0000104a81d02,[Card] Ryu,[卡片] 隆
-34c0000104cb1d02,Ryu,
-34c1000003890002,Ken,肯
-34c1000104a91d02,[Card] Ken,[卡片] 肯
-34c1000104cc1d02,Ken,
-34c2000004aa1d02,Luke,卢克
-34c2000104ab1d02,[Card] Luke,[卡片] 卢克
-34c2000104cd1d02,Luke,
-34c3000004ac1d02,Jamie,杰米
-34c3000104ad1d02,[Card] Jamie,[卡片] 杰米
-34c3000104ce1d02,Jamie,
-34c4000004ae1d02,Kimberly,金伯莉
-34c4000104af1d02,[Card] Kimberly,[卡片] 金伯莉
-34c4000104cf1d02,Kimberly,
-34c5000104b01d02,[Card] Chun-Li,[卡片] 春丽
-34c5000104d01d02,Chun-Li,
-34c6000104b11d02,[Card] Guile,[卡片] 古烈
-34c6000104d11d02,Guile,
-34c7000104b21d02,[Card] Juri,[卡片] 朱莉
-34c7000104d21d02,Juri,
-34c8000104b31d02,[Card] Blanka,[卡片] 布兰卡
-34c8000104d31d02,Blanka,
-34c9000104b41d02,[Card] Dhalsim,[卡片] 达尔锡
-34c9000104d41d02,Dhalsim,
-34ca000104b51d02,[Card] E.Honda,[卡片] 埃德蒙·本田
-34ca000104d51d02,E. Honda,
-34cb000104b61d02,[Card] Dee Jay,[卡片] 迪·杰伊
-34cb000104d61d02,Dee Jay,
-34cc000104b71d02,[Card] Manon,[卡片] 曼侬
-34cc000104d71d02,Manon,
-34cd000104b81d02,[Card] Marisa,[卡片] 玛丽莎
-34cd000104d81d02,Marisa,
-34ce000104b91d02,[Card] JP,[卡片] JP
-34ce000104d91d02,JP,
-34cf000104ba1d02,[Card] Zangief,[卡片] 桑吉尔夫
-34cf000104da1d02,Zangief,
-34d0000104bb1d02,[Card] Lily,[卡片] 莉莉
-34d0000104db1d02,Lily,
-34d1000104bc1d02,[Card] Cammy,[卡片] 嘉米
-34d1000104dc1d02,Cammy,
-34d2000104bd1d02,[Card] Rashid,[卡片] 拉希德
-34d2000104dd1d02,Rashid,
-34d3000104be1d02,[Card] A.K.I.,[卡片] A.K.I.
-34d3000104de1d02,A.K.I,
-34d4000104bf1d02,[Card] ED,[卡片] 艾德
-34d4000104df1d02,Ed,
-34d5000104c01d02,[Card] Akuma,[卡片] 豪鬼
-34d5000104e01d02,Akuma,
-34d6000104e11d02,M. Bison,
-34d6000104eb1d02,M. Bison,
-34d8000104e31d02,Elena,
-34d8000104ec1d02,Elena,
-34d9000104e41d02,Sagat,
-34d9000104ed1d02,Sagat,
-34da000104e51d02,C. Viper,
-34da000104ee1d02,C. Viper,
-34db000104e61d02,Alex,
-34db000104ef1d02,Alex,
-34dc000104e71d02,Ingrid,
-34dc000104f01d02,Ingrid,
-3500010002e10f02,One-Eyed Rathalos and Rider - Male,独眼雄火龙与男骑士
-3500020002e20f02,One-Eyed Rathalos and Rider - Female,独眼雄火龙与女骑士
-3501000002e30f02,Nabiru,纳比露
-3502010002e40f02,Rathian and Cheval,雌火龙与修瓦尔
-3503010002e50f02,Barioth and Ayuria,冰牙龙与亚尤利娅
-3504010002e60f02,Qurupeco and Dan,彩鸟与丹前辈
-35050000040c0f02,Razewing Ratha,毁灭火龙
-35060000040d0f02,Ena,艾娜
-35070000040e0f02,Tsukino,月露
-35080000040f1802,Magnamalo,怨虎龙
-3509000004101802,Palico,随从艾露猫
-35090100042b1802,Palico,随从艾露猫
-350a000004111802,Palamute,随从牙猎犬
-350a0100042c1802,Palamute,随从牙猎犬
-350b0000042d1802,Malzeno,爵银龙
-35c0000002500a02,Shovel Knight,铲子骑士
-35c0000003920a02,Shovel Knight - Gold Edition,黄金铲子骑士
-35c10000036c0a02,Plague Knight,瘟疫骑士
-35c20000036d0a02,Specter Knight,苦痛骑士
-35c30000036e0a02,King Knight,国王骑士
-3600000002590002,Cloud,克劳德
-3600010003620002,Cloud - Player 2,克劳德2
-3601000004210002,Sephiroth,萨菲罗斯
-3640000003a20002,Hero,勇者
-3740000103741402,Super Mario Cereal,马力欧联名麦片
-37800000038a0002,Snake,SNAKE
-37c00000038b0002,Simon,西蒙
-37c10000038c0002,Richter,里希特
-3800000103931702,Pawapuro,Pawapuro
-3801000103941702,Ikari,Ikari
-3802000103951702,Yabe,Yabe
-3803000103961702,Hayakawa,Hayakawa
-3804000103971702,Ganda,Ganda
-3805000103981702,Daijobu,Daijobu
-3840000104241902,Yuga Ohdo,Yuga Ohdo
-3841000104251902,Tatsuhisa “Luke” Kamijō,Tatsuhisa “Luke” Kamijō
-3842000104261902,Gakuto Sōgetsu,Gakuto Sōgetsu
-3843000104271902,Romin Kirishima,Romin Kirishima
-3844000104281902,Roa Kirishima,Roa Kirishima
-3845000104291902,Nail Saionji,Nail Saionji
-38460001042a1902,Asana Mutsuba,Asana Mutsuba
-38c0000003911602,Loot Goblin,藏宝哥布林
-3a00000003a10002,Joker,JOKER
-3b40000003a30002,Banjo & Kazooie,阿邦&阿卡
-3c80000003a40002,Terry,特瑞
-3c80000104e81d02,Terry,
-3c80000104f11d02,Terry,
-3c81000104f21d02,Mai,
-3c81000104f31d02,Mai,
-3dc0000004220002,Steve,史蒂夫
-3dc1000004230002,Alex,艾利克斯
 3f000000042e0002,Sora,索拉
+000900030432ff02,Diddy Kong - Power Up Band,迪迪刚 - 能量手环
+000800030431ff02,Donkey Kong - Power Up Band,咚奇刚 - 能量手环
+0109000004a30902,Riju,露珠
+010a000004a40902,Sidon,希多
+010b000004a50902,Tulin,丘栗
+010c000004a60902,Yunobo,阿沅
+34c2000104ab1d02,[Card] Luke,[卡片] 卢克
+34c3000104ad1d02,[Card] Jamie,[卡片] 杰米
+34cc000104b71d02,[Card] Manon,[卡片] 曼侬
+34c4000104af1d02,[Card] Kimberly,[卡片] 金伯莉
+34cd000104b81d02,[Card] Marisa,[卡片] 玛丽莎
+34d0000104bb1d02,[Card] Lily,[卡片] 莉莉
+34ce000104b91d02,[Card] JP,[卡片] JP
+34c7000104b21d02,[Card] Juri,[卡片] 朱莉
+34cb000104b61d02,[Card] Dee Jay,[卡片] 迪·杰伊
+34d1000104bc1d02,[Card] Cammy,[卡片] 嘉米
+34c0000104a81d02,[Card] Ryu,[卡片] 隆
+34ca000104b51d02,[Card] E.Honda,[卡片] 埃德蒙·本田
+34c8000104b31d02,[Card] Blanka,[卡片] 布兰卡
+34c6000104b11d02,[Card] Guile,[卡片] 古烈
+34c1000104a91d02,[Card] Ken,[卡片] 肯
+34c5000104b01d02,[Card] Chun-Li,[卡片] 春丽
+34cf000104ba1d02,[Card] Zangief,[卡片] 桑吉尔夫
+34c9000104b41d02,[Card] Dhalsim,[卡片] 达尔锡
+34d2000104bd1d02,[Card] Rashid,[卡片] 拉希德
+34d3000104be1d02,[Card] A.K.I.,[卡片] A.K.I.
+34d4000104bf1d02,[Card] ED,[卡片] 艾德
+34d5000104c01d02,[Card] Akuma,[卡片] 豪鬼
+34c2000004aa1d02,Luke,卢克
+34c3000004ac1d02,Jamie,杰米
+34c4000004ae1d02,Kimberly,金伯莉
+00080100042f1a02,Donkey Kong and Pauline,咚奇刚与宝莉
+05c00000043b1302,Samus,萨姆斯
+05c00000043a1302,Samus & Vi-O-La,萨姆斯&薇奥拉
+0001000404401c02,Luigi - My Mario Wooden Blocks,
+0003000404421c02,Yoshi - My Mario Wooden Blocks,
+00000004043f1c02,Mario - My Mario Wooden Blocks,
+0002000404411c02,Peach - My Mario Wooden Blocks,
+34d6000104e11d02,M. Bison,
+3c80000104e81d02,Terry,
+3c81000104f21d02,Mai,
+34d8000104e31d02,Elena,
+34d9000104e41d02,Sagat,
+34da000104e51d02,C. Viper,
+34db000104e61d02,Alex,
+34dc000104e71d02,Ingrid,
+34c2000104cd1d02,Luke,
+34c3000104ce1d02,Jamie,
+34cc000104d71d02,Manon,
+34c4000104cf1d02,Kimberly,
+34cd000104d81d02,Marisa,
+34d0000104db1d02,Lily,
+34ce000104d91d02,JP,
+34c7000104d21d02,Juri,
+34cb000104d61d02,Dee Jay,
+34d1000104dc1d02,Cammy,
+34c0000104cb1d02,Ryu,
+34ca000104d51d02,E. Honda,
+34c8000104d31d02,Blanka,
+34c6000104d11d02,Guile,
+34c1000104cc1d02,Ken,
+34c5000104d01d02,Chun-Li,
+34cf000104da1d02,Zangief,
+34c9000104d41d02,Dhalsim,
+34d2000104dd1d02,Rashid,
+34d3000104de1d02,A.K.I,
+34d4000104df1d02,Ed,
+34d5000104e01d02,Akuma,
+34d6000104eb1d02,M. Bison,
+3c80000104f11d02,Terry,
+3c81000104f31d02,Mai,
+34d8000104ec1d02,Elena,
+34d9000104ed1d02,Sagat,
+34da000104ee1d02,C. Viper,
+34db000104ef1d02,Alex,
+34dc000104f01d02,Ingrid,
