@@ -4,13 +4,30 @@
   "version": "2.0.0",
   "tasks": [
     {
-      "label": "make flash openocd",
+      "label": "Build Pixl.js",
       "type": "shell",
       "options": {
         "cwd": "${workspaceFolder}"
       },
-      "command": "make all flash_openocd -j8",
-      "group": "build"
+      "command": "make all -j64",
+      "group": {
+        "kind": "build",
+        "isDefault": true
+      },
+      "problemMatcher": []
+    },
+    {
+      "label": "Flash Pixl.js",
+      "type": "shell",
+      "options": {
+        "cwd": "${workspaceFolder}"
+      },
+      "command": "make flash_ocd",
+      "group": {
+        "kind": "test",
+        "isDefault": true
+      },
+      "problemMatcher": []
     }
   ]
 }
