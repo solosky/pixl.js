@@ -930,5 +930,8 @@ const db_amiibo_t amiibo_list[] = {
 {0x34da0001, 0x04ee1d02, "C. Viper", ""}, 
 {0x34db0001, 0x04ef1d02, "Alex", ""}, 
 {0x34dc0001, 0x04f01d02, "Ingrid", ""}, 
+{0x05c50000, 0x043c1302, "Sylux", "赛拉克斯"}, 
+{0x1f000000, 0x04c41e03, "Kirby", "None"}, 
+{0x1f030100, 0x04c91e03, "Bandana Waddle Dee", "None"}, 
 {0, 0, 0, 0}
 };
