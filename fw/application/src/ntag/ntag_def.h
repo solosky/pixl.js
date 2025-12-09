@@ -29,12 +29,16 @@ typedef struct {
     ntag_type_t type;
 } ntag_t;
 
-inline size_t _ntag_data_size(ntag_t* tag) {
+static inline size_t _ntag_data_size(ntag_t* tag) {
     if (tag->type == NTAG_215) {
         return NTAG_DATA_SIZE;
     } else {
         return NTAG_I2C_2K_DATA_SIZE;
     }
+}
+
+static inline bool is_valid_amiibo_ntag_by_size(size_t size) {
+    return size == NTAG_DATA_SIZE || size == NTAG_I2C_2K_DATA_SIZE || size == NTAG_TAGMO_DATA_SIZE || size == NTAG_THENAYA_DATA_SIZE;
 }
 
 #endif /* NTAG_DEF_H_ */
