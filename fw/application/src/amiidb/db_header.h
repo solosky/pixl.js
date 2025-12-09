@@ -2,6 +2,7 @@
 #define AMIIDB_DATA_H
 
 #include <stdint.h>
+#include <stddef.h>
 
 typedef struct {
     uint32_t head;
@@ -34,6 +35,7 @@ typedef struct _db_link_t {
 } db_link_t;
 
 extern const db_amiibo_t amiibo_list[];
+extern const size_t amiibo_list_size;
 extern const db_game_t game_list[];
 extern const db_link_t link_list[];
 
