@@ -18,7 +18,7 @@
 #define AMIIID_SIZE 8
 
 // to avoid stack-allocating the new larger ntag_t struct
-static ntag_t ntag_new;
+// static ntag_t ntag_new;
 
 static nfc3d_amiibo_keys amiibo_keys;
 static bool amiibo_keys_loaded;
@@ -143,6 +143,8 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
     ret_code_t err_code;
     ntag_t *ntag_current = ntag;
 
+    ntag_t ntag_new;
+
     memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
 
     if (!is_valid_amiibo_ntag(ntag_current)) {
@@ -169,6 +171,7 @@ ret_code_t amiibo_helper_rand_amiibo_uuid(ntag_t *ntag) {
 ret_code_t amiibo_helper_set_amiibo_uuid(ntag_t *ntag, uint8_t *uuid) {
     ret_code_t err_code;
     ntag_t *ntag_current = ntag;
+    ntag_t ntag_new;
 
     memcpy(&ntag_new, ntag_current, sizeof(ntag_t));
 
