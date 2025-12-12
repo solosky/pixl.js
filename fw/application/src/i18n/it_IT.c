@@ -31,6 +31,7 @@ const char * const lang_it_IT[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Aggiornamento firmware",
     [_L_APP_SET_REBOOT] = "Riavvio del sistema",
+    [_L_APP_SET_SHUTDOWN] = "Spegnere",
     [_L_APP_SET_RESET_DEFAULT] = "Ripristina impostazioni predefinite",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Ripristino riuscito!",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "Conferma il ripristino delle impostazioni?",

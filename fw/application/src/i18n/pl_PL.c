@@ -31,6 +31,7 @@ const char * const lang_pl_PL[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "Uśpij Teraz",
     [_L_APP_SET_DFU] = "Aktualizacja Oprogramowania",
     [_L_APP_SET_REBOOT] = "Restart Systemu",
+    [_L_APP_SET_SHUTDOWN] = "Wyłączenie",
     [_L_APP_SET_RESET_DEFAULT] = "Przywróć Domyślne Ustawienia",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Resetowanie Zakończone!",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "Zresetować Ustawienia?",

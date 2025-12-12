@@ -31,6 +31,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "進入休眠",
     [_L_APP_SET_DFU] = "軟體升級",
     [_L_APP_SET_REBOOT] = "重啟設備",
+    [_L_APP_SET_SHUTDOWN] = "關機",
     [_L_APP_SET_RESET_DEFAULT] = "重置默認配置",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "重置成功",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "确认重置默认设置？",

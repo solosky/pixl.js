@@ -22,6 +22,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_GO_SLEEP,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_REBOOT,
+    SETTINGS_MAIN_MENU_SHUTDOWN,
     SETTINGS_MAIN_MENU_RESET_DEFAULT,
     SETTINGS_MAIN_MENU_ABOUT,
     SETTINGS_MAIN_MENU_APP_MANAGEMENT,
@@ -128,6 +129,11 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         system_reboot();
         break;
 
+    case SETTINGS_MAIN_MENU_SHUTDOWN:
+        settings_save();
+        nrf_pwr_mgmt_shutdown(NRF_PWR_MGMT_SHUTDOWN_GOTO_SYSOFF);
+        break;
+
     case SETTINGS_MAIN_MENU_RESET_DEFAULT: {
         mui_msg_box_set_header(app->p_msg_box, _T(APP_SET_RESET_DEFAULT));
         mui_msg_box_set_message(app->p_msg_box, _T(APP_SET_RESET_DEFAULT_CONFIRM));
@@ -215,6 +221,7 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item(app->p_list_view, 0xe1c9, _T(APP_SET_GO_SLEEP), (void *)SETTINGS_MAIN_MENU_GO_SLEEP);
     mui_list_view_add_item(app->p_list_view, 0xe1ca, _T(APP_SET_DFU), (void *)SETTINGS_MAIN_MENU_DFU);
     mui_list_view_add_item(app->p_list_view, 0xe1cb, _T(APP_SET_REBOOT), (void *)SETTINGS_MAIN_MENU_REBOOT);
+    mui_list_view_add_item(app->p_list_view, 0xe1cc, _T(APP_SET_SHUTDOWN), (void *)SETTINGS_MAIN_MENU_SHUTDOWN);
     mui_list_view_add_item(app->p_list_view, 0xe1ce, _T(APP_SET_RESET_DEFAULT),
                            (void *)SETTINGS_MAIN_MENU_RESET_DEFAULT);
 

@@ -31,6 +31,7 @@ const char * const lang_sv_SE[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "Viloläge",
     [_L_APP_SET_DFU] = "Firmware-uppdatering",
     [_L_APP_SET_REBOOT] = "Starta om",
+    [_L_APP_SET_SHUTDOWN] = "Stäng av",
     [_L_APP_SET_RESET_DEFAULT] = "Fabriksinställningar",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Återställning lyckad!",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "Bekräfta återställning av inställningar?",

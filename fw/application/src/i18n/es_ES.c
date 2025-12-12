@@ -31,6 +31,7 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "Dormir",
     [_L_APP_SET_DFU] = "Actualizar firmware",
     [_L_APP_SET_REBOOT] = "Reiniciar",
+    [_L_APP_SET_SHUTDOWN] = "Apagar",
     [_L_APP_SET_RESET_DEFAULT] = "Restablecer config.",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "¡Configuración Restablecida!",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "¿Confirma Restablecer\nConfig.?",

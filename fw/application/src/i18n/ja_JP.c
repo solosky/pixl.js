@@ -31,6 +31,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "ファームウェア更新",
     [_L_APP_SET_REBOOT] = "システム再起動",
+    [_L_APP_SET_SHUTDOWN] = "シャットダウン",
     [_L_APP_SET_RESET_DEFAULT] = "デフォルト設定に戻す",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "設定を初期化",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",

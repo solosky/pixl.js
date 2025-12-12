@@ -31,6 +31,7 @@ const char * const lang_pt_PT[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Atualizações",
     [_L_APP_SET_REBOOT] = "Reiniciar",
+    [_L_APP_SET_SHUTDOWN] = "Desligar",
     [_L_APP_SET_RESET_DEFAULT] = "Repor Definições",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Reposição Completa!",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",

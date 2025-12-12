@@ -31,6 +31,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "В режим сна",
     [_L_APP_SET_DFU] = "Обновление ПО",
     [_L_APP_SET_REBOOT] = "Перезагрузка",
+    [_L_APP_SET_SHUTDOWN] = "Выключение",
     [_L_APP_SET_RESET_DEFAULT] = "Сброс настроек",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Сброс выполнен",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "Выполнить?",

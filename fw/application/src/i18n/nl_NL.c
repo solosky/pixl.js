@@ -31,6 +31,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_SET_GO_SLEEP] = "",
     [_L_APP_SET_DFU] = "Firmware Bijwerken",
     [_L_APP_SET_REBOOT] = "Systeem Herstarten",
+    [_L_APP_SET_SHUTDOWN] = "Uitschakelen",
     [_L_APP_SET_RESET_DEFAULT] = "Terugzetten Naar Standaardwaarden",
     [_L_APP_SET_RESET_DEFAULT_SUCCESS] = "Standaardinstellingen Herstellen",
     [_L_APP_SET_RESET_DEFAULT_CONFIRM] = "",
