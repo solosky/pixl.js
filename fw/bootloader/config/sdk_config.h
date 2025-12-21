@@ -278,7 +278,7 @@
 // <e> NRF_BL_DFU_ENTER_METHOD_BUTTON - Enter DFU mode on button press.
 //==========================================================
 #ifndef NRF_BL_DFU_ENTER_METHOD_BUTTON
-#define NRF_BL_DFU_ENTER_METHOD_BUTTON 0
+#define NRF_BL_DFU_ENTER_METHOD_BUTTON 1
 #endif
 // <o> NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN  - Button for entering DFU mode.
  
@@ -316,7 +316,7 @@
 // <31=> 31 (P0.31) 
 
 #ifndef NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN
-#define NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN 6
+#define NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN 7   // stick RIGHT
 #endif
 
 // </e>
