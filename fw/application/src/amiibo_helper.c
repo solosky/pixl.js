@@ -224,6 +224,91 @@ ret_code_t amiibo_helper_generate_amiibo_ntag215(uint32_t head, uint32_t tail, n
     return NRF_SUCCESS;
 }
 
+ret_code_t amiibo_helper_generate_amiibo_v3(uint32_t head, uint32_t tail, ntag_t *ntag) {
+    if (!amiibo_helper_is_key_loaded()) {
+        return NRF_ERROR_INVALID_DATA;
+    }
+
+    // Step 1: Generate regular amiibo data first
+    ret_code_t err_code = amiibo_helper_generate_amiibo_ntag215(head, tail, ntag);
+    if (err_code != NRF_SUCCESS) {
+        return err_code;
+    }
+
+    // Step 2: Convert to v3 format (NTAG_I2C_PLUS_2K)
+    ntag->type = NTAG_I2C_PLUS_2K;
+    
+    // Calculate the size of data that needs to be moved back (from 0x80 onwards)
+    size_t data_to_move_size = NTAG_DATA_SIZE - 0x80;
+    
+    // Move data from 0x80 onwards 0x40 bytes back to make room for new_nonce
+    // Using memmove for safe overlapping memory operations
+    memmove(ntag->data + 0x80 + 0x40, ntag->data + 0x80, data_to_move_size);
+    
+    // Clear the new_nonce area (0x40 bytes at 0x80)
+    memset(ntag->data + 0x80, 0, 0x40);
+    
+    // Calculate total size after adding new_nonce
+    size_t total_size_after_nonce = NTAG_DATA_SIZE + 0x40;
+    
+    // Padding up to page 0xE2 (each page is 4 bytes)
+    // Page 0xE2 starts at 0xE2 * 4 = 0x388
+    if (total_size_after_nonce < 0x388) {
+        memset(ntag->data + total_size_after_nonce, 0, 0x388 - total_size_after_nonce);
+    }
+    
+    // Page E2: dynamic lock bytes
+    memcpy(ntag->data + 0x388, (uint8_t[]){0x01, 0x00, 0xFF, 0x00}, 4);
+    
+    // Page E3: auth0
+    memcpy(ntag->data + 0x38C, (uint8_t[]){0x00, 0x00, 0x00, 0x04}, 4);
+    
+    // Page E4: access
+    memcpy(ntag->data + 0x390, (uint8_t[]){0x07, 0x00, 0x00, 0x00}, 4);
+    
+    // Pages E5-EB: zeros
+    memset(ntag->data + 0x394, 0, (0xEC - 0xE5) * 4);
+    
+    // Page EC: default config + sram enabled
+    memcpy(ntag->data + 0x3B0, (uint8_t[]){0x41, 0x00, 0xF8, 0x48}, 4);
+    
+    // Page ED: default config + sram_rf_ready
+    memcpy(ntag->data + 0x3B4, (uint8_t[]){0x08, 0x01, 0x29, 0x00}, 4);
+    
+    // Add 8 bytes of zeros
+    memset(ntag->data + 0x3B8, 0, 8);
+    
+    // Generate sram_data directly in ntag->data memory
+    size_t sram_data_offset = 0x3C0;
+    size_t sram_data_size = 0x40;
+    
+    // Clear sram_data area
+    memset(ntag->data + sram_data_offset, 0, sram_data_size);
+    
+    // Calculate CRC16-MCRF4XX for sram_data (first 0x3e bytes)
+    uint16_t crc = crc16_mcrf4xx(ntag->data + sram_data_offset, 0x3e);
+    
+    // Add CRC to sram_data (big endian)
+    ntag->data[sram_data_offset + 0x3e] = (crc >> 8) & 0xFF;
+    ntag->data[sram_data_offset + 0x3f] = crc & 0xFF;
+    
+    // Add padding to reach 256*4 bytes (1024 bytes)
+    size_t padding_start = sram_data_offset + sram_data_size;
+    if (padding_start < 1024) {
+        memset(ntag->data + padding_start, 0, 1024 - padding_start);
+    }
+    
+    return NRF_SUCCESS;
+}
+
+ret_code_t amiibo_helper_generate_amiibo(uint32_t head, uint32_t tail, ntag_t *ntag) {
+    if (is_valid_amiibo_v3(head, tail)) {
+        return amiibo_helper_generate_amiibo_v3(head, tail, ntag);
+    }else{
+        return amiibo_helper_generate_amiibo_ntag215(head, tail, ntag);
+    }
+}
+
 void amiibo_helper_try_load_amiibo_keys_from_vfs() {
     if (!amiibo_helper_is_key_loaded() && vfs_drive_enabled(VFS_DRIVE_EXT)) {
         uint8_t key_data[160];
@@ -268,4 +353,19 @@ bool is_valid_amiibo_ntag(const ntag_t *ntag) {
     }
 
     return false;
+}
+
+uint16_t crc16_mcrf4xx(const uint8_t* data, size_t length) {
+    uint16_t crc = 0xffff;
+    for (size_t i = 0; i < length; i++) {
+        crc ^= data[i];
+        for (int j = 0; j < 8; j++) {
+            if (crc & 1) {
+                crc = (crc >> 1) ^ 0x8408;
+            } else {
+                crc = (crc >> 1);
+            }
+        }
+    }
+    return crc & 0xffff;
 }

@@ -91,8 +91,7 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
             if (add_cnt < LIST_VIEW_ITEM_MAX_COUNT) {
                 const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_link->head, p_link->tail);
                 if (p_amiibo) {
-                    const char *name =
-                        p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+                    const char *name = get_amiibo_display_name(p_amiibo);
                     mui_list_view_add_item(app->p_list_view, ICON_FILE, name, (void *)p_amiibo);
                 } else {
                     sprintf(txt, "Amiibo[%08x:%08x]", p_link->head, p_link->tail);

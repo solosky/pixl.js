@@ -1,5 +1,7 @@
 #include "db_header.h"
 
+#include "settings.h"
+
 const db_amiibo_t * get_amiibo_by_id(uint32_t head, uint32_t tail){
     int left = 0;
     int right = amiibo_list_size - 1;
@@ -28,4 +30,20 @@ const db_link_t* get_link_by_id(uint8_t game_id, uint32_t head, uint32_t tail){
         link += 1;
     }
     return 0;
+}
+
+bool is_valid_amiibo_v3(uint32_t head, uint32_t tail){
+    const db_v3_t  *v3 = v3_list;
+    while(v3->head > 0){
+        if(v3->head == head && v3->tail == tail){
+            return true;
+        }
+        v3 += 1;
+    }
+    return false;
+}
+
+const char* get_amiibo_display_name(db_amiibo_t *amiibo){
+     uint8_t language = settings_get_data()->language;
+    return language == LANGUAGE_ZH_HANS  && amiibo->name_cn[0] != '\0' ? amiibo->name_cn : amiibo->name_en;
 }

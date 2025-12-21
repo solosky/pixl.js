@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stddef.h>
+#include <stdbool.h>
 
 typedef struct {
     uint32_t head;
@@ -34,12 +35,21 @@ typedef struct _db_link_t {
     
 } db_link_t;
 
+typedef struct _db_v3_t {
+    uint32_t head;
+    uint32_t tail;
+} db_v3_t;
+
 extern const db_amiibo_t amiibo_list[];
+extern const db_v3_t v3_list[];
 extern const size_t amiibo_list_size;
 extern const db_game_t game_list[];
 extern const db_link_t link_list[];
 
 const db_amiibo_t * get_amiibo_by_id(uint32_t head, uint32_t tail);
 const db_link_t* get_link_by_id(uint8_t game_id, uint32_t head, uint32_t tail);
+bool is_valid_amiibo_v3(uint32_t head, uint32_t tail);
+
+const char* get_amiibo_display_name(db_amiibo_t *amiibo);
 
 #endif

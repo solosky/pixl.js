@@ -328,6 +328,7 @@ SRC_FILES += \
   $(PROJ_DIR)/amiidb/db_amiibo.c \
   $(PROJ_DIR)/amiidb/db_game.c \
   $(PROJ_DIR)/amiidb/db_link.c \
+  $(PROJ_DIR)/amiidb/db_v3.c \
   $(PROJ_DIR)/amiidb/db_search.c \
   $(PROJ_DIR)/sdk/nrfx/nrfx_nfct.c \
   $(PROJ_DIR)/sdk/pwr_mgmt/nrf_pwr_mgmt.c \
