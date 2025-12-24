@@ -41,7 +41,6 @@ typedef struct _db_v3_t {
 } db_v3_t;
 
 extern const db_amiibo_t amiibo_list[];
-extern const db_v3_t v3_list[];
 extern const size_t amiibo_list_size;
 extern const db_game_t game_list[];
 extern const db_link_t link_list[];

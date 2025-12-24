@@ -33,14 +33,7 @@ const db_link_t* get_link_by_id(uint8_t game_id, uint32_t head, uint32_t tail){
 }
 
 bool is_valid_amiibo_v3(uint32_t head, uint32_t tail){
-    const db_v3_t  *v3 = v3_list;
-    while(v3->head > 0){
-        if(v3->head == head && v3->tail == tail){
-            return true;
-        }
-        v3 += 1;
-    }
-    return false;
+    return (tail & 0xFF) == 0x03;
 }
 
 const char* get_amiibo_display_name(db_amiibo_t *amiibo){
