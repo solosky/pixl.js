@@ -109,10 +109,22 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length, uint
     case NFC_CMD_READ:
         NRF_LOG_INFO("NFC Read Block %d", block_num);
         int full_block = ((int) ntag_emu.sector * 256 + block_num);
-        if (full_block * 4 < _ntag_data_size(&ntag_emu.ntag))
-            APP_ERROR_CHECK(hal_nfc_send(&plain[full_block * 4], 16));
-        else
+        if ((full_block + 3) * 4 < _ntag_data_size(&ntag_emu.ntag)) {
+            static uint8_t chunk_data[16] = {0};
+            memcpy(chunk_data, &plain[full_block*4], 16);
+
+            // READ command will return 4 pages (16 bytes)
+            // empirically, S2 with JC1 will poll page 0xEC to read SRAM_RF_READY (which is in ED)
+            if (ntag_emu.ntag.type == NTAG_I2C_PLUS_2K && full_block == 0xEC) {
+                // set NS_REG.SRAM_RF_READY (byte 2 of page ED)
+                // switch 2 will poll until this is set, and *then* read sram pages
+                chunk_data[6] |= 0b1000;
+            }
+
+            APP_ERROR_CHECK(hal_nfc_send(chunk_data, 16));
+        } else {
             hal_send_ack_nack(0x0);
+        }
         break;
     case N2_CMD_WRITE:
         // similar to write but with one extra paramter to specify the bank number
