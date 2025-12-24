@@ -79,7 +79,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         ntag->read_only = true;
     }
 
-    ntag_type_t tag_type = obj.size == 2048 ? NTAG_I2C_PLUS_2K : NTAG_215;
+    ntag_type_t tag_type = _ntag_type(obj.size);
     ntag->type = tag_type;
 
     res = p_vfs_driver->read_file_data(path, ntag->data, _ntag_data_size(ntag));

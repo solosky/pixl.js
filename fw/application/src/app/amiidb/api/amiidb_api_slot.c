@@ -26,6 +26,8 @@ int32_t amiidb_api_slot_read(uint8_t slot, ntag_t *p_ntag) {
         return -1;
     }
 
+    p_ntag->type = _ntag_type(res);
+
     if (meta.has_notes) {
         strcpy(p_ntag->notes, meta.notes);
     }
