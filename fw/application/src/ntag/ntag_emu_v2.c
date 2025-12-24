@@ -173,7 +173,6 @@ static void nfc_received_process(const uint8_t *p_data, size_t data_length, uint
     case NFC_CMD_FAST_READ:
         int start_page = block_num + (ntag_emu.sector * 256);
         int end_page = p_data[2] + (ntag_emu.sector * 256);
-        NRF_LOG_INFO("NFC Fast Read %04x:%02x", start_page, end_page);
         int page_count = end_page - start_page + 1;
 
         if (ntag_emu.ntag.type == NTAG_I2C_PLUS_2K && start_page == 0xed && end_page == 0xed) {
