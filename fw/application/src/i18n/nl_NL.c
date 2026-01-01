@@ -147,6 +147,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Sorteerveld",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Standaard",
     [_L_APP_AMIIDB_SORT_NAME] = "Naam",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Kaart Emulator",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normaal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Weigeren",

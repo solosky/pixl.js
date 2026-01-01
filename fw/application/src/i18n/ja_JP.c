@@ -147,6 +147,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "並べ替えフィールド",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "デフォルト",
     [_L_APP_AMIIDB_SORT_NAME] = "名前",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "カードエミュレータ",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "通常",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "拒否",

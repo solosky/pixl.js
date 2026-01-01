@@ -33,10 +33,15 @@ static void amiidb_scene_game_list_list_view_on_selected(mui_list_view_event_t e
 
     case ICON_FILE: {
         const db_amiibo_t *p_amiibo = p_item->user_data;
-        app->cur_amiibo = p_amiibo;
-        app->cur_slot_index = mui_list_view_get_focus(p_list_view);
-        app->prev_scene_id = AMIIDB_SCENE_GAME_LIST;
-        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
+
+        if(is_valid_amiibo_v3(p_amiibo->head, p_amiibo->tail)){
+            mui_toast_view_show(app->p_toast_view, _T(APP_AMIIDB_NOT_SUPPORT_V3));
+        }else{
+            app->cur_amiibo = p_amiibo;
+            app->cur_slot_index = mui_list_view_get_focus(p_list_view);
+            app->prev_scene_id = AMIIDB_SCENE_GAME_LIST;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
+        }
     } break;
     }
 }

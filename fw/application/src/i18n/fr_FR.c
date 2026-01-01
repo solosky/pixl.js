@@ -147,6 +147,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Champ de tri",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Par défaut",
     [_L_APP_AMIIDB_SORT_NAME] = "Nom",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Emulateur de Carte",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Refuser",

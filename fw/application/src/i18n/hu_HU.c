@@ -147,6 +147,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Rendezési mező",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Alapértelmezett",
     [_L_APP_AMIIDB_SORT_NAME] = "Név",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Kártya Emulátor",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normál",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Tagadni",

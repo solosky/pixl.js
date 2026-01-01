@@ -147,6 +147,7 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Sortierfeld",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Standard",
     [_L_APP_AMIIDB_SORT_NAME] = "Name",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Karten Emulator",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Verweigern",

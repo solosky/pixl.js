@@ -147,6 +147,7 @@ const char * const lang_en_US[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Sort Field",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Default",
     [_L_APP_AMIIDB_SORT_NAME] = "Name",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "Not support for v3\namiibo!",
     [_L_APP_CHAMELEON] = "Card Emulator",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Deny",

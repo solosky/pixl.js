@@ -147,6 +147,7 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Campo de ordenación",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Por defecto",
     [_L_APP_AMIIDB_SORT_NAME] = "Nombre",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Emular Etiqueta RFID",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Negar",
