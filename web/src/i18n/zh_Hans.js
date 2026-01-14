@@ -10,6 +10,7 @@ export default {
     ru: 'Русский',
     de: 'Deutsch',
     sv: 'Svenska',
+    ja: '日本語',
     changeok: '语言切换成功！'
   },
   btn: {
