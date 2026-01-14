@@ -7,6 +7,7 @@ import elementZhTwLocale from 'element-ui/lib/locale/lang/zh-TW' // element-ui l
 import elementRuLocale from 'element-ui/lib/locale/lang/ru-RU' // element-ui lang
 import elementDeLocale from 'element-ui/lib/locale/lang/de' // element-ui lang
 import elementSvLocale from 'element-ui/lib/locale/lang/sv-SE' // element-ui lang
+import elementSvLocale from 'element-ui/lib/locale/lang/ja-JP' // element-ui lang
 import enLocale from './en_US'
 import zhTWLocale from './zh_TW'
 import zhCNLocale from './zh_Hans'
@@ -14,6 +15,7 @@ import esLocale from './es_ES'
 import ruLocale from './ru_RU'
 import deLocale from './de_DE'
 import svLocale from './sv_SE'
+import svLocale from './ja_JP'
 
 
 Vue.use(VueI18n)
@@ -44,6 +46,10 @@ const messages = {
     ... elementDeLocale
   },
   sv_SE: {
+    ... svLocale,
+    ... elementSvLocale
+  },
+  ja_JP: {
     ... svLocale,
     ... elementSvLocale
   }
