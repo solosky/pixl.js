@@ -15,7 +15,7 @@ import esLocale from './es_ES'
 import ruLocale from './ru_RU'
 import deLocale from './de_DE'
 import svLocale from './sv_SE'
-import svLocale from './ja_JP'
+import jaLocale from './ja_JP'
 
 
 Vue.use(VueI18n)
