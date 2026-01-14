@@ -50,8 +50,8 @@ const messages = {
     ... elementSvLocale
   },
   ja_JP: {
-    ... svLocale,
-    ... elementSvLocale
+    ... jaLocale,
+    ... elementJaLocale
   }
 }
 export function getLanguage() {
