@@ -58,7 +58,7 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         return NRF_ERR_READ_ERROR;
     }
 
-    if (obj.size != 540 && obj.size != 532 && obj.size != 572) {
+    if (obj.size != 540 && obj.size != 532 && obj.size != 572 && obj.size != 2048) {
         return NRF_ERR_NOT_AMIIBO;
     }
 
@@ -79,8 +79,11 @@ static int32_t ntag_read(vfs_driver_t *p_vfs_driver, const char *path, ntag_t *n
         ntag->read_only = true;
     }
 
-    res = p_vfs_driver->read_file_data(path, ntag->data, 540);
-    if (res != 540 && res != 532) {
+    ntag_type_t tag_type = _ntag_type(obj.size);
+    ntag->type = tag_type;
+
+    res = p_vfs_driver->read_file_data(path, ntag->data, _ntag_data_size(ntag));
+    if (res != 540 && res != 532 && res != 2048) {
         return NRF_ERR_READ_ERROR;
     }
     return NRF_SUCCESS;
@@ -108,7 +111,7 @@ static void ntag_update(app_amiibo_t *app, ntag_t *p_ntag) {
     cwalk_append_segment(path, string_get_cstr(app->current_folder), string_get_cstr(app->current_file));
 
     // save to fs
-    int32_t res = p_driver->write_file_data(path, p_ntag->data, sizeof(p_ntag->data));
+    int32_t res = p_driver->write_file_data(path, p_ntag->data, _ntag_data_size(p_ntag));
     if (res > 0) {
         uint32_t head = to_little_endian_int32(&p_ntag->data[84]);
         uint32_t tail = to_little_endian_int32(&p_ntag->data[88]);
@@ -192,10 +195,8 @@ static void amiibo_scene_amiibo_detail_reload_files(app_amiibo_t *app) {
             vfs_meta_t meta;
             memset(&meta, 0, sizeof(vfs_meta_t));
             vfs_meta_decode(obj.meta, sizeof(obj.meta), &meta);
-            if (obj.type == VFS_TYPE_REG &&
-                (obj.size == NTAG_DATA_SIZE || obj.size == NTAG_TAGMO_DATA_SIZE ||
-                 obj.size == NTAG_THENAYA_DATA_SIZE) &&
-                (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
+            if (obj.type == VFS_TYPE_REG && is_valid_amiibo_ntag_by_size(obj.size)
+                 && (!meta.has_flags || !(meta.flags & VFS_OBJ_FLAG_HIDDEN))) {
                 string_set_str(file_name, obj.name);
                 string_array_push_back(app->amiibo_files, file_name);
             }

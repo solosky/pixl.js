@@ -147,6 +147,7 @@ const char * const lang_pl_PL[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Pole sortowania",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Domyślne",
     [_L_APP_AMIIDB_SORT_NAME] = "Nazwa",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Emulator Kart",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normalny",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Odmów",

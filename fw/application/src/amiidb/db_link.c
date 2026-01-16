@@ -1320,5 +1320,10 @@ const db_link_t link_list[] = {
 {72, 0x34da0001, 0x04ee1d02, "", "", ""}, 
 {72, 0x34db0001, 0x04ef1d02, "", "", ""}, 
 {72, 0x34dc0001, 0x04f01d02, "", "", ""}, 
+{74, 0x05c00000, 0x043b1302, "Change background music while riding Vi-O-La/Replenish health and boost max health by 99 once per day", "每日解锁能量护盾/更改薇奥拉的BGM", ""}, 
+{74, 0x05c00000, 0x043a1302, "Change Vi-O-La's color/Improve Vi-O-La boost regeneration once per day/See total distance traveled on Vi-O-La", "每日提速薇奥拉加速能量恢复/更改薇奥拉的颜色/查看薇奥拉行驶总里程", ""}, 
+{74, 0x05c50000, 0x043c1302, "View a particular completed cutscene after beating game without needing 100% completion/Hear a random voice line from Sylux", "提前解锁完整剧情过场/随机播放赛拉克斯语音", ""}, 
+{75, 0x1f000000, 0x04c41e03, "", "", ""}, 
+{75, 0x1f030100, 0x04c91e03, "", "", ""}, 
 {0, 0, 0, 0, 0, 0}
 };

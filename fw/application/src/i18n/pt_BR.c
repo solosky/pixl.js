@@ -147,6 +147,7 @@ const char * const lang_pt_BR[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Campo de Ordenação",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Padrão",
     [_L_APP_AMIIDB_SORT_NAME] = "Nome",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Emulador de Cartão",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Negar",

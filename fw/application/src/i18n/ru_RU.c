@@ -147,6 +147,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Сортировка",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "По умолчанию",
     [_L_APP_AMIIDB_SORT_NAME] = "По алфавиту",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "Amiibo версии 3\n не поддерживаются!",
     [_L_APP_CHAMELEON] = "Эмулятор карт",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Разрешена",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Запрещена",

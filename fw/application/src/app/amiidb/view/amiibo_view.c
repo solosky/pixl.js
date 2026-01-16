@@ -44,7 +44,7 @@ static void amiibo_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
     const db_amiibo_t *amd = get_amiibo_by_id(head, tail);
     if (amd != NULL) {
         const char *name =
-            (getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) ? amd->name_cn : amd->name_en;
+            (getLanguage() == LANGUAGE_ZH_TW || getLanguage() == LANGUAGE_ZH_HANS) && strlen(amd->name_cn) > 0 ? amd->name_cn : amd->name_en;
 
         if (ntag->read_only) {
             mui_canvas_set_font(p_canvas, u8g2_font_siji_t_6x10);

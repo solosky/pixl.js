@@ -147,6 +147,7 @@ const char * const lang_it_IT[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Campo di ordinamento",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Predefinito",
     [_L_APP_AMIIDB_SORT_NAME] = "Nome",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Emula tag RFID",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normale",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Nega",

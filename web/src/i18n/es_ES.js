@@ -8,6 +8,7 @@ export default {
     ru: 'Русский',
     de: 'Deutsch',
     sv: 'Svenska',
+    ja: '日本語',
     changeok: 'Cambio Idioma Satisfactorio'
   },
   btn: {

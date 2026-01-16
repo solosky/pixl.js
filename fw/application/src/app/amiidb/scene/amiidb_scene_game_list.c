@@ -33,10 +33,15 @@ static void amiidb_scene_game_list_list_view_on_selected(mui_list_view_event_t e
 
     case ICON_FILE: {
         const db_amiibo_t *p_amiibo = p_item->user_data;
-        app->cur_amiibo = p_amiibo;
-        app->cur_slot_index = mui_list_view_get_focus(p_list_view);
-        app->prev_scene_id = AMIIDB_SCENE_GAME_LIST;
-        mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
+
+        if(is_valid_amiibo_v3(p_amiibo->head, p_amiibo->tail)){
+            mui_toast_view_show(app->p_toast_view, _T(APP_AMIIDB_NOT_SUPPORT_V3));
+        }else{
+            app->cur_amiibo = p_amiibo;
+            app->cur_slot_index = mui_list_view_get_focus(p_list_view);
+            app->prev_scene_id = AMIIDB_SCENE_GAME_LIST;
+            mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIDB_SCENE_AMIIBO_DETAIL);
+        }
     } break;
     }
 }
@@ -91,8 +96,7 @@ static void amiidb_scene_game_list_reload(app_amiidb_t *app) {
             if (add_cnt < LIST_VIEW_ITEM_MAX_COUNT) {
                 const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_link->head, p_link->tail);
                 if (p_amiibo) {
-                    const char *name =
-                        p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+                    const char *name = get_amiibo_display_name(p_amiibo);
                     mui_list_view_add_item(app->p_list_view, ICON_FILE, name, (void *)p_amiibo);
                 } else {
                     sprintf(txt, "Amiibo[%08x:%08x]", p_link->head, p_link->tail);

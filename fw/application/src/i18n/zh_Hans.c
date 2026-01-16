@@ -147,6 +147,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "排序字段",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "默认",
     [_L_APP_AMIIDB_SORT_NAME] = "名字",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "暂不支持V3 amiibo!",
     [_L_APP_CHAMELEON] = "卡模拟器",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "正常",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "拒绝",

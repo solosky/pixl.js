@@ -76,7 +76,7 @@ static void amiidb_scene_amiibo_search_cb(const db_amiibo_t *p_amiibo, void *ctx
     settings_data_t *p_settings_data = settings_get_data();
     app_amiidb_t *app = ctx;
     if (amiibo_hit_total < LIST_VIEW_ITEM_MAX_COUNT) {
-        const char *name = p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+        const char *name = get_amiibo_display_name(p_amiibo);
         mui_list_view_add_item(app->p_list_view, ICON_FILE, name, (void *)p_amiibo);
     }
     amiibo_hit_total++;

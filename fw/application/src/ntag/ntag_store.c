@@ -45,9 +45,11 @@ const ntag_t default_ntag215 = {
              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
              0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xbd, 0x04, 0x00, 0x00,
              0xff, 0x00, 0x05, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00},
+    .type = NTAG_215,
 };
 
 ret_code_t ntag_store_generate(uint8_t idx, ntag_t *ntag) {
+    // always 215
     memcpy(ntag, &default_ntag215, sizeof(ntag_t));
     ntag->data[7] = idx;
     // ntag->index = idx;
@@ -58,55 +60,68 @@ ret_code_t ntag_store_generate(uint8_t idx, ntag_t *ntag) {
     return NRF_SUCCESS;
 }
 
+// operates on packed tag format
 void ntag_store_set_uuid(ntag_t *ntag, uint8_t *uuid) {
+    if (ntag->type == NTAG_215) {
+        ntag->data[0] = uuid[0]; // fixed
+        ntag->data[1] = uuid[1];
+        ntag->data[2] = uuid[2];
+        // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
+        ntag->data[3] = ntag->data[0] ^ ntag->data[1] ^ ntag->data[2] ^ 0x88;
+        ntag->data[4] = uuid[3];
+        ntag->data[5] = uuid[4];
+        ntag->data[6] = uuid[5];
+        ntag->data[7] = uuid[6];
 
-    ntag->data[0] = uuid[0]; // fixed
-    ntag->data[1] = uuid[1];
-    ntag->data[2] = uuid[2];
-    // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
-    ntag->data[3] = ntag->data[0] ^ ntag->data[1] ^ ntag->data[2] ^ 0x88;
-    ntag->data[4] = uuid[3];
-    ntag->data[5] = uuid[4];
-    ntag->data[6] = uuid[5];
-    ntag->data[7] = uuid[6];
-
-    // BCC 1 is always equal to UID3 ⊕ UID 4 ⊕ UID 5 ⊕ UID6
-    ntag->data[8] = ntag->data[4] ^ ntag->data[5] ^ ntag->data[6] ^ ntag->data[7];
+        // BCC 1 is always equal to UID3 ⊕ UID 4 ⊕ UID 5 ⊕ UID6
+        ntag->data[8] = ntag->data[4] ^ ntag->data[5] ^ ntag->data[6] ^ ntag->data[7];
+    } else {
+        // new tags don't use the BCC0/BCC1 bytes
+        ntag->data[0] = uuid[0];
+        ntag->data[1] = uuid[1];
+        ntag->data[2] = uuid[2];
+        ntag->data[3] = uuid[3];
+        ntag->data[4] = uuid[4];
+        ntag->data[5] = uuid[5];
+        ntag->data[6] = uuid[6];
+        ntag->data[7] = 0x00; // "internal"
+        ntag->data[8] = 0x44; // "internal"
+    }
 }
 
 void ntag_store_get_uuid(ntag_t *ntag, uint8_t *uuid) {
-    uuid[0] = ntag->data[0];
-    uuid[1] = ntag->data[1];
-    uuid[2] = ntag->data[2];
-    uuid[3] = ntag->data[4];
-    uuid[4] = ntag->data[5];
-    uuid[5] = ntag->data[6];
-    uuid[6] = ntag->data[7];
+    if (ntag->type == NTAG_215) {
+        uuid[0] = ntag->data[0];
+        uuid[1] = ntag->data[1];
+        uuid[2] = ntag->data[2];
+        uuid[3] = ntag->data[4];
+        uuid[4] = ntag->data[5];
+        uuid[5] = ntag->data[6];
+        uuid[6] = ntag->data[7];
+    } else {
+        uuid[0] = ntag->data[0];
+        uuid[1] = ntag->data[1];
+        uuid[2] = ntag->data[2];
+        uuid[3] = ntag->data[3];
+        uuid[4] = ntag->data[4];
+        uuid[5] = ntag->data[5];
+        uuid[6] = ntag->data[6];
+    }
 }
 
 ret_code_t ntag_store_uuid_rand(ntag_t *ntag) {
+    int8_t uuid[7];
 
-    int8_t uuid[6];
-
-    ret_code_t err_code = utils_rand_bytes(uuid, sizeof(uuid));
+    ret_code_t err_code = utils_rand_bytes(uuid + 1, 6);
     VERIFY_SUCCESS(err_code);
-
-    ntag->data[0] = 04; // fixed
-    ntag->data[1] = uuid[0];
-    ntag->data[2] = uuid[1];
-    // BCC 0 is always equal to UID0 ⊕ UID 1 ⊕ UID 2 ⊕ 0x88
-    ntag->data[3] = ntag->data[0] ^ ntag->data[1] ^ ntag->data[2] ^ 0x88;
-    ntag->data[4] = uuid[2];
-    ntag->data[5] = uuid[3];
-    ntag->data[6] = uuid[4];
-    ntag->data[7] = uuid[5];
-
-    // BCC 1 is always equal to UID3 ⊕ UID 4 ⊕ UID 5 ⊕ UID6
-    ntag->data[8] = ntag->data[4] ^ ntag->data[5] ^ ntag->data[6] ^ ntag->data[7];
+    uuid[0] = 0x04; // fixed
+    
+    ntag_store_set_uuid(ntag, uuid);
     return NRF_SUCCESS;
 }
 
 void ntag_store_new_rand(ntag_t *ntag) {
+    // always makes a 215
     memcpy(ntag, &default_ntag215, sizeof(ntag_t));
     ntag_store_uuid_rand(ntag);
 }

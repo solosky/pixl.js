@@ -38,7 +38,7 @@ void app_desktop_on_run(mini_app_inst_t *p_app_inst) {
         const mini_app_t *p_app = mini_app_registry_find_by_index(i);
         if (!p_app->sys) {
             bool is_enabled = (p_settings->app_enable_bits & (1 << p_app->id)) != 0;
-            if (is_enabled) {
+            if (is_enabled || p_app->id == MINI_APP_ID_SETTINGS) {
                 app_list_view_add_app(p_app_handle->p_app_list_view, p_app);
             }
         }

@@ -50,7 +50,7 @@ void amiidb_scene_data_list_amiibo_slot_info_cb(amiidb_slot_info_t *p_info, void
     } else {
         const db_amiibo_t *p_amiibo = get_amiibo_by_id(p_info->amiibo_head, p_info->amiibo_tail);
         if (p_amiibo != NULL) {
-            const char *name = p_settings_data->language == LANGUAGE_ZH_HANS ? p_amiibo->name_cn : p_amiibo->name_en;
+            const char *name = get_amiibo_display_name(p_amiibo);
             sprintf(txt, "%02d %s", p_info->slot + 1, name);
         } else {
             sprintf(txt, "Amiibo[%08x:%08x]", p_info->amiibo_head, p_info->amiibo_tail);

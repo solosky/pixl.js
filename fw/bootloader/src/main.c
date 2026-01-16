@@ -56,6 +56,7 @@
 #include "nrf_bootloader_info.h"
 #include "nrf_delay.h"
 #include "nrf_dfu.h"
+#include "nrf_gpio.h"
 #include "nrf_log.h"
 #include "nrf_log_ctrl.h"
 #include "nrf_log_default_backends.h"
@@ -138,6 +139,18 @@ int main(void) {
     NRF_LOG_DEFAULT_BACKENDS_INIT();
 
     NRF_LOG_INFO("Inside main");
+
+    nrf_gpio_cfg_input(NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN, NRF_GPIO_PIN_PULLUP);
+
+    // Loop for at most 3 seconds if DFU button is pressed (active low)
+    // After 3 seconds, if the button is still pressed, enter DFU mode.
+    // This is to allow the user to wake up the device as normal using the DFU button.
+    uint32_t loop_count = 0;
+    const uint32_t max_loops = 300;  // 300 * 10ms = 3 seconds
+    while (nrf_gpio_pin_read(NRF_BL_DFU_ENTER_METHOD_BUTTON_PIN) == 0 && loop_count < max_loops) {
+        nrf_delay_ms(10);
+        loop_count++;
+    }
 
     ret_val = nrf_bootloader_init(dfu_observer);
     APP_ERROR_CHECK(ret_val);

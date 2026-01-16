@@ -147,6 +147,7 @@ const char * const lang_sv_SE[_L_COUNT] = {
     [_L_APP_AMIIDB_SORT_FIELD] = "Sorteringsfält",
     [_L_APP_AMIIDB_SORT_DEFAULT] = "Standard",
     [_L_APP_AMIIDB_SORT_NAME] = "Namn",
+    [_L_APP_AMIIDB_NOT_SUPPORT_V3] = "",
     [_L_APP_CHAMELEON] = "Kort-emulator",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL] = "Normal",
     [_L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED] = "Neka",
