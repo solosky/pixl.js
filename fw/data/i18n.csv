@@ -146,7 +146,7 @@ _L_APP_AMIIDB_SLOT_SAVE_FAILED,Save Failed!,保存失败,保存失敗,¡Asignaci
 _L_APP_AMIIDB_SORT_FIELD,Sort Field,排序字段,排序欄位,Campo de ordenación,Rendezési mező,Sortierfeld,Champ de tri,Sorteerveld,Campo de Ordenação,並べ替えフィールド,Campo de Ordenação,Campo di ordinamento,Сортировка,Pole sortowania,Sorteringsfält
 _L_APP_AMIIDB_SORT_DEFAULT,Default,默认,預設,Por defecto,Alapértelmezett,Standard,Par défaut,Standaard,Padrão,デフォルト,Padrão,Predefinito,По умолчанию,Domyślne,Standard
 _L_APP_AMIIDB_SORT_NAME,Name,名字,名稱,Nombre,Név,Name,Nom,Naam,Nome,名前,Nome,Nome,По алфавиту,Nazwa,Namn
-_L_APP_AMIIDB_NOT_SUPPORT_V3,Not support for v3\namiibo!,暂不支持V3 amiibo!,暫不支持V3 amiibo!,,,,,,,,,,,,
+_L_APP_AMIIDB_NOT_SUPPORT_V3,Not support for v3\namiibo!,暂不支持V3 amiibo!,暫不支持V3 amiibo!,,,,,,,,,,Amiibo версии 3\n не поддерживаются!,,
 _L_APP_CHAMELEON,Card Emulator,卡模拟器,卡模擬器,Emular Etiqueta RFID,Kártya Emulátor,Karten Emulator,Emulateur de Carte,Kaart Emulator,Emulador de Cartão,カードエミュレータ,Emular Tag RFID,Emula tag RFID,Эмулятор карт,Emulator Kart,Kort-emulator
 _L_APP_CHAMELEON_TAG_MF1_WRITE_NORMAL,Normal,正常,正常,Normal,Normál,Normal,Normal,Normaal,Normal,通常,Normal,Normale,Разрешена,Normalny,Normal
 _L_APP_CHAMELEON_TAG_MF1_WRITE_DENIED,Deny,拒绝,拒絕,Negar,Tagadni,Verweigern,Refuser,Weigeren,Negar,拒否,Cancelar,Nega,Запрещена,Odmów,Neka
