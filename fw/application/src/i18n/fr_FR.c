@@ -23,6 +23,7 @@ const char * const lang_fr_FR[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Rétroéclairage",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Luminosité du Rétroéclairage",
     [_L_APP_SET_ANIM] = "Animation du Menu",
+    [_L_APP_SET_FLIP_SCREEN] = "Retourner l'écran",
     [_L_APP_SET_LIPO_BAT] = "Batterie LiPO",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Mémoire Utilisée",
     [_L_APP_SET_HIBERNATE] = "Réveil Rapide",

@@ -23,6 +23,7 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "背光亮度",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "背光亮度",
     [_L_APP_SET_ANIM] = "動畫效果",
+    [_L_APP_SET_FLIP_SCREEN] = "畫面180度",
     [_L_APP_SET_LIPO_BAT] = "LiPO電池",
     [_L_APP_SET_SHOW_MEM_USAGE] = "記憶體使用率",
     [_L_APP_SET_HIBERNATE] = "快速喚醒",

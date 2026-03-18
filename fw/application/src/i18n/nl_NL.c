@@ -23,6 +23,7 @@ const char * const lang_nl_NL[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Achtergrondverlichting",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Helderheid Achtergrondverlichting",
     [_L_APP_SET_ANIM] = "Menu-Animatie",
+    [_L_APP_SET_FLIP_SCREEN] = "Scherm omdraaien",
     [_L_APP_SET_LIPO_BAT] = "LiPO-Batterij",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Gebruikt Geheugen",
     [_L_APP_SET_HIBERNATE] = "Snel Ontwaken",

@@ -198,6 +198,7 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 
     settings_data_t *p_settings = settings_get_data();
     mui_u8g2_set_contrast_level(p_settings->oled_contrast);
+    mui_u8g2_set_display_orientation(p_settings->display_orientation);
 
     u8g2_SetPowerSave(p_u8g2, 0);
 
@@ -210,6 +211,7 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
 
     settings_data_t *p_settings = settings_get_data();
     mui_u8g2_set_contrast_level(p_settings->oled_contrast);
+    mui_u8g2_set_display_orientation(p_settings->display_orientation);
 
     u8g2_SetPowerSave(p_u8g2, 0);
 
@@ -256,6 +258,13 @@ void mui_u8g2_set_contrast_level(uint8_t value) {
     }
 #endif
     u8g2_SetContrast(&p_mui->u8g2, (value - 1) * (255.0 / 99.0));
+}
+
+void mui_u8g2_set_display_orientation(uint8_t mode) {
+    mui_t *p_mui = mui();
+    // Flip in the display controller rather than with U8G2_R2, so screens that write to the
+    // controller directly (like the games) are flipped as well
+    u8g2_SetFlipMode(&p_mui->u8g2, mode == DISPLAY_ORIENTATION_FLIPPED ? 1 : 0);
 }
 
 const spi_device_t *mui_u8g2_get_spi_device() { return &m_dev; }

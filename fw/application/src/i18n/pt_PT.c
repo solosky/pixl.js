@@ -23,6 +23,7 @@ const char * const lang_pt_PT[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Brilho",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Brilho do Ecrã",
     [_L_APP_SET_ANIM] = "Animação do Menu",
+    [_L_APP_SET_FLIP_SCREEN] = "Rodar ecrã",
     [_L_APP_SET_LIPO_BAT] = "Bateria LiPO",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Memoria Usada",
     [_L_APP_SET_HIBERNATE] = "Suspender",

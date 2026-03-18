@@ -11,6 +11,12 @@
 #define AMIIDB_SORT_COLUMN_DEFAULT 0
 #define AMIIDB_SORT_COLUMN_NAME 1
 
+typedef enum {
+    DISPLAY_ORIENTATION_STANDARD = 0,
+    DISPLAY_ORIENTATION_FLIPPED,
+    DISPLAY_ORIENTATION_COUNT,
+} display_orientation_t;
+
 typedef struct {
     bool backlight; // deprecated, keep for capability issue
     uint8_t sleep_timeout_sec;
@@ -33,6 +39,7 @@ typedef struct {
     uint8_t amiidb_sort_column;
     uint8_t chameleon_slot_num; // chameleon available slot count (8-50)
     ble_amiibolink_mode_t amiibolink_mode; // user's preferred AmiiboLink mode (0 = not set, use default)
+    display_orientation_t display_orientation;
 } settings_data_t;
 
 int32_t settings_init();

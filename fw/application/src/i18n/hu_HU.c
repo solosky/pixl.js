@@ -23,6 +23,7 @@ const char * const lang_hu_HU[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Háttérvilágítás",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Háttérvilágítás Fényerő",
     [_L_APP_SET_ANIM] = "Menü Animáció",
+    [_L_APP_SET_FLIP_SCREEN] = "Kijelző forgatása",
     [_L_APP_SET_LIPO_BAT] = "LiPO Akkumulátor",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Használt Memória",
     [_L_APP_SET_HIBERNATE] = "Gyors Ébresztés",

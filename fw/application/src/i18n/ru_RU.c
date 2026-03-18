@@ -23,6 +23,7 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Подсветка",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Яркость подсветки",
     [_L_APP_SET_ANIM] = "Анимация меню",
+    [_L_APP_SET_FLIP_SCREEN] = "Перевернуть экран",
     [_L_APP_SET_LIPO_BAT] = "Батарея LiPo",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Статус памяти",
     [_L_APP_SET_HIBERNATE] = "Гибернация",

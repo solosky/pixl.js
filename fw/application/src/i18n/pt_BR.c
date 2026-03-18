@@ -23,6 +23,7 @@ const char * const lang_pt_BR[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT] = "Luz de Fundo",
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Brilho da Luz de Fundo",
     [_L_APP_SET_ANIM] = "Animação do Menu",
+    [_L_APP_SET_FLIP_SCREEN] = "Girar tela",
     [_L_APP_SET_LIPO_BAT] = "Bateria LiPO",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Memória Usada",
     [_L_APP_SET_HIBERNATE] = "Despertar Rápido",
