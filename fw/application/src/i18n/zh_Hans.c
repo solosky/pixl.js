@@ -24,6 +24,7 @@ const char * const lang_zh_Hans[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "背光亮度",
     [_L_APP_SET_ANIM] = "动画效果",
     [_L_APP_SET_FLIP_SCREEN] = "画面翻转",
+    [_L_APP_SET_CONTROLS_SWAP_LEFT_RIGHT] = "左右翻转",
     [_L_APP_SET_LIPO_BAT] = "LiPO电池",
     [_L_APP_SET_SHOW_MEM_USAGE] = "内存使用率",
     [_L_APP_SET_HIBERNATE] = "快速唤醒",

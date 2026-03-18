@@ -24,6 +24,7 @@ const char * const lang_it_IT[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Luminosità schermo",
     [_L_APP_SET_ANIM] = "Animazione menu",
     [_L_APP_SET_FLIP_SCREEN] = "Capovolgi schermo",
+    [_L_APP_SET_CONTROLS_SWAP_LEFT_RIGHT] = "Inverti sin./des.",
     [_L_APP_SET_LIPO_BAT] = "Batteria LiPO",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Memoria usata",
     [_L_APP_SET_HIBERNATE] = "Risveglio rapido",

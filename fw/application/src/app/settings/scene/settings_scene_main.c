@@ -22,6 +22,7 @@ enum settings_main_menu_t {
     SETTINGS_MAIN_MENU_SLEEP_TIMEOUT,
     SETTINGS_MAIN_MENU_ANIM_ENABLED,
     SETTINGS_MAIN_MENU_FLIP_SCREEN,
+    SETTINGS_MAIN_MENU_CONTROLS_SWAP_LEFT_RIGHT,
     SETTINGS_MAIN_MENU_GO_SLEEP,
     SETTINGS_MAIN_MENU_DFU,
     SETTINGS_MAIN_MENU_REBOOT,
@@ -128,6 +129,11 @@ static void settings_scene_main_list_view_on_selected(mui_list_view_event_t even
         settings_scene_main_reload(app);
         break;
 
+    case SETTINGS_MAIN_MENU_CONTROLS_SWAP_LEFT_RIGHT:
+        p_settings->controls_swap_lr = !p_settings->controls_swap_lr;
+        settings_scene_main_reload(app);
+        break;
+
     case SETTINGS_MAIN_MENU_APP_MANAGEMENT:
         mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, SETTINGS_SCENE_APP_MANAGEMENT);
         break;
@@ -207,6 +213,10 @@ static void settings_scene_main_reload(void *user_data) {
     mui_list_view_add_item_ext(app->p_list_view, ICON_ARROW_DOWN_UP, _T(APP_SET_FLIP_SCREEN),
                                p_settings->display_orientation == DISPLAY_ORIENTATION_FLIPPED ? _T(ON_F) : _T(OFF_F),
                                (void *)SETTINGS_MAIN_MENU_FLIP_SCREEN);
+
+    mui_list_view_add_item_ext(app->p_list_view, ICON_ARROW_RIGHT_LEFT, _T(APP_SET_CONTROLS_SWAP_LEFT_RIGHT),
+                               p_settings->controls_swap_lr ? _T(ON_F) : _T(OFF_F),
+                               (void *)SETTINGS_MAIN_MENU_CONTROLS_SWAP_LEFT_RIGHT);
 
     mui_list_view_add_item_ext(app->p_list_view, 0xe08f, _T(APP_SET_LIPO_BAT),
                                p_settings->bat_mode ? _T(ON_F) : _T(OFF_F), (void *)SETTINGS_MAIN_MENU_LI_MODE);

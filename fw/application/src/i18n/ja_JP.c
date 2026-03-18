@@ -24,6 +24,7 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "バックライトの明るさ",
     [_L_APP_SET_ANIM] = "メニュー アニメーション",
     [_L_APP_SET_FLIP_SCREEN] = "画面回転",
+    [_L_APP_SET_CONTROLS_SWAP_LEFT_RIGHT] = "左右入れ替え",
     [_L_APP_SET_LIPO_BAT] = "LiPOバッテリー",
     [_L_APP_SET_SHOW_MEM_USAGE] = "使用メモリ",
     [_L_APP_SET_HIBERNATE] = "高速起動",

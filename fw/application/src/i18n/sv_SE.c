@@ -24,6 +24,7 @@ const char * const lang_sv_SE[_L_COUNT] = {
     [_L_APP_SET_LCD_BACKLIGHT_TITLE] = "Ljusstyrka",
     [_L_APP_SET_ANIM] = "Menyanimation",
     [_L_APP_SET_FLIP_SCREEN] = "Vänd skärm",
+    [_L_APP_SET_CONTROLS_SWAP_LEFT_RIGHT] = "Byt vänster/höger",
     [_L_APP_SET_LIPO_BAT] = "LiPO-batteri",
     [_L_APP_SET_SHOW_MEM_USAGE] = "Använt minne",
     [_L_APP_SET_HIBERNATE] = "Snabb väckning",
