@@ -168,7 +168,7 @@
 1b92000000250002,Greninja,甲贺忍蛙
 1bd7000003860002,Incineroar,炽焰咆哮虎
 1d40000003870002,Pokemon Trainer,宝可梦训练师
-1f01000000270002,Meta Knight,梅塔骑士
+1f01000000270002,Meta Knight,魅塔骑士
 1f02000000280002,King Dedede,迪迪迪大王
 22800000002c0002,Ness,奈斯
 2281000002510002,Lucas,卢卡斯
@@ -202,7 +202,7 @@
 0013000002660102,Daisy,黛西公主
 00030102023e0302,Mega Yarn Yoshi,毛线耀西
 1f02000002560c02,King Dedede,迪迪迪大王
-1f01000002550c02,Meta Knight,梅塔骑士
+1f01000002550c02,Meta Knight,魅塔骑士
 1f03000002570c02,Waddle Dee,瓦多鲁迪
 1f00000002540c02,Kirby,卡比
 1f400000035e1002,Qbby,丘比
@@ -928,5 +928,23 @@
 34db000104ef1d02,Alex,
 34dc000104f01d02,Ingrid,
 05c50000043c1302,Sylux,赛拉克斯
-1f00000004c41e03,Kirby,
-1f03010004c91e03,Bandana Waddle Dee,
+1f00000004c41e03,Kirby,卡比 
+1f03010004c91e03,Bandana Waddle Dee,头巾瓦豆鲁迪
+1f01000004c61e03,Meta Knight,魅塔骑士
+0000040004c10102,Elephant Mario,大象马力欧
+0025010004c30102,Poplin & Prince Florian,波普林与菲欧伦王子
+000a010004c20102,Captain Toad & Talking Flower,奇诺比奥队长与闲聊花花
+0000050004e90102,Mario and Luma,马力欧与奇可
+0004010004ea0102,Rosalina and Lumas,罗莎塔与奇可们
+3580000005062102,Diana,
+350c000004fa0f02,Ratha,
+350d000004fb0f02,Ratha V,
+350e000004fc0f02,Rudy,
+3540000005032002,Grace Ashcroft,Grace
+3541000005042002,Leon S. Kennedy,Leon
+0807000004f70402,Shiver (Splatoon Raiders),莎莎(Raiders)
+0808000004f80402,Frye (Splatoon Raiders),曼曼(Raiders)
+0809000004f90402,Big Man (Splatoon Raiders),鬼福(Raiders)
+1f02000004c71e03,King Dedede (& Tank Star),迪迪迪大王(& Tank Star)
+010d000004a70902,Mineru's Construct,米奈鲁魔像
+1f04000004ca1e03,Chef Kawasaki (& Hop Star),
