@@ -27,4 +27,4 @@ root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=LCD RELEASE=1
 root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED RELEASE=1
 ```
 
-构建好的固件在 fw/_build/pixjs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip
+构建好的固件位于 fw/_build/pixjs_all.hex，OTA 包为 fw/_build/pixjs_ota_vXXXX.zip。

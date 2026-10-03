@@ -1,6 +1,6 @@
 # 动画播放器
 
-动画播放器可以播放转换后的自定义格式的动画文件。需要固件版本为2.3.0或更高版本。
+动画播放器可以播放转换后的自定义格式的动画文件。需要固件版本为2.3.0或更高版本（由于固件大小限制，2.5.2起此功能已从固件中移除）。
 
 
 ## 动画文件格式 
@@ -29,8 +29,8 @@
 
 首先准备好需要转换的视频文件，通常是mp4结尾，其他格式也可以。
 
-以下操作需要在linux下面运行，否则会报错。
-如果没有linux环境，可以使用WSL2来快速创建一个ubuntu的linux环境。
+以下操作需要在 Linux 下运行，也可以在 MSYS MINGW64 环境下运行。
+如果没有 Linux 环境，可以使用 WSL2 在 Windows 下快速创建一个 Ubuntu Linux 环境。
 
 首先执行如下命令安装必须的工具 
 
@@ -39,8 +39,21 @@ sudo apt install ffmpeg python3-pip
 sudo pip3 install imageio -i https://pypi.tuna.tsinghua.edu.cn/simple
 ```
 
+对于 Ubuntu，也可以运行以下命令安装所需的包：
+
+```
+sudo apt install ffmpeg python3 python3-imageio
+```
+
+如果使用 MSYS MINGW64 环境，可以用以下命令安装所需的包：
+
+```
+pacman -S mingw-w64-x86_64-ffmpeg mingw-w64-x86_64-python mingw-w64-x86_64-python-imageio
+```
+
 然后执行ffmpeg命令，转换动画为独立的帧图片。
 ```
+mkdir frames
 ffmpeg -y -i badapple.mp4 -ss 0:0 -t 60 -vf "scale=128:64:decrease:flags=lanczos,hue=s=0" -r 10 "frames/%04d.bmp"
 ```
 参数说明如下：
@@ -70,7 +83,7 @@ python3 fw/scripts/video_clip_gen.py 10 frames badapple.bin
 
 ## 播放动画文件
 
-把转换后的视频文件通过网页传输到Pixl.js的Flash存储的 player 目录下，player目录没有可以手动创建。
+把转换后的动画文件通过网页传输到 Pixl.js 的 Flash 存储的 player 目录下，player 目录不能手动创建。
 
 打开Pixl.js，选择【动画播放器】，列出player目录下的所有文件，然后选择要播放的视频文件，按中键播放。
 

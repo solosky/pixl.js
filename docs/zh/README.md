@@ -1,6 +1,8 @@
-
 # **Pixl.js文档**
 
+本项目是原版 [Pixl.js](http://www.espruino.com/Pixl.js) 的 fork 版本，主要目标是模拟 Amiibo。
+
+文档分为硬件和固件两大板块。
 
 # [硬件](01-Hardware.md)
 
@@ -14,9 +16,10 @@
 
 # 固件
 
-- [固件](02-Flash-Firmware.md "Flash the Firmware")
-- [国际化](05+5-translation.md)
+- [烧录固件](02-Flash-Firmware.md "Flash the Firmware")
+- [固件国际化](05+5-translation.md)
 - [构建固件](03-Build-Firmware.md)
+- [使用固件](04-Using-Firmware.md)
 
 
 # [使用手册](04-Using-Firmware.md)
@@ -35,14 +38,24 @@ TODO
 
 # 技术文档
 
-- [蓝牙协议](05+1-ble_protocol.md)
+- [蓝牙文件传输协议](05+1-ble_protocol.md)
 - [AmiiboLink蓝牙协议](05+2-amiibolink_ble.md)
-- [视频播放器](05+4-video_player.md) (由于固件大小限制，从固件版本2.6.2起，此功能已从固件中删除)
+- [视频播放器](05+4-video_player.md) (由于固件大小限制，从固件版本2.5.2起，此功能已从固件中移除)
+
+# 教程
+
+## iNFC
+
+- [Pixl 固件升级教程](https://www.youtube.com/watch?v=vldNVaoqJg0)
+
+## MTools Lite
+
+- [如何在 Pixl.js OLED/LCD 上使用卡模拟器](https://www.youtube.com/watch?v=KiuyfBKalhI)
 
 # key_retail.bin
 
-为了使用固件的一些功能，您必须提供`key_retail.bin`文件，应在设备存储的根目录中上传，然后才能使用。 <br/>
-您需要提供一个合法获得的文件，您可以使用工具从您的控制台（3DS 或 Switch）中提取它
+要使用固件的部分功能，必须提供 `key_retail.bin` 文件，上传到设备存储根目录后才能使用。<br/>
+请提供合法获取的文件，可以使用工具从你的主机（3DS 或 Switch）中提取。
 
 >**key_retail.bin checksums:** <br/>
 >MD5:	45fd53569f5765eef9c337bd5172f937 <br/>
