@@ -56,3 +56,10 @@ fw/example
 *.un~
 
 **/.vscode/.cortex-debug*.json
+
+# KiCad local state, lock files and autosaves
+*.kicad_prl
+*-backups/
+_autosave-*
+*.lck
+\#auto_saved_files\#
