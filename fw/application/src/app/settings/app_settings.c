@@ -1,4 +1,5 @@
 #include "app_settings.h"
+#include "mini_app_launcher.h"
 #include "settings_scene.h"
 #include "settings.h"
 #include "i18n/language.h"
@@ -35,6 +36,9 @@ void app_settings_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
+    mui_view_dispatcher_set_back_event_cb(p_app_handle->p_view_dispatcher,
+                                         (mui_view_dispatcher_back_event_cb_t)mini_app_launcher_scene_back,
+                                         p_app_handle->p_scene_dispatcher);
 
     p_app_handle->p_toast_view = mui_toast_view_create();
     mui_toast_view_set_user_data(p_app_handle->p_toast_view, p_app_handle);

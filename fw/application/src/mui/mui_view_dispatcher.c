@@ -26,6 +26,16 @@ static void mui_view_dispatcher_on_draw(mui_view_port_t *p_vp, mui_canvas_t *p_c
 static void mui_view_dispatcher_on_input(mui_view_port_t *p_vp,
                                          mui_input_event_t *p_event) {
     mui_view_dispatcher_t *p_dispatcher = p_vp->user_data;
+    if (p_event->key == INPUT_KEY_BACK) {
+        // swallow every event type for the back key here, not just SHORT.
+        // Otherwise PRESS/RELEASE/LONG/REPEAT fall through to the active
+        // view below, which may not expect a 4th key value (e.g. game_view's
+        // key_state[3] array)
+        if (p_event->type == INPUT_TYPE_SHORT && p_dispatcher->back_event_cb) {
+            p_dispatcher->back_event_cb(p_dispatcher->back_event_user_data);
+        }
+        return;
+    }
     if (p_dispatcher->p_active_view) {
         p_dispatcher->p_active_view->input_cb(p_dispatcher->p_active_view, p_event);
     }
@@ -39,6 +49,8 @@ mui_view_dispatcher_t *mui_view_dispatcher_create() {
     p_dsp->p_view_port->input_cb = mui_view_dispatcher_on_input;
     p_dsp->p_view_port->user_data = p_dsp;
     p_dsp->p_active_view = NULL;
+    p_dsp->back_event_cb = NULL;
+    p_dsp->back_event_user_data = NULL;
 
     return p_dsp;
 }
@@ -81,4 +93,9 @@ void mui_view_dispatcher_switch_to_view(mui_view_dispatcher_t *p_dispatcher,
             mui_view_dispatcher_set_curent_view(p_dispatcher, p_view);
         }
     }
+}
+void mui_view_dispatcher_set_back_event_cb(mui_view_dispatcher_t *p_dispatcher,
+                                           mui_view_dispatcher_back_event_cb_t cb, void *user_data) {
+    p_dispatcher->back_event_cb = cb;
+    p_dispatcher->back_event_user_data = user_data;
 }

@@ -6,11 +6,18 @@
 
 #include "nrf_pwr_mgmt.h"
 
+#if BUTTONS_NUMBER >= 4
+#include "utils2.h"
+#include "mui_core.h"
+#include "mui_u8g2.h"
+#endif
+
 typedef enum { BTN_STATE_IDLE, BTN_STATE_PRESSED, BTN_STATE_LONG_PRESSED, BTN_STATE_REPEAT } btn_state_t;
 
 #define BSP_BUTTON_ACTION_REPEAT_PUSH (3)
 #define BSP_BUTTON_LONG_PUSH_TIMEOUT_MS (1000)
 #define BSP_BUTTON_REPEAT_PUSH_TIMEOUT_MS (200)
+#define BSP_BUTTON_BACK_SLEEP_TIMEOUT_MS (1500)
 
 typedef struct {
     uint8_t state;
@@ -18,6 +25,10 @@ typedef struct {
 
 APP_TIMER_DEF(m_bsp_button_long_push_tmr);
 APP_TIMER_DEF(m_bsp_button_repeat_push_tmr);
+#if BUTTONS_NUMBER >= 4
+APP_TIMER_DEF(m_bsp_button_back_sleep_tmr);
+static bool m_back_sleep_pending = false;
+#endif
 bsp_btn_event_cb_t m_bsp_btn_event_cb = NULL;
 uint8_t m_current_long_push_pin_no;
 
@@ -27,6 +38,9 @@ static const app_button_cfg_t app_buttons[BUTTONS_NUMBER] = {
     {BSP_BUTTON_0, false, BUTTON_PULL, bsp_button_event_handler},
     {BSP_BUTTON_1, false, BUTTON_PULL, bsp_button_event_handler},
     {BSP_BUTTON_2, false, BUTTON_PULL, bsp_button_event_handler},
+#if BUTTONS_NUMBER >= 4
+    {BSP_BUTTON_3, false, BUTTON_PULL, bsp_button_event_handler},
+#endif
 };
 
 static bsp_btn_t m_bsp_btns[BUTTONS_NUMBER] = {0};
@@ -66,6 +80,12 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
                 m_current_long_push_pin_no = pin_no;
             }
 
+#if BUTTONS_NUMBER >= 4
+            if (idx == 3) { // BSP_BUTTON_3 (back key), 4th entry in app_buttons[]
+                app_timer_start(m_bsp_button_back_sleep_tmr, APP_TIMER_TICKS(BSP_BUTTON_BACK_SLEEP_TIMEOUT_MS), NULL);
+            }
+#endif
+
         case BTN_STATE_LONG_PRESSED:
         case BTN_STATE_PRESSED:
         case BTN_STATE_REPEAT:
@@ -77,6 +97,16 @@ static void bsp_button_event_handler(uint8_t pin_no, uint8_t button_action) {
     } else if (button_action == APP_BUTTON_RELEASE) {
         // trigger release first
         bsp_button_callback(idx, BSP_BTN_EVENT_RELEASED);
+
+#if BUTTONS_NUMBER >= 4
+        if (idx == 3) { // BSP_BUTTON_3 (back key)
+            app_timer_stop(m_bsp_button_back_sleep_tmr);
+            if (m_back_sleep_pending) {
+                m_back_sleep_pending = false;
+                go_sleep();
+            }
+        }
+#endif
 
         switch (m_bsp_btns[idx].state) {
         case BTN_STATE_PRESSED:
@@ -119,6 +149,16 @@ static void button_repeat_push_timer_handler(void *p_context) {
     bsp_button_event_handler(*(uint8_t *)p_context, BSP_BUTTON_ACTION_REPEAT_PUSH);
 }
 
+#if BUTTONS_NUMBER >= 4
+static void button_back_sleep_timer_handler(void *p_context) {
+    // blank the screen immediately for feedback, but defer the actual
+    // sleep to button release, so the pin is high again before wake-sense
+    // gets armed (avoids an immediate re-wake)
+    mui_u8g2_deinit(&mui()->u8g2);
+    m_back_sleep_pending = true;
+}
+#endif
+
 void bsp_btn_init(bsp_btn_event_cb_t p_event_cb) {
     uint32_t err_code = NRF_SUCCESS;
     err_code = app_button_init((app_button_cfg_t *)app_buttons, BUTTONS_NUMBER, APP_TIMER_TICKS(50));
@@ -131,6 +171,11 @@ void bsp_btn_init(bsp_btn_event_cb_t p_event_cb) {
     err_code =
         app_timer_create(&m_bsp_button_repeat_push_tmr, APP_TIMER_MODE_REPEATED, button_repeat_push_timer_handler);
     APP_ERROR_CHECK(err_code);
+#if BUTTONS_NUMBER >= 4
+    err_code =
+        app_timer_create(&m_bsp_button_back_sleep_tmr, APP_TIMER_MODE_SINGLE_SHOT, button_back_sleep_timer_handler);
+    APP_ERROR_CHECK(err_code);
+#endif
 
     m_bsp_btn_event_cb = p_event_cb;
 }

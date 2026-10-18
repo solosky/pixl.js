@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        board: ["LCD", "OLED"]
+        board: ["LCD", "OLED", "OLED_4BTN"]
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
@@ -117,7 +117,7 @@ jobs:
           echo
           echo "Generated from [workflow run ${GITHUB_RUN_NUMBER}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})."
           echo
-          for board in LCD OLED; do
+          for board in LCD OLED OLED_4BTN; do
             report="size-reports/pixljs_fw_${board}/size_comparison_${board}.md"
             if [ -f "${report}" ]; then
               sed 's/^# Size Comparison/### Size Comparison/' "${report}"

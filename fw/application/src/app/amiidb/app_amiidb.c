@@ -1,5 +1,6 @@
 #include "app_amiidb.h"
 #include "mini_app_registry.h"
+#include "mini_app_launcher.h"
 
 #include "mui_include.h"
 
@@ -73,6 +74,9 @@ void app_amiidb_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
+    mui_view_dispatcher_set_back_event_cb(p_app_handle->p_view_dispatcher,
+                                         (mui_view_dispatcher_back_event_cb_t)mini_app_launcher_scene_back,
+                                         p_app_handle->p_scene_dispatcher);
 
     p_app_handle->p_view_dispatcher_toast = mui_view_dispatcher_create();
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher_toast, AMIIDB_VIEW_ID_TOAST,
@@ -124,6 +128,11 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
         memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
         memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
     }
+
+    // exit_cb clears the NFC update callback (points into p_app_handle,
+    // freed below); ntag_emu_uninit stops the NFC radio itself
+    mui_scene_dispatcher_exit(p_app_handle->p_scene_dispatcher);
+    ntag_emu_uninit();
 
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);

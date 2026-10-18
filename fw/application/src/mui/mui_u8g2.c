@@ -208,6 +208,13 @@ void mui_u8g2_init(u8g2_t *p_u8g2) {
     u8g2_Setup_sh1106_128x64_noname_f(p_u8g2, U8G2_R0, u8x8_HW_com_spi_nrf52832, u8g2_nrf_gpio_and_delay_spi_cb);
     u8g2_InitDisplay(p_u8g2);
 
+#ifdef OLED_ROTATION_180
+    // U8G2_Rx only rotates the software drawing coordinates; a physically
+    // inverted panel needs the controller's own SEG/COM remap, which is
+    // what SetFlipMode actually sends (also fixes the SH1106 column offset)
+    u8g2_SetFlipMode(p_u8g2, 1);
+#endif
+
     settings_data_t *p_settings = settings_get_data();
     mui_u8g2_set_contrast_level(p_settings->oled_contrast);
 

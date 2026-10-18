@@ -10,12 +10,15 @@ Release assets are split by hardware version:
 | --- | --- |
 | LCD pixl.js / allmiibo-compatible hardware with the three-way thumbwheel control | `*_LCD.zip` |
 | OLED pixl.js hardware with the same three-way thumbwheel control | `*_OLED.zip` |
+| OLED pixl.js hardware with a 4th dedicated back button | `*_OLED_4BTN.zip` |
 
 After downloading the correct outer release package, extract it and use the inner `pixjs_ota_vxxx.zip` file for OTA updates.
 
 ## Modified or rebranded devices
 
 Some devices are sold with pixl.js-like names, iNFC/AmiiboTool firmware, extra buttons, a different button layout, or a different screen orientation. Those devices may not be compatible with the LCD or OLED release packages from this repository.
+
+One such case, a 4-button OLED board with an added back button, now has an official `OLED_4BTN` package (see table above). Its button map and screen orientation were set based on one specific unit; other batches or vendors of a similar 4-button board may be assembled differently and could still need a different board definition.
 
 Common signs of an incompatible package include:
 

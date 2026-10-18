@@ -26,6 +26,9 @@ root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=LCD RELEASE=1
 # build OLED version
 root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED RELEASE=1
 
+# build 4-button OLED version (adds a dedicated back button)
+root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED_4BTN RELEASE=1
+
 ```
 
 The firmware is fw/_build/pixjs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip

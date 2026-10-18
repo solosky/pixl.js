@@ -298,7 +298,8 @@ ret_code_t ntag_emu_init(const ntag_t *ntag) {
 }
 
 void ntag_emu_uninit(ntag_t *ntag) {
-    // TODO
+    hal_nfc_stop();
+    hal_nfc_done();
 }
 
 void ntag_emu_set_tag(const ntag_t *ntag) {

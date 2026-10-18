@@ -33,6 +33,12 @@ static void game_view_on_draw(mui_view_t *p_view, mui_canvas_t *p_canvas) {
 static void game_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
     game_view_t *p_game_view = p_view->user_data;
 
+    // key_state only covers LEFT/CENTER/RIGHT; the back key (3) is normally
+    // swallowed upstream, but guard here too since this array isn't bounds-checked
+    if (event->key >= sizeof(key_state)) {
+        return;
+    }
+
     if (event->type == INPUT_TYPE_PRESS) {
         key_state[event->key] = 1;
     } else if (event->type == INPUT_TYPE_RELEASE) {

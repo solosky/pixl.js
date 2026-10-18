@@ -50,6 +50,7 @@ dist
 fw/scripts/.venv
 
 fw/temp
+fw/example
 
 .DS_Store
 *.un~
@@ -58,3 +59,10 @@ fw/bootloader/*.local.pem
 fw/bootloader/*private*.pem
 fw/bootloader/*release*.pem
 **/.vscode/.cortex-debug*.json
+
+# KiCad local state, lock files and autosaves
+*.kicad_prl
+*-backups/
+_autosave-*
+*.lck
+\#auto_saved_files\#
