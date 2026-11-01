@@ -155,7 +155,7 @@ CrossChip CC6201ST, a micropower omnipolar Hall switch (it reacts to either pole
 - Device on: hold a magnet against the back, over U5. The screen goes off and comes back about a second later because the chip resets.
 - Device asleep: a magnet wakes it up.
 
-There is no second MOSFET here, so U5's output probably drives nRESET directly (inferred).
+There is no second MOSFET here, so U5's output drives nRESET directly. Pins: 1 VDD, 2 GND, 3 OUT (verified).
 
 ## Display (PC1)
 
@@ -282,6 +282,18 @@ Values come from xiaohai's design where the role is the same. The ceramic capaci
 | — | 1.3" 128×64 OLED, SH1106, 30-pin FPC `ZFP1106-34AX` | — | generic | Verified |
 | BT | LiPo cell with protection board | 402030 | 3.7 V 200 mAh | Verified |
 | — | NFC antenna | PCB copper loop | — | Verified |
+
+## Schematic
+
+[pc_v2.kicad_sch](pc_v2.kicad_sch) (KiCad 10, [PDF](pc_v2.pdf)) redraws the board from the measurements above. It is not a copy of xiaohai's file: the parts and values come from his design, and the pin-to-net connections follow the tables in this README. Every symbol has a `Status` field (Verified, Inferred or Unknown) that matches the tables.
+
+Each pin ends in a net label, so the sheet is a netlist drawing rather than a tidy layout. ERC reports 0 violations, and the exported netlist was checked net by net against the connections listed here.
+
+Things in the schematic that are guesses:
+
+- C5–C8 to the DEC1–DEC4 pins, and the C16–C19 power caps, follow xiaohai's design.
+- U3 is drawn as a TP4055.
+- The USB-C part is a plain 12-pin connector, with the reference J1 and the battery as BT1, since neither designator is printed on the board.
 
 ## Still to do
 
