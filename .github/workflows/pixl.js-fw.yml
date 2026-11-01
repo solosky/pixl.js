@@ -42,6 +42,10 @@ jobs:
           trap 'git worktree remove "${BASE_WORKTREE}" --force || true' EXIT
           git worktree add "${BASE_WORKTREE}" "${BASE_SHA}"
           git -C "${BASE_WORKTREE}" submodule update --init --recursive
+          if ! grep -q "BOARD_${{matrix.board}}\b" "${BASE_WORKTREE}/fw/application/src/custom_board.h"; then
+            echo "The PR base has no ${{matrix.board}} board, so there is no baseline to compare against." > "${COMPARISON_MD}"
+            exit 0
+          fi
           make -C "${BASE_WORKTREE}/fw" all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
           python3 fw/scripts/size_report.py summarize \
             --bin "${BASE_WORKTREE}/fw/_build/pixljs.bin" \

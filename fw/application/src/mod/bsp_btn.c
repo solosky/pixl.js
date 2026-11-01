@@ -1,5 +1,6 @@
 #include "bsp_btn.h"
 #include "app_button.h"
+#include "app_scheduler.h"
 #include "app_timer.h"
 #include "bsp.h"
 #include "nrf_log.h"
@@ -150,12 +151,17 @@ static void button_repeat_push_timer_handler(void *p_context) {
 }
 
 #if BUTTONS_NUMBER >= 4
+static void back_sleep_blank_screen(void *p_event_data, uint16_t event_size) { mui_u8g2_deinit(&mui()->u8g2); }
+
 static void button_back_sleep_timer_handler(void *p_context) {
     // blank the screen immediately for feedback, but defer the actual
     // sleep to button release, so the pin is high again before wake-sense
-    // gets armed (avoids an immediate re-wake)
-    mui_u8g2_deinit(&mui()->u8g2);
+    // gets armed (avoids an immediate re-wake).
+    // app_timer callbacks run in interrupt context, so the display command
+    // goes through the scheduler to run in the main loop with the other
+    // display traffic
     m_back_sleep_pending = true;
+    app_sched_event_put(NULL, 0, back_sleep_blank_screen);
 }
 #endif
 
