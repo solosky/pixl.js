@@ -177,9 +177,11 @@ Continuity tests (USB unplugged, B+ unsoldered) against B−, +3V3, the U2 pads,
 | 3, 4 | C2P / C2N, charge-pump flying cap | C22 sits between legs 3 and 4 | Verified cap, which pump cap is inferred |
 | 5, 7 | VDD / VBAT (+3V3) | beep to +3V3 and U2 VCC; C23, C24 to GND | Verified |
 | 6, 16 | GND | beep to B− and U2 GND | Verified |
-| 8, 9, 10 | CS#, D/C#, RES# in unknown order | idle at 3.34 V, not tied to +3V3 or U2 | Unknown order |
-| 11 | SCK (D0) | beeps to U2 SCLK, idle 0 V | Verified net, inferred pad numbering |
-| 12 | MOSI (D1 / SDIN) | beeps to U2 SI, idle 0 V | Verified net, inferred pad numbering |
+| 8 | CS# | logic analyzer: SPI decoder with this leg as enable gives clean bytes, low once per transfer | Verified |
+| 9 | RES# | logic analyzer: one low pulse of about 0.1 s after boot, never toggles again | Verified |
+| 10 | D/C# | logic analyzer: the only other line that toggles with the SPI burst; not yet checked against individual command bytes | Verified by behavior |
+| 11 | SCK (D0) | beeps to U2 SCLK, idle 0 V; clock in the logic analyzer capture | Verified |
+| 12 | MOSI (D1 / SDIN) | beeps to U2 SI, idle 0 V; decodes as the SH1106 init | Verified |
 | 13 | IREF | R3 (558 kΩ) to GND, 5.6 V | Verified |
 | 14, 15 | VCC (charge-pump output, about 8 V) | C25 on leg 14, C26 and C27 on leg 15, all to GND | Verified caps, VCC inferred |
 
@@ -283,28 +285,9 @@ Values come from xiaohai's design where the role is the same. The ceramic capaci
 
 ## Still to do
 
-### Which PC1 leg is CS#, D/C# and RES#
-
-SCK (leg 11) and MOSI (leg 12) are known. Legs 8, 9 and 10 are CS#, D/C# and RES# in some order, and only a logic analyzer can tell them apart. The contacts are too small to clip onto directly, so plug a 16-pin 0.5 mm FFC cable into PC1 (with the panel unplugged) and clip onto a breakout board on the other end.
-
-1. Connect the analyzer's ground to the B− pad.
-2. Put channels on legs 8, 9 and 10, plus legs 11 and 12 as a check. Keep away from legs 1–4 and 13–15, which carry up to 8 V when the panel is connected.
-3. Start the capture, plug in USB so the device boots, and press a few buttons.
-
-What each signal looks like:
-
-| Signal | Pattern |
-| --- | --- |
-| RES# | one low pulse at boot, then high |
-| CS# | low during each burst of data, high in between |
-| SCK | clock bursts while CS# is low |
-| MOSI | changing data while SCK runs |
-| D/C# | low during command bytes (mostly at boot), high during screen data |
-
-With the SPI decoder on SCK / MOSI / CS#, the first bytes after the RES# pulse should be the display init sequence, starting with `0xAE` (display off).
-
 ### Other
 
+- Confirm D/C# (leg 10) is low during the command bytes of the init sequence.
 - Which USB-C data pair (5 / 7 or 6 / 8) is D+ and which is D−. This needs the connector's datasheet.
 - The values of C10 and C11.
 
