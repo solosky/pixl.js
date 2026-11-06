@@ -37,7 +37,7 @@ def get_prorject_directory():
 
 def fetch_amiibo_from_api():
     try:
-        conn = urlopen("https://www.amiiboapi.com/api/amiibo/", timeout=5000)
+        conn = urlopen("https://www.amiiboapi.org/api/amiibo/", timeout=5000)
         body = json.loads(conn.read())
         amiibos = list()
         for ami in body["amiibo"]: 
