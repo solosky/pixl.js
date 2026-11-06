@@ -26,7 +26,7 @@ const db_game_t game_list[] = {
 {23, 0, "Kirby's Return to Dream Land DELUXE", "星之卡比：重返梦幻岛豪华版", 1, 5}, 
 {24, 0, "Kirby: Star Allies", "星之卡比：新星同盟", 1, 5}, 
 {25, 0, "Little Nightmares Complete Edition", "小小梦魇完全版", 1, 1}, 
-{26, 0, "Mario Kart 8 Deluxe", "马里奥赛车8豪华版", 60, 35}, 
+{26, 0, "Mario Kart 8 Deluxe", "马里奥赛车8豪华版", 60, 37}, 
 {27, 0, "Mario + Rabbids Kingdom Battle", "马里奥+疯兔:王国之战", 1, 4}, 
 {28, 0, "Megabyte Punch", "兆字节重击", 1, 1}, 
 {29, 0, "Mega Man 11", "洛克人11", 1, 1}, 
@@ -77,6 +77,7 @@ const db_game_t game_list[] = {
 {74, 0, "Metroid Prime 4: Beyond", "密特罗德 究极4 超越未知", 10, 3}, 
 {75, 0, "Kirby Air Riders", "卡比的驭天飞行者", 1, 5}, 
 {76, 0, "Super Mario Bros. Wonder", "超级马力欧兄弟Wonder", 5, 5}, 
+{77, 0, "The Legend of Zelda: Ocarina of Time", "塞尔达传说 时之笛", 15, 2}, 
 {255, 0, "Others", "未分类", 0, 0}, 
 {0, 0, 0, 0, 0}
 };
