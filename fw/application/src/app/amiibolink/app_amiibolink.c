@@ -85,8 +85,9 @@ void app_amiibolink_on_kill(mini_app_inst_t *p_app_inst) {
     p_retain->amiibolink_mode = p_app_handle->amiibolink_mode;
     p_retain->cycle_mode_index = amiibolink_view_get_index(p_app_handle->p_amiibolink_view);
 
-    // exit_cb clears the BLE/NFC callbacks (they point into p_app_handle,
-    // freed below); ntag_emu_uninit stops the NFC radio itself
+    // exit_cb clears the BLE callbacks (they point into p_app_handle, freed
+    // below); ntag_emu_uninit stops the NFC radio and clears the NFC update
+    // callback, which points into p_app_handle too
     mui_scene_dispatcher_exit(p_app_handle->p_scene_dispatcher);
     ntag_emu_uninit();
 

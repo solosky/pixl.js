@@ -138,8 +138,8 @@ void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
         memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
     }
 
-    // exit_cb clears the NFC update callback (points into p_app_handle,
-    // freed below); ntag_emu_uninit stops the NFC radio itself
+    // exit_cb runs the scene cleanup; ntag_emu_uninit stops the NFC radio and
+    // clears the NFC update callback (points into p_app_handle, freed below)
     mui_scene_dispatcher_exit(p_app_handle->p_scene_dispatcher);
     ntag_emu_uninit();
 

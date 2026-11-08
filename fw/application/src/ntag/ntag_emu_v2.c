@@ -297,7 +297,11 @@ ret_code_t ntag_emu_init(const ntag_t *ntag) {
     return NRF_SUCCESS;
 }
 
-void ntag_emu_uninit(ntag_t *ntag) {
+void ntag_emu_uninit(void) {
+    // Clear the callback first: update_ntag_handler runs later from the app
+    // scheduler and reads update_cb/cb_context, which usually point into an
+    // app handle that the caller is about to free.
+    ntag_emu_set_update_cb(NULL, NULL);
     hal_nfc_stop();
     hal_nfc_done();
 }
