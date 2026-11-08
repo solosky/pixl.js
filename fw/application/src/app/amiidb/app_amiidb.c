@@ -123,9 +123,15 @@ void app_amiidb_on_kill(mini_app_inst_t *p_app_inst) {
         p_cache_data.current_focus_index = mui_list_view_get_focus(p_app_handle->p_list_view);
         p_cache_data.cur_scroll_offset = mui_list_view_get_scroll_offset(p_app_handle->p_list_view);
 
-        memcpy(p_app_inst->p_retain_data, &p_cache_data, sizeof(app_amiidb_cache_data_t));
+        // retain data is only provided when the app is put to sleep; a normal
+        // exit (e.g. the back button) has none
+        if (p_app_inst->p_retain_data) {
+            memcpy(p_app_inst->p_retain_data, &p_cache_data, sizeof(app_amiidb_cache_data_t));
+        }
     } else {
-        memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
+        if (p_app_inst->p_retain_data) {
+            memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
+        }
         memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
     }
 

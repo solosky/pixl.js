@@ -82,8 +82,12 @@ void app_amiibolink_on_kill(mini_app_inst_t *p_app_inst) {
 
     app_amiibolink_retain_data_t *p_retain = (app_amiibolink_retain_data_t *)p_app_inst->p_retain_data;
 
-    p_retain->amiibolink_mode = p_app_handle->amiibolink_mode;
-    p_retain->cycle_mode_index = amiibolink_view_get_index(p_app_handle->p_amiibolink_view);
+    // retain data is only provided when the app is put to sleep; a normal exit
+    // (e.g. the back button) has none
+    if (p_retain) {
+        p_retain->amiibolink_mode = p_app_handle->amiibolink_mode;
+        p_retain->cycle_mode_index = amiibolink_view_get_index(p_app_handle->p_amiibolink_view);
+    }
 
     // exit_cb clears the BLE callbacks (they point into p_app_handle, freed
     // below); ntag_emu_uninit stops the NFC radio and clears the NFC update
