@@ -1,5 +1,6 @@
 #include "app_amiibo.h"
 #include "mini_app_registry.h"
+#include "mini_app_launcher.h"
 
 #include "mui_include.h"
 
@@ -69,6 +70,9 @@ void app_amiibo_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_msg_box_get_view(p_app_handle->p_msg_box));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
+    mui_view_dispatcher_set_back_event_cb(p_app_handle->p_view_dispatcher,
+                                         (mui_view_dispatcher_back_event_cb_t)mini_app_launcher_scene_back,
+                                         p_app_handle->p_scene_dispatcher);
 
     p_app_handle->p_view_dispatcher_toast = mui_view_dispatcher_create();
     mui_view_dispatcher_add_view(p_app_handle->p_view_dispatcher_toast, AMIIBO_VIEW_ID_TOAST,
@@ -128,11 +132,22 @@ void app_amiibo_on_kill(mini_app_inst_t *p_app_inst) {
         p_cache_data.current_scene_id = current_scene_id;
         p_cache_data.current_focus_index = mui_list_view_get_focus(p_app_handle->p_list_view);
 
-        memcpy(p_app_inst->p_retain_data, &p_cache_data, sizeof(app_amiibo_cache_data_t));
+        // retain data is only provided when the app is put to sleep; a normal
+        // exit (e.g. the back button) has none
+        if (p_app_inst->p_retain_data) {
+            memcpy(p_app_inst->p_retain_data, &p_cache_data, sizeof(app_amiibo_cache_data_t));
+        }
     } else {
-        memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
+        if (p_app_inst->p_retain_data) {
+            memset(p_app_inst->p_retain_data, 0, CACHEDATASIZE);
+        }
         memset(&(cache_get_data()->ntag), 0, sizeof(ntag_t));
     }
+
+    // exit_cb runs the scene cleanup; ntag_emu_uninit stops the NFC radio and
+    // clears the NFC update callback (points into p_app_handle, freed below)
+    mui_scene_dispatcher_exit(p_app_handle->p_scene_dispatcher);
+    ntag_emu_uninit();
 
     mui_view_dispatcher_detach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(p_app_handle->p_view_dispatcher);

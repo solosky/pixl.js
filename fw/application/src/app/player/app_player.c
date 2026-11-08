@@ -1,5 +1,6 @@
 #include "app_player.h"
 #include "mini_app_registry.h"
+#include "mini_app_launcher.h"
 
 #include "mui_include.h"
 
@@ -33,6 +34,9 @@ void app_player_on_run(mini_app_inst_t *p_app_inst) {
                                  mui_list_view_get_view(p_app_handle->p_list_view));
 
     mui_view_dispatcher_attach(p_app_handle->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
+    mui_view_dispatcher_set_back_event_cb(p_app_handle->p_view_dispatcher,
+                                         (mui_view_dispatcher_back_event_cb_t)mini_app_launcher_scene_back,
+                                         p_app_handle->p_scene_dispatcher);
 
     mui_scene_dispatcher_set_user_data(p_app_handle->p_scene_dispatcher, p_app_handle);
     mui_scene_dispatcher_set_scene_defines(p_app_handle->p_scene_dispatcher, player_scene_defines, PLAYER_SCENE_MAX);

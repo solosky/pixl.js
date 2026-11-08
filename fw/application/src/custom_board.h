@@ -12,6 +12,8 @@ extern "C" {
 
 #if defined(BOARD_OLED)
 #include "boards/board_oled.h"
+#elif defined(BOARD_OLED_4BTN)
+#include "boards/board_oled_4btn.h"
 #elif defined(BOARD_LCD)
 #include "boards/board_lcd.h"
 #else

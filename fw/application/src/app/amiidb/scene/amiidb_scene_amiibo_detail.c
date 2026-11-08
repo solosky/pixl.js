@@ -242,6 +242,7 @@ void amiidb_scene_amiibo_detail_on_enter(void *user_data) {
 
 void amiidb_scene_amiibo_detail_on_exit(void *user_data) {
     app_amiidb_t *app = (app_amiidb_t *)user_data;
+    ntag_emu_set_update_cb(NULL, NULL);
     app_timer_stop(m_amiibo_gen_delay_timer);
     amiidb_fav_array_reset(app->fav_array);
 }

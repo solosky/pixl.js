@@ -21,6 +21,9 @@ openocd -f interface/cmsis-dap.cfg -c "transport select swd" -f target/nrf52.cfg
 ```
 After first flash is completed, subsequent firmware updates can be done via OTA.
 
+### Note for the 4-button OLED variant (`OLED_4BTN`)
+OTA updates only replace the application, never the bootloader. On this variant the DFU/"Firmware Update" screen shown by the bootloader can stay upside down even after an OTA update, since that screen belongs to the bootloader. If it bothers you, the fix requires reflashing `pixljs_all.hex` over the wired connection above; there is no OTA-only way to correct it.
+
 ## Method 2: OTA update
 This method is only applicable to Pixl.js devices that have been successfully programed via wired method.
 

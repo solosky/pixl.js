@@ -226,4 +226,7 @@ void amiibolink_scene_main_on_exit(void *user_data) {
     ble_disable();
     ble_nus_set_handler(NULL, NULL);
     ntag_emu_set_update_cb(NULL, NULL);
+    // an NFC read in random auto-gen mode arms this timer with app as its
+    // context; stop it so it can't fire after the app handle is freed
+    app_timer_stop(m_amiibo_gen_delay_timer);
 }

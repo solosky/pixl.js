@@ -1,0 +1,10 @@
+{
+  "meta": { "filename": "pc_v2.kicad_pro", "version": 3 },
+  "erc": {
+    "rule_severities": {
+      "lib_symbol_issues": "ignore",
+      "footprint_link_issues": "ignore",
+      "lib_symbol_mismatch": "ignore"
+    }
+  }
+}

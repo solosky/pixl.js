@@ -11,7 +11,6 @@
 void ble_scene_connect_status_view_event_cb(ble_status_view_event_t event, ble_status_view_t *p_view){
     app_ble_t *app = p_view->user_data;
     if (event == BLE_STATUS_VIEW_BLE_DISABLE) {
-        ble_disable();
         mini_app_launcher_kill(mini_app_launcher(), MINI_APP_ID_BLE);
     } else if (event == BLE_STATUS_VIEW_EVENT_UPDATE) {
         // NOOP
@@ -35,7 +34,8 @@ void ble_scene_connect_start_on_enter(void *user_data) {
 }
 
 void ble_scene_connect_start_on_exit(void *user_data) {
-
-    app_ble_t *app = user_data;
-    
+    // must run on every exit path (back button included), or advertising/
+    // connection stays alive after the app is killed and its callbacks
+    // fire into freed memory
+    ble_disable();
 }

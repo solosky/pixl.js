@@ -26,4 +26,6 @@ void* mini_app_launcher_get_app_handle(mini_app_launcher_t* p_launcher, uint32_t
 
 void mini_app_launcher_run_with_retain_data(mini_app_launcher_t *p_launcher, uint32_t id, uint8_t *retain_data);
 
-#endif 
+void mini_app_launcher_scene_back(mui_scene_dispatcher_t *p_scene_dispatcher);
+
+#endif

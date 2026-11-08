@@ -29,6 +29,14 @@ Is the micro switch at top of the device, is a device having three buttons in on
 
 On this document pressing the sides of Thumbwheel is named "**side buttons**", pushing the Thumbwheel is called "**middle button**"; to navigate items on a menu you use the side buttons, to select an item you press middle button.
 
+## Back button (4-button OLED variant)
+Some OLED hardware variants add a 4th physical button dedicated to "back". Where available:
+
+- A short press pops the current menu, same as selecting one of the "Back"/"Exit" items already present in most menus.
+- Holding it for about 1.5 seconds puts the device to sleep, the same as the `Go Sleep` option in Settings.
+
+This button is not present on the LCD or the original 3-button OLED hardware; on those, use the menu "Back"/"Exit" items and the Settings `Go Sleep` option instead.
+
 # Using the Firmware
 The Pixl.js firmware Main Screen is divided on several Applications, each one can be run to execute some actions, the applications on main screen are:
 

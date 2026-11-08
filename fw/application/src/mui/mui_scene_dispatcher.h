@@ -33,6 +33,7 @@ void mui_scene_dispatcher_previous_scene(mui_scene_dispatcher_t *p_dispatcher);
 void mui_scene_dispatcher_back_scene(mui_scene_dispatcher_t *p_dispatcher, uint32_t step);
 
 uint32_t mui_scene_dispatcher_current_scene(mui_scene_dispatcher_t *p_dispatcher);
+uint32_t mui_scene_dispatcher_stack_size(mui_scene_dispatcher_t *p_dispatcher);
 
 void inline mui_mui_scene_dispatcher_set_default_scene_id(mui_scene_dispatcher_t *p_dispatcher, uint32_t default_scene_id) {
     p_dispatcher->default_scene_id = default_scene_id;

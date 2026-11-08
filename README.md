@@ -9,6 +9,9 @@
 
 ![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-5.jpg)
 
+![image](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled-4btn.jpg)
+
+
 ## 文档
 
 * [中文文档](docs/zh/README.md)

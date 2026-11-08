@@ -32,3 +32,9 @@ A shell for this project, made by Mr. Baicheng can be downloaded [here](https://
 The OLED version was contributed by netizen @xiaohail. You can click [here](https://gitlab.com/xiaohai/pixl.js) to download the PCB.
 
 ![OLED](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled1.png)
+
+# 4-button OLED version
+
+A bigger OLED board variant with a 4th physical button dedicated to "back", built with `BOARD=OLED_4BTN`. The board is larger than the standard OLED version and the screen sits in its own separate space rather than directly on the board, which is why the display and button orientation are configured differently for this variant. See the [Buyer Guide](00-Buyer-Guide.md) for the matching release package.
+
+![4-button OLED](https://github.com/solosky/pixl.js/blob/main/assets/pixljs-oled-4btn.jpg)

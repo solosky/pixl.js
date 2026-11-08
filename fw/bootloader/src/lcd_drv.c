@@ -40,14 +40,22 @@ void lcd_init(void) {
     lcd_write_command(0xB0); /*set page address*/
     lcd_write_command(0x81); /*contract control*/
     lcd_write_command(0xcf); /*128*/
+#ifdef OLED_ROTATION_180
+    lcd_write_command(0xA0); /*set segment remap - this board's OLED is mounted upside down*/
+#else
     lcd_write_command(0xA1); /*set segment remap*/
+#endif
     lcd_write_command(0xA6); /*normal / reverse*/
     lcd_write_command(0xA8); /*multiplex ratio*/
     lcd_write_command(0x3F); /*duty = 1/64*/
     lcd_write_command(0xad); /*set charge pump enable*/
     lcd_write_command(0x8b); /* 0x8B ÄÚ¹© VCC */
     lcd_write_command(0x33); /*0X30---0X33 set VPP 9V */
+#ifdef OLED_ROTATION_180
+    lcd_write_command(0xC0); /*Com scan direction - this board's OLED is mounted upside down*/
+#else
     lcd_write_command(0xC8); /*Com scan direction*/
+#endif
     lcd_write_command(0xD3); /*set display offset*/
     lcd_write_command(0x00); /* 0x20 */
     lcd_write_command(0xD5); /*set osc division*/

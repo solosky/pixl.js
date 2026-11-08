@@ -49,7 +49,12 @@ int32_t cache_save() {
     uint32_t ram1_power = 0;
     sd_power_ram_power_get(NOINIT_RAM_INDEX, &ram1_power);
     NRF_LOG_INFO("RAM1 power: 0x%X", ram1_power);
-    ram1_power = POWER_RAM_POWER_S0RETENTION_On << POWER_RAM_POWER_S0RETENTION_Pos;
+    // the noinit region (see application.ld) spans both 4 KB sections of RAM1
+    // (0x20002000-0x20003FFF) since ntag_t grew to hold NTAG I2C 2K data, so
+    // retain both; retaining only S0 loses the tail of the cache in System OFF,
+    // the CRC check fails on wakeup and the cache gets cleared
+    ram1_power = (POWER_RAM_POWER_S0RETENTION_On << POWER_RAM_POWER_S0RETENTION_Pos) |
+                 (POWER_RAM_POWER_S1RETENTION_On << POWER_RAM_POWER_S1RETENTION_Pos);
     sd_power_ram_power_set(NOINIT_RAM_INDEX, ram1_power);
 
     return NRF_SUCCESS;

@@ -16,7 +16,7 @@ jobs:
   build:
     strategy:
       matrix:
-        board: ["LCD", "OLED"]
+        board: ["LCD", "OLED", "OLED_4BTN"]
     runs-on: ubuntu-latest
     container: solosky/nrf52-sdk:latest
     steps:
@@ -42,6 +42,10 @@ jobs:
           trap 'git worktree remove "${BASE_WORKTREE}" --force || true' EXIT
           git worktree add "${BASE_WORKTREE}" "${BASE_SHA}"
           git -C "${BASE_WORKTREE}" submodule update --init --recursive
+          if ! grep -q "BOARD_${{matrix.board}}\b" "${BASE_WORKTREE}/fw/application/src/custom_board.h"; then
+            echo "The PR base has no ${{matrix.board}} board, so there is no baseline to compare against." > "${COMPARISON_MD}"
+            exit 0
+          fi
           make -C "${BASE_WORKTREE}/fw" all RELEASE=1 APP_VERSION=$GITHUB_RUN_NUMBER BOARD=${{matrix.board}}
           python3 fw/scripts/size_report.py summarize \
             --bin "${BASE_WORKTREE}/fw/_build/pixljs.bin" \
@@ -117,7 +121,7 @@ jobs:
           echo
           echo "Generated from [workflow run ${GITHUB_RUN_NUMBER}](${GITHUB_SERVER_URL}/${GITHUB_REPOSITORY}/actions/runs/${GITHUB_RUN_ID})."
           echo
-          for board in LCD OLED; do
+          for board in LCD OLED OLED_4BTN; do
             report="size-reports/pixljs_fw_${board}/size_comparison_${board}.md"
             if [ -f "${report}" ]; then
               sed 's/^# Size Comparison/### Size Comparison/' "${report}"
