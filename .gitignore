@@ -55,6 +55,9 @@ fw/example
 .DS_Store
 *.un~
 
+fw/bootloader/*.local.pem
+fw/bootloader/*private*.pem
+fw/bootloader/*release*.pem
 **/.vscode/.cortex-debug*.json
 
 # KiCad local state, lock files and autosaves

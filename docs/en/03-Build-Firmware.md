@@ -32,3 +32,15 @@ root@b10d54636088:/builds/pixl.js# cd fw && make all BOARD=OLED_4BTN RELEASE=1
 ```
 
 The firmware is fw/_build/pixljs_all.hex，ota package is fw/_build/pixjs_ota_vXXXX.zip
+
+## OTA signing key
+
+OTA packages are signed with the key selected by `DFU_PRIVATE_KEY`. The default value is `../bootloader/priv.pem`, which is intentionally public in this project so compatible-device owners and firmware developers can build and update custom firmware.
+
+If you build a custom bootloader with a different public key, pass the matching private key when generating OTA packages:
+
+```
+cd fw && make ota DFU_PRIVATE_KEY=/path/to/custom-private-key.pem
+```
+
+Devices will only accept OTA packages signed by the private key that matches the public key compiled into their bootloader. Do not commit personal or device-specific private keys.

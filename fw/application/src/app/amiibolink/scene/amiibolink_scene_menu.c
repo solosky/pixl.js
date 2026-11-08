@@ -28,7 +28,6 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
                                     mui_list_item_t *p_item) {
     app_amiibolink_t *app = p_list_view->user_data;
     int32_t menu_code = (int32_t)p_item->user_data;
-    char txt[32];
     if (event == MUI_LIST_VIEW_EVENT_SELECTED) {
         if (menu_code == AMIIBOLINK_MENU_BACK_MAIN) {
             mui_scene_dispatcher_next_scene(app->p_scene_dispatcher, AMIIBOLINK_SCENE_MAIN);
@@ -44,32 +43,35 @@ void amiibolink_scene_menu_on_event(mui_list_view_event_t event, mui_list_view_t
 
 void amiibolink_scene_menu_on_enter(void *user_data) {
     app_amiibolink_t *app = user_data;
-    // char *mode_name[] = {"", "随机(手动)", "按序", "读写", "随机(自动)"};
-    char mode_name[32];
+    const char *mode_name = "";
     if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM) {
-        strcpy(mode_name, getLangString(_L_MODE_RANDOM));
+        mode_name = getLangString(_L_MODE_RANDOM);
     } else if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_CYCLE) {
-        strcpy(mode_name, getLangString(_L_MODE_CYCLE));
+        mode_name = getLangString(_L_MODE_CYCLE);
     } else if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_NTAG) {
-        strcpy(mode_name, getLangString(_L_MODE_NTAG));
+        mode_name = getLangString(_L_MODE_NTAG);
     } else if (app->amiibolink_mode == BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
-        strcpy(mode_name, getLangString(_L_MODE_RANDOM_AUTO_GEN));
-    } else {
-        strcpy(mode_name, "");
+        mode_name = getLangString(_L_MODE_RANDOM_AUTO_GEN);
     }
 
-    char txt[32];
-    sprintf(txt, "[%s]", mode_name);
-    mui_list_view_add_item_ext(app->p_list_view, ICON_MODE, getLangString(_L_MODE), txt, (void *)AMIIBOLINK_MENU_MODE);
+    string_t sub_text;
+    string_init(sub_text);
+
+    string_printf(sub_text, "[%s]", mode_name);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_MODE, getLangString(_L_MODE), string_get_cstr(sub_text),
+                               (void *)AMIIBOLINK_MENU_MODE);
 
     settings_data_t *p_settings = settings_get_data();
 
-    sprintf(txt, "[%s]",
-            p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2
-                ? "V2"
-                : (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V1 ? "V1" : "AmiLoop"));
-    mui_list_view_add_item_ext(app->p_list_view, ICON_PROTO, getLangString(_L_COMPATIBLE_MODE), txt,
+    const char *version_name = p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V2
+                                   ? "V2"
+                                   : (p_settings->amiibo_link_ver == BLE_AMIIBOLINK_VER_V1 ? "V1" : "AmiLoop");
+    string_printf(sub_text, "[%s]", version_name);
+    mui_list_view_add_item_ext(app->p_list_view, ICON_PROTO, getLangString(_L_COMPATIBLE_MODE),
+                               string_get_cstr(sub_text),
                                (void *)AMIIBOLINK_MENU_VER);
+    string_clear(sub_text);
+
     mui_list_view_add_item_ext(app->p_list_view, ICON_VER, getLangString(_L_TAG_DETAILS), NULL,
                                (void *)AMIIBOLINK_MENU_BACK_MAIN);
 
