@@ -232,10 +232,6 @@ bootloader: ASMFLAGS += -D__HEAP_SIZE=0
 LIB_FILES += -lc -lnosys -lm
 
 # oled
-# the 4-button board has an SH1106 panel, and board_oled_4btn.h defines OLED_ROTATION_180 for it
-ifeq ($(BOARD), OLED_4BTN)
-  OLED_TYPE := sh1106
-endif
 ifeq ($(OLED_TYPE), sh1106)
   CFLAGS += -DOLED_TYPE_SH1106
 endif
