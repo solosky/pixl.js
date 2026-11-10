@@ -4,10 +4,20 @@
 #include "mui_event.h"
 #include "nrf_log.h"
 #include "bsp_btn.h"
+#include "settings.h"
 
 #include "cache.h"
 
 static void mui_input_post_event(mui_input_event_t *p_input_event) {
+    settings_data_t *p_settings = settings_get_data();
+    if (p_settings->controls_swap_lr) {
+        if (p_input_event->key == INPUT_KEY_LEFT) {
+            p_input_event->key = INPUT_KEY_RIGHT;
+        } else if (p_input_event->key == INPUT_KEY_RIGHT) {
+            p_input_event->key = INPUT_KEY_LEFT;
+        }
+    }
+
     uint32_t arg = p_input_event->type;
     arg <<= 8;
     arg += p_input_event->key;

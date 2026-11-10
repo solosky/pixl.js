@@ -36,6 +36,9 @@ const settings_data_t def_settings_data = {.backlight = 0,
                                             .amiidb_sort_column = 0,
                                             .chameleon_slot_num = 8,
                                             .amiibolink_mode = 0, // 0 = not set, use default (manual)
+                                            .display_orientation = DISPLAY_ORIENTATION_STANDARD,
+                                            .controls_swap_lr = false,
+                                            .settings_version = SETTINGS_VERSION,
                                         };
 
 settings_data_t m_settings_data = {0};
@@ -84,6 +87,21 @@ static void validate_settings() {
         m_settings_data.amiibolink_mode != BLE_AMIIBOLINK_MODE_RANDOM_AUTO_GEN) {
         m_settings_data.amiibolink_mode = 0; // Reset to "not set" if invalid
     }
+
+    INT8_VALIDATE(m_settings_data.display_orientation, 0, DISPLAY_ORIENTATION_COUNT - 1,
+                  DISPLAY_ORIENTATION_STANDARD);
+    BOOL_VALIDATE(m_settings_data.controls_swap_lr, 0);
+}
+
+// Settings files written by older firmware are shorter than settings_data_t, and fields added since may
+// overlap the old struct's tail padding, so they can hold any value. Reset them to their defaults instead.
+static void migrate_settings() {
+    if (m_settings_data.settings_version < 1) {
+        m_settings_data.display_orientation = def_settings_data.display_orientation;
+        m_settings_data.controls_swap_lr = def_settings_data.controls_swap_lr;
+    }
+
+    m_settings_data.settings_version = SETTINGS_VERSION;
 }
 
 int32_t settings_init() {
@@ -101,11 +119,15 @@ int32_t settings_init() {
         return NRF_ERROR_INVALID_STATE;
     }
 
+    // A settings file too short to contain settings_version leaves it at 0, marking it as written by older firmware
+    m_settings_data.settings_version = 0;
     err = p_driver->read_file_data(SETTINGS_FILE_NAME, &m_settings_data, sizeof(settings_data_t));
     if (err < 0) {
+        m_settings_data.settings_version = SETTINGS_VERSION;
         return NRF_ERROR_INVALID_STATE;
     }
 
+    migrate_settings();
     validate_settings();
 
     NRF_LOG_INFO("settings loaded!");
