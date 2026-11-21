@@ -193,4 +193,6 @@ const char * const lang_es_ES[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "Invasores",
     [_L_APP_GAME_TINY_LANDER] = "Lander",
     [_L_APP_GAME_TINY_TRIS] = "Tris",
+    [_L_APP_SWITCH2_WAKE] = "Despertar SW2",
+    [_L_APP_BLE_STREAM] = "Pantalla BLE",
 };

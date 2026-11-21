@@ -11,6 +11,8 @@ current_dir = os.path.dirname(os.path.abspath(__file__))
 source_dirs = [
     os.path.join(current_dir, "../application/src/i18n"),
     os.path.join(current_dir, "../application/src/amiidb"),
+    os.path.join(current_dir, "../application/src/app/switch2_wake"),
+    os.path.join(current_dir, "../application/src/app/ble_stream"),
 ]
 
 # Absolute path to the directory where the output file will be saved

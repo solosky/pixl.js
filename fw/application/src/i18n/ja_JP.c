@@ -193,4 +193,6 @@ const char * const lang_ja_JP[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "",
     [_L_APP_GAME_TINY_LANDER] = "",
     [_L_APP_GAME_TINY_TRIS] = "",
+    [_L_APP_SWITCH2_WAKE] = "Switch2 起動",
+    [_L_APP_BLE_STREAM] = "BLE 画面配信",
 };

@@ -193,4 +193,6 @@ const char * const lang_ru_RU[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "Космические захватчики",
     [_L_APP_GAME_TINY_LANDER] = "Посадка на Луну",
     [_L_APP_GAME_TINY_TRIS] = "Тетрис",
+    [_L_APP_SWITCH2_WAKE] = "Пробуждение SW2",
+    [_L_APP_BLE_STREAM] = "BLE Экран",
 };

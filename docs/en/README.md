@@ -32,6 +32,7 @@ This fork is divided in two main sections, Hardware and Firmware
 - [AmiiboLink Emulator APP](04-Using-Firmware.md/#AmiiboLink)
 - [Card Emulator APP](04-Using-Firmware.md/#CardEmulator)
 - [BLE File Transfer APP](04-Using-Firmware.md/#BLE-File-Transfer)
+- [Switch 2 Wake & BLE Stream](06-Switch2-Wake-and-BLE-Stream.md)
 - [Settings APP](04-Using-Firmware.md/#Settings-1)
 
 # Technical Documentation

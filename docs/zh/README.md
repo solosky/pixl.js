@@ -27,6 +27,7 @@
 - [AmiiboLink](04-Using-Firmware.md/#AmiiboLink)
 - [卡模拟器](04-Using-Firmware.md/#卡模拟器)
 - [蓝牙传输](04-Using-Firmware.md/#蓝牙传输)
+- [Switch 2 唤醒与蓝牙投屏](06-Switch2-Wake-and-BLE-Stream.md)
 - [设置](04-Using-Firmware.md/#设置)
 
 # 外壳

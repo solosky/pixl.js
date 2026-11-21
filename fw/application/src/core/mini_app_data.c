@@ -9,11 +9,15 @@
 #include "app_amiidb.h"
 #include "app_chameleon.h"
 #include "app_game.h"
+#include "app_switch2_wake.h"
+#include "app_ble_stream.h"
 #include <stddef.h>
 
 const mini_app_t* mini_app_registry[] = {
     &app_status_bar_info,
     &app_desktop_info,
+    &app_switch2_wake_info,
+    &app_ble_stream_info,
 #ifdef APP_LEGLAMIIBO_ENABLE
     &app_amiibo_info,
 #endif

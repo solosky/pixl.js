@@ -193,4 +193,6 @@ const char * const lang_de_DE[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "",
     [_L_APP_GAME_TINY_LANDER] = "",
     [_L_APP_GAME_TINY_TRIS] = "",
+    [_L_APP_SWITCH2_WAKE] = "SW2 Wecken",
+    [_L_APP_BLE_STREAM] = "BLE Stream",
 };

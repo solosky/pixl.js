@@ -184,6 +184,7 @@ SRC_FILES += \
   $(PROJ_DIR)/mod/settings.c \
   $(PROJ_DIR)/mod/cache.c \
   $(PROJ_DIR)/mod/ble/ble_main.c \
+  $(PROJ_DIR)/mod/ble/ble_switch2_scan.c \
   $(PROJ_DIR)/mod/ble/ble_df_driver.c \
   $(PROJ_DIR)/mod/ble/ble_amiibolink.c \
   $(PROJ_DIR)/mod/cwalk2.c \
@@ -227,6 +228,8 @@ SRC_FILES += \
   $(PROJ_DIR)/app/ble/view/ble_status_view.c \
   $(PROJ_DIR)/app/ble/scene/ble_scene.c \
   $(PROJ_DIR)/app/ble/scene/ble_scene_connect_start.c \
+  $(PROJ_DIR)/app/switch2_wake/app_switch2_wake.c \
+  $(PROJ_DIR)/app/ble_stream/app_ble_stream.c \
   $(PROJ_DIR)/app/player/app_player.c \
   $(PROJ_DIR)/app/player/view/player_view.c \
   $(PROJ_DIR)/app/player/scene/player_scene.c \
@@ -560,6 +563,8 @@ INC_FOLDERS += \
   $(PROJ_DIR)/app/ble \
   $(PROJ_DIR)/app/ble/scene \
   $(PROJ_DIR)/app/ble/view \
+  $(PROJ_DIR)/app/switch2_wake \
+  $(PROJ_DIR)/app/ble_stream \
   $(PROJ_DIR)/app/desktop \
   $(PROJ_DIR)/app/desktop/view \
   $(PROJ_DIR)/app/settings \
@@ -683,7 +688,6 @@ LDFLAGS += -mfloat-abi=hard -mfpu=fpv4-sp-d16
 LDFLAGS += -Wl,--gc-sections
 # use newlib in nano version
 LDFLAGS += --specs=nano.specs
-LDFLAGS += -u _printf_float
 
 pixljs: CFLAGS += -D__HEAP_SIZE=4096
 pixljs: CFLAGS += -D__STACK_SIZE=8192
