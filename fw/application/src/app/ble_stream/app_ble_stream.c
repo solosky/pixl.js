@@ -2,6 +2,7 @@
 
 #include "app_scheduler.h"
 #include "app_timer.h"
+#include "app_util_platform.h"
 #include "ble_main.h"
 #include "i18n/language.h"
 #include "mini_app_launcher.h"
@@ -91,7 +92,6 @@ static void stream_conn_sched_handler(void *p_event_data, uint16_t event_size) {
     }
     bool connected = (*(uint8_t *)p_event_data) != 0;
     s_stream_app->connected = connected;
-    s_stream_app->rx_state = RX_WAIT_MAGIC0;
     if (!connected) {
         s_stream_app->has_frame = false;
         s_stream_app->cur_fps = 0;
@@ -108,6 +108,10 @@ static void stream_conn_sched_handler(void *p_event_data, uint16_t event_size) {
 }
 
 static void stream_on_ble_conn_evt(bool connected) {
+    if (s_stream_app != NULL) {
+        s_stream_app->rx_state = RX_WAIT_MAGIC0;
+        s_stream_app->rx_pos = 0;
+    }
     uint8_t flag = connected ? 1 : 0;
     app_sched_event_put(&flag, sizeof(flag), stream_conn_sched_handler);
 }
@@ -307,12 +311,14 @@ static void stream_view_on_input(mui_view_t *p_view, mui_input_event_t *event) {
         app->show_hud = !app->show_hud;
         break;
     case INPUT_KEY_RIGHT:
+        CRITICAL_REGION_ENTER();
         app->invert = !app->invert;
         if (app->has_frame) {
             for (uint16_t k = 0; k < STREAM_FRAME_BYTES; k++) {
                 app->frame_buf[k] ^= 0xFF;
             }
         }
+        CRITICAL_REGION_EXIT();
         break;
     case INPUT_KEY_CENTER:
         ble_set_conn_evt_handler(NULL);

@@ -27,9 +27,12 @@ Nintendo Switch 2 在休眠状态下会监听来自**已配对 Joy-Con 2 / Pro C
 # 方式 1：填写手柄 MAC 与 Switch 2 主机 MAC（固件自动拼包并反序主机 MAC）
 mac=AA:BB:CC:DD:EE:FF
 host=11:22:33:44:55:66
-pid=2066          # 2066=JC2-L, 2067=JC2-R, 2069=Pro2
-mode=nonconn      # nonconn 或 conn
-auto_wake=0       # 1=开屏自动唤醒, 0=关闭
+# 手柄 PID：2066=JC2-L, 2067=JC2-R, 2069=Pro2
+pid=2066
+# 广播模式：nonconn 或 conn
+mode=nonconn
+# 开屏自动唤醒：1=开启, 0=关闭
+auto_wake=0
 
 # 方式 2：或直接填写抓包得到的 31 字节原始十六进制广播数据（优先级高于 host）
 #data=0201061BFF53050100037E0566200001816655443322110F00000000000000
@@ -69,7 +72,7 @@ python fw/scripts/stream_video_to_pixl.py
 python fw/scripts/stream_video_to_pixl.py path/to/video.mp4 --fps 15 --scale stretch
 ```
 
-播放过程中支持终端热键实时调节：
+播放过程中支持终端热键实时调节（Windows 终端支持实时热键；macOS/Linux 使用 `Ctrl+C` 退出）：
 - `[` / `]`：降低 / 提高目标帧率（5–30 FPS）
 - `s`：切换缩放模式（`fit` 等比留黑边 / `stretch` 拉伸铺满 / `crop` 居中裁剪）
 - `-` / `=`：调节二值化阈值（10–245）

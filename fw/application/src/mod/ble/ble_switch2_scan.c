@@ -254,7 +254,10 @@ static void scan_soc_evt_handler(uint32_t evt_id, void *p_context) {
         break;
 
     case NRF_EVT_RADIO_SESSION_CLOSED:
-        app_sched_event_put(NULL, 0, scan_notify_sched_handler);
+        if (app_sched_event_put(NULL, 0, scan_notify_sched_handler) != NRF_SUCCESS) {
+            m_scan_active = false;
+            m_scan_cb = NULL;
+        }
         break;
 
     case NRF_EVT_RADIO_BLOCKED:

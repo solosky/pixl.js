@@ -27,9 +27,12 @@ You can also create or edit `/switch2_wake.txt` in the root directory via BLE Fi
 # Option 1: Controller MAC + Switch 2 Host MAC (auto-builds 31B packet)
 mac=AA:BB:CC:DD:EE:FF
 host=11:22:33:44:55:66
-pid=2066          # 2066=JC2-L, 2067=JC2-R, 2069=Pro2
-mode=nonconn      # nonconn or conn
-auto_wake=0       # 1=wake on boot, 0=disabled
+# Controller PID: 2066=JC2-L, 2067=JC2-R, 2069=Pro2
+pid=2066
+# Advertising mode: nonconn or conn
+mode=nonconn
+# Boot wake: 1=wake on boot, 0=disabled
+auto_wake=0
 
 # Option 2: Raw 31-byte hex payload (overrides host/pid if present)
 #data=0201061BFF53050100037E0566200001816655443322110F00000000000000
@@ -68,7 +71,7 @@ python fw/scripts/stream_video_to_pixl.py
 python fw/scripts/stream_video_to_pixl.py path/to/video.mp4 --fps 15 --scale stretch
 ```
 
-Live terminal hotkeys while streaming:
+Live terminal hotkeys while streaming (interactive hotkeys are supported on Windows; press `Ctrl+C` to quit on macOS/Linux):
 - `[` / `]`: Decrease / increase target FPS (5–30)
 - `s`: Cycle scale mode (`fit` / `stretch` / `crop`)
 - `-` / `=`: Adjust B/W threshold (10–245)

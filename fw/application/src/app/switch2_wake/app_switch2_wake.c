@@ -439,9 +439,10 @@ static void switch2_wake_on_scan_done(bool found, const ble_switch2_scan_result_
         memcpy(s_active_app->cfg.raw_data, res->adv_data, res->adv_len);
         s_active_app->cfg.raw_data_len = res->adv_len;
         s_active_app->cfg.has_raw_data = true;
-        switch2_wake_save_cfg(&s_active_app->cfg);
+        bool saved = switch2_wake_save_cfg(&s_active_app->cfg);
         switch2_wake_reload_menu(s_active_app);
-        mui_toast_view_show(s_active_app->p_toast_view, s2_tr("捕获成功!", "Captured!"));
+        mui_toast_view_show(s_active_app->p_toast_view,
+                            saved ? s2_tr("捕获成功!", "Captured!") : _T(FAILED));
     } else {
         switch2_wake_reload_menu(s_active_app);
         mui_toast_view_show(s_active_app->p_toast_view, s2_tr("扫描超时", "Scan Timeout"));
@@ -539,9 +540,10 @@ static void switch2_wake_text_input_cb(mui_text_input_event_t event, mui_text_in
             app->cfg.raw_data_len = 0;
         }
 
-        switch2_wake_save_cfg(&app->cfg);
+        bool saved = switch2_wake_save_cfg(&app->cfg);
         switch2_wake_reload_menu(app);
-        mui_toast_view_show(app->p_toast_view, s2_tr("配置已保存", "Config Saved"));
+        mui_toast_view_show(app->p_toast_view,
+                            saved ? s2_tr("配置已保存", "Config Saved") : _T(FAILED));
     }
 
     app->edit_target = SWITCH2_EDIT_NONE;
@@ -600,6 +602,8 @@ static void switch2_wake_list_selected_cb(mui_list_view_event_t event, mui_list_
         } else {
             app->cfg.pid = SWITCH2_PID_JC2_L;
         }
+        app->cfg.has_raw_data = false;
+        app->cfg.raw_data_len = 0;
         switch2_wake_save_cfg(&app->cfg);
         switch2_wake_reload_menu(app);
         break;
@@ -683,6 +687,13 @@ static void app_switch2_wake_on_event(mini_app_inst_t *p_app_inst, mini_app_even
 void app_switch2_wake_on_boot(uint32_t wakeup_reason) {
     // Skip silent RFID-field wakeups (e.g., scanning an Amiibo card without turning on screen)
     if (wakeup_reason & (NRF_POWER_RESETREAS_NFC_MASK | NRF_POWER_RESETREAS_LPCOMP_MASK)) {
+        return;
+    }
+
+    // Do not clobber BLE state if a non-desktop app (e.g. AmiiboLink) was restored on boot
+    mini_app_launcher_t *p_launcher = mini_app_launcher();
+    if (p_launcher->p_main_app_inst != NULL && p_launcher->p_main_app_inst->p_app != NULL &&
+        p_launcher->p_main_app_inst->p_app->id != MINI_APP_ID_DESKTOP) {
         return;
     }
 

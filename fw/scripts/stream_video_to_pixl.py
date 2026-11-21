@@ -115,6 +115,26 @@ def build_vf_filter(fps: float, scale_mode: str) -> str:
     return f"fps={fps},scale=128:64:flags=area,format=gray"
 
 
+def close_ffmpeg(proc):
+    if proc is None:
+        return
+    if proc.stdout is not None:
+        try:
+            proc.stdout.close()
+        except Exception:
+            pass
+    if proc.poll() is None:
+        proc.terminate()
+        try:
+            proc.wait(timeout=3)
+        except subprocess.TimeoutExpired:
+            proc.kill()
+            try:
+                proc.wait(timeout=3)
+            except subprocess.TimeoutExpired:
+                pass
+
+
 def open_ffmpeg(video_path: str, fps: float, scale_mode: str, start_sec: float = 0.0):
     cmd = ["ffmpeg", "-v", "error"]
     if start_sec > 0.1:
@@ -167,7 +187,10 @@ async def stream_video(video_path: str | None, fps: float, threshold: int, inver
             pass
 
         print(f"Connected! MTU={mtu}, chunk={chunk_size}B | Mode={scale_mode} | Target FPS={fps:.0f} | RSSI={live_rssi} dBm", flush=True)
-        print("Hotkeys: '['/']' FPS | '-'/ '=' Threshold | 's' Scale(fit/stretch/crop) | 'i' Invert | 'p' Pause | 'r' Restart | 'q' Quit", flush=True)
+        if msvcrt is not None:
+            print("Hotkeys: '['/']' FPS | '-'/ '=' Threshold | 's' Scale(fit/stretch/crop) | 'i' Invert | 'p' Pause | 'r' Restart | 'q' Quit", flush=True)
+        else:
+            print("Press Ctrl+C to quit (interactive hotkeys are Windows-only).", flush=True)
 
         scale_idx = SCALE_MODES.index(scale_mode) if scale_mode in SCALE_MODES else 0
         paused = False
@@ -218,8 +241,7 @@ async def stream_video(video_path: str | None, fps: float, threshold: int, inver
                         reopen = True
 
                     if reopen and proc is not None:
-                        proc.terminate()
-                        proc.wait()
+                        close_ffmpeg(proc)
                         proc = open_ffmpeg(video_path, fps, SCALE_MODES[scale_idx], play_sec)
 
                 if paused:
@@ -236,6 +258,8 @@ async def stream_video(video_path: str | None, fps: float, threshold: int, inver
                     play_sec += 1.0 / fps
                 else:
                     xbm = generate_demo_frame(frame_idx)
+                    if invert:
+                        xbm = bytes(b ^ 0xFF for b in xbm)
 
                 pkt = encode_frame_packet(xbm, prev_xbm=prev_xbm, force_keyframe=(frame_idx % 150 == 0))
                 prev_xbm = xbm
@@ -256,9 +280,7 @@ async def stream_video(video_path: str | None, fps: float, threshold: int, inver
                 if sleep_time > 0:
                     await asyncio.sleep(sleep_time)
         finally:
-            if proc is not None:
-                proc.terminate()
-                proc.wait()
+            close_ffmpeg(proc)
 
 
 def main():

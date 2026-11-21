@@ -155,6 +155,7 @@ static uint8_t m_ble_initialized = false;
 
 static bool m_raw_adv_active = false;
 static bool m_raw_adv_addr_dirty = false;
+static bool m_raw_conn_rejected = false;
 static ble_raw_adv_done_cb_t m_raw_adv_done_cb = NULL;
 static uint8_t m_raw_adv_buf[BLE_GAP_ADV_SET_DATA_SIZE_MAX] = {0};
 static ble_gap_adv_data_t m_raw_adv_data = {0};
@@ -375,6 +376,7 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
     case BLE_GAP_EVT_CONNECTED:
         if (m_raw_adv_active) {
             m_raw_adv_active = false;
+            m_raw_conn_rejected = true;
             (void)sd_ble_gap_disconnect(p_ble_evt->evt.gap_evt.conn_handle,
                                         BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
             if (m_raw_adv_done_cb) {
@@ -415,6 +417,10 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
         if (!m_raw_adv_active && m_raw_adv_addr_dirty) {
             (void)sd_ble_gap_addr_set(&m_default_gap_addr);
             m_raw_adv_addr_dirty = false;
+        }
+        if (m_raw_conn_rejected) {
+            m_raw_conn_rejected = false;
+            break;
         }
         nrf_pwr_mgmt_set_timeout(m_previous_pwr_mgmt_sleep_timeout);
         if (m_conn_evt_cb) {
