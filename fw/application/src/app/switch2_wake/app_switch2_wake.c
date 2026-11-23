@@ -6,7 +6,7 @@
 #include "mini_app_registry.h"
 #include "mui_include.h"
 #include "mui_list_view.h"
-#include "mui_text_input.h"
+#include "mui_msg_box.h"
 #include "mui_toast_view.h"
 #include "nrf_error.h"
 #include "nrf_log.h"
@@ -27,15 +27,19 @@
 #define SWITCH2_PID_JC2_R 0x2067
 #define SWITCH2_PID_PRO2  0x2069
 
-#define ICON_WAKE 0xe1b5
-#define ICON_EDIT 0xe1ed
-#define ICON_MODE 0xe02b
-#define ICON_SAVE 0xe1d6
-#define ICON_BACK 0xe069
+#define ICON_WAKE      0xe00d
+#define ICON_SCAN      0xe1ee
+#define ICON_BOOT      0xe040
+#define ICON_CTRL_MAC  0xe00b
+#define ICON_HOST_MAC  0xe09f
+#define ICON_CTRL_TYPE 0xe19a
+#define ICON_ADV_MODE  0xe219
+#define ICON_SAVE      0xe146
+#define ICON_BACK      0xe069
 
 typedef enum {
     SWITCH2_WAKE_VIEW_LIST = 0,
-    SWITCH2_WAKE_VIEW_TEXT_INPUT = 1,
+    SWITCH2_WAKE_VIEW_MSG_BOX = 1,
     SWITCH2_WAKE_VIEW_TOAST = 2,
 } switch2_wake_view_id_t;
 
@@ -74,7 +78,7 @@ typedef struct {
     mui_view_dispatcher_t *p_view_dispatcher;
     mui_view_dispatcher_t *p_view_dispatcher_toast;
     mui_list_view_t *p_list_view;
-    mui_text_input_t *p_text_input;
+    mui_msg_box_t *p_msg_box;
     mui_toast_view_t *p_toast_view;
     switch2_wake_cfg_t cfg;
     switch2_edit_target_t edit_target;
@@ -147,11 +151,6 @@ static int parse_hex_bytes(const char *str, uint8_t *out, int max_len) {
 
 static void format_mac_colon(const uint8_t mac[6], char out[18]) {
     snprintf(out, 18, "%02X:%02X:%02X:%02X:%02X:%02X",
-             mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
-}
-
-static void format_mac_plain(const uint8_t mac[6], char out[13]) {
-    snprintf(out, 13, "%02X%02X%02X%02X%02X%02X",
              mac[0], mac[1], mac[2], mac[3], mac[4], mac[5]);
 }
 
@@ -364,12 +363,12 @@ static void switch2_wake_reload_menu(app_switch2_wake_t *app) {
                                app->waking ? "..." : "",
                                (void *)SWITCH2_MENU_WAKE);
 
-    mui_list_view_add_item_ext(app->p_list_view, ICON_WAKE,
+    mui_list_view_add_item_ext(app->p_list_view, ICON_SCAN,
                                app->scanning ? s2_tr("正在扫描...", "Scanning...") : s2_tr("扫描唤醒包", "Scan Wake Pkt"),
                                app->scanning ? "15s" : "",
                                (void *)SWITCH2_MENU_SCAN);
 
-    mui_list_view_add_item_ext(app->p_list_view, ICON_MODE,
+    mui_list_view_add_item_ext(app->p_list_view, ICON_BOOT,
                                s2_tr("开屏自动唤醒", "Boot Wake"),
                                app->cfg.auto_wake ? _T(ON_F) : _T(OFF_F),
                                (void *)SWITCH2_MENU_AUTO_WAKE);
@@ -380,7 +379,7 @@ static void switch2_wake_reload_menu(app_switch2_wake_t *app) {
     } else {
         snprintf(sub, sizeof(sub), "%s", s2_tr("未设置", "Unset"));
     }
-    mui_list_view_add_item_ext(app->p_list_view, ICON_EDIT, s2_tr("手柄 MAC", "Ctrl MAC"), sub,
+    mui_list_view_add_item_ext(app->p_list_view, ICON_CTRL_MAC, s2_tr("手柄 MAC", "Ctrl MAC"), sub,
                                (void *)SWITCH2_MENU_EDIT_MAC);
 
     if (app->cfg.has_raw_data) {
@@ -391,13 +390,13 @@ static void switch2_wake_reload_menu(app_switch2_wake_t *app) {
     } else {
         snprintf(sub, sizeof(sub), "%s", s2_tr("未设置", "Unset"));
     }
-    mui_list_view_add_item_ext(app->p_list_view, ICON_EDIT, s2_tr("主机 MAC", "Host MAC"), sub,
+    mui_list_view_add_item_ext(app->p_list_view, ICON_HOST_MAC, s2_tr("主机 MAC", "Host MAC"), sub,
                                (void *)SWITCH2_MENU_EDIT_HOST);
 
-    mui_list_view_add_item_ext(app->p_list_view, ICON_MODE, s2_tr("手柄类型", "Ctrl Type"), pid_label(app->cfg.pid),
+    mui_list_view_add_item_ext(app->p_list_view, ICON_CTRL_TYPE, s2_tr("手柄类型", "Ctrl Type"), pid_label(app->cfg.pid),
                                (void *)SWITCH2_MENU_PID);
 
-    mui_list_view_add_item_ext(app->p_list_view, ICON_MODE, s2_tr("广播模式", "Adv Mode"),
+    mui_list_view_add_item_ext(app->p_list_view, ICON_ADV_MODE, s2_tr("广播模式", "Adv Mode"),
                                app->cfg.connectable ? "Conn" : "NonConn",
                                (void *)SWITCH2_MENU_MODE);
 
@@ -517,58 +516,67 @@ static void switch2_wake_trigger(app_switch2_wake_t *app) {
     mui_toast_view_show(app->p_toast_view, s2_tr("正在唤醒...", "Waking..."));
 }
 
-static void switch2_wake_text_input_cb(mui_text_input_event_t event, mui_text_input_t *p_text_input) {
-    app_switch2_wake_t *app = p_text_input->user_data;
+static void switch2_wake_msg_box_cb(mui_msg_box_event_t event, mui_msg_box_t *p_msg_box) {
+    app_switch2_wake_t *app = mui_msg_box_get_user_data(p_msg_box);
 
-    if (event == MUI_TEXT_INPUT_EVENT_CONFIRMED) {
-        const char *txt = mui_text_input_get_input_text(p_text_input);
-        uint8_t mac[6];
-        if (!parse_mac_str(txt, mac)) {
-            mui_toast_view_show(app->p_toast_view, s2_tr("MAC格式错误!", "Invalid MAC!"));
-            mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_LIST);
-            app->edit_target = SWITCH2_EDIT_NONE;
-            return;
-        }
-
+    if (event == MUI_MSG_BOX_EVENT_SELECT_RIGHT) {
         if (app->edit_target == SWITCH2_EDIT_MAC) {
-            memcpy(app->cfg.controller_mac, mac, 6);
-            app->cfg.has_mac = true;
+            memset(app->cfg.controller_mac, 0, 6);
+            app->cfg.has_mac = false;
         } else if (app->edit_target == SWITCH2_EDIT_HOST) {
-            memcpy(app->cfg.host_mac, mac, 6);
-            app->cfg.has_host = true;
+            memset(app->cfg.host_mac, 0, 6);
+            app->cfg.has_host = false;
             app->cfg.has_raw_data = false;
             app->cfg.raw_data_len = 0;
         }
-
         bool saved = switch2_wake_save_cfg(&app->cfg);
         switch2_wake_reload_menu(app);
+        mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_LIST);
         mui_toast_view_show(app->p_toast_view,
-                            saved ? s2_tr("配置已保存", "Config Saved") : _T(FAILED));
+                            saved ? s2_tr("已清空", "Cleared") : _T(FAILED));
+        app->edit_target = SWITCH2_EDIT_NONE;
+        return;
     }
 
     app->edit_target = SWITCH2_EDIT_NONE;
     mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_LIST);
 }
 
-static void switch2_wake_open_mac_editor(app_switch2_wake_t *app, switch2_edit_target_t target) {
-    char initial[13] = "";
+static void switch2_wake_open_mac_detail(app_switch2_wake_t *app, switch2_edit_target_t target) {
+    char msg[48];
+    char mac_str[18];
     app->edit_target = target;
 
-    mui_text_input_reset(app->p_text_input);
+    mui_msg_box_reset(app->p_msg_box);
     if (target == SWITCH2_EDIT_MAC) {
-        mui_text_input_set_header(app->p_text_input, s2_tr("手柄 MAC", "Ctrl MAC"));
+        mui_msg_box_set_header(app->p_msg_box, s2_tr("手柄 MAC", "Ctrl MAC"));
         if (app->cfg.has_mac) {
-            format_mac_plain(app->cfg.controller_mac, initial);
+            format_mac_colon(app->cfg.controller_mac, mac_str);
+            snprintf(msg, sizeof(msg), "%s", mac_str);
+        } else {
+            snprintf(msg, sizeof(msg), "%s", s2_tr("未设置", "Unset"));
         }
     } else {
-        mui_text_input_set_header(app->p_text_input, s2_tr("主机 MAC", "Host MAC"));
+        mui_msg_box_set_header(app->p_msg_box, s2_tr("主机 MAC", "Host MAC"));
         if (app->cfg.has_host) {
-            format_mac_plain(app->cfg.host_mac, initial);
+            format_mac_colon(app->cfg.host_mac, mac_str);
+            if (app->cfg.has_raw_data) {
+                snprintf(msg, sizeof(msg), "%s\n(RAW %dB)", mac_str, app->cfg.raw_data_len);
+            } else {
+                snprintf(msg, sizeof(msg), "%s", mac_str);
+            }
+        } else if (app->cfg.has_raw_data) {
+            snprintf(msg, sizeof(msg), "RAW %dB", app->cfg.raw_data_len);
+        } else {
+            snprintf(msg, sizeof(msg), "%s", s2_tr("未设置", "Unset"));
         }
     }
-    mui_text_input_set_input_text(app->p_text_input, initial);
-    mui_text_input_set_event_cb(app->p_text_input, switch2_wake_text_input_cb);
-    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_TEXT_INPUT);
+
+    mui_msg_box_set_message(app->p_msg_box, msg);
+    mui_msg_box_set_btn_text(app->p_msg_box, _T(MAIN_RETURN), NULL, s2_tr("清空", "Clear"));
+    mui_msg_box_set_btn_focus(app->p_msg_box, 0);
+    mui_msg_box_set_event_cb(app->p_msg_box, switch2_wake_msg_box_cb);
+    mui_view_dispatcher_switch_to_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_MSG_BOX);
 }
 
 static void switch2_wake_list_selected_cb(mui_list_view_event_t event, mui_list_view_t *p_list_view,
@@ -589,10 +597,10 @@ static void switch2_wake_list_selected_cb(mui_list_view_event_t event, mui_list_
         switch2_wake_reload_menu(app);
         break;
     case SWITCH2_MENU_EDIT_MAC:
-        switch2_wake_open_mac_editor(app, SWITCH2_EDIT_MAC);
+        switch2_wake_open_mac_detail(app, SWITCH2_EDIT_MAC);
         break;
     case SWITCH2_MENU_EDIT_HOST:
-        switch2_wake_open_mac_editor(app, SWITCH2_EDIT_HOST);
+        switch2_wake_open_mac_detail(app, SWITCH2_EDIT_HOST);
         break;
     case SWITCH2_MENU_PID:
         if (app->cfg.pid == SWITCH2_PID_JC2_L) {
@@ -642,14 +650,14 @@ static void app_switch2_wake_on_run(mini_app_inst_t *p_app_inst) {
     mui_list_view_set_user_data(app->p_list_view, app);
     mui_list_view_set_selected_cb(app->p_list_view, switch2_wake_list_selected_cb);
 
-    app->p_text_input = mui_text_input_create();
-    mui_text_input_set_user_data(app->p_text_input, app);
+    app->p_msg_box = mui_msg_box_create();
+    mui_msg_box_set_user_data(app->p_msg_box, app);
 
     mui_view_dispatcher_add_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_LIST,
                                  mui_list_view_get_view(app->p_list_view));
-    mui_view_dispatcher_add_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_TEXT_INPUT,
-                                 mui_text_input_get_view(app->p_text_input));
-    mui_view_dispatcher_attach(app->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_add_view(app->p_view_dispatcher, SWITCH2_WAKE_VIEW_MSG_BOX,
+                                 mui_msg_box_get_view(app->p_msg_box));
+    mui_view_dispatcher_attach(app->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
 
     app->p_toast_view = mui_toast_view_create();
     mui_toast_view_set_user_data(app->p_toast_view, app);
@@ -669,10 +677,10 @@ static void app_switch2_wake_on_kill(mini_app_inst_t *p_app_inst) {
     ble_switch2_scan_stop();
     ble_raw_adv_stop();
 
-    mui_view_dispatcher_detach(app->p_view_dispatcher, MUI_LAYER_WINDOW);
+    mui_view_dispatcher_detach(app->p_view_dispatcher, MUI_LAYER_FULLSCREEN);
     mui_view_dispatcher_free(app->p_view_dispatcher);
     mui_list_view_free(app->p_list_view);
-    mui_text_input_free(app->p_text_input);
+    mui_msg_box_free(app->p_msg_box);
 
     mui_view_dispatcher_detach(app->p_view_dispatcher_toast, MUI_LAYER_TOAST);
     mui_view_dispatcher_free(app->p_view_dispatcher_toast);
@@ -714,13 +722,13 @@ void app_switch2_wake_on_boot(uint32_t wakeup_reason) {
 }
 
 static const uint8_t app_switch2_wake_32x32_data[] = {
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0xfc, 0x3f, 0x00, 0x00, 0x03, 0xc0, 0x00,
-    0x00, 0xf0, 0x0f, 0x00, 0x00, 0x0c, 0x30, 0x00, 0x00, 0x00, 0x00, 0x00, 0x80, 0x3f, 0xfc, 0x01,
-    0xe0, 0x3f, 0xfc, 0x07, 0x70, 0x20, 0xfc, 0x0f, 0x30, 0x20, 0xfc, 0x0f, 0x30, 0x27, 0xfc, 0x0f,
-    0xb0, 0x2f, 0xfc, 0x0f, 0xb0, 0x2f, 0xfc, 0x0f, 0x30, 0x27, 0xfc, 0x0f, 0x30, 0x20, 0xfc, 0x0f,
-    0x30, 0x20, 0xfc, 0x0f, 0x30, 0x20, 0xfc, 0x0f, 0x30, 0x20, 0x3c, 0x0f, 0x30, 0x20, 0x1c, 0x0e,
-    0x30, 0x20, 0x1c, 0x0e, 0x30, 0x20, 0x3c, 0x0f, 0x30, 0x20, 0xfc, 0x0f, 0x30, 0x20, 0xfc, 0x0f,
-    0x30, 0x20, 0xfc, 0x0f, 0x70, 0x20, 0xfc, 0x0f, 0xe0, 0x3f, 0xfc, 0x07, 0x80, 0x3f, 0xfc, 0x01,
+    0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x0f, 0x00, 0x00, 0x0e, 0x70, 0x00, 0x00, 0xe0, 0x07, 0x00,
+    0x00, 0x18, 0x18, 0x00, 0x00, 0x00, 0x00, 0x00, 0xf0, 0x07, 0xe0, 0x0f, 0xfc, 0x07, 0xe0, 0x3f,
+    0x1e, 0x04, 0xe0, 0x7f, 0x0e, 0xc4, 0xe3, 0x7f, 0xce, 0x64, 0xe6, 0x73, 0xee, 0x05, 0xe6, 0x61,
+    0xee, 0x05, 0xe3, 0x73, 0xce, 0x84, 0xe1, 0x7f, 0x0e, 0xc4, 0xe0, 0x7f, 0x0e, 0xe4, 0xe7, 0x7f,
+    0x0e, 0x04, 0xe0, 0x7f, 0x0e, 0x84, 0xe1, 0x70, 0xce, 0x84, 0x61, 0x60, 0xee, 0xe5, 0x67, 0x60,
+    0xce, 0xb4, 0x6d, 0x60, 0x0e, 0x34, 0xec, 0x70, 0x0e, 0x34, 0xec, 0x7f, 0x0e, 0xe4, 0xe7, 0x7f,
+    0x1e, 0x04, 0xe0, 0x7f, 0xfc, 0x07, 0xe0, 0x3f, 0xf0, 0x07, 0xe0, 0x0f, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
 };
 
@@ -734,7 +742,7 @@ const mini_app_t app_switch2_wake_info = {
     .id = MINI_APP_ID_SWITCH2_WAKE,
     .name = "Switch2唤醒",
     .name_i18n_key = _L_APP_SWITCH2_WAKE,
-    .icon = 0xe1b5,
+    .icon = 0xe00d,
     .deamon = false,
     .sys = false,
     .hibernate_enabled = false,
