@@ -193,4 +193,6 @@ const char * const lang_pl_PL[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "",
     [_L_APP_GAME_TINY_LANDER] = "",
     [_L_APP_GAME_TINY_TRIS] = "",
+    [_L_APP_SWITCH2_WAKE] = "Wybudź SW2",
+    [_L_APP_BLE_STREAM] = "Ekran BLE",
 };

@@ -100,12 +100,12 @@
 
 #define MIN_CONN_INTERVAL                                                                                              \
     MSEC_TO_UNITS(                                                                                                     \
-        20,                                                                                                            \
-        UNIT_1_25_MS) /**< Minimum acceptable connection interval (20 ms), Connection interval uses 1.25 ms units. */
+        10,                                                                                                            \
+        UNIT_1_25_MS) /**< Minimum acceptable connection interval (10 ms), Connection interval uses 1.25 ms units. */
 #define MAX_CONN_INTERVAL                                                                                              \
     MSEC_TO_UNITS(                                                                                                     \
-        75,                                                                                                            \
-        UNIT_1_25_MS)   /**< Maximum acceptable connection interval (75 ms), Connection interval uses 1.25 ms units. */
+        20,                                                                                                            \
+        UNIT_1_25_MS)   /**< Maximum acceptable connection interval (20 ms), Connection interval uses 1.25 ms units. */
 #define SLAVE_LATENCY 0 /**< Slave latency. */
 #define CONN_SUP_TIMEOUT                                                                                               \
     MSEC_TO_UNITS(                                                                                                     \
@@ -141,6 +141,7 @@ static nus_rx_data_handler_t m_nus_rx_data_handler =
     NULL; /**< Event handler to be called for handling received packets. */
 static nus_tx_ready_handler_t m_nus_tx_ready_handler =
     NULL; /**< Event handler to be called for handling transmitted packets. */
+static ble_conn_evt_cb_t m_conn_evt_cb = NULL;
 
 #define DEVICE_NAME_PIXLJS "Pixl.js"
 #define DEVICE_NAME_AMIIBOLINK "amiibolink"
@@ -151,6 +152,22 @@ static nus_tx_ready_handler_t m_nus_tx_ready_handler =
 static ble_gap_addr_t m_default_gap_addr = {0};
 
 static uint8_t m_ble_initialized = false;
+
+static bool m_raw_adv_active = false;
+static bool m_raw_adv_addr_dirty = false;
+static bool m_raw_conn_rejected = false;
+static ble_raw_adv_done_cb_t m_raw_adv_done_cb = NULL;
+static uint8_t m_raw_adv_buf[BLE_GAP_ADV_SET_DATA_SIZE_MAX] = {0};
+static ble_gap_adv_data_t m_raw_adv_data = {0};
+
+static void raw_adv_done_sched_handler(void *p_event_data, uint16_t event_size) {
+    if (event_size == sizeof(ble_raw_adv_done_cb_t) && p_event_data != NULL) {
+        ble_raw_adv_done_cb_t cb = *(ble_raw_adv_done_cb_t *)p_event_data;
+        if (cb) {
+            cb();
+        }
+    }
+}
 
 #define BLE_CONNECT_SLEEP_TIMEOUT_SECONDS 180 /**< Sleep timeout when ble connection established. */
 uint16_t m_previous_pwr_mgmt_sleep_timeout = BLE_CONNECT_SLEEP_TIMEOUT_SECONDS;
@@ -357,6 +374,18 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
 
     switch (p_ble_evt->header.evt_id) {
     case BLE_GAP_EVT_CONNECTED:
+        if (m_raw_adv_active) {
+            m_raw_adv_active = false;
+            m_raw_conn_rejected = true;
+            (void)sd_ble_gap_disconnect(p_ble_evt->evt.gap_evt.conn_handle,
+                                        BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
+            if (m_raw_adv_done_cb) {
+                ble_raw_adv_done_cb_t cb = m_raw_adv_done_cb;
+                m_raw_adv_done_cb = NULL;
+                app_sched_event_put(&cb, sizeof(cb), raw_adv_done_sched_handler);
+            }
+            break;
+        }
         NRF_LOG_INFO("Connected");
         err_code = bsp_indication_set(BSP_INDICATE_CONNECTED);
         APP_ERROR_CHECK(err_code);
@@ -374,6 +403,10 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
 
         m_previous_pwr_mgmt_sleep_timeout = nrf_pwr_mgmt_get_timeout();
         nrf_pwr_mgmt_set_timeout(BLE_CONNECT_SLEEP_TIMEOUT_SECONDS);
+        (void)sd_ble_gap_rssi_start(m_conn_handle, 2, 3);
+        if (m_conn_evt_cb) {
+            m_conn_evt_cb(true);
+        }
 
         break;
 
@@ -381,8 +414,34 @@ static void ble_evt_handler(ble_evt_t const *p_ble_evt, void *p_context) {
         NRF_LOG_INFO("Disconnected");
         // LED indication will be changed when advertising starts.
         m_conn_handle = BLE_CONN_HANDLE_INVALID;
+        if (!m_raw_adv_active && m_raw_adv_addr_dirty) {
+            (void)sd_ble_gap_addr_set(&m_default_gap_addr);
+            m_raw_adv_addr_dirty = false;
+        }
+        if (m_raw_conn_rejected) {
+            m_raw_conn_rejected = false;
+            break;
+        }
         nrf_pwr_mgmt_set_timeout(m_previous_pwr_mgmt_sleep_timeout);
+        if (m_conn_evt_cb) {
+            m_conn_evt_cb(false);
+        }
 
+        break;
+
+    case BLE_GAP_EVT_ADV_SET_TERMINATED:
+        if (m_raw_adv_active) {
+            m_raw_adv_active = false;
+            if (m_raw_adv_addr_dirty) {
+                (void)sd_ble_gap_addr_set(&m_default_gap_addr);
+                m_raw_adv_addr_dirty = false;
+            }
+            if (m_raw_adv_done_cb) {
+                ble_raw_adv_done_cb_t cb = m_raw_adv_done_cb;
+                m_raw_adv_done_cb = NULL;
+                app_sched_event_put(&cb, sizeof(cb), raw_adv_done_sched_handler);
+            }
+        }
         break;
 
     case BLE_GAP_EVT_PHY_UPDATE_REQUEST: {
@@ -550,6 +609,7 @@ void ble_service_id_set(uint32_t suffix) {
 }
 
 void ble_device_mode_prepare(ble_device_mode_t mode) {
+    ble_disable();
     if (mode == BLE_DEVICE_MODE_AMIIBOLINK || mode == BLE_DEVICE_MODE_AMIIBOLINK_V2) {
         ble_set_device_name(DEVICE_NAME_AMIIBOLINK);
         ble_addr_set(0x10);
@@ -567,23 +627,128 @@ void ble_device_mode_prepare(ble_device_mode_t mode) {
 
 void ble_adv_start(void) {
     if (m_ble_initialized && m_advertising.adv_mode_current == BLE_ADV_MODE_IDLE) {
-        advertising_start();
+        m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = false;
+        uint32_t err_code = ble_advertising_start(&m_advertising, BLE_ADV_MODE_FAST);
+        if (err_code != NRF_SUCCESS && err_code != NRF_ERROR_INVALID_STATE) {
+            NRF_LOG_WARNING("ble_adv_start err: 0x%x", err_code);
+        }
     }
 }
 
 void ble_disable() {
 
-    ble_advertising_start(&m_advertising, BLE_ADV_MODE_IDLE);
-    sd_ble_gap_adv_stop(m_advertising.adv_handle);
-    m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = true;
+    if (m_advertising.initialized) {
+        ble_advertising_start(&m_advertising, BLE_ADV_MODE_IDLE);
+        sd_ble_gap_adv_stop(m_advertising.adv_handle);
+        m_advertising.adv_modes_config.ble_adv_on_disconnect_disabled = true;
+    }
+    m_raw_adv_active = false;
+    m_raw_adv_done_cb = NULL;
+    if (m_raw_adv_addr_dirty) {
+        (void)sd_ble_gap_addr_set(&m_default_gap_addr);
+        m_raw_adv_addr_dirty = false;
+    }
     if (m_conn_handle != BLE_CONN_HANDLE_INVALID) {
         sd_ble_gap_disconnect(m_conn_handle, BLE_HCI_REMOTE_USER_TERMINATED_CONNECTION);
     }
 }
 
+uint32_t ble_raw_adv_start(const uint8_t mac_be[6], const uint8_t *adv_data, uint8_t adv_len,
+                           bool connectable, uint16_t duration_10ms, ble_raw_adv_done_cb_t done_cb) {
+    if (mac_be == NULL || adv_data == NULL || adv_len == 0 || adv_len > BLE_GAP_ADV_SET_DATA_SIZE_MAX) {
+        return NRF_ERROR_INVALID_PARAM;
+    }
+
+    ble_init();
+    if (!m_advertising.initialized) {
+        advertising_init();
+    }
+
+    ble_disable();
+
+    memcpy(m_raw_adv_buf, adv_data, adv_len);
+
+    ble_gap_addr_t addr = {0};
+    addr.addr_type = BLE_GAP_ADDR_TYPE_PUBLIC;
+    for (int i = 0; i < 6; i++) {
+        addr.addr[i] = mac_be[5 - i];
+    }
+
+    ret_code_t err_code = sd_ble_gap_addr_set(&addr);
+    if (err_code != NRF_SUCCESS) {
+        NRF_LOG_ERROR("ble_raw_adv_start: addr_set failed: 0x%x", err_code);
+        return err_code;
+    }
+    m_raw_adv_addr_dirty = true;
+
+    ble_gap_adv_params_t adv_params;
+    memset(&adv_params, 0, sizeof(adv_params));
+    adv_params.properties.type = connectable
+        ? BLE_GAP_ADV_TYPE_CONNECTABLE_SCANNABLE_UNDIRECTED
+        : BLE_GAP_ADV_TYPE_NONCONNECTABLE_NONSCANNABLE_UNDIRECTED;
+    adv_params.p_peer_addr = NULL;
+    adv_params.filter_policy = BLE_GAP_ADV_FP_ANY;
+    adv_params.interval = BLE_GAP_ADV_INTERVAL_MIN; // 20 ms
+    adv_params.duration = duration_10ms;
+    adv_params.primary_phy = BLE_GAP_PHY_1MBPS;
+
+    memset(&m_raw_adv_data, 0, sizeof(m_raw_adv_data));
+    m_raw_adv_data.adv_data.p_data = m_raw_adv_buf;
+    m_raw_adv_data.adv_data.len = adv_len;
+    m_raw_adv_data.scan_rsp_data.p_data = NULL;
+    m_raw_adv_data.scan_rsp_data.len = 0;
+
+    err_code = sd_ble_gap_adv_set_configure(&m_advertising.adv_handle, &m_raw_adv_data, &adv_params);
+    if (err_code != NRF_SUCCESS) {
+        NRF_LOG_ERROR("ble_raw_adv_start: adv_set_configure failed: 0x%x", err_code);
+        (void)sd_ble_gap_addr_set(&m_default_gap_addr);
+        m_raw_adv_addr_dirty = false;
+        return err_code;
+    }
+
+    (void)sd_ble_gap_tx_power_set(BLE_GAP_TX_POWER_ROLE_ADV, m_advertising.adv_handle, 4);
+
+    m_raw_adv_done_cb = done_cb;
+    m_raw_adv_active = true;
+    nrf_pwr_mgmt_feed();
+
+    err_code = sd_ble_gap_adv_start(m_advertising.adv_handle, APP_BLE_CONN_CFG_TAG);
+    if (err_code != NRF_SUCCESS) {
+        NRF_LOG_ERROR("ble_raw_adv_start: adv_start failed: 0x%x", err_code);
+        m_raw_adv_active = false;
+        m_raw_adv_done_cb = NULL;
+        (void)sd_ble_gap_addr_set(&m_default_gap_addr);
+        m_raw_adv_addr_dirty = false;
+        return err_code;
+    }
+
+    NRF_LOG_INFO("ble_raw_adv_start: started len=%d conn=%d dur=%d", adv_len, connectable, duration_10ms);
+    return NRF_SUCCESS;
+}
+
+void ble_raw_adv_stop(void) {
+    if (m_ble_initialized && m_advertising.adv_handle != BLE_GAP_ADV_SET_HANDLE_NOT_SET) {
+        (void)sd_ble_gap_adv_stop(m_advertising.adv_handle);
+    }
+    m_raw_adv_active = false;
+    m_raw_adv_done_cb = NULL;
+    if (m_ble_initialized && m_raw_adv_addr_dirty) {
+        (void)sd_ble_gap_addr_set(&m_default_gap_addr);
+        m_raw_adv_addr_dirty = false;
+    }
+}
+
+bool ble_raw_adv_is_active(void) {
+    return m_raw_adv_active;
+}
+
 void ble_nus_set_handler(nus_rx_data_handler_t rx_data_handler, nus_tx_ready_handler_t tx_ready_handler) {
     m_nus_rx_data_handler = rx_data_handler;
     m_nus_tx_ready_handler = tx_ready_handler;
+}
+
+void ble_set_conn_evt_handler(ble_conn_evt_cb_t cb) {
+    m_conn_evt_cb = cb;
 }
 
 ret_code_t ble_nus_tx_data(void *data, size_t length) {
@@ -594,6 +759,14 @@ ret_code_t ble_nus_tx_data(void *data, size_t length) {
         NRF_LOG_INFO("send back error:%d", err_code);
     }
     return err_code;
+}
+
+bool ble_get_rssi(int8_t *p_rssi) {
+    if (p_rssi == NULL || m_conn_handle == BLE_CONN_HANDLE_INVALID) {
+        return false;
+    }
+    uint8_t ch_idx = 0;
+    return sd_ble_gap_rssi_get(m_conn_handle, p_rssi, &ch_idx) == NRF_SUCCESS;
 }
 
 void ble_get_addr_str(char addr_fmt[]) {

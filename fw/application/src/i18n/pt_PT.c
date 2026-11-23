@@ -193,4 +193,6 @@ const char * const lang_pt_PT[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "",
     [_L_APP_GAME_TINY_LANDER] = "",
     [_L_APP_GAME_TINY_TRIS] = "",
+    [_L_APP_SWITCH2_WAKE] = "Acordar SW2",
+    [_L_APP_BLE_STREAM] = "Ecrã BLE",
 };

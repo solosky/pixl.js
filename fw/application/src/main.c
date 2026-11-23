@@ -97,6 +97,7 @@
 #include "cache.h"
 #include "i18n/language.h"
 #include "settings.h"
+#include "app_switch2_wake.h"
 
 #define APP_SCHED_MAX_EVENT_SIZE 4 /**< Maximum size of scheduler events. */
 #define APP_SCHED_QUEUE_SIZE 16    /**< Maximum number of events in the scheduler queue. */
@@ -294,6 +295,8 @@ int main(void) {
 
     mini_app_launcher_t *p_launcher = mini_app_launcher();
     mini_app_launcher_init(p_launcher, wakeup_reason);
+
+    app_switch2_wake_on_boot(wakeup_reason);
 
     NRF_LOG_FLUSH();
 

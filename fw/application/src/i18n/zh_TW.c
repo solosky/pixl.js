@@ -193,4 +193,6 @@ const char * const lang_zh_TW[_L_COUNT] = {
     [_L_APP_GAME_TINY_INVADERS] = "入侵者",
     [_L_APP_GAME_TINY_LANDER] = "星球著陸",
     [_L_APP_GAME_TINY_TRIS] = "俄羅斯方塊",
+    [_L_APP_SWITCH2_WAKE] = "Switch2 喚醒",
+    [_L_APP_BLE_STREAM] = "藍牙投屏",
 };
